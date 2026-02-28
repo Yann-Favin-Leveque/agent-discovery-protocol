@@ -32,103 +32,187 @@ export interface Manifest {
 
 export interface ValidationResult {
   valid: boolean;
-  errors: string[];
+  errors: ValidationError[];
   manifest?: Manifest;
 }
 
+export interface ValidationError {
+  path: string;
+  message: string;
+}
+
+const SUPPORTED_SPEC_VERSIONS = ["1.0"];
+
 function isValidUrl(str: string): boolean {
   try {
-    new URL(str);
-    return true;
+    const url = new URL(str);
+    return url.protocol === "http:" || url.protocol === "https:";
   } catch {
     return false;
   }
 }
 
 export function validateManifest(data: unknown): ValidationResult {
-  const errors: string[] = [];
+  const errors: ValidationError[] = [];
 
-  if (!data || typeof data !== "object") {
-    return { valid: false, errors: ["Manifest must be a JSON object."] };
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
+    return {
+      valid: false,
+      errors: [{ path: "$", message: "Manifest must be a JSON object." }],
+    };
   }
 
   const m = data as Record<string, unknown>;
 
   // spec_version
   if (!m.spec_version || typeof m.spec_version !== "string") {
-    errors.push("Missing or invalid 'spec_version' (must be a string, e.g. \"1.0\").");
+    errors.push({ path: "spec_version", message: "Required. Must be a string (e.g. \"1.0\")." });
+  } else if (!SUPPORTED_SPEC_VERSIONS.includes(m.spec_version)) {
+    errors.push({
+      path: "spec_version",
+      message: `Unsupported version "${m.spec_version}". Supported: ${SUPPORTED_SPEC_VERSIONS.join(", ")}.`,
+    });
   }
 
   // name
-  if (!m.name || typeof m.name !== "string" || m.name.trim().length === 0) {
-    errors.push("Missing or invalid 'name' (must be a non-empty string).");
+  if (!m.name || typeof m.name !== "string") {
+    errors.push({ path: "name", message: "Required. Must be a non-empty string." });
+  } else if (m.name.trim().length === 0) {
+    errors.push({ path: "name", message: "Must not be empty or whitespace-only." });
+  } else if (m.name.length > 100) {
+    errors.push({ path: "name", message: "Must be 100 characters or fewer." });
   }
 
   // description
-  if (!m.description || typeof m.description !== "string" || m.description.trim().length === 0) {
-    errors.push("Missing or invalid 'description' (must be a non-empty string).");
+  if (!m.description || typeof m.description !== "string") {
+    errors.push({ path: "description", message: "Required. Must be a non-empty string (2-3 sentences describing your service for LLM understanding)." });
+  } else if (m.description.trim().length < 20) {
+    errors.push({ path: "description", message: "Too short. Write 2-3 sentences describing what your service does, written for an LLM to understand." });
+  } else if (m.description.length > 500) {
+    errors.push({ path: "description", message: "Must be 500 characters or fewer. Keep it concise." });
   }
 
   // base_url
-  if (!m.base_url || typeof m.base_url !== "string" || !isValidUrl(m.base_url)) {
-    errors.push("Missing or invalid 'base_url' (must be a valid URL).");
+  if (!m.base_url || typeof m.base_url !== "string") {
+    errors.push({ path: "base_url", message: "Required. Must be a valid URL (e.g. \"https://api.example.com\")." });
+  } else if (!isValidUrl(m.base_url)) {
+    errors.push({ path: "base_url", message: `"${m.base_url}" is not a valid URL. Must start with http:// or https://.` });
+  } else if ((m.base_url as string).endsWith("/")) {
+    errors.push({ path: "base_url", message: "Should not end with a trailing slash." });
   }
 
   // auth
-  if (!m.auth || typeof m.auth !== "object") {
-    errors.push("Missing or invalid 'auth' (must be an object with a 'type' field).");
+  if (!m.auth || typeof m.auth !== "object" || Array.isArray(m.auth)) {
+    errors.push({ path: "auth", message: "Required. Must be an object with a 'type' field." });
   } else {
     const auth = m.auth as Record<string, unknown>;
-    if (!["oauth2", "api_key", "none"].includes(auth.type as string)) {
-      errors.push("'auth.type' must be one of: 'oauth2', 'api_key', 'none'.");
-    }
-    if (auth.type === "oauth2") {
-      if (!auth.authorization_url || typeof auth.authorization_url !== "string" || !isValidUrl(auth.authorization_url)) {
-        errors.push("OAuth2 auth requires a valid 'auth.authorization_url'.");
+    const validTypes = ["oauth2", "api_key", "none"];
+
+    if (!auth.type || typeof auth.type !== "string") {
+      errors.push({ path: "auth.type", message: `Required. Must be one of: ${validTypes.join(", ")}.` });
+    } else if (!validTypes.includes(auth.type)) {
+      errors.push({ path: "auth.type", message: `"${auth.type}" is not valid. Must be one of: ${validTypes.join(", ")}.` });
+    } else {
+      if (auth.type === "oauth2") {
+        if (!auth.authorization_url || typeof auth.authorization_url !== "string") {
+          errors.push({ path: "auth.authorization_url", message: "Required for OAuth2. Must be a valid URL." });
+        } else if (!isValidUrl(auth.authorization_url)) {
+          errors.push({ path: "auth.authorization_url", message: `"${auth.authorization_url}" is not a valid URL.` });
+        }
+
+        if (!auth.token_url || typeof auth.token_url !== "string") {
+          errors.push({ path: "auth.token_url", message: "Required for OAuth2. Must be a valid URL." });
+        } else if (!isValidUrl(auth.token_url)) {
+          errors.push({ path: "auth.token_url", message: `"${auth.token_url}" is not a valid URL.` });
+        }
+
+        if (auth.scopes !== undefined && !Array.isArray(auth.scopes)) {
+          errors.push({ path: "auth.scopes", message: "Must be an array of strings if provided." });
+        }
       }
-      if (!auth.token_url || typeof auth.token_url !== "string" || !isValidUrl(auth.token_url)) {
-        errors.push("OAuth2 auth requires a valid 'auth.token_url'.");
-      }
-    }
-    if (auth.type === "api_key") {
-      if (!auth.header || typeof auth.header !== "string") {
-        errors.push("API key auth requires 'auth.header' (e.g. 'Authorization').");
+
+      if (auth.type === "api_key") {
+        if (!auth.header || typeof auth.header !== "string") {
+          errors.push({ path: "auth.header", message: "Required for API key auth. The HTTP header name (e.g. \"Authorization\")." });
+        }
+        if (auth.prefix !== undefined && typeof auth.prefix !== "string") {
+          errors.push({ path: "auth.prefix", message: "Must be a string if provided (e.g. \"Bearer\")." });
+        }
+        if (auth.setup_url !== undefined && typeof auth.setup_url === "string" && !isValidUrl(auth.setup_url)) {
+          errors.push({ path: "auth.setup_url", message: `"${auth.setup_url}" is not a valid URL.` });
+        }
       }
     }
   }
 
   // pricing (optional)
   if (m.pricing !== undefined && m.pricing !== null) {
-    if (typeof m.pricing !== "object") {
-      errors.push("'pricing' must be an object if provided.");
+    if (typeof m.pricing !== "object" || Array.isArray(m.pricing)) {
+      errors.push({ path: "pricing", message: "Must be an object if provided." });
     } else {
       const pricing = m.pricing as Record<string, unknown>;
-      if (!["free", "freemium", "paid"].includes(pricing.type as string)) {
-        errors.push("'pricing.type' must be one of: 'free', 'freemium', 'paid'.");
+      const validPricingTypes = ["free", "freemium", "paid"];
+      if (!pricing.type || typeof pricing.type !== "string") {
+        errors.push({ path: "pricing.type", message: `Required when pricing is provided. Must be one of: ${validPricingTypes.join(", ")}.` });
+      } else if (!validPricingTypes.includes(pricing.type)) {
+        errors.push({ path: "pricing.type", message: `"${pricing.type}" is not valid. Must be one of: ${validPricingTypes.join(", ")}.` });
+      }
+
+      if (pricing.plans !== undefined && !Array.isArray(pricing.plans)) {
+        errors.push({ path: "pricing.plans", message: "Must be an array if provided." });
+      }
+
+      if (pricing.plans_url !== undefined && typeof pricing.plans_url === "string" && !isValidUrl(pricing.plans_url)) {
+        errors.push({ path: "pricing.plans_url", message: `"${pricing.plans_url}" is not a valid URL.` });
       }
     }
   }
 
   // capabilities
-  if (!Array.isArray(m.capabilities) || m.capabilities.length === 0) {
-    errors.push("'capabilities' must be a non-empty array.");
+  if (!Array.isArray(m.capabilities)) {
+    errors.push({ path: "capabilities", message: "Required. Must be an array of capability objects." });
+  } else if (m.capabilities.length === 0) {
+    errors.push({ path: "capabilities", message: "Must contain at least one capability." });
   } else {
+    const seenNames = new Set<string>();
+
     for (let i = 0; i < m.capabilities.length; i++) {
-      const cap = m.capabilities[i] as Record<string, unknown>;
+      const cap = m.capabilities[i];
       const prefix = `capabilities[${i}]`;
 
-      if (!cap.name || typeof cap.name !== "string") {
-        errors.push(`${prefix}: missing or invalid 'name'.`);
-      } else if (!/^[a-z][a-z0-9_]*$/.test(cap.name)) {
-        errors.push(`${prefix}: 'name' must be snake_case (e.g. 'send_email').`);
+      if (!cap || typeof cap !== "object" || Array.isArray(cap)) {
+        errors.push({ path: prefix, message: "Each capability must be an object." });
+        continue;
       }
 
-      if (!cap.description || typeof cap.description !== "string") {
-        errors.push(`${prefix}: missing or invalid 'description'.`);
+      const c = cap as Record<string, unknown>;
+
+      if (!c.name || typeof c.name !== "string") {
+        errors.push({ path: `${prefix}.name`, message: "Required. Must be a string." });
+      } else if (!/^[a-z][a-z0-9_]*$/.test(c.name)) {
+        errors.push({ path: `${prefix}.name`, message: `"${c.name}" is not valid snake_case. Use lowercase letters, numbers, and underscores (e.g. "send_email").` });
+      } else if (seenNames.has(c.name)) {
+        errors.push({ path: `${prefix}.name`, message: `Duplicate capability name "${c.name}". Each capability must have a unique name.` });
+      } else {
+        seenNames.add(c.name);
       }
 
-      if (!cap.detail_url || typeof cap.detail_url !== "string") {
-        errors.push(`${prefix}: missing or invalid 'detail_url'.`);
+      if (!c.description || typeof c.description !== "string") {
+        errors.push({ path: `${prefix}.description`, message: "Required. 1-2 sentences describing what this capability does." });
+      } else if ((c.description as string).length < 10) {
+        errors.push({ path: `${prefix}.description`, message: "Too short. Write 1-2 sentences so an LLM knows when to use this capability." });
+      }
+
+      if (!c.detail_url || typeof c.detail_url !== "string") {
+        errors.push({ path: `${prefix}.detail_url`, message: "Required. A relative path (e.g. \"/capabilities/send_email\") or absolute URL." });
+      } else {
+        const detailUrl = c.detail_url as string;
+        // Absolute URLs must be valid, relative paths must start with /
+        if (detailUrl.startsWith("http") && !isValidUrl(detailUrl)) {
+          errors.push({ path: `${prefix}.detail_url`, message: `"${detailUrl}" is not a valid URL.` });
+        } else if (!detailUrl.startsWith("http") && !detailUrl.startsWith("/")) {
+          errors.push({ path: `${prefix}.detail_url`, message: "Relative paths must start with \"/\" (e.g. \"/capabilities/send_email\")." });
+        }
       }
     }
   }
@@ -142,6 +226,11 @@ export function validateManifest(data: unknown): ValidationResult {
     errors: [],
     manifest: m as unknown as Manifest,
   };
+}
+
+/** Flatten ValidationError[] into human-readable string[] */
+export function flattenErrors(errors: ValidationError[]): string[] {
+  return errors.map((e) => `${e.path}: ${e.message}`);
 }
 
 export function extractDomain(baseUrl: string): string {

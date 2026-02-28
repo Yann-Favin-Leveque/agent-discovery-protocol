@@ -43,6 +43,7 @@ function initSchema(db: Database.Database) {
       pricing_type TEXT DEFAULT 'free',
       spec_version TEXT NOT NULL DEFAULT '1.0',
       verified INTEGER NOT NULL DEFAULT 0,
+      crawl_failures INTEGER NOT NULL DEFAULT 0,
       last_crawled_at TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
@@ -61,6 +62,12 @@ function initSchema(db: Database.Database) {
     CREATE INDEX IF NOT EXISTS idx_services_domain ON services(domain);
     CREATE INDEX IF NOT EXISTS idx_services_verified ON services(verified);
   `);
+
+  // Migration: add crawl_failures column if missing
+  const columns = db.prepare("PRAGMA table_info(services)").all() as Array<{ name: string }>;
+  if (!columns.some((c) => c.name === "crawl_failures")) {
+    db.exec("ALTER TABLE services ADD COLUMN crawl_failures INTEGER NOT NULL DEFAULT 0");
+  }
 
   seedCategories(db);
 }
@@ -105,6 +112,7 @@ export interface ServiceRow {
   pricing_type: string;
   spec_version: string;
   verified: number;
+  crawl_failures: number;
   last_crawled_at: string | null;
   created_at: string;
   updated_at: string;
@@ -310,7 +318,7 @@ export function updateServiceVerification(domain: string, manifest: {
     db.prepare(
       `UPDATE services SET
         name = ?, description = ?, base_url = ?, auth_type = ?, auth_details = ?,
-        pricing_type = ?, spec_version = ?, verified = 1,
+        pricing_type = ?, spec_version = ?, verified = 1, crawl_failures = 0,
         last_crawled_at = datetime('now'), updated_at = datetime('now')
        WHERE id = ?`
     ).run(
@@ -331,4 +339,38 @@ export function updateServiceVerification(domain: string, manifest: {
 
   tx();
   return db.prepare("SELECT * FROM services WHERE id = ?").get(service.id) as ServiceRow;
+}
+
+export function getVerifiedServices(): ServiceRow[] {
+  return getDb()
+    .prepare("SELECT * FROM services WHERE verified = 1 ORDER BY last_crawled_at ASC")
+    .all() as ServiceRow[];
+}
+
+export function incrementCrawlFailure(domain: string): void {
+  getDb()
+    .prepare(
+      `UPDATE services SET crawl_failures = crawl_failures + 1, updated_at = datetime('now') WHERE domain = ?`
+    )
+    .run(domain);
+}
+
+export function markUnreachable(domain: string): void {
+  getDb()
+    .prepare(
+      `UPDATE services SET verified = 0, updated_at = datetime('now') WHERE domain = ?`
+    )
+    .run(domain);
+}
+
+export function getServiceStats(): { total_services: number; total_capabilities: number; verified_services: number } {
+  const db = getDb();
+  const services = db.prepare("SELECT COUNT(*) as count FROM services").get() as { count: number };
+  const caps = db.prepare("SELECT COUNT(*) as count FROM capabilities").get() as { count: number };
+  const verified = db.prepare("SELECT COUNT(*) as count FROM services WHERE verified = 1").get() as { count: number };
+  return {
+    total_services: services.count,
+    total_capabilities: caps.count,
+    verified_services: verified.count,
+  };
 }

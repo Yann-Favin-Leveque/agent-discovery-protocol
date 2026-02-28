@@ -7,13 +7,19 @@ export function VerifyButton({ domain }: { domain: string }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<{
+    verified: boolean;
+    detail_url_ok?: boolean;
+    response_time_ms?: number;
+  } | null>(null);
 
   async function handleVerify() {
     setLoading(true);
     setError(null);
+    setResult(null);
 
     try {
-      const res = await fetch(`/api/services/${domain}`, { method: "POST" });
+      const res = await fetch(`/api/verify/${domain}`, { method: "POST" });
       const data = await res.json();
 
       if (!data.success) {
@@ -21,6 +27,7 @@ export function VerifyButton({ domain }: { domain: string }) {
         return;
       }
 
+      setResult(data.data);
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Request failed.");
@@ -39,7 +46,19 @@ export function VerifyButton({ domain }: { domain: string }) {
         {loading ? "Verifying..." : "Verify now"}
       </button>
       {error && (
-        <p className="mt-2 text-xs text-red-400">{error}</p>
+        <p className="mt-2 max-w-xs text-xs text-red-400">{error}</p>
+      )}
+      {result && (
+        <div className="mt-2 space-y-0.5">
+          <p className={`text-xs ${result.verified ? "text-accent" : "text-yellow-400"}`}>
+            {result.verified ? "Verified" : "Unverified"} — {result.response_time_ms}ms
+          </p>
+          {result.detail_url_ok !== undefined && (
+            <p className={`text-xs ${result.detail_url_ok ? "text-accent" : "text-yellow-400"}`}>
+              Detail URL: {result.detail_url_ok ? "reachable" : "unreachable"}
+            </p>
+          )}
+        </div>
       )}
     </div>
   );

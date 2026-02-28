@@ -79,6 +79,12 @@ export default function ServiceDetailPage({
           <span className="text-xs text-muted">Base URL</span>
           <p className="font-mono text-sm">{service.base_url}</p>
         </div>
+        {service.crawl_failures > 0 && (
+          <div className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-2">
+            <span className="text-xs text-red-400">Crawl failures</span>
+            <p className="font-mono text-sm text-red-300">{service.crawl_failures}</p>
+          </div>
+        )}
         {service.last_crawled_at && (
           <div className="rounded-lg border border-white/5 bg-surface-light px-4 py-2">
             <span className="text-xs text-muted">Last verified</span>

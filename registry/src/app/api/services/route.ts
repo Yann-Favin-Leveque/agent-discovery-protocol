@@ -5,8 +5,8 @@ import {
   insertService,
   getServiceByDomain,
 } from "@/lib/db";
-import { validateManifest, extractDomain } from "@/lib/validate";
-import { crawlWellKnown } from "@/lib/crawl";
+import { validateManifest, extractDomain, flattenErrors } from "@/lib/validate";
+import { crawlService } from "@/lib/crawl";
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const crawl = await crawlWellKnown(domain);
+    const crawl = await crawlService(domain);
     if (!crawl.success || !crawl.manifest) {
       return NextResponse.json(
         { success: false, errors: crawl.errors },
@@ -107,6 +107,8 @@ export async function POST(request: NextRequest) {
         domain: service.domain,
         name: service.name,
         verified: true,
+        detail_url_ok: crawl.detail_url_ok,
+        response_time_ms: crawl.response_time_ms,
         message: "Service discovered and registered successfully.",
       },
     }, { status: 201 });
@@ -117,7 +119,7 @@ export async function POST(request: NextRequest) {
     const validation = validateManifest(body.manifest);
     if (!validation.valid || !validation.manifest) {
       return NextResponse.json(
-        { success: false, errors: validation.errors },
+        { success: false, errors: flattenErrors(validation.errors) },
         { status: 422 }
       );
     }

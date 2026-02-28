@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getServiceStats } from "@/lib/db";
 
 function HeroSection() {
   return (
@@ -204,9 +205,10 @@ function ComparisonSection() {
 }
 
 function StatsSection() {
+  const dbStats = getServiceStats();
   const stats = [
-    { value: "—", label: "Services indexed" },
-    { value: "—", label: "Capabilities available" },
+    { value: String(dbStats.total_services || "—"), label: "Services indexed" },
+    { value: String(dbStats.total_capabilities || "—"), label: "Capabilities available" },
     { value: "6", label: "Gateway tools needed" },
     { value: "1", label: "Spec version" },
   ];
