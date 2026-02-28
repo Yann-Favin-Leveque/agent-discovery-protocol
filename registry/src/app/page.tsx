@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getServiceStats } from "@/lib/db";
+import { TerminalDemo } from "@/components/terminal-demo";
 
 function HeroSection() {
   return (
@@ -35,7 +36,7 @@ function HeroSection() {
             href="/docs"
             className="rounded-lg border border-white/10 px-6 py-3 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
           >
-            Read the spec
+            Read the docs
           </Link>
         </div>
       </div>
@@ -98,6 +99,26 @@ function HowItWorksSection() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TerminalDemoSection() {
+  return (
+    <section className="border-t border-white/5 py-24">
+      <div className="mx-auto max-w-4xl px-6">
+        <h2 className="text-center text-3xl font-bold sm:text-4xl">
+          See it in action
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-center text-muted">
+          One agent, one gateway, any API. Watch the full flow: discover, auth,
+          call.
+        </p>
+
+        <div className="mt-12">
+          <TerminalDemo />
         </div>
       </div>
     </section>
@@ -176,7 +197,7 @@ function ComparisonSection() {
   "mcpServers": {
     "gateway": {
       "command": "npx",
-      "args": ["@agentdns/gateway"]
+      "args": ["agent-gateway-mcp"]
     }
   }
 }`}</code>
@@ -194,9 +215,122 @@ function ComparisonSection() {
                 {`> "Send an email to Alice about tomorrow's meeting"`}
               </code>
               <p className="mt-2 font-mono text-xs text-muted">
-                Gateway discovers email service → authenticates → sends.
+                Gateway discovers email service, authenticates, sends.
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WorksWithSection() {
+  const llms = [
+    { name: "Claude", desc: "Anthropic" },
+    { name: "GPT", desc: "OpenAI" },
+    { name: "Gemini", desc: "Google" },
+    { name: "Llama", desc: "Meta" },
+    { name: "Mistral", desc: "Mistral AI" },
+    { name: "Any LLM", desc: "Open protocol" },
+  ];
+
+  return (
+    <section className="border-t border-white/5 py-24">
+      <div className="mx-auto max-w-4xl px-6">
+        <h2 className="text-center text-3xl font-bold sm:text-4xl">
+          Works with any LLM
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-center text-muted">
+          Not tied to any provider. Open protocol, works with any agent
+          framework.
+        </p>
+
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+          {llms.map((llm) => (
+            <div
+              key={llm.name}
+              className="flex flex-col items-center rounded-xl border border-white/5 bg-surface-light p-4 transition-colors hover:border-accent/20"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-surface font-mono text-lg font-bold text-accent">
+                {llm.name[0]}
+              </div>
+              <span className="mt-2 text-sm font-medium">{llm.name}</span>
+              <span className="text-xs text-muted">{llm.desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ForProvidersSection() {
+  return (
+    <section className="border-t border-white/5 py-24">
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="grid gap-12 sm:grid-cols-2 items-center">
+          <div>
+            <div className="mb-4 inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
+              For Service Providers
+            </div>
+            <h2 className="text-3xl font-bold sm:text-4xl">
+              Your API, discoverable by every AI&nbsp;agent
+            </h2>
+            <p className="mt-4 text-muted">
+              Add one endpoint. That&apos;s it. Your API becomes accessible to
+              every agent using the protocol — no SDK to maintain, no plugin to
+              build, no marketplace to join.
+            </p>
+
+            <div className="mt-8 flex gap-4">
+              <Link
+                href="/docs/providers"
+                className="rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
+              >
+                Get started
+              </Link>
+              <Link
+                href="/playground"
+                className="rounded-lg border border-white/10 px-5 py-2.5 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
+              >
+                Try the playground
+              </Link>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-white/5 bg-surface-light p-6">
+            <pre className="overflow-x-auto font-mono text-sm leading-relaxed">
+              <code>
+                <span className="text-muted">{"// 10 minutes. That's all."}</span>
+                {"\n\n"}
+                <span className="text-accent">
+                  {"app.get('/.well-known/agent',"}
+                </span>
+                {"\n"}
+                <span className="text-accent">{"  (req, res) => {"}</span>
+                {"\n"}
+                <span className="text-foreground">
+                  {"    res.json({"}
+                </span>
+                {"\n"}
+                <span className="text-foreground">
+                  {'      spec_version: "1.0",'}
+                </span>
+                {"\n"}
+                <span className="text-foreground">
+                  {'      name: "Your API",'}
+                </span>
+                {"\n"}
+                <span className="text-foreground">
+                  {"      capabilities: [...]"}
+                </span>
+                {"\n"}
+                <span className="text-foreground">{"    });"}</span>
+                {"\n"}
+                <span className="text-accent">{"});"}</span>
+              </code>
+            </pre>
           </div>
         </div>
       </div>
@@ -207,10 +341,19 @@ function ComparisonSection() {
 function StatsSection() {
   const dbStats = getServiceStats();
   const stats = [
-    { value: String(dbStats.total_services || "—"), label: "Services indexed" },
-    { value: String(dbStats.total_capabilities || "—"), label: "Capabilities available" },
-    { value: "6", label: "Gateway tools needed" },
-    { value: "1", label: "Spec version" },
+    {
+      value: String(dbStats.total_services || 0),
+      label: "Services indexed",
+    },
+    {
+      value: String(dbStats.total_capabilities || 0),
+      label: "Capabilities available",
+    },
+    {
+      value: String(dbStats.verified_services || 0),
+      label: "Verified services",
+    },
+    { value: "6", label: "Gateway tools" },
   ];
 
   return (
@@ -236,31 +379,12 @@ function CtaSection() {
     <section className="border-t border-white/5 py-24">
       <div className="mx-auto max-w-3xl px-6 text-center">
         <h2 className="text-3xl font-bold sm:text-4xl">
-          Make your API discoverable
+          Ready to get started?
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-muted">
-          Add a single JSON endpoint to your API. Any AI agent in the world can
-          find and use your service — no SDK, no plugin, no marketplace
-          approval.
+          Whether you&apos;re a service provider making your API discoverable, or
+          an agent developer connecting to every API — start in minutes.
         </p>
-
-        <div className="mt-8 rounded-xl border border-white/5 bg-surface-light p-6">
-          <pre className="overflow-x-auto text-left font-mono text-sm leading-relaxed">
-            <code>
-              <span className="text-muted">{"// That's all it takes"}</span>
-              {"\n"}
-              <span className="text-accent">
-                {"app.get('/.well-known/agent', (req, res) => {"}
-              </span>
-              {"\n"}
-              <span className="text-foreground">
-                {"  res.json(manifest);"}
-              </span>
-              {"\n"}
-              <span className="text-accent">{"});"}</span>
-            </code>
-          </pre>
-        </div>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
@@ -269,14 +393,12 @@ function CtaSection() {
           >
             Submit your service
           </Link>
-          <a
-            href="https://github.com/Yann-Favin-Leveque/agent-discovery-protocol/tree/main/spec"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/docs/agents"
             className="rounded-lg border border-white/10 px-6 py-3 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
           >
-            Read the spec &rarr;
-          </a>
+            Integrate the gateway &rarr;
+          </Link>
         </div>
       </div>
     </section>
@@ -288,7 +410,10 @@ export default function Home() {
     <>
       <HeroSection />
       <HowItWorksSection />
+      <TerminalDemoSection />
       <ComparisonSection />
+      <WorksWithSection />
+      <ForProvidersSection />
       <StatsSection />
       <CtaSection />
     </>

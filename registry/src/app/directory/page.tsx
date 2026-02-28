@@ -1,6 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getAllServices, getAllCategories, getCapabilitiesForService } from "@/lib/db";
 import type { ServiceRow } from "@/lib/db";
+
+export const metadata: Metadata = {
+  title: "Directory — AgentDNS",
+  description:
+    "Browse all services implementing the Agent Discovery Protocol. Filter by category, search by name, explore capabilities.",
+  openGraph: {
+    title: "Service Directory — AgentDNS",
+    description:
+      "Browse all API services discoverable by AI agents through the Agent Discovery Protocol.",
+  },
+};
 
 function ServiceCard({ service, capCount }: { service: ServiceRow; capCount: number }) {
   return (
