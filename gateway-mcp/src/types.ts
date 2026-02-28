@@ -1,3 +1,5 @@
+// ─── Manifest types ──────────────────────────────────────────────
+
 export interface ManifestCapability {
   name: string;
   description: string;
@@ -59,6 +61,21 @@ export interface CapabilityDetail {
   };
 }
 
+// ─── Identity & auth ─────────────────────────────────────────────
+
+export type IdentityProvider = "google" | "github" | "microsoft";
+
+export interface UserIdentity {
+  provider: IdentityProvider;
+  provider_id: string;
+  email: string;
+  name?: string;
+  avatar_url?: string;
+  registry_token: string; // JWT from registry after OAuth
+  registry_refresh_token?: string;
+  connected_at: string;
+}
+
 export interface StoredToken {
   domain: string;
   type: "oauth2" | "api_key";
@@ -79,6 +96,44 @@ export interface Connection {
   };
   connected_at: string;
 }
+
+// ─── Cloud sync ──────────────────────────────────────────────────
+
+export interface CloudSyncState {
+  last_synced_at?: string;
+  sync_token?: string; // ETag or version for incremental sync
+}
+
+export interface CloudTokenBundle {
+  tokens: Record<string, StoredToken>;
+  connections: Record<string, Connection>;
+  synced_at: string;
+}
+
+// ─── Cache ───────────────────────────────────────────────────────
+
+export interface CacheEntry<T> {
+  data: T;
+  cached_at: number;
+  ttl: number; // milliseconds
+}
+
+export const CACHE_TTLS = {
+  manifest: 24 * 60 * 60 * 1000,   // 24 hours
+  capability: 60 * 60 * 1000,       // 1 hour
+  discovery: 15 * 60 * 1000,        // 15 minutes
+} as const;
+
+// ─── Config ──────────────────────────────────────────────────────
+
+export interface GatewayConfig {
+  registry_url: string;
+  auth_callback_port: number;
+  identity?: UserIdentity;
+  cloud_sync?: CloudSyncState;
+}
+
+// ─── Registry API types ──────────────────────────────────────────
 
 export interface DiscoverResult {
   service: {

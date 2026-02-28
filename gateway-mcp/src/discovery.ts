@@ -1,14 +1,27 @@
-import { loadConfig } from "./config.js";
+import {
+  loadConfig,
+  getCachedManifest,
+  setCachedManifest,
+  getCachedDetail,
+  setCachedDetail,
+  getCachedDiscovery,
+  setCachedDiscovery,
+  clearAllCaches,
+} from "./config.js";
 import type {
   Manifest,
   CapabilityDetail,
   RegistryDiscoverResponse,
 } from "./types.js";
+import { CACHE_TTLS } from "./types.js";
 
-// In-memory manifest cache (per session)
-const manifestCache = new Map<string, { manifest: Manifest; fetchedAt: number }>();
-const detailCache = new Map<string, { detail: CapabilityDetail; fetchedAt: number }>();
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+// ─── In-memory hot cache (backed by disk) ────────────────────────
+
+const memManifestCache = new Map<string, { manifest: Manifest; at: number }>();
+const memDetailCache = new Map<string, { detail: CapabilityDetail; at: number }>();
+const memDiscoveryCache = new Map<string, { result: RegistryDiscoverResponse; at: number }>();
+
+// ─── Fetch helper ────────────────────────────────────────────────
 
 async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url, {
@@ -21,36 +34,85 @@ async function fetchJson<T>(url: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+// ─── Discovery (15min cache) ─────────────────────────────────────
+
 export async function discoverByQuery(
   query: string
 ): Promise<RegistryDiscoverResponse> {
-  const config = loadConfig();
-  const url = `${config.registry_url}/api/discover?q=${encodeURIComponent(query)}`;
-  return fetchJson<RegistryDiscoverResponse>(url);
-}
-
-export async function fetchManifest(domain: string): Promise<Manifest> {
-  const cached = manifestCache.get(domain);
-  if (cached && Date.now() - cached.fetchedAt < CACHE_TTL) {
-    return cached.manifest;
+  // Check in-memory hot cache
+  const mem = memDiscoveryCache.get(query);
+  if (mem && Date.now() - mem.at < CACHE_TTLS.discovery) {
+    return mem.result;
   }
 
+  // Check disk cache
+  const disk = getCachedDiscovery(query);
+  if (disk) {
+    memDiscoveryCache.set(query, { result: disk, at: Date.now() });
+    return disk;
+  }
+
+  // Fetch from registry
+  const config = loadConfig();
+  const url = `${config.registry_url}/api/discover?q=${encodeURIComponent(query)}`;
+  const result = await fetchJson<RegistryDiscoverResponse>(url);
+
+  // Store in both caches
+  memDiscoveryCache.set(query, { result, at: Date.now() });
+  setCachedDiscovery(query, result);
+
+  return result;
+}
+
+// ─── Manifest (24h cache) ────────────────────────────────────────
+
+export async function fetchManifest(domain: string): Promise<Manifest> {
+  // Check in-memory hot cache
+  const mem = memManifestCache.get(domain);
+  if (mem && Date.now() - mem.at < CACHE_TTLS.manifest) {
+    return mem.manifest;
+  }
+
+  // Check disk cache
+  const disk = getCachedManifest(domain);
+  if (disk) {
+    memManifestCache.set(domain, { manifest: disk, at: Date.now() });
+    return disk;
+  }
+
+  // Fetch live
   const url = `https://${domain}/.well-known/agent`;
   const manifest = await fetchJson<Manifest>(url);
-  manifestCache.set(domain, { manifest, fetchedAt: Date.now() });
+
+  // Store in both caches
+  memManifestCache.set(domain, { manifest, at: Date.now() });
+  setCachedManifest(domain, manifest);
+
   return manifest;
 }
+
+// ─── Capability detail (1h cache) ────────────────────────────────
 
 export async function fetchCapabilityDetail(
   domain: string,
   capabilityName: string
 ): Promise<CapabilityDetail> {
   const cacheKey = `${domain}:${capabilityName}`;
-  const cached = detailCache.get(cacheKey);
-  if (cached && Date.now() - cached.fetchedAt < CACHE_TTL) {
-    return cached.detail;
+
+  // Check in-memory hot cache
+  const mem = memDetailCache.get(cacheKey);
+  if (mem && Date.now() - mem.at < CACHE_TTLS.capability) {
+    return mem.detail;
   }
 
+  // Check disk cache
+  const disk = getCachedDetail(domain, capabilityName);
+  if (disk) {
+    memDetailCache.set(cacheKey, { detail: disk, at: Date.now() });
+    return disk;
+  }
+
+  // Fetch live
   const manifest = await fetchManifest(domain);
   const cap = manifest.capabilities.find((c) => c.name === capabilityName);
   if (!cap) {
@@ -64,11 +126,19 @@ export async function fetchCapabilityDetail(
     : `${manifest.base_url}${cap.detail_url}`;
 
   const detail = await fetchJson<CapabilityDetail>(detailUrl);
-  detailCache.set(cacheKey, { detail, fetchedAt: Date.now() });
+
+  // Store in both caches
+  memDetailCache.set(cacheKey, { detail, at: Date.now() });
+  setCachedDetail(domain, capabilityName, detail);
+
   return detail;
 }
 
+// ─── Cache management ────────────────────────────────────────────
+
 export function clearCache(): void {
-  manifestCache.clear();
-  detailCache.clear();
+  memManifestCache.clear();
+  memDetailCache.clear();
+  memDiscoveryCache.clear();
+  clearAllCaches();
 }

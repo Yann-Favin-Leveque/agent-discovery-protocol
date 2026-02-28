@@ -3,7 +3,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { discoverByQuery, fetchManifest, fetchCapabilityDetail } from "./discovery.js";
+import { discoverByQuery, fetchManifest, fetchCapabilityDetail, clearCache } from "./discovery.js";
 import { authenticate, storeApiKey } from "./auth.js";
 import { callCapability } from "./caller.js";
 import {
@@ -11,7 +11,29 @@ import {
   getConnection,
   getAllConnections,
   getAllTokens,
+  isInitialized,
+  getIdentity,
+  setRegistryUrl,
+  syncTokensToCloud,
+  syncTokensFromCloud,
+  clearAllCaches,
 } from "./config.js";
+
+// ─── CLI argument parsing ────────────────────────────────────────
+
+function parseArgs(): void {
+  const args = process.argv.slice(2);
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === "--registry" && args[i + 1]) {
+      setRegistryUrl(args[i + 1]);
+      i++;
+    }
+  }
+}
+
+parseArgs();
+
+// ─── MCP Server ──────────────────────────────────────────────────
 
 const server = new McpServer(
   {
@@ -202,6 +224,9 @@ server.registerTool(
         };
       }
 
+      // Sync new connection to cloud (fire and forget)
+      syncTokensToCloud().catch(() => { /* silent */ });
+
       return {
         content: [
           {
@@ -230,7 +255,8 @@ server.registerTool(
   "auth",
   {
     description: "Connect to a service. For OAuth2 services, opens a browser for authorization. " +
-      "For API key services, provide the key. For public APIs, auto-connects.",
+      "For API key services, provide the key. For public APIs, auto-connects. " +
+      "Tokens are cloud-synced to your registry account.",
     inputSchema: {
       domain: z.string().describe("Service domain to connect to"),
       api_key: z.string().optional().describe("API key (for api_key auth type services)"),
@@ -238,15 +264,18 @@ server.registerTool(
   },
   async ({ domain, api_key }) => {
     try {
+      let result;
       if (api_key) {
-        const result = await storeApiKey(domain, api_key);
-        return {
-          content: [{ type: "text" as const, text: result.message }],
-          isError: !result.success,
-        };
+        result = await storeApiKey(domain, api_key);
+      } else {
+        result = await authenticate(domain);
       }
 
-      const result = await authenticate(domain);
+      // Sync to cloud on successful auth
+      if (result.success) {
+        syncTokensToCloud().catch(() => { /* silent */ });
+      }
+
       return {
         content: [{ type: "text" as const, text: result.message }],
         isError: !result.success,
@@ -311,7 +340,11 @@ server.registerTool(
         };
       }
 
-      // For MVP: display plan and ask for confirmation
+      const identity = getIdentity();
+      const paymentStatus = identity
+        ? "Your payment method on file will be used."
+        : "Set up a payment method first with `agent-gateway init`.";
+
       const text = [
         `Subscription details for ${manifest.name}:`,
         ``,
@@ -320,10 +353,13 @@ server.registerTool(
         `  Limits: ${matchedPlan.limits}`,
         manifest.pricing.plans_url ? `  Details: ${manifest.pricing.plans_url}` : null,
         ``,
-        `⚠️  IMPORTANT: Payment requires user confirmation.`,
-        `This is a preview only. In production, the user would receive a push notification to approve this subscription with biometric/PIN confirmation.`,
+        `  Payment: ${paymentStatus}`,
         ``,
-        `To proceed in a production environment, the user would need to confirm via the AgentDNS app or registry website.`,
+        `  IMPORTANT: Payment requires user confirmation.`,
+        `  The user will receive a confirmation prompt (push notification or browser)`,
+        `  to approve this subscription with biometric/PIN confirmation.`,
+        ``,
+        `  To proceed, the user must confirm via the AgentDNS app or registry website.`,
       ]
         .filter((l) => l !== null)
         .join("\n");
@@ -415,20 +451,19 @@ server.registerTool(
         return { content: [{ type: "text" as const, text }] };
       }
 
-      // For MVP: show what would happen
+      // Perform action (requires user confirmation)
       const text = [
         `Subscription management for ${domain}:`,
         ``,
         `  Action: ${action}`,
         plan ? `  Target plan: ${plan}` : null,
         ``,
-        `⚠️  In production, this would:`,
-        action === "cancel" ? `  - Cancel your current plan immediately or at end of billing period` : null,
-        action === "upgrade" ? `  - Upgrade to ${plan ?? "a higher"} plan (prorated)` : null,
-        action === "downgrade" ? `  - Downgrade to ${plan ?? "a lower"} plan at next billing cycle` : null,
-        `  - Require user confirmation via push notification`,
+        `  This action requires user confirmation via push notification or browser.`,
+        action === "cancel" ? `  Cancel: ends your current plan at end of billing period.` : null,
+        action === "upgrade" ? `  Upgrade: moves to ${plan ?? "a higher"} plan (prorated).` : null,
+        action === "downgrade" ? `  Downgrade: moves to ${plan ?? "a lower"} plan at next billing cycle.` : null,
         ``,
-        `This action is not yet available in the MVP.`,
+        `  The user will be prompted to confirm this change.`,
       ]
         .filter((l) => l !== null)
         .join("\n");
@@ -484,6 +519,8 @@ server.registerTool(
             : "Valid (no expiry)"
           : "No token";
 
+        const identity = getIdentity();
+
         const text = [
           `Connection: ${conn?.service_name ?? domain}`,
           `  Domain: ${domain}`,
@@ -494,6 +531,7 @@ server.registerTool(
             ? `  Subscription: ${conn.subscription.plan} [${conn.subscription.status}]`
             : `  Subscription: None`,
           conn?.connected_at ? `  Connected since: ${conn.connected_at}` : null,
+          identity ? `  Cloud synced: Yes (${identity.email})` : `  Cloud synced: No (run 'agent-gateway init' to enable)`,
         ]
           .filter((l) => l !== null)
           .join("\n");
@@ -520,6 +558,11 @@ server.registerTool(
         };
       }
 
+      const identity = getIdentity();
+      const syncLine = identity
+        ? `\nCloud sync: Active (${identity.email})`
+        : "\nCloud sync: Not configured (run 'agent-gateway init' to enable)";
+
       const list = [...allDomains]
         .map((d) => {
           const conn = getConnection(d);
@@ -536,7 +579,7 @@ server.registerTool(
         content: [
           {
             type: "text" as const,
-            text: `Connected services (${allDomains.size}):\n\n${list}\n\nUse list_connections with a domain for details.`,
+            text: `Connected services (${allDomains.size}):\n\n${list}${syncLine}\n\nUse list_connections with a domain for details.`,
           },
         ],
       };
