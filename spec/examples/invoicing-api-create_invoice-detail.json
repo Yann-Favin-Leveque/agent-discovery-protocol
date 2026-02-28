@@ -1,0 +1,106 @@
+{
+  "name": "create_invoice",
+  "description": "Create a new invoice with line items, tax, and client details. Returns a PDF download URL and a unique invoice ID for tracking.",
+  "endpoint": "/v1/invoices",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "client",
+      "type": "object",
+      "description": "Client information: { name, email, address (optional) }.",
+      "required": true,
+      "example": {
+        "name": "Acme Corp",
+        "email": "billing@acme.com",
+        "address": "123 Main St, San Francisco, CA 94105"
+      }
+    },
+    {
+      "name": "items",
+      "type": "object[]",
+      "description": "Invoice line items. Each item has 'description' (string), 'quantity' (number), and 'unit_price' (number in cents).",
+      "required": true,
+      "example": [
+        { "description": "Web Development - October 2025", "quantity": 40, "unit_price": 15000 },
+        { "description": "Hosting & Maintenance", "quantity": 1, "unit_price": 5000 }
+      ]
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO 4217 currency code. Defaults to 'USD'.",
+      "required": false,
+      "example": "USD"
+    },
+    {
+      "name": "tax_rate",
+      "type": "number",
+      "description": "Tax rate as a percentage (e.g., 20 for 20%). Defaults to 0.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "due_date",
+      "type": "string",
+      "description": "Payment due date in ISO 8601 format. Defaults to 30 days from creation.",
+      "required": false,
+      "example": "2025-11-15"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "description": "Optional notes or payment instructions to include on the invoice.",
+      "required": false,
+      "example": "Payment via bank transfer. Details on invoice."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.invoicebot.io/v1/invoices",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "client": {
+        "name": "Acme Corp",
+        "email": "billing@acme.com",
+        "address": "123 Main St, San Francisco, CA 94105"
+      },
+      "items": [
+        { "description": "Web Development - October 2025", "quantity": 40, "unit_price": 15000 },
+        { "description": "Hosting & Maintenance", "quantity": 1, "unit_price": 5000 }
+      ],
+      "currency": "USD",
+      "tax_rate": 20,
+      "due_date": "2025-11-15",
+      "notes": "Payment via bank transfer. Details on invoice."
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "invoice_id": "inv_9xK3mPq2",
+        "status": "draft",
+        "client": {
+          "name": "Acme Corp",
+          "email": "billing@acme.com"
+        },
+        "subtotal": 60500,
+        "tax": 12100,
+        "total": 72600,
+        "currency": "USD",
+        "due_date": "2025-11-15",
+        "pdf_url": "https://api.invoicebot.io/v1/invoices/inv_9xK3mPq2/pdf",
+        "created_at": "2025-10-15T10:00:00Z"
+      }
+    }
+  },
+  "auth_scopes": ["invoices.write"],
+  "rate_limits": {
+    "requests_per_minute": 20,
+    "daily_limit": 500
+  }
+}

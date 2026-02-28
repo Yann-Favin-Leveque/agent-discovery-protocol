@@ -1,0 +1,58 @@
+{
+  "name": "get_current_weather",
+  "description": "Get the current weather conditions for a specific location, including temperature, humidity, wind speed, and a text summary.",
+  "endpoint": "/v1/weather/current",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "description": "City name, address, or coordinates (lat,lng). Examples: 'Paris', 'Paris, France', '48.8566,2.3522'.",
+      "required": true,
+      "example": "Paris, France"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Temperature units: 'metric' (Celsius) or 'imperial' (Fahrenheit). Defaults to 'metric'.",
+      "required": false,
+      "example": "metric"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openskyweather.com/v1/weather/current?location=Paris%2C%20France&units=metric",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "location": {
+          "name": "Paris",
+          "country": "France",
+          "coordinates": { "lat": 48.8566, "lng": 2.3522 }
+        },
+        "current": {
+          "temperature": 18,
+          "feels_like": 17,
+          "humidity": 65,
+          "wind_speed": 12,
+          "wind_direction": "SW",
+          "condition": "Partly Cloudy",
+          "summary": "Partly cloudy skies with a gentle southwest breeze. Comfortable temperature at 18°C."
+        },
+        "units": "metric",
+        "timestamp": "2025-09-15T14:30:00Z"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60,
+    "daily_limit": 1000
+  }
+}

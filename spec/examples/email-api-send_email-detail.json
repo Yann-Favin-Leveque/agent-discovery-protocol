@@ -1,0 +1,82 @@
+{
+  "name": "send_email",
+  "description": "Send an email to one or more recipients with a subject and body. Supports plain text and HTML content, plus optional file attachments.",
+  "endpoint": "/v1/emails/send",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "to",
+      "type": "string[]",
+      "description": "List of recipient email addresses.",
+      "required": true,
+      "example": ["alice@example.com"]
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Email subject line.",
+      "required": true,
+      "example": "Meeting tomorrow at 3pm"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "Email body content. Can be plain text or HTML.",
+      "required": true,
+      "example": "<p>Hi Alice,</p><p>Are we still on for tomorrow at 3pm?</p>"
+    },
+    {
+      "name": "cc",
+      "type": "string[]",
+      "description": "CC recipient email addresses.",
+      "required": false,
+      "example": ["bob@example.com"]
+    },
+    {
+      "name": "reply_to",
+      "type": "string",
+      "description": "Reply-to email address if different from sender.",
+      "required": false,
+      "example": "noreply@example.com"
+    },
+    {
+      "name": "attachments",
+      "type": "object[]",
+      "description": "File attachments. Each object has 'filename' (string) and 'content_base64' (base64-encoded file content).",
+      "required": false,
+      "example": [{ "filename": "report.pdf", "content_base64": "JVBERi0xLjQK..." }]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mailforge.dev/v1/emails/send",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "to": ["alice@example.com"],
+      "subject": "Meeting tomorrow at 3pm",
+      "body": "<p>Hi Alice,</p><p>Are we still on for tomorrow at 3pm?</p>",
+      "cc": ["bob@example.com"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "message_id": "msg_7k2hF9xPqL",
+        "status": "sent",
+        "to": ["alice@example.com"],
+        "cc": ["bob@example.com"],
+        "timestamp": "2025-09-15T14:30:00Z"
+      }
+    }
+  },
+  "auth_scopes": ["email.send"],
+  "rate_limits": {
+    "requests_per_minute": 30,
+    "daily_limit": 100
+  }
+}
