@@ -175,8 +175,8 @@ The Agent Discovery Protocol adds a **discovery layer** on top. Services describ
 - [x] Webhook handling (invoice events, account updates)
 - [x] Platform fee (10% via application_fee_percent)
 - [x] Billing page and transaction history
+- [x] Registry account dashboard (OAuth login + account management)
 - [ ] Push notifications for payment confirmation
-- [ ] Registry account dashboard
 - [x] SDK packages for popular frameworks (Express, FastAPI, Next.js, Spring Boot)
 - [ ] Rate limiting and usage analytics
 - [x] Service health monitoring
