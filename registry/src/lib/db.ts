@@ -230,6 +230,10 @@ const SEED_CATEGORIES = [
   { name: "Developer Tools", slug: "developer-tools" },
   { name: "AI & ML", slug: "ai-ml" },
   { name: "Social", slug: "social" },
+  { name: "CRM", slug: "crm" },
+  { name: "E-Commerce", slug: "e-commerce" },
+  { name: "Location", slug: "location" },
+  { name: "Authentication", slug: "authentication" },
   { name: "Other", slug: "other" },
 ];
 
@@ -937,6 +941,18 @@ export async function getUserByStripeCustomerId(customerId: string): Promise<Use
   return result.rows.length > 0 ? rowTo<UserRow>(result.rows[0]) : undefined;
 }
 
+export async function getUserByProvider(
+  provider: string,
+  providerId: string
+): Promise<UserRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: "SELECT * FROM users WHERE provider = ? AND provider_id = ?",
+    args: [provider, providerId],
+  });
+  return result.rows.length > 0 ? rowTo<UserRow>(result.rows[0]) : undefined;
+}
+
 export async function upsertUser(data: {
   email: string;
   name?: string;
@@ -945,7 +961,14 @@ export async function upsertUser(data: {
 }): Promise<UserRow> {
   const db = await ensureInitialized();
   const existing = await getUserByEmail(data.email);
-  if (existing) return existing;
+  if (existing) {
+    // Update name and provider info on re-login
+    await db.execute({
+      sql: "UPDATE users SET name = COALESCE(?, name), provider = ?, provider_id = ?, updated_at = datetime('now') WHERE id = ?",
+      args: [data.name ?? null, data.provider, data.provider_id, existing.id],
+    });
+    return (await getUserById(existing.id))!;
+  }
   const result = await db.execute({
     sql: "INSERT INTO users (email, name, provider, provider_id) VALUES (?, ?, ?, ?)",
     args: [data.email, data.name ?? null, data.provider, data.provider_id],
