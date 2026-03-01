@@ -111,7 +111,6 @@ async function initSchema(db: Client) {
     CREATE INDEX IF NOT EXISTS idx_capabilities_service_id ON capabilities(service_id);
     CREATE INDEX IF NOT EXISTS idx_services_domain ON services(domain);
     CREATE INDEX IF NOT EXISTS idx_services_verified ON services(verified);
-    CREATE INDEX IF NOT EXISTS idx_services_trust_level ON services(trust_level);
     CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log(action);
     CREATE INDEX IF NOT EXISTS idx_audit_log_domain ON audit_log(domain);
     CREATE INDEX IF NOT EXISTS idx_reports_domain ON reports(service_domain);
@@ -140,6 +139,11 @@ async function initSchema(db: Client) {
   } catch {
     // Column already exists — ignore
   }
+
+  // Create index on trust_level AFTER the migration ensures the column exists
+  await db.execute(
+    "CREATE INDEX IF NOT EXISTS idx_services_trust_level ON services(trust_level)"
+  ).catch(() => {});
 
   await seedCategories(db);
 }
