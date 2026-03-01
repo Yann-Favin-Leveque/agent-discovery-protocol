@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     // Look up new plan pricing from manifest
     const service = await getServiceByDomain(subscription.service_domain);
     let newPriceCents = body.price_cents;
-    let currency = body.currency || subscription.currency;
+    const currency = body.currency || subscription.currency;
     let interval: "month" | "year" = body.interval || subscription.interval;
 
     if (!newPriceCents && service) {

@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(
       `${baseUrl}/providers/connect?status=${status}&domain=${encodeURIComponent(domain)}`
     );
-  } catch (err) {
+  } catch {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     return NextResponse.redirect(
       `${baseUrl}/providers/connect?error=callback_failed`
