@@ -3,7 +3,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { getUserById, getUserSubscriptions, getUserTransactions } from "@/lib/db";
-import { GatewayTokenSection } from "./gateway-token";
 
 export const metadata: Metadata = {
   title: "Account — AgentDNS",
@@ -184,14 +183,30 @@ export default async function AccountPage() {
         )}
       </section>
 
-      {/* Gateway token */}
+      {/* Gateway setup instructions */}
       <section className="mt-12">
         <h2 className="text-2xl font-bold">Gateway connection</h2>
         <p className="mt-2 text-sm text-muted">
-          Connect the Agent Gateway MCP to your account for cloud-synced
-          credentials and subscription management.
+          Your gateway connections are automatically synced to your account.
+          To set up the gateway on a new machine:
         </p>
-        <GatewayTokenSection />
+        <div className="mt-4 rounded-xl border border-white/5 bg-surface p-6">
+          <div className="space-y-3">
+            <div>
+              <p className="text-xs font-medium text-muted">1. Install the gateway</p>
+              <code className="mt-1 block rounded-lg bg-black px-3 py-2 font-mono text-sm text-accent">
+                npx agent-gateway init
+              </code>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted">2. Sign in with the same account</p>
+              <p className="text-sm text-muted">
+                Your browser will open — sign in with {user.provider === "google" ? "Google" : user.provider === "github" ? "GitHub" : user.provider}
+                and all your connections will be restored automatically.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );
