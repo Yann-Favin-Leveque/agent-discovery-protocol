@@ -1,0 +1,93 @@
+{
+  "name": "files",
+  "description": "Manage files —  creates a file. for more information, see [create and manage files](/workspace/drive/api/guides/create-file). this method supports an */upload* uri and accepts uploaded media with the following characteristics: - *maximum file size:* 5,120 gb - *accepted media mime types:* `*/*` (specify a valid mime type, rather than the literal `*/*` value. the literal `*/*` is only used to indicate that any valid mime type can be uploaded. for more information, see [google workspace and google drive supported mime types](/workspace/drive/api/guides/mime-types).) for more information on uploading files, see [upload file data](/workspace/drive/api/guides/manage-uploads). apps creating shortcuts with the `create` method must specify the mime type `application/vnd.google-apps.shortcut`. apps should specify a file extension in the `name` property when inserting files with the api. for example, an operation to insert a jpeg file should specify something like `\"name\": \"cat.jpg\"` in the metadata. subsequent `get` requests include the read-only `fileextension` property populated with the extension originally specified in the `name` property. when a google drive user requests to download a file, or when the file is downloaded through the sync client, drive builds a full filename (with extension) based on the name. in cases where the extension is missing, drive attempts to determine the extension based on the file's mime type, creates a copy of a file and applies any requested updates with patch semantics. for more information, see [create and manage files](https://developers.google.com/workspace/drive/api/guides/create-file), modifies the set of labels applied to a file. for more information, see [set a label field on a file](https://developers.google.com/workspace/drive/api/guides/set-label). returns a list of the labels that were added or modified. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/files",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "enforceSingleParent",
+      "type": "boolean",
+      "description": "Deprecated: Creating files in multiple folders is no longer supported.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "ignoreDefaultVisibility",
+      "type": "boolean",
+      "description": "Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "keepRevisionForever",
+      "type": "boolean",
+      "description": "Whether to set the `keepForever` field in the new head revision. This is only applicable to files with binary content in Google Drive. Only 200 revisions for the file can be kept forever. If the limit is reached, try deleting pinned revisions.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "ocrLanguage",
+      "type": "string",
+      "description": "A language hint for OCR processing during image import (ISO 639-1 code).",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "supportsAllDrives",
+      "type": "boolean",
+      "description": "Whether the requesting application supports both My Drives and shared drives.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "supportsTeamDrives",
+      "type": "boolean",
+      "description": "Deprecated: Use `supportsAllDrives` instead.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "useContentAsIndexableText",
+      "type": "boolean",
+      "description": "Whether to use the uploaded content as indexable text.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "includePermissionsForView",
+      "type": "string",
+      "description": "Specifies which additional view's permissions to include in the response. Only `published` is supported.",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "includeLabels",
+      "type": "string",
+      "description": "A comma-separated list of IDs of labels to include in the `labelInfo` part of the response.",
+      "required": false,
+      "example": "example_value"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.googleapis.com/drive/v3/files",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {}
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/drive.appdata",
+    "https://www.googleapis.com/auth/drive.apps.readonly",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive.meet.readonly"
+  ]
+}

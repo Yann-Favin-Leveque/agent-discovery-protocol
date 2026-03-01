@@ -1,0 +1,141 @@
+{
+  "name": "create_database",
+  "description": "Create a new database as a child of a specified parent page. You define the database title and its property schema (columns), including types like title, rich_text, number, select, multi_select, date, checkbox, url, email, and more.",
+  "endpoint": "/v1/databases",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "parent",
+      "type": "object",
+      "description": "The parent page that will contain the new database. Format: { \"type\": \"page_id\", \"page_id\": \"...\" }.",
+      "required": true,
+      "example": {
+        "type": "page_id",
+        "page_id": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+      }
+    },
+    {
+      "name": "title",
+      "type": "array",
+      "description": "The title of the database as an array of rich text objects.",
+      "required": true,
+      "example": [
+        {
+          "type": "text",
+          "text": {
+            "content": "Project Tasks"
+          }
+        }
+      ]
+    },
+    {
+      "name": "properties",
+      "type": "object",
+      "description": "The property schema for the database. Each key is a column name, and the value defines the property type and configuration.",
+      "required": true,
+      "example": {
+        "Name": {
+          "title": {}
+        },
+        "Status": {
+          "select": {
+            "options": [
+              { "name": "Not Started", "color": "gray" },
+              { "name": "In Progress", "color": "blue" },
+              { "name": "Done", "color": "green" }
+            ]
+          }
+        },
+        "Priority": {
+          "number": {
+            "format": "number"
+          }
+        },
+        "Due Date": {
+          "date": {}
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.notion.com/v1/databases",
+    "headers": {
+      "Authorization": "Bearer your-integration-token",
+      "Content-Type": "application/json",
+      "Notion-Version": "2022-06-28"
+    },
+    "body": {
+      "parent": {
+        "type": "page_id",
+        "page_id": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+      },
+      "title": [
+        {
+          "type": "text",
+          "text": {
+            "content": "Project Tasks"
+          }
+        }
+      ],
+      "properties": {
+        "Name": {
+          "title": {}
+        },
+        "Status": {
+          "select": {
+            "options": [
+              { "name": "Not Started", "color": "gray" },
+              { "name": "In Progress", "color": "blue" },
+              { "name": "Done", "color": "green" }
+            ]
+          }
+        },
+        "Due Date": {
+          "date": {}
+        },
+        "Assignee": {
+          "rich_text": {}
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "database",
+      "id": "e4f5a6b7-c8d9-0123-efab-456789012345",
+      "created_time": "2026-01-12T10:30:00.000Z",
+      "last_edited_time": "2026-01-12T10:30:00.000Z",
+      "url": "https://www.notion.so/e4f5a6b7c8d90123efab456789012345",
+      "title": [
+        {
+          "type": "text",
+          "text": { "content": "Project Tasks" },
+          "plain_text": "Project Tasks"
+        }
+      ],
+      "properties": {
+        "Name": { "id": "title", "type": "title", "title": {} },
+        "Status": {
+          "id": "abc",
+          "type": "select",
+          "select": {
+            "options": [
+              { "id": "1", "name": "Not Started", "color": "gray" },
+              { "id": "2", "name": "In Progress", "color": "blue" },
+              { "id": "3", "name": "Done", "color": "green" }
+            ]
+          }
+        },
+        "Due Date": { "id": "def", "type": "date", "date": {} },
+        "Assignee": { "id": "ghi", "type": "rich_text", "rich_text": {} }
+      },
+      "parent": {
+        "type": "page_id",
+        "page_id": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+      },
+      "archived": false
+    }
+  }
+}

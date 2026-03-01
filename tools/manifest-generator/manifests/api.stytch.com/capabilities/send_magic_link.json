@@ -1,0 +1,36 @@
+{
+  "name": "send_magic_link",
+  "description": "Send a magic link to a user's email address for passwordless authentication. The user clicks the link to log in. If the email doesn't match an existing user, a new user is created automatically.",
+  "endpoint": "/v1/magic_links/email/send",
+  "method": "POST",
+  "parameters": [
+    { "name": "email", "type": "string", "description": "The email address to send the magic link to.", "required": true, "example": "user@example.com" },
+    { "name": "login_magic_link_url", "type": "string", "description": "The URL the user is redirected to after clicking the magic link for login.", "required": false, "example": "https://example.com/authenticate" },
+    { "name": "signup_magic_link_url", "type": "string", "description": "The URL the user is redirected to after clicking the magic link for signup.", "required": false, "example": "https://example.com/authenticate" },
+    { "name": "login_expiration_minutes", "type": "integer", "description": "Expiration time for login magic links in minutes (5-10080). Defaults to 60.", "required": false, "example": 60 },
+    { "name": "signup_expiration_minutes", "type": "integer", "description": "Expiration time for signup magic links in minutes (5-10080). Defaults to 10080.", "required": false, "example": 1440 },
+    { "name": "locale", "type": "string", "description": "Language for the email. Supported: en, es, fr, pt-br.", "required": false, "example": "en" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/magic_links/email/send",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic {base64(project_id:secret)}"
+    },
+    "body": {
+      "email": "user@example.com",
+      "login_magic_link_url": "https://example.com/authenticate",
+      "signup_magic_link_url": "https://example.com/authenticate"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "request-id-test-a]]]b17-stytch-request",
+      "user_id": "user-test-e3795c81-f849-4167-bfda-e4a6e9c280fd",
+      "email_id": "email-test-81bf03a8-86e1-4d95-bd44-bb3c8f8e5678",
+      "status_code": 200
+    }
+  }
+}

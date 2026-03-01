@@ -1,0 +1,70 @@
+{
+  "name": "get_order",
+  "description": "Retrieve the full details of a specific order by its unique token. Returns complete order information including all line items, customer details, shipping and billing addresses, payment status, taxes, discounts, and custom fields.",
+  "endpoint": "/orders/{token}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "description": "The unique token (UUID) identifying the order.",
+      "required": true,
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.snipcart.com/api/orders/a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "token": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "invoiceNumber": "SNIP-1001",
+      "creationDate": "2024-01-10T11:50:00Z",
+      "status": "Processed",
+      "paymentStatus": "Paid",
+      "email": "bob@example.com",
+      "cardHolderName": "Bob Norman",
+      "subtotal": 398.00,
+      "totalPrice": 409.94,
+      "shippingFees": 0,
+      "taxesTotal": 11.94,
+      "currency": "usd",
+      "items": [
+        {
+          "uniqueId": "item-uuid-123",
+          "id": "PROD-001",
+          "name": "Premium T-Shirt",
+          "price": 199.00,
+          "quantity": 2,
+          "totalPrice": 398.00,
+          "description": "A premium quality cotton t-shirt",
+          "image": "https://store.example.com/images/tshirt.jpg",
+          "customFields": []
+        }
+      ],
+      "billingAddress": {
+        "fullName": "Bob Norman",
+        "address1": "123 Main St",
+        "city": "Austin",
+        "province": "TX",
+        "country": "US",
+        "postalCode": "78701",
+        "phone": "555-0123"
+      },
+      "shippingAddress": {
+        "fullName": "Bob Norman",
+        "address1": "123 Main St",
+        "city": "Austin",
+        "province": "TX",
+        "country": "US",
+        "postalCode": "78701"
+      }
+    }
+  }
+}

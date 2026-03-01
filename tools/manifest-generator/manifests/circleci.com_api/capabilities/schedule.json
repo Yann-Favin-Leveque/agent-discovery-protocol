@@ -1,0 +1,87 @@
+{
+  "name": "schedule",
+  "description": "Manage schedule — create a schedule, list schedule triggers, get a schedule by id. available only on schedules associated with github oauth or bitbucket cloud pipeline definitions. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/project/{project-slug}/schedule",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project-slug",
+      "type": "string",
+      "description": "Project slug in the form `vcs-slug/org-name/repo-name`. The `/` characters may be URL-escaped. For projects that use GitLab or GitHub App, use `circleci` as the `vcs-slug`, replace `org-name` with the organization ID (found in Organization Settings), and replace `repo-name` with the project ID (found in Project Settings).",
+      "required": true,
+      "example": "gh/CircleCI-Public/api-preview-docs"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name of the schedule.",
+      "required": true,
+      "example": "Example"
+    },
+    {
+      "name": "timetable",
+      "type": "string",
+      "description": "Timetable that specifies when a schedule triggers.",
+      "required": true,
+      "example": "2025-01-15T10:00:00Z"
+    },
+    {
+      "name": "attribution-actor",
+      "type": "string",
+      "description": "The attribution-actor of the scheduled pipeline.",
+      "required": true,
+      "example": "current"
+    },
+    {
+      "name": "parameters",
+      "type": "object",
+      "description": "Pipeline parameters represented as key-value pairs. Must contain branch or tag.",
+      "required": true,
+      "example": {
+        "deploy_prod": true,
+        "branch": "feature/design-new-api"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description of the schedule.",
+      "required": false,
+      "example": "example_value"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://circleci.com/api/v2/project/{project-slug}/schedule",
+    "headers": {
+      "Content-Type": "application/json",
+      "Circle-Token": "{api_key}"
+    },
+    "body": {
+      "project-slug": "gh/CircleCI-Public/api-preview-docs",
+      "name": "Example",
+      "timetable": "2025-01-15T10:00:00Z",
+      "attribution-actor": "current",
+      "parameters": {
+        "deploy_prod": true,
+        "branch": "feature/design-new-api"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "project-slug": "gh/CircleCI-Public/api-preview-docs",
+        "name": "Example",
+        "timetable": "2025-01-15T10:00:00Z",
+        "attribution-actor": "current",
+        "parameters": {
+          "deploy_prod": true,
+          "branch": "feature/design-new-api"
+        }
+      }
+    }
+  }
+}

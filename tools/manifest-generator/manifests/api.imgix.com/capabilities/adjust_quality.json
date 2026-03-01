@@ -1,0 +1,23 @@
+{
+  "name": "adjust_quality",
+  "description": "Control the compression quality and file size of the output image. Use automatic quality optimization to let imgix analyze the image content and choose the best quality-to-size ratio.",
+  "endpoint": "/{image_path}",
+  "method": "GET",
+  "parameters": [
+    { "name": "q", "type": "integer", "description": "Quality level from 0 (lowest) to 100 (highest). Defaults to 75.", "required": false, "example": 80 },
+    { "name": "auto", "type": "string", "description": "Automatic optimizations. Use 'compress' for auto quality, 'format' for auto format, or 'compress,format' for both.", "required": false, "example": "compress,format" },
+    { "name": "ch", "type": "string", "description": "Client hints: Width, DPR, Save-Data. Enables responsive serving.", "required": false, "example": "Width,DPR" },
+    { "name": "fm", "type": "string", "description": "Output format for compression. Different formats have different quality profiles.", "required": false, "example": "webp" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://your-source.imgix.net/photos/hero.jpg?auto=compress,format&q=80",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "note": "Returns the quality-optimized image. With auto=compress, imgix analyzes the image to pick an optimal quality level. Combined with auto=format, the best format is also selected."
+    }
+  }
+}

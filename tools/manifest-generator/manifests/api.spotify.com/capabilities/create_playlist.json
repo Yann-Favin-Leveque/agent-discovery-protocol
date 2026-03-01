@@ -1,0 +1,69 @@
+{
+  "name": "create_playlist",
+  "description": "Create a new playlist for the authenticated user. Set the name, description, and whether it is public or private.",
+  "endpoint": "/v1/users/{user_id}/playlists",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Spotify user ID of the playlist owner. Use 'me' for the authenticated user.",
+      "required": true,
+      "example": "spotify_user_123"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the new playlist.",
+      "required": true,
+      "example": "Road Trip Mix"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "A description for the playlist.",
+      "required": false,
+      "example": "Songs for a long drive through the countryside"
+    },
+    {
+      "name": "public",
+      "type": "boolean",
+      "description": "Whether the playlist should be public. Default is true.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "collaborative",
+      "type": "boolean",
+      "description": "Whether the playlist should be collaborative. Must be false for public playlists.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.spotify.com/v1/users/spotify_user_123/playlists",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Road Trip Mix",
+      "description": "Songs for a long drive through the countryside",
+      "public": false
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "3cEYpjA9oz9GiPac4AsH4n",
+      "name": "Road Trip Mix",
+      "description": "Songs for a long drive through the countryside",
+      "public": false,
+      "collaborative": false,
+      "owner": { "id": "spotify_user_123", "display_name": "User" },
+      "tracks": { "total": 0 },
+      "external_urls": { "spotify": "https://open.spotify.com/playlist/3cEYpjA9oz9GiPac4AsH4n" }
+    }
+  }
+}

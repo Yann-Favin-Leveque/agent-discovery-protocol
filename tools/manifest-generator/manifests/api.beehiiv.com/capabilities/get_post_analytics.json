@@ -1,0 +1,47 @@
+{
+  "name": "get_post_analytics",
+  "description": "Retrieve aggregate analytics across all posts in your publication, or detailed stats for a specific post. Includes email delivery, open rates, click rates, and unsubscribe metrics.",
+  "endpoint": "/v2/publications/{publication_id}/posts/{post_id}/stats",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "publication_id",
+      "type": "string",
+      "description": "The ID of your Beehiiv publication.",
+      "required": true,
+      "example": "pub_abc123def456"
+    },
+    {
+      "name": "post_id",
+      "type": "string",
+      "description": "The ID of a specific post. Omit to get aggregate stats across all posts.",
+      "required": false,
+      "example": "post_abc789"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.beehiiv.com/v2/publications/pub_abc123def456/posts/post_abc789/stats",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "post_id": "post_abc789",
+        "email_sent_count": 3200,
+        "email_delivered_count": 3150,
+        "email_open_count": 1500,
+        "email_unique_open_count": 1340,
+        "email_click_count": 420,
+        "email_unique_click_count": 380,
+        "unsubscribe_count": 5,
+        "spam_report_count": 0,
+        "open_rate": 0.4254,
+        "click_rate": 0.1206
+      }
+    }
+  }
+}

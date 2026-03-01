@@ -1,0 +1,59 @@
+{
+  "name": "update_entry",
+  "description": "Update an existing content entry by its ID. Unlike Storyblok, Strapi supports partial updates -- you only need to include the fields you want to change in the 'data' object. Omitted fields remain unchanged. For relation fields, providing an ID or array of IDs replaces the existing relations entirely. Returns the updated entry.",
+  "endpoint": "/api/{content_type}/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "content_type",
+      "type": "string",
+      "required": true,
+      "description": "The pluralized API name of the content type (e.g., 'articles', 'products')."
+    },
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "The numeric ID of the entry to update."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Object containing only the fields to update. Omitted fields are not modified. For relations, provide the new ID(s) to replace existing relations."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.strapi.io/api/articles/15",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "title": "Getting Started with Strapi v5",
+        "content": "Updated guide for Strapi v5 with new features and improvements.",
+        "tags": [1, 3, 7, 12]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 15,
+        "attributes": {
+          "title": "Getting Started with Strapi v5",
+          "slug": "getting-started-with-strapi",
+          "content": "Updated guide for Strapi v5 with new features and improvements.",
+          "category": "tutorial",
+          "publishedAt": "2026-02-28T12:00:00.000Z",
+          "createdAt": "2026-02-28T12:00:00.000Z",
+          "updatedAt": "2026-02-28T16:30:00.000Z"
+        }
+      },
+      "meta": {}
+    }
+  }
+}

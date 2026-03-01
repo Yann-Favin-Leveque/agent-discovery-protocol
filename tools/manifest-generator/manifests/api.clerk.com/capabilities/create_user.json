@@ -1,0 +1,123 @@
+{
+  "name": "create_user",
+  "description": "Create a new user account in your Clerk application. You can provide an email address, phone number, username, and/or password. You can also set metadata and skip email/phone verification if needed. The user will be created immediately and can sign in with the provided credentials.",
+  "endpoint": "/v1/users",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email_address",
+      "type": "array",
+      "required": false,
+      "description": "Array of email addresses for the user. At least one identifier (email, phone, or username) is required depending on your Clerk instance settings."
+    },
+    {
+      "name": "phone_number",
+      "type": "array",
+      "required": false,
+      "description": "Array of phone numbers in E.164 format (e.g., '+15551234567')."
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "required": false,
+      "description": "A unique username for the user."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "description": "The user's password. Must meet your instance's password requirements."
+    },
+    {
+      "name": "first_name",
+      "type": "string",
+      "required": false,
+      "description": "The user's first name."
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "required": false,
+      "description": "The user's last name."
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "required": false,
+      "description": "An external ID for the user, useful for mapping to your own database."
+    },
+    {
+      "name": "public_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Metadata visible to both frontend and backend. Use for non-sensitive user attributes like roles or preferences."
+    },
+    {
+      "name": "private_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Metadata visible only to the backend. Use for sensitive data like internal IDs or billing references."
+    },
+    {
+      "name": "skip_password_checks",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, skip password complexity validation. Useful for migrations."
+    },
+    {
+      "name": "skip_password_requirement",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, create the user without a password. The user can set one later or use OAuth."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/users",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY_HERE",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email_address": ["bob@example.com"],
+      "first_name": "Bob",
+      "last_name": "Smith",
+      "username": "bobsmith",
+      "password": "SecureP@ssw0rd!",
+      "public_metadata": {
+        "role": "member"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "user_2def456ghi789",
+      "object": "user",
+      "first_name": "Bob",
+      "last_name": "Smith",
+      "email_addresses": [
+        {
+          "id": "idn_2abc123",
+          "email_address": "bob@example.com",
+          "verification": {
+            "status": "unverified",
+            "strategy": "email_code"
+          }
+        }
+      ],
+      "username": "bobsmith",
+      "profile_image_url": "https://img.clerk.com/default",
+      "public_metadata": {
+        "role": "member"
+      },
+      "private_metadata": {},
+      "unsafe_metadata": {},
+      "created_at": 1702828800000,
+      "updated_at": 1702828800000,
+      "last_sign_in_at": null,
+      "banned": false,
+      "locked": false
+    }
+  }
+}

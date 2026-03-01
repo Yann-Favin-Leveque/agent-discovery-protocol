@@ -1,0 +1,32 @@
+{
+  "name": "send_document",
+  "description": "Send a document to its recipients for review and electronic signature. The document must be in draft or completed status. Recipients will receive an email with a link to view and sign the document.",
+  "endpoint": "/public/v1/documents/{id}/send",
+  "method": "POST",
+  "parameters": [
+    { "name": "id", "type": "string", "description": "The unique ID of the document to send.", "required": true, "example": "msFYActMfJHqNTKH8YSvF1" },
+    { "name": "message", "type": "string", "description": "Custom message to include in the email sent to recipients.", "required": false, "example": "Please review and sign this agreement at your earliest convenience." },
+    { "name": "subject", "type": "string", "description": "Custom email subject line. If omitted, PandaDoc uses the document name.", "required": false, "example": "Sales Agreement Ready for Signature" },
+    { "name": "silent", "type": "boolean", "description": "If true, the document status changes to sent but no email notification is delivered to recipients.", "required": false, "example": false }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pandadoc.com/public/v1/documents/msFYActMfJHqNTKH8YSvF1/send",
+    "headers": {
+      "Authorization": "API-Key {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "message": "Please review and sign this agreement at your earliest convenience.",
+      "subject": "Sales Agreement Ready for Signature",
+      "silent": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "msFYActMfJHqNTKH8YSvF1",
+      "status": "document.sent"
+    }
+  }
+}

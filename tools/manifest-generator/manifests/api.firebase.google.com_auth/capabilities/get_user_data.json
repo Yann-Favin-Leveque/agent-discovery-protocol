@@ -1,0 +1,54 @@
+{
+  "name": "get_user_data",
+  "description": "Retrieve the profile information for the currently signed-in user using their ID token. Returns email, display name, photo URL, email verification status, identity providers, and account creation timestamp.",
+  "endpoint": "/accounts:lookup",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "idToken",
+      "type": "string",
+      "description": "The ID token of the currently signed-in user.",
+      "required": true,
+      "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=YOUR_API_KEY",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "idToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "identitytoolkit#GetAccountInfoResponse",
+      "users": [
+        {
+          "localId": "a1b2c3d4e5f67890",
+          "email": "user@example.com",
+          "emailVerified": false,
+          "displayName": "Jane Doe",
+          "photoUrl": "https://example.com/avatar.png",
+          "providerUserInfo": [
+            {
+              "providerId": "password",
+              "email": "user@example.com",
+              "federatedId": "user@example.com"
+            }
+          ],
+          "passwordHash": "...",
+          "passwordUpdatedAt": 1709315400000,
+          "validSince": "1709315400",
+          "disabled": false,
+          "lastLoginAt": "1709315400000",
+          "createdAt": "1709229000000",
+          "lastRefreshAt": "2026-03-01T12:00:00.000Z"
+        }
+      ]
+    }
+  }
+}

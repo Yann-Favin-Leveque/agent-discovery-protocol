@@ -1,0 +1,63 @@
+{
+  "name": "search_files",
+  "description": "Search for files and folders in the user's Dropbox by a query string. Matches file names and, optionally, file content. Results can be filtered by file extension, category, or path.",
+  "endpoint": "/2/files/search_v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "The search query string. Searches file and folder names by default.",
+      "required": true,
+      "example": "quarterly report"
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "description": "Optional search options including path filter, max_results, file_status, and file_categories.",
+      "required": false,
+      "example": {
+        "path": "/Documents",
+        "max_results": 20,
+        "file_categories": [{ ".tag": "document" }]
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/files/search_v2",
+    "headers": {
+      "Authorization": "Bearer your-access-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "quarterly report",
+      "options": {
+        "path": "/Documents",
+        "max_results": 20
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "matches": [
+        {
+          "match_type": { ".tag": "filename" },
+          "metadata": {
+            ".tag": "metadata",
+            "metadata": {
+              ".tag": "file",
+              "name": "Q4 Quarterly Report.pdf",
+              "path_lower": "/documents/q4 quarterly report.pdf",
+              "path_display": "/Documents/Q4 Quarterly Report.pdf",
+              "id": "id:d7dbf_13_RHDAAAAAAAAaz",
+              "size": 5242880
+            }
+          }
+        }
+      ],
+      "has_more": false
+    }
+  }
+}

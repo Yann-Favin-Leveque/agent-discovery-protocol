@@ -1,0 +1,40 @@
+{
+  "name": "get_user_info",
+  "description": "Retrieve profile information for the currently authenticated user (via /api/v1/me) or a specified username. Returns username, karma, account age, and subscription details.",
+  "endpoint": "/api/v1/me",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Optional username to look up. If omitted, returns the authenticated user's profile. When provided, the endpoint changes to /user/{username}/about.",
+      "required": false,
+      "example": "spez"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/api/v1/me",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "myusername",
+      "id": "abc123",
+      "created_utc": 1609459200,
+      "link_karma": 1542,
+      "comment_karma": 8923,
+      "is_gold": false,
+      "has_verified_email": true,
+      "icon_img": "https://styles.redditmedia.com/t5_abc/icon.png",
+      "subreddit": {
+        "display_name": "u_myusername",
+        "subscribers": 5
+      }
+    }
+  }
+}

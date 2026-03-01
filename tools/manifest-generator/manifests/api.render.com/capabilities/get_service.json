@@ -1,0 +1,48 @@
+{
+  "name": "get_service",
+  "description": "Get detailed information about a specific Render service. Returns the service type, linked repository, branch, build and start commands, environment, plan, region, auto-deploy settings, health check configuration, and current deploy status.",
+  "endpoint": "/v1/services/{serviceId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "The service ID (e.g., 'srv-a1b2c3d4e5f6g7h8i9')."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5f6g7h8i9"
+  },
+  "response_example": {
+    "id": "srv-a1b2c3d4e5f6g7h8i9",
+    "name": "my-api-server",
+    "type": "web_service",
+    "repo": "https://github.com/my-org/my-api-server",
+    "branch": "main",
+    "autoDeploy": "yes",
+    "suspended": "not_suspended",
+    "suspenders": [],
+    "serviceDetails": {
+      "buildCommand": "npm install && npm run build",
+      "startCommand": "npm start",
+      "url": "https://my-api-server.onrender.com",
+      "plan": "starter",
+      "region": "oregon",
+      "env": "node",
+      "envSpecificDetails": {
+        "nodeVersion": "20.11.0"
+      },
+      "numInstances": 1,
+      "healthCheckPath": "/health",
+      "pullRequestPreviewsEnabled": "yes",
+      "disk": null
+    },
+    "slug": "my-api-server",
+    "notify_on_fail": "default",
+    "rootDir": "",
+    "createdAt": "2025-09-01T08:00:00Z",
+    "updatedAt": "2026-01-18T16:00:00Z"
+  }
+}

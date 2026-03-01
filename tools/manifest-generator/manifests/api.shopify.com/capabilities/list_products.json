@@ -1,0 +1,97 @@
+{
+  "name": "list_products",
+  "description": "Retrieve a paginated list of products from the Shopify store. Supports filtering by collection, product type, vendor, status, and creation date. Returns product details including title, variants, pricing, images, and inventory quantities.",
+  "endpoint": "/admin/api/2024-01/products.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of products to return (max 250, default 50).",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "since_id",
+      "type": "integer",
+      "description": "Return only products after the specified ID for pagination.",
+      "required": false,
+      "example": 632910392
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Filter by product title.",
+      "required": false,
+      "example": "IPod Nano"
+    },
+    {
+      "name": "vendor",
+      "type": "string",
+      "description": "Filter by product vendor.",
+      "required": false,
+      "example": "Apple"
+    },
+    {
+      "name": "product_type",
+      "type": "string",
+      "description": "Filter by product type.",
+      "required": false,
+      "example": "Electronics"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by product status: 'active', 'archived', or 'draft'.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "collection_id",
+      "type": "integer",
+      "description": "Filter by collection ID to get products in a specific collection.",
+      "required": false,
+      "example": 841564295
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store_name}.myshopify.com/admin/api/2024-01/products.json?limit=50&status=active",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "products": [
+        {
+          "id": 632910392,
+          "title": "IPod Nano - 8GB",
+          "body_html": "<p>It's the small iPod with one big idea.</p>",
+          "vendor": "Apple",
+          "product_type": "Cult Products",
+          "created_at": "2024-01-02T08:59:11-05:00",
+          "handle": "ipod-nano",
+          "status": "active",
+          "variants": [
+            {
+              "id": 808950810,
+              "product_id": 632910392,
+              "title": "Pink",
+              "price": "199.00",
+              "sku": "IPOD2008PINK",
+              "inventory_quantity": 10
+            }
+          ],
+          "images": [
+            {
+              "id": 850703190,
+              "src": "https://cdn.shopify.com/s/files/1/0005/4838/0009/products/ipod-nano.png"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

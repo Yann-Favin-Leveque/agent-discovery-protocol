@@ -1,0 +1,81 @@
+{
+  "name": "get_static_map",
+  "description": "Render a static map image (PNG or JPEG) for a given location, zoom level, and dimensions. Supports custom markers, GeoJSON overlays, and path overlays. Useful for embedding maps in documents, emails, or chat messages without requiring an interactive map.",
+  "endpoint": "/styles/v1/{username}/{style_id}/static/{overlay}/{lon},{lat},{zoom},{bearing},{pitch}/{width}x{height}{@2x}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Your Mapbox account username.",
+      "required": true,
+      "example": "mapbox"
+    },
+    {
+      "name": "style_id",
+      "type": "string",
+      "description": "Map style ID. Common values: streets-v12, outdoors-v12, light-v11, dark-v11, satellite-v9, satellite-streets-v12.",
+      "required": true,
+      "example": "streets-v12"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "description": "Longitude of the map center.",
+      "required": true,
+      "example": -73.989
+    },
+    {
+      "name": "lat",
+      "type": "number",
+      "description": "Latitude of the map center.",
+      "required": true,
+      "example": 40.733
+    },
+    {
+      "name": "zoom",
+      "type": "number",
+      "description": "Zoom level (0-22).",
+      "required": true,
+      "example": 13
+    },
+    {
+      "name": "width",
+      "type": "integer",
+      "description": "Image width in pixels (1-1280).",
+      "required": true,
+      "example": 600
+    },
+    {
+      "name": "height",
+      "type": "integer",
+      "description": "Image height in pixels (1-1280).",
+      "required": true,
+      "example": 400
+    },
+    {
+      "name": "@2x",
+      "type": "string",
+      "description": "Append '@2x' to the dimensions for high-DPI (Retina) rendering.",
+      "required": false,
+      "example": "@2x"
+    },
+    {
+      "name": "overlay",
+      "type": "string",
+      "description": "Marker, path, or GeoJSON overlay. Use 'pin-s+ff0000({lon},{lat})' for a simple marker. Use 'auto' to omit.",
+      "required": false,
+      "example": "pin-s+ff0000(-73.989,40.733)"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/pin-s+ff0000(-73.989,40.733)/-73.989,40.733,13,0,0/600x400@2x?access_token=YOUR_ACCESS_TOKEN",
+    "headers": {},
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": "(binary PNG image data)"
+  }
+}

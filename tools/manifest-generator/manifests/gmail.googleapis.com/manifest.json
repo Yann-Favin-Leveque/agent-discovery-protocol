@@ -1,0 +1,85 @@
+{
+  "spec_version": "1.0",
+  "name": "Gmail API",
+  "description": "The Gmail API lets you view and manage Gmail mailbox data like threads, messages, and labels.",
+  "base_url": "https://gmail.googleapis.com",
+  "auth": {
+    "type": "oauth2",
+    "authorization_url": "https://accounts.google.com/o/oauth2/v2/auth",
+    "token_url": "https://oauth2.googleapis.com/token",
+    "scopes": [
+      "https://mail.google.com/",
+      "https://www.googleapis.com/auth/gmail.readonly",
+      "https://www.googleapis.com/auth/gmail.addons.current.message.action",
+      "https://www.googleapis.com/auth/gmail.addons.current.action.compose",
+      "https://www.googleapis.com/auth/gmail.modify",
+      "https://www.googleapis.com/auth/gmail.send",
+      "https://www.googleapis.com/auth/gmail.settings.sharing",
+      "https://www.googleapis.com/auth/gmail.compose",
+      "https://www.googleapis.com/auth/gmail.addons.current.message.readonly",
+      "https://www.googleapis.com/auth/gmail.settings.basic"
+    ]
+  },
+  "capabilities": [
+    {
+      "name": "users",
+      "description": "Manage users — set up or update a push notification watch on the given user mailbox, stop receiving push notifications for the given user mailbox, gets the current user's gmail profile. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users"
+    },
+    {
+      "name": "users_threads",
+      "description": "Manage users threads — moves the specified thread to the trash. any messages that belong to the thread are also moved to the trash, modifies the labels applied to the thread. this applies to all messages in the thread, removes the specified thread from the trash. any messages that belong to the thread are also removed from the trash. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_threads"
+    },
+    {
+      "name": "users_history",
+      "description": "Manage users history — lists the history of all changes to the given mailbox. history results are returned in chronological order (increasing `historyid`). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_history"
+    },
+    {
+      "name": "users_messages",
+      "description": "Manage users messages — modifies the labels on the specified messages, sends the specified message to the recipients in the `to`, `cc`, and `bcc` headers. for example usage, see [sending email](https://developers.google.com/workspace/gmail/api/guides/sending), directly inserts a message into only this user's mailbox similar to `imap append`, bypassing most scanning and classification. does not send a message. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_messages"
+    },
+    {
+      "name": "users_messages_attachments",
+      "description": "Manage users messages attachments — gets the specified message attachment. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_messages_attachments"
+    },
+    {
+      "name": "users_labels",
+      "description": "Manage users labels — creates a new label, updates the specified label, lists all labels in the user's mailbox. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_labels"
+    },
+    {
+      "name": "users_settings",
+      "description": "Manage users settings — updates the auto-forwarding setting for the specified account. a verified forwarding address must be specified when auto-forwarding is enabled. this method is only available to service account clients that have been delegated domain-wide authority, updates language settings. if successful, the return object contains the `displaylanguage` that was saved for the user, which may differ from the value passed into the request. this is because the requested `displaylanguage` may not be directly supported by gmail but have a close variant that is, and so the variant may be chosen and saved instead, updates vacation responder settings. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_settings"
+    },
+    {
+      "name": "users_settings_cse_identities",
+      "description": "Manage users settings cse identities — creates and configures a client-side encryption identity that's authorized to send mail from the user account. google publishes the s/mime certificate to a shared domain-wide directory so that people within a google workspace organization can encrypt and send mail to the identity. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured, lists the client-side encrypted identities for an authenticated user. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured, retrieves a client-side encryption identity configuration. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_settings_cse_identities"
+    },
+    {
+      "name": "users_settings_cse_keypairs",
+      "description": "Manage users settings cse keypairs — creates and uploads a client-side encryption s/mime public key certificate chain and private key metadata for the authenticated user. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured, turns on a client-side encryption key pair that was turned off. the key pair becomes active again for any associated client-side encryption identities. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured, turns off a client-side encryption key pair. the authenticated user can no longer use the key pair to decrypt incoming cse message texts or sign outgoing cse mail. to regain access, use the enablecsekeypair to turn on the key pair. after 30 days, you can permanently delete the key pair by using the obliteratecsekeypair method. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_settings_cse_keypairs"
+    },
+    {
+      "name": "users_settings_forwarding_addresses",
+      "description": "Manage users settings forwardingaddresses — creates a forwarding address. if ownership verification is required, a message will be sent to the recipient and the resource's verification status will be set to `pending`; otherwise, the resource will be created with verification status set to `accepted`. this method is only available to service account clients that have been delegated domain-wide authority, lists the forwarding addresses for the specified account, gets the specified forwarding address. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_settings_forwarding_addresses"
+    },
+    {
+      "name": "users_settings_delegates",
+      "description": "Manage users settings delegates — adds a delegate with its verification status set directly to `accepted`, without sending any verification email. the delegate user must be a member of the same google workspace organization as the delegator user. gmail imposes limitations on the number of delegates and delegators each user in a google workspace organization can have. these limits depend on your organization, but in general each user can have up to 25 delegates and up to 10 delegators. note that a delegate user must be referred to by their primary email address, and not an email alias. also note that when a new delegate is created, there may be up to a one minute delay before the new delegate is available for use. this method is only available to service account clients that have been delegated domain-wide authority, lists the delegates for the specified account. this method is only available to service account clients that have been delegated domain-wide authority, gets the specified delegate. note that a delegate user must be referred to by their primary email address, and not an email alias. this method is only available to service account clients that have been delegated domain-wide authority. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_settings_delegates"
+    },
+    {
+      "name": "users_settings_send_as",
+      "description": "Manage users settings sendas — creates a custom \"from\" send-as alias. if an smtp msa is specified, gmail will attempt to connect to the smtp service to validate the configuration before creating the alias. if ownership verification is required for the alias, a message will be sent to the email address and the resource's verification status will be set to `pending`; otherwise, the resource will be created with verification status set to `accepted`. if a signature is provided, gmail will sanitize the html before saving it with the alias. this method is only available to service account clients that have been delegated domain-wide authority, sends a verification email to the specified send-as alias address. the verification status must be `pending`. this method is only available to service account clients that have been delegated domain-wide authority, updates a send-as alias. if a signature is provided, gmail will sanitize the html before saving it with the alias. addresses other than the primary address for the account can only be updated by service account clients that have been delegated domain-wide authority. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/users_settings_send_as"
+    }
+  ]
+}

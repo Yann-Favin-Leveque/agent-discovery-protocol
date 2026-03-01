@@ -1,0 +1,42 @@
+{
+  "name": "users_settings_forwarding_addresses",
+  "description": "Manage users settings forwardingaddresses — creates a forwarding address. if ownership verification is required, a message will be sent to the recipient and the resource's verification status will be set to `pending`; otherwise, the resource will be created with verification status set to `accepted`. this method is only available to service account clients that have been delegated domain-wide authority, lists the forwarding addresses for the specified account, gets the specified forwarding address. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/gmail/v1/users/{userId}/settings/forwardingAddresses",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "User's email address. The special value \"me\" can be used to indicate the authenticated user.",
+      "required": true,
+      "example": "me"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/{userId}/settings/forwardingAddresses",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "userId": "me"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "userId": "me"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://mail.google.com/",
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.addons.current.message.action",
+    "https://www.googleapis.com/auth/gmail.addons.current.action.compose",
+    "https://www.googleapis.com/auth/gmail.modify"
+  ]
+}

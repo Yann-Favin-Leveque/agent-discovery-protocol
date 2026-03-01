@@ -1,0 +1,33 @@
+{
+  "name": "get_survey_responses",
+  "description": "Retrieve individual and bulk responses for a survey. Get all response data including answers, completion status, and respondent metadata.",
+  "endpoint": "/v3/surveys/{survey_id}/responses/bulk",
+  "method": "GET",
+  "parameters": [
+    { "name": "survey_id", "type": "string", "description": "The survey ID.", "required": true, "example": "123456789" },
+    { "name": "page", "type": "number", "description": "Page number.", "required": false, "example": 1 },
+    { "name": "per_page", "type": "number", "description": "Results per page (max 100).", "required": false, "example": 100 },
+    { "name": "status", "type": "string", "description": "Filter by status: completed, partial, overquota, disqualified.", "required": false, "example": "completed" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.surveymonkey.com/v3/surveys/123456789/responses/bulk?status=completed",
+    "headers": { "Authorization": "Bearer {access_token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "resp_abc",
+          "survey_id": "123456789",
+          "date_created": "2024-02-01T14:30:00Z",
+          "response_status": "completed",
+          "pages": [
+            { "id": "page_1", "questions": [{ "id": "q_1", "answers": [{ "choice_id": "choice_1", "text": "Very Satisfied" }] }] }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "list_assignments",
+  "description": "Retrieve all assignments for one or more courses. Returns assignment names, descriptions, due dates, grading scales, submission settings, and whether the user has already submitted. Useful for checking upcoming deadlines.",
+  "endpoint": "/webservice/rest/server.php",
+  "method": "GET",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "The web service authentication token.", "required": true, "example": "abc123def456" },
+    { "name": "wsfunction", "type": "string", "description": "Must be 'mod_assign_get_assignments'.", "required": true, "example": "mod_assign_get_assignments" },
+    { "name": "moodlewsrestformat", "type": "string", "description": "Response format. Use 'json'.", "required": true, "example": "json" },
+    { "name": "courseids[0]", "type": "integer", "description": "The ID of a course to get assignments from. You can pass multiple courseids.", "required": true, "example": 5 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.moodle.com/webservice/rest/server.php?wstoken={api_key}&wsfunction=mod_assign_get_assignments&moodlewsrestformat=json&courseids[0]=5",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "courses": [
+        {
+          "id": 5,
+          "fullname": "Introduction to Computer Science",
+          "assignments": [
+            {
+              "id": 1,
+              "cmid": 11,
+              "name": "Assignment 1: Hello World",
+              "intro": "Write your first program in Python.",
+              "duedate": 1741046400,
+              "grade": 100,
+              "nosubmissions": 0,
+              "submissiondrafts": 0
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "get_matrix",
+  "description": "Compute travel time and distance matrices between multiple origins and destinations. Returns a matrix of durations (in seconds) and/or distances (in meters) for all coordinate pairs. Useful for logistics optimization, nearest-neighbor analysis, and fleet routing.",
+  "endpoint": "/directions-matrix/v1/{profile}/{coordinates}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile. One of: mapbox/driving, mapbox/driving-traffic, mapbox/walking, mapbox/cycling.",
+      "required": true,
+      "example": "mapbox/driving"
+    },
+    {
+      "name": "coordinates",
+      "type": "string",
+      "description": "Semicolon-separated list of 2-25 coordinate pairs as 'longitude,latitude'. Max 10 for driving-traffic.",
+      "required": true,
+      "example": "-73.989,40.733;-74.006,40.714;-73.978,40.761"
+    },
+    {
+      "name": "annotations",
+      "type": "string",
+      "description": "Comma-separated matrix types to return: duration, distance, or both. Default is duration.",
+      "required": false,
+      "example": "duration,distance"
+    },
+    {
+      "name": "sources",
+      "type": "string",
+      "description": "Semicolon-separated indices of coordinates to use as sources, or 'all'. Default is all.",
+      "required": false,
+      "example": "0;1"
+    },
+    {
+      "name": "destinations",
+      "type": "string",
+      "description": "Semicolon-separated indices of coordinates to use as destinations, or 'all'. Default is all.",
+      "required": false,
+      "example": "2"
+    },
+    {
+      "name": "fallback_speed",
+      "type": "number",
+      "description": "Speed in km/h used to estimate travel time for unreachable coordinate pairs.",
+      "required": false,
+      "example": 40
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/directions-matrix/v1/mapbox/driving/-73.989,40.733;-74.006,40.714;-73.978,40.761?annotations=duration,distance&access_token=YOUR_ACCESS_TOKEN",
+    "headers": {},
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": "Ok",
+      "durations": [
+        [0, 487.2, 612.8],
+        [501.3, 0, 743.1],
+        [625.4, 756.9, 0]
+      ],
+      "distances": [
+        [0, 3245.6, 4120.3],
+        [3310.2, 0, 5230.7],
+        [4205.1, 5310.4, 0]
+      ],
+      "sources": [
+        { "name": "Broadway", "location": [-73.989, 40.733] },
+        { "name": "West Street", "location": [-74.006, 40.714] },
+        { "name": "Central Park West", "location": [-73.978, 40.761] }
+      ],
+      "destinations": [
+        { "name": "Broadway", "location": [-73.989, 40.733] },
+        { "name": "West Street", "location": [-74.006, 40.714] },
+        { "name": "Central Park West", "location": [-73.978, 40.761] }
+      ]
+    }
+  }
+}

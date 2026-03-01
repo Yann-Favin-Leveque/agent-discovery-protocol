@@ -1,0 +1,60 @@
+{
+  "name": "share_file",
+  "description": "Create a shared link for a file or folder in Dropbox, so that others can access it via a URL. You can configure the link's visibility and expiration. If a shared link already exists, it will be returned.",
+  "endpoint": "/2/sharing/create_shared_link_with_settings",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "description": "The path or ID of the file or folder to share.",
+      "required": true,
+      "example": "/Documents/report.pdf"
+    },
+    {
+      "name": "settings",
+      "type": "object",
+      "description": "Optional sharing settings: requested_visibility ('public', 'team_only', 'password'), link_password, expires, audience, and access.",
+      "required": false,
+      "example": {
+        "requested_visibility": "public",
+        "audience": "public",
+        "access": "viewer"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings",
+    "headers": {
+      "Authorization": "Bearer your-access-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "path": "/Documents/report.pdf",
+      "settings": {
+        "requested_visibility": "public",
+        "audience": "public",
+        "access": "viewer"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      ".tag": "file",
+      "url": "https://www.dropbox.com/s/abcdef12345/report.pdf?dl=0",
+      "name": "report.pdf",
+      "path_lower": "/documents/report.pdf",
+      "link_permissions": {
+        "can_revoke": true,
+        "resolved_visibility": { ".tag": "public" },
+        "revoke_failure_reason": { ".tag": "owner_only" }
+      },
+      "client_modified": "2026-01-12T10:30:00Z",
+      "server_modified": "2026-01-12T10:30:00Z",
+      "size": 2048576,
+      "id": "id:a4ayc_80_OEAAAAAAAAAXw"
+    }
+  }
+}

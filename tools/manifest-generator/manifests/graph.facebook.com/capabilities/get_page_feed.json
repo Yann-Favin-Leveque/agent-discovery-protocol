@@ -1,0 +1,69 @@
+{
+  "name": "get_page_feed",
+  "description": "Retrieve recent posts from a Facebook Page's feed including post content, reactions count, and comment summaries. Supports pagination for browsing post history.",
+  "endpoint": "/v18.0/{page_id}/feed",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "description": "The ID of the Facebook Page to retrieve posts from.",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to include (e.g., message, created_time, likes.summary(true)).",
+      "required": false,
+      "example": "id,message,created_time,story,full_picture,likes.summary(true),comments.summary(true)"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of posts to return per page. Default is 25.",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v18.0/123456789/feed?fields=id,message,created_time,likes.summary(true),comments.summary(true)&limit=10",
+    "headers": {
+      "Authorization": "Bearer PAGE_ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "123456789_111111111",
+          "message": "We're excited to announce our new product line!",
+          "created_time": "2024-03-15T14:30:00+0000",
+          "likes": {
+            "data": [],
+            "summary": {
+              "total_count": 42,
+              "can_like": true
+            }
+          },
+          "comments": {
+            "data": [],
+            "summary": {
+              "total_count": 8,
+              "can_comment": true
+            }
+          }
+        }
+      ],
+      "paging": {
+        "cursors": {
+          "before": "QVFIuhME...",
+          "after": "QVFIuhMF..."
+        },
+        "next": "https://graph.facebook.com/v18.0/123456789/feed?after=QVFIuhMF..."
+      }
+    }
+  }
+}

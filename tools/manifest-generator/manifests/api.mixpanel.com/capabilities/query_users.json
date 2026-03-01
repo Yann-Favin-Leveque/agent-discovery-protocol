@@ -1,0 +1,21 @@
+{
+  "name": "query_users",
+  "description": "Query and filter user profiles in Mixpanel by properties and behaviors.",
+  "endpoint": "/2.0/engage",
+  "method": "POST",
+  "parameters": [
+    {"name": "project_id", "type": "number", "description": "Project ID.", "required": true, "example": 123456},
+    {"name": "where", "type": "string", "description": "Expression to filter users by properties.", "required": false, "example": "properties[\"plan\"] == \"enterprise\""},
+    {"name": "page", "type": "number", "description": "Page number.", "required": false, "example": 0}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mixpanel.com/api/2.0/engage?project_id=123456",
+    "headers": {"Authorization": "Basic {api_key}", "Content-Type": "application/x-www-form-urlencoded"},
+    "body": {"where": "properties[\"plan\"] == \"enterprise\"", "page": 0}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"page": 0, "total": 150, "results": [{"$distinct_id": "user_123", "$properties": {"$email": "john@example.com", "$name": "John Doe", "plan": "enterprise"}}]}
+  }
+}

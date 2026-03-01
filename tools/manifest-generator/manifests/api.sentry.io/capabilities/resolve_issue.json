@@ -1,0 +1,21 @@
+{
+  "name": "resolve_issue",
+  "description": "Update the status of an issue to resolved, ignored, or unresolved.",
+  "endpoint": "/issues/{issue_id}/",
+  "method": "PUT",
+  "parameters": [
+    {"name": "issue_id", "type": "string", "description": "The ID of the issue to update.", "required": true, "example": "789"},
+    {"name": "status", "type": "string", "description": "New status: resolved, unresolved, or ignored.", "required": true, "example": "resolved"},
+    {"name": "assignedTo", "type": "string", "description": "User or team to assign the issue to.", "required": false, "example": "user:john@example.com"}
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://sentry.io/api/0/issues/789/",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"status": "resolved"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": "789", "status": "resolved", "statusDetails": {}}
+  }
+}

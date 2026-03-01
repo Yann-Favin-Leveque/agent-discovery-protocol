@@ -1,0 +1,69 @@
+{
+  "name": "consumption",
+  "description": "Manage consumption — retrieve account consumption metrics (legacy plans), retrieve project consumption metrics (legacy plans), retrieve project consumption metrics. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/consumption_history/account",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Specify the start `date-time` for the consumption period.\nThe `date-time` value is rounded according to the specified `granularity`.\nFor example, `2024-03-15T15:30:00Z` for `daily` granularity will be rounded to `2024-03-15T00:00:00Z`.\nThe specified `date-time` value must respect the specified granularity:\n- For `hourly`, consumption metrics are limited to the last 168 hours.\n- For `daily`, consumption metrics are limited to the last 60 days.\n- For `monthly`, consumption metrics are limited to the past year.\n\nThe consumption history is available starting from `March 1, 2024, at 00:00:00 UTC`.\n",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "Specify the end `date-time` for the consumption period.\nThe `date-time` value is rounded according to the specified granularity.\nFor example, `2024-03-15T15:30:00Z` for `daily` granularity will be rounded to `2024-03-15T00:00:00Z`.\nThe specified `date-time` value must respect the specified granularity:\n- For `hourly`, consumption metrics are limited to the last 168 hours.\n- For `daily`, consumption metrics are limited to the last 60 days.\n- For `monthly`, consumption metrics are limited to the past year.\n",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "granularity",
+      "type": "string",
+      "description": "Specify the granularity of consumption metrics.\nHourly, daily, and monthly metrics are available for the last 168 hours, 60 days,\nand 1 year, respectively.\n",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "org_id",
+      "type": "string",
+      "description": "Specify the organization for which the consumption metrics should be returned.\nIf this parameter is not provided, the endpoint will return the metrics for the\nauthenticated user's account.\n",
+      "required": false,
+      "example": "abc_123"
+    },
+    {
+      "name": "include_v1_metrics",
+      "type": "boolean",
+      "description": "The field is deprecated. Please use `metrics` instead.\nIf `metrics` is specified, this field is ignored.\nInclude metrics utilized in previous pricing models.\n- **data_storage_bytes_hour**: The sum of the maximum observed storage values for each hour\n  for each project, which never decreases.\n",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "metrics",
+      "type": "string",
+      "description": "Specify a list of metrics to include in the response.\nIf omitted, active_time, compute_time, written_data, synthetic_storage_size are returned.\nPossible values:\n- `active_time_seconds`\n- `compute_time_seconds`\n- `written_data_bytes`\n- `synthetic_storage_size_bytes`\n- `data_storage_bytes_hour`\n\nA list of metrics can be specified as an array of parameter values or as a comma-separated list in a single parameter value.\n- As an array of parameter values: `metrics=cpu_seconds&metrics=ram_bytes`\n- As a comma-separated list in a single parameter value: `metrics=cpu_seconds,ram_bytes`\n",
+      "required": false,
+      "example": "example_value"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://console.neon.tech/api/v2/consumption_history/account",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "from": "example_value",
+        "to": "example_value",
+        "granularity": "example_value"
+      }
+    }
+  }
+}

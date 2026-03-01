@@ -1,0 +1,48 @@
+{
+  "spec_version": "1.0",
+  "name": "PayPal",
+  "description": "PayPal REST API enables you to accept payments, send payouts, manage subscriptions, and issue refunds. It supports credit cards, debit cards, PayPal wallet, and alternative payment methods across 200+ markets. The API uses OAuth 2.0 for authentication and provides a complete commerce platform for online and mobile payments.",
+  "base_url": "https://api-m.paypal.com",
+  "auth": {
+    "type": "oauth2",
+    "authorization_url": "https://www.paypal.com/signin/authorize",
+    "token_url": "https://api-m.paypal.com/v1/oauth2/token",
+    "scopes": [
+      "openid",
+      "email",
+      "https://uri.paypal.com/services/payments/payment",
+      "https://uri.paypal.com/services/payments/refund",
+      "https://uri.paypal.com/services/payments/payouts",
+      "https://uri.paypal.com/services/subscriptions"
+    ],
+    "setup_url": "https://developer.paypal.com/dashboard/applications/live",
+    "note": "Obtain client_id and client_secret from PayPal Developer Dashboard. Use client credentials grant (POST to token_url with Basic auth) to get an access token."
+  },
+  "capabilities": [
+    {
+      "name": "create_order",
+      "description": "Create a new payment order with one or more purchase units. The order must be approved by the buyer before it can be captured. Supports PayPal wallet, cards, and alternative payment methods.",
+      "detail_url": "/capabilities/create_order"
+    },
+    {
+      "name": "capture_payment",
+      "description": "Capture an authorized payment on an approved order. This finalizes the transaction and moves funds from the buyer to the seller. Can capture the full amount or a partial amount.",
+      "detail_url": "/capabilities/capture_payment"
+    },
+    {
+      "name": "create_payout",
+      "description": "Send money to one or more recipients via PayPal email, phone, or PayPal ID. Useful for marketplace disbursements, affiliate commissions, and employee bonuses.",
+      "detail_url": "/capabilities/create_payout"
+    },
+    {
+      "name": "issue_refund",
+      "description": "Refund a captured payment either fully or partially. The refund goes back to the original payment method. You can issue multiple partial refunds up to the original captured amount.",
+      "detail_url": "/capabilities/issue_refund"
+    },
+    {
+      "name": "create_subscription",
+      "description": "Create a recurring subscription for a buyer against a pre-defined billing plan. Handles automatic recurring payments, trial periods, and subscription lifecycle management.",
+      "detail_url": "/capabilities/create_subscription"
+    }
+  ]
+}

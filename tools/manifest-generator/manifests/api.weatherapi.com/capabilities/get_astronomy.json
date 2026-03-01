@@ -1,0 +1,59 @@
+{
+  "name": "get_astronomy",
+  "description": "Retrieve astronomical data for a location on a specific date. Returns sunrise and sunset times, moonrise and moonset times, moon phase name, and moon illumination percentage. Useful for outdoor activity planning, photography, and astronomical observations.",
+  "endpoint": "/v1/astronomy.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Your API key for authentication.",
+      "required": true,
+      "example": "{api_key}"
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Location query. Can be city name, lat/lon, zip code, or IP address.",
+      "required": true,
+      "example": "Paris"
+    },
+    {
+      "name": "dt",
+      "type": "string",
+      "description": "Date in YYYY-MM-DD format. Defaults to today if omitted.",
+      "required": false,
+      "example": "2024-01-15"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.weatherapi.com/v1/astronomy.json?key={api_key}&q=Paris&dt=2024-01-15",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "name": "Paris",
+        "region": "Ile-de-France",
+        "country": "France",
+        "lat": 48.87,
+        "lon": 2.33,
+        "localtime": "2024-01-15 14:30"
+      },
+      "astronomy": {
+        "astro": {
+          "sunrise": "08:42 AM",
+          "sunset": "05:12 PM",
+          "moonrise": "10:30 AM",
+          "moonset": "09:45 PM",
+          "moon_phase": "Waxing Crescent",
+          "moon_illumination": 18,
+          "is_moon_up": 1,
+          "is_sun_up": 1
+        }
+      }
+    }
+  }
+}

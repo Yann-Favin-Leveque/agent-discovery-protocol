@@ -1,0 +1,35 @@
+{
+  "name": "list_transactions",
+  "description": "List all transactions for a specific cryptocurrency account. Includes buys, sells, sends, receives, and other transaction types with amounts, dates, and statuses.",
+  "endpoint": "/v2/accounts/{account_id}/transactions",
+  "method": "GET",
+  "parameters": [
+    { "name": "account_id", "type": "string", "description": "The ID of the account to list transactions for.", "required": true, "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890" },
+    { "name": "limit", "type": "integer", "description": "Number of results per page (max 100).", "required": false, "example": 25 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coinbase.com/v2/accounts/a1b2c3d4-e5f6-7890-abcd-ef1234567890/transactions?limit=25",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "txn-12345",
+          "type": "send",
+          "status": "completed",
+          "amount": { "amount": "-0.10000000", "currency": "BTC" },
+          "native_amount": { "amount": "-5000.00", "currency": "USD" },
+          "description": "Sent to external wallet",
+          "created_at": "2026-02-28T10:30:00Z",
+          "network": { "status": "confirmed", "hash": "abc123def456" }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "list_payments",
+  "description": "List all payments received across invoices for a FreshBooks account. Shows payment amounts, methods, dates, and which invoices they were applied to.",
+  "endpoint": "/accounting/account/{account_id}/payments/payments",
+  "method": "GET",
+  "parameters": [
+    { "name": "account_id", "type": "string", "description": "Your FreshBooks account ID.", "required": true, "example": "xZNQ1X" },
+    { "name": "page", "type": "integer", "description": "Page number for pagination.", "required": false, "example": 1 },
+    { "name": "per_page", "type": "integer", "description": "Number of results per page (max 100).", "required": false, "example": 25 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/accounting/account/xZNQ1X/payments/payments?page=1&per_page=25",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "response": {
+        "result": {
+          "payments": [
+            {
+              "id": 33333,
+              "invoiceid": 98765,
+              "amount": { "amount": "6000.00", "code": "USD" },
+              "date": "2026-03-15",
+              "type": "Credit Card",
+              "note": "Paid via Stripe",
+              "from_credit": false
+            }
+          ],
+          "page": 1,
+          "pages": 1,
+          "per_page": 25,
+          "total": 18
+        }
+      }
+    }
+  }
+}

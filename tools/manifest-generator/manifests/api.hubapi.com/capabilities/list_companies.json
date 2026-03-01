@@ -1,0 +1,20 @@
+{
+  "name": "list_companies",
+  "description": "List and search companies in HubSpot with optional filtering and property selection.",
+  "endpoint": "/crm/v3/objects/companies",
+  "method": "GET",
+  "parameters": [
+    {"name": "limit", "type": "number", "description": "Number of results per page (max 100).", "required": false, "example": 10},
+    {"name": "properties", "type": "string", "description": "Comma-separated list of properties to return.", "required": false, "example": "name,domain,industry,numberofemployees"},
+    {"name": "after", "type": "string", "description": "Pagination cursor.", "required": false, "example": "MQ=="}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hubapi.com/crm/v3/objects/companies?limit=10&properties=name,domain,industry",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"results": [{"id": "101", "properties": {"name": "Acme Corp", "domain": "acme.com", "industry": "TECHNOLOGY"}, "createdAt": "2024-01-01T00:00:00Z"}], "paging": {"next": {"after": "MTA="}}}
+  }
+}

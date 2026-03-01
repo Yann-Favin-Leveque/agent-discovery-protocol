@@ -1,0 +1,88 @@
+{
+  "name": "get_page_insights",
+  "description": "Fetch analytics and performance metrics for a Facebook Page such as reach, impressions, engagement, and follower growth. Supports daily, weekly, and monthly periods.",
+  "endpoint": "/v18.0/{page_id}/insights",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "description": "The ID of the Facebook Page to retrieve insights for.",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "metric",
+      "type": "string",
+      "description": "Comma-separated metric names (e.g., page_impressions, page_engaged_users, page_fans).",
+      "required": true,
+      "example": "page_impressions,page_engaged_users,page_fans,page_views_total"
+    },
+    {
+      "name": "period",
+      "type": "string",
+      "description": "Aggregation period: day, week, days_28, month, or lifetime.",
+      "required": false,
+      "example": "day"
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "description": "Unix timestamp or ISO date for the start of the analytics period.",
+      "required": false,
+      "example": "2024-03-01"
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "description": "Unix timestamp or ISO date for the end of the analytics period.",
+      "required": false,
+      "example": "2024-03-31"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v18.0/123456789/insights?metric=page_impressions,page_engaged_users,page_fans&period=day&since=2024-03-01&until=2024-03-31",
+    "headers": {
+      "Authorization": "Bearer PAGE_ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "name": "page_impressions",
+          "period": "day",
+          "title": "Daily Total Impressions",
+          "description": "The total number of impressions seen of any content associated with your Page.",
+          "values": [
+            {
+              "value": 1523,
+              "end_time": "2024-03-15T07:00:00+0000"
+            },
+            {
+              "value": 1847,
+              "end_time": "2024-03-16T07:00:00+0000"
+            }
+          ]
+        },
+        {
+          "name": "page_engaged_users",
+          "period": "day",
+          "title": "Daily Page Engaged Users",
+          "values": [
+            {
+              "value": 89,
+              "end_time": "2024-03-15T07:00:00+0000"
+            }
+          ]
+        }
+      ],
+      "paging": {
+        "previous": "https://graph.facebook.com/v18.0/123456789/insights?since=...",
+        "next": "https://graph.facebook.com/v18.0/123456789/insights?since=..."
+      }
+    }
+  }
+}

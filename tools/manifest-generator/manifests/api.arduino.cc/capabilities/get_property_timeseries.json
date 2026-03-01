@@ -1,0 +1,63 @@
+{
+  "name": "get_property_timeseries",
+  "description": "Retrieve historical time-series data for a thing's property over a specified date range. Returns timestamped value entries perfect for charting sensor trends, analyzing patterns, or computing averages. Supports aggregation intervals.",
+  "endpoint": "/iot/v2/things/{thingId}/properties/{propertyId}/timeseries",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "thingId",
+      "type": "string",
+      "description": "The UUID of the thing.",
+      "required": true,
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The UUID of the property to query history for.",
+      "required": true,
+      "example": "p1a2b3c4-d5e6-7890-abcd-ef1234567890"
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start of the time range in ISO 8601 format.",
+      "required": true,
+      "example": "2025-12-01T00:00:00Z"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "End of the time range in ISO 8601 format.",
+      "required": true,
+      "example": "2025-12-02T00:00:00Z"
+    },
+    {
+      "name": "interval",
+      "type": "integer",
+      "description": "Aggregation interval in seconds. If set, values are averaged over this interval.",
+      "required": false,
+      "example": 3600
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api2.arduino.cc/iot/v2/things/a1b2c3d4-e5f6-7890-abcd-ef1234567890/properties/p1a2b3c4-d5e6-7890-abcd-ef1234567890/timeseries?from=2025-12-01T00:00:00Z&to=2025-12-02T00:00:00Z&interval=3600",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        { "time": "2025-12-01T00:00:00Z", "value": 21.3 },
+        { "time": "2025-12-01T01:00:00Z", "value": 20.8 },
+        { "time": "2025-12-01T02:00:00Z", "value": 20.2 }
+      ],
+      "from": "2025-12-01T00:00:00Z",
+      "to": "2025-12-02T00:00:00Z",
+      "interval": 3600
+    }
+  }
+}

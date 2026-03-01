@@ -1,0 +1,124 @@
+{
+  "name": "list_orders",
+  "description": "Retrieve a paginated list of orders from the WooCommerce store. Supports filtering by status, customer ID, product ID, date ranges, and search terms. Returns order details including line items, totals, and shipping info.",
+  "endpoint": "/orders",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Number of orders to return per page (max 100, default 10).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination (default 1).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by order status: 'pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed', or 'any'.",
+      "required": false,
+      "example": "processing"
+    },
+    {
+      "name": "customer",
+      "type": "integer",
+      "description": "Filter orders by customer ID.",
+      "required": false,
+      "example": 12
+    },
+    {
+      "name": "product",
+      "type": "integer",
+      "description": "Filter orders that contain a specific product ID.",
+      "required": false,
+      "example": 93
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Show orders created after this date (ISO 8601 format).",
+      "required": false,
+      "example": "2024-01-01T00:00:00"
+    },
+    {
+      "name": "before",
+      "type": "string",
+      "description": "Show orders created before this date (ISO 8601 format).",
+      "required": false,
+      "example": "2024-12-31T23:59:59"
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "description": "Search orders by keyword.",
+      "required": false,
+      "example": "bob@example.com"
+    },
+    {
+      "name": "orderby",
+      "type": "string",
+      "description": "Sort by field: 'date', 'id', 'title', 'slug'.",
+      "required": false,
+      "example": "date"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order: 'asc' or 'desc'.",
+      "required": false,
+      "example": "desc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store_domain}/wp-json/wc/v3/orders?status=processing&per_page=20&orderby=date&order=desc",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_key_secret}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 727,
+        "number": "727",
+        "status": "processing",
+        "date_created": "2024-01-10T11:50:00",
+        "total": "409.94",
+        "subtotal": "398.00",
+        "total_tax": "11.94",
+        "currency": "USD",
+        "payment_method": "stripe",
+        "payment_method_title": "Credit Card (Stripe)",
+        "customer_id": 12,
+        "billing": {
+          "first_name": "Bob",
+          "last_name": "Norman",
+          "email": "bob@example.com",
+          "address_1": "123 Main St",
+          "city": "Austin",
+          "state": "TX",
+          "postcode": "78701",
+          "country": "US"
+        },
+        "line_items": [
+          {
+            "id": 315,
+            "name": "Hoodie with Logo",
+            "product_id": 93,
+            "quantity": 2,
+            "subtotal": "90.00",
+            "total": "90.00",
+            "sku": "woo-hoodie-blue"
+          }
+        ]
+      }
+    ]
+  }
+}

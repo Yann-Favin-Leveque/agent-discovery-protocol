@@ -1,0 +1,120 @@
+{
+  "name": "list_recordings",
+  "description": "Retrieve all cloud recordings for a user with pagination support. Returns recording IDs, topics, start times, file types, file sizes, play URLs, and download URLs for each recording file.",
+  "endpoint": "/users/{userId}/recordings",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email address of the recording owner. Use 'me' to refer to the authenticated user.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of recordings to return per page (1-300, default 30).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "next_page_token",
+      "type": "string",
+      "description": "Pagination token from previous response for retrieving next page of results.",
+      "required": false,
+      "example": "IUlQa3SnfLVYYEk5yzDOjQ7W0zv8ZpXHmQKwwgxowmU="
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start date for filtering recordings (YYYY-MM-DD format).",
+      "required": false,
+      "example": "2026-02-01"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "End date for filtering recordings (YYYY-MM-DD format).",
+      "required": false,
+      "example": "2026-03-31"
+    },
+    {
+      "name": "trash",
+      "type": "boolean",
+      "description": "Set to true to list recordings in trash/deleted state.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/users/me/recordings?page_size=30&from=2026-02-01&to=2026-03-31",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "from": "2026-02-01",
+      "to": "2026-03-31",
+      "page_count": 1,
+      "page_number": 1,
+      "page_size": 30,
+      "total_records": 2,
+      "next_page_token": "IUlQa3SnfLVYYEk5yzDOjQ7W0zv8ZpXHmQKwwgxowmU=",
+      "meetings": [
+        {
+          "uuid": "gH5sRpzfQrOo58gH5sRpzf==",
+          "id": 123456789,
+          "account_id": "aBcDeF1234",
+          "host_id": "xyz123",
+          "topic": "Q1 Planning Meeting",
+          "start_time": "2026-03-15T10:05:00Z",
+          "duration": 45,
+          "total_size": 536870912,
+          "recording_type": "cloud",
+          "share_url": "https://zoom.us/rec/share/xxx",
+          "recording_files": [
+            {
+              "id": "rec123",
+              "meeting_id": "123456789",
+              "recording_start": "2026-03-15T10:05:00Z",
+              "recording_end": "2026-03-15T10:50:00Z",
+              "file_type": "MP4",
+              "file_size": 536870912,
+              "play_url": "https://zoom.us/recording/play/xxx",
+              "download_url": "https://zoom.us/download/xxx"
+            }
+          ]
+        },
+        {
+          "uuid": "sRpzfQrOo58gH5sRpzfQr==",
+          "id": 987654321,
+          "account_id": "aBcDeF1234",
+          "host_id": "xyz123",
+          "topic": "Team Sync",
+          "start_time": "2026-03-20T14:00:00Z",
+          "duration": 30,
+          "total_size": 268435456,
+          "recording_type": "cloud",
+          "share_url": "https://zoom.us/rec/share/yyy",
+          "recording_files": [
+            {
+              "id": "rec124",
+              "meeting_id": "987654321",
+              "recording_start": "2026-03-20T14:00:00Z",
+              "recording_end": "2026-03-20T14:30:00Z",
+              "file_type": "MP4",
+              "file_size": 268435456,
+              "play_url": "https://zoom.us/recording/play/yyy",
+              "download_url": "https://zoom.us/download/yyy"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

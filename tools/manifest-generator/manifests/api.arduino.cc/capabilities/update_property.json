@@ -1,0 +1,49 @@
+{
+  "name": "update_property",
+  "description": "Write a new value to a specific property on a thing. This pushes the value to the cloud and syncs it to the physical device. Only properties with READ_WRITE permission can be updated. Use this to remotely toggle switches, set thresholds, or send configuration to devices.",
+  "endpoint": "/iot/v2/things/{thingId}/properties/{propertyId}/publish",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "thingId",
+      "type": "string",
+      "description": "The UUID of the thing.",
+      "required": true,
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The UUID of the property to update.",
+      "required": true,
+      "example": "p2a2b3c4-d5e6-7890-abcd-ef1234567891"
+    },
+    {
+      "name": "value",
+      "type": "any",
+      "description": "The new value to set. Type must match the property's defined type (BOOL, FLOAT, INT, STRING, etc.).",
+      "required": true,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api2.arduino.cc/iot/v2/things/a1b2c3d4-e5f6-7890-abcd-ef1234567890/properties/p2a2b3c4-d5e6-7890-abcd-ef1234567891/publish",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "value": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "p2a2b3c4-d5e6-7890-abcd-ef1234567891",
+      "name": "led_switch",
+      "last_value": true,
+      "update_at": "2025-12-01T18:35:00.000Z"
+    }
+  }
+}

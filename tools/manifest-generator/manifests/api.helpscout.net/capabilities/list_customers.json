@@ -1,0 +1,40 @@
+{
+  "name": "list_customers",
+  "description": "Retrieve all customer records in your Help Scout account. Customers are the people who contact you for support. Returns their names, email addresses, phone numbers, and conversation count.",
+  "endpoint": "/v2/customers",
+  "method": "GET",
+  "parameters": [
+    { "name": "email", "type": "string", "description": "Filter customers by email address.", "required": false, "example": "customer@example.com" },
+    { "name": "firstName", "type": "string", "description": "Filter by first name.", "required": false, "example": "Jane" },
+    { "name": "lastName", "type": "string", "description": "Filter by last name.", "required": false, "example": "Smith" },
+    { "name": "modifiedSince", "type": "string", "description": "Return customers modified after this date (ISO 8601).", "required": false, "example": "2025-01-01T00:00:00Z" },
+    { "name": "page", "type": "integer", "description": "Page number for pagination.", "required": false, "example": 1 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.helpscout.net/v2/customers?page=1",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "_embedded": {
+        "customers": [
+          {
+            "id": 2001,
+            "firstName": "Jane",
+            "lastName": "Customer",
+            "emails": [{ "id": 1, "value": "jane@example.com", "type": "work" }],
+            "phones": [{ "id": 1, "value": "+1-555-123-4567", "type": "work" }],
+            "organization": "Acme Corp",
+            "createdAt": "2024-06-01T08:00:00Z"
+          }
+        ]
+      },
+      "page": { "size": 25, "totalElements": 1, "totalPages": 1, "number": 1 }
+    }
+  }
+}

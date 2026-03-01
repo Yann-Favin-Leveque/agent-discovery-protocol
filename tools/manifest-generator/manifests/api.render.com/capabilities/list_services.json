@@ -1,0 +1,87 @@
+{
+  "name": "list_services",
+  "description": "List all services in your Render account. Returns service names, IDs, types (web_service, static_site, private_service, background_worker, cron_job), current status, and service URLs. Supports filtering by type, name, region, and pagination via cursor.",
+  "endpoint": "/v1/services",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Filter by service type: 'web_service', 'static_site', 'private_service', 'background_worker', 'cron_job'."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Filter services by name (partial match)."
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "required": false,
+      "description": "Filter by region: 'oregon', 'ohio', 'virginia', 'frankfurt', 'singapore'."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of services to return. Default is 20."
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "required": false,
+      "description": "Cursor for pagination. Use the cursor from the previous response to get the next page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.render.com/v1/services?type=web_service&limit=10"
+  },
+  "response_example": [
+    {
+      "service": {
+        "id": "srv-a1b2c3d4e5f6g7h8i9",
+        "name": "my-api-server",
+        "type": "web_service",
+        "repo": "https://github.com/my-org/my-api-server",
+        "branch": "main",
+        "autoDeploy": "yes",
+        "serviceDetails": {
+          "buildCommand": "npm install && npm run build",
+          "startCommand": "npm start",
+          "url": "https://my-api-server.onrender.com",
+          "plan": "starter",
+          "region": "oregon",
+          "env": "node",
+          "numInstances": 1,
+          "healthCheckPath": "/health"
+        },
+        "createdAt": "2025-09-01T08:00:00Z",
+        "updatedAt": "2026-01-18T16:00:00Z"
+      },
+      "cursor": "abc123cursor456"
+    },
+    {
+      "service": {
+        "id": "srv-j1k2l3m4n5o6p7q8r9",
+        "name": "frontend-app",
+        "type": "static_site",
+        "repo": "https://github.com/my-org/frontend-app",
+        "branch": "main",
+        "autoDeploy": "yes",
+        "serviceDetails": {
+          "buildCommand": "npm run build",
+          "publishPath": "dist",
+          "url": "https://frontend-app.onrender.com",
+          "plan": "free",
+          "region": "oregon"
+        },
+        "createdAt": "2025-10-15T12:00:00Z",
+        "updatedAt": "2026-01-17T09:00:00Z"
+      },
+      "cursor": "def456cursor789"
+    }
+  ]
+}

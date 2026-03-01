@@ -1,0 +1,115 @@
+{
+  "name": "create_payment_link",
+  "description": "Generate a shareable payment link in Razorpay that you can send to customers via email, SMS, or messaging apps. The customer clicks the link, sees a hosted payment page, and pays using any supported method. No integration required on the customer side.",
+  "endpoint": "/v1/payment_links",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "The payment amount in smallest currency unit (paise for INR). Use 0 for customer-entered amounts.",
+      "required": true,
+      "example": 100000
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO 4217 currency code.",
+      "required": true,
+      "example": "INR"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "A description for the payment link, shown to the customer.",
+      "required": true,
+      "example": "Payment for Invoice #INV-2024-001"
+    },
+    {
+      "name": "customer",
+      "type": "object",
+      "description": "Customer details. Object with 'name', 'email', and/or 'contact' (phone number).",
+      "required": false,
+      "example": { "name": "Raj Kumar", "email": "raj@example.com", "contact": "+919876543210" }
+    },
+    {
+      "name": "notify",
+      "type": "object",
+      "description": "Notification channels. Object with 'sms' and/or 'email' booleans.",
+      "required": false,
+      "example": { "sms": true, "email": true }
+    },
+    {
+      "name": "callback_url",
+      "type": "string",
+      "description": "URL to redirect the customer after payment completion.",
+      "required": false,
+      "example": "https://yoursite.com/payment/success"
+    },
+    {
+      "name": "callback_method",
+      "type": "string",
+      "description": "HTTP method for the callback redirect. Default 'get'.",
+      "required": false,
+      "example": "get"
+    },
+    {
+      "name": "expire_by",
+      "type": "integer",
+      "description": "Unix timestamp after which the link expires.",
+      "required": false,
+      "example": 1711094400
+    },
+    {
+      "name": "notes",
+      "type": "object",
+      "description": "Key-value pairs for additional information.",
+      "required": false,
+      "example": { "invoice_id": "INV-2024-001" }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/payment_links",
+    "headers": {
+      "Authorization": "Basic cnpwX3Rlc3RfMTIzOnNlY3JldF80NTY=",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": 100000,
+      "currency": "INR",
+      "description": "Payment for Invoice #INV-2024-001",
+      "customer": {
+        "name": "Raj Kumar",
+        "email": "raj@example.com",
+        "contact": "+919876543210"
+      },
+      "notify": { "sms": true, "email": true },
+      "callback_url": "https://yoursite.com/payment/success",
+      "notes": { "invoice_id": "INV-2024-001" }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "plink_ExjpAUN3gVHrPJ",
+      "entity": "payment_link",
+      "amount": 100000,
+      "currency": "INR",
+      "accept_partial": false,
+      "description": "Payment for Invoice #INV-2024-001",
+      "customer": {
+        "name": "Raj Kumar",
+        "email": "raj@example.com",
+        "contact": "+919876543210"
+      },
+      "notify": { "sms": true, "email": true },
+      "callback_url": "https://yoursite.com/payment/success",
+      "short_url": "https://rzp.io/i/abc123",
+      "status": "created",
+      "expire_by": 1711094400,
+      "notes": { "invoice_id": "INV-2024-001" },
+      "created_at": 1710489000
+    }
+  }
+}

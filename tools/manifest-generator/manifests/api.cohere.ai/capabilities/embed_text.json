@@ -1,0 +1,89 @@
+{
+  "name": "embed_text",
+  "description": "Generate vector embeddings for text or image inputs using Cohere's embedding models. Embeddings are useful for semantic search, document clustering, classification, and building retrieval-augmented generation (RAG) systems.",
+  "endpoint": "/v2/embed",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The embedding model ID to use.",
+      "required": true,
+      "example": "embed-v4.0"
+    },
+    {
+      "name": "input_type",
+      "type": "string",
+      "description": "The type of input: 'search_document', 'search_query', 'classification', 'clustering', or 'image'.",
+      "required": true,
+      "example": "search_document"
+    },
+    {
+      "name": "texts",
+      "type": "array",
+      "description": "Array of text strings to embed (max 96 items).",
+      "required": false,
+      "example": ["Hello world", "Quantum computing explained"]
+    },
+    {
+      "name": "images",
+      "type": "array",
+      "description": "Array of image data URIs to embed (max 1 image, 5MB max).",
+      "required": false,
+      "example": []
+    },
+    {
+      "name": "embedding_types",
+      "type": "array",
+      "description": "Output formats: 'float', 'int8', 'uint8', 'binary', 'ubinary', or 'base64'.",
+      "required": false,
+      "example": ["float"]
+    },
+    {
+      "name": "output_dimension",
+      "type": "integer",
+      "description": "Vector dimensions for the output (256, 512, 1024, or 1536).",
+      "required": false,
+      "example": 1024
+    },
+    {
+      "name": "truncate",
+      "type": "string",
+      "description": "How to handle inputs exceeding max length: 'NONE', 'START', or 'END'.",
+      "required": false,
+      "example": "END"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cohere.com/v2/embed",
+    "headers": {
+      "Authorization": "Bearer your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "embed-v4.0",
+      "input_type": "search_document",
+      "texts": ["Quantum computing uses qubits.", "Machine learning is a subset of AI."],
+      "embedding_types": ["float"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "emb-1234567890",
+      "embeddings": {
+        "float": [
+          [0.123, -0.456, 0.789, "..."],
+          [0.321, -0.654, 0.987, "..."]
+        ]
+      },
+      "texts": ["Quantum computing uses qubits.", "Machine learning is a subset of AI."],
+      "meta": {
+        "billed_units": {
+          "input_tokens": 15
+        }
+      }
+    }
+  }
+}

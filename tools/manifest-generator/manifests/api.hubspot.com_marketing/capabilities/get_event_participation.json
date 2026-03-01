@@ -1,0 +1,36 @@
+{
+  "name": "get_event_participation",
+  "description": "Retrieve participation breakdown for a marketing event. Shows how many contacts registered, attended, or cancelled.",
+  "endpoint": "/marketing/v3/marketing-events/participations/{externalAccountId}/{externalEventId}/breakdown",
+  "method": "GET",
+  "parameters": [
+    { "name": "externalAccountId", "type": "string", "description": "Your external account identifier for the event integration.", "required": true, "example": "acct_001" },
+    { "name": "externalEventId", "type": "string", "description": "Your external event identifier.", "required": true, "example": "ext_event_001" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hubspot.com/marketing/v3/marketing-events/participations/acct_001/ext_event_001/breakdown",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Accept": "application/json"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "contactId": "501",
+          "state": "ATTENDED",
+          "interactionDateTime": "2024-03-15T14:05:00Z"
+        },
+        {
+          "contactId": "502",
+          "state": "REGISTERED",
+          "interactionDateTime": "2024-03-10T09:00:00Z"
+        }
+      ]
+    }
+  }
+}

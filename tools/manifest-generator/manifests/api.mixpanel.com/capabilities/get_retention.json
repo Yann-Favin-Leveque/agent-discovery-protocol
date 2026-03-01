@@ -1,0 +1,22 @@
+{
+  "name": "get_retention",
+  "description": "Get user retention data showing how many users return after their first visit over time.",
+  "endpoint": "/2.0/retention",
+  "method": "GET",
+  "parameters": [
+    {"name": "project_id", "type": "number", "description": "Project ID.", "required": true, "example": 123456},
+    {"name": "from_date", "type": "string", "description": "Start date.", "required": true, "example": "2024-01-01"},
+    {"name": "to_date", "type": "string", "description": "End date.", "required": true, "example": "2024-01-31"},
+    {"name": "born_event", "type": "string", "description": "Event that defines the cohort entry.", "required": false, "example": "Sign Up"},
+    {"name": "event", "type": "string", "description": "Return event to measure.", "required": false, "example": "$mp_web_page_view"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mixpanel.com/api/2.0/retention?project_id=123456&from_date=2024-01-01&to_date=2024-01-31&born_event=Sign+Up",
+    "headers": {"Authorization": "Basic {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"results": {"2024-01-01": {"counts": [100, 65, 42, 30], "first": 100}}}
+  }
+}

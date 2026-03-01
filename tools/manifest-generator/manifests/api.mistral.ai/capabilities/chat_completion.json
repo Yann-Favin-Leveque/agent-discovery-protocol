@@ -1,0 +1,111 @@
+{
+  "name": "chat_completion",
+  "description": "Generate conversational responses using Mistral's language models. Supports multi-turn conversations, tool calling for agentic workflows, structured JSON output, vision inputs, and real-time streaming.",
+  "endpoint": "/v1/chat/completions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The model ID to use for generation.",
+      "required": true,
+      "example": "mistral-large-latest"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "description": "Array of message objects with 'role' (system/user/assistant/tool) and 'content'.",
+      "required": true,
+      "example": [{"role": "user", "content": "What is the capital of France?"}]
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "description": "Maximum number of tokens to generate in the response.",
+      "required": false,
+      "example": 1024
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "description": "Sampling temperature between 0.0 and 1.0. Lower values are more deterministic.",
+      "required": false,
+      "example": 0.7
+    },
+    {
+      "name": "top_p",
+      "type": "number",
+      "description": "Nucleus sampling parameter.",
+      "required": false,
+      "example": 0.9
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "description": "Whether to stream the response as server-sent events.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "tools",
+      "type": "array",
+      "description": "Array of tool/function definitions the model may call.",
+      "required": false,
+      "example": []
+    },
+    {
+      "name": "tool_choice",
+      "type": "string",
+      "description": "Control tool usage: 'auto', 'none', 'any', or 'required'.",
+      "required": false,
+      "example": "auto"
+    },
+    {
+      "name": "response_format",
+      "type": "object",
+      "description": "Force output format. Set type to 'json_object' for JSON output.",
+      "required": false,
+      "example": {"type": "json_object"}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/chat/completions",
+    "headers": {
+      "Authorization": "Bearer your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "mistral-large-latest",
+      "messages": [
+        {"role": "user", "content": "What is the capital of France?"}
+      ],
+      "max_tokens": 256,
+      "temperature": 0.7
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cmpl-abc123",
+      "object": "chat.completion",
+      "created": 1709000000,
+      "model": "mistral-large-latest",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "The capital of France is Paris."
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 14,
+        "completion_tokens": 8,
+        "total_tokens": 22
+      }
+    }
+  }
+}

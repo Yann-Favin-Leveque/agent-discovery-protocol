@@ -1,0 +1,86 @@
+{
+  "name": "manage_ads",
+  "description": "Create, update, pause, or remove ads within a Google Ads ad group. Supports responsive search ads (multiple headlines and descriptions that Google mixes and matches), display ads, and video ads. Each ad belongs to an ad group.",
+  "endpoint": "/v17/customers/{customer_id}/adGroupAds:mutate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customer_id",
+      "type": "string",
+      "description": "The Google Ads customer ID (without dashes).",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "operations",
+      "type": "array",
+      "description": "Array of create, update, or remove operations for ads.",
+      "required": true,
+      "example": [
+        {
+          "create": {
+            "adGroup": "customers/1234567890/adGroups/444555666",
+            "status": "ENABLED",
+            "ad": {
+              "responsiveSearchAd": {
+                "headlines": [
+                  { "text": "Best Running Shoes" },
+                  { "text": "Free Shipping Today" },
+                  { "text": "Shop Now" }
+                ],
+                "descriptions": [
+                  { "text": "Top brands at unbeatable prices. Order now." },
+                  { "text": "Free returns within 30 days." }
+                ]
+              },
+              "finalUrls": ["https://example.com/running-shoes"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://googleads.googleapis.com/v17/customers/1234567890/adGroupAds:mutate",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "developer-token": "{developer_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "operations": [
+        {
+          "create": {
+            "adGroup": "customers/1234567890/adGroups/444555666",
+            "status": "ENABLED",
+            "ad": {
+              "responsiveSearchAd": {
+                "headlines": [
+                  { "text": "Best Running Shoes" },
+                  { "text": "Free Shipping Today" },
+                  { "text": "Shop Now" }
+                ],
+                "descriptions": [
+                  { "text": "Top brands at unbeatable prices. Order now." },
+                  { "text": "Free returns within 30 days." }
+                ]
+              },
+              "finalUrls": ["https://example.com/running-shoes"]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "resourceName": "customers/1234567890/adGroupAds/444555666~777888999"
+        }
+      ]
+    }
+  }
+}

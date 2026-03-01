@@ -1,0 +1,98 @@
+{
+  "name": "create_transcription",
+  "description": "Transcribe audio to text using the Whisper Large V3 model running on Groq's fast inference hardware. Accepts audio files in formats including mp3, mp4, mpeg, mpga, m4a, wav, and webm. Returns the transcribed text with optional word-level or segment-level timestamps. Maximum file size is 25 MB.",
+  "endpoint": "/openai/v1/audio/transcriptions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "file",
+      "type": "file",
+      "required": true,
+      "description": "The audio file to transcribe. Supported formats: mp3, mp4, mpeg, mpga, m4a, wav, webm. Max 25 MB."
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "The model to use for transcription. Currently supported: 'whisper-large-v3', 'whisper-large-v3-turbo', 'distil-whisper-large-v3-en'."
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "required": false,
+      "description": "ISO 639-1 language code of the audio (e.g., 'en', 'fr', 'es'). Providing this improves accuracy and speed."
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": false,
+      "description": "Optional text to guide the model's style or continue a previous segment. Should match the audio language."
+    },
+    {
+      "name": "response_format",
+      "type": "string",
+      "required": false,
+      "description": "Output format: 'json', 'text', 'verbose_json', 'srt', or 'vtt'. Default: 'json'."
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "Sampling temperature between 0 and 1. Lower values are more deterministic. Default: 0."
+    },
+    {
+      "name": "timestamp_granularities",
+      "type": "array",
+      "required": false,
+      "description": "Array of timestamp granularities: 'word' and/or 'segment'. Requires response_format='verbose_json'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.groq.com/openai/v1/audio/transcriptions",
+    "headers": {
+      "Content-Type": "multipart/form-data",
+      "Authorization": "Bearer gsk_abc123def456..."
+    },
+    "body": {
+      "file": "(binary audio file: meeting_recording.mp3)",
+      "model": "whisper-large-v3",
+      "language": "en",
+      "response_format": "verbose_json",
+      "timestamp_granularities": ["segment"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "task": "transcribe",
+      "language": "english",
+      "duration": 64.52,
+      "text": "Good morning everyone. Let's start today's standup. Sarah, can you go first? Sure. Yesterday I finished the authentication module and opened a pull request. Today I'll be working on the password reset flow. No blockers for me.",
+      "segments": [
+        {
+          "id": 0,
+          "start": 0.0,
+          "end": 3.84,
+          "text": "Good morning everyone. Let's start today's standup.",
+          "tokens": [50364, 2028, 6238, 1518],
+          "temperature": 0.0,
+          "avg_logprob": -0.18,
+          "compression_ratio": 1.32,
+          "no_speech_prob": 0.012
+        },
+        {
+          "id": 1,
+          "start": 4.12,
+          "end": 6.91,
+          "text": "Sarah, can you go first?",
+          "tokens": [50564, 22627, 11, 393],
+          "temperature": 0.0,
+          "avg_logprob": -0.15,
+          "compression_ratio": 1.18,
+          "no_speech_prob": 0.008
+        }
+      ]
+    }
+  }
+}

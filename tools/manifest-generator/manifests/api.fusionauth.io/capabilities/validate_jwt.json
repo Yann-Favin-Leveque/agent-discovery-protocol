@@ -1,0 +1,31 @@
+{
+  "name": "validate_jwt",
+  "description": "Validate a JWT access token and return its decoded claims. Useful when you need server-side token validation without maintaining local public keys.",
+  "endpoint": "/api/jwt/validate",
+  "method": "GET",
+  "parameters": [
+    { "name": "Authorization", "type": "string", "description": "The JWT to validate, passed in the Authorization header as 'Bearer {token}' or 'JWT {token}'.", "required": true, "example": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..." }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fusionauth.io/api/jwt/validate",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "jwt": {
+        "aud": "10000000-0000-0002-0000-000000000001",
+        "exp": 1704153600,
+        "iat": 1704067200,
+        "iss": "fusionauth.io",
+        "sub": "00000000-0000-0001-0000-000000000000",
+        "email": "jane@example.com",
+        "roles": ["admin"],
+        "authenticationType": "PASSWORD"
+      }
+    }
+  }
+}

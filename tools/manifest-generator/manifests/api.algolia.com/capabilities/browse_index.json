@@ -1,0 +1,76 @@
+{
+  "name": "browse_index",
+  "description": "Iterate over all records in an Algolia index without search ranking. Returns records in batches using a cursor for pagination. Useful for exporting entire indexes, data synchronization, or processing all objects when relevance ordering is not needed.",
+  "endpoint": "/1/indexes/{indexName}/browse",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "The name of the index to browse.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Cursor from previous response to fetch the next batch. Omit for the first request.",
+      "required": false,
+      "example": "DFYalMwNBg..."
+    },
+    {
+      "name": "filters",
+      "type": "string",
+      "description": "Optional filter expression to browse only a subset of records.",
+      "required": false,
+      "example": "category:Electronics"
+    },
+    {
+      "name": "attributesToRetrieve",
+      "type": "array",
+      "description": "List of attributes to return for each record.",
+      "required": false,
+      "example": ["name", "price", "objectID"]
+    },
+    {
+      "name": "hitsPerPage",
+      "type": "integer",
+      "description": "Number of records per batch (default 1000).",
+      "required": false,
+      "example": 1000
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/browse",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "hitsPerPage": 100,
+      "attributesToRetrieve": ["name", "price", "objectID"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "hits": [
+        {
+          "objectID": "1",
+          "name": "Widget A",
+          "price": 9.99
+        },
+        {
+          "objectID": "2",
+          "name": "Widget B",
+          "price": 14.99
+        }
+      ],
+      "cursor": "DFYalMwNBgZhY3Rpb24...",
+      "nbHits": 50000,
+      "hitsPerPage": 100
+    }
+  }
+}

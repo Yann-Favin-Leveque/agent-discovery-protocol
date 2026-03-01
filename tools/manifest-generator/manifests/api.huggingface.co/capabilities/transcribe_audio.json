@@ -1,0 +1,37 @@
+{
+  "name": "transcribe_audio",
+  "description": "Convert speech audio files to text using automatic speech recognition models like Whisper. Supports multiple audio formats and languages for transcription and translation tasks.",
+  "endpoint": "/models/{model_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model_id",
+      "type": "string",
+      "description": "The ASR model ID in 'org/model' format.",
+      "required": true,
+      "example": "openai/whisper-large-v3"
+    },
+    {
+      "name": "file",
+      "type": "file",
+      "description": "The audio file to transcribe (binary upload). Supports WAV, MP3, FLAC, OGG formats.",
+      "required": true,
+      "example": "audio.wav"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-inference.huggingface.co/models/openai/whisper-large-v3",
+    "headers": {
+      "Authorization": "Bearer your-hf-token",
+      "Content-Type": "audio/wav"
+    },
+    "body": "(binary audio data)"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "text": "Hello, this is a test of the speech recognition system."
+    }
+  }
+}

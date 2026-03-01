@@ -1,0 +1,19 @@
+{
+  "name": "list_projects",
+  "description": "List all projects in the authenticated user's Railway account, including their services and environments.",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {"name": "query", "type": "string", "description": "GraphQL query string.", "required": true, "example": "query { projects { edges { node { id name description createdAt environments { edges { node { id name } } } } } } }"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"query": "query { projects { edges { node { id name description createdAt } } } }"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"projects": {"edges": [{"node": {"id": "proj_abc123", "name": "my-app", "description": "My web application", "createdAt": "2024-01-15T10:00:00Z"}}]}}}
+  }
+}

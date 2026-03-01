@@ -1,0 +1,60 @@
+{
+  "name": "list_tasks",
+  "description": "Retrieve a list of all tasks in the workspace, optionally filtered by project. Each task includes its name, status, assignee, and other metadata.",
+  "endpoint": "/1.0/tasks",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "project",
+      "type": "string",
+      "description": "Project GID to filter tasks by a specific project.",
+      "required": false,
+      "example": "1234567890"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of tasks to return (default: 50, max: 100).",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "offset",
+      "type": "string",
+      "description": "Offset for pagination to retrieve the next set of results.",
+      "required": false,
+      "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.asana.com/api/1.0/tasks?project=1234567890&limit=50",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "gid": "1234567890",
+          "name": "Build new feature",
+          "completed": false,
+          "assignee": {
+            "gid": "9876543210",
+            "name": "Alice Smith"
+          },
+          "due_on": "2026-03-15",
+          "projects": [
+            {
+              "gid": "1111111111",
+              "name": "Website Redesign"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

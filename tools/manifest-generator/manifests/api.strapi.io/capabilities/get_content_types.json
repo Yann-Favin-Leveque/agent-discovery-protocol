@@ -1,0 +1,112 @@
+{
+  "name": "get_content_types",
+  "description": "List all available content types defined in the Strapi instance. Returns the schema for each content type including field names, field types, validation rules, relations, and component definitions. This is essential for understanding what content types exist and what fields they expect before creating or updating entries. Requires an API token with appropriate permissions. Note: this endpoint uses the content-type-builder API which may require admin-level access.",
+  "endpoint": "/api/content-type-builder/content-types",
+  "method": "GET",
+  "parameters": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.strapi.io/api/content-type-builder/content-types",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "uid": "api::article.article",
+          "plugin": null,
+          "apiID": "article",
+          "schema": {
+            "displayName": "Article",
+            "singularName": "article",
+            "pluralName": "articles",
+            "description": "Blog articles and news posts",
+            "kind": "collectionType",
+            "collectionName": "articles",
+            "attributes": {
+              "title": {
+                "type": "string",
+                "required": true,
+                "maxLength": 200
+              },
+              "slug": {
+                "type": "uid",
+                "targetField": "title",
+                "required": true
+              },
+              "content": {
+                "type": "richtext",
+                "required": true
+              },
+              "category": {
+                "type": "enumeration",
+                "enum": ["technology", "business", "tutorial", "news"],
+                "required": true
+              },
+              "cover_image": {
+                "type": "media",
+                "multiple": false,
+                "allowedTypes": ["images"]
+              },
+              "author": {
+                "type": "relation",
+                "relation": "manyToOne",
+                "target": "api::author.author"
+              },
+              "tags": {
+                "type": "relation",
+                "relation": "manyToMany",
+                "target": "api::tag.tag"
+              },
+              "publishedAt": {
+                "type": "datetime"
+              }
+            }
+          }
+        },
+        {
+          "uid": "api::author.author",
+          "plugin": null,
+          "apiID": "author",
+          "schema": {
+            "displayName": "Author",
+            "singularName": "author",
+            "pluralName": "authors",
+            "description": "Content authors",
+            "kind": "collectionType",
+            "collectionName": "authors",
+            "attributes": {
+              "name": {
+                "type": "string",
+                "required": true
+              },
+              "email": {
+                "type": "email",
+                "required": true,
+                "unique": true
+              },
+              "bio": {
+                "type": "text"
+              },
+              "avatar": {
+                "type": "media",
+                "multiple": false,
+                "allowedTypes": ["images"]
+              },
+              "articles": {
+                "type": "relation",
+                "relation": "oneToMany",
+                "target": "api::article.article",
+                "mappedBy": "author"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

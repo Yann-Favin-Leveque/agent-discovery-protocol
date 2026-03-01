@@ -1,0 +1,84 @@
+{
+  "name": "geocode_address",
+  "description": "Convert a human-readable address into geographic coordinates (latitude and longitude) and structured address components. Supports full addresses, partial addresses, and place names.",
+  "endpoint": "/maps/api/geocode/json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "address",
+      "type": "string",
+      "description": "The street address or place name to geocode.",
+      "required": true,
+      "example": "1600 Amphitheatre Parkway, Mountain View, CA"
+    },
+    {
+      "name": "components",
+      "type": "string",
+      "description": "Component filter for narrowing results, pipe-separated (e.g., 'country:US|postal_code:94043').",
+      "required": false,
+      "example": "country:US"
+    },
+    {
+      "name": "bounds",
+      "type": "string",
+      "description": "Bounding box to bias results, format: 'south,west|north,east'.",
+      "required": false,
+      "example": "34.0,-118.5|34.1,-118.4"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language code for returned results (e.g., 'en', 'fr', 'ja').",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "Region bias as a ccTLD two-character code (e.g., 'us', 'uk').",
+      "required": false,
+      "example": "us"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key={api_key}",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "OK",
+      "results": [
+        {
+          "formatted_address": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
+          "geometry": {
+            "location": {
+              "lat": 37.4224764,
+              "lng": -122.0842499
+            },
+            "location_type": "ROOFTOP"
+          },
+          "address_components": [
+            {
+              "long_name": "1600",
+              "short_name": "1600",
+              "types": ["street_number"]
+            },
+            {
+              "long_name": "Amphitheatre Parkway",
+              "short_name": "Amphitheatre Pkwy",
+              "types": ["route"]
+            },
+            {
+              "long_name": "Mountain View",
+              "short_name": "Mountain View",
+              "types": ["locality", "political"]
+            }
+          ],
+          "place_id": "ChIJ2eUgeAK6j4ARbn5u_wAGqWA"
+        }
+      ]
+    }
+  }
+}

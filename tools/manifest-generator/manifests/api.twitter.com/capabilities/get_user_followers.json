@@ -1,0 +1,78 @@
+{
+  "name": "get_user_followers",
+  "description": "List the followers of a specific Twitter user, identified by their numeric user ID. Returns paginated user objects with profile information. Useful for analyzing audience composition or finding influential followers.",
+  "endpoint": "/2/users/{id}/followers",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "The numeric user ID whose followers you want to list. This is a path parameter."
+    },
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of followers to return per request. Value between 1 and 1000. Default is 100."
+    },
+    {
+      "name": "user.fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated list of user fields to return. Options include: created_at, description, location, profile_image_url, public_metrics, url, verified, verified_type."
+    },
+    {
+      "name": "pagination_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token from a previous response to retrieve the next page of results."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twitter.com/2/users/9876543210/followers?max_results=5&user.fields=description,public_metrics,profile_image_url,verified",
+    "headers": {
+      "Authorization": "Bearer <access_token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "111222333",
+          "name": "Alice Engineer",
+          "username": "alice_eng",
+          "description": "Software engineer at BigCorp. Open source enthusiast.",
+          "profile_image_url": "https://pbs.twimg.com/profile_images/alice/photo.jpg",
+          "public_metrics": {
+            "followers_count": 2500,
+            "following_count": 450,
+            "tweet_count": 3200,
+            "listed_count": 15
+          },
+          "verified": false
+        },
+        {
+          "id": "444555666",
+          "name": "Bob Startup",
+          "username": "bobstartup",
+          "description": "Building the future of fintech. YC W24.",
+          "profile_image_url": "https://pbs.twimg.com/profile_images/bob/photo.jpg",
+          "public_metrics": {
+            "followers_count": 12000,
+            "following_count": 890,
+            "tweet_count": 7800,
+            "listed_count": 95
+          },
+          "verified": true
+        }
+      ],
+      "meta": {
+        "result_count": 2,
+        "next_token": "ql4fba2xhp8sld93jd"
+      }
+    }
+  }
+}

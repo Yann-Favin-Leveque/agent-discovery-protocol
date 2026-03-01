@@ -1,0 +1,55 @@
+{
+  "name": "get_elevation",
+  "description": "Get elevation data (altitude above sea level) for one or more geographic coordinates. Uses SRTM (Shuttle Radar Topography Mission) digital elevation model data. Useful for hiking/cycling route planning, terrain analysis, or enriching GPS tracks with elevation profiles.",
+  "endpoint": "/elevation/point",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "format_in",
+      "type": "string",
+      "required": true,
+      "description": "Input format of the geometry. Options: 'point' for a single coordinate, 'polyline' for a line of coordinates, 'geojson' for GeoJSON input."
+    },
+    {
+      "name": "format_out",
+      "type": "string",
+      "required": false,
+      "description": "Output format. Options: 'point', 'polyline', 'geojson'. Default matches format_in."
+    },
+    {
+      "name": "geometry",
+      "type": "array",
+      "required": true,
+      "description": "The coordinates to query. For 'point' format: [longitude, latitude]. For 'polyline' format: array of [longitude, latitude] pairs."
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "required": false,
+      "description": "The elevation dataset to use. Default is 'srtm' (global, ~30m resolution)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/elevation/point",
+    "headers": {
+      "Authorization": "5b3ce3597851110001cf6248xxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "format_in": "point",
+      "format_out": "point",
+      "geometry": [8.681495, 49.41461]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "Point",
+      "coordinates": [8.681495, 49.41461, 114.0],
+      "properties": {
+        "dataset": "srtm"
+      }
+    }
+  }
+}

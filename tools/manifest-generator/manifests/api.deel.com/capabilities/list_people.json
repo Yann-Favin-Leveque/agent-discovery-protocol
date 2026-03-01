@@ -1,0 +1,39 @@
+{
+  "name": "list_people",
+  "description": "Retrieve all workers (employees and contractors) in your Deel organization. Returns profile details, contract status, country, and team assignment. Useful for workforce reporting and headcount analysis.",
+  "endpoint": "/rest/v2/people",
+  "method": "GET",
+  "parameters": [
+    { "name": "worker_type", "type": "string", "description": "Filter by worker type: 'contractor' or 'employee'.", "required": false, "example": "contractor" },
+    { "name": "country", "type": "string", "description": "Filter by country (ISO 3166-1 alpha-2).", "required": false, "example": "DE" },
+    { "name": "status", "type": "string", "description": "Filter by worker status: 'active', 'onboarding', or 'offboarded'.", "required": false, "example": "active" },
+    { "name": "limit", "type": "integer", "description": "Number of results per page.", "required": false, "example": 50 },
+    { "name": "offset", "type": "integer", "description": "Number of results to skip.", "required": false, "example": 0 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.deel.com/rest/v2/people?worker_type=contractor&status=active&limit=50",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "worker-001",
+          "full_name": "Maria Garcia",
+          "email": "maria@example.com",
+          "worker_type": "contractor",
+          "country": "ES",
+          "status": "active",
+          "team": "Engineering",
+          "hire_date": "2025-01-01"
+        }
+      ],
+      "page": { "total": 1, "offset": 0, "limit": 50 }
+    }
+  }
+}

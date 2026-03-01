@@ -1,0 +1,59 @@
+{
+  "name": "upload_file",
+  "description": "Upload a file to OneDrive at a specified path. For files up to 4 MB, use simple upload by putting the file content directly in the request body. For larger files, create an upload session instead.",
+  "endpoint": "/v1.0/me/drive/root:/{filePath}:/content",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "filePath",
+      "type": "string",
+      "description": "The full path where the file should be stored in OneDrive, relative to the root (e.g., 'Documents/report.pdf'). This is part of the URL path.",
+      "required": true,
+      "example": "Documents/report.pdf"
+    },
+    {
+      "name": "Content-Type",
+      "type": "string",
+      "description": "The MIME type of the file being uploaded.",
+      "required": true,
+      "example": "application/pdf"
+    },
+    {
+      "name": "@microsoft.graph.conflictBehavior",
+      "type": "string",
+      "description": "Conflict resolution strategy: 'rename', 'replace', or 'fail'. Set as a query parameter.",
+      "required": false,
+      "example": "rename"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/root:/Documents/report.pdf:/content",
+    "headers": {
+      "Authorization": "Bearer your-access-token",
+      "Content-Type": "application/pdf"
+    },
+    "body": "<file content bytes>"
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "01BYE5RZ6QN3ZWBTUFOFD3GSPGOHDJD36K",
+      "name": "report.pdf",
+      "size": 2048576,
+      "file": {
+        "mimeType": "application/pdf",
+        "hashes": {
+          "sha1Hash": "cf23df2207d99a74fbe169e3eba035e633b65d94"
+        }
+      },
+      "parentReference": {
+        "driveId": "b!-RIj2DuyvEyV1T4NlOaMHk8XkS_I8MdFlUCq1BlcjgmhRfAj3-Z8RY2VpuvV_tpd",
+        "path": "/drive/root:/Documents"
+      },
+      "createdDateTime": "2026-01-12T10:30:00Z",
+      "lastModifiedDateTime": "2026-01-12T10:30:00Z",
+      "@microsoft.graph.downloadUrl": "https://..."
+    }
+  }
+}

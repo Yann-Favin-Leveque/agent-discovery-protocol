@@ -1,0 +1,96 @@
+{
+  "name": "reply_to_conversation",
+  "description": "Send a reply to an existing conversation in Intercom. Reply as an admin (support agent) to respond to customer inquiries, or as a user to simulate customer messages. Supports plain text and rich HTML content including links, bold, italic, and lists. Replying as an admin can optionally reopen a closed conversation. Each reply creates a new conversation part in the thread.",
+  "endpoint": "/conversations/{id}/reply",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "The unique conversation ID. This is a path parameter in the URL."
+    },
+    {
+      "name": "message_type",
+      "type": "string",
+      "required": true,
+      "description": "The type of message: 'comment' for a visible reply in the conversation thread, or 'note' for an internal note visible only to admins."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Who is sending the reply: 'admin' for a support agent or 'user' for a contact/customer."
+    },
+    {
+      "name": "admin_id",
+      "type": "string",
+      "required": false,
+      "description": "The ID of the admin sending the reply. Required when type is 'admin'."
+    },
+    {
+      "name": "intercom_user_id",
+      "type": "string",
+      "required": false,
+      "description": "The Intercom contact ID of the user sending the reply. Required when type is 'user'."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "description": "The message body. Supports HTML for rich formatting: <p>, <b>, <i>, <a href>, <ul>/<li>, <br>."
+    },
+    {
+      "name": "attachment_urls",
+      "type": "array",
+      "required": false,
+      "description": "Array of publicly accessible URLs for file attachments to include with the reply."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/conversations/403921578/reply",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "message_type": "comment",
+      "type": "admin",
+      "admin_id": "5017690",
+      "body": "<p>Hi Jane,</p><p>Thanks for reaching out! I've looked into the billing page issue and our engineering team has deployed a fix. Could you try accessing the <a href=\"https://app.example.com/billing\">billing settings</a> again?</p><p>If the issue persists, please try clearing your browser cache or using an incognito window.</p><p>Best,<br>Sarah</p>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "conversation",
+      "id": "403921578",
+      "created_at": 1740873600,
+      "updated_at": 1740963600,
+      "state": "open",
+      "open": true,
+      "conversation_parts": {
+        "type": "conversation_part.list",
+        "conversation_parts": [
+          {
+            "type": "conversation_part",
+            "id": "98765432",
+            "part_type": "comment",
+            "body": "<p>Hi Jane,</p><p>Thanks for reaching out! I've looked into the billing page issue and our engineering team has deployed a fix. Could you try accessing the <a href=\"https://app.example.com/billing\">billing settings</a> again?</p><p>If the issue persists, please try clearing your browser cache or using an incognito window.</p><p>Best,<br>Sarah</p>",
+            "created_at": 1740963600,
+            "updated_at": 1740963600,
+            "author": {
+              "type": "admin",
+              "id": "5017690",
+              "name": "Sarah Chen",
+              "email": "sarah@company.com"
+            }
+          }
+        ],
+        "total_count": 5
+      }
+    }
+  }
+}

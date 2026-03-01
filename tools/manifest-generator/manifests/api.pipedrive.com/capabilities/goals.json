@@ -1,0 +1,110 @@
+{
+  "name": "goals",
+  "description": "Manage goals — add a new goal, update existing goal, find goals. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/goals",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The title of the goal",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "assignee",
+      "type": "object",
+      "description": "Who this goal is assigned to. It requires the following JSON structure: `{ \"id\": \"1\", \"type\": \"person\" }`. `type` can be either `person`, `company` or `team`. ID of the assignee person, company or team.",
+      "required": true,
+      "example": {}
+    },
+    {
+      "name": "type",
+      "type": "object",
+      "description": "The type of the goal. It requires the following JSON structure: `{ \"name\": \"deals_started\", \"params\": { \"pipeline_id\": [1, 2], \"activity_type_id\": [9] } }`. Type can be one of: `deals_won`, `deals_progressed`, `activities_completed`, `activities_added`, `deals_started` or `revenue_forecast`. `params` can include `pipeline_id`, `stage_id` or `activity_type_id`. `stage_id` is related to only `deals_progressed` type of goals and `activity_type_id` to `activities_completed` or `activities_added` types of goals. The `pipeline_id` and `activity_type_id` need to be given as an array of integers. To track the goal in all pipelines, set `pipeline_id` as `null` and similarly, to track the goal for all activities, set `activity_type_id` as `null`.”",
+      "required": true,
+      "example": {}
+    },
+    {
+      "name": "expected_outcome",
+      "type": "object",
+      "description": "The expected outcome of the goal. Expected outcome can be tracked either by `quantity` or by `sum`. It requires the following JSON structure: `{ \"target\": \"50\", \"tracking_metric\": \"quantity\" }` or `{ \"target\": \"50\", \"tracking_metric\": \"sum\", \"currency_id\": 1 }`. `currency_id` should only be added to `sum` type of goals.",
+      "required": true,
+      "example": {}
+    },
+    {
+      "name": "duration",
+      "type": "object",
+      "description": "The date when the goal starts and ends. It requires the following JSON structure: `{ \"start\": \"2019-01-01\", \"end\": \"2022-12-31\" }`. Date in format of YYYY-MM-DD. \"end\" can be set to `null` for an infinite, open-ended goal.",
+      "required": true,
+      "example": {}
+    },
+    {
+      "name": "interval",
+      "type": "string",
+      "description": "The interval of the goal",
+      "required": true,
+      "example": "weekly"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pipedrive.com/v1/goals",
+    "headers": {
+      "Content-Type": "application/json",
+      "x-api-token": "{api_key}"
+    },
+    "body": {
+      "assignee": {},
+      "type": {},
+      "expected_outcome": {},
+      "duration": {},
+      "interval": "weekly"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "statusCode": 20000,
+      "statusText": "OK",
+      "service": "statistics-goals-api",
+      "data": {
+        "goal": {
+          "id": "5665cef556ddff22606fc8f6c0004807",
+          "owner_id": 987654,
+          "title": "Some example goal",
+          "type": {
+            "name": "Deals started",
+            "params": {
+              "pipeline_id": [
+                5,
+                2
+              ],
+              "activity_type_id": [
+                9
+              ]
+            }
+          },
+          "assignee": {
+            "type": "company",
+            "id": 123456
+          },
+          "interval": "weekly",
+          "duration": {
+            "start": "2019-11-01",
+            "end": "2020-10-30"
+          },
+          "expected_outcome": {
+            "target": 100,
+            "tracking_metric": "quantity"
+          },
+          "is_active": false,
+          "report_ids": [
+            "f37bd66a2ab64d28ff6a9b6d2289813a"
+          ]
+        }
+      }
+    }
+  }
+}

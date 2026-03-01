@@ -1,0 +1,39 @@
+{
+  "name": "list_opportunities",
+  "description": "Retrieve all candidate opportunities in your Lever account. Opportunities represent a candidate's journey through the hiring pipeline. Supports filtering by stage, posting, creation date, and archived status.",
+  "endpoint": "/v1/opportunities",
+  "method": "GET",
+  "parameters": [
+    { "name": "posting_id", "type": "string", "description": "Filter opportunities by a specific job posting ID.", "required": false, "example": "abc123-def456" },
+    { "name": "stage_id", "type": "string", "description": "Filter by pipeline stage ID.", "required": false, "example": "lead-new" },
+    { "name": "archived", "type": "boolean", "description": "If true, include only archived opportunities.", "required": false, "example": false },
+    { "name": "limit", "type": "integer", "description": "Maximum number of results to return (max 100).", "required": false, "example": 50 },
+    { "name": "offset", "type": "string", "description": "Pagination cursor returned from a previous request.", "required": false, "example": "" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.lever.co/v1/opportunities?archived=false&limit=50",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "opp-12345",
+          "name": "Jane Smith",
+          "headline": "Senior Engineer at Acme",
+          "stage": { "id": "stage-001", "text": "Phone Screen" },
+          "origin": "applied",
+          "emails": ["jane.smith@example.com"],
+          "createdAt": 1706745600000
+        }
+      ],
+      "hasNext": true,
+      "next": "opp-12346"
+    }
+  }
+}

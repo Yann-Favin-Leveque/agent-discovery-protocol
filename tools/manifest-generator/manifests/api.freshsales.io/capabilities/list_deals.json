@@ -1,0 +1,21 @@
+{
+  "name": "list_deals",
+  "description": "List deals in Freshsales with optional filtering by pipeline, stage, and ownership.",
+  "endpoint": "/deals/view/{view_id}",
+  "method": "GET",
+  "parameters": [
+    {"name": "view_id", "type": "number", "description": "View ID to filter deals (use predefined or custom views).", "required": true, "example": 1},
+    {"name": "page", "type": "number", "description": "Page number.", "required": false, "example": 1},
+    {"name": "sort", "type": "string", "description": "Sort field.", "required": false, "example": "amount"},
+    {"name": "sort_type", "type": "string", "description": "Sort order: asc or desc.", "required": false, "example": "desc"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://domain.freshsales.io/api/deals/view/1?page=1&sort=amount&sort_type=desc",
+    "headers": {"Authorization": "Token token={api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"deals": [{"id": 789, "name": "Enterprise Deal", "amount": 50000, "expected_close": "2024-03-01", "deal_stage_id": 3, "contact_id": 123}], "meta": {"total": 25, "total_pages": 3}}
+  }
+}

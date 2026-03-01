@@ -1,0 +1,56 @@
+{
+  "name": "get_air_pollution",
+  "description": "Retrieve current air quality data for a location. Returns an Air Quality Index (AQI) on a 1-5 scale and individual pollutant concentrations including CO, NO, NO2, O3, SO2, PM2.5, PM10, and NH3 in micrograms per cubic meter. Also supports forecast (4 days ahead) and historical data.",
+  "endpoint": "/data/2.5/air_pollution",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "description": "Latitude of the location.",
+      "required": true,
+      "example": 48.8566
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "description": "Longitude of the location.",
+      "required": true,
+      "example": 2.3522
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "description": "Your API key for authentication.",
+      "required": true,
+      "example": "{api_key}"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/2.5/air_pollution?lat=48.8566&lon=2.3522&appid={api_key}",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "coord": { "lon": 2.3522, "lat": 48.8566 },
+      "list": [
+        {
+          "dt": 1700000000,
+          "main": { "aqi": 2 },
+          "components": {
+            "co": 230.31,
+            "no": 0.56,
+            "no2": 15.2,
+            "o3": 68.5,
+            "so2": 3.8,
+            "pm2_5": 8.4,
+            "pm10": 12.1,
+            "nh3": 1.2
+          }
+        }
+      ]
+    }
+  }
+}

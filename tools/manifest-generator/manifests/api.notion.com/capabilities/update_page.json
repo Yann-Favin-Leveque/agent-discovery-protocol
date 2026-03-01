@@ -1,0 +1,93 @@
+{
+  "name": "update_page",
+  "description": "Update the properties of an existing Notion page. You can change any property value such as title, status, dates, tags, or custom fields. You can also archive or unarchive a page. Note: this updates properties only; to update page content blocks, use the blocks API.",
+  "endpoint": "/v1/pages/{page_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "description": "The UUID of the page to update. This is a path parameter.",
+      "required": true,
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    {
+      "name": "properties",
+      "type": "object",
+      "description": "An object containing the property values to update. Keys are property names, values follow the Notion property value schema.",
+      "required": false,
+      "example": {
+        "Status": {
+          "select": {
+            "name": "Done"
+          }
+        }
+      }
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "description": "Set to true to archive the page, or false to unarchive it.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "icon",
+      "type": "object",
+      "description": "Update the page icon. Can be an emoji or external URL.",
+      "required": false,
+      "example": {
+        "type": "emoji",
+        "emoji": "check_mark"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.notion.com/v1/pages/a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "headers": {
+      "Authorization": "Bearer your-integration-token",
+      "Content-Type": "application/json",
+      "Notion-Version": "2022-06-28"
+    },
+    "body": {
+      "properties": {
+        "Status": {
+          "select": {
+            "name": "Done"
+          }
+        },
+        "Due Date": {
+          "date": {
+            "start": "2026-01-15"
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "page",
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "created_time": "2026-01-12T10:30:00.000Z",
+      "last_edited_time": "2026-01-12T11:00:00.000Z",
+      "archived": false,
+      "url": "https://www.notion.so/...",
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [{ "plain_text": "New Task" }]
+        },
+        "Status": {
+          "type": "select",
+          "select": { "name": "Done", "color": "green" }
+        },
+        "Due Date": {
+          "type": "date",
+          "date": { "start": "2026-01-15", "end": null }
+        }
+      }
+    }
+  }
+}

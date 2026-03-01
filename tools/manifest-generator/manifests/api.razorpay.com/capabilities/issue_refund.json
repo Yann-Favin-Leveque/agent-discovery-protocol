@@ -1,0 +1,73 @@
+{
+  "name": "issue_refund",
+  "description": "Issue a full or partial refund on a captured Razorpay payment. Refunds are processed asynchronously and typically take 5-7 business days depending on the payment method. You can issue multiple partial refunds as long as the total does not exceed the captured amount.",
+  "endpoint": "/v1/payments/{payment_id}/refund",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "payment_id",
+      "type": "string",
+      "description": "The ID of the captured payment to refund (path parameter, starts with 'pay_').",
+      "required": true,
+      "example": "pay_FgR7UBmAoW2cGN"
+    },
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "The refund amount in smallest currency unit. Omit for a full refund.",
+      "required": false,
+      "example": 25000
+    },
+    {
+      "name": "speed",
+      "type": "string",
+      "description": "Refund speed: 'normal' (5-7 days) or 'optimum' (instant for eligible refunds).",
+      "required": false,
+      "example": "normal"
+    },
+    {
+      "name": "notes",
+      "type": "object",
+      "description": "Key-value pairs with refund reason or metadata.",
+      "required": false,
+      "example": { "reason": "Customer returned product" }
+    },
+    {
+      "name": "receipt",
+      "type": "string",
+      "description": "Your internal refund receipt number. Max 40 characters.",
+      "required": false,
+      "example": "refund_receipt_001"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/payments/pay_FgR7UBmAoW2cGN/refund",
+    "headers": {
+      "Authorization": "Basic cnpwX3Rlc3RfMTIzOnNlY3JldF80NTY=",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": 25000,
+      "speed": "normal",
+      "notes": { "reason": "Customer returned product" },
+      "receipt": "refund_receipt_001"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "rfnd_FgR7UBmAoW2cGN",
+      "entity": "refund",
+      "amount": 25000,
+      "currency": "INR",
+      "payment_id": "pay_FgR7UBmAoW2cGN",
+      "receipt": "refund_receipt_001",
+      "notes": { "reason": "Customer returned product" },
+      "speed_requested": "normal",
+      "speed_processed": "normal",
+      "status": "processed",
+      "created_at": 1710492600
+    }
+  }
+}

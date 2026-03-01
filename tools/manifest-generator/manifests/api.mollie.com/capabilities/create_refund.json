@@ -1,0 +1,64 @@
+{
+  "name": "create_refund",
+  "description": "Issue a full or partial refund on a completed Mollie payment. You must specify the payment ID and the amount to refund. The refund is processed asynchronously; use the returned refund ID to track its status.",
+  "endpoint": "/v2/payments/{paymentId}/refunds",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "paymentId",
+      "type": "string",
+      "description": "The ID of the payment to refund (path parameter, starts with 'tr_').",
+      "required": true,
+      "example": "tr_5B8cwPMGnU"
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "The amount to refund. An object with 'currency' and 'value'. Must not exceed the remaining refundable amount.",
+      "required": true,
+      "example": { "currency": "EUR", "value": "10.00" }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "A description for the refund, visible internally.",
+      "required": false,
+      "example": "Refund for returned item"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Custom metadata to attach to the refund.",
+      "required": false,
+      "example": { "reason": "customer_request" }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU/refunds",
+    "headers": {
+      "Authorization": "Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": { "currency": "EUR", "value": "10.00" },
+      "description": "Refund for returned item"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "refund",
+      "id": "re_4qqhO89gsT",
+      "amount": { "currency": "EUR", "value": "10.00" },
+      "status": "pending",
+      "createdAt": "2024-03-16T08:15:00+00:00",
+      "description": "Refund for returned item",
+      "paymentId": "tr_5B8cwPMGnU",
+      "_links": {
+        "self": { "href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU/refunds/re_4qqhO89gsT" },
+        "payment": { "href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU" }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "get_resource_details",
+  "description": "Get detailed metadata for a specific asset by its public ID. Returns dimensions, format, file size, colors, EXIF data, derived transformations, and more.",
+  "endpoint": "/v1_1/{cloud_name}/resources/{resource_type}/upload/{public_id}",
+  "method": "GET",
+  "parameters": [
+    { "name": "public_id", "type": "string", "description": "The public ID of the asset (URL path parameter).", "required": true, "example": "products/hero-image" },
+    { "name": "resource_type", "type": "string", "description": "The resource type: image, video, or raw.", "required": true, "example": "image" },
+    { "name": "colors", "type": "boolean", "description": "If true, include predominant colors and color histogram.", "required": false, "example": true },
+    { "name": "image_metadata", "type": "boolean", "description": "If true, include EXIF and IPTC metadata.", "required": false, "example": true },
+    { "name": "faces", "type": "boolean", "description": "If true, include detected face coordinates.", "required": false, "example": false }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudinary.com/v1_1/my_cloud/resources/image/upload/products/hero-image?colors=true&image_metadata=true",
+    "headers": {
+      "Authorization": "Basic {base64(api_key:api_secret)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "public_id": "products/hero-image",
+      "format": "jpg",
+      "version": 1704067200,
+      "resource_type": "image",
+      "type": "upload",
+      "created_at": "2024-01-01T00:00:00Z",
+      "bytes": 245678,
+      "width": 1920,
+      "height": 1080,
+      "url": "http://res.cloudinary.com/my_cloud/image/upload/v1704067200/products/hero-image.jpg",
+      "secure_url": "https://res.cloudinary.com/my_cloud/image/upload/v1704067200/products/hero-image.jpg",
+      "tags": ["product", "hero"],
+      "colors": [["#FFFFFF", 45.2], ["#000000", 12.1]],
+      "image_metadata": {
+        "ImageWidth": "1920",
+        "ImageHeight": "1080",
+        "ColorSpace": "sRGB"
+      },
+      "derived": [
+        {
+          "transformation": "w_500,h_500,c_fill",
+          "format": "jpg",
+          "bytes": 45678,
+          "url": "https://res.cloudinary.com/my_cloud/image/upload/w_500,h_500,c_fill/products/hero-image.jpg"
+        }
+      ]
+    }
+  }
+}

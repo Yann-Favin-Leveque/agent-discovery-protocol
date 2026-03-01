@@ -1,0 +1,42 @@
+{
+  "name": "read_device_variable",
+  "description": "Read the current value of a variable exposed by device firmware. Variables can be integers, doubles, or strings representing sensor readings, device state, or any data the firmware publishes. Use get_device_info first to see available variables.",
+  "endpoint": "/v1/devices/{deviceId}/{varName}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "deviceId",
+      "type": "string",
+      "description": "The unique ID of the device.",
+      "required": true,
+      "example": "0123456789abcdef01234567"
+    },
+    {
+      "name": "varName",
+      "type": "string",
+      "description": "The name of the variable to read, as exposed by the device firmware.",
+      "required": true,
+      "example": "temperature"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.particle.io/v1/devices/0123456789abcdef01234567/temperature",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "temperature",
+      "result": 23.5,
+      "coreInfo": {
+        "name": "my-photon",
+        "deviceID": "0123456789abcdef01234567",
+        "connected": true,
+        "last_heard": "2025-12-01T18:30:00.000Z"
+      }
+    }
+  }
+}

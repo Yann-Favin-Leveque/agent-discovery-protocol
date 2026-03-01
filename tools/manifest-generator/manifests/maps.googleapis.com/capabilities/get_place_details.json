@@ -1,0 +1,68 @@
+{
+  "name": "get_place_details",
+  "description": "Retrieve comprehensive details about a specific place by its place ID. Returns the full address, phone number, website, business hours, user reviews, photos, and price level information.",
+  "endpoint": "/maps/api/place/details/json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "place_id",
+      "type": "string",
+      "description": "The unique Google place ID for the location.",
+      "required": true,
+      "example": "ChIJN1t_tDeuEmsRUsoyG83frY4"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to return. Helps reduce cost and response size.",
+      "required": false,
+      "example": "name,formatted_address,formatted_phone_number,website,opening_hours,rating,reviews,price_level,photos"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language code for returned results.",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,formatted_address,formatted_phone_number,website,opening_hours,rating,reviews,price_level&key={api_key}",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "OK",
+      "result": {
+        "name": "Sushi House",
+        "formatted_address": "123 Main St, Mountain View, CA 94043, USA",
+        "formatted_phone_number": "(650) 555-0123",
+        "website": "https://www.sushihouse-mv.com",
+        "rating": 4.5,
+        "price_level": 2,
+        "opening_hours": {
+          "open_now": true,
+          "weekday_text": [
+            "Monday: 11:00 AM - 10:00 PM",
+            "Tuesday: 11:00 AM - 10:00 PM",
+            "Wednesday: 11:00 AM - 10:00 PM",
+            "Thursday: 11:00 AM - 10:00 PM",
+            "Friday: 11:00 AM - 11:00 PM",
+            "Saturday: 12:00 PM - 11:00 PM",
+            "Sunday: 12:00 PM - 9:00 PM"
+          ]
+        },
+        "reviews": [
+          {
+            "author_name": "John D.",
+            "rating": 5,
+            "text": "Best sushi in the area! Fresh fish and great service.",
+            "time": 1709312400
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "list_products",
+  "description": "List all products and services defined for a business, including their names, prices, descriptions, and whether they are income or expense items.",
+  "endpoint": "/graphql/public",
+  "method": "POST",
+  "parameters": [
+    { "name": "businessId", "type": "string", "description": "The ID of the business to list products for.", "required": true, "example": "QnVzaW5lc3M6YTBiMWMyZDM=" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql/public",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "query($businessId: ID!) { business(id: $businessId) { products { edges { node { id name description unitPrice isSold isBought } } } } }",
+      "variables": {
+        "businessId": "QnVzaW5lc3M6YTBiMWMyZDM="
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "business": {
+          "products": {
+            "edges": [
+              {
+                "node": {
+                  "id": "UHJvZHVjdDoxMjM=",
+                  "name": "Web Development",
+                  "description": "Hourly web development services",
+                  "unitPrice": "150.00",
+                  "isSold": true,
+                  "isBought": false
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

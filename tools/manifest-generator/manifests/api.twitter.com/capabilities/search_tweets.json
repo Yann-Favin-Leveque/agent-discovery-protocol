@@ -1,0 +1,90 @@
+{
+  "name": "search_tweets",
+  "description": "Search for tweets from the last 7 days matching a query. The query supports Twitter search operators such as 'from:username', 'has:media', 'is:retweet', '-is:reply', 'lang:en', and boolean operators (AND, OR, NOT). Returns up to 100 tweets per request with pagination support.",
+  "endpoint": "/2/tweets/search/recent",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "The search query string. Supports Twitter operators like 'from:', 'has:', 'is:', boolean logic, and quoted exact phrases. Maximum 512 characters."
+    },
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of results to return per request. Value between 10 and 100. Default is 10."
+    },
+    {
+      "name": "tweet.fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated list of tweet fields to return. Options include: created_at, author_id, public_metrics, source, lang, entities."
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token from a previous response to retrieve the next page of results."
+    },
+    {
+      "name": "start_time",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 timestamp. Only return tweets created after this time. Must be within the last 7 days."
+    },
+    {
+      "name": "end_time",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 timestamp. Only return tweets created before this time."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twitter.com/2/tweets/search/recent?query=openai%20lang%3Aen%20-is%3Aretweet&max_results=10&tweet.fields=created_at,author_id,public_metrics",
+    "headers": {
+      "Authorization": "Bearer <access_token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "1234567890123456789",
+          "text": "Just tried the new OpenAI model and it's incredible for code generation!",
+          "author_id": "111222333",
+          "created_at": "2025-12-15T10:00:00.000Z",
+          "public_metrics": {
+            "retweet_count": 25,
+            "reply_count": 8,
+            "like_count": 102,
+            "quote_count": 5,
+            "impression_count": 8400
+          }
+        },
+        {
+          "id": "1234567890123456780",
+          "text": "OpenAI released a new API endpoint for embeddings. Here's my quick benchmark...",
+          "author_id": "444555666",
+          "created_at": "2025-12-15T09:30:00.000Z",
+          "public_metrics": {
+            "retweet_count": 10,
+            "reply_count": 3,
+            "like_count": 47,
+            "quote_count": 1,
+            "impression_count": 3200
+          }
+        }
+      ],
+      "meta": {
+        "newest_id": "1234567890123456789",
+        "oldest_id": "1234567890123456780",
+        "result_count": 2,
+        "next_token": "b26v89c19zqg8o3fpds7sinzdx"
+      }
+    }
+  }
+}

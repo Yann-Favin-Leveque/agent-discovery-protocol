@@ -1,0 +1,51 @@
+{
+  "name": "lookup_phone",
+  "description": "Perform an HLR (Home Location Register) lookup on a phone number to retrieve carrier information, number type classification, and formatted versions of the number. Returns whether the number is valid, the country it belongs to, the carrier network, and whether it is mobile or fixed-line. Use this to validate phone numbers before sending messages, detect number types, and enrich contact data.",
+  "endpoint": "/lookup/{phoneNumber}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "phoneNumber",
+      "type": "string",
+      "required": true,
+      "description": "The phone number to look up, in international format (e.g., '31612345678' or '+31612345678'). This is a path parameter."
+    },
+    {
+      "name": "countryCode",
+      "type": "string",
+      "required": false,
+      "description": "Two-letter ISO 3166-1 country code. If provided, the phone number can be in local format and will be parsed with this country context."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.messagebird.com/lookup/31612345678",
+    "headers": {
+      "Authorization": "AccessKey live_gshuPaZoeEG6ovIvTsgrmmGXc"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "href": "https://rest.messagebird.com/lookup/31612345678",
+      "countryCode": "NL",
+      "countryPrefix": 31,
+      "phoneNumber": 31612345678,
+      "type": "mobile",
+      "formats": {
+        "e164": "+31612345678",
+        "international": "+31 6 12345678",
+        "national": "06 12345678",
+        "rfc3966": "tel:+31-6-12345678"
+      },
+      "hlr": {
+        "id": "hlr-id-example-123456",
+        "network": 20408,
+        "reference": null,
+        "status": "active",
+        "createdDatetime": "2026-03-01T11:20:00+00:00",
+        "statusDatetime": "2026-03-01T11:20:01+00:00"
+      }
+    }
+  }
+}

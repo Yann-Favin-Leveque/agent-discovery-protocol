@@ -1,0 +1,46 @@
+{
+  "name": "get_channel_users",
+  "description": "Get a list of users currently subscribed to a specific presence channel. Returns the user IDs of all connected users. Only works with presence channels (channels with the 'presence-' prefix). Each user appears once regardless of how many connections they have. Use this to build 'who is online' features, show active participants in a room, or check if a specific user is connected.",
+  "endpoint": "/apps/{app_id}/channels/{channel_name}/users",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Pusher application ID. This is a path parameter in the URL."
+    },
+    {
+      "name": "channel_name",
+      "type": "string",
+      "required": true,
+      "description": "The name of the presence channel to query. Must start with 'presence-' (e.g., 'presence-support-room'). This is a path parameter in the URL."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pusherapp.com/apps/1234567/channels/presence-support-room/users",
+    "headers": {
+      "Authorization": "Bearer 278d425bdf160c739803"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "users": [
+        {
+          "id": "user-5017690"
+        },
+        {
+          "id": "user-29481"
+        },
+        {
+          "id": "user-58392"
+        },
+        {
+          "id": "user-71204"
+        }
+      ]
+    }
+  }
+}

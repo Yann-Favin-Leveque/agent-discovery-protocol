@@ -1,0 +1,102 @@
+{
+  "name": "create_expense",
+  "description": "Record a business expense or purchase. Categorize it by account, attach receipts, and assign to a vendor.",
+  "endpoint": "/v3/company/{realmId}/purchase",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID (realm ID).",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "PaymentType",
+      "type": "string",
+      "description": "How the expense was paid. Options: Cash, Check, CreditCard.",
+      "required": true,
+      "example": "CreditCard"
+    },
+    {
+      "name": "AccountRef",
+      "type": "object",
+      "description": "Reference to the bank or credit card account the expense was paid from.",
+      "required": true,
+      "example": { "value": "42" }
+    },
+    {
+      "name": "Line",
+      "type": "array",
+      "description": "Array of expense line items with amounts and account categorization.",
+      "required": true,
+      "example": [
+        {
+          "Amount": 75.00,
+          "DetailType": "AccountBasedExpenseLineDetail",
+          "AccountBasedExpenseLineDetail": {
+            "AccountRef": { "value": "10", "name": "Office Supplies" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "EntityRef",
+      "type": "object",
+      "description": "Reference to the vendor the expense was paid to.",
+      "required": false,
+      "example": { "value": "5", "type": "Vendor" }
+    },
+    {
+      "name": "TxnDate",
+      "type": "string",
+      "description": "The date of the expense in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2024-01-15"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/purchase",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "PaymentType": "CreditCard",
+      "AccountRef": { "value": "42" },
+      "Line": [
+        {
+          "Amount": 75.00,
+          "DetailType": "AccountBasedExpenseLineDetail",
+          "AccountBasedExpenseLineDetail": {
+            "AccountRef": { "value": "10", "name": "Office Supplies" }
+          }
+        }
+      ],
+      "TxnDate": "2024-01-15"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Purchase": {
+        "Id": "301",
+        "PaymentType": "CreditCard",
+        "TotalAmt": 75.00,
+        "TxnDate": "2024-01-15",
+        "AccountRef": { "value": "42", "name": "Business Credit Card" },
+        "Line": [
+          {
+            "Amount": 75.00,
+            "DetailType": "AccountBasedExpenseLineDetail",
+            "AccountBasedExpenseLineDetail": {
+              "AccountRef": { "value": "10", "name": "Office Supplies" }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

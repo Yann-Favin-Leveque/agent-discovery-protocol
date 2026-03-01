@@ -1,0 +1,78 @@
+{
+  "name": "get_profit_loss_report",
+  "description": "Generate a Profit and Loss (income statement) report for a given date range. Shows revenue, expenses, and net income.",
+  "endpoint": "/v3/company/{realmId}/reports/ProfitAndLoss",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID (realm ID).",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "Start date of the report period in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "End date of the report period in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2024-12-31"
+    },
+    {
+      "name": "accounting_method",
+      "type": "string",
+      "description": "The accounting method. Options: Cash or Accrual.",
+      "required": false,
+      "example": "Accrual"
+    },
+    {
+      "name": "summarize_column_by",
+      "type": "string",
+      "description": "How to break down columns. Options: Total, Month, Week, Days, Quarter, Year.",
+      "required": false,
+      "example": "Month"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/reports/ProfitAndLoss?start_date=2024-01-01&end_date=2024-12-31&accounting_method=Accrual",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Header": {
+        "ReportName": "ProfitAndLoss",
+        "StartPeriod": "2024-01-01",
+        "EndPeriod": "2024-12-31",
+        "Currency": "USD"
+      },
+      "Rows": {
+        "Row": [
+          {
+            "group": "Income",
+            "Summary": { "ColData": [{ "value": "Income" }, { "value": "50000.00" }] }
+          },
+          {
+            "group": "Expenses",
+            "Summary": { "ColData": [{ "value": "Expenses" }, { "value": "30000.00" }] }
+          },
+          {
+            "group": "NetIncome",
+            "Summary": { "ColData": [{ "value": "Net Income" }, { "value": "20000.00" }] }
+          }
+        ]
+      }
+    }
+  }
+}

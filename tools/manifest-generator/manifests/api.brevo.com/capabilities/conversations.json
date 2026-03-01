@@ -1,0 +1,51 @@
+{
+  "name": "conversations",
+  "description": "Manage conversations — sets agent’s status to online for 2-3 minutes, send a message as an agent, send an automated message to a visitor. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/conversations/agentOnlinePing",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "agentEmail",
+      "type": "string",
+      "description": "agent email. When sending online pings from a standalone system, it’s hard to maintain a 1-to-1 relationship between the users of both systems. In this case, an agent can be specified by their email address. If there’s no agent with the specified email address in your Brevo organization, a dummy agent will be created automatically.",
+      "required": false,
+      "example": "user@example.com"
+    },
+    {
+      "name": "agentId",
+      "type": "string",
+      "description": "agent ID. It can be found on agent’s page or received <a href=\"https://developers.brevo.com/docs/conversations-webhooks\">from a webhook</a>. Alternatively, you can use `agentEmail` + `agentName` + `receivedFrom` instead (all 3 fields required).",
+      "required": false,
+      "example": "abc_123"
+    },
+    {
+      "name": "agentName",
+      "type": "string",
+      "description": "agent name",
+      "required": false,
+      "example": "Example"
+    },
+    {
+      "name": "receivedFrom",
+      "type": "string",
+      "description": "mark your messages to distinguish messages created by you from the others.",
+      "required": false,
+      "example": "example_value"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/conversations/agentOnlinePing",
+    "headers": {
+      "Content-Type": "application/json",
+      "api-key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {}
+    }
+  }
+}

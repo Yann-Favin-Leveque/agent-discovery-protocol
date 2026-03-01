@@ -1,0 +1,20 @@
+{
+  "name": "list_opportunities",
+  "description": "List sales opportunities in Close CRM with optional pipeline and status filtering.",
+  "endpoint": "/opportunity/",
+  "method": "GET",
+  "parameters": [
+    {"name": "lead_id", "type": "string", "description": "Filter by lead ID.", "required": false, "example": "lead_abc123"},
+    {"name": "status_type", "type": "string", "description": "Filter by status: active, won, or lost.", "required": false, "example": "active"},
+    {"name": "_limit", "type": "number", "description": "Number of results.", "required": false, "example": 25}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.close.com/api/v1/opportunity/?status_type=active&_limit=25",
+    "headers": {"Authorization": "Basic {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"has_more": false, "data": [{"id": "oppo_abc", "lead_id": "lead_abc123", "lead_name": "Acme Corp", "value": 50000, "value_currency": "USD", "status_type": "active", "confidence": 75}]}
+  }
+}

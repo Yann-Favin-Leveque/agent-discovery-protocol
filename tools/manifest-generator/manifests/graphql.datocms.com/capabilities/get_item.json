@@ -1,0 +1,65 @@
+{
+  "name": "get_item",
+  "description": "Retrieve a single content record by its unique ID. Returns all field values, metadata, and relationship data for the record. Use the 'version' parameter to fetch either the published or draft version of the record.",
+  "endpoint": "/items/{item_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "item_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the content record to retrieve."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": false,
+      "description": "Set to 'current' for the latest draft version or 'published' for the published version. Default: 'published'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://site-api.datocms.com/items/12345",
+    "headers": {
+      "Authorization": "Bearer your-api-token-here",
+      "Accept": "application/json",
+      "X-Api-Version": "3"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "12345",
+        "type": "item",
+        "attributes": {
+          "title": "Getting Started with DatoCMS",
+          "slug": "getting-started-with-datocms",
+          "body": "<p>Welcome to DatoCMS. This guide will help you get started...</p>",
+          "cover_image": {
+            "upload_id": "8899",
+            "alt": "DatoCMS dashboard screenshot",
+            "title": null
+          },
+          "author": "Jane Doe",
+          "published_at": "2025-06-15T10:30:00Z",
+          "is_valid": true,
+          "created_at": "2025-06-14T08:00:00Z",
+          "updated_at": "2025-06-15T10:30:00Z"
+        },
+        "relationships": {
+          "item_type": {
+            "data": { "id": "678", "type": "item_type" }
+          },
+          "creator": {
+            "data": { "id": "99", "type": "user" }
+          }
+        },
+        "meta": {
+          "current_version": "5544",
+          "stage": "published"
+        }
+      }
+    }
+  }
+}

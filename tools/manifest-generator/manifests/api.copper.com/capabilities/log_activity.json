@@ -1,0 +1,21 @@
+{
+  "name": "log_activity",
+  "description": "Log an activity (note, call, or meeting) on a person, company, or opportunity in Copper.",
+  "endpoint": "/activities",
+  "method": "POST",
+  "parameters": [
+    {"name": "type", "type": "object", "description": "Activity type with category and id.", "required": true, "example": {"category": "user", "id": 1}},
+    {"name": "details", "type": "string", "description": "Activity description text.", "required": true, "example": "Discussed product roadmap and pricing."},
+    {"name": "parent", "type": "object", "description": "Parent entity (person, company, or opportunity).", "required": true, "example": {"type": "person", "id": 123}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.copper.com/developer_api/v1/activities",
+    "headers": {"X-PW-AccessToken": "{api_key}", "X-PW-Application": "developer_api", "X-PW-UserEmail": "user@example.com", "Content-Type": "application/json"},
+    "body": {"type": {"category": "user", "id": 1}, "details": "Discussed product roadmap and pricing.", "parent": {"type": "person", "id": 123}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": 303, "type": {"category": "user", "id": 1}, "details": "Discussed product roadmap and pricing.", "parent": {"type": "person", "id": 123}, "date_created": 1705747200}
+  }
+}

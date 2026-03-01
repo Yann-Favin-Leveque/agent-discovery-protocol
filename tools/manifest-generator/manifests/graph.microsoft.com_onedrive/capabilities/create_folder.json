@@ -1,0 +1,59 @@
+{
+  "name": "create_folder",
+  "description": "Create a new folder inside an existing folder on OneDrive. The folder is created as a child of the specified parent. You can use the root or any folder ID as the parent.",
+  "endpoint": "/v1.0/me/drive/items/{parentId}/children",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "parentId",
+      "type": "string",
+      "description": "The ID of the parent folder where the new folder will be created. Use 'root' to create at the top level.",
+      "required": true,
+      "example": "root"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the new folder to create.",
+      "required": true,
+      "example": "New Project"
+    },
+    {
+      "name": "@microsoft.graph.conflictBehavior",
+      "type": "string",
+      "description": "Conflict resolution strategy: 'rename', 'replace', or 'fail'.",
+      "required": false,
+      "example": "rename"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/root/children",
+    "headers": {
+      "Authorization": "Bearer your-access-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "New Project",
+      "folder": {},
+      "@microsoft.graph.conflictBehavior": "rename"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "01BYE5RZ7T3HUNTQYG2FD2GSPGOHDJD99Z",
+      "name": "New Project",
+      "size": 0,
+      "folder": {
+        "childCount": 0
+      },
+      "createdDateTime": "2026-01-12T10:30:00Z",
+      "lastModifiedDateTime": "2026-01-12T10:30:00Z",
+      "parentReference": {
+        "driveId": "b!-RIj2DuyvEyV1T4NlOaMHk8XkS_I8MdFlUCq1BlcjgmhRfAj3-Z8RY2VpuvV_tpd",
+        "path": "/drive/root:"
+      }
+    }
+  }
+}

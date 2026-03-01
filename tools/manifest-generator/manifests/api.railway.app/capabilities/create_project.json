@@ -1,0 +1,20 @@
+{
+  "name": "create_project",
+  "description": "Create a new Railway project, optionally connecting a GitHub repository for automatic deployments.",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {"name": "query", "type": "string", "description": "GraphQL mutation string.", "required": true, "example": "mutation($input: ProjectCreateInput!) { projectCreate(input: $input) { id name } }"},
+    {"name": "variables", "type": "object", "description": "Variables for the mutation including project name and optional repo.", "required": true, "example": {"input": {"name": "my-new-project"}}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"query": "mutation($input: ProjectCreateInput!) { projectCreate(input: $input) { id name } }", "variables": {"input": {"name": "my-new-project"}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"projectCreate": {"id": "proj_xyz789", "name": "my-new-project"}}}
+  }
+}

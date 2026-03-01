@@ -1,0 +1,79 @@
+{
+  "name": "create_todolist",
+  "description": "Create a new todolist within a project's todoset. Todolists organize related todos into logical groups within a project, enabling structured task management.",
+  "endpoint": "/{account_id}/buckets/{project_id}/todosets/{todoset_id}/todolists.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The unique identifier for the Basecamp account.",
+      "required": true,
+      "example": "3619386"
+    },
+    {
+      "name": "project_id",
+      "type": "string",
+      "description": "The unique identifier for the project (also called bucket in Basecamp).",
+      "required": true,
+      "example": "1028178134"
+    },
+    {
+      "name": "todoset_id",
+      "type": "string",
+      "description": "The unique identifier for the todoset within the project.",
+      "required": true,
+      "example": "9007199254740992"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the new todolist.",
+      "required": true,
+      "example": "Sprint Planning"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Optional description for the todolist.",
+      "required": false,
+      "example": "Tasks for the upcoming sprint"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://3.basecampapi.com/3619386/buckets/1028178134/todosets/9007199254740992/todolists.json",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApp (your-email@example.com)"
+    },
+    "body": {
+      "name": "Sprint Planning",
+      "description": "Tasks for the upcoming sprint"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 9007199254740993,
+      "status": "active",
+      "created_at": "2024-03-01T15:00:00Z",
+      "updated_at": "2024-03-01T15:00:00Z",
+      "name": "Sprint Planning",
+      "description": "Tasks for the upcoming sprint",
+      "completed": false,
+      "position": 1,
+      "bucket": {
+        "id": 1028178134,
+        "name": "Website Redesign",
+        "type": "Project"
+      },
+      "creator": {
+        "id": 10000001,
+        "name": "Alice Johnson",
+        "email_address": "alice@example.com"
+      }
+    }
+  }
+}

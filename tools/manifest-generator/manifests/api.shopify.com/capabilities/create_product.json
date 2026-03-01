@@ -1,0 +1,123 @@
+{
+  "name": "create_product",
+  "description": "Create a new product in the Shopify store with title, description, variants, pricing, images, and inventory details. Products can have multiple variants with different prices, SKUs, and stock levels.",
+  "endpoint": "/admin/api/2024-01/products.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The name of the product.",
+      "required": true,
+      "example": "Burton Custom Freestyle 151"
+    },
+    {
+      "name": "body_html",
+      "type": "string",
+      "description": "HTML description of the product.",
+      "required": false,
+      "example": "<strong>Good snowboard!</strong>"
+    },
+    {
+      "name": "vendor",
+      "type": "string",
+      "description": "The name of the product vendor.",
+      "required": false,
+      "example": "Burton"
+    },
+    {
+      "name": "product_type",
+      "type": "string",
+      "description": "A categorization for the product.",
+      "required": false,
+      "example": "Snowboard"
+    },
+    {
+      "name": "variants",
+      "type": "array",
+      "description": "Array of product variants with price, SKU, and option values.",
+      "required": false,
+      "example": [
+        {
+          "option1": "Blue",
+          "price": "199.00",
+          "sku": "BOARD-BLUE-151"
+        }
+      ]
+    },
+    {
+      "name": "images",
+      "type": "array",
+      "description": "Array of image objects with 'src' URLs to attach to the product.",
+      "required": false,
+      "example": [
+        {
+          "src": "https://example.com/image.png"
+        }
+      ]
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Product status: 'active', 'archived', or 'draft'.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "tags",
+      "type": "string",
+      "description": "Comma-separated list of tags for the product.",
+      "required": false,
+      "example": "winter, sports, snowboard"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store_name}.myshopify.com/admin/api/2024-01/products.json",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "product": {
+        "title": "Burton Custom Freestyle 151",
+        "body_html": "<strong>Good snowboard!</strong>",
+        "vendor": "Burton",
+        "product_type": "Snowboard",
+        "status": "active",
+        "variants": [
+          {
+            "option1": "Blue",
+            "price": "199.00",
+            "sku": "BOARD-BLUE-151"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "product": {
+        "id": 1071559580,
+        "title": "Burton Custom Freestyle 151",
+        "body_html": "<strong>Good snowboard!</strong>",
+        "vendor": "Burton",
+        "product_type": "Snowboard",
+        "created_at": "2024-01-02T09:28:43-05:00",
+        "handle": "burton-custom-freestyle-151",
+        "status": "active",
+        "variants": [
+          {
+            "id": 1070325019,
+            "product_id": 1071559580,
+            "title": "Blue",
+            "price": "199.00",
+            "sku": "BOARD-BLUE-151",
+            "inventory_quantity": 0
+          }
+        ]
+      }
+    }
+  }
+}

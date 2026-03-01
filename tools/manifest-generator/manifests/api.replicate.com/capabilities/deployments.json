@@ -1,0 +1,80 @@
+{
+  "name": "deployments",
+  "description": "Manage deployments — create a deployment, create a prediction using a deployment, list deployments. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/deployments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "hardware",
+      "type": "string",
+      "description": "The SKU for the hardware used to run the model. Possible values can be retrieved from the `hardware.list` endpoint.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "max_instances",
+      "type": "number",
+      "description": "The maximum number of instances for scaling.",
+      "required": true,
+      "example": 42
+    },
+    {
+      "name": "min_instances",
+      "type": "number",
+      "description": "The minimum number of instances for scaling.",
+      "required": true,
+      "example": 42
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The full name of the model that you want to deploy e.g. stability-ai/sdxl.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the deployment.",
+      "required": true,
+      "example": "Example"
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "description": "The 64-character string ID of the model version that you want to deploy.",
+      "required": true,
+      "example": "example_value"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.replicate.com/v1/deployments",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "hardware": "example_value",
+      "max_instances": 42,
+      "min_instances": 42,
+      "model": "example_value",
+      "name": "Example",
+      "version": "example_value"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "hardware": "example_value",
+        "max_instances": 42,
+        "min_instances": 42,
+        "model": "example_value",
+        "name": "Example",
+        "version": "example_value"
+      }
+    }
+  }
+}

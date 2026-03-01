@@ -1,0 +1,46 @@
+{
+  "name": "create_marketing_event",
+  "description": "Create a new marketing event in HubSpot. Define the event name, type, start/end dates, and organizer details.",
+  "endpoint": "/marketing/v3/marketing-events/events",
+  "method": "POST",
+  "parameters": [
+    { "name": "eventName", "type": "string", "description": "The name of the marketing event.", "required": true, "example": "Product Launch Webinar 2024" },
+    { "name": "eventType", "type": "string", "description": "The type of event. E.g., WEBINAR, CONFERENCE, WORKSHOP.", "required": false, "example": "WEBINAR" },
+    { "name": "startDateTime", "type": "string", "description": "ISO 8601 start date and time of the event.", "required": false, "example": "2024-03-15T14:00:00Z" },
+    { "name": "endDateTime", "type": "string", "description": "ISO 8601 end date and time of the event.", "required": false, "example": "2024-03-15T15:30:00Z" },
+    { "name": "eventOrganizer", "type": "string", "description": "Name of the person or team organizing the event.", "required": true, "example": "Marketing Team" },
+    { "name": "eventDescription", "type": "string", "description": "A description of the event content and purpose.", "required": false, "example": "Join us for a live demo of our new product features." },
+    { "name": "eventUrl", "type": "string", "description": "URL for the event landing page or registration.", "required": false, "example": "https://example.com/events/product-launch" },
+    { "name": "externalEventId", "type": "string", "description": "Your external system's unique identifier for this event.", "required": true, "example": "ext_event_001" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hubspot.com/marketing/v3/marketing-events/events",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "eventName": "Product Launch Webinar 2024",
+      "eventType": "WEBINAR",
+      "startDateTime": "2024-03-15T14:00:00Z",
+      "endDateTime": "2024-03-15T15:30:00Z",
+      "eventOrganizer": "Marketing Team",
+      "eventDescription": "Join us for a live demo of our new product features.",
+      "eventUrl": "https://example.com/events/product-launch",
+      "externalEventId": "ext_event_001"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "12345",
+      "eventName": "Product Launch Webinar 2024",
+      "eventType": "WEBINAR",
+      "startDateTime": "2024-03-15T14:00:00Z",
+      "endDateTime": "2024-03-15T15:30:00Z",
+      "eventOrganizer": "Marketing Team",
+      "createdAt": "2024-01-15T10:00:00Z"
+    }
+  }
+}

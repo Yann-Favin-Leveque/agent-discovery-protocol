@@ -1,0 +1,84 @@
+{
+  "name": "update_settings",
+  "description": "Configure how a Meilisearch index processes and ranks search results. Control which attributes are searchable, filterable, and sortable. Set up synonyms, stop words, typo tolerance, ranking rules, and displayed attributes to fine-tune relevance.",
+  "endpoint": "/indexes/{indexUid}/settings",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "The unique identifier of the index to configure.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "searchableAttributes",
+      "type": "array",
+      "description": "Ordered list of attributes used for text matching. Earlier attributes have higher priority.",
+      "required": false,
+      "example": ["title", "overview", "genres"]
+    },
+    {
+      "name": "filterableAttributes",
+      "type": "array",
+      "description": "Attributes that can be used in filter expressions during search.",
+      "required": false,
+      "example": ["genres", "year", "rating"]
+    },
+    {
+      "name": "sortableAttributes",
+      "type": "array",
+      "description": "Attributes that can be used for sorting search results.",
+      "required": false,
+      "example": ["rating", "year", "title"]
+    },
+    {
+      "name": "synonyms",
+      "type": "object",
+      "description": "Map of words to their synonyms. Keys are words, values are arrays of synonyms.",
+      "required": false,
+      "example": {"movie": ["film", "picture"], "sci-fi": ["science fiction"]}
+    },
+    {
+      "name": "stopWords",
+      "type": "array",
+      "description": "Words to ignore during search (e.g. 'the', 'a', 'an').",
+      "required": false,
+      "example": ["the", "a", "an", "is"]
+    },
+    {
+      "name": "rankingRules",
+      "type": "array",
+      "description": "Ordered list of ranking rules. Default: ['words','typo','proximity','attribute','sort','exactness'].",
+      "required": false,
+      "example": ["words", "typo", "proximity", "attribute", "sort", "exactness"]
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.meilisearch.com/indexes/movies/settings",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "searchableAttributes": ["title", "overview"],
+      "filterableAttributes": ["genres", "year", "rating"],
+      "sortableAttributes": ["rating", "year"],
+      "synonyms": {
+        "movie": ["film"],
+        "sci-fi": ["science fiction"]
+      }
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "taskUid": 5,
+      "indexUid": "movies",
+      "status": "enqueued",
+      "type": "settingsUpdate",
+      "enqueuedAt": "2025-12-01T10:05:00.000Z"
+    }
+  }
+}

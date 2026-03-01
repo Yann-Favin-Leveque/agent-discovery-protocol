@@ -1,0 +1,28 @@
+{
+  "name": "create_dns_record",
+  "description": "Create a new DNS record in a zone. Supports all standard DNS record types including A, AAAA, CNAME, MX, TXT, SRV, and more.",
+  "endpoint": "/zones/{zone_id}/dns_records",
+  "method": "POST",
+  "parameters": [
+    { "name": "zone_id", "type": "string", "description": "The zone identifier.", "required": true, "example": "023e105f4ecef8ad9ca31a8372d0c353" },
+    { "name": "type", "type": "string", "description": "DNS record type (A, AAAA, CNAME, MX, TXT, etc.).", "required": true, "example": "A" },
+    { "name": "name", "type": "string", "description": "DNS record name (e.g., 'example.com' or 'sub.example.com').", "required": true, "example": "sub.example.com" },
+    { "name": "content", "type": "string", "description": "DNS record content/value.", "required": true, "example": "198.51.100.4" },
+    { "name": "ttl", "type": "number", "description": "TTL in seconds (1 = auto).", "required": false, "example": 3600 },
+    { "name": "proxied", "type": "boolean", "description": "Whether to proxy through Cloudflare.", "required": false, "example": true },
+    { "name": "priority", "type": "number", "description": "Priority for MX records.", "required": false, "example": 10 }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_records",
+    "headers": { "Authorization": "Bearer {api_token}", "Content-Type": "application/json" },
+    "body": { "type": "A", "name": "sub.example.com", "content": "198.51.100.4", "ttl": 3600, "proxied": true }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": { "id": "372e67954025e0ba6aaa6d586b9e0b59", "type": "A", "name": "sub.example.com", "content": "198.51.100.4", "proxied": true, "ttl": 3600 }
+    }
+  }
+}

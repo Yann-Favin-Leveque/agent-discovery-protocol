@@ -1,0 +1,74 @@
+{
+  "name": "get_city_data",
+  "description": "Retrieve real-time air quality and weather data for a specific city by providing its exact name, state, and country. Returns the same data as nearest_city: AQI values (US and China), main pollutant, temperature, humidity, pressure, wind, and weather condition. Use the list endpoints first to get valid city, state, and country names.",
+  "endpoint": "/v2/city",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Your API key for authentication.",
+      "required": true,
+      "example": "{api_key}"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "City name (must match exactly as returned by the list_cities endpoint).",
+      "required": true,
+      "example": "Los Angeles"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "description": "State or province name (must match exactly as returned by the list_states endpoint).",
+      "required": true,
+      "example": "California"
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "Country name (must match exactly as returned by the list_countries endpoint).",
+      "required": true,
+      "example": "USA"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.airvisual.com/v2/city?city=Los+Angeles&state=California&country=USA&key={api_key}",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": {
+        "city": "Los Angeles",
+        "state": "California",
+        "country": "USA",
+        "location": {
+          "type": "Point",
+          "coordinates": [-118.2437, 34.0522]
+        },
+        "current": {
+          "pollution": {
+            "ts": "2024-01-15T14:00:00.000Z",
+            "aqius": 68,
+            "mainus": "p2",
+            "aqicn": 30,
+            "maincn": "p2"
+          },
+          "weather": {
+            "ts": "2024-01-15T14:00:00.000Z",
+            "tp": 22,
+            "pr": 1018,
+            "hu": 45,
+            "ws": 2.1,
+            "wd": 270,
+            "ic": "01d"
+          }
+        }
+      }
+    }
+  }
+}

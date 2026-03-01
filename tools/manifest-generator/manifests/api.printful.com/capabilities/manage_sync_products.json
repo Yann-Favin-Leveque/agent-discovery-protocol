@@ -1,0 +1,58 @@
+{
+  "name": "manage_sync_products",
+  "description": "List and manage synchronized products in your Printful store, including creating, updating, and deleting product listings. Sync products link your e-commerce store items to Printful catalog products.",
+  "endpoint": "/sync/products",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Number of items to skip in the result list for pagination.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of items per page (1-100).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by sync status: all, synced, unsynced, or ignored.",
+      "required": false,
+      "example": "synced"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.printful.com/sync/products?limit=20&offset=0",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "result": [
+        {
+          "id": 15,
+          "external_id": "product-123",
+          "name": "Custom T-Shirt Design",
+          "variants": 12,
+          "synced": 12,
+          "thumbnail_url": "https://files.cdn.printful.com/files/abc/abc_preview.png",
+          "is_ignored": false
+        }
+      ],
+      "paging": {
+        "total": 45,
+        "offset": 0,
+        "limit": 20
+      }
+    }
+  }
+}

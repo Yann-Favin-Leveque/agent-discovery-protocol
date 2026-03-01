@@ -1,0 +1,60 @@
+{
+  "name": "badges",
+  "description": "Manage badges — adds a badge to a group, adds a badge to a project, updates a badge of a group. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/groups/{id}/badges",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID or URL-encoded path of the group owned by the authenticated user.",
+      "required": true,
+      "example": "abc_123"
+    },
+    {
+      "name": "link_url",
+      "type": "string",
+      "description": "URL of the badge link",
+      "required": true,
+      "example": "https://example.com"
+    },
+    {
+      "name": "image_url",
+      "type": "string",
+      "description": "URL of the badge image",
+      "required": true,
+      "example": "https://example.com"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name for the badge",
+      "required": false,
+      "example": "Example"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.gitlab.com/api/v4/groups/{id}/badges",
+    "headers": {
+      "Content-Type": "application/json",
+      "Private-Token": "{api_key}"
+    },
+    "body": {
+      "id": "abc_123",
+      "link_url": "https://example.com",
+      "image_url": "https://example.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "id": "abc_123",
+        "link_url": "https://example.com",
+        "image_url": "https://example.com"
+      }
+    }
+  }
+}

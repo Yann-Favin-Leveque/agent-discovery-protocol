@@ -1,0 +1,105 @@
+{
+  "name": "permissions",
+  "description": "Manage permissions — creates a permission for a file or shared drive. for more information, see [share files, folders, and drives](https://developers.google.com/workspace/drive/api/guides/manage-sharing). **warning:** concurrent permissions operations on the same file aren't supported; only the last update is applied, lists a file's or shared drive's permissions. for more information, see [share files, folders, and drives](https://developers.google.com/workspace/drive/api/guides/manage-sharing), gets a permission by id. for more information, see [share files, folders, and drives](https://developers.google.com/workspace/drive/api/guides/manage-sharing). Supports standard CRUD operations through the REST API.",
+  "endpoint": "/files/{fileId}/permissions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "fileId",
+      "type": "string",
+      "description": "The ID of the file or shared drive.",
+      "required": true,
+      "example": "abc_123"
+    },
+    {
+      "name": "emailMessage",
+      "type": "string",
+      "description": "A plain text custom message to include in the notification email.",
+      "required": false,
+      "example": "user@example.com"
+    },
+    {
+      "name": "enforceSingleParent",
+      "type": "boolean",
+      "description": "Deprecated: See `moveToNewOwnersRoot` for details.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "moveToNewOwnersRoot",
+      "type": "boolean",
+      "description": "This parameter only takes effect if the item isn't in a shared drive and the request is attempting to transfer the ownership of the item. If set to `true`, the item is moved to the new owner's My Drive root folder and all prior parents removed. If set to `false`, parents aren't changed.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "sendNotificationEmail",
+      "type": "boolean",
+      "description": "Whether to send a notification email when sharing to users or groups. This defaults to `true` for users and groups, and is not allowed for other requests. It must not be disabled for ownership transfers.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "supportsAllDrives",
+      "type": "boolean",
+      "description": "Whether the requesting application supports both My Drives and shared drives.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "supportsTeamDrives",
+      "type": "boolean",
+      "description": "Deprecated: Use `supportsAllDrives` instead.",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "transferOwnership",
+      "type": "boolean",
+      "description": "Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of the side effect. For more information, see [Transfer file ownership](https://developers.google.com/workspace/drive/api/guides/transfer-file).",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "useDomainAdminAccess",
+      "type": "boolean",
+      "description": "Issue the request as a domain administrator. If set to `true`, and if the following additional conditions are met, the requester is granted access: 1. The file ID parameter refers to a shared drive. 2. The requester is an administrator of the domain to which the shared drive belongs. For more information, see [Manage shared drives as domain administrators](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives#manage-administrators).",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "enforceExpansiveAccess",
+      "type": "boolean",
+      "description": "Whether the request should enforce expansive access rules.",
+      "required": false,
+      "example": "false"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.googleapis.com/drive/v3/files/{fileId}/permissions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "fileId": "abc_123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "fileId": "abc_123"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/drive.appdata",
+    "https://www.googleapis.com/auth/drive.apps.readonly",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive.meet.readonly"
+  ]
+}

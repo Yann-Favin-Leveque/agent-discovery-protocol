@@ -1,0 +1,73 @@
+{
+  "name": "list_work_items_by_query",
+  "description": "Run a Work Item Query Language (WIQL) query to find work items matching specific criteria. WIQL syntax is similar to SQL: SELECT fields FROM workitems WHERE conditions. Supports filtering by state, assigned user, type, area path, iteration path, tags, and more. Returns work item IDs which can then be fetched for full details.",
+  "endpoint": "/{organization}/{project}/_apis/wit/wiql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "description": "The name of the Azure DevOps organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "description": "The name or ID of the project."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "Version of the API to use. Use '7.1'."
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "The WIQL query string. Example: SELECT [System.Id], [System.Title] FROM workitems WHERE [System.State] = 'Active' AND [System.AssignedTo] = @Me ORDER BY [System.ChangedDate] DESC"
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of results to return. Default is 200."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://dev.azure.com/my-org/MyWebApp/_apis/wit/wiql?api-version=7.1&$top=50",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "SELECT [System.Id], [System.Title], [System.State], [System.AssignedTo] FROM workitems WHERE [System.TeamProject] = 'MyWebApp' AND [System.State] = 'Active' AND [System.WorkItemType] = 'Bug' ORDER BY [Microsoft.VSTS.Common.Priority] ASC"
+    }
+  },
+  "response_example": {
+    "queryType": "flat",
+    "queryResultType": "workItem",
+    "asOf": "2026-01-20T08:00:00Z",
+    "columns": [
+      { "referenceName": "System.Id", "name": "ID", "url": null },
+      { "referenceName": "System.Title", "name": "Title", "url": null },
+      { "referenceName": "System.State", "name": "State", "url": null },
+      { "referenceName": "System.AssignedTo", "name": "Assigned To", "url": null }
+    ],
+    "workItems": [
+      {
+        "id": 4510,
+        "url": "https://dev.azure.com/my-org/MyWebApp/_apis/wit/workitems/4510"
+      },
+      {
+        "id": 4498,
+        "url": "https://dev.azure.com/my-org/MyWebApp/_apis/wit/workitems/4498"
+      },
+      {
+        "id": 4475,
+        "url": "https://dev.azure.com/my-org/MyWebApp/_apis/wit/workitems/4475"
+      }
+    ]
+  }
+}

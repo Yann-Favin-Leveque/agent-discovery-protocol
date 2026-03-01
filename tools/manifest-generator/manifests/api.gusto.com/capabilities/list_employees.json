@@ -1,0 +1,41 @@
+{
+  "name": "list_employees",
+  "description": "Retrieve all employees for a given company, including their personal details, job assignments, and compensation info. Supports pagination and filtering by employment status.",
+  "endpoint": "/v1/companies/{company_id}/employees",
+  "method": "GET",
+  "parameters": [
+    { "name": "company_id", "type": "string", "description": "The UUID of the company whose employees to list.", "required": true, "example": "c44e6b5f-3b87-4f72-bb2a-e7ce1e8a9a1e" },
+    { "name": "terminated", "type": "boolean", "description": "If true, include terminated employees in the results.", "required": false, "example": false },
+    { "name": "page", "type": "integer", "description": "Page number for paginated results.", "required": false, "example": 1 },
+    { "name": "per", "type": "integer", "description": "Number of employees per page (max 100).", "required": false, "example": 25 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.gusto.com/v1/companies/c44e6b5f-3b87-4f72-bb2a-e7ce1e8a9a1e/employees?terminated=false&page=1&per=25",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "uuid": "e8c5a7d1-4b3f-4c2e-9a1b-d6f7e8c9a0b1",
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "email": "jane.smith@example.com",
+        "department": "Engineering",
+        "terminated": false,
+        "jobs": [
+          {
+            "title": "Software Engineer",
+            "rate": "120000.00",
+            "payment_unit": "Year",
+            "hire_date": "2023-01-15"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "name": "get_matrix",
+  "description": "Calculate a distance and/or duration matrix between multiple origin and destination points. Returns an NxM matrix where each cell contains the travel distance or duration between one origin and one destination. Useful for solving logistics problems like finding the closest facility, optimizing delivery routes, or computing travel times between many locations simultaneously.",
+  "endpoint": "/v2/matrix/{profile}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "required": true,
+      "description": "The transport mode. Path parameter. Options: driving-car, driving-hgv, cycling-regular, foot-walking, foot-hiking."
+    },
+    {
+      "name": "locations",
+      "type": "array",
+      "required": true,
+      "description": "Array of [longitude, latitude] coordinate pairs. All locations act as both origins and destinations unless 'sources' and 'destinations' are specified."
+    },
+    {
+      "name": "sources",
+      "type": "array",
+      "required": false,
+      "description": "Array of indices (0-based) from the locations array to use as origins. Example: [0, 1] means only the first two locations are origins."
+    },
+    {
+      "name": "destinations",
+      "type": "array",
+      "required": false,
+      "description": "Array of indices (0-based) from the locations array to use as destinations. Example: [2, 3] means only the third and fourth locations are destinations."
+    },
+    {
+      "name": "metrics",
+      "type": "array",
+      "required": false,
+      "description": "Array of metrics to compute. Options: 'distance' (meters), 'duration' (seconds). Default is ['duration']."
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Unit system for distances. Options: m (meters, default), km, mi (miles)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/v2/matrix/driving-car",
+    "headers": {
+      "Authorization": "5b3ce3597851110001cf6248xxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "locations": [
+        [8.681495, 49.41461],
+        [8.687872, 49.420318],
+        [8.690572, 49.404973]
+      ],
+      "metrics": ["distance", "duration"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "durations": [
+        [0, 212.3, 385.1],
+        [198.7, 0, 420.5],
+        [370.2, 405.8, 0]
+      ],
+      "distances": [
+        [0, 1564.2, 2890.5],
+        [1480.3, 0, 3100.7],
+        [2750.1, 2980.4, 0]
+      ],
+      "destinations": [
+        { "location": [8.681495, 49.41461] },
+        { "location": [8.687872, 49.420318] },
+        { "location": [8.690572, 49.404973] }
+      ],
+      "sources": [
+        { "location": [8.681495, 49.41461] },
+        { "location": [8.687872, 49.420318] },
+        { "location": [8.690572, 49.404973] }
+      ],
+      "metadata": {
+        "attribution": "openrouteservice.org | OpenStreetMap contributors",
+        "query": {
+          "locations": [
+            [8.681495, 49.41461],
+            [8.687872, 49.420318],
+            [8.690572, 49.404973]
+          ],
+          "profile": "driving-car",
+          "metrics": ["distance", "duration"]
+        }
+      }
+    }
+  }
+}

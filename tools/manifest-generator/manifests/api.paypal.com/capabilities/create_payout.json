@@ -1,0 +1,98 @@
+{
+  "name": "create_payout",
+  "description": "Send money to one or more recipients via PayPal. Payouts can be sent to PayPal email addresses, phone numbers, or PayPal IDs. Commonly used for marketplace seller disbursements, affiliate commissions, rebates, and rewards. Supports batch payouts with up to 15,000 items per batch. Each payout item can have a different amount and currency.",
+  "endpoint": "/v1/payments/payouts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "sender_batch_header",
+      "type": "object",
+      "description": "Batch-level information including a unique sender batch ID and email subject line for payout notifications.",
+      "required": true,
+      "example": {
+        "sender_batch_id": "Payouts_2024_02_01",
+        "email_subject": "You have a payout!",
+        "email_message": "You have received a payout from Acme Corp.",
+        "recipient_type": "EMAIL"
+      }
+    },
+    {
+      "name": "items",
+      "type": "object[]",
+      "description": "Array of individual payout items. Each item specifies a recipient, amount, and optional note.",
+      "required": true,
+      "example": [
+        {
+          "recipient_type": "EMAIL",
+          "amount": {
+            "value": "50.00",
+            "currency": "USD"
+          },
+          "receiver": "seller@example.com",
+          "note": "Commission for January sales",
+          "sender_item_id": "item-001"
+        },
+        {
+          "recipient_type": "EMAIL",
+          "amount": {
+            "value": "75.00",
+            "currency": "USD"
+          },
+          "receiver": "affiliate@example.com",
+          "note": "Affiliate bonus Q1 2024",
+          "sender_item_id": "item-002"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v1/payments/payouts",
+    "headers": {
+      "Authorization": "Bearer A21AAF...",
+      "Content-Type": "application/json",
+      "PayPal-Request-Id": "payout-request-id-789"
+    },
+    "body": {
+      "sender_batch_header": {
+        "sender_batch_id": "Payouts_2024_02_01",
+        "email_subject": "You have a payout!",
+        "email_message": "You have received a payout from Acme Corp.",
+        "recipient_type": "EMAIL"
+      },
+      "items": [
+        {
+          "recipient_type": "EMAIL",
+          "amount": {
+            "value": "50.00",
+            "currency": "USD"
+          },
+          "receiver": "seller@example.com",
+          "note": "Commission for January sales",
+          "sender_item_id": "item-001"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "batch_header": {
+        "payout_batch_id": "CR2GS9XKLM3EY",
+        "batch_status": "PENDING",
+        "sender_batch_header": {
+          "sender_batch_id": "Payouts_2024_02_01",
+          "email_subject": "You have a payout!",
+          "email_message": "You have received a payout from Acme Corp."
+        }
+      },
+      "links": [
+        {
+          "href": "https://api-m.paypal.com/v1/payments/payouts/CR2GS9XKLM3EY",
+          "rel": "self",
+          "method": "GET"
+        }
+      ]
+    }
+  }
+}

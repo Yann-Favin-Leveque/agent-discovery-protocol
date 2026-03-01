@@ -1,0 +1,62 @@
+{
+  "name": "get_board",
+  "description": "Get detailed information about a specific Monday.com board by its ID. Returns the board's columns, groups, items count, subscribers, and settings. Useful for understanding a board's structure before creating or updating items.",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "GraphQL query string to fetch a specific board by ID.",
+      "required": true,
+      "example": "{ boards (ids: [1234567890]) { id name columns { id title type settings_str } groups { id title } } }"
+    },
+    {
+      "name": "board_id",
+      "type": "string",
+      "description": "The numeric ID of the board to retrieve (used inside the GraphQL query).",
+      "required": true,
+      "example": "1234567890"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.monday.com/v2",
+    "headers": {
+      "Authorization": "your-api-token-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "{ boards (ids: [1234567890]) { id name description columns { id title type settings_str } groups { id title color } items_count subscribers { id name email } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "boards": [
+          {
+            "id": "1234567890",
+            "name": "Sprint Board",
+            "description": "Current sprint tasks",
+            "columns": [
+              { "id": "name", "title": "Name", "type": "name", "settings_str": "{}" },
+              { "id": "status", "title": "Status", "type": "status", "settings_str": "{\"labels\":{\"0\":\"Working on it\",\"1\":\"Done\",\"2\":\"Stuck\"}}" },
+              { "id": "person", "title": "Assignee", "type": "people", "settings_str": "{}" },
+              { "id": "date4", "title": "Due Date", "type": "date", "settings_str": "{}" }
+            ],
+            "groups": [
+              { "id": "new_group", "title": "To Do", "color": "#579BFC" },
+              { "id": "group_1", "title": "In Progress", "color": "#FDAB3D" },
+              { "id": "group_2", "title": "Done", "color": "#00C875" }
+            ],
+            "items_count": 42,
+            "subscribers": [
+              { "id": "9876543", "name": "John Doe", "email": "john@example.com" }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

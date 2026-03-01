@@ -1,0 +1,53 @@
+{
+  "name": "revisions",
+  "description": "Manage revisions — lists a file's revisions. for more information, see [manage file revisions](https://developers.google.com/workspace/drive/api/guides/manage-revisions). **important:** the list of revisions returned by this method might be incomplete for files with a large revision history, including frequently edited google docs, sheets, and slides. older revisions might be omitted from the response, meaning the first revision returned may not be the oldest existing revision. the revision history visible in the workspace editor user interface might be more complete than the list returned by the api, gets a revision's metadata or content by id. for more information, see [manage file revisions](https://developers.google.com/workspace/drive/api/guides/manage-revisions), updates a revision with patch semantics. for more information, see [manage file revisions](https://developers.google.com/workspace/drive/api/guides/manage-revisions). Supports standard CRUD operations through the REST API.",
+  "endpoint": "/files/{fileId}/revisions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "fileId",
+      "type": "string",
+      "description": "The ID of the file.",
+      "required": true,
+      "example": "abc_123"
+    },
+    {
+      "name": "pageSize",
+      "type": "integer",
+      "description": "The maximum number of revisions to return per page.",
+      "required": false,
+      "example": "200"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response.",
+      "required": false,
+      "example": "example_value"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://www.googleapis.com/drive/v3/files/{fileId}/revisions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "fileId": "abc_123"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/drive.appdata",
+    "https://www.googleapis.com/auth/drive.apps.readonly",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive.meet.readonly"
+  ]
+}

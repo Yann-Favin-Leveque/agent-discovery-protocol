@@ -1,0 +1,42 @@
+{
+  "name": "drives",
+  "description": "Manage drives — creates a shared drive. for more information, see [manage shared drives](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives), hides a shared drive from the default view. for more information, see [manage shared drives](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives), restores a shared drive to the default view. for more information, see [manage shared drives](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives). Supports standard CRUD operations through the REST API.",
+  "endpoint": "/drives",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "requestId",
+      "type": "string",
+      "description": "Required. An ID, such as a random UUID, which uniquely identifies this user's request for idempotent creation of a shared drive. A repeated request by the same user and with the same request ID will avoid creating duplicates by attempting to create the same shared drive. If the shared drive already exists a 409 error will be returned.",
+      "required": true,
+      "example": "abc_123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.googleapis.com/drive/v3/drives",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "requestId": "abc_123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "requestId": "abc_123"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/drive.appdata",
+    "https://www.googleapis.com/auth/drive.apps.readonly",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive.meet.readonly"
+  ]
+}

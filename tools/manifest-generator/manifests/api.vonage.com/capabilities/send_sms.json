@@ -1,0 +1,66 @@
+{
+  "name": "send_sms",
+  "description": "Send an SMS text message to a specified phone number using the Vonage Messages API. The message is sent via the SMS channel. You must provide the recipient number in E.164 format, a sender number or alphanumeric sender ID, and the message text. Returns a unique message UUID that can be used to track delivery status via webhooks.",
+  "endpoint": "/v1/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "to",
+      "type": "string",
+      "required": true,
+      "description": "The recipient phone number in E.164 format (e.g., '14155550123'). Must include country code without the '+' prefix."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "The sender phone number in E.164 format or an alphanumeric sender ID (max 11 characters). Must be a Vonage virtual number or pre-approved sender ID."
+    },
+    {
+      "name": "channel",
+      "type": "string",
+      "required": true,
+      "description": "The messaging channel to use. Must be 'sms' for SMS messages."
+    },
+    {
+      "name": "message_type",
+      "type": "string",
+      "required": true,
+      "description": "The type of message content. Use 'text' for plain text SMS messages."
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "description": "The body of the SMS message. Standard SMS supports up to 160 characters; longer messages are sent as multipart SMS and may incur additional charges."
+    },
+    {
+      "name": "client_ref",
+      "type": "string",
+      "required": false,
+      "description": "A client-defined reference string for tracking purposes. Maximum 100 characters. Included in delivery receipt webhooks."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vonage.com/v1/messages",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    },
+    "body": {
+      "to": "14155550123",
+      "from": "12015550145",
+      "channel": "sms",
+      "message_type": "text",
+      "text": "Your order #4829 has shipped and will arrive by March 5. Track at: https://track.example.com/4829",
+      "client_ref": "order-4829-shipping-notification"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "message_uuid": "aaaaaaaa-bbbb-cccc-dddd-0123456789ab"
+    }
+  }
+}

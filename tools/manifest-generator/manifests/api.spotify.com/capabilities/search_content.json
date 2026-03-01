@@ -1,0 +1,71 @@
+{
+  "name": "search_content",
+  "description": "Search Spotify's catalog for tracks, artists, albums, playlists, shows, and episodes. Supports filters for year, genre, and market.",
+  "endpoint": "/v1/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "The search query. Supports field filters like 'artist:Radiohead', 'genre:rock', 'year:2020-2024'.",
+      "required": true,
+      "example": "artist:Radiohead album:OK Computer"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Comma-separated list of item types to search. Options: track, artist, album, playlist, show, episode.",
+      "required": true,
+      "example": "track,artist"
+    },
+    {
+      "name": "market",
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code to limit results to a specific market.",
+      "required": false,
+      "example": "US"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results to return per type. Default is 20, maximum is 50.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Index of the first result to return for pagination.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/search?q=artist%3ARadiohead&type=track%2Cartist&limit=20&market=US",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tracks": {
+        "items": [
+          {
+            "id": "6dGnYIeXmHdcikdzNNDMm2",
+            "name": "Creep",
+            "artists": [{ "id": "4Z8W4fKeB5YxbusRsdQVPb", "name": "Radiohead" }],
+            "album": { "id": "6Eo5EkmdLvZrONzi046iC2", "name": "Pablo Honey" },
+            "duration_ms": 238640,
+            "popularity": 82,
+            "preview_url": "https://p.scdn.co/mp3-preview/..."
+          }
+        ],
+        "total": 150,
+        "limit": 20,
+        "offset": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "list_projects",
+  "description": "List all monitored projects within a specific Snyk organization. Each project represents a scanned target such as a GitHub repository, Docker image, or CLI-tested manifest. Returns project metadata including name, type (npm, maven, pip, etc.), origin (github, cli, docker-hub), last test date, and issue count summaries. Use the org_id parameter to specify which organization to query.",
+  "endpoint": "/v1/org/{org_id}/projects",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": true,
+      "description": "The UUID of the Snyk organization. Obtain this from the list_organizations capability."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.snyk.io/v1/org/a1b2c3d4-e5f6-7890-abcd-ef1234567890/projects",
+    "headers": {
+      "Authorization": "token snyk-api-token-here",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "org": {
+        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "name": "My Organization"
+      },
+      "projects": [
+        {
+          "id": "p1a2b3c4-d5e6-7890-abcd-ef1234567890",
+          "name": "my-org/my-app:package.json",
+          "origin": "github",
+          "type": "npm",
+          "testFrequency": "daily",
+          "isMonitored": true,
+          "lastTestedDate": "2026-02-28T10:30:00.000Z",
+          "issueCountsBySeverity": {
+            "critical": 1,
+            "high": 3,
+            "medium": 7,
+            "low": 12
+          },
+          "browseUrl": "https://app.snyk.io/org/my-org/project/p1a2b3c4-d5e6-7890-abcd-ef1234567890"
+        },
+        {
+          "id": "p2b3c4d5-e6f7-8901-bcde-f12345678901",
+          "name": "my-org/backend-api:pom.xml",
+          "origin": "github",
+          "type": "maven",
+          "testFrequency": "daily",
+          "isMonitored": true,
+          "lastTestedDate": "2026-02-28T09:15:00.000Z",
+          "issueCountsBySeverity": {
+            "critical": 0,
+            "high": 2,
+            "medium": 5,
+            "low": 8
+          },
+          "browseUrl": "https://app.snyk.io/org/my-org/project/p2b3c4d5-e6f7-8901-bcde-f12345678901"
+        }
+      ]
+    }
+  }
+}

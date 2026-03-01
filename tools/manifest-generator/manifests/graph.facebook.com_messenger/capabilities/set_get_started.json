@@ -1,0 +1,41 @@
+{
+  "name": "set_get_started",
+  "description": "Configure a get-started button that appears when new users first interact with your bot. Sets the entry point for guiding users into your conversation flow.",
+  "endpoint": "/me/messenger_profile",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "payload",
+      "type": "string",
+      "description": "The postback payload to send when the user clicks the get-started button.",
+      "required": true,
+      "example": "get_started_clicked"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Optional title text for the get-started button (used in some versions).",
+      "required": false,
+      "example": "Get Started"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v18.0/me/messenger_profile",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "get_started": {
+        "payload": "get_started_clicked"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "result": "success"
+    }
+  }
+}

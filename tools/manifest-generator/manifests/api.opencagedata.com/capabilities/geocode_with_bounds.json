@@ -1,0 +1,71 @@
+{
+  "name": "geocode_with_bounds",
+  "description": "Forward geocode an address or place name restricted to a specific geographic bounding box. This is useful for disambiguating place names that exist in multiple regions (e.g., 'Springfield' exists in many US states). Only results within the bounding box are returned.",
+  "endpoint": "/geocode/v1/json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "The address or place name to geocode.",
+      "required": true,
+      "example": "Springfield"
+    },
+    {
+      "name": "bounds",
+      "type": "string",
+      "description": "Bounding box as 'minLng,minLat,maxLng,maxLat' to restrict results.",
+      "required": true,
+      "example": "-90.0,37.0,-89.0,38.0"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results to return (1-100). Default is 10.",
+      "required": false,
+      "example": 5
+    },
+    {
+      "name": "countrycode",
+      "type": "string",
+      "description": "Comma-separated ISO 3166-1 alpha-2 country codes to further restrict results.",
+      "required": false,
+      "example": "us"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "IETF language tag for the response language.",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.opencagedata.com/geocode/v1/json?q=Springfield&bounds=-90.0%2C37.0%2C-89.0%2C38.0&limit=1&key=YOUR_API_KEY",
+    "headers": {},
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "formatted": "Springfield, IL 62701, United States of America",
+          "geometry": {
+            "lat": 39.7817213,
+            "lng": -89.6501481
+          },
+          "components": {
+            "city": "Springfield",
+            "state": "Illinois",
+            "country": "United States of America",
+            "country_code": "us"
+          },
+          "confidence": 7
+        }
+      ],
+      "status": { "code": 200, "message": "OK" }
+    }
+  }
+}

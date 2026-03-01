@@ -1,0 +1,83 @@
+{
+  "name": "list_components",
+  "description": "List all component definitions (content type schemas) in a Storyblok space. Components define the structure of stories -- each component has a name, a set of fields with types and validation rules, and display configuration. Understanding available components is essential before creating or updating stories, as the content object must match a component schema. This endpoint requires a Management API token.",
+  "endpoint": "/v1/spaces/{space_id}/components",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "integer",
+      "required": true,
+      "description": "The numeric ID of the Storyblok space."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.storyblok.com/v1/spaces/123456/components",
+    "headers": {
+      "Authorization": "your-management-api-token",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "components": [
+        {
+          "id": 654321,
+          "name": "blog_post",
+          "display_name": "Blog Post",
+          "created_at": "2026-01-10T08:00:00.000Z",
+          "is_root": true,
+          "is_nestable": false,
+          "schema": {
+            "title": {
+              "type": "text",
+              "pos": 0,
+              "required": true,
+              "description": "The blog post title"
+            },
+            "body": {
+              "type": "bloks",
+              "pos": 1,
+              "restrict_components": true,
+              "component_whitelist": ["rich_text", "image_block", "code_block"],
+              "description": "The main content body"
+            },
+            "image": {
+              "type": "image",
+              "pos": 2,
+              "description": "Featured image"
+            },
+            "author": {
+              "type": "text",
+              "pos": 3,
+              "description": "Author name"
+            },
+            "tags": {
+              "type": "option",
+              "pos": 4,
+              "source": "internal_stories",
+              "description": "Content tags"
+            }
+          }
+        },
+        {
+          "id": 654322,
+          "name": "rich_text",
+          "display_name": "Rich Text",
+          "created_at": "2026-01-10T08:00:00.000Z",
+          "is_root": false,
+          "is_nestable": true,
+          "schema": {
+            "text": {
+              "type": "richtext",
+              "pos": 0,
+              "description": "Rich text content"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

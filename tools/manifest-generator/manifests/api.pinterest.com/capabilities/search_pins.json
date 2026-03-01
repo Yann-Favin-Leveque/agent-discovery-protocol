@@ -1,0 +1,60 @@
+{
+  "name": "search_pins",
+  "description": "Search the authenticated user's own pins matching a query string. Useful for finding previously saved pins by keyword or topic across all boards.",
+  "endpoint": "/v5/search/pins",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "The search query string to match against pin titles and descriptions.",
+      "required": true,
+      "example": "sunset photography"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Maximum number of results to return per page (1-250).",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "bookmark",
+      "type": "string",
+      "description": "Cursor token for pagination to fetch the next page.",
+      "required": false,
+      "example": "Y2lkPTI1..."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pinterest.com/v5/search/pins?query=sunset+photography&page_size=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "549755885176",
+          "title": "Beautiful Sunset Photography",
+          "description": "Stunning sunset at the Pacific coast.",
+          "link": "https://example.com/blog/sunset-photography",
+          "media": {
+            "media_type": "image",
+            "images": {
+              "original": {
+                "url": "https://i.pinimg.com/originals/ab/cd/ef.jpg",
+                "width": 1200,
+                "height": 800
+              }
+            }
+          }
+        }
+      ],
+      "bookmark": "Y2lkPTM1..."
+    }
+  }
+}

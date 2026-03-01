@@ -1,0 +1,94 @@
+{
+  "name": "list_license_keys",
+  "description": "List all license keys generated across your Lemon Squeezy store. License keys are automatically created when a customer purchases a product with license key generation enabled. Each key includes activation limits, status, and expiration information.",
+  "endpoint": "/v1/license-keys",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "filter[store_id]",
+      "type": "integer",
+      "description": "Filter license keys by store ID.",
+      "required": false,
+      "example": 12345
+    },
+    {
+      "name": "filter[order_id]",
+      "type": "integer",
+      "description": "Filter license keys by the order that generated them.",
+      "required": false,
+      "example": 1001
+    },
+    {
+      "name": "filter[product_id]",
+      "type": "integer",
+      "description": "Filter license keys by product ID.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "filter[status]",
+      "type": "string",
+      "description": "Filter by key status: 'inactive', 'active', 'expired', 'disabled'.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "page[number]",
+      "type": "integer",
+      "description": "The page number for pagination.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "page[size]",
+      "type": "integer",
+      "description": "Number of items per page. Default 10.",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.lemonsqueezy.com/v1/license-keys?filter[store_id]=12345&filter[status]=active",
+    "headers": {
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+      "Accept": "application/vnd.api+json",
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "meta": {
+        "page": { "currentPage": 1, "from": 1, "lastPage": 1, "perPage": 10, "to": 5, "total": 5 }
+      },
+      "jsonapi": { "version": "1.0" },
+      "data": [
+        {
+          "type": "license-keys",
+          "id": "1",
+          "attributes": {
+            "store_id": 12345,
+            "customer_id": 1,
+            "order_id": 1001,
+            "order_item_id": 1,
+            "product_id": 1,
+            "user_name": "Jane Doe",
+            "user_email": "jane@example.com",
+            "key": "ABCD-1234-EFGH-5678-IJKL",
+            "key_short": "ABCD...IJKL",
+            "activation_limit": 5,
+            "instances_count": 2,
+            "disabled": false,
+            "status": "active",
+            "status_formatted": "Active",
+            "expires_at": null,
+            "created_at": "2024-03-14T14:30:00.000000Z",
+            "updated_at": "2024-03-14T14:30:00.000000Z"
+          }
+        }
+      ]
+    }
+  }
+}

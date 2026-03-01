@@ -1,0 +1,86 @@
+{
+  "name": "geocode_search",
+  "description": "Convert an address, place name, or point of interest into geographic coordinates (forward geocoding). Powered by the Pelias geocoder using OpenStreetMap, Who's on First, and GeoNames data. Returns multiple candidate results ranked by relevance, each with coordinates and structured address components.",
+  "endpoint": "/geocode/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "description": "The address or place name to geocode. Examples: '1600 Pennsylvania Avenue, Washington DC', 'Eiffel Tower', 'Berlin Hauptbahnhof'."
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of results to return. Default is 10, maximum is 40."
+    },
+    {
+      "name": "boundary.country",
+      "type": "string",
+      "required": false,
+      "description": "Restrict results to a specific country using ISO 3166-1 alpha-3 code. Example: 'DEU' for Germany, 'USA' for United States."
+    },
+    {
+      "name": "focus.point.lon",
+      "type": "number",
+      "required": false,
+      "description": "Longitude to bias results toward. Used together with focus.point.lat."
+    },
+    {
+      "name": "focus.point.lat",
+      "type": "number",
+      "required": false,
+      "description": "Latitude to bias results toward. Used together with focus.point.lon."
+    },
+    {
+      "name": "layers",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated filter for result types. Options: venue, address, street, neighbourhood, borough, localadmin, locality, county, macrocounty, region, macroregion, country."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openrouteservice.org/geocode/search?text=Heidelberg%20Castle&size=3&boundary.country=DEU",
+    "headers": {
+      "Authorization": "5b3ce3597851110001cf6248xxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [8.715405, 49.410556]
+          },
+          "properties": {
+            "id": "way:123456789",
+            "name": "Heidelberger Schloss",
+            "confidence": 0.95,
+            "label": "Heidelberger Schloss, Heidelberg, Baden-Wuerttemberg, Germany",
+            "country": "Germany",
+            "country_a": "DEU",
+            "region": "Baden-Wuerttemberg",
+            "locality": "Heidelberg",
+            "layer": "venue",
+            "source": "openstreetmap"
+          }
+        }
+      ],
+      "geocoding": {
+        "version": "0.2",
+        "query": {
+          "text": "Heidelberg Castle",
+          "size": 3,
+          "boundary.country": ["DEU"]
+        }
+      }
+    }
+  }
+}

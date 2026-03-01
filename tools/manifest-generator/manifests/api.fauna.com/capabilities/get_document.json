@@ -1,0 +1,54 @@
+{
+  "name": "get_document",
+  "description": "Retrieve a single document from a Fauna collection by its unique ID. Returns the full document data including all fields, the document reference, and timestamps (created at, updated at). Uses an FQL query under the hood.",
+  "endpoint": "/query/1",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "collection",
+      "type": "string",
+      "description": "The name of the collection to read from.",
+      "required": true,
+      "example": "Product"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The unique document ID to retrieve.",
+      "required": true,
+      "example": "394523456789012345"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://db.fauna.com/query/1",
+    "headers": {
+      "Authorization": "Bearer {secret}",
+      "Content-Type": "application/json",
+      "X-Format": "simple"
+    },
+    "body": {
+      "query": "Product.byId('394523456789012345')"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "394523456789012345",
+        "coll": "Product",
+        "ts": "2025-12-01T10:00:00.000Z",
+        "name": "Wireless Mouse",
+        "price": 24.99,
+        "category": "electronics",
+        "in_stock": true
+      },
+      "stats": {
+        "compute_ops": 1,
+        "read_ops": 1,
+        "write_ops": 0,
+        "query_time_ms": 5
+      }
+    }
+  }
+}

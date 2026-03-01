@@ -1,0 +1,20 @@
+{
+  "name": "list_events",
+  "description": "List recent error events for a project with full context, stacktraces, and breadcrumbs.",
+  "endpoint": "/projects/{organization_slug}/{project_slug}/events/",
+  "method": "GET",
+  "parameters": [
+    {"name": "organization_slug", "type": "string", "description": "Organization slug.", "required": true, "example": "my-org"},
+    {"name": "project_slug", "type": "string", "description": "Project slug.", "required": true, "example": "my-app"},
+    {"name": "full", "type": "boolean", "description": "If true, include full event details.", "required": false, "example": true}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://sentry.io/api/0/projects/my-org/my-app/events/?full=true",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{"eventID": "evt_abc123", "title": "TypeError: Cannot read property 'map' of undefined", "dateCreated": "2024-01-20T15:00:00Z", "tags": [{"key": "browser", "value": "Chrome 120"}], "context": {"browser": {"name": "Chrome", "version": "120.0"}}}]
+  }
+}

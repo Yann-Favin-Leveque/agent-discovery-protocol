@@ -1,0 +1,30 @@
+{
+  "name": "mutate_documents",
+  "description": "Create, update, patch, and delete documents in your dataset. Mutations can be batched in a single transaction for atomic operations.",
+  "endpoint": "/v2021-10-21/data/mutate/{dataset}",
+  "method": "POST",
+  "parameters": [
+    { "name": "dataset", "type": "string", "description": "The dataset name.", "required": true, "example": "production" },
+    { "name": "mutations", "type": "array", "description": "Array of mutation operations.", "required": true, "example": [{ "create": { "_type": "post", "title": "New Post" } }] },
+    { "name": "returnDocuments", "type": "boolean", "description": "Return the full documents after mutation.", "required": false, "example": true }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_id}.api.sanity.io/v2021-10-21/data/mutate/production",
+    "headers": { "Authorization": "Bearer {api_token}", "Content-Type": "application/json" },
+    "body": {
+      "mutations": [
+        { "create": { "_type": "post", "title": "New Post", "body": "Post content here..." } }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transactionId": "txn_abc123",
+      "results": [
+        { "id": "doc_xyz789", "operation": "create" }
+      ]
+    }
+  }
+}

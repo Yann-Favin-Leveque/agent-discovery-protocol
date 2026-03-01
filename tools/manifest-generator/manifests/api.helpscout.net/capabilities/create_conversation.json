@@ -1,0 +1,42 @@
+{
+  "name": "create_conversation",
+  "description": "Create a new conversation in a Help Scout mailbox. This starts a new support thread with an initial message (thread). The customer is notified via email automatically.",
+  "endpoint": "/v2/conversations",
+  "method": "POST",
+  "parameters": [
+    { "name": "subject", "type": "string", "description": "The subject line of the conversation.", "required": true, "example": "Welcome to our support" },
+    { "name": "customer", "type": "object", "description": "Customer object with at least an email address.", "required": true, "example": { "email": "customer@example.com" } },
+    { "name": "mailboxId", "type": "integer", "description": "The ID of the mailbox to create the conversation in.", "required": true, "example": 1234 },
+    { "name": "type", "type": "string", "description": "Conversation type: 'email', 'phone', or 'chat'.", "required": true, "example": "email" },
+    { "name": "status", "type": "string", "description": "Initial status: 'active', 'pending', or 'closed'.", "required": false, "example": "active" },
+    { "name": "threads", "type": "array", "description": "Array of thread objects. Each must have 'type' ('customer' or 'reply') and 'text' (the message body).", "required": true, "example": [{ "type": "customer", "text": "I need help with my account settings." }] },
+    { "name": "tags", "type": "array", "description": "Tags to categorize the conversation.", "required": false, "example": ["account", "settings"] }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.helpscout.net/v2/conversations",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subject": "Help with account settings",
+      "customer": { "email": "customer@example.com" },
+      "mailboxId": 1234,
+      "type": "email",
+      "status": "active",
+      "threads": [
+        { "type": "customer", "text": "I need help with my account settings." }
+      ],
+      "tags": ["account"]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "headers": {
+      "Resource-ID": "5002",
+      "Location": "https://api.helpscout.net/v2/conversations/5002"
+    },
+    "body": {}
+  }
+}

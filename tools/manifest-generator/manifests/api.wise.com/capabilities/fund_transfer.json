@@ -1,0 +1,48 @@
+{
+  "name": "fund_transfer",
+  "description": "Fund an existing transfer from your Wise multi-currency balance. This is the final step that actually moves the money after a transfer has been created. The transfer must be in 'incoming_payment_waiting' status.",
+  "endpoint": "/v3/profiles/{profileId}/transfers/{transferId}/payments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "profileId",
+      "type": "integer",
+      "description": "Your Wise profile ID (personal or business). This is a path parameter.",
+      "required": true,
+      "example": 12345678
+    },
+    {
+      "name": "transferId",
+      "type": "integer",
+      "description": "The ID of the transfer to fund. This is a path parameter.",
+      "required": true,
+      "example": 16521632
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "The payment method. Use 'BALANCE' to pay from your Wise balance.",
+      "required": true,
+      "example": "BALANCE"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.wise.com/v3/profiles/12345678/transfers/16521632/payments",
+    "headers": {
+      "Authorization": "Bearer your-api-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "BALANCE"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "BALANCE",
+      "status": "COMPLETED",
+      "errorCode": null
+    }
+  }
+}

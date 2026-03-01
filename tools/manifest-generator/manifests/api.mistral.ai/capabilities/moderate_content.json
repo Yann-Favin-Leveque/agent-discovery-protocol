@@ -1,0 +1,67 @@
+{
+  "name": "moderate_content",
+  "description": "Classify text for harmful or unsafe content using Mistral's moderation model. Detects categories including hate speech, violence, sexual content, self-harm, and other policy violations.",
+  "endpoint": "/v1/moderations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The moderation model ID to use.",
+      "required": false,
+      "example": "mistral-moderation-latest"
+    },
+    {
+      "name": "input",
+      "type": "array",
+      "description": "Array of text strings to check for content policy violations.",
+      "required": true,
+      "example": ["This is a normal message.", "Some potentially harmful text."]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/moderations",
+    "headers": {
+      "Authorization": "Bearer your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "mistral-moderation-latest",
+      "input": ["This is a friendly greeting!"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "mod-abc123",
+      "model": "mistral-moderation-latest",
+      "results": [
+        {
+          "categories": {
+            "sexual": false,
+            "hate_and_discrimination": false,
+            "violence_and_threats": false,
+            "dangerous_and_criminal_content": false,
+            "selfharm": false,
+            "health": false,
+            "financial": false,
+            "law": false,
+            "pii": false
+          },
+          "category_scores": {
+            "sexual": 0.0001,
+            "hate_and_discrimination": 0.0002,
+            "violence_and_threats": 0.0001,
+            "dangerous_and_criminal_content": 0.0001,
+            "selfharm": 0.0001,
+            "health": 0.0001,
+            "financial": 0.0001,
+            "law": 0.0001,
+            "pii": 0.0001
+          }
+        }
+      ]
+    }
+  }
+}

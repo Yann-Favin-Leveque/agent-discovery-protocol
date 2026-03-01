@@ -1,0 +1,128 @@
+{
+  "name": "send_email",
+  "description": "Send a single transactional email through Postmark. Supports HTML and plain text bodies, file attachments, open tracking, link tracking, metadata, and message streams. You can send to up to 50 recipients per request. For bulk sending, use the batch endpoint instead.",
+  "endpoint": "/email",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "From",
+      "type": "string",
+      "description": "Sender email address. Must be a confirmed Sender Signature in your Postmark account.",
+      "required": true,
+      "example": "notifications@example.com"
+    },
+    {
+      "name": "To",
+      "type": "string",
+      "description": "Recipient email address(es). Comma-separated for multiple recipients, max 50.",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "Subject",
+      "type": "string",
+      "description": "The subject line of the email.",
+      "required": true,
+      "example": "Your password has been reset"
+    },
+    {
+      "name": "HtmlBody",
+      "type": "string",
+      "description": "HTML body of the email. At least one of HtmlBody or TextBody is required.",
+      "required": false,
+      "example": "<html><body><h1>Password Reset</h1><p>Your password has been successfully reset.</p></body></html>"
+    },
+    {
+      "name": "TextBody",
+      "type": "string",
+      "description": "Plain text body of the email. At least one of HtmlBody or TextBody is required.",
+      "required": false,
+      "example": "Your password has been successfully reset."
+    },
+    {
+      "name": "Cc",
+      "type": "string",
+      "description": "CC recipient email address(es). Comma-separated for multiple.",
+      "required": false,
+      "example": "admin@example.com"
+    },
+    {
+      "name": "Bcc",
+      "type": "string",
+      "description": "BCC recipient email address(es). Comma-separated for multiple.",
+      "required": false,
+      "example": "audit@example.com"
+    },
+    {
+      "name": "Tag",
+      "type": "string",
+      "description": "A tag for categorizing this email. Useful for filtering in stats and activity.",
+      "required": false,
+      "example": "password-reset"
+    },
+    {
+      "name": "TrackOpens",
+      "type": "boolean",
+      "description": "Whether to track when the recipient opens the email.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "TrackLinks",
+      "type": "string",
+      "description": "Link tracking mode. Options: 'None', 'HtmlAndText', 'HtmlOnly', 'TextOnly'.",
+      "required": false,
+      "example": "HtmlAndText"
+    },
+    {
+      "name": "MessageStream",
+      "type": "string",
+      "description": "The message stream to send through. Defaults to 'outbound' for transactional email.",
+      "required": false,
+      "example": "outbound"
+    },
+    {
+      "name": "Metadata",
+      "type": "object",
+      "description": "Custom key-value metadata to attach to the message. Useful for tracking and filtering.",
+      "required": false,
+      "example": {
+        "order_id": "12345",
+        "user_id": "u_abc"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/email",
+    "headers": {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "X-Postmark-Server-Token": "your-server-token-here"
+    },
+    "body": {
+      "From": "notifications@example.com",
+      "To": "user@example.com",
+      "Subject": "Your password has been reset",
+      "HtmlBody": "<html><body><h1>Password Reset</h1><p>Your password has been successfully reset.</p></body></html>",
+      "TextBody": "Your password has been successfully reset.",
+      "Tag": "password-reset",
+      "TrackOpens": true,
+      "TrackLinks": "HtmlAndText",
+      "MessageStream": "outbound",
+      "Metadata": {
+        "user_id": "u_abc"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "To": "user@example.com",
+      "SubmittedAt": "2024-02-01T12:00:00.0000000-05:00",
+      "MessageID": "b7bc2f4a-e38e-4336-af7d-e6c392c2f817",
+      "ErrorCode": 0,
+      "Message": "OK"
+    }
+  }
+}

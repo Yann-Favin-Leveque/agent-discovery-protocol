@@ -1,0 +1,107 @@
+{
+  "name": "create_discount",
+  "description": "Create a new discount code with a fixed amount or percentage off the order total. Supports conditions like minimum order amount, maximum number of usages, product-specific restrictions, expiry dates, and combinability with other discounts.",
+  "endpoint": "/discounts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Internal name for the discount (for merchant reference).",
+      "required": true,
+      "example": "Summer Sale 2024"
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "description": "The discount code that customers enter at checkout.",
+      "required": true,
+      "example": "SUMMER2024"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Discount type: 'FixedAmount', 'FixedAmountOnItems', 'Rate', 'AlternatePrice', 'Shipping', or 'AmountOnSubscription'.",
+      "required": true,
+      "example": "Rate"
+    },
+    {
+      "name": "rate",
+      "type": "number",
+      "description": "Discount percentage (required when type is 'Rate'). Value between 0 and 100.",
+      "required": false,
+      "example": 15
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Discount amount in currency (required when type is 'FixedAmount' or 'FixedAmountOnItems').",
+      "required": false,
+      "example": 10.00
+    },
+    {
+      "name": "maxNumberOfUsages",
+      "type": "integer",
+      "description": "Maximum number of times the discount can be used (null for unlimited).",
+      "required": false,
+      "example": 500
+    },
+    {
+      "name": "expires",
+      "type": "string",
+      "description": "Expiration date for the discount (ISO 8601 format).",
+      "required": false,
+      "example": "2024-08-31T23:59:59Z"
+    },
+    {
+      "name": "combinable",
+      "type": "boolean",
+      "description": "Whether this discount can be combined with other discounts.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "trigger",
+      "type": "string",
+      "description": "How the discount is triggered: 'Code' (customer enters code) or 'Total' (automatic based on cart total).",
+      "required": true,
+      "example": "Code"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.snipcart.com/api/discounts",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "name": "Summer Sale 2024",
+      "code": "SUMMER2024",
+      "type": "Rate",
+      "rate": 15,
+      "trigger": "Code",
+      "maxNumberOfUsages": 500,
+      "expires": "2024-08-31T23:59:59Z",
+      "combinable": false
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "disc-uuid-123",
+      "name": "Summer Sale 2024",
+      "code": "SUMMER2024",
+      "type": "Rate",
+      "rate": 15,
+      "trigger": "Code",
+      "maxNumberOfUsages": 500,
+      "numberOfUsages": 0,
+      "expires": "2024-08-31T23:59:59Z",
+      "combinable": false,
+      "creationDate": "2024-01-10T10:30:00Z",
+      "archived": false
+    }
+  }
+}

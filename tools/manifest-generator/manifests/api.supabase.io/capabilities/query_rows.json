@@ -1,0 +1,73 @@
+{
+  "name": "query_rows",
+  "description": "Read rows from any table in your Supabase database using the PostgREST-powered REST API. Supports equality, range, pattern, and full-text search filters. Can select specific columns, follow foreign key relationships for joins, order results, and paginate with limit/offset or range headers.",
+  "endpoint": "/rest/v1/{table}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "table",
+      "type": "string",
+      "description": "The name of the database table to query.",
+      "required": true,
+      "example": "todos"
+    },
+    {
+      "name": "select",
+      "type": "string",
+      "description": "Comma-separated columns to return. Use '*' for all. Supports nested selects for joins (e.g. 'id,title,user:users(name)').",
+      "required": false,
+      "example": "id,title,completed,created_at"
+    },
+    {
+      "name": "column.filter",
+      "type": "string",
+      "description": "Filter rows using PostgREST operators: eq, neq, gt, gte, lt, lte, like, ilike, in, is. Format: column=operator.value",
+      "required": false,
+      "example": "completed=eq.false"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort results by column with direction (e.g. 'created_at.desc').",
+      "required": false,
+      "example": "created_at.desc"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of rows to return.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Number of rows to skip for pagination.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{project_ref}.supabase.co/rest/v1/todos?select=id,title,completed&completed=eq.false&order=created_at.desc&limit=10",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1,
+        "title": "Buy groceries",
+        "completed": false
+      },
+      {
+        "id": 3,
+        "title": "Write documentation",
+        "completed": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "get_monitors",
+  "description": "List and search monitors with their current status, uptime ratios, response times, and downtime logs. Filter by type, status, or search by name. Returns SSL certificate info when available.",
+  "endpoint": "/v3/monitors",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "search",
+      "type": "string",
+      "description": "Search monitors by friendly name (partial match).",
+      "required": false,
+      "example": "my-website"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter by monitor type: 'http', 'keyword', 'ping', 'port', 'heartbeat'.",
+      "required": false,
+      "example": "http"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status: 'up', 'down', 'paused', 'not_checked_yet', 'seems_down'.",
+      "required": false,
+      "example": "down"
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Cursor for pagination. Returned in the response for the next page of results.",
+      "required": false,
+      "example": "eyJpZCI6MTIzfQ=="
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.uptimerobot.com/v3/monitors?status=down",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 777749809,
+          "friendly_name": "My Website",
+          "url": "https://example.com",
+          "type": "http",
+          "status": "up",
+          "interval": 300,
+          "create_datetime": "2025-01-08T00:15:36Z",
+          "uptime_ratio": {
+            "7_days": "99.98",
+            "30_days": "99.95"
+          },
+          "average_response_time": {
+            "7_days": 245
+          },
+          "ssl": {
+            "brand": "Let's Encrypt",
+            "expires": "2025-12-15T00:00:00Z"
+          }
+        }
+      ],
+      "pagination": {
+        "next_cursor": "eyJpZCI6MTI0fQ==",
+        "has_more": true
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

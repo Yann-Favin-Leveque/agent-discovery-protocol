@@ -1,0 +1,48 @@
+{
+  "name": "manage_unsubscribes",
+  "description": "Add or remove email addresses and domains from your unsubscribe list. Retrieve all unsubscribed contacts and export them to CSV. Adding an email or domain to the unsubscribe list prevents future outreach to that address across all campaigns.",
+  "endpoint": "/api/unsubscribes",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Pagination offset.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of unsubscribes to return.",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.lemlist.com/api/unsubscribes?offset=0&limit=100",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "_id": "unsub_001",
+        "email": "john@acmecorp.com",
+        "type": "email",
+        "reason": "manual",
+        "createdAt": "2026-02-20T10:00:00.000Z"
+      },
+      {
+        "_id": "unsub_002",
+        "email": "competitor.com",
+        "type": "domain",
+        "reason": "manual",
+        "createdAt": "2026-01-15T08:00:00.000Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "create_submission",
+  "description": "Programmatically submit data to a JotForm form. This lets you create submissions via API as if a user filled out the form.",
+  "endpoint": "/form/{formID}/submissions",
+  "method": "POST",
+  "parameters": [
+    { "name": "formID", "type": "string", "description": "The form ID.", "required": true, "example": "123456789" },
+    { "name": "submission", "type": "object", "description": "Key-value pairs mapping question IDs to answers.", "required": true, "example": { "1": "Jane Doe", "2": "jane@example.com" } }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.jotform.com/form/123456789/submissions",
+    "headers": { "APIKEY": "{api_key}", "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "submission[1]": "Jane Doe", "submission[2]": "jane@example.com" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "responseCode": 200, "content": { "submissionID": "5551234567891" } }
+  }
+}

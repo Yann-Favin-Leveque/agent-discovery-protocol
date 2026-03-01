@@ -1,0 +1,40 @@
+{
+  "name": "create_employee",
+  "description": "Add a new employee to the company directory with their personal and job information. At minimum, first name and last name are required. Returns the newly created employee's ID.",
+  "endpoint": "/api/gateway.php/{company_domain}/v1/employees",
+  "method": "POST",
+  "parameters": [
+    { "name": "company_domain", "type": "string", "description": "Your BambooHR company subdomain.", "required": true, "example": "mycompany" },
+    { "name": "firstName", "type": "string", "description": "Employee's first name.", "required": true, "example": "Alex" },
+    { "name": "lastName", "type": "string", "description": "Employee's last name.", "required": true, "example": "Johnson" },
+    { "name": "department", "type": "string", "description": "The department the employee belongs to.", "required": false, "example": "Engineering" },
+    { "name": "jobTitle", "type": "string", "description": "The employee's job title.", "required": false, "example": "Software Engineer" },
+    { "name": "workEmail", "type": "string", "description": "The employee's work email address.", "required": false, "example": "alex@mycompany.com" },
+    { "name": "hireDate", "type": "string", "description": "The employee's hire date in YYYY-MM-DD format.", "required": false, "example": "2026-03-15" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "firstName": "Alex",
+      "lastName": "Johnson",
+      "department": "Engineering",
+      "jobTitle": "Software Engineer",
+      "workEmail": "alex@mycompany.com",
+      "hireDate": "2026-03-15"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "headers": {
+        "Location": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/456"
+      }
+    }
+  }
+}

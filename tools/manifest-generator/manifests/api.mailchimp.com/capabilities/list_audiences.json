@@ -1,0 +1,98 @@
+{
+  "name": "list_audiences",
+  "description": "Retrieve all audiences (mailing lists) associated with your Mailchimp account. Returns a paginated list of audiences with metadata including subscriber counts, list settings, and campaign defaults. You can filter and sort results using optional query parameters.",
+  "endpoint": "/3.0/lists",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "The number of audiences to return per request (maximum 1000).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "The number of audiences to skip before returning results for pagination.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "A comma-separated list of fields to include in the response. Omit to include all fields.",
+      "required": false,
+      "example": "lists.id,lists.name,lists.stats.member_count"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailchimp.com/3.0/lists?count=10&offset=0",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "lists": [
+        {
+          "id": "abc123def456",
+          "name": "Newsletter Subscribers",
+          "contact": {
+            "company": "Example Corp",
+            "address1": "123 Main St",
+            "city": "New York",
+            "state": "NY",
+            "zip": "10001",
+            "country": "US",
+            "phone": "555-0123"
+          },
+          "permission_reminder": "You are receiving this email because you signed up for our newsletter.",
+          "use_archive_bar": true,
+          "campaign_defaults": {
+            "from_name": "Example Newsletter",
+            "from_email": "newsletter@example.com",
+            "subject": "",
+            "language": "en"
+          },
+          "notify_on_subscribe": "",
+          "notify_on_unsubscribe": "",
+          "date_created": "2024-01-01T10:30:00+00:00",
+          "list_rating": 5,
+          "email_type_option": true,
+          "subscribe_url_short": "https://example.us2.list-manage.com/subscribe/post?u=abc123&id=def456",
+          "subscribe_url_long": "https://example.us2.list-manage.com/subscribe/post?u=abc123&id=def456",
+          "beamer_address": "us2-abc123def456@inbound.mailchimp.com",
+          "visibility": "pub",
+          "double_optin": false,
+          "has_welcome": true,
+          "marketing_permissions": true,
+          "modules": [],
+          "stats": {
+            "member_count": 5000,
+            "unsubscribe_count": 150,
+            "cleaned_count": 50,
+            "member_count_since_send": 4800,
+            "unsubscribe_count_since_send": 12,
+            "cleaned_count_since_send": 5,
+            "campaign_count": 25,
+            "campaign_last_sent": "2024-01-20T15:00:00+00:00",
+            "merge_field_count": 3,
+            "avg_sub_rate": 10.5,
+            "avg_unsub_rate": 0.5,
+            "target_sub_rate": 2.5,
+            "open_rate": 21.5,
+            "click_rate": 2.8,
+            "last_sub_date": "2024-01-19T08:15:00+00:00",
+            "last_unsub_date": "2024-01-18T14:22:00+00:00"
+          }
+        }
+      ],
+      "list_count": 1,
+      "total_items": 1
+    }
+  }
+}

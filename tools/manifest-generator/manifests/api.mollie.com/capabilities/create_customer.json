@@ -1,0 +1,69 @@
+{
+  "name": "create_customer",
+  "description": "Create a new customer in Mollie. Customers are used to group payments together and enable recurring billing. Once a customer exists, you can create mandates and subscriptions for them.",
+  "endpoint": "/v2/customers",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The full name of the customer.",
+      "required": false,
+      "example": "Jane Doe"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "The email address of the customer.",
+      "required": false,
+      "example": "jane@example.com"
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "The preferred locale of the customer (e.g. 'en_US', 'nl_NL').",
+      "required": false,
+      "example": "en_US"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Custom metadata to attach to the customer. Max ~1kB.",
+      "required": false,
+      "example": { "internal_id": "cust_789" }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/customers",
+    "headers": {
+      "Authorization": "Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "locale": "en_US",
+      "metadata": { "internal_id": "cust_789" }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "customer",
+      "id": "cst_8wmqcHMN4U",
+      "mode": "live",
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "locale": "en_US",
+      "metadata": { "internal_id": "cust_789" },
+      "createdAt": "2024-03-15T09:00:00+00:00",
+      "_links": {
+        "self": { "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U" },
+        "mandates": { "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/mandates" },
+        "subscriptions": { "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/subscriptions" },
+        "payments": { "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/payments" }
+      }
+    }
+  }
+}

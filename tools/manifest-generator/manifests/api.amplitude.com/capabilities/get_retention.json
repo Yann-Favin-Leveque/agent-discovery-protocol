@@ -1,0 +1,22 @@
+{
+  "name": "get_retention",
+  "description": "Get user retention analysis data showing how users return over time after a starting event.",
+  "endpoint": "/2/retention",
+  "method": "GET",
+  "parameters": [
+    {"name": "se", "type": "string", "description": "JSON-encoded start event.", "required": true, "example": "{\"event_type\":\"sign_up\"}"},
+    {"name": "re", "type": "string", "description": "JSON-encoded return event.", "required": true, "example": "{\"event_type\":\"any_active\"}"},
+    {"name": "start", "type": "string", "description": "Start date (YYYYMMDD).", "required": true, "example": "20240101"},
+    {"name": "end", "type": "string", "description": "End date (YYYYMMDD).", "required": true, "example": "20240131"},
+    {"name": "rm", "type": "string", "description": "Retention mode: bracket or rolling.", "required": false, "example": "bracket"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://amplitude.com/api/2/retention?se={\"event_type\":\"sign_up\"}&re={\"event_type\":\"any_active\"}&start=20240101&end=20240131",
+    "headers": {"Authorization": "Basic {api_key_and_secret_base64}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": [{"date": "2024-01-01", "count": 100, "retainedCounts": [100, 65, 42, 38, 35]}, {"date": "2024-01-08", "count": 120, "retainedCounts": [120, 78, 55]}]}
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "name": "reverse_geocode",
+  "description": "Convert geographic coordinates (latitude, longitude) into a human-readable address. Returns a formatted address string, detailed components (city, country, postal code), and rich annotations including timezone, currency, and geopolitical context.",
+  "endpoint": "/geocode/v1/json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Coordinates as 'latitude,longitude' (note: latitude first).",
+      "required": true,
+      "example": "52.5170365,13.3888599"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "IETF language tag for the response language.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "no_annotations",
+      "type": "integer",
+      "description": "Set to 1 to exclude annotations from results.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "roadinfo",
+      "type": "integer",
+      "description": "Set to 1 to match the nearest road instead of the nearest address.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.opencagedata.com/geocode/v1/json?q=52.5170365%2C13.3888599&language=en&key=YOUR_API_KEY",
+    "headers": {},
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "formatted": "Pariser Platz, 10117 Berlin, Germany",
+          "geometry": {
+            "lat": 52.5170365,
+            "lng": 13.3888599
+          },
+          "components": {
+            "road": "Pariser Platz",
+            "city": "Berlin",
+            "postcode": "10117",
+            "country": "Germany",
+            "country_code": "de"
+          },
+          "confidence": 9,
+          "annotations": {
+            "timezone": { "name": "Europe/Berlin", "offset_string": "+0100" },
+            "currency": { "name": "Euro", "iso_code": "EUR" }
+          }
+        }
+      ],
+      "status": { "code": 200, "message": "OK" }
+    }
+  }
+}

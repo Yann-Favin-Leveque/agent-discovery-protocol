@@ -1,0 +1,34 @@
+{
+  "name": "send_message",
+  "description": "Send a message to an active chat conversation as an agent. Supports text messages to ongoing visitor sessions.",
+  "endpoint": "/v1/property/{property_id}/chats/{chat_id}/messages",
+  "method": "POST",
+  "parameters": [
+    { "name": "property_id", "type": "string", "description": "The unique identifier for your tawk.to property.", "required": true, "example": "prop_abc123def456" },
+    { "name": "chat_id", "type": "string", "description": "The unique identifier of the active chat session.", "required": true, "example": "chat_001" },
+    { "name": "message", "type": "string", "description": "The text message to send to the visitor.", "required": true, "example": "Thanks for reaching out! Let me look into that for you." },
+    { "name": "type", "type": "string", "description": "The message type. Defaults to 'text'.", "required": false, "example": "text" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.tawk.to/v1/property/prop_abc123def456/chats/chat_001/messages",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "message": "Thanks for reaching out! Let me look into that for you.",
+      "type": "text"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "message_id": "msg_abc123",
+        "timestamp": "2024-01-15T10:31:00Z"
+      }
+    }
+  }
+}

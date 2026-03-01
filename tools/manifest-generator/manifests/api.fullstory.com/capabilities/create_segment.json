@@ -1,0 +1,20 @@
+{
+  "name": "create_segment",
+  "description": "Create a user segment in FullStory based on behavioral criteria for ongoing analysis.",
+  "endpoint": "/segments/v1",
+  "method": "POST",
+  "parameters": [
+    {"name": "name", "type": "string", "description": "Segment name.", "required": true, "example": "Enterprise Users with Errors"},
+    {"name": "filter", "type": "object", "description": "Filter criteria for the segment.", "required": true, "example": {"type": "AND", "filters": [{"type": "userProperty", "name": "plan", "operator": "equals", "value": "enterprise"}]}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fullstory.com/segments/v1",
+    "headers": {"Authorization": "Basic {api_key}", "Content-Type": "application/json"},
+    "body": {"name": "Enterprise Users with Errors", "filter": {"type": "AND", "filters": [{"type": "userProperty", "name": "plan", "operator": "equals", "value": "enterprise"}]}}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": "seg_xyz789", "name": "Enterprise Users with Errors", "created_at": "2024-01-20T10:00:00Z"}
+  }
+}

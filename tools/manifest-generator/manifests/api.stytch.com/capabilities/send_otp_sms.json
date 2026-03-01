@@ -1,0 +1,32 @@
+{
+  "name": "send_otp_sms",
+  "description": "Send a one-time passcode via SMS to a phone number. The code is valid for a configurable number of minutes. If the phone number doesn't match an existing user, a new user is created.",
+  "endpoint": "/v1/otps/sms/send",
+  "method": "POST",
+  "parameters": [
+    { "name": "phone_number", "type": "string", "description": "The phone number in E.164 format (e.g., +14155551234).", "required": true, "example": "+14155551234" },
+    { "name": "expiration_minutes", "type": "integer", "description": "How long the OTP is valid in minutes (1-10). Defaults to 2.", "required": false, "example": 5 },
+    { "name": "locale", "type": "string", "description": "Language for the SMS. Supported: en, es, fr, pt-br.", "required": false, "example": "en" },
+    { "name": "user_id", "type": "string", "description": "Associate this phone number with an existing user by their ID.", "required": false, "example": "" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/otps/sms/send",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic {base64(project_id:secret)}"
+    },
+    "body": {
+      "phone_number": "+14155551234"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "request-id-test-stytch-request",
+      "user_id": "user-test-e3795c81-f849-4167-bfda-e4a6e9c280fd",
+      "phone_id": "phone-number-test-d5a3b680-e8a3-40c0-b815-ab79986666d0",
+      "status_code": 200
+    }
+  }
+}

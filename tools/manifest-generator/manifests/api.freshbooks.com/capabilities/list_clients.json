@@ -1,0 +1,44 @@
+{
+  "name": "list_clients",
+  "description": "List all clients for a FreshBooks account, including their contact details, organization name, and billing information. Clients are needed when creating invoices and time entries.",
+  "endpoint": "/accounting/account/{account_id}/users/clients",
+  "method": "GET",
+  "parameters": [
+    { "name": "account_id", "type": "string", "description": "Your FreshBooks account ID.", "required": true, "example": "xZNQ1X" },
+    { "name": "page", "type": "integer", "description": "Page number for pagination.", "required": false, "example": 1 },
+    { "name": "per_page", "type": "integer", "description": "Number of results per page (max 100).", "required": false, "example": 25 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/accounting/account/xZNQ1X/users/clients?page=1&per_page=25",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "response": {
+        "result": {
+          "clients": [
+            {
+              "id": 12345,
+              "fname": "John",
+              "lname": "Smith",
+              "email": "john@acme.com",
+              "organization": "Acme Corp",
+              "p_city": "San Francisco",
+              "p_province": "California",
+              "p_country": "United States"
+            }
+          ],
+          "page": 1,
+          "pages": 3,
+          "per_page": 25,
+          "total": 62
+        }
+      }
+    }
+  }
+}

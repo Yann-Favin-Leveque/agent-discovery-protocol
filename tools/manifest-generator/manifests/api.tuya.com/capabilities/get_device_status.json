@@ -1,0 +1,46 @@
+{
+  "name": "get_device_status",
+  "description": "Get the current real-time status of a specific device. Returns all active data points (DPs) such as switch state, brightness level, color mode, temperature setting, and sensor readings. Each DP has a code and value.",
+  "endpoint": "/v1.0/devices/{device_id}/status",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "device_id",
+      "type": "string",
+      "description": "The unique ID of the device to query.",
+      "required": true,
+      "example": "bf12345abcdef67890"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://openapi.tuyaus.com/v1.0/devices/bf12345abcdef67890/status",
+    "headers": {
+      "client_id": "{client_id}",
+      "access_token": "{access_token}",
+      "sign": "{hmac_sha256_signature}",
+      "sign_method": "HMAC-SHA256",
+      "t": "1638360000000"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": [
+        {
+          "code": "switch_led",
+          "value": true
+        },
+        {
+          "code": "bright_value",
+          "value": 255
+        },
+        {
+          "code": "work_mode",
+          "value": "white"
+        }
+      ]
+    }
+  }
+}

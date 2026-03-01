@@ -1,0 +1,103 @@
+{
+  "name": "get_directions",
+  "description": "Calculate turn-by-turn driving, walking, or cycling directions between two or more coordinates. Returns one or more routes with geometry, total distance in meters, total duration in seconds, and optional step-by-step navigation instructions.",
+  "endpoint": "/directions/v5/{profile}/{coordinates}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile. One of: mapbox/driving-traffic, mapbox/driving, mapbox/walking, mapbox/cycling.",
+      "required": true,
+      "example": "mapbox/driving"
+    },
+    {
+      "name": "coordinates",
+      "type": "string",
+      "description": "Semicolon-separated list of 2-25 coordinate pairs as 'longitude,latitude'.",
+      "required": true,
+      "example": "-73.989,40.733;-74.006,40.714"
+    },
+    {
+      "name": "alternatives",
+      "type": "boolean",
+      "description": "Whether to return alternative routes (up to 2). Default is false.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "steps",
+      "type": "boolean",
+      "description": "Whether to include turn-by-turn instructions. Default is false.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "geometries",
+      "type": "string",
+      "description": "Format of the route geometry. One of: geojson, polyline, polyline6. Default is polyline.",
+      "required": false,
+      "example": "geojson"
+    },
+    {
+      "name": "overview",
+      "type": "string",
+      "description": "Detail level of route geometry: full, simplified, or false. Default is simplified.",
+      "required": false,
+      "example": "full"
+    },
+    {
+      "name": "annotations",
+      "type": "string",
+      "description": "Comma-separated metadata to include: distance, duration, speed, congestion, maxspeed.",
+      "required": false,
+      "example": "distance,duration"
+    },
+    {
+      "name": "exclude",
+      "type": "string",
+      "description": "Comma-separated road types to avoid: motorway, toll, ferry, unpaved, tunnel.",
+      "required": false,
+      "example": "toll,ferry"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/directions/v5/mapbox/driving/-73.989,40.733;-74.006,40.714?steps=true&geometries=geojson&access_token=YOUR_ACCESS_TOKEN",
+    "headers": {},
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": "Ok",
+      "routes": [
+        {
+          "distance": 3245.6,
+          "duration": 487.2,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [[-73.989, 40.733], [-73.995, 40.724], [-74.006, 40.714]]
+          },
+          "legs": [
+            {
+              "distance": 3245.6,
+              "duration": 487.2,
+              "steps": [
+                {
+                  "maneuver": { "instruction": "Head south on Broadway", "type": "depart" },
+                  "distance": 1200.3,
+                  "duration": 180.5
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "waypoints": [
+        { "name": "Broadway", "location": [-73.989, 40.733] },
+        { "name": "West Street", "location": [-74.006, 40.714] }
+      ]
+    }
+  }
+}

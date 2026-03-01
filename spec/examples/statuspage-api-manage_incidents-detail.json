@@ -1,0 +1,108 @@
+{
+  "name": "manage_incidents",
+  "description": "Create, update, and resolve incidents on a status page. Set impact level, affected components, and status. Supports scheduled maintenances and notification delivery control.",
+  "endpoint": "/v1/pages/{page_id}/incidents",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "description": "The unique identifier of the status page. Found in the Statuspage dashboard URL.",
+      "required": true,
+      "example": "abc123def456"
+    },
+    {
+      "name": "incident[name]",
+      "type": "string",
+      "description": "Title of the incident. Should briefly describe the issue.",
+      "required": true,
+      "example": "Database connectivity issues"
+    },
+    {
+      "name": "incident[status]",
+      "type": "string",
+      "description": "Current status: 'investigating', 'identified', 'monitoring', 'resolved' for realtime incidents. 'scheduled', 'in_progress', 'verifying', 'completed' for maintenances.",
+      "required": true,
+      "example": "investigating"
+    },
+    {
+      "name": "incident[body]",
+      "type": "string",
+      "description": "The update message body describing the current situation.",
+      "required": false,
+      "example": "We are investigating reports of database connectivity issues affecting the API."
+    },
+    {
+      "name": "incident[impact_override]",
+      "type": "string",
+      "description": "Override the calculated impact level: 'none', 'minor', 'major', 'critical'.",
+      "required": false,
+      "example": "major"
+    },
+    {
+      "name": "incident[component_ids][]",
+      "type": "string[]",
+      "description": "Array of component IDs affected by this incident.",
+      "required": false,
+      "example": ["comp_abc123"]
+    },
+    {
+      "name": "incident[deliver_notifications]",
+      "type": "boolean",
+      "description": "Whether to send notifications to subscribers. Defaults to true.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.statuspage.io/v1/pages/abc123def456/incidents",
+    "headers": {
+      "Authorization": "OAuth {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "incident": {
+        "name": "Database connectivity issues",
+        "status": "investigating",
+        "body": "We are investigating reports of database connectivity issues affecting the API.",
+        "impact_override": "major",
+        "component_ids": ["comp_abc123"],
+        "deliver_notifications": true
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "inc_789xyz",
+      "name": "Database connectivity issues",
+      "status": "investigating",
+      "impact": "major",
+      "shortlink": "https://stspg.io/abc123",
+      "created_at": "2025-09-15T14:30:00Z",
+      "updated_at": "2025-09-15T14:30:00Z",
+      "monitoring_at": null,
+      "resolved_at": null,
+      "incident_updates": [
+        {
+          "id": "upd_001",
+          "status": "investigating",
+          "body": "We are investigating reports of database connectivity issues affecting the API.",
+          "created_at": "2025-09-15T14:30:00Z"
+        }
+      ],
+      "components": [
+        {
+          "id": "comp_abc123",
+          "name": "API",
+          "status": "major_outage"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

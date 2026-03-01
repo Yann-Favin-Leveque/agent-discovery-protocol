@@ -1,0 +1,85 @@
+{
+  "name": "create_fine_tune_job",
+  "description": "Create a fine-tuning job to train a custom model on your dataset. Supports LoRA and full parameter fine-tuning on open-source base models. Upload a JSONL training file first, then reference it by ID.",
+  "endpoint": "/v1/fine-tunes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "training_file",
+      "type": "string",
+      "description": "The file ID of the uploaded JSONL training dataset.",
+      "required": true,
+      "example": "file-abc123"
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The base model ID to fine-tune.",
+      "required": true,
+      "example": "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+    },
+    {
+      "name": "n_epochs",
+      "type": "integer",
+      "description": "Number of training epochs to run.",
+      "required": false,
+      "example": 3
+    },
+    {
+      "name": "learning_rate",
+      "type": "number",
+      "description": "Learning rate for the fine-tuning job.",
+      "required": false,
+      "example": 0.00001
+    },
+    {
+      "name": "batch_size",
+      "type": "integer",
+      "description": "Batch size for training.",
+      "required": false,
+      "example": 4
+    },
+    {
+      "name": "suffix",
+      "type": "string",
+      "description": "A suffix to append to the fine-tuned model name for identification.",
+      "required": false,
+      "example": "my-custom-model"
+    },
+    {
+      "name": "training_type",
+      "type": "string",
+      "description": "The type of fine-tuning: 'Full' for full parameter or 'Lora' for LoRA fine-tuning.",
+      "required": false,
+      "example": "Lora"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.together.xyz/v1/fine-tunes",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "training_file": "file-abc123",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "n_epochs": 3,
+      "learning_rate": 0.00001,
+      "training_type": "Lora",
+      "suffix": "my-custom-model"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ft-abc123",
+      "object": "fine-tune",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "status": "pending",
+      "created_at": "2024-01-15T10:30:00Z",
+      "training_file": "file-abc123",
+      "output_name": "user/Llama-3.3-70B-Instruct-Turbo-my-custom-model"
+    }
+  }
+}

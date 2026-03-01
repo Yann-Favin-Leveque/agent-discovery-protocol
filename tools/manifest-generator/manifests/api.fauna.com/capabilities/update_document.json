@@ -1,0 +1,61 @@
+{
+  "name": "update_document",
+  "description": "Update an existing document in a Fauna collection by its ID. Supports partial updates that merge new fields with existing data, or use replace() for full document replacement. The update is transactional and immediately consistent.",
+  "endpoint": "/query/1",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "collection",
+      "type": "string",
+      "description": "The name of the collection containing the document.",
+      "required": true,
+      "example": "Product"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The unique ID of the document to update.",
+      "required": true,
+      "example": "394523456789012345"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "The fields to update. Only specified fields are changed; others remain untouched.",
+      "required": true,
+      "example": {"price": 19.99, "in_stock": false}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://db.fauna.com/query/1",
+    "headers": {
+      "Authorization": "Bearer {secret}",
+      "Content-Type": "application/json",
+      "X-Format": "simple"
+    },
+    "body": {
+      "query": "Product.byId('394523456789012345')!.update({ price: 19.99, in_stock: false })"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "394523456789012345",
+        "coll": "Product",
+        "ts": "2025-12-01T10:15:00.000Z",
+        "name": "Wireless Mouse",
+        "price": 19.99,
+        "category": "electronics",
+        "in_stock": false
+      },
+      "stats": {
+        "compute_ops": 1,
+        "read_ops": 1,
+        "write_ops": 1,
+        "query_time_ms": 10
+      }
+    }
+  }
+}

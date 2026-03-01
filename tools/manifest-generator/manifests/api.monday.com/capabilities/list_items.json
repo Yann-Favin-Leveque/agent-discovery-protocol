@@ -1,0 +1,75 @@
+{
+  "name": "list_items",
+  "description": "Retrieve items from a specific Monday.com board, optionally filtered by group or column values. Returns item names, column values, creation dates, and creator info. Supports cursor-based pagination for boards with many items.",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "GraphQL query string to fetch items from a board.",
+      "required": true,
+      "example": "{ boards (ids: [1234567890]) { items_page (limit: 25) { cursor items { id name column_values { id text value } } } } }"
+    },
+    {
+      "name": "board_id",
+      "type": "string",
+      "description": "The numeric ID of the board to list items from (used inside the GraphQL query).",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of items to return (used inside the GraphQL query, max 500).",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor from a previous response for fetching the next page.",
+      "required": false,
+      "example": "MSw5NjE4MTAzNTAsaV9YcjlmVnFoWUxTaEliUkxhU0NfXzQ2"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.monday.com/v2",
+    "headers": {
+      "Authorization": "your-api-token-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "{ boards (ids: [1234567890]) { items_page (limit: 25) { cursor items { id name created_at creator { id name } group { id title } column_values { id text type value } } } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "boards": [
+          {
+            "items_page": {
+              "cursor": "MSw5NjE4MTAzNTAsaV9YcjlmVnFoWUxTaEliUkxhU0NfXzQ2",
+              "items": [
+                {
+                  "id": "111222333",
+                  "name": "Fix login bug",
+                  "created_at": "2024-01-20T09:00:00Z",
+                  "creator": { "id": "9876543", "name": "John Doe" },
+                  "group": { "id": "new_group", "title": "To Do" },
+                  "column_values": [
+                    { "id": "status", "text": "Working on it", "type": "status", "value": "{\"index\":0}" },
+                    { "id": "person", "text": "Jane Smith", "type": "people", "value": "{\"personsAndTeams\":[{\"id\":1234,\"kind\":\"person\"}]}" },
+                    { "id": "date4", "text": "2024-02-01", "type": "date", "value": "{\"date\":\"2024-02-01\"}" }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

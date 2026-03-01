@@ -1,0 +1,162 @@
+{
+  "name": "get_monitors",
+  "description": "Retrieve all monitors or specific monitors by ID. Returns current status (up/down/paused), uptime ratios, response times, and optionally event logs and response time data. All UptimeRobot API requests use POST method with the API key in the request body. Monitor statuses: 0=paused, 1=not checked yet, 2=up, 8=seems down, 9=down.",
+  "endpoint": "/v2/getMonitors",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Your UptimeRobot API key (sent in POST body, not header)."
+    },
+    {
+      "name": "monitors",
+      "type": "string",
+      "required": false,
+      "description": "Specific monitor IDs to retrieve, separated by dashes (e.g. '123-456-789'). Omit to get all."
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "required": false,
+      "description": "Filter by monitor types separated by dashes: 1=HTTP(s), 2=Keyword, 3=Ping, 4=Port."
+    },
+    {
+      "name": "statuses",
+      "type": "string",
+      "required": false,
+      "description": "Filter by statuses separated by dashes: 0=paused, 1=not checked, 2=up, 8=seems down, 9=down."
+    },
+    {
+      "name": "custom_uptime_ratios",
+      "type": "string",
+      "required": false,
+      "description": "Number of days to calculate uptime ratios, separated by dashes (e.g. '1-7-30')."
+    },
+    {
+      "name": "logs",
+      "type": "integer",
+      "required": false,
+      "description": "Set to 1 to include event logs (up/down/paused events)."
+    },
+    {
+      "name": "response_times",
+      "type": "integer",
+      "required": false,
+      "description": "Set to 1 to include response time data."
+    },
+    {
+      "name": "response_times_limit",
+      "type": "integer",
+      "required": false,
+      "description": "Limit the number of response time records returned (default 10)."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset (default 0)."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of monitors to return (default 50, max 50)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uptimerobot.com/v2/getMonitors",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "api_key": "ur1234567-abcdef0123456789abcdef01",
+      "format": "json",
+      "custom_uptime_ratios": "1-7-30",
+      "logs": 1,
+      "response_times": 1,
+      "response_times_limit": 5
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stat": "ok",
+      "offset": 0,
+      "limit": 50,
+      "total": 2,
+      "monitors": [
+        {
+          "id": 784561234,
+          "friendly_name": "Production Website",
+          "url": "https://www.example.com",
+          "type": 1,
+          "sub_type": "",
+          "keyword_type": null,
+          "keyword_case_type": null,
+          "keyword_value": "",
+          "http_username": "",
+          "http_password": "",
+          "port": "",
+          "interval": 300,
+          "timeout": 30,
+          "status": 2,
+          "create_datetime": 1704067200,
+          "monitor_group": 0,
+          "is_group_main": 0,
+          "custom_uptime_ratio": "100.000-99.985-99.992",
+          "logs": [
+            {
+              "type": 2,
+              "datetime": 1709078400,
+              "duration": 0,
+              "reason": {
+                "code": "200",
+                "detail": "OK"
+              }
+            },
+            {
+              "type": 1,
+              "datetime": 1709074800,
+              "duration": 300,
+              "reason": {
+                "code": "500",
+                "detail": "Internal Server Error"
+              }
+            }
+          ],
+          "response_times": [
+            {
+              "datetime": 1709164800,
+              "value": 245
+            },
+            {
+              "datetime": 1709161200,
+              "value": 312
+            }
+          ]
+        },
+        {
+          "id": 784561235,
+          "friendly_name": "API Health Endpoint",
+          "url": "https://api.example.com/health",
+          "type": 1,
+          "interval": 60,
+          "timeout": 30,
+          "status": 2,
+          "create_datetime": 1706745600,
+          "custom_uptime_ratio": "100.000-100.000-99.998",
+          "logs": [],
+          "response_times": [
+            {
+              "datetime": 1709164800,
+              "value": 89
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

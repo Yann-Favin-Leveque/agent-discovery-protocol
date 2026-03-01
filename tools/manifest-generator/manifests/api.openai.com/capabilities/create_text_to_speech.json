@@ -1,0 +1,57 @@
+{
+  "name": "create_text_to_speech",
+  "description": "Convert text to natural-sounding speech audio. Supports multiple voices (alloy, echo, fable, onyx, nova, shimmer) and two quality tiers (tts-1 for low latency, tts-1-hd for higher quality). Returns audio data in the specified format. Maximum input length is 4096 characters.",
+  "endpoint": "/v1/audio/speech",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "TTS model to use: 'tts-1' (optimized for speed) or 'tts-1-hd' (optimized for quality)."
+    },
+    {
+      "name": "input",
+      "type": "string",
+      "required": true,
+      "description": "The text to generate audio for (max 4096 characters)."
+    },
+    {
+      "name": "voice",
+      "type": "string",
+      "required": true,
+      "description": "Voice to use: 'alloy', 'echo', 'fable', 'onyx', 'nova', or 'shimmer'."
+    },
+    {
+      "name": "response_format",
+      "type": "string",
+      "required": false,
+      "description": "Audio output format: 'mp3' (default), 'opus', 'aac', 'flac', or 'wav'."
+    },
+    {
+      "name": "speed",
+      "type": "number",
+      "required": false,
+      "description": "Playback speed from 0.25 to 4.0 (default 1.0)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/audio/speech",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "tts-1",
+      "input": "Welcome to our platform. We're glad to have you here. Let me walk you through the key features of your new account.",
+      "voice": "nova",
+      "response_format": "mp3",
+      "speed": 1.0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "(binary audio data in the requested format - save to file with appropriate extension)"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "list_assignments",
+  "description": "List all assignments for a specific course. Returns assignment names, descriptions, due dates, point values, submission types, and grading information. Useful for students checking what is due or instructors reviewing course work.",
+  "endpoint": "/v1/courses/{course_id}/assignments",
+  "method": "GET",
+  "parameters": [
+    { "name": "course_id", "type": "integer", "description": "The ID of the course to list assignments for.", "required": true, "example": 12345 },
+    { "name": "search_term", "type": "string", "description": "Search assignments by name.", "required": false, "example": "midterm" },
+    { "name": "bucket", "type": "string", "description": "Filter by time bucket: past, overdue, undated, ungraded, unsubmitted, upcoming, future.", "required": false, "example": "upcoming" },
+    { "name": "order_by", "type": "string", "description": "Sort order: position, name, due_at.", "required": false, "example": "due_at" },
+    { "name": "per_page", "type": "integer", "description": "Number of results per page (max 100).", "required": false, "example": 25 },
+    { "name": "include[]", "type": "string", "description": "Additional data: submission, score_statistics, all_dates.", "required": false, "example": "submission" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://canvas.instructure.com/api/v1/courses/12345/assignments?bucket=upcoming&order_by=due_at&per_page=25",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 67890,
+        "name": "Midterm Exam",
+        "description": "<p>Complete all questions within 2 hours.</p>",
+        "due_at": "2026-03-15T23:59:00Z",
+        "points_possible": 100,
+        "submission_types": ["online_quiz"],
+        "course_id": 12345,
+        "has_submitted_submissions": false
+      }
+    ]
+  }
+}

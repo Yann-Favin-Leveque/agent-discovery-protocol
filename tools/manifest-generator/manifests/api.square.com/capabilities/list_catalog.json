@@ -1,0 +1,89 @@
+{
+  "name": "list_catalog",
+  "description": "Retrieve items, variations, and pricing information from your Square catalog. Supports filtering by type, category, and pagination.",
+  "endpoint": "/v2/catalog/list",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Optional. Pagination cursor for retrieving items. Start with the first page by omitting this parameter.",
+      "required": false,
+      "example": "cursor_token_here"
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Optional. Comma-separated list of object types to filter by (e.g., ITEM, ITEM_VARIATION, MODIFIER_LIST).",
+      "required": false,
+      "example": "ITEM,ITEM_VARIATION"
+    },
+    {
+      "name": "include_deleted_objects",
+      "type": "boolean",
+      "description": "Optional. Include deleted items in results (true or false, default false).",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://connect.squareup.com/v2/catalog/list?types=ITEM,ITEM_VARIATION",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "objects": [
+        {
+          "type": "ITEM",
+          "id": "item_1",
+          "updated_at": "2026-03-01T10:30:00Z",
+          "created_at": "2026-02-01T08:00:00Z",
+          "item_data": {
+            "name": "Coffee",
+            "description": "Freshly brewed coffee",
+            "category_id": "cat_1",
+            "variations": [
+              {
+                "type": "ITEM_VARIATION",
+                "id": "item_1_var_1",
+                "item_variation_data": {
+                  "name": "Small",
+                  "sku": "COFFEE_SMALL",
+                  "pricing_data": {
+                    "type": "FIXED_PRICING",
+                    "price_money": {
+                      "amount": 300,
+                      "currency": "USD"
+                    }
+                  }
+                }
+              },
+              {
+                "type": "ITEM_VARIATION",
+                "id": "item_1_var_2",
+                "item_variation_data": {
+                  "name": "Large",
+                  "sku": "COFFEE_LARGE",
+                  "pricing_data": {
+                    "type": "FIXED_PRICING",
+                    "price_money": {
+                      "amount": 450,
+                      "currency": "USD"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "cursor": "next_cursor_token"
+    }
+  }
+}

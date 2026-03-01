@@ -1,0 +1,103 @@
+{
+  "name": "upload_media",
+  "description": "Upload files to the Strapi media library. Supports images (JPEG, PNG, GIF, WebP, SVG), videos, documents (PDF, DOCX), and other file types. Files are uploaded using multipart/form-data. Optionally, you can link the uploaded file directly to a content entry's media field during upload. Uploaded files get auto-generated thumbnails and responsive image formats for images. Returns file metadata including the URL, dimensions, size, and generated formats.",
+  "endpoint": "/api/upload",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "files",
+      "type": "file",
+      "required": true,
+      "description": "The file(s) to upload. Send as multipart/form-data with the field name 'files'. Multiple files can be uploaded at once."
+    },
+    {
+      "name": "ref",
+      "type": "string",
+      "required": false,
+      "description": "The content type API name to link the file to (e.g., 'api::article.article'). Used together with 'refId' and 'field' to attach the upload directly to a content entry."
+    },
+    {
+      "name": "refId",
+      "type": "integer",
+      "required": false,
+      "description": "The numeric ID of the content entry to link the file to. Used together with 'ref' and 'field'."
+    },
+    {
+      "name": "field",
+      "type": "string",
+      "required": false,
+      "description": "The field name on the content entry to attach the file to (e.g., 'cover_image'). Used together with 'ref' and 'refId'."
+    },
+    {
+      "name": "fileInfo",
+      "type": "object",
+      "required": false,
+      "description": "Optional metadata for the file: { 'name': 'custom-name', 'alternativeText': 'Alt text for accessibility', 'caption': 'Image caption' }."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.strapi.io/api/upload",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "files": "<binary file data>",
+      "ref": "api::article.article",
+      "refId": 15,
+      "field": "cover_image",
+      "fileInfo": {
+        "name": "ai-agents-hero",
+        "alternativeText": "AI agents interacting with services",
+        "caption": "How AI agents discover and use APIs"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 43,
+        "name": "ai-agents-hero.jpg",
+        "alternativeText": "AI agents interacting with services",
+        "caption": "How AI agents discover and use APIs",
+        "width": 1920,
+        "height": 1080,
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_ai-agents-hero.jpg",
+            "url": "/uploads/thumbnail_ai_agents_hero_abc123.jpg",
+            "width": 245,
+            "height": 138
+          },
+          "small": {
+            "name": "small_ai-agents-hero.jpg",
+            "url": "/uploads/small_ai_agents_hero_abc123.jpg",
+            "width": 500,
+            "height": 281
+          },
+          "medium": {
+            "name": "medium_ai-agents-hero.jpg",
+            "url": "/uploads/medium_ai_agents_hero_abc123.jpg",
+            "width": 750,
+            "height": 422
+          },
+          "large": {
+            "name": "large_ai-agents-hero.jpg",
+            "url": "/uploads/large_ai_agents_hero_abc123.jpg",
+            "width": 1000,
+            "height": 563
+          }
+        },
+        "hash": "ai_agents_hero_abc123",
+        "ext": ".jpg",
+        "mime": "image/jpeg",
+        "size": 245.67,
+        "url": "/uploads/ai_agents_hero_abc123.jpg",
+        "createdAt": "2026-02-28T17:00:00.000Z",
+        "updatedAt": "2026-02-28T17:00:00.000Z"
+      }
+    ]
+  }
+}

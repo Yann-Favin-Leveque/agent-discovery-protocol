@@ -1,0 +1,88 @@
+{
+  "name": "post_status",
+  "description": "Publish a new status (toot) to the authenticated user's Mastodon account. Supports text content, content warnings (spoiler text), visibility settings, media attachments, polls, and reply threading.",
+  "endpoint": "/api/v1/statuses",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "status",
+      "type": "string",
+      "description": "The text content of the status (max 500 characters on most instances).",
+      "required": true,
+      "example": "Hello Fediverse! Excited to share this update."
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "description": "Visibility of the status. One of: public, unlisted, private, direct.",
+      "required": false,
+      "example": "public"
+    },
+    {
+      "name": "spoiler_text",
+      "type": "string",
+      "description": "Content warning text displayed above the status. Hides content behind a click-to-reveal.",
+      "required": false,
+      "example": "Spoiler alert for latest movie"
+    },
+    {
+      "name": "in_reply_to_id",
+      "type": "string",
+      "description": "ID of the status being replied to, for threading conversations.",
+      "required": false,
+      "example": "109876543210987654"
+    },
+    {
+      "name": "media_ids",
+      "type": "array",
+      "description": "Array of media attachment IDs to include (uploaded via /api/v2/media first).",
+      "required": false,
+      "example": ["110123456789012345"]
+    },
+    {
+      "name": "sensitive",
+      "type": "boolean",
+      "description": "Whether attached media should be marked as sensitive (blurred by default).",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "ISO 639-1 language code for the status content.",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mastodon.social/api/v1/statuses",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "Hello Fediverse! Excited to share this update.",
+      "visibility": "public",
+      "language": "en"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "110234567890123456",
+      "created_at": "2024-03-01T18:30:00.000Z",
+      "content": "<p>Hello Fediverse! Excited to share this update.</p>",
+      "visibility": "public",
+      "url": "https://mastodon.social/@myaccount/110234567890123456",
+      "account": {
+        "id": "109876543210000000",
+        "username": "myaccount",
+        "display_name": "My Account"
+      },
+      "reblogs_count": 0,
+      "favourites_count": 0,
+      "replies_count": 0
+    }
+  }
+}

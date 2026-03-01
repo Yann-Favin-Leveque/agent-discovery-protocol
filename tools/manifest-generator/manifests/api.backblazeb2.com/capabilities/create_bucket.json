@@ -1,0 +1,67 @@
+{
+  "name": "create_bucket",
+  "description": "Create a new storage bucket in your Backblaze B2 account. Bucket names must be globally unique across all B2 accounts, between 6 and 50 characters, and contain only letters, digits, and hyphens.",
+  "endpoint": "/b2api/v3/b2_create_bucket",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "Your Backblaze B2 account ID.",
+      "required": true,
+      "example": "010203040506"
+    },
+    {
+      "name": "bucketName",
+      "type": "string",
+      "description": "The globally unique name for the new bucket (6-50 chars, letters/digits/hyphens only).",
+      "required": true,
+      "example": "my-app-backups-2026"
+    },
+    {
+      "name": "bucketType",
+      "type": "string",
+      "description": "Visibility of the bucket: 'allPublic' (files downloadable without auth) or 'allPrivate' (authorization required).",
+      "required": true,
+      "example": "allPrivate"
+    },
+    {
+      "name": "lifecycleRules",
+      "type": "array",
+      "description": "Optional lifecycle rules to auto-delete or hide files after a specified number of days.",
+      "required": false,
+      "example": [
+        {
+          "daysFromUploadingToHiding": null,
+          "daysFromHidingToDeleting": 30,
+          "fileNamePrefix": "logs/"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.backblazeb2.com/b2api/v3/b2_create_bucket",
+    "headers": {
+      "Authorization": "your-account-authorization-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "accountId": "010203040506",
+      "bucketName": "my-app-backups-2026",
+      "bucketType": "allPrivate"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "accountId": "010203040506",
+      "bucketId": "4a48fe8875c6214145260818",
+      "bucketName": "my-app-backups-2026",
+      "bucketType": "allPrivate",
+      "lifecycleRules": [],
+      "revision": 1,
+      "options": []
+    }
+  }
+}

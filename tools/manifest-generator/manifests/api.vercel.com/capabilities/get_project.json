@@ -1,0 +1,57 @@
+{
+  "name": "get_project",
+  "description": "Get detailed information about a specific Vercel project by its ID or name. Returns the project's framework, build settings, linked Git repository, root directory, environment variables count, and latest deployment details.",
+  "endpoint": "/v9/projects/{idOrName}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "idOrName",
+      "type": "string",
+      "required": true,
+      "description": "The project ID (e.g., 'prj_a1b2c3d4') or the project name (e.g., 'my-nextjs-app')."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vercel.com/v9/projects/my-nextjs-app"
+  },
+  "response_example": {
+    "id": "prj_a1b2c3d4e5f6g7h8i9j0",
+    "name": "my-nextjs-app",
+    "framework": "nextjs",
+    "buildCommand": "next build",
+    "devCommand": "next dev",
+    "installCommand": "npm install",
+    "outputDirectory": ".next",
+    "rootDirectory": null,
+    "nodeVersion": "20.x",
+    "link": {
+      "type": "github",
+      "repo": "my-org/my-nextjs-app",
+      "repoId": 123456789,
+      "productionBranch": "main",
+      "deployHooks": []
+    },
+    "latestDeployments": [
+      {
+        "id": "dpl_x1y2z3a4b5c6d7e8f9g0",
+        "url": "my-nextjs-app-abc123.vercel.app",
+        "readyState": "READY",
+        "createdAt": 1706180400000,
+        "meta": {
+          "githubCommitSha": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+          "githubCommitMessage": "fix: resolve hydration mismatch on product page"
+        }
+      }
+    ],
+    "targets": {
+      "production": {
+        "id": "dpl_x1y2z3a4b5c6d7e8f9g0",
+        "url": "my-nextjs-app.vercel.app",
+        "readyState": "READY"
+      }
+    },
+    "createdAt": 1700000000000,
+    "updatedAt": 1706180400000
+  }
+}

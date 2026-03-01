@@ -1,0 +1,64 @@
+{
+  "name": "get_delivery_stats",
+  "description": "Retrieve aggregate delivery statistics for your Postmark server. Returns counts for sent emails, bounces, spam complaints, opens, clicks, and tracking metrics over a date range. Stats are stored permanently in EST timezone. If no date range is specified, returns all-time stats.",
+  "endpoint": "/stats/outbound",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "fromdate",
+      "type": "string",
+      "description": "Start date for the stats range in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "todate",
+      "type": "string",
+      "description": "End date for the stats range in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2024-02-01"
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "description": "Filter stats by a specific tag.",
+      "required": false,
+      "example": "password-reset"
+    },
+    {
+      "name": "messagestream",
+      "type": "string",
+      "description": "Filter by message stream ID (e.g., 'outbound' or 'broadcast').",
+      "required": false,
+      "example": "outbound"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.postmarkapp.com/stats/outbound?fromdate=2024-01-01&todate=2024-02-01&tag=password-reset",
+    "headers": {
+      "Accept": "application/json",
+      "X-Postmark-Server-Token": "your-server-token-here"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Sent": 15234,
+      "Bounced": 42,
+      "SMTPApiErrors": 3,
+      "BounceRate": 0.28,
+      "SpamComplaints": 2,
+      "SpamComplaintsRate": 0.01,
+      "Opens": 8721,
+      "UniqueOpens": 6543,
+      "TotalClicks": 3210,
+      "UniqueLinksClicked": 2100,
+      "Tracked": 15000,
+      "WithLinkTracking": 14500,
+      "WithOpenTracking": 15000,
+      "TotalTrackedLinksSent": 45000,
+      "WithClientRecording": 0
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "list_chats",
+  "description": "Retrieve a paginated list of chat conversations for a property. Supports filtering by date range and status.",
+  "endpoint": "/v1/property/{property_id}/chats",
+  "method": "GET",
+  "parameters": [
+    { "name": "property_id", "type": "string", "description": "The unique identifier for your tawk.to property.", "required": true, "example": "prop_abc123def456" },
+    { "name": "page", "type": "integer", "description": "Page number for pagination, starting at 0.", "required": false, "example": 0 },
+    { "name": "limit", "type": "integer", "description": "Number of results per page. Maximum 100.", "required": false, "example": 25 },
+    { "name": "status", "type": "string", "description": "Filter by chat status. One of: open, closed, pending.", "required": false, "example": "open" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tawk.to/v1/property/prop_abc123def456/chats?page=0&limit=25&status=open",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": [
+        {
+          "id": "chat_001",
+          "status": "open",
+          "visitor": {
+            "name": "Jane Smith",
+            "email": "jane@example.com"
+          },
+          "started_at": "2024-01-15T10:30:00Z",
+          "message_count": 5
+        }
+      ],
+      "pagination": {
+        "page": 0,
+        "total": 42
+      }
+    }
+  }
+}

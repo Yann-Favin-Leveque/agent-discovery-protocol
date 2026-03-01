@@ -1,0 +1,65 @@
+{
+  "name": "get_user",
+  "description": "Retrieve a single user's full profile by their Clerk user ID. Returns all user data including email addresses, phone numbers, metadata, external accounts (OAuth connections), and sign-in history timestamps.",
+  "endpoint": "/v1/users/{user_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "The Clerk user ID. Starts with 'user_'. This is a path parameter."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clerk.com/v1/users/user_2abc123def456",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY_HERE"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "user_2abc123def456",
+      "object": "user",
+      "first_name": "Alice",
+      "last_name": "Johnson",
+      "email_addresses": [
+        {
+          "id": "idn_2xyz789",
+          "email_address": "alice@example.com",
+          "verification": {
+            "status": "verified",
+            "strategy": "email_code"
+          }
+        }
+      ],
+      "phone_numbers": [],
+      "username": "alicej",
+      "profile_image_url": "https://img.clerk.com/xxxx",
+      "external_accounts": [
+        {
+          "id": "eac_2ghi012",
+          "provider": "google",
+          "email_address": "alice@gmail.com",
+          "first_name": "Alice",
+          "last_name": "Johnson"
+        }
+      ],
+      "public_metadata": {
+        "role": "admin"
+      },
+      "private_metadata": {
+        "stripe_customer_id": "cus_xxxxx"
+      },
+      "unsafe_metadata": {},
+      "created_at": 1702656000000,
+      "updated_at": 1702742400000,
+      "last_sign_in_at": 1702742000000,
+      "last_active_at": 1702742400000,
+      "banned": false,
+      "locked": false
+    }
+  }
+}

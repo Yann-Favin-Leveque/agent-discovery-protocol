@@ -1,0 +1,70 @@
+{
+  "name": "ecommerce",
+  "description": "Manage ecommerce — create/update a category, create categories in batch, activate the ecommerce app. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/categories",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "deletedAt",
+      "type": "string",
+      "description": "UTC date-time (YYYY-MM-DDTHH:mm:ss.SSSZ) of the category deleted from the shop's database",
+      "required": false,
+      "example": "2017-05-12T12:30:00Z"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Unique Category ID as saved in the shop\n",
+      "required": true,
+      "example": "CAT123"
+    },
+    {
+      "name": "isDeleted",
+      "type": "boolean",
+      "description": "category deleted from the shop's database",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "**Mandatory in case of creation**. Name of the Category, as displayed in the shop\n",
+      "required": false,
+      "example": "Electronics"
+    },
+    {
+      "name": "updateEnabled",
+      "type": "boolean",
+      "description": "Facilitate to update the existing category in the same request (updateEnabled = true)",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "URL to the category",
+      "required": false,
+      "example": "http://mydomain.com/category/electronics"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/categories",
+    "headers": {
+      "Content-Type": "application/json",
+      "api-key": "{api_key}"
+    },
+    "body": {
+      "id": "CAT123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "id": "CAT123"
+      }
+    }
+  }
+}

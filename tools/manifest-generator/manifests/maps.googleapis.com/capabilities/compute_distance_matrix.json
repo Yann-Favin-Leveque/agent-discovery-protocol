@@ -1,0 +1,93 @@
+{
+  "name": "compute_distance_matrix",
+  "description": "Calculate travel distance and duration between multiple origins and destinations. Returns a matrix of distances and travel times for each origin-destination pair, useful for logistics and route planning.",
+  "endpoint": "/maps/api/distancematrix/json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "origins",
+      "type": "string",
+      "description": "One or more origin addresses or coordinates, pipe-separated.",
+      "required": true,
+      "example": "San Francisco, CA|Mountain View, CA"
+    },
+    {
+      "name": "destinations",
+      "type": "string",
+      "description": "One or more destination addresses or coordinates, pipe-separated.",
+      "required": true,
+      "example": "Los Angeles, CA|San Diego, CA"
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "description": "Travel mode. One of: driving, walking, bicycling, transit.",
+      "required": false,
+      "example": "driving"
+    },
+    {
+      "name": "departure_time",
+      "type": "string",
+      "description": "Departure time as Unix timestamp or 'now' for traffic-based estimates.",
+      "required": false,
+      "example": "now"
+    },
+    {
+      "name": "avoid",
+      "type": "string",
+      "description": "Features to avoid, pipe-separated. Options: tolls, highways, ferries.",
+      "required": false,
+      "example": "tolls"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Unit system. One of: metric, imperial.",
+      "required": false,
+      "example": "metric"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/distancematrix/json?origins=San+Francisco,CA|Mountain+View,CA&destinations=Los+Angeles,CA|San+Diego,CA&mode=driving&key={api_key}",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "OK",
+      "origin_addresses": ["San Francisco, CA, USA", "Mountain View, CA, USA"],
+      "destination_addresses": ["Los Angeles, CA, USA", "San Diego, CA, USA"],
+      "rows": [
+        {
+          "elements": [
+            {
+              "status": "OK",
+              "distance": { "text": "382 mi", "value": 614773 },
+              "duration": { "text": "5 hours 45 mins", "value": 20700 }
+            },
+            {
+              "status": "OK",
+              "distance": { "text": "502 mi", "value": 808012 },
+              "duration": { "text": "7 hours 30 mins", "value": 27000 }
+            }
+          ]
+        },
+        {
+          "elements": [
+            {
+              "status": "OK",
+              "distance": { "text": "348 mi", "value": 560132 },
+              "duration": { "text": "5 hours 15 mins", "value": 18900 }
+            },
+            {
+              "status": "OK",
+              "distance": { "text": "468 mi", "value": 753087 },
+              "duration": { "text": "7 hours 0 mins", "value": 25200 }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

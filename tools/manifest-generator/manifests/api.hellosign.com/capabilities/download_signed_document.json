@@ -1,0 +1,37 @@
+{
+  "name": "download_signed_document",
+  "description": "Download the completed signed document files for a finished signature request. Returns the signed PDF file as binary data. The signature request must be complete (all signers have signed) before the file can be downloaded. You can request the file in PDF format (default) or as a ZIP archive containing all files. The response Content-Type will be application/pdf or application/zip.",
+  "endpoint": "/v3/signature_request/files/{signature_request_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "signature_request_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the completed signature request to download files from."
+    },
+    {
+      "name": "file_type",
+      "type": "string",
+      "required": false,
+      "description": "The format to download. One of: 'pdf' (default), 'zip'. Use 'zip' when the request contains multiple documents."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hellosign.com/v3/signature_request/files/fa5c8a0b0f492d768749333ad6fcc214c111e967?file_type=pdf",
+    "headers": {
+      "Authorization": "Basic YXBpX2tleV9oZXJlOg=="
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "_note": "Binary PDF data is returned. Content-Type header will be application/pdf. Save the response body directly as a .pdf file.",
+      "headers": {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": "attachment; filename=\"Employment_Agreement_signed.pdf\""
+      }
+    }
+  }
+}

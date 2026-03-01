@@ -1,0 +1,24 @@
+{
+  "name": "create_alert_rule",
+  "description": "Create an alert rule to trigger notifications when specific error conditions or thresholds are met.",
+  "endpoint": "/projects/{organization_slug}/{project_slug}/rules/",
+  "method": "POST",
+  "parameters": [
+    {"name": "organization_slug", "type": "string", "description": "Organization slug.", "required": true, "example": "my-org"},
+    {"name": "project_slug", "type": "string", "description": "Project slug.", "required": true, "example": "my-app"},
+    {"name": "name", "type": "string", "description": "Name of the alert rule.", "required": true, "example": "High Error Rate"},
+    {"name": "conditions", "type": "array", "description": "Conditions that trigger the alert.", "required": true, "example": [{"id": "sentry.rules.conditions.first_seen_event.FirstSeenEventCondition"}]},
+    {"name": "actions", "type": "array", "description": "Actions to take when alert triggers.", "required": true, "example": [{"id": "sentry.rules.actions.notify_event.NotifyEventAction"}]},
+    {"name": "frequency", "type": "number", "description": "Minimum time (minutes) between alert triggers.", "required": false, "example": 30}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://sentry.io/api/0/projects/my-org/my-app/rules/",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"name": "High Error Rate", "conditions": [{"id": "sentry.rules.conditions.first_seen_event.FirstSeenEventCondition"}], "actions": [{"id": "sentry.rules.actions.notify_event.NotifyEventAction"}], "frequency": 30}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": "456", "name": "High Error Rate", "dateCreated": "2024-01-20T10:00:00Z", "conditions": [{"id": "sentry.rules.conditions.first_seen_event.FirstSeenEventCondition"}]}
+  }
+}

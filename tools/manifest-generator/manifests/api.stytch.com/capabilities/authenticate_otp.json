@@ -1,0 +1,39 @@
+{
+  "name": "authenticate_otp",
+  "description": "Verify a one-time passcode that was sent via SMS or email. Returns session credentials and user details on success. The OTP can only be used once.",
+  "endpoint": "/v1/otps/authenticate",
+  "method": "POST",
+  "parameters": [
+    { "name": "method_id", "type": "string", "description": "The phone_id or email_id returned from the OTP send call.", "required": true, "example": "phone-number-test-d5a3b680-e8a3-40c0-b815-ab79986666d0" },
+    { "name": "code", "type": "string", "description": "The 6-digit one-time passcode entered by the user.", "required": true, "example": "123456" },
+    { "name": "session_duration_minutes", "type": "integer", "description": "Session lifetime in minutes (5-527040). Defaults to 60.", "required": false, "example": 60 },
+    { "name": "session_token", "type": "string", "description": "An existing session token to extend.", "required": false, "example": "" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/otps/authenticate",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic {base64(project_id:secret)}"
+    },
+    "body": {
+      "method_id": "phone-number-test-d5a3b680-e8a3-40c0-b815-ab79986666d0",
+      "code": "123456",
+      "session_duration_minutes": 60
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "request-id-test-stytch-request",
+      "user_id": "user-test-e3795c81-f849-4167-bfda-e4a6e9c280fd",
+      "session_token": "mZAYn5aLEqKUlZ_Ad9U_fWr38GaAQ1oFAhT8ds245v7Q",
+      "session_jwt": "eyJ...",
+      "user": {
+        "user_id": "user-test-e3795c81-f849-4167-bfda-e4a6e9c280fd",
+        "phone_numbers": [{ "phone_id": "phone-number-test-d5a3b680", "phone_number": "+14155551234", "verified": true }]
+      },
+      "status_code": 200
+    }
+  }
+}

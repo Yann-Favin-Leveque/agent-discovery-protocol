@@ -1,0 +1,22 @@
+{
+  "name": "manage_feature_flags",
+  "description": "Create, update, list, and evaluate feature flags for controlled feature rollouts.",
+  "endpoint": "/projects/{project_id}/feature_flags/",
+  "method": "POST",
+  "parameters": [
+    {"name": "project_id", "type": "number", "description": "Project ID.", "required": true, "example": 1},
+    {"name": "name", "type": "string", "description": "Feature flag display name.", "required": true, "example": "New Checkout Flow"},
+    {"name": "key", "type": "string", "description": "Feature flag key used in code.", "required": true, "example": "new-checkout-flow"},
+    {"name": "filters", "type": "object", "description": "Rollout conditions and percentage.", "required": false, "example": {"groups": [{"properties": [], "rollout_percentage": 50}]}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.posthog.com/api/projects/1/feature_flags/",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"name": "New Checkout Flow", "key": "new-checkout-flow", "filters": {"groups": [{"properties": [], "rollout_percentage": 50}]}, "active": true}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": 42, "name": "New Checkout Flow", "key": "new-checkout-flow", "active": true, "filters": {"groups": [{"rollout_percentage": 50}]}, "created_at": "2024-01-20T10:00:00Z"}
+  }
+}

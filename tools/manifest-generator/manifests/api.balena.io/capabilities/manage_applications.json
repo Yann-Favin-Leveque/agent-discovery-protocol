@@ -1,0 +1,43 @@
+{
+  "name": "manage_applications",
+  "description": "List, create, or update Balena applications (also called fleets). An application groups devices that run the same containers. You can view application details, create new ones, or update settings like the target release.",
+  "endpoint": "/v7/application",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter expression, e.g. filter by app name or organization.",
+      "required": false,
+      "example": "app_name eq 'my-fleet'"
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Comma-separated list of fields to return.",
+      "required": false,
+      "example": "app_name,id,device_type,slug"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.balena-cloud.com/v7/application?$select=app_name,id,device_type,slug",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "d": [
+        {
+          "id": 12345,
+          "app_name": "my-fleet",
+          "slug": "myorg/my-fleet",
+          "device_type": "raspberrypi4-64"
+        }
+      ]
+    }
+  }
+}

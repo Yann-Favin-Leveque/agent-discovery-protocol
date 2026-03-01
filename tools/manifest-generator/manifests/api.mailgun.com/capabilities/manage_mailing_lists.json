@@ -1,0 +1,114 @@
+{
+  "name": "manage_mailing_lists",
+  "description": "Create, update, delete, and list mailing lists on your Mailgun account. You can also add, remove, and list members of a mailing list. Mailing lists allow you to send to a group of recipients using a single list address (e.g., team@lists.example.com) instead of specifying each recipient individually.",
+  "endpoint": "/v3/lists",
+  "method": "GET",
+  "note": "This capability covers multiple sub-endpoints for managing lists and their members.",
+  "parameters": [
+    {
+      "name": "address",
+      "type": "string",
+      "description": "The mailing list address (e.g., 'team@lists.example.com'). Used for creating a new list (POST) or identifying an existing list.",
+      "required": true,
+      "example": "team@lists.example.com"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "A human-readable name for the mailing list.",
+      "required": false,
+      "example": "Engineering Team"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "A description of the mailing list's purpose.",
+      "required": false,
+      "example": "Internal engineering team distribution list"
+    },
+    {
+      "name": "access_level",
+      "type": "string",
+      "description": "Who can post to the list. Options: 'readonly' (only via API), 'members' (list members), 'everyone'.",
+      "required": false,
+      "example": "members"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results per page when listing. Default 100.",
+      "required": false,
+      "example": 50
+    }
+  ],
+  "sub_endpoints": [
+    {
+      "description": "List all mailing lists",
+      "method": "GET",
+      "endpoint": "/v3/lists/pages"
+    },
+    {
+      "description": "Create a new mailing list",
+      "method": "POST",
+      "endpoint": "/v3/lists"
+    },
+    {
+      "description": "Get details of a specific mailing list",
+      "method": "GET",
+      "endpoint": "/v3/lists/{address}"
+    },
+    {
+      "description": "Update a mailing list",
+      "method": "PUT",
+      "endpoint": "/v3/lists/{address}"
+    },
+    {
+      "description": "Delete a mailing list",
+      "method": "DELETE",
+      "endpoint": "/v3/lists/{address}"
+    },
+    {
+      "description": "List members of a mailing list",
+      "method": "GET",
+      "endpoint": "/v3/lists/{address}/members/pages"
+    },
+    {
+      "description": "Add a member to a mailing list",
+      "method": "POST",
+      "endpoint": "/v3/lists/{address}/members"
+    },
+    {
+      "description": "Remove a member from a mailing list",
+      "method": "DELETE",
+      "endpoint": "/v3/lists/{address}/members/{member_address}"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mailgun.com/v3/lists",
+    "headers": {
+      "Authorization": "Basic YXBpOmtleS14eHh4eHh4eHh4eHh4eHh4eA==",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "address": "team@lists.example.com",
+      "name": "Engineering Team",
+      "description": "Internal engineering team distribution list",
+      "access_level": "members"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "Mailing list has been created",
+      "list": {
+        "address": "team@lists.example.com",
+        "name": "Engineering Team",
+        "description": "Internal engineering team distribution list",
+        "access_level": "members",
+        "created_at": "Thu, 01 Feb 2024 12:00:00 -0000",
+        "members_count": 0
+      }
+    }
+  }
+}

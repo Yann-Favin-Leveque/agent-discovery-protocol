@@ -1,0 +1,80 @@
+{
+  "name": "list_components",
+  "description": "List all components on a specific status page. Components represent individual services or systems (e.g. 'API', 'Web App', 'Database') whose operational status is tracked independently. Returns component ID, name, description, current status, and group information.",
+  "endpoint": "/v1/pages/{page_id}/components",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "required": true,
+      "description": "The ID of the status page."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page (default 100)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.statuspage.io/v1/pages/pg1a2b3c4d5e6/components",
+    "headers": {
+      "Authorization": "OAuth your-api-key-here"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "cmp1a2b3c4d",
+        "page_id": "pg1a2b3c4d5e6",
+        "group_id": null,
+        "created_at": "2025-01-15T10:05:00Z",
+        "updated_at": "2026-02-28T09:00:00Z",
+        "name": "API",
+        "description": "Core REST API endpoints",
+        "position": 1,
+        "status": "operational",
+        "showcase": true,
+        "only_show_if_degraded": false,
+        "automation_email": "component+api@notifications.statuspage.io"
+      },
+      {
+        "id": "cmp2b3c4d5e",
+        "page_id": "pg1a2b3c4d5e6",
+        "group_id": null,
+        "created_at": "2025-01-15T10:06:00Z",
+        "updated_at": "2026-02-27T14:30:00Z",
+        "name": "Web Application",
+        "description": "Customer-facing web dashboard",
+        "position": 2,
+        "status": "operational",
+        "showcase": true,
+        "only_show_if_degraded": false,
+        "automation_email": "component+web@notifications.statuspage.io"
+      },
+      {
+        "id": "cmp3c4d5e6f",
+        "page_id": "pg1a2b3c4d5e6",
+        "group_id": null,
+        "created_at": "2025-01-15T10:07:00Z",
+        "updated_at": "2026-02-28T06:15:00Z",
+        "name": "Database",
+        "description": "Primary database cluster",
+        "position": 3,
+        "status": "degraded_performance",
+        "showcase": true,
+        "only_show_if_degraded": false,
+        "automation_email": "component+db@notifications.statuspage.io"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "search_sessions",
+  "description": "Search for user sessions in FullStory matching specific behavioral criteria, frustration signals, or page visits.",
+  "endpoint": "/segments/v1/search",
+  "method": "POST",
+  "parameters": [
+    {"name": "filter", "type": "object", "description": "Search filter with conditions for session matching.", "required": true, "example": {"type": "AND", "filters": [{"type": "event", "eventType": "navigate", "properties": [{"name": "page_url", "operator": "contains", "value": "/pricing"}]}]}},
+    {"name": "limit", "type": "number", "description": "Maximum sessions to return.", "required": false, "example": 20},
+    {"name": "pagination_token", "type": "string", "description": "Token for pagination.", "required": false, "example": ""}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fullstory.com/segments/v1/search",
+    "headers": {"Authorization": "Basic {api_key}", "Content-Type": "application/json"},
+    "body": {"filter": {"type": "AND", "filters": [{"type": "event", "eventType": "navigate", "properties": [{"name": "page_url", "operator": "contains", "value": "/pricing"}]}]}, "limit": 20}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"results": [{"session_id": "sess_abc123", "user_id": "user_123", "created_time": "2024-01-20T10:00:00Z", "pages_visited": 5, "duration_ms": 120000}], "total_results": 150}
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "name": "find_transaction",
+  "description": "Look up a specific transaction by its ID or search for transactions matching criteria. Returns full transaction details including status, amount, payment method, customer info, and settlement details. You can also search by status, amount range, date range, payment method type, customer ID, and more. Essential for order management, reconciliation, and customer support.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "note": "Braintree uses a GraphQL API. The legacy REST endpoints are GET /merchants/{merchant_id}/transactions/{id} for lookup and POST /merchants/{merchant_id}/transactions/advanced_search for search.",
+  "parameters": [
+    {
+      "name": "transaction_id",
+      "type": "string",
+      "description": "The unique transaction ID to look up. Use this for a direct lookup of a known transaction.",
+      "required": false,
+      "example": "dnh6rq"
+    },
+    {
+      "name": "status",
+      "type": "string[]",
+      "description": "Filter by transaction status. Options: authorized, submitted_for_settlement, settling, settled, voided, failed, gateway_rejected, processor_declined.",
+      "required": false,
+      "example": ["settled", "submitted_for_settlement"]
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Filter by amount range with min and max values.",
+      "required": false,
+      "example": {
+        "min": "10.00",
+        "max": "100.00"
+      }
+    },
+    {
+      "name": "created_at",
+      "type": "object",
+      "description": "Filter by creation date range.",
+      "required": false,
+      "example": {
+        "min": "2024-01-01",
+        "max": "2024-02-01"
+      }
+    },
+    {
+      "name": "customer_id",
+      "type": "string",
+      "description": "Filter by vault customer ID.",
+      "required": false,
+      "example": "cust_12345"
+    },
+    {
+      "name": "payment_method_type",
+      "type": "string",
+      "description": "Filter by payment method type. Options: credit_card, paypal, venmo, apple_pay, google_pay.",
+      "required": false,
+      "example": "credit_card"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://payments.braintree-api.com/graphql",
+    "headers": {
+      "Authorization": "Basic cHVibGljX2tleTpwcml2YXRlX2tleQ==",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-01-01"
+    },
+    "body": {
+      "query": "query SearchTransactions($input: TransactionSearchInput!) { search { transactions(input: $input) { edges { node { id status amount { value currencyCode } paymentMethod { details { ... on CreditCardDetails { last4 cardType expirationMonth expirationYear } } } customer { id email } createdAt } } } } }",
+      "variables": {
+        "input": {
+          "status": {
+            "in": ["SETTLED", "SUBMITTED_FOR_SETTLEMENT"]
+          },
+          "amount": {
+            "greaterThanOrEqualTo": "10.00",
+            "lessThanOrEqualTo": "100.00"
+          },
+          "createdAt": {
+            "greaterThanOrEqualTo": "2024-01-01T00:00:00Z",
+            "lessThanOrEqualTo": "2024-02-01T00:00:00Z"
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "search": {
+          "transactions": {
+            "edges": [
+              {
+                "node": {
+                  "id": "dnh6rq",
+                  "status": "SETTLED",
+                  "amount": {
+                    "value": "49.99",
+                    "currencyCode": "USD"
+                  },
+                  "paymentMethod": {
+                    "details": {
+                      "last4": "1234",
+                      "cardType": "VISA",
+                      "expirationMonth": "12",
+                      "expirationYear": "2025"
+                    }
+                  },
+                  "customer": {
+                    "id": "cust_12345",
+                    "email": "john@example.com"
+                  },
+                  "createdAt": "2024-01-15T14:30:00Z"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "extensions": {
+        "requestId": "d4e5f6a7-b8c9-0123-def0-234567890123"
+      }
+    }
+  }
+}

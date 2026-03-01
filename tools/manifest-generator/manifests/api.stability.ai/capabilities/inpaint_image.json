@@ -1,0 +1,69 @@
+{
+  "name": "inpaint_image",
+  "description": "Edit specific regions of an image by providing a binary mask and a text prompt. White areas in the mask indicate regions to regenerate; black areas are preserved. The model generates new content in the masked region that matches the surrounding context and follows the text prompt. Useful for removing objects, adding elements, or fixing imperfections. The request must be sent as multipart/form-data.",
+  "endpoint": "/v2beta/stable-image/edit/inpaint",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "image",
+      "type": "file",
+      "required": true,
+      "description": "The source image to edit (multipart form upload). Supported formats: png, jpeg, webp."
+    },
+    {
+      "name": "mask",
+      "type": "file",
+      "required": true,
+      "description": "A black-and-white mask image (same dimensions as source). White pixels indicate areas to regenerate, black pixels are preserved."
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": true,
+      "description": "Text description of what to generate in the masked area."
+    },
+    {
+      "name": "negative_prompt",
+      "type": "string",
+      "required": false,
+      "description": "Text describing what to avoid in the generated region."
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Random seed for reproducible results (0 to 4294967294)."
+    },
+    {
+      "name": "output_format",
+      "type": "string",
+      "required": false,
+      "description": "Output format: 'png' (default) or 'jpeg'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stability.ai/v2beta/stable-image/edit/inpaint",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "multipart/form-data",
+      "Accept": "image/*"
+    },
+    "body": {
+      "image": "(binary source image - living room photo)",
+      "mask": "(binary mask image - white area where the old couch is)",
+      "prompt": "A modern minimalist gray sofa with clean lines and wooden legs, matching the room's decor",
+      "negative_prompt": "distorted, blurry, mismatched perspective",
+      "output_format": "png"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "(binary image with the masked region filled according to the prompt)",
+    "headers": {
+      "Content-Type": "image/png",
+      "finish-reason": "SUCCESS",
+      "seed": "5678901234"
+    }
+  }
+}

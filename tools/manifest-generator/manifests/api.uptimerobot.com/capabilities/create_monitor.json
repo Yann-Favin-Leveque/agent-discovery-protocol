@@ -1,0 +1,94 @@
+{
+  "name": "create_monitor",
+  "description": "Create a new uptime monitor. Supports HTTP(s) (type 1), keyword (type 2), ping (type 3), and port (type 4) monitors. For HTTP monitors, checks that the URL returns a 200 status. For keyword monitors, checks that a specific keyword is present or absent on the page. The API key is passed in the POST body.",
+  "endpoint": "/v2/newMonitor",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Your UptimeRobot API key (sent in POST body)."
+    },
+    {
+      "name": "friendly_name",
+      "type": "string",
+      "required": true,
+      "description": "A human-readable name for the monitor."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "The URL or IP address to monitor."
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "required": true,
+      "description": "Monitor type: 1=HTTP(s), 2=Keyword, 3=Ping, 4=Port."
+    },
+    {
+      "name": "interval",
+      "type": "integer",
+      "required": false,
+      "description": "Monitoring interval in seconds (minimum 60 for paid plans, 300 for free)."
+    },
+    {
+      "name": "timeout",
+      "type": "integer",
+      "required": false,
+      "description": "Request timeout in seconds (default 30)."
+    },
+    {
+      "name": "keyword_type",
+      "type": "integer",
+      "required": false,
+      "description": "For keyword monitors: 1=keyword exists, 2=keyword not exists."
+    },
+    {
+      "name": "keyword_value",
+      "type": "string",
+      "required": false,
+      "description": "The keyword to search for on the page (required for type 2)."
+    },
+    {
+      "name": "alert_contacts",
+      "type": "string",
+      "required": false,
+      "description": "Alert contact IDs with threshold and recurrence, format: 'id_threshold_recurrence' (e.g. '123456_0_0')."
+    },
+    {
+      "name": "http_method",
+      "type": "integer",
+      "required": false,
+      "description": "HTTP method: 1=HEAD, 2=GET, 3=POST, 4=PUT, 5=PATCH, 6=DELETE, 7=OPTIONS."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uptimerobot.com/v2/newMonitor",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "api_key": "ur1234567-abcdef0123456789abcdef01",
+      "format": "json",
+      "friendly_name": "Staging API",
+      "url": "https://staging-api.example.com/health",
+      "type": 1,
+      "interval": 60,
+      "alert_contacts": "123456_0_0-789012_0_0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stat": "ok",
+      "monitor": {
+        "id": 784561236,
+        "status": 1
+      }
+    }
+  }
+}

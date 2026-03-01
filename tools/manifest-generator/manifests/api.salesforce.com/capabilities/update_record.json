@@ -1,0 +1,21 @@
+{
+  "name": "update_record",
+  "description": "Update fields on an existing Salesforce record by ID.",
+  "endpoint": "/sobjects/{object_name}/{record_id}",
+  "method": "PATCH",
+  "parameters": [
+    {"name": "object_name", "type": "string", "description": "API name of the Salesforce object.", "required": true, "example": "Opportunity"},
+    {"name": "record_id", "type": "string", "description": "Record ID to update.", "required": true, "example": "006abc"},
+    {"name": "fields", "type": "object", "description": "Object of field name-value pairs to update.", "required": true, "example": {"StageName": "Closed Won", "Amount": 75000}}
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://mycompany.salesforce.com/services/data/v59.0/sobjects/Opportunity/006abc",
+    "headers": {"Authorization": "Bearer {access_token}", "Content-Type": "application/json"},
+    "body": {"StageName": "Closed Won", "Amount": 75000}
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  }
+}

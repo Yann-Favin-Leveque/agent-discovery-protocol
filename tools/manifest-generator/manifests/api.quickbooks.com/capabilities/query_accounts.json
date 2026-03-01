@@ -1,0 +1,60 @@
+{
+  "name": "query_accounts",
+  "description": "Query the chart of accounts to list all financial accounts. Filter by account type, name, or classification.",
+  "endpoint": "/v3/company/{realmId}/query",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID (realm ID).",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "SQL-like query string to filter accounts. Supports WHERE, ORDER BY, and MAXRESULTS.",
+      "required": true,
+      "example": "SELECT * FROM Account WHERE AccountType = 'Bank' MAXRESULTS 50"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/query?query=SELECT%20*%20FROM%20Account%20WHERE%20AccountType%20%3D%20%27Bank%27%20MAXRESULTS%2050",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "QueryResponse": {
+        "Account": [
+          {
+            "Id": "35",
+            "Name": "Checking",
+            "AccountType": "Bank",
+            "AccountSubType": "Checking",
+            "CurrentBalance": 15000.00,
+            "Active": true,
+            "Classification": "Asset"
+          },
+          {
+            "Id": "36",
+            "Name": "Savings",
+            "AccountType": "Bank",
+            "AccountSubType": "Savings",
+            "CurrentBalance": 50000.00,
+            "Active": true,
+            "Classification": "Asset"
+          }
+        ],
+        "startPosition": 1,
+        "maxResults": 50,
+        "totalCount": 2
+      }
+    }
+  }
+}

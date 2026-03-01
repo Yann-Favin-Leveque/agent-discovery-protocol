@@ -1,0 +1,65 @@
+{
+  "name": "get_realtime_weather",
+  "description": "Retrieve current real-time weather conditions for any location. Returns temperature, apparent temperature, humidity, dew point, wind speed, gust, and direction, pressure, cloud cover, precipitation probability and intensity, visibility, UV index, and a weather code. Data is refreshed continuously with sub-hourly updates.",
+  "endpoint": "/v4/weather/realtime",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Location as a city name, latitude/longitude pair (e.g. '48.85,2.35'), or place ID.",
+      "required": true,
+      "example": "Paris"
+    },
+    {
+      "name": "apikey",
+      "type": "string",
+      "description": "Your API key for authentication.",
+      "required": true,
+      "example": "{api_key}"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Unit system: 'metric' or 'imperial'.",
+      "required": false,
+      "example": "metric"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tomorrow.io/v4/weather/realtime?location=Paris&units=metric&apikey={api_key}",
+    "headers": {
+      "Accept-Encoding": "gzip"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "time": "2024-01-15T14:30:00Z",
+        "values": {
+          "temperature": 18.5,
+          "temperatureApparent": 17.8,
+          "humidity": 62,
+          "dewPoint": 11.2,
+          "windSpeed": 3.6,
+          "windGust": 5.8,
+          "windDirection": 220,
+          "pressureSurfaceLevel": 1015.2,
+          "cloudCover": 40,
+          "precipitationProbability": 10,
+          "precipitationIntensity": 0,
+          "visibility": 14.5,
+          "uvIndex": 3,
+          "weatherCode": 1101
+        }
+      },
+      "location": {
+        "lat": 48.8566,
+        "lon": 2.3522,
+        "name": "Paris, Ile-de-France, France"
+      }
+    }
+  }
+}

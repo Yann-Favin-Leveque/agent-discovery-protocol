@@ -1,0 +1,38 @@
+{
+  "name": "search_articles",
+  "description": "Search the Zendesk Help Center knowledge base for articles matching a query. Returns article titles, snippets, URLs, and section information. Useful for finding self-service answers before creating tickets.",
+  "endpoint": "/api/v2/help_center/articles/search",
+  "method": "GET",
+  "parameters": [
+    { "name": "query", "type": "string", "description": "The search query to match against article titles and bodies.", "required": true, "example": "how to reset password" },
+    { "name": "locale", "type": "string", "description": "Locale for the search results (e.g., 'en-us').", "required": false, "example": "en-us" },
+    { "name": "category", "type": "integer", "description": "Filter results to a specific Help Center category ID.", "required": false, "example": 200 },
+    { "name": "per_page", "type": "integer", "description": "Number of results per page (max 100).", "required": false, "example": 10 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zendesk.com/api/v2/help_center/articles/search?query=how+to+reset+password&locale=en-us&per_page=10",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "id": 3001,
+          "title": "How to Reset Your Password",
+          "snippet": "To reset your password, click the 'Forgot Password' link on the login page...",
+          "html_url": "https://support.example.com/hc/en-us/articles/3001",
+          "section_id": 201,
+          "label_names": ["account", "password"],
+          "created_at": "2024-06-15T10:00:00Z"
+        }
+      ],
+      "count": 1,
+      "next_page": null
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "list_events",
+  "description": "List tracked events with filtering by event name, date range, and aggregation options.",
+  "endpoint": "/events",
+  "method": "GET",
+  "parameters": [
+    {"name": "event_name", "type": "string", "description": "Filter by event name.", "required": false, "example": "click_cta"},
+    {"name": "from", "type": "string", "description": "Start date.", "required": false, "example": "2024-01-01T00:00:00Z"},
+    {"name": "to", "type": "string", "description": "End date.", "required": false, "example": "2024-01-31T23:59:59Z"},
+    {"name": "limit", "type": "number", "description": "Max results.", "required": false, "example": 50}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.smartlook.com/v2/events?event_name=click_cta&from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": [{"name": "click_cta", "count": 1500, "unique_visitors": 800}], "total_count": 1}
+  }
+}

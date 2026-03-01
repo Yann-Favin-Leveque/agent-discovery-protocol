@@ -1,0 +1,53 @@
+{
+  "name": "manage_inventory",
+  "description": "Adjust or set inventory levels for a product variant at a specific location. Used for stock management, inventory synchronization, and handling incoming shipments or stock corrections.",
+  "endpoint": "/admin/api/2024-01/inventory_levels/adjust.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "inventory_item_id",
+      "type": "integer",
+      "description": "The ID of the inventory item to adjust (linked to a product variant).",
+      "required": true,
+      "example": 808950810
+    },
+    {
+      "name": "location_id",
+      "type": "integer",
+      "description": "The ID of the location where inventory is being adjusted.",
+      "required": true,
+      "example": 655441491
+    },
+    {
+      "name": "available_adjustment",
+      "type": "integer",
+      "description": "The quantity adjustment to make. Positive to add stock, negative to remove stock.",
+      "required": true,
+      "example": 5
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store_name}.myshopify.com/admin/api/2024-01/inventory_levels/adjust.json",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inventory_item_id": 808950810,
+      "location_id": 655441491,
+      "available_adjustment": 5
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "inventory_level": {
+        "inventory_item_id": 808950810,
+        "location_id": 655441491,
+        "available": 15,
+        "updated_at": "2024-01-10T15:45:00-05:00"
+      }
+    }
+  }
+}

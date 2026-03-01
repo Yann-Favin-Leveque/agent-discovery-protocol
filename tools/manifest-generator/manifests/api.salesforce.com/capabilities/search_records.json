@@ -1,0 +1,18 @@
+{
+  "name": "search_records",
+  "description": "Execute a SOSL (Salesforce Object Search Language) full-text search across multiple objects.",
+  "endpoint": "/search",
+  "method": "GET",
+  "parameters": [
+    {"name": "q", "type": "string", "description": "SOSL search query string.", "required": true, "example": "FIND {Acme} IN ALL FIELDS RETURNING Account(Id, Name), Contact(Id, Name, Email)"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mycompany.salesforce.com/services/data/v59.0/search?q=FIND+{Acme}+IN+ALL+FIELDS+RETURNING+Account(Id,Name),Contact(Id,Name,Email)",
+    "headers": {"Authorization": "Bearer {access_token}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"searchRecords": [{"attributes": {"type": "Account"}, "Id": "001abc", "Name": "Acme Corp"}, {"attributes": {"type": "Contact"}, "Id": "003xyz", "Name": "John Doe", "Email": "john@acme.com"}]}
+  }
+}

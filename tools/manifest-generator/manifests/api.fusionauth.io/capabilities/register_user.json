@@ -1,0 +1,41 @@
+{
+  "name": "register_user",
+  "description": "Register an existing user to an application. This creates the association between a user and an app, assigns roles, and enables the user to log into that application.",
+  "endpoint": "/api/user/registration",
+  "method": "POST",
+  "parameters": [
+    { "name": "registration.applicationId", "type": "string", "description": "The UUID of the application to register the user to.", "required": true, "example": "10000000-0000-0002-0000-000000000001" },
+    { "name": "registration.userId", "type": "string", "description": "The UUID of the user to register. Can also be passed as a path parameter.", "required": true, "example": "00000000-0000-0001-0000-000000000000" },
+    { "name": "registration.roles", "type": "array", "description": "Roles to assign to the user for this application.", "required": false, "example": ["user", "editor"] },
+    { "name": "registration.username", "type": "string", "description": "A username for this user specific to this application.", "required": false, "example": "janedoe" },
+    { "name": "registration.data", "type": "object", "description": "Custom data to store with this registration.", "required": false, "example": { "plan": "pro" } }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fusionauth.io/api/user/registration",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "registration": {
+        "applicationId": "10000000-0000-0002-0000-000000000001",
+        "userId": "00000000-0000-0001-0000-000000000000",
+        "roles": ["user", "editor"]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "registration": {
+        "applicationId": "10000000-0000-0002-0000-000000000001",
+        "id": "20000000-0000-0002-0000-000000000000",
+        "userId": "00000000-0000-0001-0000-000000000000",
+        "roles": ["user", "editor"],
+        "insertInstant": 1704067200000,
+        "verified": true
+      }
+    }
+  }
+}

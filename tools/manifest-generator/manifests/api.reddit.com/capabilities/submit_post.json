@@ -1,0 +1,85 @@
+{
+  "name": "submit_post",
+  "description": "Submit a new text post (self post) or link post to a subreddit on behalf of the authenticated user. Requires the 'submit' OAuth scope.",
+  "endpoint": "/api/submit",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "sr",
+      "type": "string",
+      "description": "The name of the subreddit to submit to (without the r/ prefix).",
+      "required": true,
+      "example": "test"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The title of the post (max 300 characters).",
+      "required": true,
+      "example": "Check out this interesting article"
+    },
+    {
+      "name": "kind",
+      "type": "string",
+      "description": "The type of post. One of: self (text post), link (URL post).",
+      "required": true,
+      "example": "self"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "The body text of the post in markdown format. Required for self posts.",
+      "required": false,
+      "example": "Here is the body of my text post with **markdown** support."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "The URL to submit. Required for link posts.",
+      "required": false,
+      "example": "https://example.com/article"
+    },
+    {
+      "name": "nsfw",
+      "type": "boolean",
+      "description": "Whether the post should be marked as NSFW.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "spoiler",
+      "type": "boolean",
+      "description": "Whether the post should be marked as a spoiler.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://oauth.reddit.com/api/submit",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "User-Agent": "AgentDiscovery/1.0"
+    },
+    "body": {
+      "sr": "test",
+      "title": "Check out this interesting article",
+      "kind": "self",
+      "text": "Here is the body of my text post."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "json": {
+        "errors": [],
+        "data": {
+          "url": "https://www.reddit.com/r/test/comments/abc123/check_out_this_interesting_article/",
+          "id": "abc123",
+          "name": "t3_abc123"
+        }
+      }
+    }
+  }
+}

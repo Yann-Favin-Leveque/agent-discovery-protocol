@@ -1,0 +1,64 @@
+{
+  "name": "get_order",
+  "description": "Look up an existing order by ID to check its status, line items, payment details, and fulfillment progress. Requires customer authentication for order retrieval.",
+  "endpoint": "/store/orders/{id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The unique order ID to retrieve.",
+      "required": true,
+      "example": "order_01H..."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.medusajs.com/store/orders/order_01H...",
+    "headers": {
+      "x-publishable-api-key": "YOUR_PUBLISHABLE_KEY",
+      "Authorization": "Bearer CUSTOMER_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "order": {
+        "id": "order_01H...",
+        "status": "pending",
+        "fulfillment_status": "not_fulfilled",
+        "payment_status": "captured",
+        "display_id": 1001,
+        "email": "customer@example.com",
+        "currency_code": "usd",
+        "items": [
+          {
+            "id": "item_01H...",
+            "title": "Medusa T-Shirt",
+            "variant": {
+              "id": "variant_01H...",
+              "title": "S / Black"
+            },
+            "quantity": 2,
+            "unit_price": 2000,
+            "subtotal": 4000
+          }
+        ],
+        "shipping_address": {
+          "first_name": "Jane",
+          "last_name": "Doe",
+          "address_1": "456 Oak Ave",
+          "city": "New York",
+          "province": "NY",
+          "postal_code": "10001",
+          "country_code": "us"
+        },
+        "subtotal": 4000,
+        "shipping_total": 500,
+        "tax_total": 360,
+        "total": 4860,
+        "created_at": "2024-01-15T10:30:00.000Z"
+      }
+    }
+  }
+}

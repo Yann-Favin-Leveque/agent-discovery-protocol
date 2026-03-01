@@ -1,0 +1,46 @@
+{
+  "name": "verify_session",
+  "description": "Verify a Clerk session token to confirm it is valid and not expired. Returns the full session object including the associated user ID, status, and expiration time. Use this to authenticate incoming requests in your backend by validating the session token passed from the frontend.",
+  "endpoint": "/v1/sessions/{session_id}/verify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "session_id",
+      "type": "string",
+      "required": true,
+      "description": "The Clerk session ID to verify. Starts with 'sess_'. This is a path parameter."
+    },
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "The session JWT token to verify. This is the token that was issued to the client."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/sessions/sess_2jkl345mno678/verify",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY_HERE",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyXzJhYmMxMjNkZWY0NTYiLCJzaWQiOiJzZXNzXzJqa2wzNDVtbm82NzgiLCJpYXQiOjE3MDI4Mjg4MDAsImV4cCI6MTcwMjkxNTIwMH0.signature_here"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sess_2jkl345mno678",
+      "object": "session",
+      "user_id": "user_2abc123def456",
+      "client_id": "client_2pqr901stu234",
+      "status": "active",
+      "last_active_at": 1702828800000,
+      "expire_at": 1702915200000,
+      "abandon_at": 1703001600000,
+      "created_at": 1702742400000,
+      "updated_at": 1702828800000
+    }
+  }
+}

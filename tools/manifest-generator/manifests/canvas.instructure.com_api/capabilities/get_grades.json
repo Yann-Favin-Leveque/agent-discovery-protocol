@@ -1,0 +1,37 @@
+{
+  "name": "get_grades",
+  "description": "Retrieve the grades and enrollment details for a specific user in a course. Returns current score, final score, and grade information. Instructors can view any student's grades; students can view their own.",
+  "endpoint": "/v1/courses/{course_id}/enrollments",
+  "method": "GET",
+  "parameters": [
+    { "name": "course_id", "type": "integer", "description": "The ID of the course.", "required": true, "example": 12345 },
+    { "name": "user_id", "type": "string", "description": "Filter to a specific user's enrollment. Use 'self' for the authenticated user.", "required": false, "example": "self" },
+    { "name": "type[]", "type": "string", "description": "Filter by enrollment type: StudentEnrollment, TeacherEnrollment, TaEnrollment.", "required": false, "example": "StudentEnrollment" },
+    { "name": "state[]", "type": "string", "description": "Filter by enrollment state: active, invited, completed.", "required": false, "example": "active" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://canvas.instructure.com/api/v1/courses/12345/enrollments?user_id=self&type[]=StudentEnrollment",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 55555,
+        "course_id": 12345,
+        "user_id": 99999,
+        "type": "StudentEnrollment",
+        "enrollment_state": "active",
+        "grades": {
+          "current_score": 92.5,
+          "current_grade": "A-",
+          "final_score": 88.0,
+          "final_grade": "B+"
+        }
+      }
+    ]
+  }
+}

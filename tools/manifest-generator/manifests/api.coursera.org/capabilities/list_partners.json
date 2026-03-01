@@ -1,0 +1,44 @@
+{
+  "name": "list_partners",
+  "description": "List all partner institutions (universities, companies, and organizations) that offer courses on Coursera. Returns partner names, descriptions, logos, locations, and the number of courses they offer.",
+  "endpoint": "/api/partners.v1",
+  "method": "GET",
+  "parameters": [
+    { "name": "q", "type": "string", "description": "Search type. Use 'search' for keyword search.", "required": false, "example": "search" },
+    { "name": "query", "type": "string", "description": "Search keyword to filter partners by name.", "required": false, "example": "Stanford" },
+    { "name": "fields", "type": "string", "description": "Comma-separated list of fields to include.", "required": false, "example": "name,shortName,description,logo,location,courseIds" },
+    { "name": "start", "type": "integer", "description": "Pagination offset (0-based).", "required": false, "example": 0 },
+    { "name": "limit", "type": "integer", "description": "Number of results to return (max 100).", "required": false, "example": 20 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/partners.v1?fields=name,shortName,description,logo,location&limit=20&start=0",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "HkE8X620EeeRMQr1MJqjMQ",
+          "name": "Stanford University",
+          "shortName": "stanford",
+          "description": "Leland Stanford Junior University, commonly referred to as Stanford University...",
+          "logo": "https://coursera-university-assets.s3.amazonaws.com/stanford-logo.png",
+          "location": {
+            "city": "Stanford",
+            "state": "CA",
+            "country": "US"
+          }
+        }
+      ],
+      "paging": {
+        "total": 300,
+        "start": 0,
+        "limit": 20
+      }
+    }
+  }
+}

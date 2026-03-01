@@ -1,0 +1,44 @@
+{
+  "name": "submit_assignment",
+  "description": "Submit work for a specific assignment in a course. Supports multiple submission types including online text entry, URL submissions, and file uploads. The submission is recorded for the authenticated user.",
+  "endpoint": "/v1/courses/{course_id}/assignments/{assignment_id}/submissions",
+  "method": "POST",
+  "parameters": [
+    { "name": "course_id", "type": "integer", "description": "The ID of the course.", "required": true, "example": 12345 },
+    { "name": "assignment_id", "type": "integer", "description": "The ID of the assignment to submit to.", "required": true, "example": 67890 },
+    { "name": "submission[submission_type]", "type": "string", "description": "The type of submission: online_text_entry, online_url, online_upload, media_recording.", "required": true, "example": "online_text_entry" },
+    { "name": "submission[body]", "type": "string", "description": "The text content for online_text_entry submissions (HTML allowed).", "required": false, "example": "<p>My essay response about the topic.</p>" },
+    { "name": "submission[url]", "type": "string", "description": "The URL for online_url submissions.", "required": false, "example": "https://github.com/student/project" },
+    { "name": "comment[text_comment]", "type": "string", "description": "Optional comment to include with the submission.", "required": false, "example": "Here is my completed assignment." }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/courses/12345/assignments/67890/submissions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "submission": {
+        "submission_type": "online_text_entry",
+        "body": "<p>My essay response about the topic.</p>"
+      },
+      "comment": {
+        "text_comment": "Here is my completed assignment."
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 11111,
+      "assignment_id": 67890,
+      "user_id": 99999,
+      "submission_type": "online_text_entry",
+      "body": "<p>My essay response about the topic.</p>",
+      "submitted_at": "2026-03-01T10:00:00Z",
+      "workflow_state": "submitted",
+      "late": false
+    }
+  }
+}

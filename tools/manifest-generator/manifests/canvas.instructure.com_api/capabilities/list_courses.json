@@ -1,0 +1,34 @@
+{
+  "name": "list_courses",
+  "description": "Retrieve all courses the authenticated user is enrolled in. Returns course names, IDs, enrollment terms, start/end dates, and enrollment state. Supports filtering by enrollment type, state, and search terms.",
+  "endpoint": "/v1/courses",
+  "method": "GET",
+  "parameters": [
+    { "name": "enrollment_type", "type": "string", "description": "Filter by enrollment role: teacher, student, ta, observer, designer.", "required": false, "example": "student" },
+    { "name": "enrollment_state", "type": "string", "description": "Filter by enrollment state: active, invited_or_pending, completed.", "required": false, "example": "active" },
+    { "name": "state[]", "type": "string", "description": "Filter by course state: unpublished, available, completed, deleted.", "required": false, "example": "available" },
+    { "name": "per_page", "type": "integer", "description": "Number of results per page (max 100).", "required": false, "example": 25 },
+    { "name": "include[]", "type": "string", "description": "Additional data to include: total_students, teachers, term, course_image, etc.", "required": false, "example": "term" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://canvas.instructure.com/api/v1/courses?enrollment_state=active&per_page=25",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 12345,
+        "name": "Introduction to Computer Science",
+        "course_code": "CS101",
+        "enrollment_term_id": 1,
+        "start_at": "2026-01-15T00:00:00Z",
+        "end_at": "2026-05-15T00:00:00Z",
+        "workflow_state": "available"
+      }
+    ]
+  }
+}

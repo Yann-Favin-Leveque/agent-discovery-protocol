@@ -1,0 +1,47 @@
+{
+  "name": "get_user",
+  "description": "Retrieve the currently authenticated user's profile. Requires a valid JWT access token in the Authorization header. Returns the user's ID, email, phone, metadata, identity providers, and confirmation timestamps.",
+  "endpoint": "/user",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "Authorization",
+      "type": "string",
+      "description": "Bearer token header containing the user's JWT access token.",
+      "required": true,
+      "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://your-project.supabase.co/auth/v1/user",
+    "headers": {
+      "apikey": "YOUR_SUPABASE_ANON_KEY",
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "aud": "authenticated",
+      "role": "authenticated",
+      "email": "user@example.com",
+      "email_confirmed_at": "2026-03-01T12:00:00.000Z",
+      "phone": "",
+      "created_at": "2026-03-01T12:00:00.000Z",
+      "updated_at": "2026-03-01T12:00:00.000Z",
+      "user_metadata": { "first_name": "Jane" },
+      "app_metadata": { "provider": "email" },
+      "identities": [
+        {
+          "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "identity_data": { "email": "user@example.com" },
+          "provider": "email",
+          "created_at": "2026-03-01T12:00:00.000Z"
+        }
+      ]
+    }
+  }
+}

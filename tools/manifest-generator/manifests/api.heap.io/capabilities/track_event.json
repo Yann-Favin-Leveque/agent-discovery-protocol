@@ -1,0 +1,23 @@
+{
+  "name": "track_event",
+  "description": "Send a custom server-side track event for a specific user to Heap analytics.",
+  "endpoint": "/track",
+  "method": "POST",
+  "parameters": [
+    {"name": "app_id", "type": "string", "description": "Heap environment ID.", "required": true, "example": "123456789"},
+    {"name": "identity", "type": "string", "description": "User identity (email or user ID).", "required": true, "example": "john@example.com"},
+    {"name": "event", "type": "string", "description": "Event name.", "required": true, "example": "Complete Purchase"},
+    {"name": "properties", "type": "object", "description": "Custom event properties.", "required": false, "example": {"plan": "enterprise", "amount": 99.99}},
+    {"name": "timestamp", "type": "string", "description": "ISO 8601 timestamp.", "required": false, "example": "2024-01-20T10:00:00Z"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://heapanalytics.com/api/track",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"app_id": "123456789", "identity": "john@example.com", "event": "Complete Purchase", "properties": {"plan": "enterprise", "amount": 99.99}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  }
+}

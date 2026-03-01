@@ -1,0 +1,55 @@
+{
+  "name": "users_messages_attachments",
+  "description": "Manage users messages attachments — gets the specified message attachment. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/gmail/v1/users/{userId}/messages/{messageId}/attachments/{id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID of the attachment.",
+      "required": true,
+      "example": "abc_123"
+    },
+    {
+      "name": "messageId",
+      "type": "string",
+      "description": "The ID of the message containing the attachment.",
+      "required": true,
+      "example": "abc_123"
+    },
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address. The special value `me` can be used to indicate the authenticated user.",
+      "required": true,
+      "example": "me"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/{userId}/messages/{messageId}/attachments/{id}",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "id": "abc_123",
+        "messageId": "abc_123",
+        "userId": "me"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://mail.google.com/",
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.addons.current.message.action",
+    "https://www.googleapis.com/auth/gmail.addons.current.action.compose",
+    "https://www.googleapis.com/auth/gmail.modify"
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "name": "list_categories",
+  "description": "Retrieve the category tree for the BigCommerce store catalog. Returns all categories with their hierarchy, names, descriptions, parent-child relationships, and product counts for organizing the storefront.",
+  "endpoint": "/catalog/categories",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of categories to return per page (max 250, default 50).",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination (default 1).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "parent_id",
+      "type": "integer",
+      "description": "Filter categories by parent category ID. Use 0 for top-level categories.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Filter categories by exact name match.",
+      "required": false,
+      "example": "Electronics"
+    },
+    {
+      "name": "is_visible",
+      "type": "boolean",
+      "description": "Filter by visibility status on the storefront.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bigcommerce.com/stores/{store_hash}/v3/catalog/categories?parent_id=0&is_visible=true",
+    "headers": {
+      "X-Auth-Token": "{api_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 18,
+          "parent_id": 0,
+          "name": "Bath",
+          "description": "<p>Bath and body products.</p>",
+          "views": 1050,
+          "sort_order": 0,
+          "is_visible": true,
+          "url": "/bath/"
+        },
+        {
+          "id": 23,
+          "parent_id": 0,
+          "name": "Garden",
+          "description": "<p>Garden tools and accessories.</p>",
+          "views": 870,
+          "sort_order": 1,
+          "is_visible": true,
+          "url": "/garden/"
+        }
+      ],
+      "meta": {
+        "pagination": {
+          "total": 15,
+          "count": 15,
+          "per_page": 50,
+          "current_page": 1,
+          "total_pages": 1
+        }
+      }
+    }
+  }
+}

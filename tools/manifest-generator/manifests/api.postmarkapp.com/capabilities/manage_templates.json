@@ -1,0 +1,113 @@
+{
+  "name": "manage_templates",
+  "description": "Create, list, update, and delete email templates in Postmark. Templates define reusable email layouts with variable placeholders that get filled in at send time. Supports standard templates and layout templates. Each template has an optional alias for easier reference in code.",
+  "endpoint": "/templates",
+  "method": "GET",
+  "note": "This capability covers multiple sub-endpoints for full template lifecycle management.",
+  "parameters": [
+    {
+      "name": "Name",
+      "type": "string",
+      "description": "The name of the template. Required when creating a new template.",
+      "required": true,
+      "example": "Welcome Email"
+    },
+    {
+      "name": "Subject",
+      "type": "string",
+      "description": "The email subject line. Can contain template variables like {{product_name}}.",
+      "required": true,
+      "example": "Welcome to {{company_name}}!"
+    },
+    {
+      "name": "HtmlBody",
+      "type": "string",
+      "description": "The HTML body of the template. At least one of HtmlBody or TextBody is required.",
+      "required": false,
+      "example": "<html><body><h1>Welcome, {{user_name}}!</h1><p>Thanks for signing up.</p></body></html>"
+    },
+    {
+      "name": "TextBody",
+      "type": "string",
+      "description": "The plain text body of the template. At least one of HtmlBody or TextBody is required.",
+      "required": false,
+      "example": "Welcome, {{user_name}}! Thanks for signing up."
+    },
+    {
+      "name": "Alias",
+      "type": "string",
+      "description": "A unique alias for the template. Use letters, numbers, '.', '-', and '_'. Makes it easier to reference templates in code.",
+      "required": false,
+      "example": "welcome-email"
+    },
+    {
+      "name": "TemplateType",
+      "type": "string",
+      "description": "Type of template: 'Standard' or 'Layout'. Layout templates define a wrapper that other templates can use.",
+      "required": false,
+      "example": "Standard"
+    },
+    {
+      "name": "LayoutTemplate",
+      "type": "string",
+      "description": "The alias of a layout template to wrap this template in.",
+      "required": false,
+      "example": "base-layout"
+    }
+  ],
+  "sub_endpoints": [
+    {
+      "description": "List all templates with pagination",
+      "method": "GET",
+      "endpoint": "/templates?count={count}&offset={offset}"
+    },
+    {
+      "description": "Create a new template",
+      "method": "POST",
+      "endpoint": "/templates"
+    },
+    {
+      "description": "Get a specific template by ID",
+      "method": "GET",
+      "endpoint": "/templates/{templateId}"
+    },
+    {
+      "description": "Update a template",
+      "method": "PUT",
+      "endpoint": "/templates/{templateId}"
+    },
+    {
+      "description": "Delete a template",
+      "method": "DELETE",
+      "endpoint": "/templates/{templateId}"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/templates",
+    "headers": {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "X-Postmark-Server-Token": "your-server-token-here"
+    },
+    "body": {
+      "Name": "Welcome Email",
+      "Subject": "Welcome to {{company_name}}!",
+      "HtmlBody": "<html><body><h1>Welcome, {{user_name}}!</h1><p>Thanks for signing up for {{company_name}}.</p></body></html>",
+      "TextBody": "Welcome, {{user_name}}! Thanks for signing up for {{company_name}}.",
+      "Alias": "welcome-email",
+      "TemplateType": "Standard"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TemplateId": 12345,
+      "Name": "Welcome Email",
+      "Active": true,
+      "Alias": "welcome-email",
+      "TemplateType": "Standard",
+      "LayoutTemplate": null
+    }
+  }
+}

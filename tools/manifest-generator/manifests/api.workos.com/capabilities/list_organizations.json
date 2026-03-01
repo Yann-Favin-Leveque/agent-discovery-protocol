@@ -1,0 +1,41 @@
+{
+  "name": "list_organizations",
+  "description": "List all organizations in your WorkOS environment. Organizations represent your customer companies. Supports pagination and optional filtering by domain.",
+  "endpoint": "/organizations",
+  "method": "GET",
+  "parameters": [
+    { "name": "limit", "type": "integer", "description": "Maximum number of organizations to return (1-100). Defaults to 10.", "required": false, "example": 10 },
+    { "name": "before", "type": "string", "description": "Pagination cursor for fetching records before this ID.", "required": false, "example": "" },
+    { "name": "after", "type": "string", "description": "Pagination cursor for fetching records after this ID.", "required": false, "example": "" },
+    { "name": "order", "type": "string", "description": "Sort order: 'asc' or 'desc'. Defaults to 'desc'.", "required": false, "example": "desc" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.workos.com/organizations?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "org_01EHZNVPK3SFK441A1RGBFSHRT",
+          "object": "organization",
+          "name": "Acme Corp",
+          "allow_profiles_outside_organization": false,
+          "domains": [
+            { "id": "org_domain_01EHZNVPK3SFK441A1RGBFPQ5E", "domain": "acme.com", "object": "organization_domain" }
+          ],
+          "created_at": "2024-01-01T00:00:00.000Z",
+          "updated_at": "2024-01-01T00:00:00.000Z"
+        }
+      ],
+      "list_metadata": {
+        "before": null,
+        "after": "org_01EHZNVPK3SFK441A1RGBFSHRT"
+      }
+    }
+  }
+}

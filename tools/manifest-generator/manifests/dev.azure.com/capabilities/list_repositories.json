@@ -1,0 +1,65 @@
+{
+  "name": "list_repositories",
+  "description": "List all Git repositories within an Azure DevOps project. Returns repository names, IDs, default branches, clone URLs, and size information. Useful for discovering available repos before creating pull requests or browsing code.",
+  "endpoint": "/{organization}/{project}/_apis/git/repositories",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "description": "The name of the Azure DevOps organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "description": "The name or ID of the project."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "Version of the API to use. Use '7.1'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://dev.azure.com/my-org/MyWebApp/_apis/git/repositories?api-version=7.1"
+  },
+  "response_example": {
+    "count": 2,
+    "value": [
+      {
+        "id": "f3e4d5c6-7890-12ab-cdef-3456789012cd",
+        "name": "MyWebApp",
+        "url": "https://dev.azure.com/my-org/MyWebApp/_apis/git/repositories/f3e4d5c6-7890-12ab-cdef-3456789012cd",
+        "project": {
+          "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+          "name": "MyWebApp"
+        },
+        "defaultBranch": "refs/heads/main",
+        "size": 48230,
+        "remoteUrl": "https://my-org@dev.azure.com/my-org/MyWebApp/_git/MyWebApp",
+        "sshUrl": "git@ssh.dev.azure.com:v3/my-org/MyWebApp/MyWebApp",
+        "webUrl": "https://dev.azure.com/my-org/MyWebApp/_git/MyWebApp",
+        "isDisabled": false
+      },
+      {
+        "id": "g4h5i6j7-8901-23bc-efgh-4567890123de",
+        "name": "MyWebApp-Docs",
+        "url": "https://dev.azure.com/my-org/MyWebApp/_apis/git/repositories/g4h5i6j7-8901-23bc-efgh-4567890123de",
+        "project": {
+          "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+          "name": "MyWebApp"
+        },
+        "defaultBranch": "refs/heads/main",
+        "size": 5120,
+        "remoteUrl": "https://my-org@dev.azure.com/my-org/MyWebApp/_git/MyWebApp-Docs",
+        "sshUrl": "git@ssh.dev.azure.com:v3/my-org/MyWebApp/MyWebApp-Docs",
+        "webUrl": "https://dev.azure.com/my-org/MyWebApp/_git/MyWebApp-Docs",
+        "isDisabled": false
+      }
+    ]
+  }
+}

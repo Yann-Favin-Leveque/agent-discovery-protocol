@@ -1,0 +1,25 @@
+{
+  "name": "manage_branches",
+  "description": "Create, list, and delete database branches for safe schema changes. Branches allow you to develop and test schema modifications without affecting production.",
+  "endpoint": "/v1/organizations/{organization}/databases/{database}/branches",
+  "method": "GET",
+  "parameters": [
+    { "name": "organization", "type": "string", "description": "The organization name.", "required": true, "example": "my-org" },
+    { "name": "database", "type": "string", "description": "The database name.", "required": true, "example": "my-database" },
+    { "name": "page", "type": "number", "description": "Page number.", "required": false, "example": 1 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/my-org/databases/my-database/branches",
+    "headers": { "Authorization": "Bearer {access_token}", "Content-Type": "application/json" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        { "id": "br_123", "name": "main", "production": true, "created_at": "2024-01-15T10:00:00Z" },
+        { "id": "br_456", "name": "add-users-table", "production": false, "parent_branch": "main", "created_at": "2024-02-01T12:00:00Z" }
+      ]
+    }
+  }
+}

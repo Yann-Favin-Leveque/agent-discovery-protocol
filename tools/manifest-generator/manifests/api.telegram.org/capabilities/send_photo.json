@@ -1,0 +1,80 @@
+{
+  "name": "send_photo",
+  "description": "Send a photo to a chat. Agents can deliver images from URLs or file IDs to communicate visually.",
+  "endpoint": "/bot{token}/sendPhoto",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "chat_id",
+      "type": "integer",
+      "description": "Unique identifier for the target chat. Can be a user ID, group ID, or channel ID.",
+      "required": true,
+      "example": 123456789
+    },
+    {
+      "name": "photo",
+      "type": "string",
+      "description": "Photo to send. Can be a file ID (string), a URL to a photo, or binary file contents.",
+      "required": true,
+      "example": "https://example.com/photo.jpg"
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "description": "Photo caption. Up to 1024 characters. May contain HTML or Markdown formatting.",
+      "required": false,
+      "example": "A beautiful sunset"
+    },
+    {
+      "name": "parse_mode",
+      "type": "string",
+      "description": "Text formatting for caption: 'HTML', 'Markdown', or 'MarkdownV2'.",
+      "required": false,
+      "example": "Markdown"
+    },
+    {
+      "name": "reply_to_message_id",
+      "type": "integer",
+      "description": "If set, the photo will be sent as a reply to the specified message ID.",
+      "required": false,
+      "example": 987654321
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.telegram.org/bot{token}/sendPhoto",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "chat_id": 123456789,
+      "photo": "https://example.com/photo.jpg",
+      "caption": "A beautiful sunset",
+      "parse_mode": "Markdown"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "result": {
+        "message_id": 43,
+        "date": 1704067260,
+        "chat": {
+          "id": 123456789,
+          "type": "private"
+        },
+        "photo": [
+          {
+            "file_id": "AgADAgADr6cxG...",
+            "file_unique_id": "AQADr6cxG...",
+            "width": 320,
+            "height": 240,
+            "file_size": 9532
+          }
+        ],
+        "caption": "A beautiful sunset"
+      }
+    }
+  }
+}

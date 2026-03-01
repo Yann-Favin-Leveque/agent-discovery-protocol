@@ -1,0 +1,70 @@
+{
+  "name": "set_webhook",
+  "description": "Set up a webhook URL to receive updates in real-time. Alternative to polling for new messages.",
+  "endpoint": "/bot{token}/setWebhook",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "description": "HTTPS URL to send updates to. Your server must support HTTPS and have a valid SSL certificate.",
+      "required": true,
+      "example": "https://agent.example.com/webhook"
+    },
+    {
+      "name": "certificate",
+      "type": "string",
+      "description": "Upload your public key certificate if you're using a self-signed certificate.",
+      "required": false,
+      "example": "path/to/cert.pem"
+    },
+    {
+      "name": "ip_address",
+      "type": "string",
+      "description": "The fixed IP address that the webhook will be sent to.",
+      "required": false,
+      "example": "203.0.113.10"
+    },
+    {
+      "name": "max_connections",
+      "type": "integer",
+      "description": "Maximum allowed number of simultaneous HTTPS connections to the webhook. Default is 40.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "allowed_updates",
+      "type": "array",
+      "description": "List of the types of updates you want your bot to receive.",
+      "required": false,
+      "example": ["message", "callback_query"]
+    },
+    {
+      "name": "drop_pending_updates",
+      "type": "boolean",
+      "description": "Pass True to drop all pending updates before setting the webhook.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.telegram.org/bot{token}/setWebhook",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://agent.example.com/webhook",
+      "max_connections": 50,
+      "allowed_updates": ["message", "callback_query"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "result": true,
+      "description": "Webhook was set"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "detect_language",
+  "description": "Detect the language of one or more text strings. Returns the ISO 639-1 language code and a confidence score for each input text. Useful for routing text to the correct translation pipeline or validating user input language.",
+  "endpoint": "/v1/detect/language",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "texts",
+      "type": "array",
+      "required": true,
+      "description": "Array of text strings whose language should be detected. Longer texts produce more accurate results."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lecto.ai/v1/detect/language",
+    "headers": {
+      "X-API-Key": "your-api-key-here",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "texts": [
+        "Bonjour, comment allez-vous?",
+        "Guten Tag, wie geht es Ihnen?"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "detections": [
+        {
+          "text": "Bonjour, comment allez-vous?",
+          "detected_language": "fr",
+          "confidence": 0.98
+        },
+        {
+          "text": "Guten Tag, wie geht es Ihnen?",
+          "detected_language": "de",
+          "confidence": 0.97
+        }
+      ]
+    }
+  }
+}

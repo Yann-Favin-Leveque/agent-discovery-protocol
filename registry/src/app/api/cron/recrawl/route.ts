@@ -15,6 +15,10 @@ export async function GET(request: NextRequest) {
   // CRON_SECRET is mandatory — reject if not configured or wrong
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
+
+  // TODO: remove after debugging auth issue
+  console.log("CRON_SECRET env:", cronSecret ? "SET (" + cronSecret.length + " chars)" : "NOT SET");
+  console.log("Auth header:", authHeader);
   if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json(
       { success: false, error: "Unauthorized." },

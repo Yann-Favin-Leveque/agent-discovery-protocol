@@ -1,0 +1,76 @@
+{
+  "name": "manage_page_comments",
+  "description": "Read comments on a Page post and reply to them. Useful for community management, customer engagement, and automated response workflows on Facebook Pages.",
+  "endpoint": "/v18.0/{post_id}/comments",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "post_id",
+      "type": "string",
+      "description": "The ID of the post to read or reply to comments on (format: page_id_post_id).",
+      "required": true,
+      "example": "123456789_987654321"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated fields to return for each comment (e.g., id, message, from, created_time).",
+      "required": false,
+      "example": "id,message,from,created_time,like_count"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of comments to return. Default is 25.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "When using POST method to reply, the text content of the reply comment.",
+      "required": false,
+      "example": "Thank you for your feedback!"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v18.0/123456789_987654321/comments?fields=id,message,from,created_time,like_count&limit=25",
+    "headers": {
+      "Authorization": "Bearer PAGE_ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "987654321_111111",
+          "message": "Love this product! When is it available?",
+          "from": {
+            "name": "John Doe",
+            "id": "9876543"
+          },
+          "created_time": "2024-03-15T15:00:00+0000",
+          "like_count": 3
+        },
+        {
+          "id": "987654321_222222",
+          "message": "Great announcement!",
+          "from": {
+            "name": "Jane Smith",
+            "id": "1234567"
+          },
+          "created_time": "2024-03-15T15:30:00+0000",
+          "like_count": 1
+        }
+      ],
+      "paging": {
+        "cursors": {
+          "before": "QVFIuhME...",
+          "after": "QVFIuhMF..."
+        }
+      }
+    }
+  }
+}

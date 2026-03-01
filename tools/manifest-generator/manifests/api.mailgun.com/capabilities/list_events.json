@@ -1,0 +1,102 @@
+{
+  "name": "list_events",
+  "description": "Search and retrieve email event logs for your domain. Events include deliveries, opens, clicks, bounces, complaints, unsubscribes, and failures. Supports filtering by event type, recipient, date range, and tags. Results are paginated and returned in reverse chronological order. Event data is retained for 30 days.",
+  "endpoint": "/v3/{domain}/events",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun sending domain (path parameter).",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "description": "Filter by event type. Supported values: accepted, delivered, failed, opened, clicked, unsubscribed, complained, stored.",
+      "required": false,
+      "example": "delivered"
+    },
+    {
+      "name": "recipient",
+      "type": "string",
+      "description": "Filter by recipient email address.",
+      "required": false,
+      "example": "user@example.com"
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Filter by sender address.",
+      "required": false,
+      "example": "support@mg.example.com"
+    },
+    {
+      "name": "tags",
+      "type": "string",
+      "description": "Filter by message tag.",
+      "required": false,
+      "example": "order-confirmation"
+    },
+    {
+      "name": "begin",
+      "type": "string",
+      "description": "Start of the search time range. RFC 2822 date format or Unix epoch timestamp.",
+      "required": false,
+      "example": "Thu, 01 Feb 2024 00:00:00 -0000"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End of the search time range. RFC 2822 date format or Unix epoch timestamp.",
+      "required": false,
+      "example": "Fri, 02 Feb 2024 00:00:00 -0000"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results to return per page. Maximum 300, default 100.",
+      "required": false,
+      "example": 50
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailgun.com/v3/mg.example.com/events?event=delivered&limit=25&begin=Thu%2C+01+Feb+2024+00%3A00%3A00+-0000",
+    "headers": {
+      "Authorization": "Basic YXBpOmtleS14eHh4eHh4eHh4eHh4eHh4eA=="
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "event": "delivered",
+          "timestamp": 1706745600.123456,
+          "id": "abc123def456",
+          "recipient": "user@example.com",
+          "tags": ["order-confirmation"],
+          "message": {
+            "headers": {
+              "to": "user@example.com",
+              "from": "support@mg.example.com",
+              "subject": "Your order has shipped!",
+              "message-id": "20240201120000.abc123@mg.example.com"
+            }
+          },
+          "delivery-status": {
+            "code": 250,
+            "message": "OK",
+            "description": ""
+          }
+        }
+      ],
+      "paging": {
+        "next": "https://api.mailgun.com/v3/mg.example.com/events/page?next=abc123",
+        "previous": "https://api.mailgun.com/v3/mg.example.com/events/page?prev=abc123"
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "manage_tickets",
+  "description": "Create and manage support tickets in HubSpot Service Hub with priority and pipeline tracking.",
+  "endpoint": "/crm/v3/objects/tickets",
+  "method": "POST",
+  "parameters": [
+    {"name": "properties", "type": "object", "description": "Ticket properties including subject, description, and priority.", "required": true, "example": {"subject": "Login issue", "content": "Customer cannot log in after password reset.", "hs_pipeline": "0", "hs_pipeline_stage": "1", "hs_ticket_priority": "HIGH"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hubapi.com/crm/v3/objects/tickets",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"properties": {"subject": "Login issue", "content": "Customer cannot log in after password reset.", "hs_pipeline": "0", "hs_pipeline_stage": "1", "hs_ticket_priority": "HIGH"}}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": "ticket_456", "properties": {"subject": "Login issue", "hs_ticket_priority": "HIGH", "hs_pipeline_stage": "1"}, "createdAt": "2024-01-20T10:00:00Z"}
+  }
+}

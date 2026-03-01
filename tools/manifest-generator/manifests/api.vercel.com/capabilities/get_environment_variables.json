@@ -1,0 +1,61 @@
+{
+  "name": "get_environment_variables",
+  "description": "Get all environment variables configured for a Vercel project. Returns variable keys, values (may be encrypted), target environments (production, preview, development), and Git branch filtering if applicable.",
+  "endpoint": "/v9/projects/{idOrName}/env",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "idOrName",
+      "type": "string",
+      "required": true,
+      "description": "The project ID or name to retrieve environment variables for."
+    },
+    {
+      "name": "decrypt",
+      "type": "string",
+      "required": false,
+      "description": "Set to 'true' to return decrypted values for secret environment variables. Requires appropriate permissions."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vercel.com/v9/projects/my-nextjs-app/env?decrypt=true"
+  },
+  "response_example": {
+    "envs": [
+      {
+        "id": "env_a1b2c3d4e5",
+        "key": "DATABASE_URL",
+        "value": "postgresql://user:pass@db.example.com:5432/myapp",
+        "type": "encrypted",
+        "target": ["production"],
+        "gitBranch": null,
+        "configurationId": null,
+        "createdAt": 1700000000000,
+        "updatedAt": 1700000000000
+      },
+      {
+        "id": "env_f6g7h8i9j0",
+        "key": "NEXT_PUBLIC_API_URL",
+        "value": "https://api.myapp.com",
+        "type": "plain",
+        "target": ["production", "preview"],
+        "gitBranch": null,
+        "configurationId": null,
+        "createdAt": 1700000000000,
+        "updatedAt": 1700000000000
+      },
+      {
+        "id": "env_k1l2m3n4o5",
+        "key": "NEXT_PUBLIC_API_URL",
+        "value": "https://staging-api.myapp.com",
+        "type": "plain",
+        "target": ["development"],
+        "gitBranch": null,
+        "configurationId": null,
+        "createdAt": 1700000000000,
+        "updatedAt": 1700000000000
+      }
+    ]
+  }
+}

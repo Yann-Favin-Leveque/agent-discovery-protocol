@@ -1,0 +1,65 @@
+{
+  "name": "list_user_media",
+  "description": "Fetch a paginated list of media posts (photos, videos, carousels) published by the authenticated Instagram user. Returns media IDs, types, captions, timestamps, and permalink URLs.",
+  "endpoint": "/v18.0/{user_id}/media",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID. Use 'me' for the authenticated user.",
+      "required": true,
+      "example": "17841400123456789"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of media fields to return.",
+      "required": false,
+      "example": "id,caption,media_type,media_url,permalink,thumbnail_url,timestamp"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of media items to return per page (max 100).",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Cursor for pagination to fetch the next page of results.",
+      "required": false,
+      "example": "QVFIUkF..."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v18.0/17841400123456789/media?fields=id,caption,media_type,media_url,permalink,timestamp&limit=10&access_token={access_token}",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "17854360123456789",
+          "caption": "Beautiful sunset at the beach #nature",
+          "media_type": "IMAGE",
+          "media_url": "https://scontent.cdninstagram.com/v/t51.2885-15/photo.jpg",
+          "permalink": "https://www.instagram.com/p/ABC123/",
+          "timestamp": "2024-03-01T18:30:00+0000"
+        }
+      ],
+      "paging": {
+        "cursors": {
+          "before": "QVFIUkF...",
+          "after": "QVFIUmR..."
+        },
+        "next": "https://graph.facebook.com/v18.0/17841400123456789/media?after=QVFIUmR..."
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "update_user",
+  "description": "Update a user's profile attributes. You can modify email, name, password, blocked status, and custom metadata. Only the fields you include in the request body are updated; other fields remain unchanged.",
+  "endpoint": "/users/{id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The Auth0 user ID of the user to update.",
+      "required": true,
+      "example": "auth0|507f1f77bcf86cd799439011"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "New email address for the user.",
+      "required": false,
+      "example": "newemail@example.com"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "New full name for the user.",
+      "required": false,
+      "example": "John Updated"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "New password for the user.",
+      "required": false,
+      "example": "NewSecureP@ss!"
+    },
+    {
+      "name": "blocked",
+      "type": "boolean",
+      "description": "Whether the user account should be blocked.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "user_metadata",
+      "type": "object",
+      "description": "Custom user-visible metadata to merge with existing metadata.",
+      "required": false,
+      "example": { "plan": "enterprise" }
+    },
+    {
+      "name": "app_metadata",
+      "type": "object",
+      "description": "Custom application metadata to merge with existing metadata.",
+      "required": false,
+      "example": { "is_admin": true }
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://YOUR_DOMAIN.auth0.com/api/v2/users/auth0%7C507f1f77bcf86cd799439011",
+    "headers": {
+      "Authorization": "Bearer YOUR_MANAGEMENT_API_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "John Updated",
+      "user_metadata": { "plan": "enterprise" }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user_id": "auth0|507f1f77bcf86cd799439011",
+      "email": "john@example.com",
+      "name": "John Updated",
+      "updated_at": "2026-03-01T12:00:00.000Z",
+      "user_metadata": { "plan": "enterprise" }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "name": "create_project",
+  "description": "Create a new translation project in Smartcat. You must specify a project name, source language, and one or more target languages. You can optionally configure the workflow stages (translation, editing, proofreading), assign translators, and attach translation memories. The project will be created in 'created' status, ready for document uploads.",
+  "endpoint": "/api/integration/v1/project/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "The name of the translation project. Should be descriptive, e.g., 'Website Localization Q1 2025'."
+    },
+    {
+      "name": "sourceLanguage",
+      "type": "string",
+      "required": true,
+      "description": "Source language code in Smartcat format. Examples: 'en' for English, 'en-US' for American English, 'de' for German."
+    },
+    {
+      "name": "targetLanguages",
+      "type": "array",
+      "required": true,
+      "description": "Array of target language codes to translate into. Example: ['es', 'fr', 'de', 'ja']."
+    },
+    {
+      "name": "workflowStages",
+      "type": "array",
+      "required": false,
+      "description": "Array of workflow stage names defining the translation process. Options: 'Translation', 'Editing', 'Proofreading'. Default: ['Translation']."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Optional description of the project providing context for translators."
+    },
+    {
+      "name": "deadline",
+      "type": "string",
+      "required": false,
+      "description": "Project deadline in ISO 8601 format. Example: '2025-12-31T23:59:59Z'."
+    },
+    {
+      "name": "useMT",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to use machine translation as a first pass. Default: false."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.smartcat.com/api/integration/v1/project/create",
+    "headers": {
+      "Authorization": "Basic YWNjb3VudF9pZDphcGlfa2V5",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Mobile App Localization v2.5",
+      "sourceLanguage": "en",
+      "targetLanguages": ["es", "fr", "de", "ja"],
+      "workflowStages": ["Translation", "Editing"],
+      "description": "Localization of mobile app UI strings for version 2.5 release",
+      "deadline": "2025-10-15T23:59:59Z",
+      "useMT": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "proj_abc123def456",
+      "name": "Mobile App Localization v2.5",
+      "sourceLanguage": "en",
+      "targetLanguages": ["es", "fr", "de", "ja"],
+      "status": "created",
+      "workflowStages": ["Translation", "Editing"],
+      "deadline": "2025-10-15T23:59:59Z",
+      "createdDate": "2025-08-01T10:00:00Z",
+      "documents": []
+    }
+  }
+}

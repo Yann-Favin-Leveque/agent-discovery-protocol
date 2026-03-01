@@ -1,0 +1,61 @@
+{
+  "name": "upload_file",
+  "description": "Upload a file to Dropbox at a specified path. This endpoint supports files up to 150 MB. The file content goes in the request body, and the path and write mode are specified via a special Dropbox-API-Arg header as JSON.",
+  "endpoint": "/2/files/upload",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "description": "The path in the user's Dropbox where the file should be written (e.g., '/Documents/report.pdf').",
+      "required": true,
+      "example": "/Documents/report.pdf"
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "description": "Write conflict strategy: 'add' (never overwrite), 'overwrite' (always overwrite), or 'update' (overwrite if rev matches).",
+      "required": false,
+      "example": "add"
+    },
+    {
+      "name": "autorename",
+      "type": "boolean",
+      "description": "If true, Dropbox will rename the file if there is a conflict (e.g., 'report (1).pdf').",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "mute",
+      "type": "boolean",
+      "description": "If true, the upload will not trigger desktop notifications for the user.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://content.dropboxapi.com/2/files/upload",
+    "headers": {
+      "Authorization": "Bearer your-access-token",
+      "Content-Type": "application/octet-stream",
+      "Dropbox-API-Arg": "{\"path\":\"/Documents/report.pdf\",\"mode\":\"add\",\"autorename\":true,\"mute\":false}"
+    },
+    "body": "<file content bytes>"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "report.pdf",
+      "path_lower": "/documents/report.pdf",
+      "path_display": "/Documents/report.pdf",
+      "id": "id:a4ayc_80_OEAAAAAAAAAXw",
+      "client_modified": "2026-01-12T10:30:00Z",
+      "server_modified": "2026-01-12T10:30:00Z",
+      "rev": "014830142620c000000024b1dee0",
+      "size": 2048576,
+      "is_downloadable": true,
+      "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

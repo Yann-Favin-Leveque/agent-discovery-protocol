@@ -1,0 +1,74 @@
+{
+  "name": "get_activity_data",
+  "description": "Retrieve daily activity summaries from Withings watches and trackers. Includes steps, distance walked, calories burned, floors climbed, and active/inactive duration. Returns one entry per day over the requested date range.",
+  "endpoint": "/v2/measure",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "description": "Must be 'getactivity' to retrieve activity data.",
+      "required": true,
+      "example": "getactivity"
+    },
+    {
+      "name": "startdateymd",
+      "type": "string",
+      "description": "Start date in YYYY-MM-DD format.",
+      "required": true,
+      "example": "2025-12-01"
+    },
+    {
+      "name": "enddateymd",
+      "type": "string",
+      "description": "End date in YYYY-MM-DD format.",
+      "required": true,
+      "example": "2025-12-07"
+    },
+    {
+      "name": "data_fields",
+      "type": "string",
+      "description": "Comma-separated list of fields: steps, distance, elevation, soft, moderate, intense, active, calories, totalcalories, hr_average, hr_min, hr_max.",
+      "required": false,
+      "example": "steps,distance,calories,hr_average"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/measure",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "getactivity",
+      "startdateymd": "2025-12-01",
+      "enddateymd": "2025-12-07",
+      "data_fields": "steps,distance,calories,hr_average"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "activities": [
+          {
+            "date": "2025-12-01",
+            "steps": 8543,
+            "distance": 6234.5,
+            "calories": 342.1,
+            "hr_average": 72
+          },
+          {
+            "date": "2025-12-02",
+            "steps": 11200,
+            "distance": 8120.3,
+            "calories": 456.8,
+            "hr_average": 75
+          }
+        ]
+      }
+    }
+  }
+}

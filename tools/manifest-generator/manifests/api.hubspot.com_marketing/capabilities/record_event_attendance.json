@@ -1,0 +1,41 @@
+{
+  "name": "record_event_attendance",
+  "description": "Record a contact's attendance state for a marketing event. Supports registered, attended, cancelled, and no-show statuses.",
+  "endpoint": "/marketing/v3/marketing-events/{objectId}/attendance/{subscribeState}/email-create",
+  "method": "POST",
+  "parameters": [
+    { "name": "objectId", "type": "string", "description": "The HubSpot record ID of the marketing event.", "required": true, "example": "12345" },
+    { "name": "subscribeState", "type": "string", "description": "The attendance state. One of: REGISTERED, ATTENDED, CANCELLED, NO_SHOW.", "required": true, "example": "ATTENDED" },
+    { "name": "inputs", "type": "array", "description": "List of objects with email addresses to record attendance for.", "required": true, "example": [{ "email": "john@example.com", "interactionDateTime": 1700000000000 }] }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hubspot.com/marketing/v3/marketing-events/12345/attendance/ATTENDED/email-create",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": [
+        {
+          "email": "john@example.com",
+          "interactionDateTime": 1700000000000
+        },
+        {
+          "email": "jane@example.com",
+          "interactionDateTime": 1700000000000
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "COMPLETE",
+      "results": [
+        { "email": "john@example.com", "status": "UPDATED" },
+        { "email": "jane@example.com", "status": "UPDATED" }
+      ]
+    }
+  }
+}

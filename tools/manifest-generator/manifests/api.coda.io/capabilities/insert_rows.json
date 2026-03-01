@@ -1,0 +1,117 @@
+{
+  "name": "insert_rows",
+  "description": "Add one or more new rows to a table in a Coda document. Supports batch row insertion with specified column values. Returns the IDs and data of newly created rows, allowing you to build automated workflows that populate your Coda tables.",
+  "endpoint": "/docs/{docId}/tables/{tableId}/rows",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "description": "The unique identifier of the Coda document containing the table.",
+      "required": true,
+      "example": "abcdef123456"
+    },
+    {
+      "name": "tableId",
+      "type": "string",
+      "description": "The unique identifier of the table where rows will be inserted.",
+      "required": true,
+      "example": "grid-tbl123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://coda.io/apis/v1/docs/abcdef123456/tables/grid-tbl123/rows",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "rows": [
+        {
+          "cells": [
+            {
+              "column": "c-col1",
+              "value": "API Integration"
+            },
+            {
+              "column": "c-col2",
+              "value": "Planning"
+            },
+            {
+              "column": "c-col3",
+              "value": 35000
+            },
+            {
+              "column": "c-col4",
+              "value": "Charlie Brown"
+            },
+            {
+              "column": "c-col5",
+              "value": "2024-03-15"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "column": "c-col1",
+              "value": "Security Audit"
+            },
+            {
+              "column": "c-col2",
+              "value": "On Hold"
+            },
+            {
+              "column": "c-col3",
+              "value": 45000
+            },
+            {
+              "column": "c-col4",
+              "value": "Diana Prince"
+            },
+            {
+              "column": "c-col5",
+              "value": "2024-04-01"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "items": [
+        {
+          "id": "i-row42",
+          "type": "row",
+          "index": 42,
+          "createdTime": "2024-03-01T10:00:00Z",
+          "modifiedTime": "2024-03-01T10:00:00Z",
+          "values": {
+            "Name": "API Integration",
+            "Status": "Planning",
+            "Budget": 35000,
+            "Owner": "Charlie Brown",
+            "Start Date": "2024-03-15"
+          }
+        },
+        {
+          "id": "i-row43",
+          "type": "row",
+          "index": 43,
+          "createdTime": "2024-03-01T10:00:00Z",
+          "modifiedTime": "2024-03-01T10:00:00Z",
+          "values": {
+            "Name": "Security Audit",
+            "Status": "On Hold",
+            "Budget": 45000,
+            "Owner": "Diana Prince",
+            "Start Date": "2024-04-01"
+          }
+        }
+      ]
+    }
+  }
+}

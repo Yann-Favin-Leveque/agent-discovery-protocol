@@ -1,0 +1,40 @@
+{
+  "name": "list_connections",
+  "description": "List all SSO connections in your WorkOS environment. Connections link an organization to an identity provider like Okta, Azure AD, or Google Workspace.",
+  "endpoint": "/connections",
+  "method": "GET",
+  "parameters": [
+    { "name": "organization_id", "type": "string", "description": "Filter connections by organization ID.", "required": false, "example": "org_01EHZNVPK3SFK441A1RGBFSHRT" },
+    { "name": "connection_type", "type": "string", "description": "Filter by provider type (e.g., OktaSAML, AzureSAML, GoogleOAuth).", "required": false, "example": "OktaSAML" },
+    { "name": "limit", "type": "integer", "description": "Maximum number of connections to return (1-100). Defaults to 10.", "required": false, "example": 10 },
+    { "name": "after", "type": "string", "description": "Pagination cursor.", "required": false, "example": "" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.workos.com/connections?organization_id=org_01EHZNVPK3SFK441A1RGBFSHRT&limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "conn_01E2TRB2FGMD2RG5K69GF73HT6",
+          "object": "connection",
+          "organization_id": "org_01EHZNVPK3SFK441A1RGBFSHRT",
+          "connection_type": "OktaSAML",
+          "name": "Acme SSO",
+          "state": "active",
+          "created_at": "2024-01-01T00:00:00.000Z",
+          "updated_at": "2024-01-01T00:00:00.000Z"
+        }
+      ],
+      "list_metadata": {
+        "before": null,
+        "after": "conn_01E2TRB2FGMD2RG5K69GF73HT6"
+      }
+    }
+  }
+}

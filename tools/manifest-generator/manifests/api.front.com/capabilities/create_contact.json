@@ -1,0 +1,40 @@
+{
+  "name": "create_contact",
+  "description": "Create a new contact record in Front. Provide at minimum a handle (email, phone, or social) to identify them.",
+  "endpoint": "/contacts",
+  "method": "POST",
+  "parameters": [
+    { "name": "name", "type": "string", "description": "The full name of the contact.", "required": false, "example": "Jane Smith" },
+    { "name": "description", "type": "string", "description": "A description or note about the contact.", "required": false, "example": "Enterprise customer, billing contact" },
+    { "name": "handles", "type": "array", "description": "List of contact handles. Each has 'handle' (value) and 'source' (email, phone, twitter, etc.).", "required": true, "example": [{ "handle": "jane@example.com", "source": "email" }] },
+    { "name": "custom_fields", "type": "object", "description": "Key-value pairs for custom contact fields defined in your workspace.", "required": false, "example": { "company": "Acme Corp" } }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api2.frontapp.com/contacts",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Jane Smith",
+      "description": "Enterprise customer, billing contact",
+      "handles": [
+        { "handle": "jane@example.com", "source": "email" }
+      ],
+      "custom_fields": {
+        "company": "Acme Corp"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "crd_def456",
+      "name": "Jane Smith",
+      "handles": [
+        { "handle": "jane@example.com", "source": "email" }
+      ]
+    }
+  }
+}

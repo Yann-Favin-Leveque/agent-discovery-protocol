@@ -1,0 +1,39 @@
+{
+  "name": "embed_text",
+  "description": "Generate dense vector embeddings from text inputs using feature extraction models. These embeddings are useful for building semantic search engines, recommendation systems, and retrieval-augmented generation pipelines.",
+  "endpoint": "/models/{model_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model_id",
+      "type": "string",
+      "description": "The embedding model ID in 'org/model' format.",
+      "required": true,
+      "example": "sentence-transformers/all-MiniLM-L6-v2"
+    },
+    {
+      "name": "inputs",
+      "type": "string",
+      "description": "The text to generate embeddings for. Can also be an array of strings for batch processing.",
+      "required": true,
+      "example": "Machine learning is a branch of artificial intelligence."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2",
+    "headers": {
+      "Authorization": "Bearer your-hf-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": "Machine learning is a branch of artificial intelligence."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      [0.123, -0.456, 0.789, 0.012, -0.345, "...(384 dimensions)"]
+    ]
+  }
+}

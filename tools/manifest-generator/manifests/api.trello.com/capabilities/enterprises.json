@@ -1,0 +1,42 @@
+{
+  "name": "enterprises",
+  "description": "Manage enterprises — create an auth token for an enterprise, decline enterprisejoinrequests from one organization or a bulk list of organizations, transfer an organization to an enterprise. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/enterprises/{id}/tokens",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "ID of the enterprise to retrieve.",
+      "required": true,
+      "example": "abc_123"
+    },
+    {
+      "name": "expiration",
+      "type": "string",
+      "description": "One of: `1hour`, `1day`, `30days`, `never`",
+      "required": false,
+      "example": "none"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trello.com/1/enterprises/{id}/tokens",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "id": "abc_123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "id": "abc_123"
+      }
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "chat_stream",
+  "description": "Generate conversational responses as a real-time stream of server-sent events. Enables token-by-token display for responsive user interfaces and long-running generation tasks.",
+  "endpoint": "/v2/chat",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The model ID to use for generation.",
+      "required": true,
+      "example": "command-a-03-2025"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "description": "Array of message objects with 'role' and 'content'.",
+      "required": true,
+      "example": [{"role": "user", "content": "Write a poem about the ocean."}]
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "description": "Must be set to true to enable streaming.",
+      "required": true,
+      "example": true
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "description": "Maximum number of tokens to generate.",
+      "required": false,
+      "example": 1024
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "description": "Sampling temperature controlling randomness (default 0.3).",
+      "required": false,
+      "example": 0.3
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cohere.com/v2/chat",
+    "headers": {
+      "Authorization": "Bearer your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "command-a-03-2025",
+      "stream": true,
+      "messages": [
+        {"role": "user", "content": "Write a poem about the ocean."}
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "content-delta",
+      "delta": {
+        "message": {
+          "content": {
+            "text": "Waves crash upon the shore"
+          }
+        }
+      }
+    }
+  }
+}

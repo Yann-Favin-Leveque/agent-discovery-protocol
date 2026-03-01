@@ -1,0 +1,42 @@
+{
+  "name": "send_payment",
+  "description": "Initiate an electronic payment (ACH or domestic wire) to a saved recipient from one of your Mercury accounts. The payment must be approved by an authorized team member before it is processed.",
+  "endpoint": "/api/v1/account/{account_id}/transactions",
+  "method": "POST",
+  "parameters": [
+    { "name": "account_id", "type": "string", "description": "The ID of the Mercury account to send payment from.", "required": true, "example": "acc-12345-abcde" },
+    { "name": "recipientId", "type": "string", "description": "The ID of the saved recipient to pay.", "required": true, "example": "rec-xyz-789" },
+    { "name": "amount", "type": "number", "description": "The payment amount in dollars.", "required": true, "example": 5000.00 },
+    { "name": "paymentMethod", "type": "string", "description": "Payment method: 'ach' or 'domesticWire'.", "required": true, "example": "ach" },
+    { "name": "note", "type": "string", "description": "Internal note or memo for the payment.", "required": false, "example": "February consulting invoice #1042" },
+    { "name": "idempotencyKey", "type": "string", "description": "Unique key to prevent duplicate payments.", "required": true, "example": "pay-2026-03-01-001" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mercury.com/api/v1/account/acc-12345-abcde/transactions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipientId": "rec-xyz-789",
+      "amount": 5000.00,
+      "paymentMethod": "ach",
+      "note": "February consulting invoice #1042",
+      "idempotencyKey": "pay-2026-03-01-001"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "txn-new-456",
+      "amount": -5000.00,
+      "status": "pending",
+      "counterpartyName": "Acme Consulting LLC",
+      "kind": "externalTransfer",
+      "method": "ach",
+      "note": "February consulting invoice #1042",
+      "createdAt": "2026-03-01T12:00:00Z"
+    }
+  }
+}

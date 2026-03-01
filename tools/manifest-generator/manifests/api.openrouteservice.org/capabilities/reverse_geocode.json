@@ -1,0 +1,75 @@
+{
+  "name": "reverse_geocode",
+  "description": "Convert geographic coordinates (latitude and longitude) into a human-readable address. Returns the nearest address, place name, or administrative boundary for the given point. Useful when you have GPS coordinates and need to know what is at that location.",
+  "endpoint": "/geocode/reverse",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "point.lon",
+      "type": "number",
+      "required": true,
+      "description": "Longitude of the point to reverse geocode."
+    },
+    {
+      "name": "point.lat",
+      "type": "number",
+      "required": true,
+      "description": "Latitude of the point to reverse geocode."
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of results to return. Default is 10."
+    },
+    {
+      "name": "layers",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated filter for result types. Options: venue, address, street, neighbourhood, locality, county, region, country."
+    },
+    {
+      "name": "boundary.circle.radius",
+      "type": "number",
+      "required": false,
+      "description": "Search radius in kilometers around the point. Default is 1."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openrouteservice.org/geocode/reverse?point.lon=8.681495&point.lat=49.41461&size=1",
+    "headers": {
+      "Authorization": "5b3ce3597851110001cf6248xxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [8.681509, 49.414631]
+          },
+          "properties": {
+            "id": "way:987654321",
+            "name": "Hauptstrasse 52",
+            "confidence": 0.98,
+            "label": "Hauptstrasse 52, 69117 Heidelberg, Germany",
+            "housenumber": "52",
+            "street": "Hauptstrasse",
+            "postalcode": "69117",
+            "locality": "Heidelberg",
+            "region": "Baden-Wuerttemberg",
+            "country": "Germany",
+            "country_a": "DEU",
+            "layer": "address",
+            "source": "openstreetmap"
+          }
+        }
+      ]
+    }
+  }
+}

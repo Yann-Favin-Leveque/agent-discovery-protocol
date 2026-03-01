@@ -1,0 +1,115 @@
+{
+  "name": "list_products",
+  "description": "Retrieve a paginated list of products from the BigCommerce store catalog. Supports filtering by name, SKU, price range, availability, category, brand, and keyword search. Returns product details with pricing, images, and inventory info.",
+  "endpoint": "/catalog/products",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of products to return per page (max 250, default 50).",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination (default 1).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Filter products by exact name match.",
+      "required": false,
+      "example": "Smith Journal 13"
+    },
+    {
+      "name": "keyword",
+      "type": "string",
+      "description": "Search products by keyword across name, SKU, and description.",
+      "required": false,
+      "example": "journal"
+    },
+    {
+      "name": "sku",
+      "type": "string",
+      "description": "Filter by product SKU.",
+      "required": false,
+      "example": "SM-13"
+    },
+    {
+      "name": "categories",
+      "type": "integer",
+      "description": "Filter products by category ID.",
+      "required": false,
+      "example": 18
+    },
+    {
+      "name": "availability",
+      "type": "string",
+      "description": "Filter by availability: 'available', 'disabled', or 'preorder'.",
+      "required": false,
+      "example": "available"
+    },
+    {
+      "name": "price:min",
+      "type": "number",
+      "description": "Filter products with price greater than or equal to this value.",
+      "required": false,
+      "example": 10.00
+    },
+    {
+      "name": "price:max",
+      "type": "number",
+      "description": "Filter products with price less than or equal to this value.",
+      "required": false,
+      "example": 100.00
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bigcommerce.com/stores/{store_hash}/v3/catalog/products?limit=50&availability=available",
+    "headers": {
+      "X-Auth-Token": "{api_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 77,
+          "name": "Smith Journal 13",
+          "type": "physical",
+          "sku": "SM-13",
+          "description": "<p>A beautiful leather journal.</p>",
+          "weight": 1.5,
+          "price": 25.00,
+          "sale_price": 0,
+          "availability": "available",
+          "inventory_level": 42,
+          "categories": [18, 23],
+          "date_created": "2024-01-05T10:30:00+00:00",
+          "images": [
+            {
+              "id": 372,
+              "url_standard": "https://cdn.bigcommerce.com/s-abc123/products/77/images/372/journal.jpg"
+            }
+          ]
+        }
+      ],
+      "meta": {
+        "pagination": {
+          "total": 125,
+          "count": 50,
+          "per_page": 50,
+          "current_page": 1,
+          "total_pages": 3
+        }
+      }
+    }
+  }
+}

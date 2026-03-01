@@ -1,0 +1,45 @@
+{
+  "name": "list_devices",
+  "description": "List all devices in your Balena account or filter by fleet. Returns each device's name, UUID, online status, OS version, and last connectivity time. Supports OData-style filtering and field selection.",
+  "endpoint": "/v7/device",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter expression to narrow results, e.g. filter by fleet or online status.",
+      "required": false,
+      "example": "belongs_to__application eq 12345"
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Comma-separated list of fields to return.",
+      "required": false,
+      "example": "device_name,uuid,is_online,os_version"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.balena-cloud.com/v7/device?$select=device_name,uuid,is_online,os_version",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "d": [
+        {
+          "id": 1234567,
+          "uuid": "abc123def456",
+          "device_name": "bold-moon",
+          "is_online": true,
+          "os_version": "balenaOS 2.98.12",
+          "last_connectivity_event": "2025-12-01T18:30:00.000Z"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "get_funnel",
+  "description": "Analyze a multi-step conversion funnel to identify drop-off points in user flows.",
+  "endpoint": "/2.0/funnels",
+  "method": "GET",
+  "parameters": [
+    {"name": "project_id", "type": "number", "description": "Project ID.", "required": true, "example": 123456},
+    {"name": "funnel_id", "type": "number", "description": "Saved funnel ID.", "required": true, "example": 789},
+    {"name": "from_date", "type": "string", "description": "Start date (YYYY-MM-DD).", "required": true, "example": "2024-01-01"},
+    {"name": "to_date", "type": "string", "description": "End date (YYYY-MM-DD).", "required": true, "example": "2024-01-31"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mixpanel.com/api/2.0/funnels?project_id=123456&funnel_id=789&from_date=2024-01-01&to_date=2024-01-31",
+    "headers": {"Authorization": "Basic {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"meta": {"dates": ["2024-01-01", "2024-01-31"]}, "data": {"2024-01-01": {"steps": [{"event": "Landing Page", "count": 1000}, {"event": "Sign Up", "count": 250}, {"event": "First Purchase", "count": 50}]}}}
+  }
+}

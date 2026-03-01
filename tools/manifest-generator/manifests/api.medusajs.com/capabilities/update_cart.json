@@ -1,0 +1,63 @@
+{
+  "name": "update_cart",
+  "description": "Add or remove line items from a cart, apply discount codes, set shipping address, and select shipping options. Use this to build up the cart before completing checkout.",
+  "endpoint": "/store/carts/{id}/line-items",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The cart ID to update.",
+      "required": true,
+      "example": "cart_01H..."
+    },
+    {
+      "name": "variant_id",
+      "type": "string",
+      "description": "The product variant ID to add to the cart.",
+      "required": true,
+      "example": "variant_01H..."
+    },
+    {
+      "name": "quantity",
+      "type": "integer",
+      "description": "The quantity of the variant to add.",
+      "required": true,
+      "example": 2
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.medusajs.com/store/carts/cart_01H.../line-items",
+    "headers": {
+      "x-publishable-api-key": "YOUR_PUBLISHABLE_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "variant_id": "variant_01H...",
+      "quantity": 2
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "cart": {
+        "id": "cart_01H...",
+        "items": [
+          {
+            "id": "item_01H...",
+            "variant_id": "variant_01H...",
+            "title": "Medusa T-Shirt",
+            "quantity": 2,
+            "unit_price": 2000,
+            "subtotal": 4000
+          }
+        ],
+        "subtotal": 4000,
+        "shipping_total": 0,
+        "tax_total": 0,
+        "total": 4000
+      }
+    }
+  }
+}

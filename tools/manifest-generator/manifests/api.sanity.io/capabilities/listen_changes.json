@@ -1,0 +1,25 @@
+{
+  "name": "listen_changes",
+  "description": "Listen to real-time content changes via server-sent events (SSE). Subscribe to a GROQ query and receive updates whenever matching documents change.",
+  "endpoint": "/v2021-10-21/data/listen/{dataset}",
+  "method": "GET",
+  "parameters": [
+    { "name": "dataset", "type": "string", "description": "The dataset name.", "required": true, "example": "production" },
+    { "name": "query", "type": "string", "description": "GROQ query to filter which document changes to listen for.", "required": true, "example": "*[_type == 'post']" },
+    { "name": "includeResult", "type": "boolean", "description": "Include the full document in change events.", "required": false, "example": true }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{project_id}.api.sanity.io/v2021-10-21/data/listen/production?query=*[_type == 'post']&includeResult=true",
+    "headers": { "Authorization": "Bearer {api_token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "event": "mutation",
+      "documentId": "doc_xyz789",
+      "transition": "update",
+      "result": { "_id": "doc_xyz789", "_type": "post", "title": "Updated Title" }
+    }
+  }
+}

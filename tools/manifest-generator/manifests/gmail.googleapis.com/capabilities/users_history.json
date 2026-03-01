@@ -1,0 +1,74 @@
+{
+  "name": "users_history",
+  "description": "Manage users history — lists the history of all changes to the given mailbox. history results are returned in chronological order (increasing `historyid`). Supports standard CRUD operations through the REST API.",
+  "endpoint": "/gmail/v1/users/{userId}/history",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "historyTypes",
+      "type": "string",
+      "description": "History types to be returned by the function",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Page token to retrieve a specific page of results in the list.",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "labelId",
+      "type": "string",
+      "description": "Only return messages with a label matching the ID.",
+      "required": false,
+      "example": "abc_123"
+    },
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address. The special value `me` can be used to indicate the authenticated user.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Maximum number of history records to return. This field defaults to 100. The maximum allowed value for this field is 500.",
+      "required": false,
+      "example": "100"
+    },
+    {
+      "name": "startHistoryId",
+      "type": "string",
+      "description": "Required. Returns history records after the specified `startHistoryId`. The supplied `startHistoryId` should be obtained from the `historyId` of a message, thread, or previous `list` response. History IDs increase chronologically but are not contiguous with random gaps in between valid IDs. Supplying an invalid or out of date `startHistoryId` typically returns an `HTTP 404` error code. A `historyId` is typically valid for at least a week, but in some rare circumstances may be valid for only a few hours. If you receive an `HTTP 404` error response, your application should perform a full sync. If you receive no `nextPageToken` in the response, there are no updates to retrieve and you can store the returned `historyId` for a future request.",
+      "required": false,
+      "example": "abc_123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/{userId}/history",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "userId": "me"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://mail.google.com/",
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.addons.current.message.action",
+    "https://www.googleapis.com/auth/gmail.addons.current.action.compose",
+    "https://www.googleapis.com/auth/gmail.modify"
+  ]
+}

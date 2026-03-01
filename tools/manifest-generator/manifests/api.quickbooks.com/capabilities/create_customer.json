@@ -1,0 +1,90 @@
+{
+  "name": "create_customer",
+  "description": "Create a new customer record with contact information, billing address, payment terms, and tax settings.",
+  "endpoint": "/v3/company/{realmId}/customer",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID (realm ID).",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "DisplayName",
+      "type": "string",
+      "description": "The display name of the customer. Must be unique across all customers, vendors, and employees.",
+      "required": true,
+      "example": "Acme Corp"
+    },
+    {
+      "name": "PrimaryEmailAddr",
+      "type": "object",
+      "description": "The customer's primary email address.",
+      "required": false,
+      "example": { "Address": "billing@acme.com" }
+    },
+    {
+      "name": "PrimaryPhone",
+      "type": "object",
+      "description": "The customer's primary phone number.",
+      "required": false,
+      "example": { "FreeFormNumber": "(555) 123-4567" }
+    },
+    {
+      "name": "BillAddr",
+      "type": "object",
+      "description": "The customer's billing address.",
+      "required": false,
+      "example": {
+        "Line1": "123 Main St",
+        "City": "San Francisco",
+        "CountrySubDivisionCode": "CA",
+        "PostalCode": "94105"
+      }
+    },
+    {
+      "name": "CompanyName",
+      "type": "string",
+      "description": "The company name of the customer.",
+      "required": false,
+      "example": "Acme Corporation"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/customer",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "DisplayName": "Acme Corp",
+      "CompanyName": "Acme Corporation",
+      "PrimaryEmailAddr": { "Address": "billing@acme.com" },
+      "PrimaryPhone": { "FreeFormNumber": "(555) 123-4567" },
+      "BillAddr": {
+        "Line1": "123 Main St",
+        "City": "San Francisco",
+        "CountrySubDivisionCode": "CA",
+        "PostalCode": "94105"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Customer": {
+        "Id": "56",
+        "DisplayName": "Acme Corp",
+        "CompanyName": "Acme Corporation",
+        "PrimaryEmailAddr": { "Address": "billing@acme.com" },
+        "PrimaryPhone": { "FreeFormNumber": "(555) 123-4567" },
+        "Balance": 0,
+        "Active": true
+      }
+    }
+  }
+}

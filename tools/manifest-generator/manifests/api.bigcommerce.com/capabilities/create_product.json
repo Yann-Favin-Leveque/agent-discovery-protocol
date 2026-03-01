@@ -1,0 +1,109 @@
+{
+  "name": "create_product",
+  "description": "Create a new product in the BigCommerce catalog with name, type, price, weight, SKU, description, images, and category assignments. Supports physical and digital product types with configurable inventory tracking.",
+  "endpoint": "/catalog/products",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the product.",
+      "required": true,
+      "example": "Smith Journal 13"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Product type: 'physical' or 'digital'.",
+      "required": true,
+      "example": "physical"
+    },
+    {
+      "name": "weight",
+      "type": "number",
+      "description": "Weight of the product (required for physical products).",
+      "required": true,
+      "example": 1.5
+    },
+    {
+      "name": "price",
+      "type": "number",
+      "description": "The price of the product.",
+      "required": true,
+      "example": 25.00
+    },
+    {
+      "name": "sku",
+      "type": "string",
+      "description": "Stock Keeping Unit identifier.",
+      "required": false,
+      "example": "SM-13"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "HTML description of the product.",
+      "required": false,
+      "example": "<p>A beautiful leather journal.</p>"
+    },
+    {
+      "name": "categories",
+      "type": "array",
+      "description": "Array of category IDs the product belongs to.",
+      "required": false,
+      "example": [18, 23]
+    },
+    {
+      "name": "inventory_level",
+      "type": "integer",
+      "description": "Current inventory quantity available.",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "inventory_tracking",
+      "type": "string",
+      "description": "Inventory tracking method: 'none', 'product', or 'variant'.",
+      "required": false,
+      "example": "product"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bigcommerce.com/stores/{store_hash}/v3/catalog/products",
+    "headers": {
+      "X-Auth-Token": "{api_token}",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "name": "Smith Journal 13",
+      "type": "physical",
+      "weight": 1.5,
+      "price": 25.00,
+      "sku": "SM-13",
+      "description": "<p>A beautiful leather journal.</p>",
+      "categories": [18],
+      "inventory_level": 100,
+      "inventory_tracking": "product"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 77,
+        "name": "Smith Journal 13",
+        "type": "physical",
+        "sku": "SM-13",
+        "price": 25.00,
+        "weight": 1.5,
+        "categories": [18],
+        "inventory_level": 100,
+        "inventory_tracking": "product",
+        "date_created": "2024-01-05T10:30:00+00:00"
+      },
+      "meta": {}
+    }
+  }
+}

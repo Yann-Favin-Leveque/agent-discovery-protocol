@@ -1,0 +1,21 @@
+{
+  "name": "create_lead",
+  "description": "Create a new lead in Close CRM with company information, contacts, and custom fields.",
+  "endpoint": "/lead/",
+  "method": "POST",
+  "parameters": [
+    {"name": "name", "type": "string", "description": "Lead/company name.", "required": true, "example": "Acme Corp"},
+    {"name": "contacts", "type": "array", "description": "Array of contact objects with name, email, phone.", "required": false, "example": [{"name": "Jane Smith", "emails": [{"email": "jane@acme.com", "type": "office"}]}]},
+    {"name": "status", "type": "string", "description": "Lead status ID.", "required": false, "example": "stat_potential"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.close.com/api/v1/lead/",
+    "headers": {"Authorization": "Basic {api_key}", "Content-Type": "application/json"},
+    "body": {"name": "Acme Corp", "contacts": [{"name": "Jane Smith", "emails": [{"email": "jane@acme.com", "type": "office"}]}]}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": "lead_new123", "display_name": "Acme Corp", "status_label": "Potential", "date_created": "2024-01-20T10:00:00Z"}
+  }
+}

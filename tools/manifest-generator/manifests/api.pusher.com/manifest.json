@@ -1,0 +1,44 @@
+{
+  "spec_version": "1.0",
+  "name": "Pusher Channels API",
+  "description": "Pusher provides real-time messaging infrastructure via WebSockets and HTTP APIs. Use this API to trigger events on channels for real-time updates to connected clients, query active channel information and connected users, send batch events efficiently, and deliver push notifications. Pusher is commonly used for live dashboards, chat applications, notifications, collaborative editing, and any feature requiring instant data synchronization.",
+  "base_url": "https://api.pusherapp.com",
+  "auth": {
+    "type": "api_key",
+    "header": "Authorization",
+    "prefix": "Bearer",
+    "setup_url": "https://dashboard.pusher.com/accounts/sign_up"
+  },
+  "capabilities": [
+    {
+      "name": "trigger_event",
+      "description": "Trigger an event on one or more channels. Connected clients subscribed to those channels receive the event data in real time. Use this for pushing live updates, notifications, and state changes to frontend applications.",
+      "detail_url": "/capabilities/trigger_event"
+    },
+    {
+      "name": "trigger_batch",
+      "description": "Trigger multiple events in a single HTTP request. Each event can target a different channel with different data. More efficient than individual trigger_event calls when sending multiple events simultaneously.",
+      "detail_url": "/capabilities/trigger_batch"
+    },
+    {
+      "name": "query_channels",
+      "description": "Get a list of active channels in your Pusher application. Optionally filter by channel name prefix and request additional attributes like user count for presence channels. Use this to monitor active channels.",
+      "detail_url": "/capabilities/query_channels"
+    },
+    {
+      "name": "query_channel",
+      "description": "Get detailed information about a specific channel. Returns whether the channel is occupied (has subscribers), and for presence channels, the number of connected users and their subscription count.",
+      "detail_url": "/capabilities/query_channel"
+    },
+    {
+      "name": "get_channel_users",
+      "description": "Get a list of users currently subscribed to a presence channel. Returns user IDs for each connected user. Only works with presence channels (prefixed with 'presence-'). Use this to show who is online.",
+      "detail_url": "/capabilities/get_channel_users"
+    },
+    {
+      "name": "send_push_notification",
+      "description": "Send a push notification to devices using Pusher Beams. Target specific users or interests (topics). Supports APNs (iOS), FCM (Android), and web push. Use this for mobile and browser push notifications.",
+      "detail_url": "/capabilities/send_push_notification"
+    }
+  ]
+}

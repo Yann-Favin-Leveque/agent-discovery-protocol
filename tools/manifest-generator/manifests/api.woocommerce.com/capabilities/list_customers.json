@@ -1,0 +1,100 @@
+{
+  "name": "list_customers",
+  "description": "Retrieve a paginated list of customers from the WooCommerce store. Supports filtering by email, role, search term, and ordering by various fields like registration date, name, or order count.",
+  "endpoint": "/customers",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Number of customers to return per page (max 100, default 10).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination (default 1).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "description": "Search customers by keyword across name and email.",
+      "required": false,
+      "example": "bob"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Filter by exact email address.",
+      "required": false,
+      "example": "bob@example.com"
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "description": "Filter by WordPress user role: 'all', 'customer', 'administrator', etc.",
+      "required": false,
+      "example": "customer"
+    },
+    {
+      "name": "orderby",
+      "type": "string",
+      "description": "Sort by field: 'id', 'include', 'name', 'registered_date'.",
+      "required": false,
+      "example": "registered_date"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order: 'asc' or 'desc'.",
+      "required": false,
+      "example": "desc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store_domain}/wp-json/wc/v3/customers?per_page=20&role=customer&orderby=registered_date&order=desc",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_key_secret}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 12,
+        "date_created": "2024-01-02T08:59:11",
+        "email": "bob@example.com",
+        "first_name": "Bob",
+        "last_name": "Norman",
+        "role": "customer",
+        "username": "bob.norman",
+        "orders_count": 5,
+        "total_spent": "1098.50",
+        "billing": {
+          "first_name": "Bob",
+          "last_name": "Norman",
+          "address_1": "123 Main St",
+          "city": "Austin",
+          "state": "TX",
+          "postcode": "78701",
+          "country": "US",
+          "email": "bob@example.com",
+          "phone": "555-0123"
+        },
+        "shipping": {
+          "first_name": "Bob",
+          "last_name": "Norman",
+          "address_1": "123 Main St",
+          "city": "Austin",
+          "state": "TX",
+          "postcode": "78701",
+          "country": "US"
+        }
+      }
+    ]
+  }
+}

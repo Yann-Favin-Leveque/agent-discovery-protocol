@@ -1,0 +1,61 @@
+{
+  "name": "create_storage_zone",
+  "description": "Create a new edge storage zone for hosting files directly on Bunny's global network. Useful for static assets, media, and downloads.",
+  "endpoint": "/storagezone",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "Name",
+      "type": "string",
+      "description": "The name of the storage zone. Must be unique and will be used in the storage hostname.",
+      "required": true,
+      "example": "my-media-storage"
+    },
+    {
+      "name": "Region",
+      "type": "string",
+      "description": "The primary storage region. Options include DE (Germany), NY (New York), LA (Los Angeles), SG (Singapore), SYD (Sydney).",
+      "required": false,
+      "example": "DE"
+    },
+    {
+      "name": "ReplicationRegions",
+      "type": "array",
+      "description": "Additional regions to replicate files to for redundancy and faster global access.",
+      "required": false,
+      "example": ["NY", "SG"]
+    },
+    {
+      "name": "ZoneTier",
+      "type": "integer",
+      "description": "The storage tier. 0 for Standard, 1 for Edge (SSD-backed, lower latency).",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bunny.net/storagezone",
+    "headers": {
+      "AccessKey": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Name": "my-media-storage",
+      "Region": "DE",
+      "ReplicationRegions": ["NY", "SG"]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "Id": 78901,
+      "Name": "my-media-storage",
+      "Region": "DE",
+      "ReplicationRegions": ["NY", "SG"],
+      "StorageHostname": "storage.bunnycdn.com",
+      "FilesStored": 0,
+      "StorageUsed": 0
+    }
+  }
+}

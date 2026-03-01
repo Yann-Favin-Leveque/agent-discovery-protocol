@@ -1,0 +1,60 @@
+{
+  "name": "get_application",
+  "description": "Retrieve detailed information about a specific monitored application by its ID. Returns the application's health status, performance summary metrics (response time, throughput, error rate, Apdex), configuration settings, and linked resources.",
+  "endpoint": "/v2/applications/{id}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "The unique application ID in New Relic."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.newrelic.com/v2/applications/12345678.json",
+    "headers": {
+      "Api-Key": "NRAK-XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "application": {
+        "id": 12345678,
+        "name": "my-app-production",
+        "language": "nodejs",
+        "health_status": "green",
+        "reporting": true,
+        "last_reported_at": "2026-02-28T15:30:00+00:00",
+        "application_summary": {
+          "response_time": 45.2,
+          "throughput": 1250.0,
+          "error_rate": 0.12,
+          "apdex_target": 0.5,
+          "apdex_score": 0.95,
+          "host_count": 3,
+          "instance_count": 6
+        },
+        "end_user_summary": {
+          "response_time": 2.1,
+          "throughput": 890.0,
+          "apdex_target": 7.0,
+          "apdex_score": 0.92
+        },
+        "settings": {
+          "app_apdex_threshold": 0.5,
+          "end_user_apdex_threshold": 7.0,
+          "enable_real_user_monitoring": true,
+          "use_server_side_config": false
+        },
+        "links": {
+          "application_instances": [98765, 98766, 98767],
+          "servers": [],
+          "application_hosts": [11111, 22222, 33333]
+        }
+      }
+    }
+  }
+}

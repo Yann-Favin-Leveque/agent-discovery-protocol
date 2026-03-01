@@ -1,0 +1,105 @@
+{
+  "name": "update_user",
+  "description": "Update an existing user's profile information. You can modify their name, username, metadata, password, and other attributes. Only the fields you include in the request body will be updated; all other fields remain unchanged. Use this to change user roles (via metadata), reset passwords, or update profile information.",
+  "endpoint": "/v1/users/{user_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "The Clerk user ID to update. Starts with 'user_'. This is a path parameter."
+    },
+    {
+      "name": "first_name",
+      "type": "string",
+      "required": false,
+      "description": "Updated first name."
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "required": false,
+      "description": "Updated last name."
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "required": false,
+      "description": "Updated username. Must be unique."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "description": "New password for the user."
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "required": false,
+      "description": "Updated external ID."
+    },
+    {
+      "name": "public_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Updated public metadata. This replaces the entire public_metadata object, so include all fields you want to keep."
+    },
+    {
+      "name": "private_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Updated private metadata. This replaces the entire private_metadata object."
+    },
+    {
+      "name": "profile_image_id",
+      "type": "string",
+      "required": false,
+      "description": "ID of a previously uploaded image to set as the profile picture."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.clerk.com/v1/users/user_2abc123def456",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY_HERE",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "first_name": "Alice",
+      "last_name": "Williams",
+      "public_metadata": {
+        "role": "admin",
+        "department": "engineering"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "user_2abc123def456",
+      "object": "user",
+      "first_name": "Alice",
+      "last_name": "Williams",
+      "email_addresses": [
+        {
+          "id": "idn_2xyz789",
+          "email_address": "alice@example.com",
+          "verification": {
+            "status": "verified",
+            "strategy": "email_code"
+          }
+        }
+      ],
+      "username": "alicej",
+      "public_metadata": {
+        "role": "admin",
+        "department": "engineering"
+      },
+      "private_metadata": {},
+      "created_at": 1702656000000,
+      "updated_at": 1702915200000
+    }
+  }
+}

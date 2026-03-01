@@ -1,0 +1,46 @@
+{
+  "name": "list_conversations",
+  "description": "Retrieve a paginated list of conversations across all inboxes. Supports filtering by status, assignee, and tags.",
+  "endpoint": "/conversations",
+  "method": "GET",
+  "parameters": [
+    { "name": "q", "type": "string", "description": "Search query to filter conversations by subject or content.", "required": false, "example": "billing question" },
+    { "name": "page_token", "type": "string", "description": "Pagination token for fetching the next page of results.", "required": false, "example": "abc123next" },
+    { "name": "limit", "type": "integer", "description": "Maximum number of conversations to return per page. Default 50.", "required": false, "example": 25 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api2.frontapp.com/conversations?limit=25",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Accept": "application/json"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "_links": {
+        "self": "https://api2.frontapp.com/conversations"
+      },
+      "_results": [
+        {
+          "id": "cnv_abc123",
+          "subject": "Billing question",
+          "status": "open",
+          "assignee": {
+            "id": "tea_xyz789",
+            "email": "support@example.com"
+          },
+          "created_at": 1700000000,
+          "last_message": {
+            "body": "I have a question about my invoice."
+          }
+        }
+      ],
+      "_pagination": {
+        "next": "https://api2.frontapp.com/conversations?page_token=abc123next"
+      }
+    }
+  }
+}

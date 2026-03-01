@@ -1,0 +1,39 @@
+{
+  "name": "get_people_profile",
+  "description": "Retrieve a contact's profile including their email, name, metadata, and conversation history summary.",
+  "endpoint": "/website/{website_id}/people/{people_id}",
+  "method": "GET",
+  "parameters": [
+    { "name": "website_id", "type": "string", "description": "The unique identifier for your Crisp website.", "required": true, "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890" },
+    { "name": "people_id", "type": "string", "description": "The unique identifier for the contact.", "required": true, "example": "people_abc123" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.crisp.chat/v1/website/a1b2c3d4-e5f6-7890-abcd-ef1234567890/people/people_abc123",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "error": false,
+      "reason": "fetched",
+      "data": {
+        "people_id": "people_abc123",
+        "email": "john@example.com",
+        "person": {
+          "nickname": "John Doe",
+          "avatar": null
+        },
+        "company": {
+          "name": "Acme Corp"
+        },
+        "segments": ["customer", "premium"],
+        "active": 1700000000000
+      }
+    }
+  }
+}

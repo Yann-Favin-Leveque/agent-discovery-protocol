@@ -1,0 +1,50 @@
+{
+  "name": "create_ticket",
+  "description": "Create a new support ticket in Zendesk. A ticket represents a customer support request that agents work to resolve. You must include a comment (which becomes the ticket description) and can set priority, type, tags, and assignee.",
+  "endpoint": "/api/v2/tickets",
+  "method": "POST",
+  "parameters": [
+    { "name": "subject", "type": "string", "description": "The subject line of the ticket.", "required": false, "example": "Cannot access my account" },
+    { "name": "comment", "type": "object", "description": "The initial comment/description. Must include a 'body' field with the text.", "required": true, "example": { "body": "I have been unable to log in since yesterday. I get an error saying my password is incorrect." } },
+    { "name": "requester_id", "type": "integer", "description": "The ID of the user requesting support.", "required": true, "example": 12345 },
+    { "name": "priority", "type": "string", "description": "Ticket priority: 'urgent', 'high', 'normal', or 'low'.", "required": false, "example": "high" },
+    { "name": "status", "type": "string", "description": "Initial status: 'new', 'open', 'pending', 'hold', or 'solved'.", "required": false, "example": "new" },
+    { "name": "assignee_id", "type": "integer", "description": "The ID of the agent to assign the ticket to.", "required": false, "example": 67890 },
+    { "name": "tags", "type": "array", "description": "Tags to categorize the ticket.", "required": false, "example": ["login", "account-access"] },
+    { "name": "type", "type": "string", "description": "Ticket type: 'problem', 'incident', 'question', or 'task'.", "required": false, "example": "problem" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.zendesk.com/api/v2/tickets",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ticket": {
+        "subject": "Cannot access my account",
+        "comment": { "body": "I have been unable to log in since yesterday. I get an error saying my password is incorrect." },
+        "requester_id": 12345,
+        "priority": "high",
+        "type": "problem",
+        "tags": ["login", "account-access"]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "ticket": {
+        "id": 1001,
+        "subject": "Cannot access my account",
+        "status": "new",
+        "priority": "high",
+        "requester_id": 12345,
+        "assignee_id": null,
+        "tags": ["login", "account-access"],
+        "created_at": "2025-01-15T10:30:00Z",
+        "updated_at": "2025-01-15T10:30:00Z"
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "generate_image",
+  "description": "Generate images from text prompts using state-of-the-art diffusion models like FLUX and Stable Diffusion. Returns the generated image as binary data (PNG/JPEG).",
+  "endpoint": "/models/{model_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model_id",
+      "type": "string",
+      "description": "The image generation model ID in 'org/model' format.",
+      "required": true,
+      "example": "black-forest-labs/FLUX.1-dev"
+    },
+    {
+      "name": "inputs",
+      "type": "string",
+      "description": "The text prompt describing the image to generate.",
+      "required": true,
+      "example": "A serene lake surrounded by mountains at sunset, photorealistic style"
+    },
+    {
+      "name": "parameters",
+      "type": "object",
+      "description": "Generation parameters including guidance_scale, num_inference_steps, width, height, and negative_prompt.",
+      "required": false,
+      "example": {"guidance_scale": 7.5, "num_inference_steps": 50}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev",
+    "headers": {
+      "Authorization": "Bearer your-hf-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": "A serene lake surrounded by mountains at sunset, photorealistic style"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "(binary image data - PNG format)"
+  }
+}

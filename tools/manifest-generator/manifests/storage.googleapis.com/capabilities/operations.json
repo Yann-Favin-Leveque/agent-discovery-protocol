@@ -1,0 +1,51 @@
+{
+  "name": "operations",
+  "description": "Manage operations — starts asynchronous cancellation on a long-running operation. the server makes a best effort to cancel the operation, but success is not guaranteed, starts asynchronous advancement of the relocate bucket operation in the case of required write downtime, to allow it to lock the bucket at the source location, and proceed with the bucket location swap. the server makes a best effort to advance the relocate bucket operation, but success is not guaranteed, lists operations that match the specified filter in the request. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/b/{bucket}/operations/{operationId}/cancel",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bucket",
+      "type": "string",
+      "description": "The parent bucket of the operation resource.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "operationId",
+      "type": "string",
+      "description": "The ID of the operation resource.",
+      "required": true,
+      "example": "abc_123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://storage.googleapis.com/storage/v1/b/{bucket}/operations/{operationId}/cancel",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "bucket": "example_value",
+      "operationId": "abc_123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "bucket": "example_value",
+        "operationId": "abc_123"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/cloud-platform",
+    "https://www.googleapis.com/auth/cloud-platform.read-only",
+    "https://www.googleapis.com/auth/devstorage.full_control",
+    "https://www.googleapis.com/auth/devstorage.read_only",
+    "https://www.googleapis.com/auth/devstorage.read_write"
+  ]
+}

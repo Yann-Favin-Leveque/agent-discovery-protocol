@@ -1,0 +1,90 @@
+{
+  "name": "create_message",
+  "description": "Post a new message to a project's message board. Messages enable team discussions, announcements, and sharing updates with all project participants.",
+  "endpoint": "/{account_id}/buckets/{project_id}/message_boards/{board_id}/messages.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The unique identifier for the Basecamp account.",
+      "required": true,
+      "example": "3619386"
+    },
+    {
+      "name": "project_id",
+      "type": "string",
+      "description": "The unique identifier for the project (bucket).",
+      "required": true,
+      "example": "1028178134"
+    },
+    {
+      "name": "board_id",
+      "type": "string",
+      "description": "The unique identifier for the message board within the project.",
+      "required": true,
+      "example": "1019626621"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "The subject line or title of the message.",
+      "required": true,
+      "example": "Website redesign progress update"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "The body of the message in HTML or plain text format.",
+      "required": true,
+      "example": "We've completed the wireframes and are moving into design phase."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Optional status: 'active' or 'archived'. Defaults to 'active'.",
+      "required": false,
+      "example": "active"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://3.basecampapi.com/3619386/buckets/1028178134/message_boards/1019626621/messages.json",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApp (your-email@example.com)"
+    },
+    "body": {
+      "subject": "Website redesign progress update",
+      "content": "We've completed the wireframes and are moving into design phase."
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1019626622,
+      "status": "active",
+      "created_at": "2024-03-01T16:00:00Z",
+      "updated_at": "2024-03-01T16:00:00Z",
+      "subject": "Website redesign progress update",
+      "content": "We've completed the wireframes and are moving into design phase.",
+      "position": 1,
+      "comments_count": 0,
+      "bucket": {
+        "id": 1028178134,
+        "name": "Website Redesign",
+        "type": "Project"
+      },
+      "board": {
+        "id": 1019626621,
+        "name": "Message Board"
+      },
+      "creator": {
+        "id": 10000001,
+        "name": "Alice Johnson",
+        "email_address": "alice@example.com"
+      }
+    }
+  }
+}

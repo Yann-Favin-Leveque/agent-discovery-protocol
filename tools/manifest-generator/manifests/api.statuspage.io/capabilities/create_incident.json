@@ -1,0 +1,113 @@
+{
+  "name": "create_incident",
+  "description": "Create a new incident on a status page to communicate an ongoing service disruption or maintenance event. Specify the incident name, initial status (investigating, identified, monitoring, resolved), impact severity, a body message describing the issue, and optionally link affected components with their statuses.",
+  "endpoint": "/v1/pages/{page_id}/incidents",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "required": true,
+      "description": "The ID of the status page."
+    },
+    {
+      "name": "incident.name",
+      "type": "string",
+      "required": true,
+      "description": "Short title describing the incident."
+    },
+    {
+      "name": "incident.status",
+      "type": "string",
+      "required": true,
+      "description": "Initial incident status: 'investigating', 'identified', 'monitoring', or 'resolved'."
+    },
+    {
+      "name": "incident.impact_override",
+      "type": "string",
+      "required": false,
+      "description": "Override the calculated impact: 'none', 'minor', 'major', or 'critical'."
+    },
+    {
+      "name": "incident.body",
+      "type": "string",
+      "required": true,
+      "description": "Initial status update message describing the incident."
+    },
+    {
+      "name": "incident.component_ids",
+      "type": "array",
+      "required": false,
+      "description": "Array of component IDs affected by this incident."
+    },
+    {
+      "name": "incident.components",
+      "type": "object",
+      "required": false,
+      "description": "Object mapping component IDs to their status during the incident (e.g. {\"cmp1a2b3c4d\": \"partial_outage\"})."
+    },
+    {
+      "name": "incident.deliver_notifications",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to send subscriber notifications (default true)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.statuspage.io/v1/pages/pg1a2b3c4d5e6/incidents",
+    "headers": {
+      "Authorization": "OAuth your-api-key-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "incident": {
+        "name": "Database Connection Issues",
+        "status": "investigating",
+        "impact_override": "major",
+        "body": "We are investigating reports of database connection timeouts affecting multiple services. Our engineering team is actively working to identify the root cause.",
+        "component_ids": ["cmp3c4d5e6f", "cmp1a2b3c4d"],
+        "components": {
+          "cmp3c4d5e6f": "major_outage",
+          "cmp1a2b3c4d": "degraded_performance"
+        },
+        "deliver_notifications": true
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "inc2b3c4d5e6f",
+      "name": "Database Connection Issues",
+      "status": "investigating",
+      "impact": "major",
+      "shortlink": "https://stspg.io/def456",
+      "created_at": "2026-02-28T14:00:00Z",
+      "updated_at": "2026-02-28T14:00:00Z",
+      "resolved_at": null,
+      "page_id": "pg1a2b3c4d5e6",
+      "components": [
+        {
+          "id": "cmp3c4d5e6f",
+          "name": "Database",
+          "status": "major_outage"
+        },
+        {
+          "id": "cmp1a2b3c4d",
+          "name": "API",
+          "status": "degraded_performance"
+        }
+      ],
+      "incident_updates": [
+        {
+          "id": "upd3c4d5e6f7",
+          "status": "investigating",
+          "body": "We are investigating reports of database connection timeouts affecting multiple services. Our engineering team is actively working to identify the root cause.",
+          "created_at": "2026-02-28T14:00:00Z",
+          "updated_at": "2026-02-28T14:00:00Z"
+        }
+      ]
+    }
+  }
+}

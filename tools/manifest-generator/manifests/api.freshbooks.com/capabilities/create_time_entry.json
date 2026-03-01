@@ -1,0 +1,48 @@
+{
+  "name": "create_time_entry",
+  "description": "Log a time entry for a client or project with duration, description, and billable status. Time entries can be used to generate invoices based on tracked hours.",
+  "endpoint": "/timetracking/business/{business_id}/time_entries",
+  "method": "POST",
+  "parameters": [
+    { "name": "business_id", "type": "integer", "description": "Your FreshBooks business ID.", "required": true, "example": 98765 },
+    { "name": "client_id", "type": "integer", "description": "The client ID this time entry is for.", "required": false, "example": 12345 },
+    { "name": "project_id", "type": "integer", "description": "The project ID this time entry is associated with.", "required": false, "example": 54321 },
+    { "name": "duration", "type": "integer", "description": "Duration in seconds.", "required": true, "example": 7200 },
+    { "name": "note", "type": "string", "description": "Description of the work performed.", "required": false, "example": "Implemented user authentication module" },
+    { "name": "started_at", "type": "string", "description": "Start time in ISO 8601 format.", "required": true, "example": "2026-03-01T09:00:00Z" },
+    { "name": "is_logged", "type": "boolean", "description": "Whether this entry has been logged (completed).", "required": false, "example": true }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.freshbooks.com/timetracking/business/98765/time_entries",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "time_entry": {
+        "client_id": 12345,
+        "project_id": 54321,
+        "duration": 7200,
+        "note": "Implemented user authentication module",
+        "started_at": "2026-03-01T09:00:00Z",
+        "is_logged": true
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "time_entry": {
+        "id": 777888,
+        "client_id": 12345,
+        "project_id": 54321,
+        "duration": 7200,
+        "note": "Implemented user authentication module",
+        "started_at": "2026-03-01T09:00:00Z",
+        "is_logged": true,
+        "billable": true
+      }
+    }
+  }
+}

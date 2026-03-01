@@ -1,0 +1,86 @@
+{
+  "name": "webhook",
+  "description": "Manage webhook — create an outbound webhook, update an outbound webhook, list webhooks. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/webhook",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name of the webhook",
+      "required": true,
+      "example": "Example"
+    },
+    {
+      "name": "events",
+      "type": "string[]",
+      "description": "Events that will trigger the webhook",
+      "required": true,
+      "example": [
+        "value1"
+      ]
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "URL to deliver the webhook to. Note: protocol must be included as well (only https is supported)",
+      "required": true,
+      "example": "https://example.com"
+    },
+    {
+      "name": "verify-tls",
+      "type": "boolean",
+      "description": "Whether to enforce TLS certificate verification when delivering the webhook",
+      "required": true,
+      "example": true
+    },
+    {
+      "name": "signing-secret",
+      "type": "string",
+      "description": "Secret used to build an HMAC hash of the payload and passed as a header in the webhook request",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "scope",
+      "type": "object",
+      "description": "The scope in which the relevant events that will trigger webhooks",
+      "required": true,
+      "example": {}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://circleci.com/api/v2/webhook",
+    "headers": {
+      "Content-Type": "application/json",
+      "Circle-Token": "{api_key}"
+    },
+    "body": {
+      "name": "Example",
+      "events": [
+        "value1"
+      ],
+      "url": "https://example.com",
+      "verify-tls": true,
+      "signing-secret": "example_value",
+      "scope": {}
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "name": "Example",
+        "events": [
+          "value1"
+        ],
+        "url": "https://example.com",
+        "verify-tls": true,
+        "signing-secret": "example_value",
+        "scope": {}
+      }
+    }
+  }
+}

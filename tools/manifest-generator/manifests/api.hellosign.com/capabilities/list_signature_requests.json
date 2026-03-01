@@ -1,0 +1,76 @@
+{
+  "name": "list_signature_requests",
+  "description": "List all signature requests associated with your HelloSign account. Results are paginated and returned in reverse chronological order (newest first). Each entry includes the request title, completion status, signer details, and timestamps. Use the page parameter to paginate through results (20 per page by default). Optionally filter by account_id to see requests from a specific team member.",
+  "endpoint": "/v3/signature_request/list",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination, starting at 1. Default: 1."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page. Default: 20. Maximum: 100."
+    },
+    {
+      "name": "account_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by the account ID of a specific team member. Only applicable for team accounts."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hellosign.com/v3/signature_request/list?page=1&page_size=20",
+    "headers": {
+      "Authorization": "Basic YXBpX2tleV9oZXJlOg=="
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "list_info": {
+        "num_pages": 3,
+        "num_results": 47,
+        "page": 1,
+        "page_size": 20
+      },
+      "signature_requests": [
+        {
+          "signature_request_id": "fa5c8a0b0f492d768749333ad6fcc214c111e967",
+          "title": "Employment Agreement",
+          "is_complete": true,
+          "has_error": false,
+          "requester_email_address": "admin@example.com",
+          "created_at": 1705312800,
+          "signatures": [
+            {
+              "signer_email_address": "jane@example.com",
+              "signer_name": "Jane Doe",
+              "status_code": "signed"
+            }
+          ]
+        },
+        {
+          "signature_request_id": "b2d4f6a8c0e1234567890abcdef12345678abcde",
+          "title": "NDA - Project Alpha",
+          "is_complete": false,
+          "has_error": false,
+          "requester_email_address": "admin@example.com",
+          "created_at": 1705226400,
+          "signatures": [
+            {
+              "signer_email_address": "partner@example.com",
+              "signer_name": "Alice Johnson",
+              "status_code": "awaiting_signature"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

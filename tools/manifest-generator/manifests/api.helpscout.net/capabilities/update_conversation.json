@@ -1,0 +1,29 @@
+{
+  "name": "update_conversation",
+  "description": "Update a conversation's properties such as status, assignee, or tags. Used to triage conversations, assign them to the right agent, or close them after resolution.",
+  "endpoint": "/v2/conversations/{conversation_id}",
+  "method": "PATCH",
+  "parameters": [
+    { "name": "conversation_id", "type": "integer", "description": "The ID of the conversation to update.", "required": true, "example": 5001 },
+    { "name": "op", "type": "string", "description": "The operation to perform: 'replace' or 'move'.", "required": true, "example": "replace" },
+    { "name": "path", "type": "string", "description": "The field to update: '/status', '/assignTo', or '/subject'.", "required": true, "example": "/status" },
+    { "name": "value", "type": "string", "description": "The new value for the field.", "required": true, "example": "closed" }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.helpscout.net/v2/conversations/5001",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "op": "replace",
+      "path": "/status",
+      "value": "closed"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  }
+}

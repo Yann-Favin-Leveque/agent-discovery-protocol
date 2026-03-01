@@ -1,0 +1,69 @@
+{
+  "name": "reports",
+  "description": "Manage reports — bulk create or update annotations, create or update a report, create or update an annotation. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/repositories/{workspace}/{repo_slug}/commit/{commit}/reports/{reportId}/annotations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "description": "This can either be the workspace ID (slug) or the workspace UUID surrounded by curly-braces, for example `{workspace UUID}`.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "description": "The repository.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "commit",
+      "type": "string",
+      "description": "The commit for which to retrieve reports.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "reportId",
+      "type": "string",
+      "description": "Uuid or external-if of the report for which to get annotations for.",
+      "required": true,
+      "example": "abc_123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bitbucket.org/2.0/repositories/{workspace}/{repo_slug}/commit/{commit}/reports/{reportId}/annotations",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "workspace": "example_value",
+      "repo_slug": "example_value",
+      "commit": "example_value",
+      "reportId": "abc_123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "workspace": "example_value",
+        "repo_slug": "example_value",
+        "commit": "example_value",
+        "reportId": "abc_123"
+      }
+    }
+  },
+  "auth_scopes": [
+    "repository",
+    "repository:write",
+    "repository:admin",
+    "repository:delete",
+    "project"
+  ]
+}

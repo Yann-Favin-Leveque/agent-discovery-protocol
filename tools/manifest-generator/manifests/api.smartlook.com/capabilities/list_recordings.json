@@ -1,0 +1,21 @@
+{
+  "name": "list_recordings",
+  "description": "List and filter session recordings by date range, duration, country, and user attributes.",
+  "endpoint": "/recordings",
+  "method": "GET",
+  "parameters": [
+    {"name": "from", "type": "string", "description": "Start date (ISO 8601).", "required": false, "example": "2024-01-01T00:00:00Z"},
+    {"name": "to", "type": "string", "description": "End date (ISO 8601).", "required": false, "example": "2024-01-31T23:59:59Z"},
+    {"name": "limit", "type": "number", "description": "Max results.", "required": false, "example": 25},
+    {"name": "offset", "type": "number", "description": "Pagination offset.", "required": false, "example": 0}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.smartlook.com/v2/recordings?from=2024-01-01T00:00:00Z&to=2024-01-31T23:59:59Z&limit=25",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": [{"id": "rec_abc123", "visitor_id": "vis_123", "duration": 95000, "pages_count": 4, "country": "US", "device_type": "desktop", "browser": "Chrome", "started_at": "2024-01-20T10:00:00Z"}], "total_count": 1500}
+  }
+}

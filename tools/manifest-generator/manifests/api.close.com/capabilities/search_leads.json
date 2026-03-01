@@ -1,0 +1,20 @@
+{
+  "name": "search_leads",
+  "description": "Search for leads in Close CRM using query language with filters on status, custom fields, and activity dates.",
+  "endpoint": "/lead/",
+  "method": "GET",
+  "parameters": [
+    {"name": "query", "type": "string", "description": "Close query language search string.", "required": false, "example": "status:\"Potential\" company:\"Acme\""},
+    {"name": "_limit", "type": "number", "description": "Number of results to return.", "required": false, "example": 10},
+    {"name": "_skip", "type": "number", "description": "Number of results to skip for pagination.", "required": false, "example": 0}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.close.com/api/v1/lead/?query=status:\"Potential\"&_limit=10",
+    "headers": {"Authorization": "Basic {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"has_more": false, "data": [{"id": "lead_abc123", "display_name": "Acme Corp", "status_label": "Potential", "contacts": [{"id": "cont_xyz", "name": "John Doe", "emails": [{"email": "john@acme.com", "type": "office"}]}]}]}
+  }
+}

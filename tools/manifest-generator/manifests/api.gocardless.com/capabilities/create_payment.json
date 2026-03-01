@@ -1,0 +1,108 @@
+{
+  "name": "create_payment",
+  "description": "Create a direct debit payment in GoCardless to collect money from a customer's bank account. You need an active mandate (authorization) from the customer before creating a payment. The payment is collected automatically via the bank's direct debit scheme (SEPA, Bacs, ACH, etc.).",
+  "endpoint": "/payments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "The payment amount in the smallest currency unit (e.g. pence for GBP, cents for EUR). Must be a positive integer.",
+      "required": true,
+      "example": 5000
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO 4217 currency code (e.g. 'GBP', 'EUR', 'USD').",
+      "required": true,
+      "example": "GBP"
+    },
+    {
+      "name": "links[mandate]",
+      "type": "string",
+      "description": "The ID of the mandate to collect the payment against (starts with 'MD').",
+      "required": true,
+      "example": "MD000AMA19XGEC"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "A human-readable description of the payment.",
+      "required": false,
+      "example": "Invoice #1234 - March 2024"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value pairs to store custom data with the payment. Max 3 keys, each max 500 characters.",
+      "required": false,
+      "example": { "invoice_id": "1234", "order_ref": "ORD-2024-001" }
+    },
+    {
+      "name": "charge_date",
+      "type": "string",
+      "description": "The date on which the payment should be collected in YYYY-MM-DD format. Must be in the future and on a working day.",
+      "required": false,
+      "example": "2024-03-20"
+    },
+    {
+      "name": "reference",
+      "type": "string",
+      "description": "A reference that appears on the customer's bank statement. Limited by the scheme (max 10-18 chars).",
+      "required": false,
+      "example": "ACME-1234"
+    },
+    {
+      "name": "retry_if_possible",
+      "type": "boolean",
+      "description": "If true, GoCardless will automatically retry the payment if it fails. Default true for some schemes.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/payments",
+    "headers": {
+      "Authorization": "Bearer your_access_token_here",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "payments": {
+        "amount": 5000,
+        "currency": "GBP",
+        "links": {
+          "mandate": "MD000AMA19XGEC"
+        },
+        "description": "Invoice #1234 - March 2024",
+        "metadata": {
+          "invoice_id": "1234"
+        },
+        "charge_date": "2024-03-20",
+        "reference": "ACME-1234"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "payments": {
+        "id": "PM000260S506AT",
+        "created_at": "2024-03-15T10:00:00.000Z",
+        "charge_date": "2024-03-20",
+        "amount": 5000,
+        "currency": "GBP",
+        "status": "pending_submission",
+        "reference": "ACME-1234",
+        "description": "Invoice #1234 - March 2024",
+        "metadata": { "invoice_id": "1234" },
+        "links": {
+          "mandate": "MD000AMA19XGEC",
+          "creditor": "CR000035GKW1F7"
+        }
+      }
+    }
+  }
+}

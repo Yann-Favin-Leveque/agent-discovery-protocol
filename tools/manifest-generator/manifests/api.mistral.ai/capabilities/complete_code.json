@@ -1,0 +1,84 @@
+{
+  "name": "complete_code",
+  "description": "Generate code completions using fill-in-the-middle (FIM) for IDE and code editor integrations. Provide a prompt prefix and optional suffix, and the model fills in the code between them.",
+  "endpoint": "/v1/fim/completions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The code model ID to use.",
+      "required": true,
+      "example": "codestral-latest"
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "description": "The code prefix (text before the cursor position).",
+      "required": true,
+      "example": "def fibonacci(n):\n    "
+    },
+    {
+      "name": "suffix",
+      "type": "string",
+      "description": "The code suffix (text after the cursor position).",
+      "required": false,
+      "example": "\n    return result"
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "description": "Maximum number of tokens to generate.",
+      "required": false,
+      "example": 256
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "description": "Sampling temperature. Lower values produce more deterministic code.",
+      "required": false,
+      "example": 0.0
+    },
+    {
+      "name": "stop",
+      "type": "array",
+      "description": "Stop sequences to terminate generation.",
+      "required": false,
+      "example": ["\n\n"]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/fim/completions",
+    "headers": {
+      "Authorization": "Bearer your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "codestral-latest",
+      "prompt": "def fibonacci(n):\n    ",
+      "suffix": "\n    return result",
+      "max_tokens": 128,
+      "temperature": 0.0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "fim-abc123",
+      "object": "text_completion",
+      "choices": [
+        {
+          "index": 0,
+          "text": "if n <= 1:\n        return n\n    result = fibonacci(n-1) + fibonacci(n-2)",
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 25,
+        "total_tokens": 37
+      }
+    }
+  }
+}

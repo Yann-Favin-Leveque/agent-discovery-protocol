@@ -1,0 +1,39 @@
+{
+  "name": "create_ticket",
+  "description": "Create a new support ticket in tawk.to. Useful for logging issues that need follow-up outside of live chat.",
+  "endpoint": "/v1/property/{property_id}/tickets",
+  "method": "POST",
+  "parameters": [
+    { "name": "property_id", "type": "string", "description": "The unique identifier for your tawk.to property.", "required": true, "example": "prop_abc123def456" },
+    { "name": "subject", "type": "string", "description": "The ticket subject line.", "required": true, "example": "Account access issue" },
+    { "name": "message", "type": "string", "description": "The initial ticket message body.", "required": true, "example": "Customer reports being unable to log in after password reset." },
+    { "name": "requester_email", "type": "string", "description": "The email address of the person reporting the issue.", "required": true, "example": "jane@example.com" },
+    { "name": "requester_name", "type": "string", "description": "The name of the person reporting the issue.", "required": false, "example": "Jane Smith" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.tawk.to/v1/property/prop_abc123def456/tickets",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subject": "Account access issue",
+      "message": "Customer reports being unable to log in after password reset.",
+      "requester_email": "jane@example.com",
+      "requester_name": "Jane Smith"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "id": "ticket_002",
+        "subject": "Account access issue",
+        "status": "open",
+        "created_at": "2024-01-15T10:35:00Z"
+      }
+    }
+  }
+}

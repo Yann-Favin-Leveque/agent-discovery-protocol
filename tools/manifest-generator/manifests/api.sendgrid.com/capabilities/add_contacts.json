@@ -1,0 +1,67 @@
+{
+  "name": "add_contacts",
+  "description": "Add or update contacts in your Marketing Contacts database. Supports bulk operations with up to 30,000 contacts per request. Automatically deduplicates by email address. Use this to import subscriber lists, sync customer data, or update existing contact information.",
+  "endpoint": "/v3/marketing/contacts",
+  "method": "PUT",
+  "content_type": "application/json",
+  "parameters": [
+    {
+      "name": "contacts",
+      "type": "object[]",
+      "description": "Array of contact objects to add or update. Each contact must have an 'email' field. Can include 'first_name', 'last_name', 'phone_number', and custom field values.",
+      "required": true,
+      "example": [
+        {
+          "email": "john@example.com",
+          "first_name": "John",
+          "last_name": "Doe",
+          "phone_number": "+1234567890",
+          "custom_fields": {
+            "company": "Acme Corp",
+            "subscription_tier": "premium"
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sendgrid.com/v3/marketing/contacts",
+    "headers": {
+      "Authorization": "Bearer SG.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "contacts": [
+        {
+          "email": "john@example.com",
+          "first_name": "John",
+          "last_name": "Doe",
+          "phone_number": "+1234567890",
+          "custom_fields": {
+            "company": "Acme Corp",
+            "subscription_tier": "premium",
+            "last_purchase": "2024-01-15"
+          }
+        },
+        {
+          "email": "jane@example.com",
+          "first_name": "Jane",
+          "last_name": "Smith",
+          "phone_number": "+0987654321",
+          "custom_fields": {
+            "company": "Tech Startup",
+            "subscription_tier": "standard"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "job_id": "job-abc123def456",
+      "errors": []
+    }
+  }
+}

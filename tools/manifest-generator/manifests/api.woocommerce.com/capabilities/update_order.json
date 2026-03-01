@@ -1,0 +1,90 @@
+{
+  "name": "update_order",
+  "description": "Update an existing order's status, customer note, billing/shipping addresses, or metadata. Commonly used to transition orders through fulfillment stages (processing, completed, on-hold) or add tracking information.",
+  "endpoint": "/orders/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "The unique numeric ID of the order to update.",
+      "required": true,
+      "example": 727
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "New order status: 'pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', or 'failed'.",
+      "required": false,
+      "example": "completed"
+    },
+    {
+      "name": "customer_note",
+      "type": "string",
+      "description": "A note to add to the order visible to the customer.",
+      "required": false,
+      "example": "Your order has been shipped via UPS."
+    },
+    {
+      "name": "billing",
+      "type": "object",
+      "description": "Updated billing address fields (first_name, last_name, address_1, city, state, postcode, country, email, phone).",
+      "required": false,
+      "example": {
+        "first_name": "Bob",
+        "last_name": "Norman",
+        "email": "bob@example.com"
+      }
+    },
+    {
+      "name": "shipping",
+      "type": "object",
+      "description": "Updated shipping address fields (first_name, last_name, address_1, city, state, postcode, country).",
+      "required": false,
+      "example": {
+        "first_name": "Bob",
+        "last_name": "Norman",
+        "address_1": "456 Oak Ave"
+      }
+    },
+    {
+      "name": "meta_data",
+      "type": "array",
+      "description": "Array of meta data objects with 'key' and 'value' to add custom metadata.",
+      "required": false,
+      "example": [
+        { "key": "tracking_number", "value": "1Z999AA10123456784" }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{store_domain}/wp-json/wc/v3/orders/727",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "completed",
+      "customer_note": "Your order has been shipped via UPS.",
+      "meta_data": [
+        { "key": "tracking_number", "value": "1Z999AA10123456784" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 727,
+      "number": "727",
+      "status": "completed",
+      "date_created": "2024-01-10T11:50:00",
+      "date_modified": "2024-01-12T09:00:00",
+      "total": "409.94",
+      "customer_note": "Your order has been shipped via UPS.",
+      "meta_data": [
+        { "id": 1234, "key": "tracking_number", "value": "1Z999AA10123456784" }
+      ]
+    }
+  }
+}

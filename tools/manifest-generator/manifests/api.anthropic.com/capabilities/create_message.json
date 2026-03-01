@@ -1,0 +1,100 @@
+{
+  "name": "create_message",
+  "description": "Send a structured conversation to Claude and receive an AI-generated response. Supports multi-turn conversations with text and image content, system prompts, tool use, and configurable generation parameters.",
+  "endpoint": "/v1/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The model ID to use (e.g. 'claude-sonnet-4-20250514').",
+      "required": true,
+      "example": "claude-sonnet-4-20250514"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "description": "Array of message objects with 'role' (user/assistant) and 'content' (string or array of content blocks).",
+      "required": true,
+      "example": [{"role": "user", "content": "Hello, Claude!"}]
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "description": "The maximum number of tokens to generate before stopping.",
+      "required": true,
+      "example": 1024
+    },
+    {
+      "name": "system",
+      "type": "string",
+      "description": "System prompt that sets the behavior and context for the assistant.",
+      "required": false,
+      "example": "You are a helpful assistant."
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "description": "Sampling temperature between 0 and 1. Lower values are more deterministic.",
+      "required": false,
+      "example": 0.7
+    },
+    {
+      "name": "top_p",
+      "type": "number",
+      "description": "Nucleus sampling parameter. Use either temperature or top_p, not both.",
+      "required": false,
+      "example": 0.9
+    },
+    {
+      "name": "stop_sequences",
+      "type": "array",
+      "description": "Custom sequences that will cause the model to stop generating.",
+      "required": false,
+      "example": ["\n\nHuman:"]
+    },
+    {
+      "name": "tools",
+      "type": "array",
+      "description": "Definitions of tools the model may use, each with name, description, and input_schema.",
+      "required": false,
+      "example": []
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.anthropic.com/v1/messages",
+    "headers": {
+      "x-api-key": "your-api-key",
+      "anthropic-version": "2023-06-01",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "claude-sonnet-4-20250514",
+      "max_tokens": 1024,
+      "messages": [
+        {"role": "user", "content": "What is the capital of France?"}
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "The capital of France is Paris."
+        }
+      ],
+      "model": "claude-sonnet-4-20250514",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 14,
+        "output_tokens": 10
+      }
+    }
+  }
+}

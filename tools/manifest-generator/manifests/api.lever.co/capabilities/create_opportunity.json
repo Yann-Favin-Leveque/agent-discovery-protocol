@@ -1,0 +1,44 @@
+{
+  "name": "create_opportunity",
+  "description": "Add a new candidate opportunity to Lever. This creates a candidate record and places them at the beginning of the hiring pipeline for a specific posting. You can include contact info, resume links, and tags.",
+  "endpoint": "/v1/opportunities",
+  "method": "POST",
+  "parameters": [
+    { "name": "name", "type": "string", "description": "Full name of the candidate.", "required": true, "example": "Jane Smith" },
+    { "name": "headline", "type": "string", "description": "Short headline for the candidate (e.g., current role and company).", "required": false, "example": "Senior Engineer at Acme" },
+    { "name": "emails", "type": "array", "description": "List of candidate email addresses.", "required": false, "example": ["jane.smith@example.com"] },
+    { "name": "phones", "type": "array", "description": "List of candidate phone numbers.", "required": false, "example": ["+1-555-123-4567"] },
+    { "name": "postings", "type": "array", "description": "List of posting IDs to associate this candidate with.", "required": false, "example": ["posting-abc123"] },
+    { "name": "tags", "type": "array", "description": "Tags to label the candidate.", "required": false, "example": ["referral", "senior"] },
+    { "name": "origin", "type": "string", "description": "How this candidate was sourced: 'applied', 'referred', 'sourced', or 'agency'.", "required": false, "example": "sourced" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lever.co/v1/opportunities",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Jane Smith",
+      "headline": "Senior Engineer at Acme",
+      "emails": ["jane.smith@example.com"],
+      "postings": ["posting-abc123"],
+      "origin": "sourced",
+      "tags": ["referral"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "opp-67890",
+        "name": "Jane Smith",
+        "headline": "Senior Engineer at Acme",
+        "stage": { "id": "lead-new", "text": "New Lead" },
+        "origin": "sourced",
+        "createdAt": 1706745600000
+      }
+    }
+  }
+}

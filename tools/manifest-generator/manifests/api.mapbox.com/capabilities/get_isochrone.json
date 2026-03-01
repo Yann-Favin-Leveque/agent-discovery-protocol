@@ -1,0 +1,86 @@
+{
+  "name": "get_isochrone",
+  "description": "Generate isochrone polygons showing areas reachable within a given travel time or distance from a starting point. Returns GeoJSON polygons or linestrings for one or more contour values. Supports driving, walking, and cycling profiles.",
+  "endpoint": "/isochrone/v1/{profile}/{coordinates}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile. One of: mapbox/driving, mapbox/driving-traffic, mapbox/walking, mapbox/cycling.",
+      "required": true,
+      "example": "mapbox/driving"
+    },
+    {
+      "name": "coordinates",
+      "type": "string",
+      "description": "Center point as 'longitude,latitude'.",
+      "required": true,
+      "example": "-73.989,40.733"
+    },
+    {
+      "name": "contours_minutes",
+      "type": "string",
+      "description": "Comma-separated travel time contours in minutes (1-60). Cannot be used with contours_meters.",
+      "required": false,
+      "example": "5,10,15"
+    },
+    {
+      "name": "contours_meters",
+      "type": "string",
+      "description": "Comma-separated distance contours in meters (1-100000). Cannot be used with contours_minutes.",
+      "required": false,
+      "example": "1000,3000,5000"
+    },
+    {
+      "name": "contours_colors",
+      "type": "string",
+      "description": "Comma-separated hex color codes for each contour (without #).",
+      "required": false,
+      "example": "6706ce,04e813,4286f4"
+    },
+    {
+      "name": "polygons",
+      "type": "boolean",
+      "description": "Whether to return filled polygons (true) or linestrings (false). Default is false.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "denoise",
+      "type": "number",
+      "description": "Noise filtering threshold from 0.0 to 1.0. Higher values produce smoother contours. Default is 1.0.",
+      "required": false,
+      "example": 0.5
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/isochrone/v1/mapbox/driving/-73.989,40.733?contours_minutes=5,10,15&polygons=true&access_token=YOUR_ACCESS_TOKEN",
+    "headers": {},
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "contour": 15,
+            "color": "#4286f4",
+            "opacity": 0.33,
+            "fill": "#4286f4",
+            "fill-opacity": 0.33,
+            "metric": "time"
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [[[-74.02, 40.71], [-73.96, 40.71], [-73.96, 40.76], [-74.02, 40.76], [-74.02, 40.71]]]
+          }
+        }
+      ]
+    }
+  }
+}

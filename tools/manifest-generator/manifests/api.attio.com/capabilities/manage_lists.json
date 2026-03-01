@@ -1,0 +1,20 @@
+{
+  "name": "manage_lists",
+  "description": "Add or remove records from Attio lists (pipelines, segments, or custom collections).",
+  "endpoint": "/lists/{list_id}/entries",
+  "method": "POST",
+  "parameters": [
+    {"name": "list_id", "type": "string", "description": "ID of the list.", "required": true, "example": "list_pipeline123"},
+    {"name": "data", "type": "object", "description": "Entry data with record reference and attribute values.", "required": true, "example": {"parent_record_id": "rec_abc123", "attribute_values": {"stage": [{"status": "In Progress"}]}}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.attio.com/v2/lists/list_pipeline123/entries",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"data": {"parent_record_id": "rec_abc123", "attribute_values": {"stage": [{"status": "In Progress"}]}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"entry_id": "entry_xyz", "parent_record_id": "rec_abc123", "created_at": "2024-01-20T10:00:00Z"}}
+  }
+}

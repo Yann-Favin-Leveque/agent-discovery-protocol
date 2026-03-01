@@ -1,0 +1,21 @@
+{
+  "name": "search_records",
+  "description": "Search across Attio records by attribute values with flexible filter conditions.",
+  "endpoint": "/objects/{object_slug}/records/query",
+  "method": "POST",
+  "parameters": [
+    {"name": "object_slug", "type": "string", "description": "Object slug to search within.", "required": true, "example": "companies"},
+    {"name": "filter", "type": "object", "description": "Filter object with attribute conditions.", "required": true, "example": {"attribute": "name", "condition": "contains", "value": "Acme"}},
+    {"name": "limit", "type": "number", "description": "Max results.", "required": false, "example": 10}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.attio.com/v2/objects/companies/records/query",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"filter": {"attribute": "name", "condition": "contains", "value": "Acme"}, "limit": 10}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": [{"id": {"record_id": "rec_comp789"}, "values": {"name": [{"value": "Acme Corp"}], "domains": [{"domain": "acme.com"}]}}]}
+  }
+}

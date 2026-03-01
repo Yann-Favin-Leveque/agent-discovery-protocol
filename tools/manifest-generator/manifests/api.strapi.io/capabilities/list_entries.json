@@ -1,0 +1,115 @@
+{
+  "name": "list_entries",
+  "description": "List content entries for a specific content type (collection type) in Strapi. Supports filtering by field values, sorting by one or more fields, pagination, field selection, and population of relations and components. The content type is specified as a pluralized name in the URL path (e.g., 'articles', 'products', 'categories'). Strapi uses a query parameter syntax with bracket notation for complex filters.",
+  "endpoint": "/api/{content_type}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "content_type",
+      "type": "string",
+      "required": true,
+      "description": "The pluralized API name of the content type (e.g., 'articles', 'products', 'categories'). This is defined when creating the content type in the Strapi admin panel."
+    },
+    {
+      "name": "filters",
+      "type": "object",
+      "required": false,
+      "description": "Filter entries using Strapi's filter syntax. Use bracket notation in the query string: filters[field][$operator]=value. Operators include $eq, $ne, $lt, $gt, $lte, $gte, $in, $contains, $startsWith, $endsWith, $null, $notNull."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort by field and direction. Format: 'field:asc' or 'field:desc'. Multiple sorts: 'sort[0]=field1:asc&sort[1]=field2:desc'."
+    },
+    {
+      "name": "pagination[page]",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination. Starts at 1. Defaults to 1."
+    },
+    {
+      "name": "pagination[pageSize]",
+      "type": "integer",
+      "required": false,
+      "description": "Number of entries per page. Maximum 100. Defaults to 25."
+    },
+    {
+      "name": "populate",
+      "type": "string",
+      "required": false,
+      "description": "Specify relations and components to populate. Use '*' to populate all first-level relations, or specify specific fields like 'populate[0]=author&populate[1]=categories'. Use 'populate=deep' with caution as it populates all nested levels."
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "required": false,
+      "description": "Select specific fields to return. Format: 'fields[0]=title&fields[1]=slug'. Reduces response size by omitting unneeded fields."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.strapi.io/api/articles?filters[category][$eq]=technology&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=10&populate=*",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 1,
+          "attributes": {
+            "title": "Introduction to AI Agents",
+            "slug": "introduction-to-ai-agents",
+            "content": "A comprehensive guide to building AI agents...",
+            "category": "technology",
+            "publishedAt": "2026-02-28T10:00:00.000Z",
+            "createdAt": "2026-02-27T14:00:00.000Z",
+            "updatedAt": "2026-02-28T10:00:00.000Z",
+            "author": {
+              "data": {
+                "id": 5,
+                "attributes": {
+                  "name": "Jane Smith",
+                  "email": "jane@example.com"
+                }
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "attributes": {
+            "title": "Building REST APIs",
+            "slug": "building-rest-apis",
+            "content": "Learn how to build robust REST APIs...",
+            "category": "technology",
+            "publishedAt": "2026-02-25T08:00:00.000Z",
+            "createdAt": "2026-02-24T16:00:00.000Z",
+            "updatedAt": "2026-02-25T08:00:00.000Z",
+            "author": {
+              "data": {
+                "id": 3,
+                "attributes": {
+                  "name": "John Doe",
+                  "email": "john@example.com"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "meta": {
+        "pagination": {
+          "page": 1,
+          "pageSize": 10,
+          "pageCount": 3,
+          "total": 28
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "update_ticket",
+  "description": "Update an existing ticket's properties such as status, priority, assignee, or tags. Use this to escalate, reassign, or close tickets as they move through your support workflow.",
+  "endpoint": "/api/v2/tickets/{ticket_id}",
+  "method": "PUT",
+  "parameters": [
+    { "name": "ticket_id", "type": "integer", "description": "The ID of the ticket to update.", "required": true, "example": 10001 },
+    { "name": "status", "type": "integer", "description": "New status: 2 (Open), 3 (Pending), 4 (Resolved), 5 (Closed).", "required": false, "example": 4 },
+    { "name": "priority", "type": "integer", "description": "New priority: 1 (Low), 2 (Medium), 3 (High), 4 (Urgent).", "required": false, "example": 2 },
+    { "name": "responder_id", "type": "integer", "description": "ID of the agent to reassign the ticket to.", "required": false, "example": 5002 },
+    { "name": "tags", "type": "array", "description": "Replace existing tags with this list.", "required": false, "example": ["billing", "resolved"] },
+    { "name": "group_id", "type": "integer", "description": "ID of the group to assign the ticket to.", "required": false, "example": 300 }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.freshdesk.com/api/v2/tickets/10001",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": 4,
+      "priority": 2,
+      "tags": ["billing", "resolved"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 10001,
+      "subject": "Unable to process payment",
+      "status": 4,
+      "priority": 2,
+      "responder_id": 5001,
+      "tags": ["billing", "resolved"],
+      "updated_at": "2025-01-15T16:00:00Z"
+    }
+  }
+}

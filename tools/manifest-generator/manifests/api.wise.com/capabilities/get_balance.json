@@ -1,0 +1,64 @@
+{
+  "name": "get_balance",
+  "description": "Retrieve all currency balances in your Wise multi-currency account. Returns the available amount, reserved amount, and total amount for each currency you hold in your account.",
+  "endpoint": "/v4/profiles/{profileId}/balances?types=STANDARD",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "profileId",
+      "type": "integer",
+      "description": "Your Wise profile ID (personal or business). This is a path parameter.",
+      "required": true,
+      "example": 12345678
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "The type of balances to return. Use 'STANDARD' for regular balances.",
+      "required": false,
+      "example": "STANDARD"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.wise.com/v4/profiles/12345678/balances?types=STANDARD",
+    "headers": {
+      "Authorization": "Bearer your-api-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 100001,
+        "currency": "USD",
+        "amount": {
+          "value": 5250.00,
+          "currency": "USD"
+        },
+        "reservedAmount": {
+          "value": 0.00,
+          "currency": "USD"
+        },
+        "type": "STANDARD",
+        "creationTime": "2025-06-15T09:00:00Z",
+        "modificationTime": "2026-01-12T10:30:00Z"
+      },
+      {
+        "id": 100002,
+        "currency": "EUR",
+        "amount": {
+          "value": 1200.50,
+          "currency": "EUR"
+        },
+        "reservedAmount": {
+          "value": 100.00,
+          "currency": "EUR"
+        },
+        "type": "STANDARD",
+        "creationTime": "2025-06-15T09:00:00Z",
+        "modificationTime": "2026-01-12T10:30:00Z"
+      }
+    ]
+  }
+}

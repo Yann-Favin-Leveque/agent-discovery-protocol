@@ -1,0 +1,50 @@
+{
+  "name": "list_files",
+  "description": "List all files uploaded to the OpenAI platform. Files can be used for fine-tuning, assistants, and batch processing. Returns file IDs, filenames, sizes, purposes, and creation timestamps.",
+  "endpoint": "/v1/files",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "purpose",
+      "type": "string",
+      "required": false,
+      "description": "Filter by file purpose: 'fine-tune', 'assistants', 'batch', or 'vision'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openai.com/v1/files?purpose=fine-tune",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "file-abc123def456",
+          "object": "file",
+          "bytes": 1547892,
+          "created_at": 1709078400,
+          "filename": "training_data.jsonl",
+          "purpose": "fine-tune",
+          "status": "processed",
+          "status_details": null
+        },
+        {
+          "id": "file-ghi789jkl012",
+          "object": "file",
+          "bytes": 234567,
+          "created_at": 1708473600,
+          "filename": "validation_data.jsonl",
+          "purpose": "fine-tune",
+          "status": "processed",
+          "status_details": null
+        }
+      ],
+      "has_more": false
+    }
+  }
+}

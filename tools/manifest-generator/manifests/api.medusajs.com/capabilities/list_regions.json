@@ -1,0 +1,65 @@
+{
+  "name": "list_regions",
+  "description": "Retrieve available regions with their currencies, tax rates, and supported payment and fulfillment providers. Regions define locale-specific pricing and shipping rules for the store.",
+  "endpoint": "/store/regions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of regions to return. Defaults to 20.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Number of regions to skip for pagination.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.medusajs.com/store/regions",
+    "headers": {
+      "x-publishable-api-key": "YOUR_PUBLISHABLE_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "regions": [
+        {
+          "id": "reg_01H...",
+          "name": "North America",
+          "currency_code": "usd",
+          "tax_rate": 0,
+          "countries": [
+            {
+              "iso_2": "us",
+              "name": "UNITED STATES"
+            },
+            {
+              "iso_2": "ca",
+              "name": "CANADA"
+            }
+          ],
+          "payment_providers": [
+            {
+              "id": "pp_stripe"
+            }
+          ],
+          "fulfillment_providers": [
+            {
+              "id": "fp_manual"
+            }
+          ]
+        }
+      ],
+      "count": 1,
+      "offset": 0,
+      "limit": 20
+    }
+  }
+}

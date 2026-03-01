@@ -1,0 +1,43 @@
+{
+  "name": "get_course_contents",
+  "description": "Retrieve the full content structure of a Moodle course, organized by sections. Each section contains modules (activities, resources, quizzes, forums, etc.) with their names, descriptions, URLs, and completion status.",
+  "endpoint": "/webservice/rest/server.php",
+  "method": "GET",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "The web service authentication token.", "required": true, "example": "abc123def456" },
+    { "name": "wsfunction", "type": "string", "description": "Must be 'core_course_get_contents'.", "required": true, "example": "core_course_get_contents" },
+    { "name": "moodlewsrestformat", "type": "string", "description": "Response format. Use 'json'.", "required": true, "example": "json" },
+    { "name": "courseid", "type": "integer", "description": "The ID of the course to retrieve contents for.", "required": true, "example": 5 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.moodle.com/webservice/rest/server.php?wstoken={api_key}&wsfunction=core_course_get_contents&moodlewsrestformat=json&courseid=5",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1,
+        "name": "Week 1: Introduction",
+        "summary": "Welcome to the course!",
+        "modules": [
+          {
+            "id": 10,
+            "name": "Course Overview",
+            "modname": "page",
+            "url": "https://moodle.example.com/mod/page/view.php?id=10",
+            "description": "Read the course overview and expectations."
+          },
+          {
+            "id": 11,
+            "name": "Assignment 1: Hello World",
+            "modname": "assign",
+            "url": "https://moodle.example.com/mod/assign/view.php?id=11",
+            "description": "Write your first program."
+          }
+        ]
+      }
+    ]
+  }
+}

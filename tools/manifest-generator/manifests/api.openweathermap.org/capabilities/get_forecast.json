@@ -1,0 +1,91 @@
+{
+  "name": "get_forecast",
+  "description": "Retrieve a 5-day weather forecast with data points every 3 hours (40 timestamps total). Each data point includes temperature, feels-like, humidity, pressure, weather description, wind, cloud cover, precipitation probability, and rain/snow volume. Useful for planning ahead.",
+  "endpoint": "/data/2.5/forecast",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "description": "Latitude of the location.",
+      "required": true,
+      "example": 48.8566
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "description": "Longitude of the location.",
+      "required": true,
+      "example": 2.3522
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "description": "Your API key for authentication.",
+      "required": true,
+      "example": "{api_key}"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Units of measurement: 'standard', 'metric', or 'imperial'.",
+      "required": false,
+      "example": "metric"
+    },
+    {
+      "name": "cnt",
+      "type": "integer",
+      "description": "Number of 3-hour timestamps to return (max 40).",
+      "required": false,
+      "example": 8
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "description": "Language code for weather description translation.",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/2.5/forecast?lat=48.8566&lon=2.3522&units=metric&cnt=8&appid={api_key}",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "cod": "200",
+      "message": 0,
+      "cnt": 8,
+      "list": [
+        {
+          "dt": 1700000000,
+          "main": {
+            "temp": 18.5,
+            "feels_like": 17.8,
+            "temp_min": 16.2,
+            "temp_max": 20.1,
+            "pressure": 1015,
+            "humidity": 62
+          },
+          "weather": [
+            { "id": 802, "main": "Clouds", "description": "scattered clouds", "icon": "03d" }
+          ],
+          "wind": { "speed": 3.6, "deg": 220, "gust": 5.1 },
+          "clouds": { "all": 40 },
+          "pop": 0.12,
+          "visibility": 10000,
+          "dt_txt": "2024-01-01 12:00:00"
+        }
+      ],
+      "city": {
+        "name": "Paris",
+        "country": "FR",
+        "timezone": 3600,
+        "sunrise": 1699945200,
+        "sunset": 1699980000
+      }
+    }
+  }
+}

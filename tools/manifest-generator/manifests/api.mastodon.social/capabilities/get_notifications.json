@@ -1,0 +1,78 @@
+{
+  "name": "get_notifications",
+  "description": "Fetch a paginated list of notifications for the authenticated user. Includes mentions, follows, boosts (reblogs), favorites, poll results, and follow requests.",
+  "endpoint": "/api/v1/notifications",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of notifications to return (1-40, default 15).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "types",
+      "type": "array",
+      "description": "Filter by notification types. Options: mention, status, reblog, follow, follow_request, favourite, poll, update.",
+      "required": false,
+      "example": ["mention", "favourite", "reblog"]
+    },
+    {
+      "name": "max_id",
+      "type": "string",
+      "description": "Return results older than this notification ID (for pagination).",
+      "required": false,
+      "example": "12345"
+    },
+    {
+      "name": "since_id",
+      "type": "string",
+      "description": "Return results newer than this notification ID.",
+      "required": false,
+      "example": "12000"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/notifications?limit=20&types[]=mention&types[]=favourite",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "12345",
+        "type": "favourite",
+        "created_at": "2024-03-01T19:00:00.000Z",
+        "account": {
+          "id": "109876543210000001",
+          "username": "developer",
+          "display_name": "Dev Person",
+          "avatar": "https://files.mastodon.social/accounts/avatars/original/avatar.png"
+        },
+        "status": {
+          "id": "110234567890123456",
+          "content": "<p>Hello Fediverse!</p>",
+          "favourites_count": 13
+        }
+      },
+      {
+        "id": "12344",
+        "type": "mention",
+        "created_at": "2024-03-01T18:45:00.000Z",
+        "account": {
+          "id": "109876543210000002",
+          "username": "friend",
+          "display_name": "A Friend"
+        },
+        "status": {
+          "id": "110234567890654321",
+          "content": "<p><span class=\"h-card\"><a href=\"https://mastodon.social/@myaccount\">@myaccount</a></span> Great post!</p>"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "name": "list_files",
+  "description": "List files in a Backblaze B2 bucket. You can filter by name prefix (to simulate folder browsing) and paginate through large result sets using startFileName and maxFileCount.",
+  "endpoint": "/b2api/v3/b2_list_file_names",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "The ID of the bucket to list files from.",
+      "required": true,
+      "example": "4a48fe8875c6214145260818"
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "description": "Only return files whose names start with this prefix. Useful for browsing 'folders' (e.g., 'photos/').",
+      "required": false,
+      "example": "photos/"
+    },
+    {
+      "name": "delimiter",
+      "type": "string",
+      "description": "Character used to group files into virtual folders. Typically '/'.",
+      "required": false,
+      "example": "/"
+    },
+    {
+      "name": "startFileName",
+      "type": "string",
+      "description": "The name of the first file to return, for pagination. Use the value of nextFileName from the previous response.",
+      "required": false,
+      "example": "photos/dog.jpg"
+    },
+    {
+      "name": "maxFileCount",
+      "type": "integer",
+      "description": "Maximum number of files to return (1-10000). Default is 100.",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.backblazeb2.com/b2api/v3/b2_list_file_names",
+    "headers": {
+      "Authorization": "your-account-authorization-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "bucketId": "4a48fe8875c6214145260818",
+      "prefix": "photos/",
+      "delimiter": "/",
+      "maxFileCount": 100
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "files": [
+        {
+          "fileId": "4_z4a48fe8875c6214145260818_f1125e3a7b02b1c64_d20260112_m103000_c001_v0001005_t0042",
+          "fileName": "photos/cat.jpg",
+          "contentLength": 5242880,
+          "contentType": "image/jpeg",
+          "contentSha1": "cf23df2207d99a74fbe169e3eba035e633b65d94",
+          "action": "upload",
+          "uploadTimestamp": 1736677800000
+        }
+      ],
+      "nextFileName": null
+    }
+  }
+}

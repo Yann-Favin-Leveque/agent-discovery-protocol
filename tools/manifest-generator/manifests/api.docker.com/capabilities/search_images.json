@@ -1,0 +1,20 @@
+{
+  "name": "search_images",
+  "description": "Search Docker Hub for container images by keyword, name, or description.",
+  "endpoint": "/search/repositories/",
+  "method": "GET",
+  "parameters": [
+    {"name": "query", "type": "string", "description": "Search query string.", "required": true, "example": "nginx"},
+    {"name": "page_size", "type": "number", "description": "Number of results per page (max 100).", "required": false, "example": 25},
+    {"name": "page", "type": "number", "description": "Page number for pagination.", "required": false, "example": 1}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://hub.docker.com/v2/search/repositories/?query=nginx&page_size=25",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"count": 1000, "results": [{"repo_name": "nginx", "short_description": "Official build of Nginx.", "star_count": 18000, "pull_count": 5000000000, "is_official": true}]}
+  }
+}

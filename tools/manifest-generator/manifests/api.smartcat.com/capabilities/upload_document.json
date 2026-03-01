@@ -1,0 +1,85 @@
+{
+  "name": "upload_document",
+  "description": "Upload a document file to an existing Smartcat translation project. The document will be parsed and segmented for translation according to the project's workflow. Supported formats include XLIFF, DOCX, XLSX, PPTX, HTML, JSON, XML, PO, RESX, CSV, TXT, SRT, and many more. The file is sent as multipart/form-data.",
+  "endpoint": "/api/integration/v1/project/document",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "description": "The ID of the project to upload the document to. Passed as a query parameter."
+    },
+    {
+      "name": "file",
+      "type": "file",
+      "required": true,
+      "description": "The document file to upload. Sent as multipart/form-data. The filename determines the file format."
+    },
+    {
+      "name": "disassembleAlgorithmName",
+      "type": "string",
+      "required": false,
+      "description": "File parsing algorithm override. Usually auto-detected from the file extension. Examples: 'xliff', 'json', 'html'."
+    },
+    {
+      "name": "targetLanguages",
+      "type": "array",
+      "required": false,
+      "description": "Override target languages for this specific document. If omitted, uses the project's target languages."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.smartcat.com/api/integration/v1/project/document?projectId=proj_abc123def456",
+    "headers": {
+      "Authorization": "Basic YWNjb3VudF9pZDphcGlfa2V5",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "_note": "Send file as multipart/form-data with field name 'file'",
+      "file": "(binary file content: strings_en.json)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "documentId": "doc_aaa111bbb222",
+        "name": "strings_en.json",
+        "sourceLanguage": "en",
+        "targetLanguage": "es",
+        "status": "created",
+        "wordsCount": 1250,
+        "createdDate": "2025-08-05T14:30:00Z"
+      },
+      {
+        "documentId": "doc_ccc333ddd444",
+        "name": "strings_en.json",
+        "sourceLanguage": "en",
+        "targetLanguage": "fr",
+        "status": "created",
+        "wordsCount": 1250,
+        "createdDate": "2025-08-05T14:30:00Z"
+      },
+      {
+        "documentId": "doc_eee555fff666",
+        "name": "strings_en.json",
+        "sourceLanguage": "en",
+        "targetLanguage": "de",
+        "status": "created",
+        "wordsCount": 1250,
+        "createdDate": "2025-08-05T14:30:00Z"
+      },
+      {
+        "documentId": "doc_ggg777hhh888",
+        "name": "strings_en.json",
+        "sourceLanguage": "en",
+        "targetLanguage": "ja",
+        "status": "created",
+        "wordsCount": 1250,
+        "createdDate": "2025-08-05T14:30:00Z"
+      }
+    ]
+  }
+}

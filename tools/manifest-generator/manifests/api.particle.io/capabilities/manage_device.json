@@ -1,0 +1,50 @@
+{
+  "name": "manage_device",
+  "description": "Update a device's metadata such as its name or notes, change its configuration, or unclaim it from your account. Use PUT to update properties or DELETE to remove ownership.",
+  "endpoint": "/v1/devices/{deviceId}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "deviceId",
+      "type": "string",
+      "description": "The unique ID of the device to manage.",
+      "required": true,
+      "example": "0123456789abcdef01234567"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "New display name for the device.",
+      "required": false,
+      "example": "living-room-sensor"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "description": "Free-form notes about the device.",
+      "required": false,
+      "example": "Temperature sensor in the living room"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.particle.io/v1/devices/0123456789abcdef01234567",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "living-room-sensor",
+      "notes": "Temperature sensor in the living room"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "0123456789abcdef01234567",
+      "name": "living-room-sensor",
+      "notes": "Temperature sensor in the living room",
+      "ok": true
+    }
+  }
+}

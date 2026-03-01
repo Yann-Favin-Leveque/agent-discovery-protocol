@@ -1,0 +1,62 @@
+{
+  "name": "upload_file",
+  "description": "Upload a file to a Backblaze B2 bucket. This is a two-step process: first call b2_get_upload_url to get a temporary upload URL and auth token for the target bucket, then POST the file content to that URL. The file is identified by its name within the bucket.",
+  "endpoint": "/b2api/v3/b2_get_upload_url",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "The ID of the bucket where the file will be uploaded. Used in the b2_get_upload_url call.",
+      "required": true,
+      "example": "4a48fe8875c6214145260818"
+    },
+    {
+      "name": "X-Bz-File-Name",
+      "type": "string",
+      "description": "The name of the file, including any path prefix (e.g., 'photos/cat.jpg'). URL-encoded. Sent as a header on the upload request.",
+      "required": true,
+      "example": "photos/cat.jpg"
+    },
+    {
+      "name": "Content-Type",
+      "type": "string",
+      "description": "The MIME type of the file. Use 'b2/x-auto' to let B2 detect it automatically.",
+      "required": true,
+      "example": "b2/x-auto"
+    },
+    {
+      "name": "X-Bz-Content-Sha1",
+      "type": "string",
+      "description": "SHA1 hash of the file content for integrity verification. Use 'do_not_verify' to skip (not recommended).",
+      "required": true,
+      "example": "cf23df2207d99a74fbe169e3eba035e633b65d94"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://pod-000-1005-03.backblaze.com/b2api/v3/b2_upload_file/4a48fe8875c6214145260818/c001_v0001005_t0042",
+    "headers": {
+      "Authorization": "upload-auth-token-from-get-upload-url",
+      "Content-Type": "b2/x-auto",
+      "X-Bz-File-Name": "photos/cat.jpg",
+      "X-Bz-Content-Sha1": "cf23df2207d99a74fbe169e3eba035e633b65d94",
+      "Content-Length": "5242880"
+    },
+    "body": "<file content bytes>"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "fileId": "4_z4a48fe8875c6214145260818_f1125e3a7b02b1c64_d20260112_m103000_c001_v0001005_t0042",
+      "fileName": "photos/cat.jpg",
+      "accountId": "010203040506",
+      "bucketId": "4a48fe8875c6214145260818",
+      "contentLength": 5242880,
+      "contentSha1": "cf23df2207d99a74fbe169e3eba035e633b65d94",
+      "contentType": "image/jpeg",
+      "action": "upload",
+      "uploadTimestamp": 1736677800000
+    }
+  }
+}

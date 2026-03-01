@@ -1,0 +1,23 @@
+{
+  "name": "register_domain",
+  "description": "Register a new domain name with your Namecheap account. Requires providing registrant contact information and desired registration period.",
+  "endpoint": "/xml.response",
+  "method": "GET",
+  "parameters": [
+    { "name": "Command", "type": "string", "description": "Must be 'namecheap.domains.create'.", "required": true, "example": "namecheap.domains.create" },
+    { "name": "DomainName", "type": "string", "description": "The domain name to register.", "required": true, "example": "mynewdomain.com" },
+    { "name": "Years", "type": "number", "description": "Registration period in years.", "required": true, "example": 1 },
+    { "name": "RegistrantFirstName", "type": "string", "description": "Registrant first name.", "required": true, "example": "John" },
+    { "name": "RegistrantLastName", "type": "string", "description": "Registrant last name.", "required": true, "example": "Doe" },
+    { "name": "RegistrantEmailAddress", "type": "string", "description": "Registrant email.", "required": true, "example": "john@example.com" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.namecheap.com/xml.response?ApiUser=myuser&ApiKey=abc123&UserName=myuser&ClientIp=1.2.3.4&Command=namecheap.domains.create&DomainName=mynewdomain.com&Years=1&RegistrantFirstName=John&RegistrantLastName=Doe&RegistrantEmailAddress=john@example.com",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": "<ApiResponse Status=\"OK\"><CommandResponse><DomainCreateResult Domain=\"mynewdomain.com\" Registered=\"true\" ChargedAmount=\"10.98\" DomainID=\"12345\" OrderID=\"67890\" /></CommandResponse></ApiResponse>"
+  }
+}

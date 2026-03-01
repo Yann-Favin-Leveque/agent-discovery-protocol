@@ -1,0 +1,81 @@
+{
+  "name": "list_orders",
+  "description": "List all orders in your Lemon Squeezy store. Orders are created when a customer completes a checkout. Each order contains the amount paid, currency, customer details, and product information. Results follow JSON:API format with pagination.",
+  "endpoint": "/v1/orders",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "filter[store_id]",
+      "type": "integer",
+      "description": "Filter orders by store ID.",
+      "required": false,
+      "example": 12345
+    },
+    {
+      "name": "filter[user_email]",
+      "type": "string",
+      "description": "Filter orders by customer email address.",
+      "required": false,
+      "example": "jane@example.com"
+    },
+    {
+      "name": "page[number]",
+      "type": "integer",
+      "description": "The page number for pagination.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "page[size]",
+      "type": "integer",
+      "description": "Number of items per page. Default 10.",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.lemonsqueezy.com/v1/orders?filter[store_id]=12345&page[size]=10",
+    "headers": {
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+      "Accept": "application/vnd.api+json",
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "meta": {
+        "page": { "currentPage": 1, "from": 1, "lastPage": 5, "perPage": 10, "to": 10, "total": 48 }
+      },
+      "jsonapi": { "version": "1.0" },
+      "data": [
+        {
+          "type": "orders",
+          "id": "1",
+          "attributes": {
+            "store_id": 12345,
+            "customer_id": 1,
+            "identifier": "636e997a-5470-49e2-b957-482e0a99a6f1",
+            "order_number": 1001,
+            "user_name": "Jane Doe",
+            "user_email": "jane@example.com",
+            "currency": "USD",
+            "currency_rate": "1.00000000",
+            "subtotal": 4999,
+            "subtotal_formatted": "$49.99",
+            "tax": 0,
+            "total": 4999,
+            "total_formatted": "$49.99",
+            "status": "paid",
+            "status_formatted": "Paid",
+            "refunded": false,
+            "created_at": "2024-03-14T14:30:00.000000Z",
+            "updated_at": "2024-03-14T14:30:00.000000Z"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "name": "get_device_logs",
+  "description": "Retrieve historical status change logs for a device over a given time range. Returns timestamped entries showing which data points changed and to what values. Useful for auditing device behavior or debugging automation issues.",
+  "endpoint": "/v1.0/devices/{device_id}/logs",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "device_id",
+      "type": "string",
+      "description": "The unique ID of the device.",
+      "required": true,
+      "example": "bf12345abcdef67890"
+    },
+    {
+      "name": "start_time",
+      "type": "integer",
+      "description": "Start of the time range as a Unix timestamp in milliseconds.",
+      "required": true,
+      "example": 1638288000000
+    },
+    {
+      "name": "end_time",
+      "type": "integer",
+      "description": "End of the time range as a Unix timestamp in milliseconds.",
+      "required": true,
+      "example": 1638374400000
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "description": "Log type: 1 for command logs, 2 for status report logs, 7 for all.",
+      "required": false,
+      "example": 7
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "description": "Number of log entries to return per page. Default 20, max 100.",
+      "required": false,
+      "example": 50
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://openapi.tuyaus.com/v1.0/devices/bf12345abcdef67890/logs?start_time=1638288000000&end_time=1638374400000&type=7&size=50",
+    "headers": {
+      "client_id": "{client_id}",
+      "access_token": "{access_token}",
+      "sign": "{hmac_sha256_signature}",
+      "sign_method": "HMAC-SHA256",
+      "t": "1638360000000"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "logs": [
+          {
+            "code": "switch_led",
+            "value": "true",
+            "event_time": 1638300000000
+          },
+          {
+            "code": "bright_value",
+            "value": "200",
+            "event_time": 1638300005000
+          }
+        ],
+        "has_next": false
+      }
+    }
+  }
+}

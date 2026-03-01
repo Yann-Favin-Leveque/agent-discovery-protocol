@@ -1,0 +1,75 @@
+{
+  "name": "get_alert_contacts",
+  "description": "List all alert contacts configured in the UptimeRobot account. Alert contacts are notification destinations (email, SMS, webhook, Slack, etc.) that receive alerts when monitors go down or recover. The API key is passed in the POST body.",
+  "endpoint": "/v2/getAlertContacts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Your UptimeRobot API key (sent in POST body)."
+    },
+    {
+      "name": "alert_contacts",
+      "type": "string",
+      "required": false,
+      "description": "Specific alert contact IDs separated by dashes to filter (e.g. '123-456'). Omit to get all."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset (default 0)."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of alert contacts to return (default 50)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uptimerobot.com/v2/getAlertContacts",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "api_key": "ur1234567-abcdef0123456789abcdef01",
+      "format": "json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stat": "ok",
+      "offset": 0,
+      "limit": 50,
+      "total": 3,
+      "alert_contacts": [
+        {
+          "id": "123456",
+          "friendly_name": "Ops Team Email",
+          "type": 2,
+          "status": 2,
+          "value": "ops@example.com"
+        },
+        {
+          "id": "789012",
+          "friendly_name": "Slack #incidents",
+          "type": 11,
+          "status": 2,
+          "value": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXX"
+        },
+        {
+          "id": "345678",
+          "friendly_name": "PagerDuty Webhook",
+          "type": 5,
+          "status": 2,
+          "value": "https://events.pagerduty.com/integration/XXXX/enqueue"
+        }
+      ]
+    }
+  }
+}

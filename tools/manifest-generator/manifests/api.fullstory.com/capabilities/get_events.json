@@ -1,0 +1,21 @@
+{
+  "name": "get_events",
+  "description": "Retrieve events for a specific user or session in FullStory.",
+  "endpoint": "/events/v1",
+  "method": "POST",
+  "parameters": [
+    {"name": "user_id", "type": "string", "description": "User ID to query events for.", "required": false, "example": "user_123"},
+    {"name": "session_id", "type": "string", "description": "Session ID to query events for.", "required": false, "example": "sess_abc123"},
+    {"name": "limit", "type": "number", "description": "Max events to return.", "required": false, "example": 100}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fullstory.com/events/v1",
+    "headers": {"Authorization": "Basic {api_key}", "Content-Type": "application/json"},
+    "body": {"user_id": "user_123", "limit": 100}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"events": [{"event_type": "navigate", "event_time": "2024-01-20T10:00:00Z", "properties": {"page_url": "https://example.com/pricing"}}, {"event_type": "click", "event_time": "2024-01-20T10:01:00Z", "properties": {"element": "button.cta"}}]}
+  }
+}

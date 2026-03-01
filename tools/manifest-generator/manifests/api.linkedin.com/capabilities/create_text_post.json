@@ -1,0 +1,57 @@
+{
+  "name": "create_text_post",
+  "description": "Publish a text-only post to LinkedIn on behalf of the authenticated member or an organization page. Supports hashtags, mentions, and visibility settings.",
+  "endpoint": "/rest/posts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "author",
+      "type": "string",
+      "description": "URN of the post author. Use urn:li:person:{id} for members or urn:li:organization:{id} for company pages.",
+      "required": true,
+      "example": "urn:li:person:yrZCpj2Z12"
+    },
+    {
+      "name": "commentary",
+      "type": "string",
+      "description": "The text content of the post. Supports @mentions using @[Name](urn:li:organization:{id}) and hashtags using #keyword.",
+      "required": true,
+      "example": "Excited to share our latest milestone! #innovation"
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "description": "Post visibility: PUBLIC (visible to everyone) or CONNECTIONS (visible to connections only).",
+      "required": true,
+      "example": "PUBLIC"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.linkedin.com/rest/posts",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "Content-Type": "application/json",
+      "X-Restli-Protocol-Version": "2.0.0",
+      "LinkedIn-Version": "202602"
+    },
+    "body": {
+      "author": "urn:li:person:yrZCpj2Z12",
+      "commentary": "Excited to share our latest milestone! #innovation",
+      "visibility": "PUBLIC",
+      "distribution": {
+        "feedDistribution": "MAIN_FEED",
+        "targetEntities": [],
+        "thirdPartyDistributionChannels": []
+      },
+      "lifecycleState": "PUBLISHED",
+      "isReshareDisabledByAuthor": false
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "x-restli-id": "urn:li:share:6844785523593134080"
+    }
+  }
+}

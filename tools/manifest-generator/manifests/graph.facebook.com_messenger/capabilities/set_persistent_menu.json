@@ -1,0 +1,67 @@
+{
+  "name": "set_persistent_menu",
+  "description": "Configure a persistent menu that appears at the bottom of Messenger conversations. Provide quick navigation options, common commands, and actions users can access anytime.",
+  "endpoint": "/me/messenger_profile",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "menu_items",
+      "type": "array",
+      "description": "Array of menu item objects with title, type, and payload or url.",
+      "required": true,
+      "example": [
+        {
+          "title": "Help",
+          "type": "postback",
+          "payload": "help"
+        }
+      ]
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "The locale for the menu (e.g., 'default' for all locales, or 'en_US').",
+      "required": false,
+      "example": "default"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v18.0/me/messenger_profile",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "persistent_menu": [
+        {
+          "locale": "default",
+          "composer_input_disabled": false,
+          "call_to_actions": [
+            {
+              "type": "postback",
+              "title": "Help",
+              "payload": "help"
+            },
+            {
+              "type": "postback",
+              "title": "Contact Us",
+              "payload": "contact_us"
+            },
+            {
+              "type": "web_url",
+              "title": "Visit Website",
+              "url": "https://example.com"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "result": "success"
+    }
+  }
+}

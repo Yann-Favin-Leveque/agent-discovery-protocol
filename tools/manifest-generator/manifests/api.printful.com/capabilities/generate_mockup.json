@@ -1,0 +1,69 @@
+{
+  "name": "generate_mockup",
+  "description": "Create realistic product mockup images by combining your design files with product templates. Returns a task ID that can be polled for the resulting mockup image URLs.",
+  "endpoint": "/mockup-generator/create-task/{product_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "product_id",
+      "type": "integer",
+      "description": "The Printful catalog product ID to generate mockups for.",
+      "required": true,
+      "example": 71
+    },
+    {
+      "name": "variant_ids",
+      "type": "array",
+      "description": "Array of variant IDs to generate mockups for. If omitted, mockups are generated for all variants.",
+      "required": false,
+      "example": [4011, 4012]
+    },
+    {
+      "name": "files",
+      "type": "array",
+      "description": "Array of print file objects, each with a placement (e.g., 'front') and image_url pointing to the design file.",
+      "required": true,
+      "example": [
+        {
+          "placement": "front",
+          "image_url": "https://example.com/design.png"
+        }
+      ]
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "description": "Output image format: jpg or png. Defaults to jpg.",
+      "required": false,
+      "example": "png"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.printful.com/mockup-generator/create-task/71",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "variant_ids": [4011, 4012],
+      "format": "png",
+      "files": [
+        {
+          "placement": "front",
+          "image_url": "https://example.com/design.png"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "result": {
+        "task_key": "gt-234567890",
+        "status": "pending"
+      }
+    }
+  }
+}

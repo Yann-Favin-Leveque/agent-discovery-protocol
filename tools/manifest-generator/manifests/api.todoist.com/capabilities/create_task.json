@@ -1,0 +1,86 @@
+{
+  "name": "create_task",
+  "description": "Create a new task with optional description, due date, priority, and project assignment. Returns the newly created task object with its ID.",
+  "endpoint": "/rest/v2/tasks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "content",
+      "type": "string",
+      "description": "The task title/content (required in request body).",
+      "required": true,
+      "example": "Buy groceries"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Additional description for the task (optional in request body).",
+      "required": false,
+      "example": "Milk, eggs, bread, butter"
+    },
+    {
+      "name": "project_id",
+      "type": "integer",
+      "description": "The project ID to assign this task to (optional in request body).",
+      "required": false,
+      "example": "2203306141"
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "description": "Task priority from 1 (lowest) to 4 (highest). Default is 1 (optional in request body).",
+      "required": false,
+      "example": "3"
+    },
+    {
+      "name": "due_string",
+      "type": "string",
+      "description": "Due date in natural language or ISO format (optional in request body).",
+      "required": false,
+      "example": "tomorrow at 9am"
+    },
+    {
+      "name": "labels",
+      "type": "array",
+      "description": "Array of label strings to assign to the task (optional in request body).",
+      "required": false,
+      "example": "[\"shopping\", \"urgent\"]"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.todoist.com/rest/v2/tasks",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "Buy groceries",
+      "description": "Milk, eggs, bread, butter",
+      "project_id": 2203306141,
+      "priority": 3,
+      "due_string": "tomorrow at 9am",
+      "labels": ["shopping", "urgent"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "4017903321",
+      "project_id": "2203306141",
+      "content": "Buy groceries",
+      "description": "Milk, eggs, bread, butter",
+      "due": {
+        "date": "2026-03-02",
+        "is_recurring": false,
+        "datetime": "2026-03-02T09:00:00Z",
+        "string": "tomorrow at 9am"
+      },
+      "priority": 3,
+      "order": 1,
+      "labels": ["shopping", "urgent"],
+      "is_completed": false,
+      "created_at": "2026-03-01T12:30:00Z"
+    }
+  }
+}

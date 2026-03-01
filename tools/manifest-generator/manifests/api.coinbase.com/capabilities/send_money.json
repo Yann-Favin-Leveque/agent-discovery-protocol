@@ -1,0 +1,42 @@
+{
+  "name": "send_money",
+  "description": "Send cryptocurrency from one of your Coinbase accounts to an external blockchain address or another Coinbase user via email. Requires two-factor authentication for security.",
+  "endpoint": "/v2/accounts/{account_id}/transactions",
+  "method": "POST",
+  "parameters": [
+    { "name": "account_id", "type": "string", "description": "The ID of the account to send from.", "required": true, "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890" },
+    { "name": "type", "type": "string", "description": "Must be 'send'.", "required": true, "example": "send" },
+    { "name": "to", "type": "string", "description": "Recipient address (blockchain address or Coinbase email).", "required": true, "example": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" },
+    { "name": "amount", "type": "string", "description": "The amount to send in the account's cryptocurrency.", "required": true, "example": "0.01" },
+    { "name": "currency", "type": "string", "description": "The currency code (e.g., BTC, ETH).", "required": true, "example": "BTC" },
+    { "name": "description", "type": "string", "description": "Optional description/note for the transaction.", "required": false, "example": "Payment for services" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.coinbase.com/v2/accounts/a1b2c3d4-e5f6-7890-abcd-ef1234567890/transactions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "send",
+      "to": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+      "amount": "0.01",
+      "currency": "BTC",
+      "description": "Payment for services"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "txn-67890",
+        "type": "send",
+        "status": "pending",
+        "amount": { "amount": "-0.01000000", "currency": "BTC" },
+        "native_amount": { "amount": "-500.00", "currency": "USD" },
+        "created_at": "2026-03-01T12:00:00Z"
+      }
+    }
+  }
+}

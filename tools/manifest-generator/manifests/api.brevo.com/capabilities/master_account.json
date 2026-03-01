@@ -1,0 +1,46 @@
+{
+  "name": "master_account",
+  "description": "Manage master account — create a new group of sub-accounts, generate sso token to access admin account, create a new sub-account under a master account. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/corporate/group",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "groupName",
+      "type": "string",
+      "description": "The name of the group of sub-accounts",
+      "required": true,
+      "example": "My group"
+    },
+    {
+      "name": "subAccountIds",
+      "type": "integer[]",
+      "description": "Pass the list of sub-account Ids to be included in the group",
+      "required": false,
+      "example": [
+        234322,
+        325553,
+        893432
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/corporate/group",
+    "headers": {
+      "Content-Type": "application/json",
+      "api-key": "{api_key}"
+    },
+    "body": {
+      "groupName": "My group"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "groupName": "My group"
+      }
+    }
+  }
+}

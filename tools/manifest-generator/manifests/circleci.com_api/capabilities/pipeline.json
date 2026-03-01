@@ -1,0 +1,53 @@
+{
+  "name": "pipeline",
+  "description": "Manage pipeline — continue a pipeline, trigger a new pipeline, [recommended] trigger a new pipeline. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/pipeline/continue",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "continuation-key",
+      "type": "string",
+      "description": "A pipeline continuation key.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "configuration",
+      "type": "string",
+      "description": "A configuration string for the pipeline.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "parameters",
+      "type": "object",
+      "description": "An object containing pipeline parameters and their values. Pipeline parameters have the following size limits: 100 max entries, 128 maximum key length, 512 maximum value length.",
+      "required": false,
+      "example": {
+        "deploy_prod": true
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://circleci.com/api/v2/pipeline/continue",
+    "headers": {
+      "Content-Type": "application/json",
+      "Circle-Token": "{api_key}"
+    },
+    "body": {
+      "continuation-key": "example_value",
+      "configuration": "example_value"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "continuation-key": "example_value",
+        "configuration": "example_value"
+      }
+    }
+  }
+}

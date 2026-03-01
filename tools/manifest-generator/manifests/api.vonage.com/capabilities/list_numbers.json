@@ -1,0 +1,95 @@
+{
+  "name": "list_numbers",
+  "description": "List all phone numbers currently owned by your Vonage account. Returns detailed information about each number including the country, type (mobile, landline, toll-free), enabled features (SMS, voice), and any linked applications. Use this to audit your number inventory or find a specific number's configuration.",
+  "endpoint": "/v1/numbers",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "application_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter numbers linked to a specific application ID."
+    },
+    {
+      "name": "has_application",
+      "type": "boolean",
+      "required": false,
+      "description": "Filter numbers that have (true) or don't have (false) a linked application."
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "required": false,
+      "description": "Filter by two-letter country code (e.g., 'US', 'GB'). ISO 3166-1 alpha-2 format."
+    },
+    {
+      "name": "pattern",
+      "type": "string",
+      "required": false,
+      "description": "Filter numbers matching this pattern. Use with search_pattern parameter to control matching behavior."
+    },
+    {
+      "name": "search_pattern",
+      "type": "integer",
+      "required": false,
+      "description": "Pattern matching strategy: 0 = starts with, 1 = anywhere, 2 = ends with. Default is 0."
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page. Default is 10, maximum is 100."
+    },
+    {
+      "name": "index",
+      "type": "integer",
+      "required": false,
+      "description": "Page index for pagination. First page is 1."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vonage.com/v1/numbers?country=US&size=20&has_application=true",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 3,
+      "numbers": [
+        {
+          "country": "US",
+          "msisdn": "12015550145",
+          "type": "mobile-lvn",
+          "features": ["SMS", "VOICE"],
+          "moHttpUrl": "https://example.com/webhooks/inbound-sms",
+          "voiceCallbackType": "app",
+          "voiceCallbackValue": "aaaaaaaa-bbbb-cccc-dddd-0123456789ab",
+          "app_id": "aaaaaaaa-bbbb-cccc-dddd-0123456789ab"
+        },
+        {
+          "country": "US",
+          "msisdn": "12015550167",
+          "type": "mobile-lvn",
+          "features": ["SMS", "VOICE"],
+          "moHttpUrl": "",
+          "voiceCallbackType": "app",
+          "voiceCallbackValue": "aaaaaaaa-bbbb-cccc-dddd-0123456789ab",
+          "app_id": "aaaaaaaa-bbbb-cccc-dddd-0123456789ab"
+        },
+        {
+          "country": "US",
+          "msisdn": "18005550199",
+          "type": "toll-free",
+          "features": ["SMS", "VOICE"],
+          "moHttpUrl": "",
+          "voiceCallbackType": "sip",
+          "voiceCallbackValue": "sip:example@sip.vonage.com",
+          "app_id": "bbbbbbbb-cccc-dddd-eeee-0123456789ab"
+        }
+      ]
+    }
+  }
+}

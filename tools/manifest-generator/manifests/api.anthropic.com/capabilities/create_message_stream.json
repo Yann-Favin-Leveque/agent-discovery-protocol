@@ -1,0 +1,78 @@
+{
+  "name": "create_message_stream",
+  "description": "Send a conversation to Claude and receive the response as a stream of server-sent events. This enables real-time token-by-token display of the response as it is generated.",
+  "endpoint": "/v1/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The model ID to use.",
+      "required": true,
+      "example": "claude-sonnet-4-20250514"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "description": "Array of message objects with 'role' (user/assistant) and 'content'.",
+      "required": true,
+      "example": [{"role": "user", "content": "Tell me a story."}]
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "description": "The maximum number of tokens to generate.",
+      "required": true,
+      "example": 1024
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "description": "Must be set to true to enable streaming.",
+      "required": true,
+      "example": true
+    },
+    {
+      "name": "system",
+      "type": "string",
+      "description": "System prompt for the assistant.",
+      "required": false,
+      "example": "You are a creative writer."
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "description": "Sampling temperature between 0 and 1.",
+      "required": false,
+      "example": 0.7
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.anthropic.com/v1/messages",
+    "headers": {
+      "x-api-key": "your-api-key",
+      "anthropic-version": "2023-06-01",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "claude-sonnet-4-20250514",
+      "max_tokens": 1024,
+      "stream": true,
+      "messages": [
+        {"role": "user", "content": "Tell me a short story."}
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "content_block_delta",
+      "index": 0,
+      "delta": {
+        "type": "text_delta",
+        "text": "Once upon a time"
+      }
+    }
+  }
+}

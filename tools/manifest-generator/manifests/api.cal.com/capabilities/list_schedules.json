@@ -1,0 +1,61 @@
+{
+  "name": "list_schedules",
+  "description": "Retrieve all availability schedules configured for the authenticated Cal.com user. Schedules define when a user is available for bookings, including working hours for each day of the week and timezone. A user can have multiple schedules, with one marked as the default.",
+  "endpoint": "/v2/schedules",
+  "method": "GET",
+  "parameters": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cal.com/v2/schedules",
+    "headers": {
+      "Authorization": "Bearer cal_live_abcdef1234567890"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": [
+        {
+          "id": 5001,
+          "name": "Working Hours",
+          "isDefault": true,
+          "timeZone": "America/New_York",
+          "availability": [
+            {
+              "days": [1, 2, 3, 4, 5],
+              "startTime": "09:00",
+              "endTime": "17:00"
+            }
+          ],
+          "dateOverrides": [
+            {
+              "date": "2024-02-19",
+              "startTime": "10:00",
+              "endTime": "14:00"
+            }
+          ]
+        },
+        {
+          "id": 5002,
+          "name": "Extended Hours",
+          "isDefault": false,
+          "timeZone": "America/New_York",
+          "availability": [
+            {
+              "days": [1, 2, 3, 4, 5],
+              "startTime": "08:00",
+              "endTime": "20:00"
+            },
+            {
+              "days": [6],
+              "startTime": "10:00",
+              "endTime": "14:00"
+            }
+          ],
+          "dateOverrides": []
+        }
+      ]
+    }
+  }
+}

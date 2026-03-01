@@ -1,0 +1,58 @@
+{
+  "name": "query_nrql",
+  "description": "Execute an NRQL (New Relic Query Language) query via the NerdGraph GraphQL API. NRQL lets you query any telemetry data in New Relic including metrics, events, logs, and traces. Requires the account ID and a valid NRQL query string. The endpoint is the NerdGraph GraphQL API at api.newrelic.com/graphql.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "integer",
+      "required": true,
+      "description": "The New Relic account ID to query against."
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "The NRQL query string (e.g. \"SELECT average(duration) FROM Transaction SINCE 1 hour ago\")."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.newrelic.com/graphql",
+    "headers": {
+      "Api-Key": "NRAK-XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "{ actor { account(id: 1234567) { nrql(query: \"SELECT average(duration) FROM Transaction SINCE 1 hour ago FACET appName LIMIT 10\") { results } } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "actor": {
+          "account": {
+            "nrql": {
+              "results": [
+                {
+                  "facet": "my-app-production",
+                  "average.duration": 0.0452
+                },
+                {
+                  "facet": "my-app-staging",
+                  "average.duration": 0.0891
+                },
+                {
+                  "facet": "auth-service",
+                  "average.duration": 0.0123
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

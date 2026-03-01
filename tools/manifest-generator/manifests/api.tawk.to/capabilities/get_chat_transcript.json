@@ -1,0 +1,40 @@
+{
+  "name": "get_chat_transcript",
+  "description": "Fetch the full message transcript for a specific chat session. Returns all messages exchanged between visitor and agents.",
+  "endpoint": "/v1/property/{property_id}/chats/{chat_id}/transcript",
+  "method": "GET",
+  "parameters": [
+    { "name": "property_id", "type": "string", "description": "The unique identifier for your tawk.to property.", "required": true, "example": "prop_abc123def456" },
+    { "name": "chat_id", "type": "string", "description": "The unique identifier of the chat session.", "required": true, "example": "chat_001" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tawk.to/v1/property/prop_abc123def456/chats/chat_001/transcript",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "chat_id": "chat_001",
+        "messages": [
+          {
+            "sender": "visitor",
+            "message": "Hi, I need help with my order",
+            "timestamp": "2024-01-15T10:30:00Z"
+          },
+          {
+            "sender": "agent",
+            "message": "Sure! Can you share your order number?",
+            "timestamp": "2024-01-15T10:30:45Z"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "name": "get_directions",
+  "description": "Calculate directions and routes between an origin and destination. Returns step-by-step navigation instructions, distance, duration, polyline geometry, and supports multiple travel modes and waypoints.",
+  "endpoint": "/maps/api/directions/json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "origin",
+      "type": "string",
+      "description": "The starting point as an address, coordinates (lat,lng), or place ID.",
+      "required": true,
+      "example": "San Francisco, CA"
+    },
+    {
+      "name": "destination",
+      "type": "string",
+      "description": "The ending point as an address, coordinates (lat,lng), or place ID.",
+      "required": true,
+      "example": "Los Angeles, CA"
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "description": "Travel mode. One of: driving, walking, bicycling, transit.",
+      "required": false,
+      "example": "driving"
+    },
+    {
+      "name": "waypoints",
+      "type": "string",
+      "description": "Intermediate stops, pipe-separated. Prefix with 'optimize:true' to optimize order.",
+      "required": false,
+      "example": "optimize:true|Santa Barbara, CA|San Luis Obispo, CA"
+    },
+    {
+      "name": "alternatives",
+      "type": "boolean",
+      "description": "Whether to return alternative routes.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "departure_time",
+      "type": "string",
+      "description": "Departure time as Unix timestamp or 'now' for current traffic conditions.",
+      "required": false,
+      "example": "now"
+    },
+    {
+      "name": "avoid",
+      "type": "string",
+      "description": "Features to avoid, pipe-separated. Options: tolls, highways, ferries, indoor.",
+      "required": false,
+      "example": "tolls|highways"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Unit system for distances. One of: metric, imperial.",
+      "required": false,
+      "example": "imperial"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/directions/json?origin=San+Francisco,CA&destination=Los+Angeles,CA&mode=driving&alternatives=true&key={api_key}",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "OK",
+      "routes": [
+        {
+          "summary": "I-5 S",
+          "legs": [
+            {
+              "distance": {
+                "text": "382 mi",
+                "value": 614773
+              },
+              "duration": {
+                "text": "5 hours 45 mins",
+                "value": 20700
+              },
+              "start_address": "San Francisco, CA, USA",
+              "end_address": "Los Angeles, CA, USA",
+              "steps": [
+                {
+                  "html_instructions": "Head <b>south</b> on <b>US-101 S</b>",
+                  "distance": { "text": "2.1 mi", "value": 3380 },
+                  "duration": { "text": "5 mins", "value": 300 },
+                  "travel_mode": "DRIVING"
+                }
+              ]
+            }
+          ],
+          "overview_polyline": {
+            "points": "a~l~Fjk~uOwHJy@..."
+          }
+        }
+      ]
+    }
+  }
+}

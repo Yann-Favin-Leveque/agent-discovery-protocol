@@ -1,0 +1,44 @@
+{
+  "name": "list_sequences",
+  "description": "Retrieve all email sequences (automated drip campaigns) in your account. Returns sequence name, status, and subscriber count.",
+  "endpoint": "/v4/sequences",
+  "method": "GET",
+  "parameters": [
+    { "name": "after", "type": "string", "description": "Cursor for pagination.", "required": false, "example": "" },
+    { "name": "per_page", "type": "integer", "description": "Number of sequences per page. Default 50.", "required": false, "example": 50 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.convertkit.com/v4/sequences?per_page=50",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Accept": "application/json"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sequences": [
+        {
+          "id": 301,
+          "name": "Welcome Series",
+          "hold": false,
+          "repeat": false,
+          "created_at": "2024-01-01T00:00:00Z"
+        },
+        {
+          "id": 302,
+          "name": "Onboarding Drip",
+          "hold": false,
+          "repeat": false,
+          "created_at": "2024-01-10T00:00:00Z"
+        }
+      ],
+      "pagination": {
+        "has_next_page": false,
+        "end_cursor": null
+      }
+    }
+  }
+}

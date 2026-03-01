@@ -1,0 +1,136 @@
+{
+  "name": "send_email",
+  "description": "Send a transactional email to one or more recipients. Supports HTML and plain text bodies, file attachments, template rendering with dynamic data, custom headers, and scheduled delivery. Perfect for order confirmations, password resets, notifications, and personalized communications.",
+  "endpoint": "/v3/mail/send",
+  "method": "POST",
+  "content_type": "application/json",
+  "parameters": [
+    {
+      "name": "personalizations",
+      "type": "object[]",
+      "description": "An array of objects defining recipients and per-recipient settings. Each object can contain 'to', 'cc', 'bcc', 'subject', and 'dynamic_template_data' for personalized content.",
+      "required": true,
+      "example": [
+        {
+          "to": [{"email": "john@example.com", "name": "John Doe"}],
+          "subject": "Your Order Confirmation"
+        }
+      ]
+    },
+    {
+      "name": "from",
+      "type": "object",
+      "description": "The sender's email address and optional display name. Example: {\"email\": \"sender@example.com\", \"name\": \"Acme\"}",
+      "required": true,
+      "example": {"email": "noreply@example.com", "name": "Acme Support"}
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Global subject line (can be overridden per personalization). Use handlebars syntax for dynamic content: {{subject_variable}}",
+      "required": true,
+      "example": "Your Order #{{order_id}} is Confirmed"
+    },
+    {
+      "name": "content",
+      "type": "object[]",
+      "description": "Email body content as an array with 'type' and 'value'. Include both 'text/plain' and 'text/html' for best compatibility.",
+      "required": false,
+      "example": [
+        {
+          "type": "text/html",
+          "value": "<h1>Hello {{name}}!</h1><p>Your order has been confirmed.</p>"
+        }
+      ]
+    },
+    {
+      "name": "template_id",
+      "type": "string",
+      "description": "SendGrid Dynamic Template ID to use for rendering the email. Overrides the 'content' field. Use with dynamic_template_data for personalization.",
+      "required": false,
+      "example": "d-abc123def456"
+    },
+    {
+      "name": "dynamic_template_data",
+      "type": "object",
+      "description": "JSON object containing variables for template substitution. Keys match handlebars placeholders in the template.",
+      "required": false,
+      "example": {"name": "John", "order_id": "12345", "total": "$99.99"}
+    },
+    {
+      "name": "attachments",
+      "type": "object[]",
+      "description": "Array of attachments. Each object should have 'content' (base64-encoded), 'type' (MIME type), and 'filename'.",
+      "required": false,
+      "example": [
+        {
+          "content": "SGVsbG8gV29ybGQ=",
+          "type": "text/plain",
+          "filename": "invoice.txt"
+        }
+      ]
+    },
+    {
+      "name": "mail_settings",
+      "type": "object",
+      "description": "Advanced mail settings like sandbox mode, click tracking, and open tracking. Example: {\"sandbox_mode\": {\"enable\": false}, \"click_tracking\": {\"enable\": true}}",
+      "required": false,
+      "example": {"sandbox_mode": {"enable": false}, "tracking_settings": {"click_tracking": {"enable": true}}}
+    },
+    {
+      "name": "reply_to",
+      "type": "object",
+      "description": "The reply-to email address for recipients. Example: {\"email\": \"support@example.com\"}",
+      "required": false,
+      "example": {"email": "support@example.com"}
+    },
+    {
+      "name": "headers",
+      "type": "object",
+      "description": "Custom email headers as key-value pairs. Example: {\"X-Custom-Header\": \"value\"}",
+      "required": false,
+      "example": {"X-Order-ID": "12345"}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sendgrid.com/v3/mail/send",
+    "headers": {
+      "Authorization": "Bearer SG.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "personalizations": [
+        {
+          "to": [
+            {
+              "email": "customer@example.com",
+              "name": "John Doe"
+            }
+          ],
+          "subject": "Your Order #12345 is Confirmed"
+        }
+      ],
+      "from": {
+        "email": "noreply@acme.com",
+        "name": "Acme"
+      },
+      "template_id": "d-abc123def456",
+      "dynamic_template_data": {
+        "name": "John",
+        "order_id": "12345",
+        "total": "$99.99",
+        "shipping_date": "February 5, 2024"
+      },
+      "reply_to": {
+        "email": "support@acme.com"
+      }
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "message": "Email accepted for delivery. No body returned."
+    }
+  }
+}

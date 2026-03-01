@@ -1,0 +1,83 @@
+{
+  "name": "create_channel",
+  "description": "Create a new channel in a guild.",
+  "endpoint": "/v10/guilds/{guild_id}/channels",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "guild_id",
+      "type": "string",
+      "description": "The ID of the guild.",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the channel (1-100 characters).",
+      "required": true,
+      "example": "new-channel"
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "description": "Channel type (0=text, 2=voice, 4=category, 5=news, 10=news_thread, 11=public_thread, 12=private_thread).",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "description": "Channel topic (0-1024 characters).",
+      "required": false,
+      "example": "A new channel"
+    },
+    {
+      "name": "nsfw",
+      "type": "boolean",
+      "description": "Whether the channel is NSFW.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "position",
+      "type": "integer",
+      "description": "Sorting position of the channel.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://discord.com/api/v10/guilds/123456789/channels",
+    "headers": {
+      "Authorization": "Bot YOUR_BOT_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "new-channel",
+      "type": 0,
+      "topic": "A new channel",
+      "nsfw": false
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "555555555",
+      "name": "new-channel",
+      "type": 0,
+      "guild_id": "123456789",
+      "position": 2,
+      "permission_overwrites": [],
+      "topic": "A new channel",
+      "nsfw": false,
+      "last_message_id": null,
+      "bitrate": null,
+      "user_limit": null,
+      "rate_limit_per_user": 0,
+      "parent_id": null,
+      "rtc_region": null
+    }
+  }
+}

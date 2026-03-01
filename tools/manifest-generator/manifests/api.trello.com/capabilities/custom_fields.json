@@ -1,0 +1,85 @@
+{
+  "name": "custom_fields",
+  "description": "Manage custom fields — create a new custom field on a board, add option to custom field dropdown, update a custom field definition. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/customFields",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "idModel",
+      "type": "string",
+      "description": "The ID of the model for which the Custom Field is being defined. This should always be the ID of a board.",
+      "required": true,
+      "example": "abc_123"
+    },
+    {
+      "name": "modelType",
+      "type": "string",
+      "description": "The type of model that the Custom Field is being defined on. This should always be `board`.",
+      "required": true,
+      "example": "board"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the Custom Field",
+      "required": true,
+      "example": "Example"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "The type of Custom Field to create.",
+      "required": true,
+      "example": "checkbox"
+    },
+    {
+      "name": "options",
+      "type": "string",
+      "description": "If the type is `checkbox` ",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "pos",
+      "type": "string",
+      "description": "The pos field.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "display_cardFront",
+      "type": "boolean",
+      "description": "Whether this Custom Field should be shown on the front of Cards",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trello.com/1/customFields",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "idModel": "abc_123",
+      "modelType": "board",
+      "name": "Example",
+      "type": "checkbox",
+      "pos": "example_value"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "idModel": "abc_123",
+        "modelType": "board",
+        "name": "Example",
+        "type": "checkbox",
+        "pos": "example_value"
+      }
+    }
+  }
+}

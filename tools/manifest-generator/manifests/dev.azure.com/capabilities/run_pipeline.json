@@ -1,0 +1,109 @@
+{
+  "name": "run_pipeline",
+  "description": "Trigger a pipeline run in Azure DevOps. Optionally specify a source branch, runtime variables, and template parameters. Returns the run ID, state, and a URL to view the run in the browser. The pipeline will execute asynchronously.",
+  "endpoint": "/{organization}/{project}/_apis/pipelines/{pipelineId}/runs",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "description": "The name of the Azure DevOps organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "description": "The name or ID of the project."
+    },
+    {
+      "name": "pipelineId",
+      "type": "integer",
+      "required": true,
+      "description": "The ID of the pipeline to run."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "Version of the API to use. Use '7.1'."
+    },
+    {
+      "name": "resources",
+      "type": "object",
+      "required": false,
+      "description": "Resources for the run, including repositories with refName to specify the branch (e.g., 'refs/heads/feature-branch')."
+    },
+    {
+      "name": "variables",
+      "type": "object",
+      "required": false,
+      "description": "Runtime variables as key-value pairs. Each value is an object with 'value' and optional 'isSecret' properties."
+    },
+    {
+      "name": "templateParameters",
+      "type": "object",
+      "required": false,
+      "description": "Template parameters as key-value pairs passed to the pipeline YAML template."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://dev.azure.com/my-org/MyWebApp/_apis/pipelines/12/runs?api-version=7.1",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "resources": {
+        "repositories": {
+          "self": {
+            "refName": "refs/heads/feature/auth-flow"
+          }
+        }
+      },
+      "variables": {
+        "deployEnvironment": {
+          "value": "staging",
+          "isSecret": false
+        },
+        "skipTests": {
+          "value": "false",
+          "isSecret": false
+        }
+      },
+      "templateParameters": {
+        "buildConfiguration": "Release"
+      }
+    }
+  },
+  "response_example": {
+    "id": 3045,
+    "name": "20260120.1",
+    "state": "inProgress",
+    "result": "unknown",
+    "createdDate": "2026-01-20T10:15:00Z",
+    "url": "https://dev.azure.com/my-org/MyWebApp/_apis/pipelines/12/runs/3045",
+    "pipeline": {
+      "id": 12,
+      "name": "MyWebApp-CI",
+      "folder": "\\",
+      "revision": 5,
+      "url": "https://dev.azure.com/my-org/MyWebApp/_apis/pipelines/12"
+    },
+    "resources": {
+      "repositories": {
+        "self": {
+          "repository": {
+            "fullName": "MyWebApp",
+            "type": "azureReposGit"
+          },
+          "refName": "refs/heads/feature/auth-flow"
+        }
+      }
+    },
+    "_links": {
+      "self": { "href": "https://dev.azure.com/my-org/MyWebApp/_apis/pipelines/12/runs/3045" },
+      "web": { "href": "https://dev.azure.com/my-org/MyWebApp/_build/results?buildId=3045" }
+    }
+  }
+}

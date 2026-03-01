@@ -1,0 +1,44 @@
+{
+  "spec_version": "1.0",
+  "name": "UptimeRobot",
+  "description": "Monitor website and server uptime with HTTP, keyword, ping, port, and heartbeat checks. Get uptime ratios, response times, downtime logs, and SSL certificate status. Useful for agents that need to check if services are online, investigate downtime events, or manage monitoring infrastructure.",
+  "base_url": "https://api.uptimerobot.com",
+  "auth": {
+    "type": "api_key",
+    "header": "Authorization",
+    "prefix": "Bearer",
+    "setup_url": "https://dashboard.uptimerobot.com/integrations"
+  },
+  "pricing": {
+    "type": "freemium",
+    "plans": [
+      { "name": "Free", "price": "$0/mo", "limits": "50 monitors, 5-minute checks, 3-month data retention" },
+      { "name": "Solo", "price": "$7/mo", "limits": "50 monitors, 60-second checks, 12-month retention" },
+      { "name": "Team", "price": "$29/mo", "limits": "100 monitors, 60-second checks, 24-month retention" },
+      { "name": "Enterprise", "price": "$54/mo", "limits": "200+ monitors, 30-second checks, 24-month retention" }
+    ],
+    "plans_url": "https://uptimerobot.com/pricing/"
+  },
+  "capabilities": [
+    {
+      "name": "get_monitors",
+      "description": "List and search monitors with their current status, uptime ratios, response times, and downtime logs. Filter by type (HTTP, keyword, ping, port), status (up, down, paused), or search by name. Returns SSL certificate info when available.",
+      "detail_url": "/capabilities/get_monitors"
+    },
+    {
+      "name": "create_monitor",
+      "description": "Create a new uptime monitor for a URL, IP, or port. Configure monitor type (HTTP, keyword, ping, port, heartbeat), check interval, timeout, alert contacts, and keyword matching. Supports HTTP authentication and custom headers.",
+      "detail_url": "/capabilities/create_monitor"
+    },
+    {
+      "name": "manage_alert_contacts",
+      "description": "Create, list, edit, and delete alert contacts that receive notifications when monitors go down or recover. Supports email, SMS, webhook, Slack, Telegram, Microsoft Teams, and other notification channels.",
+      "detail_url": "/capabilities/manage_alert_contacts"
+    },
+    {
+      "name": "manage_maintenance_windows",
+      "description": "Create, list, edit, and delete maintenance windows during which monitoring is paused for specified monitors. Define start time, duration, and recurrence to prevent false alerts during planned maintenance.",
+      "detail_url": "/capabilities/manage_maintenance_windows"
+    }
+  ]
+}

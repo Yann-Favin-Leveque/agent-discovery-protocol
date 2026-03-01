@@ -1,0 +1,23 @@
+{
+  "name": "convert_format",
+  "description": "Convert an image to a different output format. Use 'auto' to let imgix choose the optimal format (WebP, AVIF) based on the client's Accept header for the best compression.",
+  "endpoint": "/{image_path}",
+  "method": "GET",
+  "parameters": [
+    { "name": "fm", "type": "string", "description": "Output format: jpg, png, webp, avif, gif, jp2, json, mp4, blurhash. Use 'auto' to auto-detect.", "required": true, "example": "webp" },
+    { "name": "q", "type": "integer", "description": "Compression quality (0-100). Lower values produce smaller files.", "required": false, "example": 75 },
+    { "name": "lossless", "type": "boolean", "description": "Enable lossless compression for WebP or AVIF.", "required": false, "example": false },
+    { "name": "cs", "type": "string", "description": "Color space: srgb, adobergb1998, tinysrgb, strip.", "required": false, "example": "srgb" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://your-source.imgix.net/photos/hero.jpg?fm=webp&q=75",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "note": "Returns the image converted to WebP format. Content-Type: image/webp. File size is typically 25-35% smaller than JPEG at equivalent quality."
+    }
+  }
+}

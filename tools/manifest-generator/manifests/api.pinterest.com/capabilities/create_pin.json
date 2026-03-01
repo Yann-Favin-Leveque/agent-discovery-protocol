@@ -1,0 +1,93 @@
+{
+  "name": "create_pin",
+  "description": "Create a new pin on a specified board. Provide an image URL or media source, title, description, and optional destination link. The pin will appear on the board and in followers' feeds.",
+  "endpoint": "/v5/pins",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "board_id",
+      "type": "string",
+      "description": "The unique identifier of the board to pin to.",
+      "required": true,
+      "example": "549755885175"
+    },
+    {
+      "name": "media_source",
+      "type": "object",
+      "description": "The media source for the pin. Must include source_type ('image_url') and url.",
+      "required": true,
+      "example": {
+        "source_type": "image_url",
+        "url": "https://example.com/images/sunset.jpg"
+      }
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The title of the pin (max 100 characters).",
+      "required": false,
+      "example": "Beautiful Sunset Photography"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "The description of the pin (max 800 characters).",
+      "required": false,
+      "example": "Stunning sunset captured at the Pacific coast. Perfect for travel inspiration."
+    },
+    {
+      "name": "link",
+      "type": "string",
+      "description": "The destination URL when users click the pin.",
+      "required": false,
+      "example": "https://example.com/blog/sunset-photography"
+    },
+    {
+      "name": "alt_text",
+      "type": "string",
+      "description": "Accessibility text describing the pin image.",
+      "required": false,
+      "example": "Orange and purple sunset over ocean waves"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pinterest.com/v5/pins",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "board_id": "549755885175",
+      "media_source": {
+        "source_type": "image_url",
+        "url": "https://example.com/images/sunset.jpg"
+      },
+      "title": "Beautiful Sunset Photography",
+      "description": "Stunning sunset captured at the Pacific coast.",
+      "link": "https://example.com/blog/sunset-photography",
+      "alt_text": "Orange and purple sunset over ocean waves"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "549755885176",
+      "created_at": "2024-03-01T18:30:00Z",
+      "link": "https://example.com/blog/sunset-photography",
+      "title": "Beautiful Sunset Photography",
+      "description": "Stunning sunset captured at the Pacific coast.",
+      "board_id": "549755885175",
+      "media": {
+        "media_type": "image",
+        "images": {
+          "original": {
+            "url": "https://i.pinimg.com/originals/ab/cd/ef.jpg",
+            "width": 1200,
+            "height": 800
+          }
+        }
+      }
+    }
+  }
+}

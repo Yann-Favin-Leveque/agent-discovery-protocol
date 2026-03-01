@@ -1,0 +1,111 @@
+{
+  "name": "list_templates",
+  "description": "Retrieve all email templates available in your Mailchimp account. Includes user-created templates and default templates, with information about layout, sections, and image locations. Templates can be used as the basis for campaigns.",
+  "endpoint": "/3.0/templates",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "The number of templates to return per request (maximum 1000).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "The number of templates to skip before returning results for pagination.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "created_by",
+      "type": "string",
+      "description": "Filter results by who created the template: 'user' for user-created or 'mailchimp' for system templates.",
+      "required": false,
+      "example": "user"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailchimp.com/3.0/templates?count=10&offset=0",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "templates": [
+        {
+          "id": 12345,
+          "type": "user",
+          "name": "Newsletter Template",
+          "drag_and_drop": false,
+          "responsive": true,
+          "category": "Newsletter",
+          "date_created": "2024-01-01T10:00:00+00:00",
+          "date_edited": "2024-01-15T14:30:00+00:00",
+          "created_by": "John Doe",
+          "share": {
+            "shared": false,
+            "shared_with": []
+          },
+          "thumbnail": "https://example.mailchimp.com/template/12345/thumbnail.png",
+          "_links": [
+            {
+              "rel": "self",
+              "href": "https://api.mailchimp.com/3.0/templates/12345"
+            }
+          ]
+        },
+        {
+          "id": 12346,
+          "type": "user",
+          "name": "Promotional Email",
+          "drag_and_drop": true,
+          "responsive": true,
+          "category": "Promotion",
+          "date_created": "2023-12-20T09:15:00+00:00",
+          "date_edited": "2023-12-22T16:45:00+00:00",
+          "created_by": "Sarah Smith",
+          "share": {
+            "shared": false,
+            "shared_with": []
+          },
+          "thumbnail": "https://example.mailchimp.com/template/12346/thumbnail.png",
+          "_links": [
+            {
+              "rel": "self",
+              "href": "https://api.mailchimp.com/3.0/templates/12346"
+            }
+          ]
+        },
+        {
+          "id": 12347,
+          "type": "mailchimp",
+          "name": "Responsive Theme",
+          "drag_and_drop": false,
+          "responsive": true,
+          "category": "Standard",
+          "date_created": "2023-06-01T00:00:00+00:00",
+          "date_edited": null,
+          "created_by": "Mailchimp",
+          "share": {
+            "shared": false,
+            "shared_with": []
+          },
+          "thumbnail": "https://example.mailchimp.com/template/12347/thumbnail.png",
+          "_links": [
+            {
+              "rel": "self",
+              "href": "https://api.mailchimp.com/3.0/templates/12347"
+            }
+          ]
+        }
+      ],
+      "total_items": 3
+    }
+  }
+}

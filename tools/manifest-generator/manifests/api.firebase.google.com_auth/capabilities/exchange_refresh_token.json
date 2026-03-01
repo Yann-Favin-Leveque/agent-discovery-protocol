@@ -1,0 +1,42 @@
+{
+  "name": "exchange_refresh_token",
+  "description": "Exchange a refresh token for a new ID token. Firebase ID tokens expire after 1 hour, so use this endpoint to get a fresh token without re-authenticating. Note: this endpoint uses a different base URL (securetoken.googleapis.com) than the other Firebase Auth endpoints.",
+  "endpoint": "https://securetoken.googleapis.com/v1/token",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "grant_type",
+      "type": "string",
+      "description": "The grant type. Must be 'refresh_token'.",
+      "required": true,
+      "example": "refresh_token"
+    },
+    {
+      "name": "refresh_token",
+      "type": "string",
+      "description": "The refresh token from a previous sign-in or token exchange.",
+      "required": true,
+      "example": "AMf-vBx9kD8..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://securetoken.googleapis.com/v1/token?key=YOUR_API_KEY",
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "grant_type=refresh_token&refresh_token=AMf-vBx9kD8..."
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "expires_in": "3600",
+      "token_type": "Bearer",
+      "refresh_token": "AMf-vBx9kD8...",
+      "id_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "user_id": "a1b2c3d4e5f67890",
+      "project_id": "my-firebase-project"
+    }
+  }
+}

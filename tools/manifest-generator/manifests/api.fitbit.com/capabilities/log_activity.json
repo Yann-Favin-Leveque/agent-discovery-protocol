@@ -1,0 +1,94 @@
+{
+  "name": "log_activity",
+  "description": "Log a new exercise or physical activity for the authenticated user. You must specify an activity ID or name, the start time, and the duration. Optionally include distance and calories. Common activity IDs: 90013 (Walking), 90009 (Running), 90001 (Biking), 15000 (Yoga), 2130 (Weightlifting), 90024 (Swimming). Use the activityName parameter for free-text activity names if you do not know the ID.",
+  "endpoint": "/1/user/-/activities.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "activityId",
+      "type": "integer",
+      "required": false,
+      "description": "The Fitbit activity type ID. Required if activityName is not provided."
+    },
+    {
+      "name": "activityName",
+      "type": "string",
+      "required": false,
+      "description": "Free-text name of the activity. Required if activityId is not provided."
+    },
+    {
+      "name": "startTime",
+      "type": "string",
+      "required": true,
+      "description": "The start time of the activity in HH:mm format (24-hour)."
+    },
+    {
+      "name": "durationMillis",
+      "type": "integer",
+      "required": true,
+      "description": "Duration of the activity in milliseconds."
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "The date the activity was performed, in YYYY-MM-DD format."
+    },
+    {
+      "name": "distance",
+      "type": "number",
+      "required": false,
+      "description": "Distance covered during the activity, in the unit specified by distanceUnit."
+    },
+    {
+      "name": "distanceUnit",
+      "type": "string",
+      "required": false,
+      "description": "Unit for distance. One of: 'Kilometer', 'Mile'. Defaults to user's locale setting."
+    },
+    {
+      "name": "manualCalories",
+      "type": "integer",
+      "required": false,
+      "description": "Manually specified calories burned. Overrides Fitbit's estimate."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fitbit.com/1/user/-/activities.json",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9...",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "activityId": 90009,
+      "startTime": "07:30",
+      "durationMillis": 1800000,
+      "date": "2025-01-15",
+      "distance": 5.2,
+      "distanceUnit": "Kilometer"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "activityLog": {
+        "activityId": 90009,
+        "activityName": "Run",
+        "calories": 385,
+        "distance": 5.2,
+        "distanceUnit": "Kilometer",
+        "duration": 1800000,
+        "startTime": "07:30",
+        "startDate": "2025-01-15",
+        "logId": 67283945,
+        "steps": 5840,
+        "heartRateZones": [
+          { "name": "Fat Burn", "minutes": 8 },
+          { "name": "Cardio", "minutes": 18 },
+          { "name": "Peak", "minutes": 4 }
+        ]
+      }
+    }
+  }
+}

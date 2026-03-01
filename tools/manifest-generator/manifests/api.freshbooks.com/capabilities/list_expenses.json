@@ -1,0 +1,45 @@
+{
+  "name": "list_expenses",
+  "description": "List all recorded expenses for a FreshBooks account with optional filtering by date range, category, or vendor. Useful for tracking spending and preparing expense reports.",
+  "endpoint": "/accounting/account/{account_id}/expenses/expenses",
+  "method": "GET",
+  "parameters": [
+    { "name": "account_id", "type": "string", "description": "Your FreshBooks account ID.", "required": true, "example": "xZNQ1X" },
+    { "name": "page", "type": "integer", "description": "Page number for pagination.", "required": false, "example": 1 },
+    { "name": "per_page", "type": "integer", "description": "Number of results per page (max 100).", "required": false, "example": 25 },
+    { "name": "search[date_min]", "type": "string", "description": "Filter expenses on or after this date (YYYY-MM-DD).", "required": false, "example": "2026-01-01" },
+    { "name": "search[date_max]", "type": "string", "description": "Filter expenses on or before this date (YYYY-MM-DD).", "required": false, "example": "2026-03-01" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/accounting/account/xZNQ1X/expenses/expenses?page=1&per_page=25&search[date_min]=2026-01-01",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "response": {
+        "result": {
+          "expenses": [
+            {
+              "id": 55555,
+              "amount": { "amount": "49.99", "code": "USD" },
+              "vendor": "Adobe Inc.",
+              "date": "2026-03-01",
+              "categoryid": 4567,
+              "notes": "Monthly Creative Cloud subscription",
+              "status": 0
+            }
+          ],
+          "page": 1,
+          "pages": 5,
+          "per_page": 25,
+          "total": 112
+        }
+      }
+    }
+  }
+}

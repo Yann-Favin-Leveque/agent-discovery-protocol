@@ -1,0 +1,21 @@
+{
+  "name": "manage_collectors",
+  "description": "Create and manage survey collectors. Collectors are the distribution channels for your surveys — web links, email invitations, embedded surveys, etc.",
+  "endpoint": "/v3/surveys/{survey_id}/collectors",
+  "method": "POST",
+  "parameters": [
+    { "name": "survey_id", "type": "string", "description": "The survey ID.", "required": true, "example": "123456789" },
+    { "name": "type", "type": "string", "description": "Collector type: weblink, email, embedded.", "required": true, "example": "weblink" },
+    { "name": "name", "type": "string", "description": "Display name for the collector.", "required": false, "example": "Website Link" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.surveymonkey.com/v3/surveys/123456789/collectors",
+    "headers": { "Authorization": "Bearer {access_token}", "Content-Type": "application/json" },
+    "body": { "type": "weblink", "name": "Website Link" }
+  },
+  "response_example": {
+    "status": 201,
+    "body": { "id": "coll_xyz", "name": "Website Link", "type": "weblink", "url": "https://www.surveymonkey.com/r/ABCDEFG", "status": "open" }
+  }
+}

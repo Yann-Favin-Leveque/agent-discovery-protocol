@@ -1,0 +1,34 @@
+{
+  "name": "get_workflow",
+  "description": "Retrieve the current status, metadata, step information, and full details of an existing contract workflow. Use this to check where a contract is in the approval process, who needs to act next, and what attributes have been set.",
+  "endpoint": "/public/api/v1/workflows/{id}",
+  "method": "GET",
+  "parameters": [
+    { "name": "id", "type": "string", "description": "The unique ID of the workflow.", "required": true, "example": "61a2b3c4d5e6f70089abcdef" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ironclad.com/public/api/v1/workflows/61a2b3c4d5e6f70089abcdef",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "61a2b3c4d5e6f70089abcdef",
+      "template": "60d5f484e1c1a30012345678",
+      "templateName": "Standard NDA",
+      "status": "In Progress",
+      "step": "Counterparty Signature",
+      "creator": "legal@company.com",
+      "dateCreated": "2026-01-15T10:30:00.000Z",
+      "lastUpdated": "2026-01-20T14:00:00.000Z",
+      "attributes": {
+        "counterpartyName": "Acme Corp",
+        "contractValue": 50000,
+        "agreementDate": "2026-03-01"
+      }
+    }
+  }
+}

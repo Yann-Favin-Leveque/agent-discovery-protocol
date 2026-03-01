@@ -1,0 +1,19 @@
+{
+  "name": "list_surveys",
+  "description": "List all surveys configured for a site with response counts and status.",
+  "endpoint": "/sites/{site_id}/surveys",
+  "method": "GET",
+  "parameters": [
+    {"name": "site_id", "type": "number", "description": "Site ID.", "required": true, "example": 123456},
+    {"name": "status", "type": "string", "description": "Filter by status: active, paused, draft.", "required": false, "example": "active"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hotjar.com/v2/sites/123456/surveys?status=active",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": [{"id": 456, "name": "NPS Survey", "status": "active", "response_count": 250, "questions": [{"type": "nps", "text": "How likely are you to recommend us?"}], "created_at": "2024-01-01T00:00:00Z"}]}
+  }
+}

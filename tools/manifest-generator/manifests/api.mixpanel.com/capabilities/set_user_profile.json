@@ -1,0 +1,21 @@
+{
+  "name": "set_user_profile",
+  "description": "Create or update a Mixpanel user profile with custom properties.",
+  "endpoint": "/engage#profile-set",
+  "method": "POST",
+  "parameters": [
+    {"name": "$token", "type": "string", "description": "Project token.", "required": true, "example": "proj_token"},
+    {"name": "$distinct_id", "type": "string", "description": "Unique user identifier.", "required": true, "example": "user_123"},
+    {"name": "$set", "type": "object", "description": "Properties to set on the profile.", "required": true, "example": {"$name": "John Doe", "$email": "john@example.com", "plan": "enterprise"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mixpanel.com/engage#profile-set",
+    "headers": {"Content-Type": "application/json", "Accept": "text/plain"},
+    "body": [{"$token": "proj_token", "$distinct_id": "user_123", "$set": {"$name": "John Doe", "$email": "john@example.com", "plan": "enterprise"}}]
+  },
+  "response_example": {
+    "status": 200,
+    "body": 1
+  }
+}

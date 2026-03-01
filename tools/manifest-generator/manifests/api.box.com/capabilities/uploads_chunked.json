@@ -1,0 +1,60 @@
+{
+  "name": "uploads_chunked",
+  "description": "Manage uploads chunked — create upload session, create upload session for existing file, commit upload session. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/files/upload_sessions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "folder_id",
+      "type": "string",
+      "description": "The ID of the folder to upload the new file to.",
+      "required": true,
+      "example": "0"
+    },
+    {
+      "name": "file_size",
+      "type": "number",
+      "description": "The total number of bytes of the file to be uploaded.",
+      "required": true,
+      "example": 104857600
+    },
+    {
+      "name": "file_name",
+      "type": "string",
+      "description": "The name of new file.",
+      "required": true,
+      "example": "Project.mov"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.box.com/2.0/files/upload_sessions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "folder_id": "0",
+      "file_size": 104857600,
+      "file_name": "Project.mov"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "folder_id": "0",
+        "file_size": 104857600,
+        "file_name": "Project.mov"
+      }
+    }
+  },
+  "auth_scopes": [
+    "root_readonly",
+    "root_readwrite",
+    "manage_app_users",
+    "manage_managed_users",
+    "manage_groups"
+  ]
+}

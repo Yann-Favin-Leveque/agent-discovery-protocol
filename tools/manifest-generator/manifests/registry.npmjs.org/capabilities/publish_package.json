@@ -1,0 +1,23 @@
+{
+  "name": "publish_package",
+  "description": "Publish a new version of a package to the npm registry. Requires authentication.",
+  "endpoint": "/{package_name}",
+  "method": "PUT",
+  "parameters": [
+    {"name": "package_name", "type": "string", "description": "Package name to publish.", "required": true, "example": "my-package"},
+    {"name": "_id", "type": "string", "description": "Package ID (same as name).", "required": true, "example": "my-package"},
+    {"name": "name", "type": "string", "description": "Package name.", "required": true, "example": "my-package"},
+    {"name": "versions", "type": "object", "description": "Object of version metadata.", "required": true, "example": {"1.0.0": {"name": "my-package", "version": "1.0.0"}}},
+    {"name": "_attachments", "type": "object", "description": "Tarball attachment data.", "required": true, "example": {}}
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://registry.npmjs.org/my-package",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"_id": "my-package", "name": "my-package", "dist-tags": {"latest": "1.0.0"}, "versions": {"1.0.0": {"name": "my-package", "version": "1.0.0"}}, "_attachments": {"my-package-1.0.0.tgz": {"content_type": "application/octet-stream", "data": "base64data..."}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"ok": true, "id": "my-package", "rev": "1-abc123"}
+  }
+}

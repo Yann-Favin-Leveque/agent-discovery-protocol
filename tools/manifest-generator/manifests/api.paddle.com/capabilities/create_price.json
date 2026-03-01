@@ -1,0 +1,103 @@
+{
+  "name": "create_price",
+  "description": "Create a price for an existing Paddle product. Prices define how much to charge, in which currency, and whether the charge is one-time or recurring. A single product can have multiple prices for different billing intervals or currencies.",
+  "endpoint": "/prices",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "product_id",
+      "type": "string",
+      "description": "The ID of the product this price belongs to.",
+      "required": true,
+      "example": "pro_01h7mrm0bmd2szhxxreadempty"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "A description of this price, e.g. 'Monthly' or 'Annual'.",
+      "required": true,
+      "example": "Monthly subscription"
+    },
+    {
+      "name": "unit_price",
+      "type": "object",
+      "description": "The price amount with 'amount' (string, in smallest currency unit, e.g. cents) and 'currency_code' (ISO 4217).",
+      "required": true,
+      "example": { "amount": "2999", "currency_code": "USD" }
+    },
+    {
+      "name": "billing_cycle",
+      "type": "object",
+      "description": "The billing cycle for recurring prices. Object with 'interval' ('month', 'year', 'week', 'day') and 'frequency' (integer). Omit for one-time prices.",
+      "required": false,
+      "example": { "interval": "month", "frequency": 1 }
+    },
+    {
+      "name": "trial_period",
+      "type": "object",
+      "description": "Free trial period. Object with 'interval' ('day', 'week', 'month') and 'frequency' (integer).",
+      "required": false,
+      "example": { "interval": "day", "frequency": 14 }
+    },
+    {
+      "name": "quantity",
+      "type": "object",
+      "description": "Min and max quantity limits. Object with 'minimum' and 'maximum' integers.",
+      "required": false,
+      "example": { "minimum": 1, "maximum": 100 }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/prices",
+    "headers": {
+      "Authorization": "Bearer pdl_live_abc123def456",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "product_id": "pro_01h7mrm0bmd2szhxxreadempty",
+      "description": "Monthly subscription",
+      "unit_price": {
+        "amount": "2999",
+        "currency_code": "USD"
+      },
+      "billing_cycle": {
+        "interval": "month",
+        "frequency": 1
+      },
+      "trial_period": {
+        "interval": "day",
+        "frequency": 14
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "pri_01h7mrm0bmd2szhxxreadempty",
+        "product_id": "pro_01h7mrm0bmd2szhxxreadempty",
+        "description": "Monthly subscription",
+        "unit_price": {
+          "amount": "2999",
+          "currency_code": "USD"
+        },
+        "billing_cycle": {
+          "interval": "month",
+          "frequency": 1
+        },
+        "trial_period": {
+          "interval": "day",
+          "frequency": 14
+        },
+        "status": "active",
+        "quantity": { "minimum": 1, "maximum": 100 },
+        "created_at": "2024-03-15T10:05:00.000Z",
+        "updated_at": "2024-03-15T10:05:00.000Z"
+      },
+      "meta": {
+        "request_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+      }
+    }
+  }
+}

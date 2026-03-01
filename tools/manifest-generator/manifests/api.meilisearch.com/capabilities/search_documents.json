@@ -1,0 +1,114 @@
+{
+  "name": "search_documents",
+  "description": "Perform a full-text search against a Meilisearch index. Returns ranked results with typo tolerance, highlighting, facet distribution, and pagination. Supports filtering by attributes, sorting, and geo-distance. Processing times are typically under 50ms.",
+  "endpoint": "/indexes/{indexUid}/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "The unique identifier of the index to search.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "The search query string.",
+      "required": false,
+      "example": "american ninja"
+    },
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "Filter expression using attribute operators (e.g. 'genres = action AND rating > 4').",
+      "required": false,
+      "example": "genres = action AND rating > 4"
+    },
+    {
+      "name": "sort",
+      "type": "array",
+      "description": "Array of attributes to sort by with direction (e.g. ['rating:desc', 'title:asc']).",
+      "required": false,
+      "example": ["rating:desc"]
+    },
+    {
+      "name": "facets",
+      "type": "array",
+      "description": "List of attributes to compute facet distributions for.",
+      "required": false,
+      "example": ["genres", "year"]
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results to return (default 20).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Number of results to skip for pagination (default 0).",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "attributesToRetrieve",
+      "type": "array",
+      "description": "Attributes to include in each result. Defaults to all.",
+      "required": false,
+      "example": ["title", "overview", "genres", "rating"]
+    },
+    {
+      "name": "attributesToHighlight",
+      "type": "array",
+      "description": "Attributes where matching text should be highlighted with <em> tags.",
+      "required": false,
+      "example": ["title", "overview"]
+    },
+    {
+      "name": "showRankingScore",
+      "type": "boolean",
+      "description": "If true, includes the relevance score for each result.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.meilisearch.com/indexes/movies/search",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "q": "american ninja",
+      "filter": "genres = action",
+      "limit": 5,
+      "attributesToHighlight": ["title"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "hits": [
+        {
+          "id": 12345,
+          "title": "American Ninja",
+          "overview": "An American soldier discovers he has ninja skills...",
+          "genres": ["action", "adventure"],
+          "rating": 4.2,
+          "_formatted": {
+            "title": "<em>American</em> <em>Ninja</em>"
+          }
+        }
+      ],
+      "query": "american ninja",
+      "processingTimeMs": 3,
+      "limit": 5,
+      "offset": 0,
+      "estimatedTotalHits": 8
+    }
+  }
+}

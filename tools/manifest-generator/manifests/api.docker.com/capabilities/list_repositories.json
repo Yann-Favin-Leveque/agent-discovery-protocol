@@ -1,0 +1,20 @@
+{
+  "name": "list_repositories",
+  "description": "List all repositories for a specific user or organization namespace on Docker Hub.",
+  "endpoint": "/repositories/{namespace}/",
+  "method": "GET",
+  "parameters": [
+    {"name": "namespace", "type": "string", "description": "Docker Hub username or organization name.", "required": true, "example": "library"},
+    {"name": "page_size", "type": "number", "description": "Number of results per page.", "required": false, "example": 25},
+    {"name": "page", "type": "number", "description": "Page number.", "required": false, "example": 1}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://hub.docker.com/v2/repositories/library/?page_size=25",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"count": 200, "results": [{"name": "nginx", "namespace": "library", "description": "Official build of Nginx.", "star_count": 18000, "pull_count": 5000000000, "last_updated": "2024-01-20T10:00:00Z"}]}
+  }
+}

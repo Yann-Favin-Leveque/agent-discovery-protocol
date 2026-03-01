@@ -1,0 +1,41 @@
+{
+  "name": "get_device_info",
+  "description": "Get detailed information about a specific device including its exposed variables, callable functions, connectivity status, signal strength, and firmware version. This is the first step before reading variables or calling functions on a device.",
+  "endpoint": "/v1/devices/{deviceId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "deviceId",
+      "type": "string",
+      "description": "The unique ID of the device to inspect.",
+      "required": true,
+      "example": "0123456789abcdef01234567"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.particle.io/v1/devices/0123456789abcdef01234567",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "0123456789abcdef01234567",
+      "name": "my-photon",
+      "connected": true,
+      "variables": {
+        "temperature": "double",
+        "humidity": "int32"
+      },
+      "functions": [
+        "toggle",
+        "setColor"
+      ],
+      "last_heard": "2025-12-01T18:30:00.000Z",
+      "platform_id": 6,
+      "status": "normal"
+    }
+  }
+}

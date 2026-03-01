@@ -1,0 +1,25 @@
+{
+  "name": "search_contacts",
+  "description": "Search for contacts by name, email, phone number, or custom attributes across the account.",
+  "endpoint": "/api/v1/accounts/{account_id}/contacts/search",
+  "method": "GET",
+  "parameters": [
+    { "name": "account_id", "type": "number", "required": true, "description": "The account ID" },
+    { "name": "q", "type": "string", "required": true, "description": "Search query string (name, email, or phone)" },
+    { "name": "page", "type": "number", "required": false, "description": "Page number for pagination" }
+  ],
+  "request_example": {
+    "url": "/api/v1/accounts/1/contacts/search?q=jane@example.com&page=1"
+  },
+  "response_example": {
+    "meta": { "count": 1, "current_page": 1 },
+    "payload": [
+      {
+        "id": 567,
+        "name": "Jane Doe",
+        "email": "jane@example.com",
+        "phone_number": "+1234567890"
+      }
+    ]
+  }
+}

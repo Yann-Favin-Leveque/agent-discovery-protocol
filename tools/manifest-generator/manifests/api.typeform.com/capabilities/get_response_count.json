@@ -1,0 +1,53 @@
+{
+  "name": "get_response_count",
+  "description": "Get the total number of responses submitted to a specific Typeform form. This is a lightweight endpoint that returns only the count without fetching the actual response data, making it efficient for dashboards and monitoring. You can filter the count by date range using the since and until parameters.",
+  "endpoint": "/forms/{form_id}/responses",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the form to count responses for."
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "required": false,
+      "description": "Count only responses submitted after this ISO 8601 date (e.g., '2025-01-01T00:00:00Z')."
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "required": false,
+      "description": "Count only responses submitted before this ISO 8601 date."
+    },
+    {
+      "name": "completed",
+      "type": "boolean",
+      "required": false,
+      "description": "Filter by completion status. Set to true to count only completed responses."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "description": "Set to 0 to retrieve only the total_items count without any response data. This makes the call lightweight."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.typeform.com/forms/abc123XYZ/responses?page_size=0&completed=true",
+    "headers": {
+      "Authorization": "Bearer tfp_abc123def456ghi789"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total_items": 142,
+      "page_count": 0,
+      "items": []
+    }
+  }
+}

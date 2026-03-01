@@ -1,0 +1,95 @@
+{
+  "name": "get_one_call",
+  "description": "Get a comprehensive weather overview for a location in a single API call. Returns current conditions, minute-by-minute precipitation forecast for the next hour, hourly forecast for 48 hours, daily forecast for 8 days, and any active government weather alerts. This is the most complete weather endpoint available.",
+  "endpoint": "/data/3.0/onecall",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "description": "Latitude of the location.",
+      "required": true,
+      "example": 48.8566
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "description": "Longitude of the location.",
+      "required": true,
+      "example": 2.3522
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "description": "Your API key for authentication.",
+      "required": true,
+      "example": "{api_key}"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Units of measurement: 'standard', 'metric', or 'imperial'.",
+      "required": false,
+      "example": "metric"
+    },
+    {
+      "name": "exclude",
+      "type": "string",
+      "description": "Comma-separated list of parts to exclude: 'current', 'minutely', 'hourly', 'daily', 'alerts'.",
+      "required": false,
+      "example": "minutely,alerts"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "description": "Language code for weather description translation.",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/3.0/onecall?lat=48.8566&lon=2.3522&units=metric&appid={api_key}",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "lat": 48.8566,
+      "lon": 2.3522,
+      "timezone": "Europe/Paris",
+      "timezone_offset": 3600,
+      "current": {
+        "dt": 1700000000,
+        "sunrise": 1699945200,
+        "sunset": 1699980000,
+        "temp": 18.5,
+        "feels_like": 17.8,
+        "pressure": 1015,
+        "humidity": 62,
+        "uvi": 3.2,
+        "clouds": 40,
+        "visibility": 10000,
+        "wind_speed": 3.6,
+        "wind_deg": 220,
+        "weather": [
+          { "id": 802, "main": "Clouds", "description": "scattered clouds", "icon": "03d" }
+        ]
+      },
+      "daily": [
+        {
+          "dt": 1700000000,
+          "temp": { "day": 18.5, "min": 12.3, "max": 20.1, "night": 13.8 },
+          "weather": [
+            { "id": 802, "main": "Clouds", "description": "scattered clouds", "icon": "03d" }
+          ],
+          "pop": 0.15,
+          "humidity": 62,
+          "wind_speed": 4.2,
+          "summary": "Expect scattered clouds with a high near 20C"
+        }
+      ],
+      "alerts": []
+    }
+  }
+}

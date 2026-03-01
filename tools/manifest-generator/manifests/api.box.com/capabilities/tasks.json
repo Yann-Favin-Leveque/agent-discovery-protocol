@@ -1,0 +1,70 @@
+{
+  "name": "tasks",
+  "description": "Manage tasks — create task, update task, list tasks on file. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/tasks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "item",
+      "type": "object",
+      "description": "The file to attach the task to.",
+      "required": true,
+      "example": {}
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "description": "The action the task assignee will be prompted to do. Must be\n\n* `review` defines an approval task that can be approved or,\nrejected\n* `complete` defines a general task which can be completed.",
+      "required": false,
+      "example": "review"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "An optional message to include with the task.",
+      "required": false,
+      "example": "Please review"
+    },
+    {
+      "name": "due_at",
+      "type": "string",
+      "description": "Defines when the task is due. Defaults to `null` if not\nprovided.",
+      "required": false,
+      "example": "2012-12-12T10:53:43-08:00"
+    },
+    {
+      "name": "completion_rule",
+      "type": "string",
+      "description": "Defines which assignees need to complete this task before the task\nis considered completed.\n\n* `all_assignees` (default) requires all assignees to review or\napprove the task in order for it to be considered completed.\n* `any_assignee` accepts any one assignee to review or\napprove the task in order for it to be considered completed.",
+      "required": false,
+      "example": "all_assignees"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.box.com/2.0/tasks",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "item": {}
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "item": {}
+      }
+    }
+  },
+  "auth_scopes": [
+    "root_readonly",
+    "root_readwrite",
+    "manage_app_users",
+    "manage_managed_users",
+    "manage_groups"
+  ]
+}

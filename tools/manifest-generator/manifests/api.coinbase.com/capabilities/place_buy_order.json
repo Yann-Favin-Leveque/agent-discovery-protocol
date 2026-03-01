@@ -1,0 +1,41 @@
+{
+  "name": "place_buy_order",
+  "description": "Place a buy order to purchase cryptocurrency using a linked payment method. Specify the amount in either the cryptocurrency or your native fiat currency. The order is executed at the current market rate.",
+  "endpoint": "/v2/accounts/{account_id}/buys",
+  "method": "POST",
+  "parameters": [
+    { "name": "account_id", "type": "string", "description": "The ID of the cryptocurrency account to buy into.", "required": true, "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890" },
+    { "name": "amount", "type": "string", "description": "The amount to buy.", "required": true, "example": "100.00" },
+    { "name": "currency", "type": "string", "description": "The currency for the amount (e.g., USD for fiat amount, BTC for crypto amount).", "required": true, "example": "USD" },
+    { "name": "payment_method", "type": "string", "description": "The ID of the payment method to use.", "required": false, "example": "pm-12345" },
+    { "name": "commit", "type": "boolean", "description": "If false, the buy is not immediately executed (default true).", "required": false, "example": true }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.coinbase.com/v2/accounts/a1b2c3d4-e5f6-7890-abcd-ef1234567890/buys",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": "100.00",
+      "currency": "USD",
+      "payment_method": "pm-12345",
+      "commit": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "buy-12345",
+        "status": "completed",
+        "amount": { "amount": "0.00200000", "currency": "BTC" },
+        "total": { "amount": "100.00", "currency": "USD" },
+        "subtotal": { "amount": "98.50", "currency": "USD" },
+        "fee": { "amount": "1.50", "currency": "USD" },
+        "created_at": "2026-03-01T12:00:00Z"
+      }
+    }
+  }
+}

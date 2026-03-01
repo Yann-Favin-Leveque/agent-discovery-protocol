@@ -1,0 +1,81 @@
+{
+  "name": "list_applications",
+  "description": "List and filter APM applications by name, host, language, or health status. Returns performance summaries including response time, throughput, error rate, and Apdex score.",
+  "endpoint": "/v2/applications.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "filter[name]",
+      "type": "string",
+      "description": "Filter applications by name (partial match). Example: 'My Web App'.",
+      "required": false,
+      "example": "My Web App"
+    },
+    {
+      "name": "filter[host]",
+      "type": "string",
+      "description": "Filter applications by hostname.",
+      "required": false,
+      "example": "prod-server-01"
+    },
+    {
+      "name": "filter[ids]",
+      "type": "string",
+      "description": "Comma-separated list of application IDs to filter.",
+      "required": false,
+      "example": "12345,67890"
+    },
+    {
+      "name": "filter[language]",
+      "type": "string",
+      "description": "Filter by programming language (java, ruby, python, nodejs, dotnet, php, go).",
+      "required": false,
+      "example": "java"
+    },
+    {
+      "name": "page",
+      "type": "number",
+      "description": "Page number for pagination. Defaults to 1.",
+      "required": false,
+      "example": 1
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.newrelic.com/v2/applications.json?filter[name]=My+Web+App",
+    "headers": {
+      "Api-Key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "applications": [
+        {
+          "id": 12345,
+          "name": "My Web App",
+          "language": "java",
+          "health_status": "green",
+          "reporting": true,
+          "last_reported_at": "2025-09-15T14:30:00+00:00",
+          "application_summary": {
+            "response_time": 120.5,
+            "throughput": 450,
+            "error_rate": 0.02,
+            "apdex_target": 0.5,
+            "apdex_score": 0.95
+          },
+          "settings": {
+            "app_apdex_threshold": 0.5,
+            "end_user_apdex_threshold": 7.0,
+            "enable_real_user_monitoring": true
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

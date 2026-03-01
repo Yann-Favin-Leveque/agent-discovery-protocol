@@ -1,0 +1,21 @@
+{
+  "name": "get_aggregate_stats",
+  "description": "Get aggregate statistics (visitors, pageviews, bounce rate, visit duration) for a specified time period.",
+  "endpoint": "/stats/aggregate",
+  "method": "GET",
+  "parameters": [
+    {"name": "site_id", "type": "string", "description": "Domain of the site.", "required": true, "example": "example.com"},
+    {"name": "period", "type": "string", "description": "Time period: day, 7d, 30d, month, 6mo, 12mo, custom.", "required": false, "example": "30d"},
+    {"name": "metrics", "type": "string", "description": "Comma-separated metrics: visitors, pageviews, bounce_rate, visit_duration, visits.", "required": false, "example": "visitors,pageviews,bounce_rate"},
+    {"name": "filters", "type": "string", "description": "Filter expression (e.g., visit:source==Google).", "required": false, "example": "visit:source==Google"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://plausible.io/api/v1/stats/aggregate?site_id=example.com&period=30d&metrics=visitors,pageviews,bounce_rate",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"results": {"visitors": {"value": 15000}, "pageviews": {"value": 45000}, "bounce_rate": {"value": 35.2}}}
+  }
+}

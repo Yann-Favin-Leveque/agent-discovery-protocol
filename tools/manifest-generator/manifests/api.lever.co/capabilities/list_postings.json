@@ -1,0 +1,40 @@
+{
+  "name": "list_postings",
+  "description": "Retrieve all job postings in your Lever account. Postings represent open positions that candidates can apply to. Supports filtering by team, location, published state, and commitment type.",
+  "endpoint": "/v1/postings",
+  "method": "GET",
+  "parameters": [
+    { "name": "team", "type": "string", "description": "Filter postings by team name.", "required": false, "example": "Engineering" },
+    { "name": "location", "type": "string", "description": "Filter postings by location.", "required": false, "example": "San Francisco" },
+    { "name": "commitment", "type": "string", "description": "Filter by commitment type (e.g., Full-time, Part-time, Intern).", "required": false, "example": "Full-time" },
+    { "name": "state", "type": "string", "description": "Filter by posting state: 'published', 'internal', 'closed', or 'draft'.", "required": false, "example": "published" },
+    { "name": "limit", "type": "integer", "description": "Maximum number of results to return.", "required": false, "example": 50 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.lever.co/v1/postings?state=published&team=Engineering&limit=50",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "posting-abc123",
+          "text": "Senior Software Engineer",
+          "state": "published",
+          "categories": {
+            "team": "Engineering",
+            "location": "San Francisco",
+            "commitment": "Full-time"
+          },
+          "createdAt": 1706745600000
+        }
+      ],
+      "hasNext": false
+    }
+  }
+}

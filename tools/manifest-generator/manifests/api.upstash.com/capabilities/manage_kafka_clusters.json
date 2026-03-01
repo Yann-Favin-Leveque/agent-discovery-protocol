@@ -1,0 +1,26 @@
+{
+  "name": "manage_kafka_clusters",
+  "description": "Create, list, and delete serverless Kafka clusters. A cluster is required before you can create topics and produce/consume messages.",
+  "endpoint": "/v2/kafka/cluster",
+  "method": "POST",
+  "parameters": [
+    { "name": "name", "type": "string", "description": "Name for the cluster.", "required": true, "example": "my-cluster" },
+    { "name": "region", "type": "string", "description": "The region for the cluster.", "required": true, "example": "us-east-1" },
+    { "name": "multizone", "type": "boolean", "description": "Enable multi-zone replication.", "required": false, "example": true }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.upstash.com/v2/kafka/cluster",
+    "headers": { "Authorization": "Basic {base64(email:api_key)}", "Content-Type": "application/json" },
+    "body": { "name": "my-cluster", "region": "us-east-1", "multizone": true }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "cluster_id": "cluster-789",
+      "cluster_name": "my-cluster",
+      "region": "us-east-1",
+      "state": "active"
+    }
+  }
+}

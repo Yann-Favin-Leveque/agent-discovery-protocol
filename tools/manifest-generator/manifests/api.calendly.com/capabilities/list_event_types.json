@@ -1,0 +1,106 @@
+{
+  "name": "list_event_types",
+  "description": "Retrieve all event types for a Calendly user or organization. Event types define the types of meetings people can schedule (e.g., '30 Minute Meeting', '1-on-1 Consultation'). You must provide the user URI. Returns event type details including name, duration, scheduling URL, color, and whether the type is active.",
+  "endpoint": "/event_types",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user",
+      "type": "string",
+      "description": "The URI of the user whose event types to list (format: https://api.calendly.com/users/XXXXXXXX).",
+      "required": true,
+      "example": "https://api.calendly.com/users/abc123def456"
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "description": "Filter by active status. True returns only active event types.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Number of results per page (max 100).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "page_token",
+      "type": "string",
+      "description": "Token for fetching the next page of results.",
+      "required": false,
+      "example": "next-page-token-xyz"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort order: 'name:asc', 'name:desc', or by other fields.",
+      "required": false,
+      "example": "name:asc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.calendly.com/event_types?user=https://api.calendly.com/users/abc123def456&active=true&count=20",
+    "headers": {
+      "Authorization": "Bearer pat_abcdefghijklmnop1234567890"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "collection": [
+        {
+          "uri": "https://api.calendly.com/event_types/evt123abc456",
+          "name": "30 Minute Meeting",
+          "active": true,
+          "slug": "30min",
+          "scheduling_url": "https://calendly.com/janesmith/30min",
+          "duration": 30,
+          "kind": "solo",
+          "type": "StandardEventType",
+          "color": "#0099FF",
+          "description_plain": "A quick 30-minute call to discuss your needs.",
+          "internal_note": null,
+          "pooling_type": null,
+          "created_at": "2023-06-15T10:00:00.000000Z",
+          "updated_at": "2024-01-10T14:30:00.000000Z",
+          "profile": {
+            "type": "User",
+            "name": "Jane Smith",
+            "owner": "https://api.calendly.com/users/abc123def456"
+          }
+        },
+        {
+          "uri": "https://api.calendly.com/event_types/evt789def012",
+          "name": "60 Minute Consultation",
+          "active": true,
+          "slug": "60min-consultation",
+          "scheduling_url": "https://calendly.com/janesmith/60min-consultation",
+          "duration": 60,
+          "kind": "solo",
+          "type": "StandardEventType",
+          "color": "#FF6600",
+          "description_plain": "In-depth consultation for new clients.",
+          "internal_note": "Requires pre-call questionnaire",
+          "pooling_type": null,
+          "created_at": "2023-08-20T12:00:00.000000Z",
+          "updated_at": "2024-01-15T09:00:00.000000Z",
+          "profile": {
+            "type": "User",
+            "name": "Jane Smith",
+            "owner": "https://api.calendly.com/users/abc123def456"
+          }
+        }
+      ],
+      "pagination": {
+        "count": 2,
+        "next_page": null,
+        "previous_page": null,
+        "next_page_token": null,
+        "previous_page_token": null
+      }
+    }
+  }
+}

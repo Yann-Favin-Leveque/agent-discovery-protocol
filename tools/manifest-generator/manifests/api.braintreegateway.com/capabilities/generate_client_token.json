@@ -1,0 +1,56 @@
+{
+  "name": "generate_client_token",
+  "description": "Generate a client token to initialize the Braintree client SDK on the frontend. The client token authorizes the browser or mobile app to securely collect and tokenize payment information using Drop-in UI or Hosted Fields. This is the first step in any Braintree payment flow -- your server generates the token, passes it to the client, and the client uses it to create a payment method nonce.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "note": "Braintree uses a GraphQL API. The legacy REST API endpoint is POST /merchants/{merchant_id}/client_token.",
+  "parameters": [
+    {
+      "name": "customer_id",
+      "type": "string",
+      "description": "Optional vault customer ID. If provided, the generated token will include the customer's vaulted payment methods for faster checkout.",
+      "required": false,
+      "example": "cust_12345"
+    },
+    {
+      "name": "merchant_account_id",
+      "type": "string",
+      "description": "The merchant account ID to use. If you have multiple merchant accounts (e.g., for different currencies), specify which one.",
+      "required": false,
+      "example": "acme_usd"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://payments.braintree-api.com/graphql",
+    "headers": {
+      "Authorization": "Basic cHVibGljX2tleTpwcml2YXRlX2tleQ==",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-01-01"
+    },
+    "body": {
+      "query": "mutation CreateClientToken($input: CreateClientTokenInput) { createClientToken(input: $input) { clientToken } }",
+      "variables": {
+        "input": {
+          "clientToken": {
+            "customerId": "cust_12345",
+            "merchantAccountId": "acme_usd"
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "createClientToken": {
+          "clientToken": "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJhYmMxMjMiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5icmFpbnRyZWVnYXRld2F5LmNvbS4uLiJ9"
+        }
+      },
+      "extensions": {
+        "requestId": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+      }
+    }
+  }
+}

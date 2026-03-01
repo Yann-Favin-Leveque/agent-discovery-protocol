@@ -1,0 +1,42 @@
+{
+  "name": "login_user",
+  "description": "Authenticate a user with their email/username and password. Returns a JWT access token, refresh token, and user profile on success. Supports MFA challenges.",
+  "endpoint": "/api/login",
+  "method": "POST",
+  "parameters": [
+    { "name": "loginId", "type": "string", "description": "The user's email address or username.", "required": true, "example": "jane@example.com" },
+    { "name": "password", "type": "string", "description": "The user's password.", "required": true, "example": "super-secret-password" },
+    { "name": "applicationId", "type": "string", "description": "The application UUID to authenticate against. Required if the user is registered to multiple apps.", "required": true, "example": "10000000-0000-0002-0000-000000000001" },
+    { "name": "ipAddress", "type": "string", "description": "The user's IP address for geo-location and security.", "required": false, "example": "192.168.1.1" },
+    { "name": "noJWT", "type": "boolean", "description": "If true, do not return a JWT. Useful for verification only.", "required": false, "example": false }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fusionauth.io/api/login",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "loginId": "jane@example.com",
+      "password": "super-secret-password",
+      "applicationId": "10000000-0000-0002-0000-000000000001"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "refreshToken": "ze9fi6Y9sMSf3yWp3aaO2w7AMav2MFAq",
+      "user": {
+        "id": "00000000-0000-0001-0000-000000000000",
+        "email": "jane@example.com",
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "active": true,
+        "verified": true,
+        "lastLoginInstant": 1704067200000
+      }
+    }
+  }
+}

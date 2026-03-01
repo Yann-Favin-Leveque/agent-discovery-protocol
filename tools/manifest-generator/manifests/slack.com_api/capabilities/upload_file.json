@@ -1,0 +1,94 @@
+{
+  "name": "upload_file",
+  "description": "Upload a file to Slack and share it in a channel or direct message. Supports all file types with optional titles, descriptions, and comments.",
+  "endpoint": "/files.upload",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channels",
+      "type": "string",
+      "description": "Comma-separated list of channel IDs or names where the file will be shared.",
+      "required": true,
+      "example": "C1234567890,C0987654321"
+    },
+    {
+      "name": "file",
+      "type": "string",
+      "description": "File content as base64-encoded string. Use file_content parameter or provide the raw binary data.",
+      "required": true,
+      "example": "base64encodedfilecontent"
+    },
+    {
+      "name": "filename",
+      "type": "string",
+      "description": "The filename including extension. Used for display and download.",
+      "required": true,
+      "example": "report.pdf"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Optional title for the file. Displayed in Slack UI.",
+      "required": false,
+      "example": "Q4 Sales Report"
+    },
+    {
+      "name": "initial_comment",
+      "type": "string",
+      "description": "Optional message text to post along with the file.",
+      "required": false,
+      "example": "Here is the latest report for your review."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://slack.com/api/files.upload",
+    "headers": {
+      "Authorization": "Bearer xoxb-your-bot-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "channels": "C1234567890",
+      "file": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+      "filename": "image.png",
+      "title": "Test Image",
+      "initial_comment": "Check out this image!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "file": {
+        "id": "F1234567890",
+        "created": 1503435956,
+        "timestamp": 1503435956,
+        "name": "report.pdf",
+        "title": "Q4 Sales Report",
+        "mimetype": "application/pdf",
+        "filetype": "pdf",
+        "pretty_type": "PDF Document",
+        "user": "U1234567890",
+        "editable": false,
+        "size": 524288,
+        "mode": "hosted",
+        "is_external": false,
+        "external_type": "",
+        "is_public": false,
+        "public_url_shared": false,
+        "display_as_bot": false,
+        "username": "",
+        "url_private": "https://files.slack.com/files-pri/T1234567890-F1234567890/report.pdf",
+        "url_private_download": "https://files.slack.com/files-pri/T1234567890-F1234567890/download/report.pdf",
+        "permalink": "https://team.slack.com/files/U1234567890/F1234567890/report.pdf",
+        "permalink_public": "https://slack-files.com/T1234567890-F1234567890-abc123",
+        "channels": [
+          "C1234567890"
+        ],
+        "groups": [],
+        "ims": [],
+        "has_rich_preview": false
+      }
+    }
+  }
+}

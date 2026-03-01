@@ -1,0 +1,48 @@
+{
+  "name": "get_activity_summary",
+  "description": "Retrieve a user's daily activity summary for a specific date. Returns total steps, calories burned (including basal metabolic rate), distance traveled in kilometers, floors climbed, and active minutes broken down by intensity level (sedentary, lightly active, fairly active, very active). Use the date parameter in YYYY-MM-DD format. Use 'today' as a shortcut for the current date.",
+  "endpoint": "/1/user/-/activities/date/{date}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "The date to retrieve activity data for, in YYYY-MM-DD format or 'today'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/activities/date/2025-01-15.json",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "summary": {
+        "steps": 8432,
+        "caloriesOut": 2156,
+        "distances": [
+          { "activity": "total", "distance": 6.24 },
+          { "activity": "tracker", "distance": 6.24 }
+        ],
+        "floors": 12,
+        "sedentaryMinutes": 780,
+        "lightlyActiveMinutes": 195,
+        "fairlyActiveMinutes": 32,
+        "veryActiveMinutes": 48,
+        "activityCalories": 876,
+        "marginalCalories": 542
+      },
+      "goals": {
+        "steps": 10000,
+        "caloriesOut": 2500,
+        "distance": 8.05,
+        "floors": 10,
+        "activeMinutes": 30
+      }
+    }
+  }
+}

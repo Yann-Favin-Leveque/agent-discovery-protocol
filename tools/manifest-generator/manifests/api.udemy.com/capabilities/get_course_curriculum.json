@@ -1,0 +1,68 @@
+{
+  "name": "get_course_curriculum",
+  "description": "Retrieve the full curriculum structure of a Udemy course including sections, lectures, and their types. Helps users understand the complete syllabus and content breakdown before deciding to enroll in a course.",
+  "endpoint": "/api-2.0/courses/{course_id}/public-curriculum-items/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "The unique identifier of the course.",
+      "required": true,
+      "example": 950390
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of items per page (default 100).",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://www.udemy.com/api-2.0/courses/950390/public-curriculum-items/?page_size=100",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_client_id:client_secret}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 165,
+      "next": "https://www.udemy.com/api-2.0/courses/950390/public-curriculum-items/?page=2",
+      "results": [
+        {
+          "_class": "chapter",
+          "id": 1234567,
+          "title": "Introduction to Python",
+          "sort_order": 1
+        },
+        {
+          "_class": "lecture",
+          "id": 1234568,
+          "title": "Python Installation and Setup",
+          "sort_order": 2,
+          "content_summary": "12:30",
+          "is_free": true
+        },
+        {
+          "_class": "lecture",
+          "id": 1234569,
+          "title": "Python Data Types",
+          "sort_order": 3,
+          "content_summary": "18:45",
+          "is_free": false
+        }
+      ]
+    }
+  }
+}

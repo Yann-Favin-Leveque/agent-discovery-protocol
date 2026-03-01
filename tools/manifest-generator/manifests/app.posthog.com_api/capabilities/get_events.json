@@ -1,0 +1,21 @@
+{
+  "name": "get_events",
+  "description": "Retrieve recent events with filtering by event type, person, and properties.",
+  "endpoint": "/projects/{project_id}/events/",
+  "method": "GET",
+  "parameters": [
+    {"name": "project_id", "type": "number", "description": "Project ID.", "required": true, "example": 1},
+    {"name": "event", "type": "string", "description": "Filter by event name.", "required": false, "example": "$pageview"},
+    {"name": "person_id", "type": "string", "description": "Filter by person ID.", "required": false, "example": "uuid-123"},
+    {"name": "limit", "type": "number", "description": "Max results.", "required": false, "example": 50}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.posthog.com/api/projects/1/events/?event=$pageview&limit=50",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"results": [{"id": "evt_abc", "event": "$pageview", "distinct_id": "user_123", "properties": {"$current_url": "https://example.com/pricing", "$browser": "Chrome"}, "timestamp": "2024-01-20T10:00:00Z"}]}
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "name": "create_subscription",
+  "description": "Create a recurring subscription for an existing Mollie customer. The customer must have a valid mandate (verified payment method) first. Mollie will automatically charge the customer at the specified interval. Supports daily, weekly, monthly, and yearly billing cycles.",
+  "endpoint": "/v2/customers/{customerId}/subscriptions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "The ID of the customer to subscribe (path parameter, starts with 'cst_').",
+      "required": true,
+      "example": "cst_8wmqcHMN4U"
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "The recurring amount. Object with 'currency' (ISO 4217) and 'value' (string with decimals).",
+      "required": true,
+      "example": { "currency": "EUR", "value": "9.99" }
+    },
+    {
+      "name": "interval",
+      "type": "string",
+      "description": "The billing interval. Examples: '1 month', '2 weeks', '1 year', '14 days'.",
+      "required": true,
+      "example": "1 month"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "A description for the subscription, shown on invoices.",
+      "required": true,
+      "example": "Pro Plan Monthly"
+    },
+    {
+      "name": "startDate",
+      "type": "string",
+      "description": "The start date of the subscription in YYYY-MM-DD format. Defaults to today.",
+      "required": false,
+      "example": "2024-04-01"
+    },
+    {
+      "name": "times",
+      "type": "integer",
+      "description": "Total number of charges. Leave empty for unlimited recurring charges.",
+      "required": false,
+      "example": 12
+    },
+    {
+      "name": "webhookUrl",
+      "type": "string",
+      "description": "URL to receive webhook notifications for each subscription payment.",
+      "required": false,
+      "example": "https://yourshop.com/webhooks/subscription"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Custom metadata to attach to the subscription.",
+      "required": false,
+      "example": { "plan": "pro" }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/subscriptions",
+    "headers": {
+      "Authorization": "Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": { "currency": "EUR", "value": "9.99" },
+      "interval": "1 month",
+      "description": "Pro Plan Monthly",
+      "webhookUrl": "https://yourshop.com/webhooks/subscription",
+      "metadata": { "plan": "pro" }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "subscription",
+      "id": "sub_rVKGtNd6s3",
+      "customerId": "cst_8wmqcHMN4U",
+      "mode": "live",
+      "createdAt": "2024-03-15T11:00:00+00:00",
+      "status": "active",
+      "amount": { "currency": "EUR", "value": "9.99" },
+      "times": null,
+      "timesRemaining": null,
+      "interval": "1 month",
+      "startDate": "2024-04-01",
+      "nextPaymentDate": "2024-04-01",
+      "description": "Pro Plan Monthly",
+      "webhookUrl": "https://yourshop.com/webhooks/subscription",
+      "metadata": { "plan": "pro" },
+      "_links": {
+        "self": { "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/subscriptions/sub_rVKGtNd6s3" },
+        "customer": { "href": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U" }
+      }
+    }
+  }
+}

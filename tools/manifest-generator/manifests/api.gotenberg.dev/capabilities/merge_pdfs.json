@@ -1,0 +1,42 @@
+{
+  "name": "merge_pdfs",
+  "description": "Merge multiple PDF files into a single PDF document. Upload two or more PDF files and Gotenberg will combine them in the order they are provided. The merge order is determined by alphabetical sorting of the filenames, so prefix filenames with numbers (e.g., '01_cover.pdf', '02_content.pdf', '03_appendix.pdf') to control the order. Returns the merged PDF as binary content.",
+  "endpoint": "/forms/pdfengines/merge",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "files",
+      "type": "file",
+      "required": true,
+      "description": "Two or more PDF files to merge. Files are merged in alphabetical filename order. Use numeric prefixes to control ordering (e.g., '01_first.pdf', '02_second.pdf'). Sent as multipart/form-data."
+    },
+    {
+      "name": "pdfa",
+      "type": "string",
+      "required": false,
+      "description": "Convert the resulting PDF to the specified PDF/A format for archival compliance. Supported values: 'PDF/A-1a', 'PDF/A-2b', 'PDF/A-3b'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gotenberg.dev/forms/pdfengines/merge",
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "files": {
+        "01_cover.pdf": "(binary PDF content)",
+        "02_report.pdf": "(binary PDF content)",
+        "03_appendix.pdf": "(binary PDF content)"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": "attachment; filename=\"output.pdf\""
+    },
+    "body": "(binary PDF content)"
+  }
+}

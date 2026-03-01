@@ -1,0 +1,78 @@
+{
+  "name": "generate_image",
+  "description": "Generate one or more images from a text prompt using DALL-E 3 or DALL-E 2. DALL-E 3 produces high-quality images in various sizes and supports 'vivid' or 'natural' styles. Returns image URLs or base64-encoded image data.",
+  "endpoint": "/v1/images/generations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "description": "Model to use: 'dall-e-3' (default, higher quality) or 'dall-e-2'."
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": true,
+      "description": "Text description of the desired image (max 4000 characters for DALL-E 3, 1000 for DALL-E 2)."
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "required": false,
+      "description": "Number of images to generate (1 for DALL-E 3, 1-10 for DALL-E 2). Default 1."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "required": false,
+      "description": "Image size: '1024x1024' (default), '1024x1792', or '1792x1024' for DALL-E 3. Also '256x256' and '512x512' for DALL-E 2."
+    },
+    {
+      "name": "quality",
+      "type": "string",
+      "required": false,
+      "description": "Image quality: 'standard' (default) or 'hd' (finer detail, DALL-E 3 only)."
+    },
+    {
+      "name": "style",
+      "type": "string",
+      "required": false,
+      "description": "Image style: 'vivid' (default, hyper-real/dramatic) or 'natural' (more natural, less hyper-real). DALL-E 3 only."
+    },
+    {
+      "name": "response_format",
+      "type": "string",
+      "required": false,
+      "description": "Format of the response: 'url' (default, temporary URL) or 'b64_json' (base64-encoded image)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/images/generations",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "dall-e-3",
+      "prompt": "A serene Japanese garden in autumn with a wooden bridge over a koi pond, soft morning light filtering through red maple leaves, watercolor painting style",
+      "n": 1,
+      "size": "1024x1024",
+      "quality": "hd",
+      "style": "natural"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "created": 1709164800,
+      "data": [
+        {
+          "revised_prompt": "A tranquil Japanese garden scene during autumn. A curved wooden bridge arches gracefully over a peaceful koi pond. Soft golden morning light filters through vibrant red maple leaves, casting warm dappled shadows. The scene is rendered in a delicate watercolor painting style with soft edges and gentle color washes.",
+          "url": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-abc123/user-def456/img-xyz789.png?st=2026-02-28T12%3A00%3A00Z&se=2026-02-28T14%3A00%3A00Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=...&sig=..."
+        }
+      ]
+    }
+  }
+}

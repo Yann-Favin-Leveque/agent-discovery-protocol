@@ -1,0 +1,29 @@
+{
+  "name": "list_conversations",
+  "description": "List and filter conversations across all inboxes with pagination, status filters, and assignee filters.",
+  "endpoint": "/api/v1/accounts/{account_id}/conversations",
+  "method": "GET",
+  "parameters": [
+    { "name": "account_id", "type": "number", "required": true, "description": "The account ID" },
+    { "name": "status", "type": "string", "required": false, "description": "Filter by status: open, resolved, pending, snoozed, all" },
+    { "name": "assignee_type", "type": "string", "required": false, "description": "Filter by assignee: me, unassigned, all, assigned" },
+    { "name": "page", "type": "number", "required": false, "description": "Page number for pagination" }
+  ],
+  "request_example": {
+    "url": "/api/v1/accounts/1/conversations?status=open&page=1"
+  },
+  "response_example": {
+    "data": {
+      "meta": { "all_count": 125, "mine_count": 12 },
+      "payload": [
+        {
+          "id": 42,
+          "inbox_id": 1,
+          "status": "open",
+          "messages": [],
+          "meta": { "sender": { "name": "Jane Doe", "email": "jane@example.com" } }
+        }
+      ]
+    }
+  }
+}

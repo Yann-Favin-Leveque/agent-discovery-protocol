@@ -1,0 +1,66 @@
+{
+  "name": "create_deployment",
+  "description": "Create a new deployment on Vercel from a Git source. Specify the project name, Git repository, branch or commit, and optional build settings. The deployment will build and deploy asynchronously. Use list_deployments to check the status.",
+  "endpoint": "/v13/deployments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "The name of the project to deploy."
+    },
+    {
+      "name": "gitSource",
+      "type": "object",
+      "required": true,
+      "description": "Git source configuration with 'type' (github/gitlab/bitbucket), 'org', 'repo', and 'ref' (branch name or commit SHA)."
+    },
+    {
+      "name": "target",
+      "type": "string",
+      "required": false,
+      "description": "Deployment target: 'production' or 'preview'. Defaults to 'preview' for non-default branches."
+    },
+    {
+      "name": "projectSettings",
+      "type": "object",
+      "required": false,
+      "description": "Override project settings for this deployment: 'buildCommand', 'installCommand', 'outputDirectory', 'framework'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vercel.com/v13/deployments",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "my-nextjs-app",
+      "gitSource": {
+        "type": "github",
+        "org": "my-org",
+        "repo": "my-nextjs-app",
+        "ref": "main"
+      },
+      "target": "production"
+    }
+  },
+  "response_example": {
+    "id": "dpl_n1o2p3q4r5s6t7u8v9w0",
+    "name": "my-nextjs-app",
+    "url": "my-nextjs-app-jkl012.vercel.app",
+    "readyState": "QUEUED",
+    "target": "production",
+    "createdAt": 1706266800000,
+    "meta": {
+      "githubCommitSha": "c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4",
+      "githubCommitMessage": "chore: update dependencies",
+      "githubCommitRef": "main",
+      "githubOrg": "my-org",
+      "githubRepo": "my-nextjs-app"
+    },
+    "inspectorUrl": "https://vercel.com/my-org/my-nextjs-app/dpl_n1o2p3q4r5s6t7u8v9w0",
+    "buildingAt": null
+  }
+}

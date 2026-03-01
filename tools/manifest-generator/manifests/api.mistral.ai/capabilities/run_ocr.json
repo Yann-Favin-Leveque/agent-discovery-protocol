@@ -1,0 +1,71 @@
+{
+  "name": "run_ocr",
+  "description": "Extract text and structured content from images and documents using optical character recognition. Supports PDF, images, and other document formats, returning extracted text with layout information.",
+  "endpoint": "/v1/ocr",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The OCR model ID to use.",
+      "required": true,
+      "example": "mistral-ocr-latest"
+    },
+    {
+      "name": "document",
+      "type": "object",
+      "description": "The document to process. Contains 'type' (image_url or document_url) and the URL or base64 data.",
+      "required": true,
+      "example": {"type": "image_url", "image_url": "https://example.com/image.png"}
+    },
+    {
+      "name": "pages",
+      "type": "array",
+      "description": "Array of page numbers to process (0-indexed). Processes all pages if omitted.",
+      "required": false,
+      "example": [0, 1, 2]
+    },
+    {
+      "name": "include_image_base64",
+      "type": "boolean",
+      "description": "Whether to include extracted images as base64 in the response.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/ocr",
+    "headers": {
+      "Authorization": "Bearer your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "mistral-ocr-latest",
+      "document": {
+        "type": "image_url",
+        "image_url": "https://example.com/receipt.png"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "pages": [
+        {
+          "index": 0,
+          "markdown": "# Receipt\n\nDate: 2024-01-15\nTotal: $42.50\n\n| Item | Price |\n|------|-------|\n| Coffee | $4.50 |\n| Sandwich | $12.00 |",
+          "images": [],
+          "dimensions": {
+            "width": 800,
+            "height": 1200
+          }
+        }
+      ],
+      "model": "mistral-ocr-latest",
+      "usage": {
+        "pages_processed": 1
+      }
+    }
+  }
+}

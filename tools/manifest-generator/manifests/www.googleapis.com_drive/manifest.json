@@ -1,0 +1,85 @@
+{
+  "spec_version": "1.0",
+  "name": "Google Drive API",
+  "description": "The Google Drive API allows clients to access resources from Google Drive.",
+  "base_url": "https://www.googleapis.com/drive/v3",
+  "auth": {
+    "type": "oauth2",
+    "authorization_url": "https://accounts.google.com/o/oauth2/v2/auth",
+    "token_url": "https://oauth2.googleapis.com/token",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/drive.appdata",
+      "https://www.googleapis.com/auth/drive.apps.readonly",
+      "https://www.googleapis.com/auth/drive.file",
+      "https://www.googleapis.com/auth/drive.meet.readonly",
+      "https://www.googleapis.com/auth/drive.metadata",
+      "https://www.googleapis.com/auth/drive.metadata.readonly",
+      "https://www.googleapis.com/auth/drive.photos.readonly",
+      "https://www.googleapis.com/auth/drive.readonly",
+      "https://www.googleapis.com/auth/drive.scripts"
+    ]
+  },
+  "capabilities": [
+    {
+      "name": "operations",
+      "description": "Manage operations — gets the latest state of a long-running operation. clients can use this method to poll the operation result at intervals as recommended by the api service. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/operations"
+    },
+    {
+      "name": "about",
+      "description": "Manage about — gets information about the user, the user's drive, and system capabilities. for more information, see [return user info](https://developers.google.com/workspace/drive/api/guides/user-info). required: the `fields` parameter must be set. to return the exact fields you need, see [return specific fields](https://developers.google.com/workspace/drive/api/guides/fields-parameter). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/about"
+    },
+    {
+      "name": "apps",
+      "description": "Manage apps — lists a user's installed apps. for more information, see [return user info](https://developers.google.com/workspace/drive/api/guides/user-info), gets a specific app. for more information, see [return user info](https://developers.google.com/workspace/drive/api/guides/user-info). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/apps"
+    },
+    {
+      "name": "changes",
+      "description": "Manage changes — subscribes to changes for a user. for more information, see [notifications for resource changes](https://developers.google.com/workspace/drive/api/guides/push), gets the starting pagetoken for listing future changes. for more information, see [retrieve changes](https://developers.google.com/workspace/drive/api/guides/manage-changes), lists the changes for a user or shared drive. for more information, see [retrieve changes](https://developers.google.com/workspace/drive/api/guides/manage-changes). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/changes"
+    },
+    {
+      "name": "channels",
+      "description": "Manage channels — stops watching resources through this channel. for more information, see [notifications for resource changes](https://developers.google.com/workspace/drive/api/guides/push). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/channels"
+    },
+    {
+      "name": "comments",
+      "description": "Manage comments — creates a comment on a file. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments). required: the `fields` parameter must be set. to return the exact fields you need, see [return specific fields](https://developers.google.com/workspace/drive/api/guides/fields-parameter), lists a file's comments. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments). required: the `fields` parameter must be set. to return the exact fields you need, see [return specific fields](https://developers.google.com/workspace/drive/api/guides/fields-parameter), gets a comment by id. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments). required: the `fields` parameter must be set. to return the exact fields you need, see [return specific fields](https://developers.google.com/workspace/drive/api/guides/fields-parameter). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/comments"
+    },
+    {
+      "name": "drives",
+      "description": "Manage drives — creates a shared drive. for more information, see [manage shared drives](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives), hides a shared drive from the default view. for more information, see [manage shared drives](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives), restores a shared drive to the default view. for more information, see [manage shared drives](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/drives"
+    },
+    {
+      "name": "files",
+      "description": "Manage files —  creates a file. for more information, see [create and manage files](/workspace/drive/api/guides/create-file). this method supports an */upload* uri and accepts uploaded media with the following characteristics: - *maximum file size:* 5,120 gb - *accepted media mime types:* `*/*` (specify a valid mime type, rather than the literal `*/*` value. the literal `*/*` is only used to indicate that any valid mime type can be uploaded. for more information, see [google workspace and google drive supported mime types](/workspace/drive/api/guides/mime-types).) for more information on uploading files, see [upload file data](/workspace/drive/api/guides/manage-uploads). apps creating shortcuts with the `create` method must specify the mime type `application/vnd.google-apps.shortcut`. apps should specify a file extension in the `name` property when inserting files with the api. for example, an operation to insert a jpeg file should specify something like `\"name\": \"cat.jpg\"` in the metadata. subsequent `get` requests include the read-only `fileextension` property populated with the extension originally specified in the `name` property. when a google drive user requests to download a file, or when the file is downloaded through the sync client, drive builds a full filename (with extension) based on the name. in cases where the extension is missing, drive attempts to determine the extension based on the file's mime type, creates a copy of a file and applies any requested updates with patch semantics. for more information, see [create and manage files](https://developers.google.com/workspace/drive/api/guides/create-file), modifies the set of labels applied to a file. for more information, see [set a label field on a file](https://developers.google.com/workspace/drive/api/guides/set-label). returns a list of the labels that were added or modified. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/files"
+    },
+    {
+      "name": "permissions",
+      "description": "Manage permissions — creates a permission for a file or shared drive. for more information, see [share files, folders, and drives](https://developers.google.com/workspace/drive/api/guides/manage-sharing). **warning:** concurrent permissions operations on the same file aren't supported; only the last update is applied, lists a file's or shared drive's permissions. for more information, see [share files, folders, and drives](https://developers.google.com/workspace/drive/api/guides/manage-sharing), gets a permission by id. for more information, see [share files, folders, and drives](https://developers.google.com/workspace/drive/api/guides/manage-sharing). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/permissions"
+    },
+    {
+      "name": "replies",
+      "description": "Manage replies — creates a reply to a comment. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments), lists a comment's replies. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments), gets a reply by id. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/replies"
+    },
+    {
+      "name": "revisions",
+      "description": "Manage revisions — lists a file's revisions. for more information, see [manage file revisions](https://developers.google.com/workspace/drive/api/guides/manage-revisions). **important:** the list of revisions returned by this method might be incomplete for files with a large revision history, including frequently edited google docs, sheets, and slides. older revisions might be omitted from the response, meaning the first revision returned may not be the oldest existing revision. the revision history visible in the workspace editor user interface might be more complete than the list returned by the api, gets a revision's metadata or content by id. for more information, see [manage file revisions](https://developers.google.com/workspace/drive/api/guides/manage-revisions), updates a revision with patch semantics. for more information, see [manage file revisions](https://developers.google.com/workspace/drive/api/guides/manage-revisions). Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/revisions"
+    },
+    {
+      "name": "teamdrives",
+      "description": "Manage teamdrives — deprecated: use `drives.create` instead, deprecated: use `drives.list` instead, deprecated: use `drives.get` instead. Supports standard CRUD operations through the REST API.",
+      "detail_url": "/capabilities/teamdrives"
+    }
+  ]
+}

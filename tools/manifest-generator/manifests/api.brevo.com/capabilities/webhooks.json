@@ -1,0 +1,99 @@
+{
+  "name": "webhooks",
+  "description": "Manage webhooks — creates a new webhook to receive real-time notifications for specified events.\n\nuse this to:\n- set u, this endpoint will submit a request to get the history of webhooks in the\ncsv file. the link to download the csv file will be sent to the webhook that\nwas provided in the notifyurl, updates an existing webhook configuration and event subscriptions.\n\nuse this to:\n- modify webhook ev. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "auth",
+      "type": "object",
+      "description": "Add authentication on webhook url",
+      "required": false,
+      "example": {}
+    },
+    {
+      "name": "batched",
+      "type": "boolean",
+      "description": "To send batched webhooks",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "channel",
+      "type": "string",
+      "description": "channel of webhook",
+      "required": false,
+      "example": "sms"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description of the webhook",
+      "required": false,
+      "example": "Webhook triggered on unsubscription"
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Inbound domain of webhook, required in case of event type\n`inbound`",
+      "required": false,
+      "example": "example.com"
+    },
+    {
+      "name": "events",
+      "type": "string[]",
+      "description": "- Events triggering the webhook. Possible values for\n**Transactional** type webhook: #### `sent` OR `request`,\n`delivered`, `hardBounce`, `softBounce`, `blocked`, `spam`,\n`invalid`, `deferred`, `click`, `opened`, `uniqueOpened` and\n`unsubscribed` - Possible values for **Marketing** type webhook:\n#### `spam`, `opened`, `click`, `hardBounce`, `softBounce`,\n`unsubscribed`, `listAddition` & `delivered` - Possible values\nfor **Inbound** type webhook: #### `inboundEmailProcessed` -\nPossible values for type **Transactional** and channel **SMS**\n####\n`accepted`,`delivered`,`softBounce`,`hardBounce`,`unsubscribe`,`reply`,\n`subscribe`,`sent`,`blacklisted`,`skip` - Possible values for\ntype **Marketing**  channel **SMS** ####\n`sent`,`delivered`,`softBounce`,`hardBounce`,`unsubscribe`,`reply`,\n`subscribe`,`skip`\n#### `reply`",
+      "required": true,
+      "example": [
+        "value1"
+      ]
+    },
+    {
+      "name": "headers",
+      "type": "object[]",
+      "description": "Custom headers to be send with webhooks",
+      "required": false,
+      "example": []
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Type of the webhook",
+      "required": false,
+      "example": "marketing"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "URL of the webhook",
+      "required": true,
+      "example": "http://requestb.in/173lyyx1"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/webhooks",
+    "headers": {
+      "Content-Type": "application/json",
+      "api-key": "{api_key}"
+    },
+    "body": {
+      "events": [
+        "value1"
+      ],
+      "url": "http://requestb.in/173lyyx1"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "events": [
+          "value1"
+        ],
+        "url": "http://requestb.in/173lyyx1"
+      }
+    }
+  }
+}

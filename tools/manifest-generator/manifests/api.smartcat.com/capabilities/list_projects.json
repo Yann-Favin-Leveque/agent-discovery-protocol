@@ -1,0 +1,60 @@
+{
+  "name": "list_projects",
+  "description": "List all translation projects in the Smartcat account. Returns project metadata including name, languages, status, and document count. Supports filtering by project name substring and creation date range. Results are paginated.",
+  "endpoint": "/api/integration/v1/project/list",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "projectName",
+      "type": "string",
+      "required": false,
+      "description": "Filter projects by name substring. Case-insensitive partial match."
+    },
+    {
+      "name": "createdDateFrom",
+      "type": "string",
+      "required": false,
+      "description": "Filter projects created on or after this date. ISO 8601 format."
+    },
+    {
+      "name": "createdDateTo",
+      "type": "string",
+      "required": false,
+      "description": "Filter projects created on or before this date. ISO 8601 format."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.smartcat.com/api/integration/v1/project/list?projectName=Mobile%20App",
+    "headers": {
+      "Authorization": "Basic YWNjb3VudF9pZDphcGlfa2V5"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "proj_abc123def456",
+        "name": "Mobile App Localization v2.5",
+        "sourceLanguage": "en",
+        "targetLanguages": ["es", "fr", "de", "ja"],
+        "status": "inProgress",
+        "workflowStages": ["Translation", "Editing"],
+        "deadline": "2025-10-15T23:59:59Z",
+        "createdDate": "2025-08-01T10:00:00Z",
+        "documentsCount": 3
+      },
+      {
+        "id": "proj_xyz789ghi012",
+        "name": "Mobile App Localization v2.0",
+        "sourceLanguage": "en",
+        "targetLanguages": ["es", "fr"],
+        "status": "completed",
+        "workflowStages": ["Translation"],
+        "deadline": "2025-06-01T23:59:59Z",
+        "createdDate": "2025-05-01T08:30:00Z",
+        "documentsCount": 5
+      }
+    ]
+  }
+}

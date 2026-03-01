@@ -1,0 +1,95 @@
+{
+  "name": "list_subscriptions",
+  "description": "List all subscriptions in your Lemon Squeezy store. Subscriptions are created when a customer purchases a recurring product variant. Each subscription includes status, renewal date, billing interval, and customer information.",
+  "endpoint": "/v1/subscriptions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "filter[store_id]",
+      "type": "integer",
+      "description": "Filter subscriptions by store ID.",
+      "required": false,
+      "example": 12345
+    },
+    {
+      "name": "filter[order_id]",
+      "type": "integer",
+      "description": "Filter subscriptions by the order that created them.",
+      "required": false,
+      "example": 1001
+    },
+    {
+      "name": "filter[product_id]",
+      "type": "integer",
+      "description": "Filter subscriptions by product ID.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "filter[status]",
+      "type": "string",
+      "description": "Filter by subscription status: 'on_trial', 'active', 'paused', 'past_due', 'unpaid', 'cancelled', 'expired'.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "page[number]",
+      "type": "integer",
+      "description": "The page number for pagination.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "page[size]",
+      "type": "integer",
+      "description": "Number of items per page. Default 10.",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.lemonsqueezy.com/v1/subscriptions?filter[store_id]=12345&filter[status]=active",
+    "headers": {
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+      "Accept": "application/vnd.api+json",
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "meta": {
+        "page": { "currentPage": 1, "from": 1, "lastPage": 2, "perPage": 10, "to": 10, "total": 15 }
+      },
+      "jsonapi": { "version": "1.0" },
+      "data": [
+        {
+          "type": "subscriptions",
+          "id": "1",
+          "attributes": {
+            "store_id": 12345,
+            "customer_id": 1,
+            "order_id": 1001,
+            "product_id": 1,
+            "variant_id": 1,
+            "product_name": "Pro Plan",
+            "variant_name": "Monthly",
+            "user_name": "Jane Doe",
+            "user_email": "jane@example.com",
+            "status": "active",
+            "status_formatted": "Active",
+            "card_brand": "visa",
+            "card_last_four": "4242",
+            "renews_at": "2024-04-14T14:30:00.000000Z",
+            "ends_at": null,
+            "trial_ends_at": null,
+            "created_at": "2024-03-14T14:30:00.000000Z",
+            "updated_at": "2024-03-14T14:30:00.000000Z"
+          }
+        }
+      ]
+    }
+  }
+}

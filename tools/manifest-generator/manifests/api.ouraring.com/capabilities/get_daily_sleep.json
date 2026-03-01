@@ -1,0 +1,59 @@
+{
+  "name": "get_daily_sleep",
+  "description": "Retrieve daily sleep summaries for a date range. Each summary includes total sleep duration, efficiency percentage, sleep latency, restfulness, and an overall sleep score. Useful for tracking sleep quality trends over time.",
+  "endpoint": "/v2/usercollection/daily_sleep",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "Start date in YYYY-MM-DD format. Defaults to one day before end_date if omitted.",
+      "required": false,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "End date in YYYY-MM-DD format. Defaults to today if omitted.",
+      "required": false,
+      "example": "2024-01-07"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "description": "Pagination token for retrieving the next page of results.",
+      "required": false,
+      "example": null
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=2024-01-01&end_date=2024-01-07",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "abc123",
+          "day": "2024-01-01",
+          "score": 85,
+          "contributors": {
+            "deep_sleep": 80,
+            "efficiency": 90,
+            "latency": 88,
+            "rem_sleep": 78,
+            "restfulness": 82,
+            "timing": 75,
+            "total_sleep": 85
+          },
+          "timestamp": "2024-01-01T00:00:00+00:00"
+        }
+      ],
+      "next_token": null
+    }
+  }
+}

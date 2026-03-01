@@ -1,0 +1,20 @@
+{
+  "name": "run_action",
+  "description": "Execute an action function that can call external services and APIs. Actions can have side effects and are not transactional, but can call queries and mutations.",
+  "endpoint": "/api/action",
+  "method": "POST",
+  "parameters": [
+    { "name": "path", "type": "string", "description": "The path to the action function.", "required": true, "example": "emails:sendWelcome" },
+    { "name": "args", "type": "object", "description": "Arguments to pass to the action function.", "required": true, "example": { "userId": "user_456" } }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-deployment.convex.cloud/api/action",
+    "headers": { "Authorization": "Convex {deploy_key}", "Content-Type": "application/json" },
+    "body": { "path": "emails:sendWelcome", "args": { "userId": "user_456" } }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "status": "success", "value": null }
+  }
+}

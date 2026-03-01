@@ -1,0 +1,23 @@
+{
+  "name": "capture_event",
+  "description": "Capture a custom analytics event with properties, user identification, and optional timestamp.",
+  "endpoint": "/capture/",
+  "method": "POST",
+  "parameters": [
+    {"name": "api_key", "type": "string", "description": "Project API key.", "required": true, "example": "phc_abc123"},
+    {"name": "event", "type": "string", "description": "Event name.", "required": true, "example": "user_signed_up"},
+    {"name": "distinct_id", "type": "string", "description": "Unique user identifier.", "required": true, "example": "user_123"},
+    {"name": "properties", "type": "object", "description": "Event properties.", "required": false, "example": {"plan": "enterprise", "source": "landing_page"}},
+    {"name": "timestamp", "type": "string", "description": "ISO 8601 timestamp.", "required": false, "example": "2024-01-20T10:00:00Z"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.posthog.com/api/capture/",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"api_key": "phc_abc123", "event": "user_signed_up", "distinct_id": "user_123", "properties": {"plan": "enterprise", "source": "landing_page"}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"status": 1}
+  }
+}

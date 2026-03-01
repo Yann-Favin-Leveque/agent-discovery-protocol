@@ -1,0 +1,42 @@
+{
+  "name": "users_settings",
+  "description": "Manage users settings — updates the auto-forwarding setting for the specified account. a verified forwarding address must be specified when auto-forwarding is enabled. this method is only available to service account clients that have been delegated domain-wide authority, updates language settings. if successful, the return object contains the `displaylanguage` that was saved for the user, which may differ from the value passed into the request. this is because the requested `displaylanguage` may not be directly supported by gmail but have a close variant that is, and so the variant may be chosen and saved instead, updates vacation responder settings. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/gmail/v1/users/{userId}/settings/autoForwarding",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "User's email address. The special value \"me\" can be used to indicate the authenticated user.",
+      "required": true,
+      "example": "me"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/{userId}/settings/autoForwarding",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "userId": "me"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "userId": "me"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://mail.google.com/",
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.addons.current.message.action",
+    "https://www.googleapis.com/auth/gmail.addons.current.action.compose",
+    "https://www.googleapis.com/auth/gmail.modify"
+  ]
+}

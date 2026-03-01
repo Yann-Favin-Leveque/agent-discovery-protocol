@@ -1,0 +1,26 @@
+{
+  "name": "track_event",
+  "description": "Record a user action or event with properties, sending it to all connected destinations for analytics and activation.",
+  "endpoint": "/v1/track",
+  "method": "POST",
+  "parameters": [
+    { "name": "userId", "type": "string", "required": false, "description": "Unique identifier for the user (required if anonymousId not provided)" },
+    { "name": "anonymousId", "type": "string", "required": false, "description": "Anonymous identifier (required if userId not provided)" },
+    { "name": "event", "type": "string", "required": true, "description": "Name of the event being tracked" },
+    { "name": "properties", "type": "object", "required": false, "description": "Free-form dictionary of event properties" },
+    { "name": "timestamp", "type": "string", "required": false, "description": "ISO 8601 timestamp of when the event occurred" }
+  ],
+  "request_example": {
+    "userId": "user_123",
+    "event": "Order Completed",
+    "properties": {
+      "orderId": "ord_456",
+      "revenue": 99.99,
+      "currency": "USD"
+    },
+    "timestamp": "2025-01-15T10:00:00Z"
+  },
+  "response_example": {
+    "success": true
+  }
+}

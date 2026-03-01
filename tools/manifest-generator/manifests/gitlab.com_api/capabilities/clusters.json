@@ -1,0 +1,102 @@
+{
+  "name": "clusters",
+  "description": "Manage clusters — add existing instance cluster, edit instance cluster, list instance clusters. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/admin/clusters/add",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Cluster name",
+      "required": true,
+      "example": "Example"
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "description": "Determines if cluster is active or not, defaults to true",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "environment_scope",
+      "type": "string",
+      "description": "The associated environment to the cluster",
+      "required": false,
+      "example": "*"
+    },
+    {
+      "name": "namespace_per_environment",
+      "type": "boolean",
+      "description": "Deploy each environment to a separate Kubernetes namespace",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Cluster base domain",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "management_project_id",
+      "type": "number",
+      "description": "The ID of the management project",
+      "required": false,
+      "example": 42
+    },
+    {
+      "name": "managed",
+      "type": "boolean",
+      "description": "Determines if GitLab will manage namespaces and service accounts for this cluster, defaults to true",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "platform_kubernetes_attributes[api_url]",
+      "type": "string",
+      "description": "URL to access the Kubernetes API",
+      "required": true,
+      "example": "https://example.com"
+    },
+    {
+      "name": "platform_kubernetes_attributes[token]",
+      "type": "string",
+      "description": "Token to authenticate against Kubernetes",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "platform_kubernetes_attributes[ca_cert]",
+      "type": "string",
+      "description": "TLS certificate (needed if API is using a self-signed TLS certificate)",
+      "required": false,
+      "example": "example_value"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.gitlab.com/api/v4/admin/clusters/add",
+    "headers": {
+      "Content-Type": "application/json",
+      "Private-Token": "{api_key}"
+    },
+    "body": {
+      "name": "Example",
+      "platform_kubernetes_attributes[api_url]": "https://example.com",
+      "platform_kubernetes_attributes[token]": "example_value"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "name": "Example",
+        "platform_kubernetes_attributes[api_url]": "https://example.com",
+        "platform_kubernetes_attributes[token]": "example_value"
+      }
+    }
+  }
+}

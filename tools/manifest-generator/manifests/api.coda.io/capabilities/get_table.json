@@ -1,0 +1,81 @@
+{
+  "name": "get_table",
+  "description": "Retrieve the schema and metadata of a specific table within a Coda document. Returns table name, all column definitions with their types, display formats, constraints, and other configuration details needed to interact with the table.",
+  "endpoint": "/docs/{docId}/tables/{tableId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "description": "The unique identifier of the Coda document containing the table.",
+      "required": true,
+      "example": "abcdef123456"
+    },
+    {
+      "name": "tableId",
+      "type": "string",
+      "description": "The unique identifier of the table to retrieve.",
+      "required": true,
+      "example": "grid-tbl123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://coda.io/apis/v1/docs/abcdef123456/tables/grid-tbl123",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "grid-tbl123",
+      "type": "table",
+      "name": "Projects",
+      "parent": {
+        "id": "abcdef123456",
+        "type": "doc"
+      },
+      "displayFormat": "grid",
+      "columns": [
+        {
+          "id": "c-col1",
+          "name": "Name",
+          "type": "text",
+          "description": "Project name",
+          "required": true
+        },
+        {
+          "id": "c-col2",
+          "name": "Status",
+          "type": "select",
+          "description": "Current project status",
+          "options": ["Active", "On Hold", "Completed", "Planning"]
+        },
+        {
+          "id": "c-col3",
+          "name": "Budget",
+          "type": "currency",
+          "description": "Project budget in USD",
+          "precision": 2
+        },
+        {
+          "id": "c-col4",
+          "name": "Owner",
+          "type": "person",
+          "description": "Person responsible for the project"
+        },
+        {
+          "id": "c-col5",
+          "name": "Start Date",
+          "type": "date",
+          "description": "Project start date"
+        }
+      ],
+      "rowCount": 42,
+      "createdTime": "2024-01-10T08:00:00Z",
+      "modifiedTime": "2024-02-28T15:30:00Z"
+    }
+  }
+}

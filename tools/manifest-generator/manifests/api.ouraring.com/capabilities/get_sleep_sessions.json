@@ -1,0 +1,63 @@
+{
+  "name": "get_sleep_sessions",
+  "description": "Retrieve detailed sleep session data including precise sleep stage breakdowns (deep, REM, light, awake), average heart rate, lowest heart rate, HRV metrics, respiratory rate, and movement counts. Each session represents one continuous sleep period including naps.",
+  "endpoint": "/v2/usercollection/sleep",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "Start date in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "End date in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2024-01-07"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "description": "Pagination token for retrieving the next page of results.",
+      "required": false,
+      "example": null
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/sleep?start_date=2024-01-01&end_date=2024-01-07",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "abc123",
+          "day": "2024-01-01",
+          "bedtime_start": "2024-01-01T23:15:00+00:00",
+          "bedtime_end": "2024-01-02T07:30:00+00:00",
+          "type": "long_sleep",
+          "total_sleep_duration": 27000,
+          "deep_sleep_duration": 5400,
+          "rem_sleep_duration": 7200,
+          "light_sleep_duration": 12600,
+          "awake_time": 1800,
+          "average_heart_rate": 56,
+          "lowest_heart_rate": 48,
+          "average_hrv": 42,
+          "respiratory_rate": 15.2,
+          "efficiency": 92,
+          "latency": 480,
+          "restless_periods": 8
+        }
+      ],
+      "next_token": null
+    }
+  }
+}

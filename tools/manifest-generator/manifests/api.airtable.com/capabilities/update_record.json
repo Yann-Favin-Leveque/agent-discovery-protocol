@@ -1,0 +1,72 @@
+{
+  "name": "update_record",
+  "description": "Update fields on one or more existing records in an Airtable table. Uses PATCH semantics, meaning only the fields you specify will be updated; all other fields remain unchanged. You can update up to 10 records per request.",
+  "endpoint": "/v0/{baseId}/{tableIdOrName}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "baseId",
+      "type": "string",
+      "description": "The ID of the base containing the table (starts with 'app').",
+      "required": true,
+      "example": "appABC123def456"
+    },
+    {
+      "name": "tableIdOrName",
+      "type": "string",
+      "description": "The ID or URL-encoded name of the table containing the records.",
+      "required": true,
+      "example": "Tasks"
+    },
+    {
+      "name": "records",
+      "type": "array",
+      "description": "Array of record objects, each with 'id' and 'fields' properties. Maximum 10 records per request.",
+      "required": true,
+      "example": [{ "id": "rec1234567890", "fields": { "Status": "Done" } }]
+    },
+    {
+      "name": "typecast",
+      "type": "boolean",
+      "description": "If true, Airtable will try to convert string values to the appropriate cell type.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.airtable.com/v0/appABC123def456/Tasks",
+    "headers": {
+      "Authorization": "Bearer pat1234567890abcdef",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "records": [
+        {
+          "id": "rec1234567890",
+          "fields": {
+            "Status": "In Progress",
+            "Priority": "Urgent"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "records": [
+        {
+          "id": "rec1234567890",
+          "createdTime": "2024-01-15T10:30:00.000Z",
+          "fields": {
+            "Name": "Write documentation",
+            "Status": "In Progress",
+            "Priority": "Urgent",
+            "Assignee": "user@example.com"
+          }
+        }
+      ]
+    }
+  }
+}

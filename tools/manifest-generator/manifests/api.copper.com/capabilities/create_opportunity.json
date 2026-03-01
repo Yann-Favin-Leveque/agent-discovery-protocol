@@ -1,0 +1,24 @@
+{
+  "name": "create_opportunity",
+  "description": "Create a new sales opportunity in Copper with value, pipeline stage, and close date.",
+  "endpoint": "/opportunities",
+  "method": "POST",
+  "parameters": [
+    {"name": "name", "type": "string", "description": "Opportunity name.", "required": true, "example": "Enterprise License"},
+    {"name": "monetary_value", "type": "number", "description": "Deal value.", "required": false, "example": 50000},
+    {"name": "pipeline_id", "type": "number", "description": "Pipeline ID.", "required": true, "example": 1},
+    {"name": "pipeline_stage_id", "type": "number", "description": "Stage ID within the pipeline.", "required": true, "example": 1},
+    {"name": "primary_contact_id", "type": "number", "description": "Primary contact person ID.", "required": false, "example": 123},
+    {"name": "close_date", "type": "string", "description": "Expected close date (MM/DD/YYYY).", "required": false, "example": "06/01/2024"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.copper.com/developer_api/v1/opportunities",
+    "headers": {"X-PW-AccessToken": "{api_key}", "X-PW-Application": "developer_api", "X-PW-UserEmail": "user@example.com", "Content-Type": "application/json"},
+    "body": {"name": "Enterprise License", "monetary_value": 50000, "pipeline_id": 1, "pipeline_stage_id": 1, "primary_contact_id": 123, "close_date": "06/01/2024"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": 202, "name": "Enterprise License", "monetary_value": 50000, "pipeline_id": 1, "status": "Open", "date_created": 1705747200}
+  }
+}

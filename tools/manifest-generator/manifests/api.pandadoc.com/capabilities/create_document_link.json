@@ -1,0 +1,31 @@
+{
+  "name": "create_document_link",
+  "description": "Generate a shareable session link for a document so a specific recipient can view and sign it without needing an email invitation. Useful for embedding signing experiences in your own application or sharing via chat.",
+  "endpoint": "/public/v1/documents/{id}/session",
+  "method": "POST",
+  "parameters": [
+    { "name": "id", "type": "string", "description": "The unique ID of the document.", "required": true, "example": "msFYActMfJHqNTKH8YSvF1" },
+    { "name": "recipient", "type": "string", "description": "The email address of the recipient who will use this link.", "required": true, "example": "john@example.com" },
+    { "name": "lifetime", "type": "integer", "description": "Link expiration time in seconds. Default is 3600 (1 hour).", "required": false, "example": 3600 }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pandadoc.com/public/v1/documents/msFYActMfJHqNTKH8YSvF1/session",
+    "headers": {
+      "Authorization": "API-Key {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipient": "john@example.com",
+      "lifetime": 3600
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "session_abc123",
+      "expires_at": "2026-01-15T11:30:00.000Z",
+      "link": "https://app.pandadoc.com/s/session_abc123"
+    }
+  }
+}

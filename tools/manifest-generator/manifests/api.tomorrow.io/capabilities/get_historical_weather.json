@@ -1,0 +1,71 @@
+{
+  "name": "get_historical_weather",
+  "description": "Retrieve historical weather observations for any location going back to the year 2000. Supports customizable time resolution from hourly to daily. Returns the same rich set of weather fields as the forecast endpoint. Useful for trend analysis, climate research, and comparing past conditions.",
+  "endpoint": "/v4/weather/history/recent",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Location as a city name, latitude/longitude pair, or place ID.",
+      "required": true,
+      "example": "London"
+    },
+    {
+      "name": "apikey",
+      "type": "string",
+      "description": "Your API key for authentication.",
+      "required": true,
+      "example": "{api_key}"
+    },
+    {
+      "name": "timesteps",
+      "type": "string",
+      "description": "Time interval: '1h' (hourly) or '1d' (daily).",
+      "required": false,
+      "example": "1d"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Unit system: 'metric' or 'imperial'.",
+      "required": false,
+      "example": "metric"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tomorrow.io/v4/weather/history/recent?location=London&timesteps=1d&units=metric&apikey={api_key}",
+    "headers": {
+      "Accept-Encoding": "gzip"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "timelines": {
+        "daily": [
+          {
+            "time": "2024-01-14T00:00:00Z",
+            "values": {
+              "temperatureMax": 9.5,
+              "temperatureMin": 4.2,
+              "humidityAvg": 78,
+              "windSpeedMax": 18.3,
+              "precipitationProbabilityMax": 65,
+              "precipitationIntensityMax": 2.1,
+              "weatherCodeMax": 1189,
+              "cloudCoverAvg": 85,
+              "visibilityAvg": 12.0
+            }
+          }
+        ]
+      },
+      "location": {
+        "lat": 51.5074,
+        "lon": -0.1278,
+        "name": "London, England, United Kingdom"
+      }
+    }
+  }
+}

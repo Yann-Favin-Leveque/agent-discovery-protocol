@@ -1,0 +1,97 @@
+{
+  "name": "search_tasks",
+  "description": "Search for tasks in a specific workspace using filters, keywords, and advanced criteria. Supports filtering by assignee, completion status, and custom fields.",
+  "endpoint": "/1.0/workspaces/{workspace_gid}/tasks/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "workspace_gid",
+      "type": "string",
+      "description": "The GID of the workspace to search in (path parameter).",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Search keyword to find tasks by name or description.",
+      "required": false,
+      "example": "authentication"
+    },
+    {
+      "name": "assignee",
+      "type": "string",
+      "description": "Filter by assigned user GID.",
+      "required": false,
+      "example": "9876543210"
+    },
+    {
+      "name": "completed",
+      "type": "boolean",
+      "description": "Filter by completion status (true for completed, false for incomplete).",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "sort_by",
+      "type": "string",
+      "description": "Sort field (e.g., 'created_at', 'due_on', 'modified_at').",
+      "required": false,
+      "example": "due_on"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results to return (default: 50, max: 100).",
+      "required": false,
+      "example": 50
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.asana.com/api/1.0/workspaces/1234567890/tasks/search?text=authentication&completed=false&limit=50",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "gid": "1234567890",
+          "name": "Implement user authentication",
+          "completed": false,
+          "assignee": {
+            "gid": "9876543210",
+            "name": "Alice Smith"
+          },
+          "due_on": "2026-03-15",
+          "projects": [
+            {
+              "gid": "1234567890",
+              "name": "Website Redesign"
+            }
+          ]
+        },
+        {
+          "gid": "1234567891",
+          "name": "Set up authentication testing",
+          "completed": false,
+          "assignee": {
+            "gid": "8765432109",
+            "name": "Charlie Davis"
+          },
+          "due_on": "2026-03-18",
+          "projects": [
+            {
+              "gid": "1234567890",
+              "name": "Website Redesign"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

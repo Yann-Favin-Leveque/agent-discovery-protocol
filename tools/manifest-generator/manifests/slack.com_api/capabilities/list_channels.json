@@ -1,0 +1,92 @@
+{
+  "name": "list_channels",
+  "description": "Retrieve a paginated list of all channels in the workspace. Get channel names, IDs, topics, purposes, member counts, and creation dates.",
+  "endpoint": "/conversations.list",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "The maximum number of items to return per page. Default is 100, maximum is 1000.",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor for fetching the next page of results.",
+      "required": false,
+      "example": "dXNlcjpVMDZEOUZWUkE="
+    },
+    {
+      "name": "exclude_archived",
+      "type": "boolean",
+      "description": "Set to true to exclude archived channels from the results.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Comma-separated list of channel types to include: public_channel, private_channel, mpim, im.",
+      "required": false,
+      "example": "public_channel,private_channel"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://slack.com/api/conversations.list?limit=100&exclude_archived=true&types=public_channel,private_channel",
+    "headers": {
+      "Authorization": "Bearer xoxb-your-bot-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "channels": [
+        {
+          "id": "C1234567890",
+          "name": "general",
+          "is_channel": true,
+          "is_group": false,
+          "is_im": false,
+          "is_mpim": false,
+          "is_private": false,
+          "created": 1449252889,
+          "is_archived": false,
+          "is_general": true,
+          "name_normalized": "general",
+          "is_shared": false,
+          "parent_conversation": null,
+          "creator": "U1234567890",
+          "is_member": true,
+          "is_private": false,
+          "is_mpim": false,
+          "last_read": "1503435956.000247",
+          "latest": null,
+          "unlinked": 0,
+          "unread_count": 0,
+          "unread_count_display": 0,
+          "members": [
+            "U1234567890",
+            "U0987654321"
+          ],
+          "topic": {
+            "value": "Company-wide announcements",
+            "creator": "U1234567890",
+            "last_set": 1449252889
+          },
+          "purpose": {
+            "value": "This is the general channel",
+            "creator": "U1234567890",
+            "last_set": 1449252889
+          }
+        }
+      ],
+      "response_metadata": {
+        "next_cursor": "dXNlcjpVMDZEOUZWUkE="
+      }
+    }
+  }
+}

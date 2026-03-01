@@ -1,0 +1,85 @@
+{
+  "name": "update_task",
+  "description": "Update properties of an existing task such as name, status, assignee, due date, or completion state.",
+  "endpoint": "/1.0/tasks/{task_gid}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "task_gid",
+      "type": "string",
+      "description": "The GID of the task to update (path parameter).",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Update the task name.",
+      "required": false,
+      "example": "Implement user authentication (revised)"
+    },
+    {
+      "name": "completed",
+      "type": "boolean",
+      "description": "Mark the task as completed or incomplete.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "assignee",
+      "type": "string",
+      "description": "Update the assigned user GID.",
+      "required": false,
+      "example": "9876543210"
+    },
+    {
+      "name": "due_on",
+      "type": "string",
+      "description": "Update the due date in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2026-03-20"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "description": "Update the task description or notes.",
+      "required": false,
+      "example": "Complete OAuth2 implementation with refresh tokens"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://app.asana.com/api/1.0/tasks/1234567890",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "completed": true,
+        "due_on": "2026-03-20"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "gid": "1234567890",
+        "name": "Implement user authentication",
+        "completed": true,
+        "assignee": {
+          "gid": "9876543210",
+          "name": "Alice Smith"
+        },
+        "due_on": "2026-03-20",
+        "projects": [
+          {
+            "gid": "1234567890",
+            "name": "Website Redesign"
+          }
+        ]
+      }
+    }
+  }
+}

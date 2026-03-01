@@ -1,0 +1,101 @@
+{
+  "name": "create_chat_completion",
+  "description": "Generate a chat completion response given a conversation history of messages. Supports all open-source chat models hosted on Together AI including Llama, Mistral, Qwen, and DeepSeek with streaming, tool calling, and JSON mode.",
+  "endpoint": "/v1/chat/completions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "description": "The model ID to use for the completion (e.g. 'meta-llama/Llama-3.3-70B-Instruct-Turbo').",
+      "required": true,
+      "example": "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "description": "An array of message objects representing the conversation history. Each message has a 'role' (system, user, assistant) and 'content' (string).",
+      "required": true,
+      "example": [
+        { "role": "system", "content": "You are a helpful assistant." },
+        { "role": "user", "content": "What is the capital of France?" }
+      ]
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "description": "Maximum number of tokens to generate in the completion.",
+      "required": false,
+      "example": 512
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "description": "Sampling temperature between 0 and 2. Higher values make output more random.",
+      "required": false,
+      "example": 0.7
+    },
+    {
+      "name": "top_p",
+      "type": "number",
+      "description": "Nucleus sampling parameter. Only tokens with cumulative probability up to top_p are considered.",
+      "required": false,
+      "example": 0.9
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "description": "If true, partial message deltas are sent as server-sent events.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "stop",
+      "type": "array",
+      "description": "Up to 4 sequences where the API will stop generating further tokens.",
+      "required": false,
+      "example": ["\n\n"]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.together.xyz/v1/chat/completions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "messages": [
+        { "role": "system", "content": "You are a helpful assistant." },
+        { "role": "user", "content": "What is the capital of France?" }
+      ],
+      "max_tokens": 512,
+      "temperature": 0.7
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "chatcmpl-abc123",
+      "object": "chat.completion",
+      "created": 1709000000,
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "The capital of France is Paris."
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 8,
+        "total_tokens": 33
+      }
+    }
+  }
+}

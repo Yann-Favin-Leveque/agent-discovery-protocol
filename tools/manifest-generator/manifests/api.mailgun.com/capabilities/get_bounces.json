@@ -1,0 +1,63 @@
+{
+  "name": "get_bounces",
+  "description": "Retrieve the list of email addresses that have bounced for your domain. Bounced addresses are ones where delivery permanently failed (hard bounce). Use this to identify and remove invalid addresses from your recipient lists, improving deliverability and sender reputation.",
+  "endpoint": "/v3/{domain}/bounces",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun sending domain (path parameter).",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of records to return. Default 100, max 10000.",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "description": "Filter by a specific bounced email address. If provided, returns only that address's bounce record.",
+      "required": false,
+      "example": "invalid@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailgun.com/v3/mg.example.com/bounces?limit=50",
+    "headers": {
+      "Authorization": "Basic YXBpOmtleS14eHh4eHh4eHh4eHh4eHh4eA=="
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "address": "invalid@example.com",
+          "code": "550",
+          "error": "5.1.1 The email account that you tried to reach does not exist.",
+          "created_at": "Thu, 01 Feb 2024 12:00:00 -0000",
+          "MessageHash": "abc123def456"
+        },
+        {
+          "address": "old-address@example.com",
+          "code": "550",
+          "error": "5.1.1 User unknown",
+          "created_at": "Wed, 31 Jan 2024 08:30:00 -0000",
+          "MessageHash": "def456ghi789"
+        }
+      ],
+      "paging": {
+        "first": "https://api.mailgun.com/v3/mg.example.com/bounces?page=first",
+        "last": "https://api.mailgun.com/v3/mg.example.com/bounces?page=last",
+        "next": "https://api.mailgun.com/v3/mg.example.com/bounces?page=next&address=old-address%40example.com",
+        "prev": "https://api.mailgun.com/v3/mg.example.com/bounces?page=prev&address=invalid%40example.com"
+      }
+    }
+  }
+}

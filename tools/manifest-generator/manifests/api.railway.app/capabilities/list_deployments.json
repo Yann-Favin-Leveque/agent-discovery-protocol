@@ -1,0 +1,20 @@
+{
+  "name": "list_deployments",
+  "description": "List recent deployments for a service, including status, timestamps, and deployment metadata.",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {"name": "query", "type": "string", "description": "GraphQL query to fetch deployments.", "required": true, "example": "query($serviceId: String!, $environmentId: String!) { deployments(first: 10, input: {serviceId: $serviceId, environmentId: $environmentId}) { edges { node { id status createdAt } } } }"},
+    {"name": "variables", "type": "object", "description": "Service and environment IDs to filter deployments.", "required": true, "example": {"serviceId": "srv_abc123", "environmentId": "env_prod"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"query": "query($serviceId: String!, $environmentId: String!) { deployments(first: 10, input: {serviceId: $serviceId, environmentId: $environmentId}) { edges { node { id status createdAt } } } }", "variables": {"serviceId": "srv_abc123", "environmentId": "env_prod"}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"deployments": {"edges": [{"node": {"id": "dep_abc123", "status": "SUCCESS", "createdAt": "2024-01-20T15:30:00Z"}}]}}}
+  }
+}

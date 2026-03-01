@@ -1,0 +1,81 @@
+{
+  "name": "list_documents",
+  "description": "List documents in a Fauna collection with optional filtering, sorting, and cursor-based pagination. Use collection methods like where(), order(), and projection to control which documents and fields are returned. Results come in pages with an 'after' cursor for fetching subsequent batches.",
+  "endpoint": "/query/1",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "collection",
+      "type": "string",
+      "description": "The name of the collection to list documents from.",
+      "required": true,
+      "example": "Product"
+    },
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "Optional FQL filter expression (e.g. '.price < 50' or '.category == \"electronics\"').",
+      "required": false,
+      "example": ".category == 'electronics'"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Field and direction to sort by (e.g. '.name' for ascending, 'desc(.price)' for descending).",
+      "required": false,
+      "example": ".name"
+    },
+    {
+      "name": "pageSize",
+      "type": "integer",
+      "description": "Number of documents per page (default 16, max 16000).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Cursor from a previous response to fetch the next page.",
+      "required": false,
+      "example": "hdW..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://db.fauna.com/query/1",
+    "headers": {
+      "Authorization": "Bearer {secret}",
+      "Content-Type": "application/json",
+      "X-Format": "simple"
+    },
+    "body": {
+      "query": "Product.where(.category == 'electronics').order(.name).pageSize(20) { name, price, in_stock }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "data": [
+          {
+            "name": "Bluetooth Speaker",
+            "price": 39.99,
+            "in_stock": true
+          },
+          {
+            "name": "Wireless Mouse",
+            "price": 24.99,
+            "in_stock": true
+          }
+        ],
+        "after": "hdW..."
+      },
+      "stats": {
+        "compute_ops": 1,
+        "read_ops": 4,
+        "write_ops": 0,
+        "query_time_ms": 15
+      }
+    }
+  }
+}

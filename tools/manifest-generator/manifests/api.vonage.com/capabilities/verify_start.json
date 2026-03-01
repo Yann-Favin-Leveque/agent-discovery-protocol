@@ -1,0 +1,68 @@
+{
+  "name": "verify_start",
+  "description": "Start a phone number verification flow by sending a one-time PIN code to the specified phone number. The code can be delivered via SMS, voice call, WhatsApp, or email. Use this for two-factor authentication, phone number confirmation, or user identity verification. Returns a request_id that must be passed to verify_check to validate the code entered by the user.",
+  "endpoint": "/v2/verify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "brand",
+      "type": "string",
+      "required": true,
+      "description": "The brand or application name displayed to the user in the verification message (e.g., 'Acme Corp'). Maximum 16 characters for SMS."
+    },
+    {
+      "name": "workflow",
+      "type": "array",
+      "required": true,
+      "description": "Array of verification workflow steps. Each step defines a channel ('sms', 'voice', 'whatsapp', 'email') and target ('to' number/email). Multiple steps create fallback chains if earlier steps fail."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": "The locale for the verification message (e.g., 'en-us', 'fr-fr'). Determines the language of the default message template."
+    },
+    {
+      "name": "channel_timeout",
+      "type": "integer",
+      "required": false,
+      "description": "Seconds to wait before moving to the next workflow step. Default is 300 (5 minutes)."
+    },
+    {
+      "name": "code_length",
+      "type": "integer",
+      "required": false,
+      "description": "The length of the verification code. Must be between 4 and 10. Default is 4."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vonage.com/v2/verify",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    },
+    "body": {
+      "brand": "Acme Corp",
+      "workflow": [
+        {
+          "channel": "sms",
+          "to": "14155550123"
+        },
+        {
+          "channel": "voice",
+          "to": "14155550123"
+        }
+      ],
+      "locale": "en-us",
+      "code_length": 6,
+      "channel_timeout": 120
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "request_id": "c11236f4-00bf-4b89-84ba-88b25df97315"
+    }
+  }
+}

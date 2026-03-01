@@ -1,0 +1,84 @@
+{
+  "name": "update_task",
+  "description": "Update an existing task's content, description, due date, priority, or labels. Returns the updated task object.",
+  "endpoint": "/rest/v2/tasks/{id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The task ID to update (required in URL path).",
+      "required": true,
+      "example": "4017903321"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "Updated task title/content (optional in request body).",
+      "required": false,
+      "example": "Buy groceries and cook dinner"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Updated description (optional in request body).",
+      "required": false,
+      "example": "Milk, eggs, bread, butter, chicken"
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "description": "Updated priority from 1 to 4 (optional in request body).",
+      "required": false,
+      "example": "2"
+    },
+    {
+      "name": "due_string",
+      "type": "string",
+      "description": "Updated due date in natural language or ISO format (optional in request body).",
+      "required": false,
+      "example": "next week"
+    },
+    {
+      "name": "labels",
+      "type": "array",
+      "description": "Updated array of label strings (optional in request body).",
+      "required": false,
+      "example": "[\"shopping\", \"meal-prep\"]"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.todoist.com/rest/v2/tasks/4017903321",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "Buy groceries and cook dinner",
+      "priority": 2,
+      "due_string": "next week",
+      "labels": ["shopping", "meal-prep"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "4017903321",
+      "project_id": "2203306141",
+      "content": "Buy groceries and cook dinner",
+      "description": "Milk, eggs, bread, butter, chicken",
+      "due": {
+        "date": "2026-03-08",
+        "is_recurring": false,
+        "datetime": "2026-03-08T18:00:00Z",
+        "string": "next week"
+      },
+      "priority": 2,
+      "order": 1,
+      "labels": ["shopping", "meal-prep"],
+      "is_completed": false,
+      "updated_at": "2026-03-01T12:45:00Z"
+    }
+  }
+}

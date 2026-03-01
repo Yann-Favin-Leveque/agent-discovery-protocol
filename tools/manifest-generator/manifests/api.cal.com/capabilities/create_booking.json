@@ -1,0 +1,87 @@
+{
+  "name": "create_booking",
+  "description": "Create a new booking for a specific Cal.com event type. You must provide the event type ID, a start time, the attendee's name and email, and a timezone. The booking is confirmed immediately unless the event type requires manual confirmation. Returns the booking details including a unique UID and meeting URL.",
+  "endpoint": "/v2/bookings",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "eventTypeId",
+      "type": "integer",
+      "description": "The ID of the event type to book.",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "description": "The start time of the booking in ISO 8601 format.",
+      "required": true,
+      "example": "2024-02-15T10:00:00Z"
+    },
+    {
+      "name": "attendee",
+      "type": "object",
+      "description": "Object containing attendee information: name, email, and timeZone.",
+      "required": true,
+      "example": { "name": "John Doe", "email": "john@example.com", "timeZone": "America/New_York" }
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Optional key-value metadata to attach to the booking.",
+      "required": false,
+      "example": { "source": "agent", "notes": "Discuss Q1 roadmap" }
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language code for booking notifications (e.g., 'en', 'fr').",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cal.com/v2/bookings",
+    "headers": {
+      "Authorization": "Bearer cal_live_abcdef1234567890",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "eventTypeId": 12345,
+      "start": "2024-02-15T10:00:00Z",
+      "attendee": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "timeZone": "America/New_York"
+      },
+      "metadata": {
+        "source": "agent"
+      },
+      "language": "en"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": 98765,
+        "uid": "booking-uid-abc123",
+        "title": "30 Minute Meeting between Jane Smith and John Doe",
+        "startTime": "2024-02-15T10:00:00.000Z",
+        "endTime": "2024-02-15T10:30:00.000Z",
+        "status": "ACCEPTED",
+        "attendees": [
+          {
+            "name": "John Doe",
+            "email": "john@example.com",
+            "timeZone": "America/New_York"
+          }
+        ],
+        "meetingUrl": "https://meet.google.com/abc-defg-hij",
+        "metadata": { "source": "agent" }
+      }
+    }
+  }
+}

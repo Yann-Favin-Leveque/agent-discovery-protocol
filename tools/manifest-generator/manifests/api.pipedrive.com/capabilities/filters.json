@@ -1,0 +1,82 @@
+{
+  "name": "filters",
+  "description": "Manage filters — add a new filter, update filter, get all filters. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/filters",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the filter",
+      "required": true,
+      "example": "Example"
+    },
+    {
+      "name": "conditions",
+      "type": "object",
+      "description": "The conditions of the filter as a JSON object. Please note that a maximum of 16 conditions is allowed per filter and `date` values must be supplied in the `YYYY-MM-DD` format. It requires a minimum structure as follows: `{\"glue\":\"and\",\"conditions\":[{\"glue\":\"and\",\"conditions\": [CONDITION_OBJECTS]},{\"glue\":\"or\",\"conditions\":[CONDITION_OBJECTS]}]}`. Replace `CONDITION_OBJECTS` with JSON objects of the following structure: `{\"object\":\"\",\"field_id\":\"\", \"operator\":\"\",\"value\":\"\", \"extra_value\":\"\"}` or leave the array empty. Depending on the object type you should use another API endpoint to get `field_id`. There are five types of objects you can choose from: `\"person\"`, `\"deal\"`, `\"organization\"`, `\"product\"`, `\"activity\"` and you can use these types of operators depending on what type of a field you have: `\"IS NOT NULL\"`, `\"IS NULL\"`, `\"<=\"`, `\">=\"`, `\"<\"`, `\">\"`, `\"!=\"`, `\"=\"`, `\"LIKE '$%'\"`, `\"LIKE '%$%'\"`, `\"NOT LIKE '$%'\"`. To get a better understanding of how filters work try creating them directly from the Pipedrive application.",
+      "required": true,
+      "example": {}
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "The type of filter to create",
+      "required": true,
+      "example": "example_value"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pipedrive.com/v1/filters",
+    "headers": {
+      "Content-Type": "application/json",
+      "x-api-token": "{api_key}"
+    },
+    "body": {
+      "name": "Example",
+      "conditions": {},
+      "type": "example_value"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "id": 1,
+        "name": "Deal title is 'my title'",
+        "active_flag": true,
+        "type": "deals",
+        "temporary_flag": false,
+        "user_id": 1,
+        "add_time": "2018-01-27 08:49:26",
+        "update_time": "2018-01-27 08:49:26",
+        "visible_to": 1,
+        "custom_view_id": 1,
+        "conditions": {
+          "glue": "and",
+          "conditions": [
+            {
+              "glue": "and",
+              "conditions": [
+                {
+                  "object": "deal",
+                  "field_id": "123141",
+                  "operator": "=",
+                  "value": "my title"
+                }
+              ]
+            },
+            {
+              "glue": "or",
+              "conditions": [
+                null
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

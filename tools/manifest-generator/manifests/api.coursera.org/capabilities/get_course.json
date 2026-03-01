@@ -1,0 +1,44 @@
+{
+  "name": "get_course",
+  "description": "Retrieve detailed information about a specific Coursera course by its ID or slug. Returns the full course description, syllabus modules, instructors, partner institution, estimated workload, difficulty level, and enrollment options.",
+  "endpoint": "/api/courses.v1/{id}",
+  "method": "GET",
+  "parameters": [
+    { "name": "id", "type": "string", "description": "The course ID or slug (URL-friendly name).", "required": true, "example": "machine-learning" },
+    { "name": "fields", "type": "string", "description": "Comma-separated list of fields to include.", "required": false, "example": "name,slug,description,partnerIds,instructorIds,workload,primaryLanguages,domainTypes,photoUrl" },
+    { "name": "includes", "type": "string", "description": "Linked resources to include (e.g., instructorIds, partnerIds).", "required": false, "example": "instructorIds,partnerIds" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/courses.v1/machine-learning?fields=name,slug,description,partnerIds,instructorIds,workload,primaryLanguages,photoUrl&includes=instructorIds,partnerIds",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "Nft4Gj20EeaFZA7WnICJvQ",
+          "slug": "machine-learning",
+          "name": "Machine Learning",
+          "description": "Learn about the most effective machine learning techniques, and gain practice implementing them...",
+          "photoUrl": "https://coursera-course-photos.s3.amazonaws.com/machine-learning.jpg",
+          "workload": "5-7 hours/week",
+          "primaryLanguages": ["en"],
+          "partnerIds": ["HkE8X620EeeRMQr1MJqjMQ"],
+          "instructorIds": ["instructor123"]
+        }
+      ],
+      "linked": {
+        "partners.v1": [
+          { "id": "HkE8X620EeeRMQr1MJqjMQ", "name": "Stanford University" }
+        ],
+        "instructors.v1": [
+          { "id": "instructor123", "fullName": "Andrew Ng", "title": "Adjunct Professor" }
+        ]
+      }
+    }
+  }
+}

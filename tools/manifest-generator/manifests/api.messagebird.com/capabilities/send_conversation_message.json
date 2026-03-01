@@ -1,0 +1,62 @@
+{
+  "name": "send_conversation_message",
+  "description": "Send a message within an existing conversation. The message is delivered through the conversation's active channel (SMS, WhatsApp, etc.). Supports text, images, video, audio, files, locations, and template messages. Use this to reply to customers or send follow-up messages in an ongoing conversation thread.",
+  "endpoint": "/v1/conversations/{id}/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "The unique conversation ID. This is a path parameter in the URL."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "The content type: 'text', 'image', 'video', 'audio', 'file', 'location', or 'hsm' (template)."
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "required": true,
+      "description": "The message content. For 'text': {'text': '...'}. For 'image': {'image': {'url': '...'}}. For 'location': {'location': {'latitude': 52.37, 'longitude': 4.90}}."
+    },
+    {
+      "name": "channelId",
+      "type": "string",
+      "required": false,
+      "description": "Override the channel to use for this message. If omitted, uses the conversation's last active channel."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://conversations.messagebird.com/v1/conversations/2e15efafec3b4091b2eb3b509644e716/messages",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "AccessKey live_gshuPaZoeEG6ovIvTsgrmmGXc"
+    },
+    "body": {
+      "type": "text",
+      "content": {
+        "text": "Your support ticket #4521 has been resolved. Please let us know if you need anything else!"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "d4c3b2a1e5f60789abcd1234ef567890",
+      "conversationId": "2e15efafec3b4091b2eb3b509644e716",
+      "channelId": "853eeb5348e541a595da93b48c61a1ae",
+      "type": "text",
+      "content": {
+        "text": "Your support ticket #4521 has been resolved. Please let us know if you need anything else!"
+      },
+      "direction": "sent",
+      "status": "sent",
+      "createdDatetime": "2026-03-01T11:15:00Z",
+      "updatedDatetime": "2026-03-01T11:15:00Z"
+    }
+  }
+}

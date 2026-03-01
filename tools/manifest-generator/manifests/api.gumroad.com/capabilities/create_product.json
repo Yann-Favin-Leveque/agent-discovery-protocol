@@ -1,0 +1,80 @@
+{
+  "name": "create_product",
+  "description": "Create a new digital product on Gumroad with a name, price, description, and optional file or URL for delivery. The product is created as unpublished by default.",
+  "endpoint": "/v2/products",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the product as displayed to buyers.",
+      "required": true,
+      "example": "Premium Icon Pack"
+    },
+    {
+      "name": "price",
+      "type": "integer",
+      "description": "Price in cents. Use 0 for free products or 'pay what you want' products.",
+      "required": true,
+      "example": 1500
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Product description in HTML or plain text shown on the product page.",
+      "required": false,
+      "example": "A collection of 200+ premium vector icons for web and mobile design."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "URL to redirect buyers to after purchase instead of delivering a file.",
+      "required": false,
+      "example": "https://example.com/download"
+    },
+    {
+      "name": "preview_url",
+      "type": "string",
+      "description": "URL of a preview image or file for the product listing.",
+      "required": false,
+      "example": "https://example.com/preview.jpg"
+    },
+    {
+      "name": "custom_permalink",
+      "type": "string",
+      "description": "Custom URL slug for the product page (e.g., 'icon-pack' becomes gum.co/icon-pack).",
+      "required": false,
+      "example": "icon-pack"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gumroad.com/v2/products",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Premium Icon Pack",
+      "price": 1500,
+      "description": "A collection of 200+ premium vector icons for web and mobile design.",
+      "custom_permalink": "icon-pack"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "product": {
+        "id": "def456",
+        "name": "Premium Icon Pack",
+        "price": 1500,
+        "currency": "usd",
+        "short_url": "https://gum.co/icon-pack",
+        "published": false,
+        "sales_count": 0,
+        "sales_usd_cents": 0
+      }
+    }
+  }
+}

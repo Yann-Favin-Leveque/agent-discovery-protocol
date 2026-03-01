@@ -1,0 +1,48 @@
+{
+  "name": "add_reaction",
+  "description": "Add an emoji reaction to a message in Slack. Express sentiment, acknowledge messages, or mark messages for follow-up using emoji reactions.",
+  "endpoint": "/reactions.add",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The emoji name to add as a reaction (without colons). Examples: thumbsup, heart, laughing, thinking_face.",
+      "required": true,
+      "example": "thumbsup"
+    },
+    {
+      "name": "channel",
+      "type": "string",
+      "description": "The channel ID where the message is located.",
+      "required": true,
+      "example": "C1234567890"
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "description": "The timestamp of the message to react to (ts field from message object).",
+      "required": true,
+      "example": "1503435956.000247"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://slack.com/api/reactions.add",
+    "headers": {
+      "Authorization": "Bearer xoxb-your-bot-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "thumbsup",
+      "channel": "C1234567890",
+      "timestamp": "1503435956.000247"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true
+    }
+  }
+}

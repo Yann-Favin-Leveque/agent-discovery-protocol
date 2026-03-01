@@ -1,0 +1,112 @@
+{
+  "name": "send_with_template",
+  "description": "Send a signature request using a previously created reusable template. You must provide the template_id and fill in the signer roles with actual names and email addresses. You can also pre-fill any merge fields defined in the template (like company name, date, etc.). Each signer role in the template must be matched to a real signer. This is the most efficient way to send recurring documents like NDAs, contracts, and onboarding forms.",
+  "endpoint": "/v3/signature_request/send_with_template",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": true,
+      "description": "The ID of the template to use for this signature request."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Override the default title from the template."
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "required": false,
+      "description": "Override the default email subject from the template."
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Override the default message from the template."
+    },
+    {
+      "name": "signers",
+      "type": "array",
+      "required": true,
+      "description": "Array of signer objects mapping template roles to real people. Each object must have 'role' (matching a template signer role name), 'email_address', and 'name'."
+    },
+    {
+      "name": "custom_fields",
+      "type": "array",
+      "required": false,
+      "description": "Array of custom/merge field values to pre-fill. Each object has 'name' (matching a template merge field) and 'value'."
+    },
+    {
+      "name": "test_mode",
+      "type": "boolean",
+      "required": false,
+      "description": "Set to true to send in test mode (not legally binding). Default: false."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/signature_request/send_with_template",
+    "headers": {
+      "Authorization": "Basic YXBpX2tleV9oZXJlOg==",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "template_id": "c26b8a16784a872da37ea946b9ddec7c",
+      "title": "NDA - Acme Corp Partnership",
+      "subject": "NDA for your review",
+      "message": "Hi, please sign this NDA for our upcoming partnership.",
+      "signers": [
+        {
+          "role": "Client",
+          "email_address": "partner@acme.com",
+          "name": "John Acme"
+        },
+        {
+          "role": "Company Representative",
+          "email_address": "legal@example.com",
+          "name": "Sarah Legal"
+        }
+      ],
+      "custom_fields": [
+        { "name": "company_name", "value": "Acme Corp" },
+        { "name": "effective_date", "value": "2025-02-01" }
+      ],
+      "test_mode": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signature_request": {
+        "signature_request_id": "d3e5f7a9b1c2345678901234567890abcdef1234",
+        "title": "NDA - Acme Corp Partnership",
+        "is_complete": false,
+        "has_error": false,
+        "requester_email_address": "admin@example.com",
+        "signatures": [
+          {
+            "signature_id": "aabb11223344",
+            "signer_email_address": "partner@acme.com",
+            "signer_name": "John Acme",
+            "signer_role": "Client",
+            "order": 0,
+            "status_code": "awaiting_signature"
+          },
+          {
+            "signature_id": "ccdd55667788",
+            "signer_email_address": "legal@example.com",
+            "signer_name": "Sarah Legal",
+            "signer_role": "Company Representative",
+            "order": 1,
+            "status_code": "awaiting_signature"
+          }
+        ],
+        "created_at": 1705312800
+      }
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "name": "send_email",
+  "description": "Send an email to one or more recipients via SparkPost's Transmissions API. You can provide inline HTML/text content, reference a stored template, or use A/B test variants. Each recipient can receive personalized content via substitution data. Messages can be scheduled up to 3 days in the future. Maximum content size is 20MB.",
+  "endpoint": "/api/v1/transmissions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "recipients",
+      "type": "object[]",
+      "description": "Array of recipient objects, each containing an 'address' object with 'email' and optional 'name'. Alternatively, reference a stored recipient list with {\"list_id\": \"my-list\"}.",
+      "required": true,
+      "example": [
+        {
+          "address": {
+            "email": "user@example.com",
+            "name": "John Doe"
+          },
+          "substitution_data": {
+            "first_name": "John"
+          }
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "description": "Email content. For inline: provide 'from', 'subject', 'html', and/or 'text'. For stored template: provide 'template_id'. For A/B testing: provide 'ab_test_id'.",
+      "required": true,
+      "example": {
+        "from": {
+          "email": "notifications@example.com",
+          "name": "Acme Notifications"
+        },
+        "subject": "Your order has shipped",
+        "html": "<h1>Hello {{first_name}}!</h1><p>Your order has shipped.</p>",
+        "text": "Hello {{first_name}}! Your order has shipped."
+      }
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "description": "Sending options including open_tracking, click_tracking, transactional flag, sandbox mode, and start_time for scheduled delivery.",
+      "required": false,
+      "example": {
+        "open_tracking": true,
+        "click_tracking": true,
+        "transactional": true
+      }
+    },
+    {
+      "name": "substitution_data",
+      "type": "object",
+      "description": "Global substitution data applied to all recipients. Per-recipient substitution_data overrides these values.",
+      "required": false,
+      "example": {
+        "company_name": "Acme Inc",
+        "support_email": "help@acme.com"
+      }
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata attached to the transmission. Appears in webhook events. Maximum 10KB.",
+      "required": false,
+      "example": {
+        "campaign": "order-notifications"
+      }
+    },
+    {
+      "name": "campaign_id",
+      "type": "string",
+      "description": "Campaign identifier for grouping transmissions. Maximum 64 bytes.",
+      "required": false,
+      "example": "order-shipped-2024"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/transmissions",
+    "headers": {
+      "Authorization": "your-api-key-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipients": [
+        {
+          "address": {
+            "email": "user@example.com",
+            "name": "John Doe"
+          },
+          "substitution_data": {
+            "first_name": "John"
+          }
+        }
+      ],
+      "content": {
+        "from": {
+          "email": "notifications@example.com",
+          "name": "Acme Notifications"
+        },
+        "subject": "Your order has shipped, {{first_name}}!",
+        "html": "<h1>Hello {{first_name}}!</h1><p>Your order #{{order_id}} has shipped and is on its way.</p>",
+        "text": "Hello {{first_name}}! Your order #{{order_id}} has shipped and is on its way."
+      },
+      "substitution_data": {
+        "order_id": "ORD-12345"
+      },
+      "options": {
+        "open_tracking": true,
+        "click_tracking": true,
+        "transactional": true
+      },
+      "campaign_id": "order-shipped-2024"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "total_accepted_recipients": 1,
+        "total_rejected_recipients": 0,
+        "id": "11668787484950529"
+      }
+    }
+  }
+}

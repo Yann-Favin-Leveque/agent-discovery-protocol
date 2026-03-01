@@ -1,0 +1,66 @@
+{
+  "name": "manage_objects",
+  "description": "Add, update, or delete records in an Algolia index. Use batch operations to synchronize your data source with the search index efficiently. Each record must have a unique objectID. Supports partial updates to modify specific attributes without replacing the entire record.",
+  "endpoint": "/1/indexes/{indexName}/batch",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "The name of the index to modify.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "requests",
+      "type": "array",
+      "description": "Array of batch operations. Each has an 'action' (addObject, updateObject, partialUpdateObject, deleteObject) and a 'body' containing the record data.",
+      "required": true,
+      "example": [
+        {
+          "action": "addObject",
+          "body": {
+            "objectID": "12345",
+            "name": "New Product",
+            "price": 29.99
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/batch",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requests": [
+        {
+          "action": "addObject",
+          "body": {
+            "objectID": "prod_001",
+            "name": "Wireless Mouse",
+            "price": 24.99,
+            "category": "Electronics"
+          }
+        },
+        {
+          "action": "deleteObject",
+          "body": {
+            "objectID": "prod_old_002"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "taskID": 76543210,
+      "objectIDs": ["prod_001", "prod_old_002"]
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "update_item",
+  "description": "Update an existing item's fields, title, or metadata. Use this to rotate secrets, update passwords, or modify item properties.",
+  "endpoint": "/v1/vaults/{vaultId}/items/{itemId}",
+  "method": "PUT",
+  "parameters": [
+    { "name": "vaultId", "type": "string", "description": "The vault UUID.", "required": true, "example": "vault_abc123" },
+    { "name": "itemId", "type": "string", "description": "The item UUID.", "required": true, "example": "item_xyz789" },
+    { "name": "title", "type": "string", "description": "Updated item title.", "required": false, "example": "Updated API Key" },
+    { "name": "fields", "type": "array", "description": "Updated field values.", "required": false, "example": [{ "label": "api_key", "type": "CONCEALED", "value": "YOUR_API_KEY_HERE" }] }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://your-connect-server:8080/v1/vaults/vault_abc123/items/item_xyz789",
+    "headers": { "Authorization": "Bearer {connect_token}", "Content-Type": "application/json" },
+    "body": {
+      "id": "item_xyz789",
+      "title": "Updated Database Password",
+      "category": "LOGIN",
+      "fields": [
+        { "id": "username", "type": "STRING", "label": "username", "value": "admin" },
+        { "id": "password", "type": "CONCEALED", "label": "password", "value": "new_s3cr3t_p@ss" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "id": "item_xyz789", "title": "Updated Database Password", "category": "LOGIN", "updatedAt": "2024-02-10T16:00:00Z" }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "add_tracks_to_playlist",
+  "description": "Add one or more tracks to a playlist by their Spotify URIs. You can specify the position to insert the tracks.",
+  "endpoint": "/v1/playlists/{playlist_id}/tracks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "playlist_id",
+      "type": "string",
+      "description": "The Spotify ID of the playlist to add tracks to.",
+      "required": true,
+      "example": "3cEYpjA9oz9GiPac4AsH4n"
+    },
+    {
+      "name": "uris",
+      "type": "array",
+      "description": "Array of Spotify track URIs to add. Each URI follows the format 'spotify:track:{id}'.",
+      "required": true,
+      "example": ["spotify:track:6dGnYIeXmHdcikdzNNDMm2", "spotify:track:2TpxZ7JUBn3uw46aR7qd6V"]
+    },
+    {
+      "name": "position",
+      "type": "integer",
+      "description": "Zero-based position to insert the tracks. Omit to append to the end.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n/tracks",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "uris": ["spotify:track:6dGnYIeXmHdcikdzNNDMm2", "spotify:track:2TpxZ7JUBn3uw46aR7qd6V"],
+      "position": 0
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "snapshot_id": "abc4ABCabc12345678"
+    }
+  }
+}

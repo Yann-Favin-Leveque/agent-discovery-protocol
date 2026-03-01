@@ -1,0 +1,48 @@
+{
+  "name": "create_ticket",
+  "description": "Create a new support ticket in Freshdesk. Specify the requester, subject, description, priority, and status. Tickets can originate from email, phone, portal, or API and enter the agent queue for resolution.",
+  "endpoint": "/api/v2/tickets",
+  "method": "POST",
+  "parameters": [
+    { "name": "subject", "type": "string", "description": "The subject line of the ticket.", "required": true, "example": "Unable to process payment" },
+    { "name": "description", "type": "string", "description": "HTML or plain-text description of the issue.", "required": true, "example": "Customer reports that their credit card is being declined when trying to upgrade their plan." },
+    { "name": "email", "type": "string", "description": "Email address of the requester. Creates a new contact if not found.", "required": true, "example": "customer@example.com" },
+    { "name": "priority", "type": "integer", "description": "Ticket priority: 1 (Low), 2 (Medium), 3 (High), 4 (Urgent).", "required": true, "example": 3 },
+    { "name": "status", "type": "integer", "description": "Ticket status: 2 (Open), 3 (Pending), 4 (Resolved), 5 (Closed).", "required": true, "example": 2 },
+    { "name": "responder_id", "type": "integer", "description": "ID of the agent to assign the ticket to.", "required": false, "example": 5001 },
+    { "name": "tags", "type": "array", "description": "Tags to categorize the ticket.", "required": false, "example": ["billing", "payment"] },
+    { "name": "type", "type": "string", "description": "Ticket type: 'Question', 'Incident', 'Problem', or 'Feature Request'.", "required": false, "example": "Problem" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.freshdesk.com/api/v2/tickets",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subject": "Unable to process payment",
+      "description": "Customer reports that their credit card is being declined when trying to upgrade their plan.",
+      "email": "customer@example.com",
+      "priority": 3,
+      "status": 2,
+      "tags": ["billing", "payment"],
+      "type": "Problem"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 10001,
+      "subject": "Unable to process payment",
+      "status": 2,
+      "priority": 3,
+      "requester_id": 20001,
+      "responder_id": null,
+      "tags": ["billing", "payment"],
+      "type": "Problem",
+      "created_at": "2025-01-15T10:30:00Z",
+      "updated_at": "2025-01-15T10:30:00Z"
+    }
+  }
+}

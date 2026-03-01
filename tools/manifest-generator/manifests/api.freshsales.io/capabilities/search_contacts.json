@@ -1,0 +1,20 @@
+{
+  "name": "search_contacts",
+  "description": "Search for contacts in Freshsales by name, email, phone, or custom field values.",
+  "endpoint": "/search",
+  "method": "GET",
+  "parameters": [
+    {"name": "q", "type": "string", "description": "Search query string.", "required": true, "example": "john@example.com"},
+    {"name": "include", "type": "string", "description": "Entity types to search: contact, sales_account, deal.", "required": false, "example": "contact"},
+    {"name": "page", "type": "number", "description": "Page number for pagination.", "required": false, "example": 1}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://domain.freshsales.io/api/search?q=john@example.com&include=contact",
+    "headers": {"Authorization": "Token token={api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{"id": 123, "type": "contact", "display_name": "John Doe", "email": "john@example.com", "avatar": null, "city": "San Francisco"}]
+  }
+}

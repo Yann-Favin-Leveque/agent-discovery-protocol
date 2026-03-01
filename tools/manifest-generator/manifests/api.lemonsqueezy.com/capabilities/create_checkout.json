@@ -1,0 +1,116 @@
+{
+  "name": "create_checkout",
+  "description": "Create a new checkout session in Lemon Squeezy. Returns a checkout URL where the customer can complete their purchase. You must specify a store and a product variant. You can customize pricing, pre-fill customer data, apply discount codes, and configure the checkout appearance.",
+  "endpoint": "/v1/checkouts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "data.type",
+      "type": "string",
+      "description": "Must be 'checkouts' (JSON:API type).",
+      "required": true,
+      "example": "checkouts"
+    },
+    {
+      "name": "data.relationships.store",
+      "type": "object",
+      "description": "The store to create the checkout for. Object with data: { type: 'stores', id: 'store_id' }.",
+      "required": true,
+      "example": { "data": { "type": "stores", "id": "1" } }
+    },
+    {
+      "name": "data.relationships.variant",
+      "type": "object",
+      "description": "The product variant to check out. Object with data: { type: 'variants', id: 'variant_id' }.",
+      "required": true,
+      "example": { "data": { "type": "variants", "id": "1" } }
+    },
+    {
+      "name": "data.attributes.custom_price",
+      "type": "integer",
+      "description": "Custom price in cents. Overrides the variant's default price.",
+      "required": false,
+      "example": 4999
+    },
+    {
+      "name": "data.attributes.checkout_data",
+      "type": "object",
+      "description": "Pre-fill customer data. Can include 'email', 'name', 'discount_code', 'billing_address', and 'custom' data.",
+      "required": false,
+      "example": { "email": "jane@example.com", "name": "Jane Doe", "discount_code": "SAVE10" }
+    },
+    {
+      "name": "data.attributes.checkout_options",
+      "type": "object",
+      "description": "Customize checkout appearance. Options include 'embed', 'media', 'logo', 'button_color'.",
+      "required": false,
+      "example": { "button_color": "#7047EB" }
+    },
+    {
+      "name": "data.attributes.expires_at",
+      "type": "string",
+      "description": "ISO 8601 expiration timestamp for the checkout URL.",
+      "required": false,
+      "example": "2024-12-31T23:59:59Z"
+    },
+    {
+      "name": "data.attributes.test_mode",
+      "type": "boolean",
+      "description": "If true, creates the checkout in test mode (no real charges).",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemonsqueezy.com/v1/checkouts",
+    "headers": {
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+      "Accept": "application/vnd.api+json",
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "checkouts",
+        "attributes": {
+          "custom_price": 4999,
+          "checkout_data": {
+            "email": "jane@example.com",
+            "discount_code": "SAVE10",
+            "custom": { "user_id": "123" }
+          },
+          "checkout_options": {
+            "button_color": "#7047EB"
+          },
+          "expires_at": "2024-12-31T23:59:59Z"
+        },
+        "relationships": {
+          "store": { "data": { "type": "stores", "id": "1" } },
+          "variant": { "data": { "type": "variants", "id": "1" } }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "jsonapi": { "version": "1.0" },
+      "data": {
+        "type": "checkouts",
+        "id": "5e8b546c-c561-4a2c-a586-40c18bb2a195",
+        "attributes": {
+          "store_id": 1,
+          "variant_id": 1,
+          "custom_price": 4999,
+          "product_options": {},
+          "checkout_options": { "button_color": "#7047EB" },
+          "checkout_data": { "email": "jane@example.com", "discount_code": "SAVE10" },
+          "expires_at": "2024-12-31T23:59:59.000000Z",
+          "url": "https://my-store.lemonsqueezy.com/checkout/custom/5e8b546c-c561-4a2c-a586-40c18bb2a195",
+          "created_at": "2024-03-15T10:00:00.000000Z",
+          "updated_at": "2024-03-15T10:00:00.000000Z"
+        }
+      }
+    }
+  }
+}

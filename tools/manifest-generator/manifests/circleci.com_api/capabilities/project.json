@@ -1,0 +1,44 @@
+{
+  "name": "project",
+  "description": "Manage project — create a new project, create a new checkout key, create an environment variable. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/organization/{org-slug-or-id}/project",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "org-slug-or-id",
+      "type": "string",
+      "description": "Org UUID or slug in the form `vcs-slug/org-name`. For projects that use GitLab or GitHub App, use `circleci` as the `vcs-slug` and replace the `org-name` with the organization ID (found in Organization Settings).",
+      "required": true,
+      "example": "gh/CircleCI-Public"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the project",
+      "required": true,
+      "example": "api-preview-docs"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://circleci.com/api/v2/organization/{org-slug-or-id}/project",
+    "headers": {
+      "Content-Type": "application/json",
+      "Circle-Token": "{api_key}"
+    },
+    "body": {
+      "org-slug-or-id": "gh/CircleCI-Public",
+      "name": "api-preview-docs"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "org-slug-or-id": "gh/CircleCI-Public",
+        "name": "api-preview-docs"
+      }
+    }
+  }
+}

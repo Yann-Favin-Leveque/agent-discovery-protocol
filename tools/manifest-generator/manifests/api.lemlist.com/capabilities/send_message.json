@@ -1,0 +1,58 @@
+{
+  "name": "send_message",
+  "description": "Send an email, LinkedIn message, or WhatsApp message to a contact through the Lemlist inbox. This is for direct one-off messages outside of campaign sequences, useful for manual follow-ups or personalized outreach.",
+  "endpoint": "/api/inbox/send/email",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "contactEmail",
+      "type": "string",
+      "description": "The recipient's email address.",
+      "required": true,
+      "example": "john@acmecorp.com"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "The email subject line.",
+      "required": true,
+      "example": "Quick follow-up on our conversation"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "The email body content in HTML format.",
+      "required": true,
+      "example": "<p>Hi John,</p><p>Just wanted to follow up on our chat last week...</p>"
+    },
+    {
+      "name": "fromEmail",
+      "type": "string",
+      "description": "The sender email address (must be a connected inbox).",
+      "required": false,
+      "example": "alice@mycompany.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemlist.com/api/inbox/send/email",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "contactEmail": "john@acmecorp.com",
+      "subject": "Quick follow-up on our conversation",
+      "body": "<p>Hi John,</p><p>Just wanted to follow up on our chat last week...</p>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "messageId": "msg_abc123",
+      "contactEmail": "john@acmecorp.com",
+      "sentAt": "2026-03-01T12:30:00.000Z"
+    }
+  }
+}

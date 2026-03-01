@@ -1,0 +1,77 @@
+{
+  "name": "get_subreddit_posts",
+  "description": "Fetch a listing of posts from a specific subreddit, sorted by hot, new, top, or rising. Returns post titles, scores, authors, comment counts, and content previews.",
+  "endpoint": "/r/{subreddit}/{sort}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "subreddit",
+      "type": "string",
+      "description": "The name of the subreddit to fetch posts from (without the r/ prefix).",
+      "required": true,
+      "example": "technology"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort order for posts. One of: hot, new, top, rising.",
+      "required": false,
+      "example": "hot"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of posts to return (1-100).",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "t",
+      "type": "string",
+      "description": "Time period for 'top' sort. One of: hour, day, week, month, year, all.",
+      "required": false,
+      "example": "day"
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Fullname of a post to use as the anchor for pagination (fetch posts after this one).",
+      "required": false,
+      "example": "t3_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/r/technology/hot?limit=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "Listing",
+      "data": {
+        "after": "t3_xyz789",
+        "children": [
+          {
+            "kind": "t3",
+            "data": {
+              "id": "abc123",
+              "title": "New AI breakthrough announced",
+              "author": "techfan42",
+              "subreddit": "technology",
+              "score": 1542,
+              "num_comments": 203,
+              "url": "https://example.com/article",
+              "selftext": "",
+              "created_utc": 1709312400,
+              "permalink": "/r/technology/comments/abc123/new_ai_breakthrough_announced/"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

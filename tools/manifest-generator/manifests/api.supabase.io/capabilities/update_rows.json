@@ -1,0 +1,60 @@
+{
+  "name": "update_rows",
+  "description": "Update existing rows in a Supabase database table that match filter conditions. Supports partial updates (only specified columns are changed). Use PostgREST filter operators in query parameters to target specific rows. Returns modified rows when requested.",
+  "endpoint": "/rest/v1/{table}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "table",
+      "type": "string",
+      "description": "The name of the database table to update.",
+      "required": true,
+      "example": "todos"
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "JSON object with column names and new values to set.",
+      "required": true,
+      "example": {"completed": true}
+    },
+    {
+      "name": "column.filter",
+      "type": "string",
+      "description": "Filter to select which rows to update. Uses PostgREST operators (eq, neq, gt, in, etc.).",
+      "required": true,
+      "example": "id=eq.42"
+    },
+    {
+      "name": "Prefer",
+      "type": "string",
+      "description": "Set to 'return=representation' to return the updated row(s) in the response.",
+      "required": false,
+      "example": "return=representation"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://{project_ref}.supabase.co/rest/v1/todos?id=eq.42",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}",
+      "Content-Type": "application/json",
+      "Prefer": "return=representation"
+    },
+    "body": {
+      "completed": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 42,
+        "title": "Learn Supabase",
+        "completed": true,
+        "created_at": "2025-12-01T10:00:00.000Z"
+      }
+    ]
+  }
+}

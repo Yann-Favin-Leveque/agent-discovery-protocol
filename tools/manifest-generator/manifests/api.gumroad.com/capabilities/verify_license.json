@@ -1,0 +1,63 @@
+{
+  "name": "verify_license",
+  "description": "Verify a software license key for a product to check its validity, uses remaining, and associated purchase details. Essential for software products that require activation or seat management.",
+  "endpoint": "/v2/licenses/verify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "product_id",
+      "type": "string",
+      "description": "The product ID that the license key belongs to.",
+      "required": true,
+      "example": "abc123"
+    },
+    {
+      "name": "license_key",
+      "type": "string",
+      "description": "The license key string to verify.",
+      "required": true,
+      "example": "XXXX-XXXX-XXXX-XXXX"
+    },
+    {
+      "name": "increment_uses_count",
+      "type": "boolean",
+      "description": "If true, increments the uses count of the license key. Defaults to true.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gumroad.com/v2/licenses/verify",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "product_id": "abc123",
+      "license_key": "XXXX-XXXX-XXXX-XXXX",
+      "increment_uses_count": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "uses": 3,
+      "purchase": {
+        "id": "sale_abc123",
+        "product_id": "abc123",
+        "product_name": "Ultimate Design Kit",
+        "email": "buyer@example.com",
+        "price": 2900,
+        "currency": "usd",
+        "created_at": "2024-01-15T10:00:00Z",
+        "license_key": "XXXX-XXXX-XXXX-XXXX",
+        "refunded": false,
+        "chargebacked": false,
+        "subscription_ended_at": null,
+        "subscription_cancelled_at": null
+      }
+    }
+  }
+}

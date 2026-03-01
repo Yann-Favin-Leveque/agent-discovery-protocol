@@ -1,0 +1,52 @@
+{
+  "name": "sign_in_otp",
+  "description": "Send a magic link or one-time password (OTP) to the user's email or phone for passwordless sign-in. The user clicks the link or enters the code to authenticate. If the user does not exist and 'create_user' is true (default), a new account is created automatically.",
+  "endpoint": "/otp",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "The user's email address. Use either email or phone, not both.",
+      "required": false,
+      "example": "user@example.com"
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "description": "The user's phone number in E.164 format. Use either email or phone, not both.",
+      "required": false,
+      "example": "+14155551234"
+    },
+    {
+      "name": "create_user",
+      "type": "boolean",
+      "description": "Whether to create the user if they don't exist. Default is true.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Custom user metadata for newly created users.",
+      "required": false,
+      "example": { "first_name": "Jane" }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-project.supabase.co/auth/v1/otp",
+    "headers": {
+      "apikey": "YOUR_SUPABASE_ANON_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "user@example.com",
+      "create_user": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  }
+}

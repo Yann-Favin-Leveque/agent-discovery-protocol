@@ -1,0 +1,42 @@
+{
+  "name": "get_time_off_balances",
+  "description": "Get the current time-off balances for a specific employee across all leave types such as vacation, sick leave, and personal days. Shows available balance, used hours, and scheduled future time off.",
+  "endpoint": "/api/gateway.php/{company_domain}/v1/employees/{employee_id}/time_off/calculator",
+  "method": "GET",
+  "parameters": [
+    { "name": "company_domain", "type": "string", "description": "Your BambooHR company subdomain.", "required": true, "example": "mycompany" },
+    { "name": "employee_id", "type": "integer", "description": "The employee's unique ID.", "required": true, "example": 123 },
+    { "name": "end", "type": "string", "description": "Calculate balances as of this date (YYYY-MM-DD). Defaults to today.", "required": false, "example": "2026-12-31" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/123/time_off/calculator?end=2026-12-31",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "timeOffType": "Vacation",
+        "timeOffTypeId": 1,
+        "balance": 120,
+        "unit": "hours",
+        "used": 40,
+        "scheduled": 16,
+        "policyName": "Standard PTO"
+      },
+      {
+        "timeOffType": "Sick Leave",
+        "timeOffTypeId": 2,
+        "balance": 64,
+        "unit": "hours",
+        "used": 8,
+        "scheduled": 0,
+        "policyName": "Sick Days"
+      }
+    ]
+  }
+}

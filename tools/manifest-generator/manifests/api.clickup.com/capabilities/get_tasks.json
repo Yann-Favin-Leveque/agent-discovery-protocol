@@ -1,0 +1,114 @@
+{
+  "name": "get_tasks",
+  "description": "Retrieve tasks from a specific ClickUp list with optional filtering. You can filter by status, assignee, due date range, tags, and more. Supports pagination and returns task details including name, description, status, priority, assignees, and custom fields. Limited to 100 tasks per page.",
+  "endpoint": "/api/v2/list/{list_id}/task",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "list_id",
+      "type": "string",
+      "description": "The ID of the list to retrieve tasks from.",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "description": "If true, include archived tasks.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination (0-based).",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "description": "Field to sort by: 'id', 'created', 'updated', or 'due_date'.",
+      "required": false,
+      "example": "due_date"
+    },
+    {
+      "name": "reverse",
+      "type": "boolean",
+      "description": "Reverse the sort order.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "subtasks",
+      "type": "boolean",
+      "description": "If true, include subtasks in the response.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "statuses[]",
+      "type": "array",
+      "description": "Filter by task status names. Pass multiple times for multiple statuses.",
+      "required": false,
+      "example": "in progress"
+    },
+    {
+      "name": "assignees[]",
+      "type": "array",
+      "description": "Filter by assignee user IDs.",
+      "required": false,
+      "example": "183"
+    },
+    {
+      "name": "due_date_gt",
+      "type": "integer",
+      "description": "Filter for tasks with due dates after this Unix timestamp (ms).",
+      "required": false,
+      "example": 1706140800000
+    },
+    {
+      "name": "due_date_lt",
+      "type": "integer",
+      "description": "Filter for tasks with due dates before this Unix timestamp (ms).",
+      "required": false,
+      "example": 1708732800000
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clickup.com/api/v2/list/123456789/task?page=0&order_by=due_date&statuses[]=in%20progress&statuses[]=to%20do",
+    "headers": {
+      "Authorization": "pk_12345678_ABCDEFGHIJKLMNOP"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tasks": [
+        {
+          "id": "task_abc123",
+          "name": "Design landing page mockup",
+          "status": {
+            "status": "in progress",
+            "color": "#4194f6",
+            "type": "custom"
+          },
+          "priority": {
+            "id": "2",
+            "priority": "high",
+            "color": "#ffcc00"
+          },
+          "assignees": [
+            { "id": 183, "username": "jsmith", "email": "jsmith@example.com" }
+          ],
+          "due_date": "1707955200000",
+          "date_created": "1706140800000",
+          "date_updated": "1706918400000",
+          "url": "https://app.clickup.com/t/task_abc123"
+        }
+      ],
+      "last_page": true
+    }
+  }
+}

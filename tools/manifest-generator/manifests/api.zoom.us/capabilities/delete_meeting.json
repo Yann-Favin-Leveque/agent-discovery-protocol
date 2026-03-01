@@ -1,0 +1,41 @@
+{
+  "name": "delete_meeting",
+  "description": "Cancel and delete a scheduled meeting. Returns a 204 No Content status on success. Optionally send cancellation notification to participants.",
+  "endpoint": "/meetings/{meetingId}",
+  "method": "DELETE",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "string",
+      "description": "The meeting ID (numeric or UUID).",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "occurrence_id",
+      "type": "string",
+      "description": "Occurrence ID for deleting a specific instance of a recurring meeting.",
+      "required": false,
+      "example": "1614556800000"
+    },
+    {
+      "name": "schedule_for_reminder",
+      "type": "boolean",
+      "description": "Send meeting cancellation notification to participants.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.zoom.us/v2/meetings/123456789?schedule_for_reminder=true",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  }
+}

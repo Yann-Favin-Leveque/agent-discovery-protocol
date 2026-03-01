@@ -1,0 +1,69 @@
+{
+  "name": "list_children",
+  "description": "List all files and subfolders within a folder in OneDrive. You can list the root folder's contents or any subfolder by ID or path. Supports pagination with @odata.nextLink for large result sets.",
+  "endpoint": "/v1.0/me/drive/root/children",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "folderId",
+      "type": "string",
+      "description": "The unique ID of the folder to list. Use 'root' for the root folder, or a specific item ID. Alternatively, use path syntax: /v1.0/me/drive/root:/path/to/folder:/children.",
+      "required": false,
+      "example": "root"
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Comma-separated list of properties to include in the response (e.g., 'name,size,lastModifiedDateTime').",
+      "required": false,
+      "example": "name,size,lastModifiedDateTime,folder,file"
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "description": "Maximum number of items to return per page.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "$orderby",
+      "type": "string",
+      "description": "Sort order for results (e.g., 'name asc', 'lastModifiedDateTime desc').",
+      "required": false,
+      "example": "name asc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/root/children?$select=name,size,lastModifiedDateTime&$top=50",
+    "headers": {
+      "Authorization": "Bearer your-access-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": "01BYE5RZ6QN3ZWBTUFOFD3GSPGOHDJD36K",
+          "name": "Documents",
+          "size": 0,
+          "lastModifiedDateTime": "2026-01-12T10:30:00Z",
+          "folder": {
+            "childCount": 12
+          }
+        },
+        {
+          "id": "01BYE5RZ5MYLM2SMX775CZO354MPBR7ONI",
+          "name": "report.pdf",
+          "size": 2048576,
+          "lastModifiedDateTime": "2026-01-11T14:20:00Z",
+          "file": {
+            "mimeType": "application/pdf"
+          }
+        }
+      ],
+      "@odata.nextLink": null
+    }
+  }
+}

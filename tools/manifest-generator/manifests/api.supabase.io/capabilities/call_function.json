@@ -1,0 +1,43 @@
+{
+  "name": "call_function",
+  "description": "Invoke a PostgreSQL function (stored procedure) through the Supabase REST API. Useful for running complex queries, transactions, business logic, or any operation that benefits from being executed directly in the database. Functions must be created in your Supabase database first.",
+  "endpoint": "/rest/v1/rpc/{function_name}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "function_name",
+      "type": "string",
+      "description": "The name of the PostgreSQL function to call.",
+      "required": true,
+      "example": "get_user_stats"
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "JSON object with function parameter names as keys and their values. Pass an empty object if the function takes no arguments.",
+      "required": false,
+      "example": {"user_id": "abc123"}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/rest/v1/rpc/get_user_stats",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user_id": "abc123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total_todos": 25,
+      "completed_todos": 18,
+      "completion_rate": 0.72,
+      "last_active": "2025-12-01T09:45:00.000Z"
+    }
+  }
+}

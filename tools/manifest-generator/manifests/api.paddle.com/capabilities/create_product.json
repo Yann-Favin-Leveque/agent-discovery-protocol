@@ -1,0 +1,76 @@
+{
+  "name": "create_product",
+  "description": "Create a new product in your Paddle catalog. Products represent what you sell and can have one or more prices attached. After creating a product, you define prices for it to set up billing. Products can be digital goods, SaaS subscriptions, or any other offering.",
+  "endpoint": "/products",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the product, displayed to customers at checkout.",
+      "required": true,
+      "example": "Pro Plan"
+    },
+    {
+      "name": "tax_category",
+      "type": "string",
+      "description": "The tax category for this product. Determines how taxes are calculated. Common values: 'standard', 'digital-goods', 'saas'.",
+      "required": true,
+      "example": "digital-goods"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "A short description of the product, shown at checkout.",
+      "required": false,
+      "example": "Access to all pro features including priority support"
+    },
+    {
+      "name": "image_url",
+      "type": "string",
+      "description": "URL of the product image displayed at checkout. Must be HTTPS.",
+      "required": false,
+      "example": "https://example.com/images/pro-plan.png"
+    },
+    {
+      "name": "custom_data",
+      "type": "object",
+      "description": "Custom key-value pairs to store additional product metadata.",
+      "required": false,
+      "example": { "tier": "pro", "features": "unlimited" }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/products",
+    "headers": {
+      "Authorization": "Bearer pdl_live_abc123def456",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Pro Plan",
+      "tax_category": "digital-goods",
+      "description": "Access to all pro features including priority support",
+      "image_url": "https://example.com/images/pro-plan.png"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "pro_01h7mrm0bmd2szhxxreadempty",
+        "name": "Pro Plan",
+        "description": "Access to all pro features including priority support",
+        "tax_category": "digital-goods",
+        "image_url": "https://example.com/images/pro-plan.png",
+        "status": "active",
+        "custom_data": null,
+        "created_at": "2024-03-15T10:00:00.000Z",
+        "updated_at": "2024-03-15T10:00:00.000Z"
+      },
+      "meta": {
+        "request_id": "e3b0c442-98fc-1c14-b39f-f32d85a13e9c"
+      }
+    }
+  }
+}

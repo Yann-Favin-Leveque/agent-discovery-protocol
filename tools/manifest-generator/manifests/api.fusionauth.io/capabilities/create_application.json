@@ -1,0 +1,56 @@
+{
+  "name": "create_application",
+  "description": "Create a new application (client) in FusionAuth. Applications represent your software products that users authenticate into. Configure OAuth settings, roles, and authentication policies.",
+  "endpoint": "/api/application",
+  "method": "POST",
+  "parameters": [
+    { "name": "application.name", "type": "string", "description": "The name of the application.", "required": true, "example": "My SaaS App" },
+    { "name": "application.oauthConfiguration.authorizedRedirectURLs", "type": "array", "description": "Allowed OAuth redirect URLs.", "required": false, "example": ["https://example.com/oauth-callback"] },
+    { "name": "application.oauthConfiguration.clientSecret", "type": "string", "description": "The OAuth client secret. Auto-generated if omitted.", "required": false, "example": "" },
+    { "name": "application.oauthConfiguration.enabledGrants", "type": "array", "description": "Enabled OAuth grant types.", "required": false, "example": ["authorization_code", "refresh_token"] },
+    { "name": "application.roles", "type": "array", "description": "Roles available in this application.", "required": false, "example": [{ "name": "admin", "description": "Administrator" }, { "name": "user", "description": "Regular user" }] },
+    { "name": "application.loginConfiguration.requireAuthentication", "type": "boolean", "description": "Whether to require authentication. Defaults to true.", "required": false, "example": true }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fusionauth.io/api/application",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "application": {
+        "name": "My SaaS App",
+        "oauthConfiguration": {
+          "authorizedRedirectURLs": ["https://example.com/oauth-callback"],
+          "enabledGrants": ["authorization_code", "refresh_token"]
+        },
+        "roles": [
+          { "name": "admin", "description": "Administrator" },
+          { "name": "user", "description": "Regular user" }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "application": {
+        "id": "10000000-0000-0002-0000-000000000001",
+        "name": "My SaaS App",
+        "active": true,
+        "oauthConfiguration": {
+          "clientId": "10000000-0000-0002-0000-000000000001",
+          "clientSecret": "auto-generated-secret",
+          "authorizedRedirectURLs": ["https://example.com/oauth-callback"],
+          "enabledGrants": ["authorization_code", "refresh_token"]
+        },
+        "roles": [
+          { "id": "role-uuid-1", "name": "admin", "description": "Administrator" },
+          { "id": "role-uuid-2", "name": "user", "description": "Regular user" }
+        ],
+        "insertInstant": 1704067200000
+      }
+    }
+  }
+}

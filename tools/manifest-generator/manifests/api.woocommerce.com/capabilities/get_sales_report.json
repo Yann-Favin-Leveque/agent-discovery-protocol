@@ -1,0 +1,65 @@
+{
+  "name": "get_sales_report",
+  "description": "Retrieve sales reports with aggregate totals for a given date range. Returns total sales, net sales, total orders, total items sold, total tax, total shipping costs, and average order value for business analytics.",
+  "endpoint": "/reports/sales",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "period",
+      "type": "string",
+      "description": "Predefined period: 'week', 'month', 'last_month', or 'year'.",
+      "required": false,
+      "example": "month"
+    },
+    {
+      "name": "date_min",
+      "type": "string",
+      "description": "Start date for the report period (YYYY-MM-DD format).",
+      "required": false,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "date_max",
+      "type": "string",
+      "description": "End date for the report period (YYYY-MM-DD format).",
+      "required": false,
+      "example": "2024-01-31"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store_domain}/wp-json/wc/v3/reports/sales?date_min=2024-01-01&date_max=2024-01-31",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_key_secret}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "total_sales": "15482.50",
+        "net_sales": "14250.00",
+        "average_sales": "499.44",
+        "total_orders": 31,
+        "total_items": 78,
+        "total_tax": "1232.50",
+        "total_shipping": "248.00",
+        "total_refunds": 0,
+        "total_discount": "450.00",
+        "totals_grouped_by": "day",
+        "totals": {
+          "2024-01-01": {
+            "sales": "580.00",
+            "orders": 3,
+            "items": 7
+          },
+          "2024-01-02": {
+            "sales": "420.00",
+            "orders": 2,
+            "items": 5
+          }
+        }
+      }
+    ]
+  }
+}

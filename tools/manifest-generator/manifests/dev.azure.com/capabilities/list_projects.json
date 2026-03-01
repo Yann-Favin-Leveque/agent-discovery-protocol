@@ -1,0 +1,65 @@
+{
+  "name": "list_projects",
+  "description": "List all projects in an Azure DevOps organization. Returns project names, IDs, descriptions, state, and visibility. Use the organization path parameter to specify which organization to query.",
+  "endpoint": "/{organization}/_apis/projects",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "description": "The name of the Azure DevOps organization (appears in the URL path)."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "Version of the API to use. Use '7.1'."
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of projects to return. Default is 100."
+    },
+    {
+      "name": "$skip",
+      "type": "integer",
+      "required": false,
+      "description": "Number of projects to skip for pagination."
+    },
+    {
+      "name": "stateFilter",
+      "type": "string",
+      "required": false,
+      "description": "Filter by project state. Values: 'wellFormed', 'createPending', 'deleting', 'new', 'all'. Default is 'wellFormed'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://dev.azure.com/my-org/_apis/projects?api-version=7.1&$top=10"
+  },
+  "response_example": {
+    "count": 2,
+    "value": [
+      {
+        "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+        "name": "MyWebApp",
+        "description": "Main web application project",
+        "url": "https://dev.azure.com/my-org/_apis/projects/a1b2c3d4-5678-90ab-cdef-1234567890ab",
+        "state": "wellFormed",
+        "visibility": "private",
+        "lastUpdateTime": "2025-11-15T10:30:00Z"
+      },
+      {
+        "id": "b2c3d4e5-6789-01bc-defg-2345678901bc",
+        "name": "MobileApp",
+        "description": "Cross-platform mobile application",
+        "url": "https://dev.azure.com/my-org/_apis/projects/b2c3d4e5-6789-01bc-defg-2345678901bc",
+        "state": "wellFormed",
+        "visibility": "private",
+        "lastUpdateTime": "2025-12-01T14:20:00Z"
+      }
+    ]
+  }
+}

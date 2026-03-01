@@ -1,0 +1,40 @@
+{
+  "name": "send_email_verification",
+  "description": "Send an email verification message to the currently signed-in user. Requires a valid ID token from a user whose email has not yet been verified. The email contains a link the user clicks to confirm their email address.",
+  "endpoint": "/accounts:sendOobCode",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "requestType",
+      "type": "string",
+      "description": "The type of OOB code to send. Must be 'VERIFY_EMAIL'.",
+      "required": true,
+      "example": "VERIFY_EMAIL"
+    },
+    {
+      "name": "idToken",
+      "type": "string",
+      "description": "The ID token of the currently signed-in user.",
+      "required": true,
+      "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=YOUR_API_KEY",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requestType": "VERIFY_EMAIL",
+      "idToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "identitytoolkit#GetOobConfirmationCodeResponse",
+      "email": "user@example.com"
+    }
+  }
+}

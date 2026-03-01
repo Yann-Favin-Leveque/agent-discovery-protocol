@@ -1,0 +1,138 @@
+{
+  "name": "create_subscription",
+  "description": "Create a recurring direct debit subscription in GoCardless that automatically creates payments at defined intervals. The subscription is linked to an active mandate and will keep creating payments until it reaches the end date or count. GoCardless handles the scheduling and retry logic.",
+  "endpoint": "/subscriptions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "The amount to collect each interval in the smallest currency unit.",
+      "required": true,
+      "example": 2500
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO 4217 currency code.",
+      "required": true,
+      "example": "GBP"
+    },
+    {
+      "name": "interval_unit",
+      "type": "string",
+      "description": "The unit of time between charges: 'weekly', 'monthly', or 'yearly'.",
+      "required": true,
+      "example": "monthly"
+    },
+    {
+      "name": "links[mandate]",
+      "type": "string",
+      "description": "The mandate ID to collect payments against (starts with 'MD').",
+      "required": true,
+      "example": "MD000AMA19XGEC"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the subscription, displayed on invoices and the customer's bank statement.",
+      "required": false,
+      "example": "Pro Plan Monthly"
+    },
+    {
+      "name": "interval",
+      "type": "integer",
+      "description": "Number of interval_units between charges. Default 1. E.g., interval=2 with interval_unit='monthly' charges every 2 months.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "day_of_month",
+      "type": "integer",
+      "description": "Day of the month to charge (1-28, or -1 for the last day). Only applicable for monthly subscriptions.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Total number of payments to collect. Leave empty for unlimited.",
+      "required": false,
+      "example": 12
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "The date of the first payment in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2024-04-01"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "The date after which no more payments should be created (YYYY-MM-DD).",
+      "required": false,
+      "example": "2025-03-31"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value pairs to store custom data. Max 3 keys.",
+      "required": false,
+      "example": { "plan": "pro" }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/subscriptions",
+    "headers": {
+      "Authorization": "Bearer your_access_token_here",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "subscriptions": {
+        "amount": 2500,
+        "currency": "GBP",
+        "name": "Pro Plan Monthly",
+        "interval_unit": "monthly",
+        "interval": 1,
+        "day_of_month": 1,
+        "count": 12,
+        "links": {
+          "mandate": "MD000AMA19XGEC"
+        },
+        "metadata": { "plan": "pro" }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "subscriptions": {
+        "id": "SB000260S506AT",
+        "created_at": "2024-03-15T10:00:00.000Z",
+        "amount": 2500,
+        "currency": "GBP",
+        "status": "active",
+        "name": "Pro Plan Monthly",
+        "start_date": "2024-04-01",
+        "end_date": "2025-03-31",
+        "interval": 1,
+        "interval_unit": "monthly",
+        "day_of_month": 1,
+        "count": 12,
+        "payment_reference": null,
+        "upcoming_payments": [
+          { "charge_date": "2024-04-01", "amount": 2500 },
+          { "charge_date": "2024-05-01", "amount": 2500 },
+          { "charge_date": "2024-06-01", "amount": 2500 }
+        ],
+        "metadata": { "plan": "pro" },
+        "links": {
+          "mandate": "MD000AMA19XGEC"
+        }
+      }
+    }
+  }
+}

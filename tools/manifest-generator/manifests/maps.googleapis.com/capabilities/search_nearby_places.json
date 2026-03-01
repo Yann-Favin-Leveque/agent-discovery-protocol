@@ -1,0 +1,91 @@
+{
+  "name": "search_nearby_places",
+  "description": "Search for places near a given location by type, keyword, or name. Returns place names, addresses, ratings, open status, price levels, and geographic coordinates within a specified radius.",
+  "endpoint": "/maps/api/place/nearbysearch/json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "description": "The latitude and longitude of the center point, comma-separated.",
+      "required": true,
+      "example": "37.4224764,-122.0842499"
+    },
+    {
+      "name": "radius",
+      "type": "integer",
+      "description": "Search radius in meters (max 50000).",
+      "required": true,
+      "example": 1500
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter results by place type (e.g., restaurant, cafe, gas_station, hospital, park).",
+      "required": false,
+      "example": "restaurant"
+    },
+    {
+      "name": "keyword",
+      "type": "string",
+      "description": "A text string to match against place names, addresses, and reviews.",
+      "required": false,
+      "example": "sushi"
+    },
+    {
+      "name": "opennow",
+      "type": "boolean",
+      "description": "Only return places that are currently open.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "minprice",
+      "type": "integer",
+      "description": "Minimum price level (0-4, where 0 is free and 4 is very expensive).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "maxprice",
+      "type": "integer",
+      "description": "Maximum price level (0-4).",
+      "required": false,
+      "example": 3
+    },
+    {
+      "name": "pagetoken",
+      "type": "string",
+      "description": "Token from a previous request for fetching the next page of results.",
+      "required": false,
+      "example": "CpQCAgEAAF..."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.4224764,-122.0842499&radius=1500&type=restaurant&keyword=sushi&key={api_key}",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "OK",
+      "results": [
+        {
+          "name": "Sushi House",
+          "place_id": "ChIJN1t_tDeuEmsRUsoyG83frY4",
+          "vicinity": "123 Main St, Mountain View",
+          "geometry": {
+            "location": { "lat": 37.4230, "lng": -122.0850 }
+          },
+          "rating": 4.5,
+          "user_ratings_total": 312,
+          "price_level": 2,
+          "opening_hours": { "open_now": true },
+          "types": ["restaurant", "food", "point_of_interest"]
+        }
+      ],
+      "next_page_token": "CpQCAgEAAG..."
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "get_intraday_activity",
+  "description": "Retrieve high-resolution intraday activity data with minute-level granularity. Returns heart rate, steps, calories, and elevation data points throughout the day. Ideal for detailed activity analysis, workout detection, or building activity timelines.",
+  "endpoint": "/v2/measure",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "description": "Must be 'getintradayactivity' for intraday data.",
+      "required": true,
+      "example": "getintradayactivity"
+    },
+    {
+      "name": "startdate",
+      "type": "integer",
+      "description": "Start of the time range as a Unix timestamp.",
+      "required": true,
+      "example": 1701388800
+    },
+    {
+      "name": "enddate",
+      "type": "integer",
+      "description": "End of the time range as a Unix timestamp. Max 24 hours from startdate.",
+      "required": true,
+      "example": 1701475200
+    },
+    {
+      "name": "data_fields",
+      "type": "string",
+      "description": "Comma-separated fields to return: heart_rate, steps, elevation, calories, distance.",
+      "required": false,
+      "example": "heart_rate,steps,calories"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/measure",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "getintradayactivity",
+      "startdate": 1701388800,
+      "enddate": 1701475200,
+      "data_fields": "heart_rate,steps,calories"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "series": {
+          "1701388800": { "heart_rate": 68, "steps": 0, "calories": 1.2 },
+          "1701388860": { "heart_rate": 70, "steps": 12, "calories": 1.5 },
+          "1701388920": { "heart_rate": 72, "steps": 45, "calories": 2.1 }
+        }
+      }
+    }
+  }
+}

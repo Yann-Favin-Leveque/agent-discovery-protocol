@@ -1,0 +1,40 @@
+{
+  "name": "create_invoice_adjustment",
+  "description": "Add a bonus, expense reimbursement, or other one-time payment adjustment to a contractor's next invoice. The adjustment is included in the next payment cycle automatically.",
+  "endpoint": "/rest/v2/contracts/{contract_id}/invoice-adjustments",
+  "method": "POST",
+  "parameters": [
+    { "name": "contract_id", "type": "string", "description": "The ID of the contract to add the adjustment to.", "required": true, "example": "contract-001" },
+    { "name": "type", "type": "string", "description": "Adjustment type: 'bonus', 'expense', 'commission', or 'other'.", "required": true, "example": "bonus" },
+    { "name": "description", "type": "string", "description": "Description of the adjustment.", "required": true, "example": "Q4 performance bonus" },
+    { "name": "amount", "type": "number", "description": "Adjustment amount in the contract's currency.", "required": true, "example": 1000 },
+    { "name": "currency", "type": "string", "description": "ISO 4217 currency code.", "required": false, "example": "USD" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.deel.com/rest/v2/contracts/contract-001/invoice-adjustments",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "bonus",
+      "description": "Q4 performance bonus",
+      "amount": 1000
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "adj-001",
+        "contract_id": "contract-001",
+        "type": "bonus",
+        "description": "Q4 performance bonus",
+        "amount": 1000,
+        "currency": "USD",
+        "status": "pending"
+      }
+    }
+  }
+}

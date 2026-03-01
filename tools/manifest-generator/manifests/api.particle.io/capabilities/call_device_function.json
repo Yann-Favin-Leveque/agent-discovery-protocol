@@ -1,0 +1,49 @@
+{
+  "name": "call_device_function",
+  "description": "Remotely invoke a function exposed by device firmware. You pass a string argument (up to 622 characters) and receive an integer return value. Use get_device_info first to see which functions a device exposes.",
+  "endpoint": "/v1/devices/{deviceId}/{functionName}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "deviceId",
+      "type": "string",
+      "description": "The unique ID of the device.",
+      "required": true,
+      "example": "0123456789abcdef01234567"
+    },
+    {
+      "name": "functionName",
+      "type": "string",
+      "description": "The name of the function to call, as exposed by the device firmware.",
+      "required": true,
+      "example": "toggle"
+    },
+    {
+      "name": "arg",
+      "type": "string",
+      "description": "A string argument to pass to the function. Max 622 characters.",
+      "required": false,
+      "example": "on"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.particle.io/v1/devices/0123456789abcdef01234567/toggle",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "arg": "on"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "0123456789abcdef01234567",
+      "last_app": "",
+      "connected": true,
+      "return_value": 1
+    }
+  }
+}

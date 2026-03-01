@@ -1,0 +1,108 @@
+{
+  "name": "list_rows",
+  "description": "Fetch rows from a specific table in a Coda document. Supports filtering with Coda formulas, sorting by columns, selecting specific columns to return, and pagination for large result sets. Returns row IDs, cell values, and metadata.",
+  "endpoint": "/docs/{docId}/tables/{tableId}/rows",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "description": "The unique identifier of the Coda document containing the table.",
+      "required": true,
+      "example": "abcdef123456"
+    },
+    {
+      "name": "tableId",
+      "type": "string",
+      "description": "The unique identifier of the table to list rows from.",
+      "required": true,
+      "example": "grid-tbl123"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of rows to return per page (1-100). Defaults to 25.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Token for pagination to fetch the next page of rows.",
+      "required": false,
+      "example": "pageToken789"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "A Coda formula to filter rows. Only rows where the formula evaluates to true are returned.",
+      "required": false,
+      "example": "[Status] = 'Active'"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Column name or ID to sort by, optionally prefixed with '+' (ascending) or '-' (descending).",
+      "required": false,
+      "example": "-modifiedTime"
+    },
+    {
+      "name": "columns",
+      "type": "array",
+      "description": "List of column IDs or names to include in the response. If omitted, all columns are returned.",
+      "required": false,
+      "example": "Name,Status,Owner"
+    },
+    {
+      "name": "useColumnNames",
+      "type": "boolean",
+      "description": "If true, column identifiers in the response use display names instead of IDs.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://coda.io/apis/v1/docs/abcdef123456/tables/grid-tbl123/rows?limit=25&query=%5BStatus%5D%3D%27Active%27&useColumnNames=true",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "i-row1",
+          "type": "row",
+          "index": 0,
+          "createdTime": "2024-01-15T10:30:00Z",
+          "modifiedTime": "2024-02-28T14:45:00Z",
+          "values": {
+            "Name": "Website Redesign",
+            "Status": "Active",
+            "Budget": 50000,
+            "Owner": "Alice Smith",
+            "Start Date": "2024-02-01"
+          }
+        },
+        {
+          "id": "i-row2",
+          "type": "row",
+          "index": 1,
+          "createdTime": "2024-01-20T09:15:00Z",
+          "modifiedTime": "2024-02-27T16:20:00Z",
+          "values": {
+            "Name": "Mobile App Development",
+            "Status": "Active",
+            "Budget": 75000,
+            "Owner": "Bob Johnson",
+            "Start Date": "2024-01-01"
+          }
+        }
+      ],
+      "nextPageToken": "pageToken456"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "get_spot_price",
+  "description": "Get the current spot price for a cryptocurrency trading pair such as BTC-USD or ETH-EUR. Useful for checking real-time market prices before placing orders.",
+  "endpoint": "/v2/prices/{currency_pair}/spot",
+  "method": "GET",
+  "parameters": [
+    { "name": "currency_pair", "type": "string", "description": "The trading pair in format BASE-QUOTE (e.g., BTC-USD, ETH-EUR).", "required": true, "example": "BTC-USD" },
+    { "name": "date", "type": "string", "description": "Optional date for historical price in YYYY-MM-DD format.", "required": false, "example": "2026-03-01" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coinbase.com/v2/prices/BTC-USD/spot",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "base": "BTC",
+        "currency": "USD",
+        "amount": "50000.00"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "list_items",
+  "description": "List all items in a specific vault. Returns item metadata without secret field values — use get_item to retrieve full details.",
+  "endpoint": "/v1/vaults/{vaultId}/items",
+  "method": "GET",
+  "parameters": [
+    { "name": "vaultId", "type": "string", "description": "The vault UUID.", "required": true, "example": "vault_abc123" },
+    { "name": "filter", "type": "string", "description": "SCIM filter expression to search items.", "required": false, "example": "title co \"API\"" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://your-connect-server:8080/v1/vaults/vault_abc123/items",
+    "headers": { "Authorization": "Bearer {connect_token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      { "id": "item_xyz789", "title": "Database Password", "category": "LOGIN", "vaultId": "vault_abc123", "createdAt": "2024-01-20T10:00:00Z", "updatedAt": "2024-01-20T10:00:00Z" }
+    ]
+  }
+}

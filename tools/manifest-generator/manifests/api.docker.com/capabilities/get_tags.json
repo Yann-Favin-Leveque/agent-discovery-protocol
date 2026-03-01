@@ -1,0 +1,20 @@
+{
+  "name": "get_tags",
+  "description": "List all available tags and versions for a specific Docker Hub repository.",
+  "endpoint": "/repositories/{namespace}/{repository}/tags/",
+  "method": "GET",
+  "parameters": [
+    {"name": "namespace", "type": "string", "description": "Repository namespace (user or org).", "required": true, "example": "library"},
+    {"name": "repository", "type": "string", "description": "Repository name.", "required": true, "example": "nginx"},
+    {"name": "page_size", "type": "number", "description": "Number of results per page.", "required": false, "example": 25}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://hub.docker.com/v2/repositories/library/nginx/tags/?page_size=25",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"count": 50, "results": [{"name": "latest", "full_size": 67108864, "last_updated": "2024-01-20T10:00:00Z", "images": [{"architecture": "amd64", "os": "linux", "size": 67108864}]}]}
+  }
+}

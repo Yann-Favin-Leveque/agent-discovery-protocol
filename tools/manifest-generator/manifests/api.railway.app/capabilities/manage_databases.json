@@ -1,0 +1,20 @@
+{
+  "name": "manage_databases",
+  "description": "Provision and manage databases (PostgreSQL, MySQL, Redis, MongoDB) as plugins within a Railway project.",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {"name": "query", "type": "string", "description": "GraphQL mutation to create a database plugin.", "required": true, "example": "mutation($input: PluginCreateInput!) { pluginCreate(input: $input) { id name } }"},
+    {"name": "variables", "type": "object", "description": "Input with project ID and database type.", "required": true, "example": {"input": {"projectId": "proj_abc", "name": "postgresql"}}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json"},
+    "body": {"query": "mutation($input: PluginCreateInput!) { pluginCreate(input: $input) { id name } }", "variables": {"input": {"projectId": "proj_abc", "name": "postgresql"}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"pluginCreate": {"id": "plugin_db123", "name": "postgresql"}}}
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "query_insights",
+  "description": "Query event segmentation insights with flexible date ranges and property breakdowns.",
+  "endpoint": "/2.0/insights",
+  "method": "POST",
+  "parameters": [
+    {"name": "project_id", "type": "number", "description": "Mixpanel project ID.", "required": true, "example": 123456},
+    {"name": "request", "type": "object", "description": "Query request with event filters, date range, and grouping.", "required": true, "example": {"events": [{"event": "Sign Up"}], "from_date": "2024-01-01", "to_date": "2024-01-31"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mixpanel.com/api/2.0/insights?project_id=123456",
+    "headers": {"Authorization": "Basic {api_key}", "Content-Type": "application/json"},
+    "body": {"request": {"events": [{"event": "Sign Up"}], "from_date": "2024-01-01", "to_date": "2024-01-31"}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"series": ["2024-01-01", "2024-01-02"], "values": {"Sign Up": {"all": [42, 55]}}}
+  }
+}

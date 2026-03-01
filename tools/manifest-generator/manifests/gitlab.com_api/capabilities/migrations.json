@@ -1,0 +1,42 @@
+{
+  "name": "migrations",
+  "description": "Manage migrations — mark the migration as successfully executed. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/admin/migrations/{timestamp}/mark",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "timestamp",
+      "type": "number",
+      "description": "The migration version timestamp",
+      "required": true,
+      "example": 42
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "description": "The name of the database",
+      "required": false,
+      "example": "main"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.gitlab.com/api/v4/admin/migrations/{timestamp}/mark",
+    "headers": {
+      "Content-Type": "application/json",
+      "Private-Token": "{api_key}"
+    },
+    "body": {
+      "timestamp": 42
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "timestamp": 42
+      }
+    }
+  }
+}

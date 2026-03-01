@@ -1,0 +1,43 @@
+{
+  "name": "get_record",
+  "description": "Retrieve the full details of a specific contract record from the Ironclad repository, including all metadata properties, attached documents, audit history, and linked workflows.",
+  "endpoint": "/public/api/v1/records/{id}",
+  "method": "GET",
+  "parameters": [
+    { "name": "id", "type": "string", "description": "The unique ID of the record to retrieve.", "required": true, "example": "rec_abc123def456" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ironclad.com/public/api/v1/records/rec_abc123def456",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "rec_abc123def456",
+      "ironcladId": "IC-12345",
+      "name": "Acme Corp NDA",
+      "lastUpdated": "2026-01-20T14:00:00.000Z",
+      "properties": {
+        "counterpartyName": "Acme Corp",
+        "contractValue": 50000,
+        "effectiveDate": "2026-03-01",
+        "expirationDate": "2027-03-01",
+        "status": "Active"
+      },
+      "documents": [
+        {
+          "id": "doc_789ghi",
+          "name": "Signed NDA.pdf",
+          "downloadUrl": "https://api.ironclad.com/public/api/v1/records/rec_abc123def456/documents/doc_789ghi/download"
+        }
+      ],
+      "workflow": {
+        "id": "61a2b3c4d5e6f70089abcdef",
+        "templateName": "Standard NDA"
+      }
+    }
+  }
+}

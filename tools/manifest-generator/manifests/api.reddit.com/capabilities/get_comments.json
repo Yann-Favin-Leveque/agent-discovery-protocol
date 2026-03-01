@@ -1,0 +1,93 @@
+{
+  "name": "get_comments",
+  "description": "Retrieve the comment tree for a specific post. Returns a nested structure of comments and replies, including author, body text, score, and timestamps.",
+  "endpoint": "/r/{subreddit}/comments/{article}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "subreddit",
+      "type": "string",
+      "description": "The subreddit where the post is located.",
+      "required": true,
+      "example": "technology"
+    },
+    {
+      "name": "article",
+      "type": "string",
+      "description": "The ID of the post (without the t3_ prefix).",
+      "required": true,
+      "example": "abc123"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort order for comments. One of: confidence, top, new, controversial, old, qa.",
+      "required": false,
+      "example": "top"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of comments to return.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "depth",
+      "type": "integer",
+      "description": "Maximum depth of comment tree to return.",
+      "required": false,
+      "example": 5
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/r/technology/comments/abc123?sort=top&limit=50",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "kind": "Listing",
+        "data": {
+          "children": [
+            {
+              "kind": "t3",
+              "data": {
+                "title": "New AI breakthrough announced",
+                "selftext": "Article content here..."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Listing",
+        "data": {
+          "children": [
+            {
+              "kind": "t1",
+              "data": {
+                "id": "comment1",
+                "author": "commenter42",
+                "body": "This is really interesting!",
+                "score": 234,
+                "created_utc": 1709316000,
+                "replies": {
+                  "kind": "Listing",
+                  "data": {
+                    "children": []
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

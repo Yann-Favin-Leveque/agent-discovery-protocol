@@ -1,0 +1,41 @@
+{
+  "name": "validate_email",
+  "description": "Validate a single email address to check deliverability, detect disposable or role-based addresses, and catch syntax errors. This uses Mailgun's email validation service which performs DNS lookups, mailbox verification, and risk assessment. Useful for cleaning lists and preventing bounces before sending.",
+  "endpoint": "/v4/address/validate",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "address",
+      "type": "string",
+      "description": "The email address to validate.",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "provider_lookup",
+      "type": "boolean",
+      "description": "Whether to perform additional provider-specific validation checks. Defaults to true.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailgun.com/v4/address/validate?address=john@example.com",
+    "headers": {
+      "Authorization": "Basic YXBpOmtleS14eHh4eHh4eHh4eHh4eHh4eA=="
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "address": "john@example.com",
+      "is_disposable_address": false,
+      "is_role_address": false,
+      "reason": [],
+      "result": "deliverable",
+      "risk": "low",
+      "root_address": null
+    }
+  }
+}

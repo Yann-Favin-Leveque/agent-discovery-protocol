@@ -1,0 +1,98 @@
+{
+  "name": "make_voice_call",
+  "description": "Initiate an outbound voice call using the Vonage Voice API. You can connect the call to a phone number, SIP endpoint, or WebSocket. Provide an answer_url that returns NCCO (Nexmo Call Control Object) instructions to control call flow, or use inline NCCO for simple calls. Returns a conversation UUID and call UUID for managing the call.",
+  "endpoint": "/v1/calls",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "to",
+      "type": "array",
+      "required": true,
+      "description": "Array of destination objects. Each object has 'type' (phone/sip/websocket) and 'number' (E.164 format for phone type). Currently only single-destination calls are supported."
+    },
+    {
+      "name": "from",
+      "type": "object",
+      "required": true,
+      "description": "The caller ID object with 'type' ('phone') and 'number' (your Vonage virtual number in E.164 format)."
+    },
+    {
+      "name": "answer_url",
+      "type": "array",
+      "required": false,
+      "description": "Array containing the URL that returns NCCO JSON instructions when the call is answered. Either answer_url or ncco must be provided."
+    },
+    {
+      "name": "ncco",
+      "type": "array",
+      "required": false,
+      "description": "Inline NCCO (Nexmo Call Control Object) array of action objects. Use this instead of answer_url for simple call flows. Actions include 'talk', 'stream', 'input', 'connect', 'record'."
+    },
+    {
+      "name": "event_url",
+      "type": "array",
+      "required": false,
+      "description": "Array containing the webhook URL for call event updates (ringing, answered, completed, etc.)."
+    },
+    {
+      "name": "length_timer",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum call duration in seconds. Default is 7200 (2 hours)."
+    },
+    {
+      "name": "ringing_timer",
+      "type": "integer",
+      "required": false,
+      "description": "Time in seconds to wait for the call to be answered before timing out. Default is 60."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vonage.com/v1/calls",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    },
+    "body": {
+      "to": [
+        {
+          "type": "phone",
+          "number": "14155550123"
+        }
+      ],
+      "from": {
+        "type": "phone",
+        "number": "12015550145"
+      },
+      "ncco": [
+        {
+          "action": "talk",
+          "text": "Hello, this is a reminder that your appointment is tomorrow at 10 AM. Press 1 to confirm or 2 to reschedule.",
+          "language": "en-US",
+          "style": 0
+        },
+        {
+          "action": "input",
+          "type": ["dtmf"],
+          "dtmf": {
+            "maxDigits": 1,
+            "timeOut": 10
+          },
+          "eventUrl": ["https://example.com/webhooks/dtmf"]
+        }
+      ],
+      "event_url": ["https://example.com/webhooks/events"],
+      "ringing_timer": 45
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uuid": "63f61863-4a51-4f6b-86e1-46edebcf9356",
+      "conversation_uuid": "CON-f972836a-550f-45fa-956c-12a2ab5b7d22",
+      "status": "started",
+      "direction": "outbound"
+    }
+  }
+}

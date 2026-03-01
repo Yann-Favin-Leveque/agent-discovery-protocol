@@ -1,0 +1,20 @@
+{
+  "name": "track_events",
+  "description": "Send one or more events to Amplitude for user behavior tracking and analytics.",
+  "endpoint": "/2/httpapi",
+  "method": "POST",
+  "parameters": [
+    {"name": "api_key", "type": "string", "description": "Amplitude API key.", "required": true, "example": "amp_api_key"},
+    {"name": "events", "type": "array", "description": "Array of event objects.", "required": true, "example": [{"user_id": "user_123", "event_type": "purchase", "event_properties": {"item": "Pro Plan", "amount": 99.99}}]}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api2.amplitude.com/2/httpapi",
+    "headers": {"Content-Type": "application/json"},
+    "body": {"api_key": "amp_api_key", "events": [{"user_id": "user_123", "event_type": "purchase", "event_properties": {"item": "Pro Plan", "amount": 99.99}, "time": 1705747200000}]}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"code": 200, "events_ingested": 1, "payload_size_bytes": 150, "server_upload_time": 1705747200000}
+  }
+}

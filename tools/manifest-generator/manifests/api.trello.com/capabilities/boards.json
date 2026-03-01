@@ -1,0 +1,98 @@
+{
+  "name": "boards",
+  "description": "Manage boards — create a board, create a label on a board, create a list on a board. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/boards/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The new name for the board. 1 to 16384 characters long.",
+      "required": true,
+      "example": "Example"
+    },
+    {
+      "name": "defaultLabels",
+      "type": "boolean",
+      "description": "Determines whether to use the default set of labels.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "defaultLists",
+      "type": "boolean",
+      "description": "Determines whether to add the default set of lists to a board (To Do, Doing, Done). It is ignored if `idBoardSource` is provided.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "desc",
+      "type": "string",
+      "description": "A new description for the board, 0 to 16384 characters long",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "idOrganization",
+      "type": "string",
+      "description": "The id or name of the Workspace the board should belong to.",
+      "required": false,
+      "example": "abc_123"
+    },
+    {
+      "name": "idBoardSource",
+      "type": "string",
+      "description": "The id of a board to copy into the new board.",
+      "required": false,
+      "example": "abc_123"
+    },
+    {
+      "name": "keepFromSource",
+      "type": "string",
+      "description": "To keep cards from the original board pass in the value `cards`",
+      "required": false,
+      "example": "none"
+    },
+    {
+      "name": "powerUps",
+      "type": "string",
+      "description": "The Power-Ups that should be enabled on the new board. One of: `all`, `calendar`, `cardAging`, `recap`, `voting`.",
+      "required": false,
+      "example": "all"
+    },
+    {
+      "name": "prefs_permissionLevel",
+      "type": "string",
+      "description": "The permissions level of the board. One of: `org`, `private`, `public`.",
+      "required": false,
+      "example": "private"
+    },
+    {
+      "name": "prefs_voting",
+      "type": "string",
+      "description": "Who can vote on this board. One of `disabled`, `members`, `observers`, `org`, `public`.",
+      "required": false,
+      "example": "disabled"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trello.com/1/boards/",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "name": "Example"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "name": "Example"
+      }
+    }
+  }
+}

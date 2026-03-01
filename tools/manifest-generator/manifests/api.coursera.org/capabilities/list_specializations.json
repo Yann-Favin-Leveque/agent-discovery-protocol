@@ -1,0 +1,47 @@
+{
+  "name": "list_specializations",
+  "description": "Browse Coursera specializations, which are multi-course sequences designed to help you master a specific topic. Returns specialization names, descriptions, included course IDs, partner institutions, and estimated completion time.",
+  "endpoint": "/api/onDemandSpecializations.v1",
+  "method": "GET",
+  "parameters": [
+    { "name": "q", "type": "string", "description": "Search type. Use 'search' for keyword search.", "required": false, "example": "search" },
+    { "name": "query", "type": "string", "description": "The search keyword or phrase.", "required": false, "example": "data science" },
+    { "name": "fields", "type": "string", "description": "Comma-separated list of fields to include.", "required": false, "example": "name,slug,description,partnerIds,courseIds,logo" },
+    { "name": "includes", "type": "string", "description": "Linked resources to include.", "required": false, "example": "partnerIds,courseIds" },
+    { "name": "start", "type": "integer", "description": "Pagination offset (0-based).", "required": false, "example": 0 },
+    { "name": "limit", "type": "integer", "description": "Number of results to return (max 100).", "required": false, "example": 20 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/onDemandSpecializations.v1?q=search&query=data%20science&fields=name,slug,description,partnerIds,courseIds,logo&limit=20",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "spec_abc123",
+          "slug": "data-science",
+          "name": "Data Science Specialization",
+          "description": "Launch your career in data science. A ten-course introduction to data science...",
+          "logo": "https://coursera-specialization-photos.s3.amazonaws.com/data-science.jpg",
+          "partnerIds": ["partner_jhu"],
+          "courseIds": ["course1", "course2", "course3"]
+        }
+      ],
+      "paging": {
+        "total": 85,
+        "start": 0,
+        "limit": 20
+      },
+      "linked": {
+        "partners.v1": [
+          { "id": "partner_jhu", "name": "Johns Hopkins University" }
+        ]
+      }
+    }
+  }
+}

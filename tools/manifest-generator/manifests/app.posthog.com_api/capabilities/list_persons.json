@@ -1,0 +1,20 @@
+{
+  "name": "list_persons",
+  "description": "List and search identified users (persons) with their properties, events, and identification history.",
+  "endpoint": "/projects/{project_id}/persons/",
+  "method": "GET",
+  "parameters": [
+    {"name": "project_id", "type": "number", "description": "Project ID.", "required": true, "example": 1},
+    {"name": "search", "type": "string", "description": "Search by email or distinct ID.", "required": false, "example": "john@example.com"},
+    {"name": "limit", "type": "number", "description": "Max results.", "required": false, "example": 10}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.posthog.com/api/projects/1/persons/?search=john@example.com&limit=10",
+    "headers": {"Authorization": "Bearer {api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"count": 1, "results": [{"id": "uuid-123", "distinct_ids": ["user_123"], "properties": {"email": "john@example.com", "name": "John Doe", "plan": "enterprise"}, "created_at": "2024-01-01T00:00:00Z"}]}
+  }
+}

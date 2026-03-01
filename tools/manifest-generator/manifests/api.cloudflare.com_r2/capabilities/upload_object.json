@@ -1,0 +1,58 @@
+{
+  "name": "upload_object",
+  "description": "Upload an object to an R2 bucket. R2 is S3-compatible, so you can use S3 PutObject via the S3-compatible endpoint. Alternatively, use the Cloudflare API to upload via a presigned URL or Workers. The S3-compatible endpoint is the recommended approach for direct uploads.",
+  "endpoint": "/{bucket_name}/{object_key}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "bucket_name",
+      "type": "string",
+      "description": "The name of the R2 bucket to upload to. This is part of the S3-compatible URL path.",
+      "required": true,
+      "example": "my-app-assets"
+    },
+    {
+      "name": "object_key",
+      "type": "string",
+      "description": "The key (path) for the object within the bucket (e.g., 'images/logo.png').",
+      "required": true,
+      "example": "images/logo.png"
+    },
+    {
+      "name": "Content-Type",
+      "type": "string",
+      "description": "The MIME type of the object being uploaded.",
+      "required": false,
+      "example": "image/png"
+    },
+    {
+      "name": "Content-Length",
+      "type": "integer",
+      "description": "The size of the object in bytes.",
+      "required": false,
+      "example": 102400
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{account_id}.r2.cloudflarestorage.com/my-app-assets/images/logo.png",
+    "headers": {
+      "Authorization": "AWS4-HMAC-SHA256 ...",
+      "Content-Type": "image/png",
+      "Content-Length": "102400",
+      "x-amz-content-sha256": "UNSIGNED-PAYLOAD",
+      "x-amz-date": "20260112T103000Z"
+    },
+    "body": "<file content bytes>"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "_note": "On success, the response body is empty. Metadata is in the response headers.",
+      "headers": {
+        "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+        "x-amz-request-id": "tx000000000000000aabbcc-00660a1234-12345-default"
+      }
+    }
+  }
+}

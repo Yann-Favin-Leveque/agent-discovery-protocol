@@ -1,0 +1,50 @@
+{
+  "name": "complete_checkout",
+  "description": "Finalize a cart into an order by completing payment and creating the order record for fulfillment. The cart must have shipping address, shipping method, and payment session set before completing.",
+  "endpoint": "/store/carts/{id}/complete",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The cart ID to complete checkout for.",
+      "required": true,
+      "example": "cart_01H..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.medusajs.com/store/carts/cart_01H.../complete",
+    "headers": {
+      "x-publishable-api-key": "YOUR_PUBLISHABLE_KEY",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "order",
+      "data": {
+        "id": "order_01H...",
+        "status": "pending",
+        "display_id": 1001,
+        "email": "customer@example.com",
+        "currency_code": "usd",
+        "items": [
+          {
+            "id": "item_01H...",
+            "title": "Medusa T-Shirt",
+            "quantity": 2,
+            "unit_price": 2000,
+            "subtotal": 4000
+          }
+        ],
+        "subtotal": 4000,
+        "shipping_total": 500,
+        "tax_total": 360,
+        "total": 4860,
+        "created_at": "2024-01-15T10:30:00.000Z"
+      }
+    }
+  }
+}

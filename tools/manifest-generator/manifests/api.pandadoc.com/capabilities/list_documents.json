@@ -1,0 +1,37 @@
+{
+  "name": "list_documents",
+  "description": "List all documents in your PandaDoc account with optional filtering. You can filter by status, search by name, filter by template, folder, or creation date range. Results are paginated.",
+  "endpoint": "/public/v1/documents",
+  "method": "GET",
+  "parameters": [
+    { "name": "status", "type": "integer", "description": "Filter by document status. 0=draft, 1=sent, 2=completed, 3=uploaded, 4=error, 5=viewed, 6=waiting_approval, 7=approved, 8=rejected, 9=waiting_pay, 10=paid, 11=voided, 12=declined, 13=external_review.", "required": false, "example": 2 },
+    { "name": "q", "type": "string", "description": "Search query to filter documents by name.", "required": false, "example": "Sales Agreement" },
+    { "name": "template_id", "type": "string", "description": "Filter documents created from a specific template.", "required": false, "example": "hryJY9mqYZHjQCYQuSjRQg" },
+    { "name": "folder_uuid", "type": "string", "description": "Filter documents within a specific folder.", "required": false, "example": "QMDSzwabfFzFnBhKfMeSbV" },
+    { "name": "count", "type": "integer", "description": "Number of documents to return per page (max 100).", "required": false, "example": 25 },
+    { "name": "page", "type": "integer", "description": "Page number for pagination (1-based).", "required": false, "example": 1 },
+    { "name": "order_by", "type": "string", "description": "Sort field. Options: name, date_created, date_modified, date_completed.", "required": false, "example": "date_created" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pandadoc.com/public/v1/documents?status=2&count=25&page=1",
+    "headers": {
+      "Authorization": "API-Key {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "id": "msFYActMfJHqNTKH8YSvF1",
+          "name": "Sales Agreement - Acme Corp",
+          "status": "document.completed",
+          "date_created": "2026-01-15T10:30:00.000Z",
+          "date_completed": "2026-01-16T14:22:00.000Z"
+        }
+      ],
+      "count": 1
+    }
+  }
+}

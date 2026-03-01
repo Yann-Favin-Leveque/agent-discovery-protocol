@@ -1,0 +1,57 @@
+{
+  "name": "update_user",
+  "description": "Update the authenticated user's profile attributes. Can change email, password, phone, and custom user metadata. Requires a valid JWT access token. Email changes trigger a confirmation email to the new address.",
+  "endpoint": "/user",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "New email address. A confirmation email will be sent to the new address.",
+      "required": false,
+      "example": "newemail@example.com"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "New password. Minimum 6 characters by default.",
+      "required": false,
+      "example": "newsecurepassword456"
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "description": "New phone number in E.164 format.",
+      "required": false,
+      "example": "+14155559876"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Custom user metadata to merge with existing metadata.",
+      "required": false,
+      "example": { "first_name": "Janet", "avatar_url": "https://example.com/avatar.png" }
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://your-project.supabase.co/auth/v1/user",
+    "headers": {
+      "apikey": "YOUR_SUPABASE_ANON_KEY",
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": { "first_name": "Janet" }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "email": "user@example.com",
+      "user_metadata": { "first_name": "Janet" },
+      "updated_at": "2026-03-01T13:00:00.000Z"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "delete_resource",
+  "description": "Delete one or more assets from your Cloudinary account by their public IDs. Supports bulk deletion of up to 100 assets in a single request.",
+  "endpoint": "/v1_1/{cloud_name}/resources/{resource_type}/upload",
+  "method": "DELETE",
+  "parameters": [
+    { "name": "public_ids", "type": "array", "description": "Array of public IDs to delete (up to 100).", "required": true, "example": ["products/hero-image", "products/banner"] },
+    { "name": "resource_type", "type": "string", "description": "The resource type: image, video, or raw.", "required": true, "example": "image" },
+    { "name": "invalidate", "type": "boolean", "description": "Whether to also invalidate the CDN cache for these assets.", "required": false, "example": true }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.cloudinary.com/v1_1/my_cloud/resources/image/upload",
+    "headers": {
+      "Authorization": "Basic {base64(api_key:api_secret)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "public_ids": ["products/hero-image", "products/banner"],
+      "invalidate": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "deleted": {
+        "products/hero-image": "deleted",
+        "products/banner": "deleted"
+      },
+      "deleted_counts": {
+        "products/hero-image": { "original": 1, "derived": 2 },
+        "products/banner": { "original": 1, "derived": 0 }
+      },
+      "partial": false,
+      "rate_limit_allowed": 500,
+      "rate_limit_remaining": 498
+    }
+  }
+}

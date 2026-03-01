@@ -1,0 +1,102 @@
+{
+  "name": "cards",
+  "description": "Manage cards — create a new card, create attachment on card, create checklist on a card. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/cards",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name for the card",
+      "required": false,
+      "example": "Example"
+    },
+    {
+      "name": "desc",
+      "type": "string",
+      "description": "The description for the card",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "pos",
+      "type": "string",
+      "description": "The position of the new card. `top`, `bottom`, or a positive float",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "due",
+      "type": "string",
+      "description": "A due date for the card",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "description": "The start date of a card, or `null`",
+      "required": false,
+      "example": "example_value"
+    },
+    {
+      "name": "dueComplete",
+      "type": "boolean",
+      "description": "Whether the status of the card is complete",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "idList",
+      "type": "string",
+      "description": "The ID of the list the card should be created in",
+      "required": true,
+      "example": "abc_123"
+    },
+    {
+      "name": "idMembers",
+      "type": "string[]",
+      "description": "Comma-separated list of member IDs to add to the card",
+      "required": false,
+      "example": [
+        "value1"
+      ]
+    },
+    {
+      "name": "idLabels",
+      "type": "string[]",
+      "description": "Comma-separated list of label IDs to add to the card",
+      "required": false,
+      "example": [
+        "value1"
+      ]
+    },
+    {
+      "name": "urlSource",
+      "type": "string",
+      "description": "A URL starting with `http://` or `https://`. The URL will be attached to the card upon creation.",
+      "required": false,
+      "example": "https://example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trello.com/1/cards",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "idList": "abc_123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "idList": "abc_123"
+      }
+    }
+  }
+}

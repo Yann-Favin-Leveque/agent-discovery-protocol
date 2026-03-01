@@ -1,0 +1,91 @@
+{
+  "name": "update_meeting",
+  "description": "Modify an existing meeting's details such as topic, start time, duration, timezone, password, and settings. Useful for rescheduling meetings or changing meeting configuration. Optionally notify participants of changes.",
+  "endpoint": "/meetings/{meetingId}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "string",
+      "description": "The meeting ID (numeric or UUID).",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "description": "Updated meeting topic or title.",
+      "required": false,
+      "example": "Q1 Planning Meeting - Updated"
+    },
+    {
+      "name": "start_time",
+      "type": "string",
+      "description": "Updated meeting start time in ISO 8601 format (YYYY-MM-DDTHH:mm:ss).",
+      "required": false,
+      "example": "2026-03-16T10:00:00"
+    },
+    {
+      "name": "duration",
+      "type": "integer",
+      "description": "Updated meeting duration in minutes.",
+      "required": false,
+      "example": 90
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "description": "Updated timezone for the meeting in IANA timezone format.",
+      "required": false,
+      "example": "America/Los_Angeles"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "Updated meeting password (6-15 alphanumeric characters).",
+      "required": false,
+      "example": "UpdatedPass123"
+    },
+    {
+      "name": "settings",
+      "type": "object",
+      "description": "Optional updated meeting settings object (waiting_room, join_before_host, host_video, participant_video, mute_upon_entry, etc.).",
+      "required": false,
+      "example": {
+        "waiting_room": false,
+        "join_before_host": true
+      }
+    },
+    {
+      "name": "occurrence_id",
+      "type": "string",
+      "description": "Occurrence ID for updating a specific instance of a recurring meeting.",
+      "required": false,
+      "example": "1614556800000"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.zoom.us/v2/meetings/123456789",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "topic": "Q1 Planning Meeting - Updated",
+      "start_time": "2026-03-16T10:00:00",
+      "duration": 90,
+      "timezone": "America/Los_Angeles",
+      "password": "UpdatedPass123",
+      "settings": {
+        "waiting_room": false,
+        "join_before_host": true,
+        "mute_upon_entry": false
+      }
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  }
+}

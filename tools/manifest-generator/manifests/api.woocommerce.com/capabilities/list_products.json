@@ -1,0 +1,114 @@
+{
+  "name": "list_products",
+  "description": "Retrieve a paginated list of products from the WooCommerce store. Supports filtering by status, category, tag, SKU, search term, featured flag, and price range. Returns full product details with pricing, images, and stock information.",
+  "endpoint": "/products",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Number of products to return per page (max 100, default 10).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination (default 1).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "description": "Search products by keyword across name and description.",
+      "required": false,
+      "example": "hoodie"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by product status: 'draft', 'pending', 'private', or 'publish'.",
+      "required": false,
+      "example": "publish"
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "description": "Filter products by category ID.",
+      "required": false,
+      "example": "15"
+    },
+    {
+      "name": "sku",
+      "type": "string",
+      "description": "Filter by exact SKU match.",
+      "required": false,
+      "example": "woo-hoodie-blue"
+    },
+    {
+      "name": "featured",
+      "type": "boolean",
+      "description": "Filter to only featured products.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "orderby",
+      "type": "string",
+      "description": "Sort by field: 'date', 'id', 'title', 'slug', 'price', 'popularity', 'rating'.",
+      "required": false,
+      "example": "date"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order: 'asc' or 'desc'.",
+      "required": false,
+      "example": "desc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store_domain}/wp-json/wc/v3/products?per_page=20&status=publish&orderby=date&order=desc",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_key_secret}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 93,
+        "name": "Hoodie with Logo",
+        "slug": "hoodie-with-logo",
+        "type": "simple",
+        "status": "publish",
+        "featured": false,
+        "description": "<p>A comfortable hoodie with embroidered logo.</p>",
+        "short_description": "<p>Hoodie with logo.</p>",
+        "sku": "woo-hoodie-blue",
+        "price": "45.00",
+        "regular_price": "45.00",
+        "sale_price": "",
+        "on_sale": false,
+        "stock_quantity": 25,
+        "stock_status": "instock",
+        "categories": [
+          {
+            "id": 15,
+            "name": "Hoodies",
+            "slug": "hoodies"
+          }
+        ],
+        "images": [
+          {
+            "id": 48,
+            "src": "https://store.example.com/wp-content/uploads/hoodie-blue.jpg",
+            "name": "hoodie-blue"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "name": "list_stories",
+  "description": "List stories in a Storyblok space with powerful filtering, sorting, and pagination. Filter by content type, folder, tags, date ranges, and full-text search. Results are paginated (default 25 per page, max 100). The response includes pagination headers for total count. Useful for building content listings, search results, or content audits.",
+  "endpoint": "/v2/cdn/stories",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "Your space's access token. Use the preview token for draft content or the public token for published content."
+    },
+    {
+      "name": "starts_with",
+      "type": "string",
+      "required": false,
+      "description": "Filter by slug prefix to get stories from a specific folder (e.g., 'blog/' for all blog posts, 'products/electronics/' for a subfolder)."
+    },
+    {
+      "name": "content_type",
+      "type": "string",
+      "required": false,
+      "description": "Filter by component name (content type), e.g., 'blog_post', 'product', 'page'."
+    },
+    {
+      "name": "with_tag",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated list of tags to filter by. Returns stories matching ANY of the specified tags."
+    },
+    {
+      "name": "search_term",
+      "type": "string",
+      "required": false,
+      "description": "Full-text search across story names and content fields."
+    },
+    {
+      "name": "sort_by",
+      "type": "string",
+      "required": false,
+      "description": "Sort field and direction, e.g., 'created_at:desc', 'name:asc', 'published_at:desc', 'position:asc'."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination. Starts at 1. Defaults to 1."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Number of stories per page. Maximum 100. Defaults to 25."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": false,
+      "description": "'draft' or 'published'. Defaults to 'published'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.storyblok.com/v2/cdn/stories?token=your-preview-token&version=draft&starts_with=blog/&content_type=blog_post&sort_by=published_at:desc&per_page=10&page=1",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stories": [
+        {
+          "id": 12345678,
+          "uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+          "name": "Getting Started Guide",
+          "slug": "getting-started-guide",
+          "full_slug": "blog/getting-started-guide",
+          "created_at": "2026-02-20T14:00:00.000Z",
+          "published_at": "2026-02-21T09:00:00.000Z",
+          "content": {
+            "_uid": "uid-here",
+            "component": "blog_post",
+            "title": "Getting Started Guide",
+            "excerpt": "Learn how to set up your project in 5 minutes."
+          },
+          "tag_list": ["tutorial", "beginner"],
+          "position": 0
+        },
+        {
+          "id": 12345679,
+          "uuid": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+          "name": "Advanced Tips",
+          "slug": "advanced-tips",
+          "full_slug": "blog/advanced-tips",
+          "created_at": "2026-02-18T10:00:00.000Z",
+          "published_at": "2026-02-19T11:00:00.000Z",
+          "content": {
+            "_uid": "uid-here-2",
+            "component": "blog_post",
+            "title": "Advanced Tips",
+            "excerpt": "Power user techniques for content management."
+          },
+          "tag_list": ["advanced"],
+          "position": 1
+        }
+      ],
+      "cv": 1709100000,
+      "rels": [],
+      "links": []
+    }
+  }
+}

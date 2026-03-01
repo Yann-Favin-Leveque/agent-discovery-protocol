@@ -1,0 +1,20 @@
+{
+  "name": "manage_scheduled_triggers",
+  "description": "Create and manage cron-based or one-off scheduled events. Scheduled triggers let you run recurring jobs or defer work to a specific time by calling a webhook.",
+  "endpoint": "/v1/metadata",
+  "method": "POST",
+  "parameters": [
+    { "name": "type", "type": "string", "description": "Must be 'create_cron_trigger' or 'create_scheduled_event'.", "required": true, "example": "create_cron_trigger" },
+    { "name": "args", "type": "object", "description": "Trigger configuration.", "required": true, "example": { "name": "daily_cleanup", "webhook": "https://example.com/cleanup", "schedule": "0 0 * * *", "payload": {} } }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-project.hasura.app/v1/metadata",
+    "headers": { "x-hasura-admin-secret": "{admin_secret}", "Content-Type": "application/json" },
+    "body": { "type": "create_cron_trigger", "args": { "name": "daily_cleanup", "webhook": "https://example.com/cleanup", "schedule": "0 0 * * *", "payload": {} } }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "message": "success" }
+  }
+}

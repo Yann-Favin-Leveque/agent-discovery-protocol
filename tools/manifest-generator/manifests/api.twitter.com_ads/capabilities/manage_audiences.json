@@ -1,0 +1,54 @@
+{
+  "name": "manage_audiences",
+  "description": "Create and manage custom (tailored) audiences for ad targeting. Upload hashed email lists, device IDs, or Twitter user IDs to build audiences. Custom audiences can be used for targeting or exclusion in your line items.",
+  "endpoint": "/12/accounts/{account_id}/custom_audiences",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The X Ads account ID.",
+      "required": true,
+      "example": "abc123xyz"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name of the custom audience.",
+      "required": true,
+      "example": "Newsletter Subscribers Q1 2026"
+    },
+    {
+      "name": "list_type",
+      "type": "string",
+      "description": "Type of audience data. Options: EMAIL, DEVICE_ID, TWITTER_ID, HANDLE.",
+      "required": true,
+      "example": "EMAIL"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://ads-api.twitter.com/12/accounts/abc123xyz/custom_audiences",
+    "headers": {
+      "Authorization": "OAuth oauth_consumer_key=\"{consumer_key}\", oauth_token=\"{access_token}\", ...",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "name": "Newsletter Subscribers Q1 2026",
+      "list_type": "EMAIL"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "ca_mno345",
+        "name": "Newsletter Subscribers Q1 2026",
+        "list_type": "EMAIL",
+        "audience_size": 0,
+        "audience_status": "PROCESSING",
+        "created_at": "2026-03-01T12:20:00Z"
+      }
+    }
+  }
+}

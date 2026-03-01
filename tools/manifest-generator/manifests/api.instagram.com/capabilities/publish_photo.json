@@ -1,0 +1,54 @@
+{
+  "name": "publish_photo",
+  "description": "Publish a photo to the authenticated user's Instagram feed. This is a two-step process: first create a media container with the image URL, then publish it. Requires the 'instagram_content_publish' scope.",
+  "endpoint": "/v18.0/{user_id}/media",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID of the publishing account.",
+      "required": true,
+      "example": "17841400123456789"
+    },
+    {
+      "name": "image_url",
+      "type": "string",
+      "description": "A publicly accessible URL to the image file (JPEG format recommended).",
+      "required": true,
+      "example": "https://example.com/photos/sunset.jpg"
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "description": "The caption text for the photo post. Supports hashtags and mentions.",
+      "required": false,
+      "example": "Beautiful sunset at the beach! #nature #photography"
+    },
+    {
+      "name": "location_id",
+      "type": "string",
+      "description": "The Facebook Places ID to tag a location on the post.",
+      "required": false,
+      "example": "110843418940484"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v18.0/17841400123456789/media",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "image_url": "https://example.com/photos/sunset.jpg",
+      "caption": "Beautiful sunset at the beach! #nature #photography"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "17889455123456789"
+    }
+  }
+}

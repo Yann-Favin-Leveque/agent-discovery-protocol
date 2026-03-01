@@ -1,0 +1,94 @@
+{
+  "name": "create_payment",
+  "description": "Create a new payment in Mollie. You specify an amount, currency, and description, and Mollie returns a checkout URL where the customer can complete the payment. You must redirect the customer to that URL. Supports credit cards, iDEAL, PayPal, Bancontact, and many other European payment methods.",
+  "endpoint": "/v2/payments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "The amount to charge. An object with 'currency' (ISO 4217, e.g. 'EUR') and 'value' (string with two decimals, e.g. '10.00').",
+      "required": true,
+      "example": { "currency": "EUR", "value": "25.00" }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "A short description of the payment shown on the customer's bank or card statement. Max 255 characters.",
+      "required": true,
+      "example": "Order #12345"
+    },
+    {
+      "name": "redirectUrl",
+      "type": "string",
+      "description": "The URL the customer is redirected to after completing or cancelling the payment. Required for most payment methods.",
+      "required": true,
+      "example": "https://yourshop.com/payment/return"
+    },
+    {
+      "name": "webhookUrl",
+      "type": "string",
+      "description": "URL Mollie will POST to when the payment status changes. Use this for server-side confirmation.",
+      "required": false,
+      "example": "https://yourshop.com/webhooks/mollie"
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "description": "Force a specific payment method (e.g. 'ideal', 'creditcard', 'paypal'). If omitted, the customer chooses on the checkout page.",
+      "required": false,
+      "example": "ideal"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Custom metadata to attach to the payment. Useful for storing your own order IDs or references. Max ~1kB.",
+      "required": false,
+      "example": { "order_id": "12345" }
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "Language for the checkout page (e.g. 'en_US', 'nl_NL', 'de_DE').",
+      "required": false,
+      "example": "en_US"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/payments",
+    "headers": {
+      "Authorization": "Bearer live_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": { "currency": "EUR", "value": "25.00" },
+      "description": "Order #12345",
+      "redirectUrl": "https://yourshop.com/payment/return",
+      "webhookUrl": "https://yourshop.com/webhooks/mollie",
+      "metadata": { "order_id": "12345" }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "payment",
+      "id": "tr_5B8cwPMGnU",
+      "mode": "live",
+      "createdAt": "2024-03-15T10:30:00+00:00",
+      "amount": { "currency": "EUR", "value": "25.00" },
+      "description": "Order #12345",
+      "method": null,
+      "metadata": { "order_id": "12345" },
+      "status": "open",
+      "isCancelable": false,
+      "redirectUrl": "https://yourshop.com/payment/return",
+      "webhookUrl": "https://yourshop.com/webhooks/mollie",
+      "_links": {
+        "self": { "href": "https://api.mollie.com/v2/payments/tr_5B8cwPMGnU" },
+        "checkout": { "href": "https://www.mollie.com/checkout/select-method/5B8cwPMGnU" },
+        "dashboard": { "href": "https://www.mollie.com/dashboard/org_12345/payments/tr_5B8cwPMGnU" }
+      }
+    }
+  }
+}

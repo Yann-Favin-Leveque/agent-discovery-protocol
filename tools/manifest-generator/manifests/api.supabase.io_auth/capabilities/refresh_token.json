@@ -1,0 +1,41 @@
+{
+  "name": "refresh_token",
+  "description": "Exchange a refresh token for a new access token and refresh token pair. Refresh tokens are single-use and never expire, but each one can only be used once. Use this to maintain sessions without re-authentication.",
+  "endpoint": "/token?grant_type=refresh_token",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "refresh_token",
+      "type": "string",
+      "description": "The refresh token from a previous sign-in or token refresh response.",
+      "required": true,
+      "example": "v1.MjAyNi0wMy0wMVQxMjowMDowMC..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-project.supabase.co/auth/v1/token?grant_type=refresh_token",
+    "headers": {
+      "apikey": "YOUR_SUPABASE_ANON_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "refresh_token": "v1.MjAyNi0wMy0wMVQxMjowMDowMC..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "token_type": "bearer",
+      "expires_in": 3600,
+      "expires_at": 1709322600,
+      "refresh_token": "v1.NjAyNi0wMy0wMVQxMzowMDowMC...",
+      "user": {
+        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "email": "user@example.com",
+        "role": "authenticated"
+      }
+    }
+  }
+}

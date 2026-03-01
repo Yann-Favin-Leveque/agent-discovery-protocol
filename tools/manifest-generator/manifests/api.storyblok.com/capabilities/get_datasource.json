@@ -1,0 +1,76 @@
+{
+  "name": "get_datasource",
+  "description": "Retrieve entries from a datasource by its slug. Datasources in Storyblok are collections of key-value pairs used for dropdowns, select fields, configuration values, and reusable option lists (e.g., country codes, color options, category lists). Each entry has a name (display label) and a value. Datasources can also be dimensioned for multi-language support. This uses the CDN API and requires a space access token.",
+  "endpoint": "/v2/cdn/datasource_entries",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "Your space's access token (preview or public)."
+    },
+    {
+      "name": "datasource",
+      "type": "string",
+      "required": true,
+      "description": "The slug of the datasource to retrieve entries from (e.g., 'countries', 'colors', 'categories')."
+    },
+    {
+      "name": "dimension",
+      "type": "string",
+      "required": false,
+      "description": "The dimension (language/variant) to retrieve entries for. Returns the default dimension values if omitted."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination. Defaults to 1."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Number of entries per page. Maximum 1000. Defaults to 25."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.storyblok.com/v2/cdn/datasource_entries?token=your-preview-token&datasource=countries&per_page=100",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "datasource_entries": [
+        {
+          "id": 1001,
+          "name": "United States",
+          "value": "us",
+          "dimension_value": null
+        },
+        {
+          "id": 1002,
+          "name": "United Kingdom",
+          "value": "gb",
+          "dimension_value": null
+        },
+        {
+          "id": 1003,
+          "name": "Germany",
+          "value": "de",
+          "dimension_value": null
+        },
+        {
+          "id": 1004,
+          "name": "France",
+          "value": "fr",
+          "dimension_value": null
+        }
+      ]
+    }
+  }
+}

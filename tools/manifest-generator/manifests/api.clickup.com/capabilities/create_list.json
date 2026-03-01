@@ -1,0 +1,100 @@
+{
+  "name": "create_list",
+  "description": "Create a new list in a ClickUp folder or directly in a space (folderless list). Lists are containers for tasks and represent a project, sprint, or category. You can set the list name, content description, priority, assignee, and status to indicate the default status for new tasks.",
+  "endpoint": "/api/v2/folder/{folder_id}/list",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "folder_id",
+      "type": "string",
+      "description": "The ID of the folder to create the list in. For folderless lists, use the endpoint /api/v2/space/{space_id}/list instead.",
+      "required": true,
+      "example": "456789"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the list.",
+      "required": true,
+      "example": "Sprint 12 - Backend"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "Description or content for the list.",
+      "required": false,
+      "example": "Backend tasks for Sprint 12 including API refactoring and database migration."
+    },
+    {
+      "name": "due_date",
+      "type": "integer",
+      "description": "Due date as a Unix timestamp in milliseconds.",
+      "required": false,
+      "example": 1709337600000
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "description": "Priority level: 1 = Urgent, 2 = High, 3 = Normal, 4 = Low.",
+      "required": false,
+      "example": 3
+    },
+    {
+      "name": "assignee",
+      "type": "integer",
+      "description": "User ID to assign as the list owner.",
+      "required": false,
+      "example": 183
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Default status for the list.",
+      "required": false,
+      "example": "to do"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clickup.com/api/v2/folder/456789/list",
+    "headers": {
+      "Authorization": "pk_12345678_ABCDEFGHIJKLMNOP",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Sprint 12 - Backend",
+      "content": "Backend tasks for Sprint 12 including API refactoring and database migration.",
+      "due_date": 1709337600000,
+      "priority": 3,
+      "assignee": 183,
+      "status": "to do"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "list_987654",
+      "name": "Sprint 12 - Backend",
+      "content": "Backend tasks for Sprint 12 including API refactoring and database migration.",
+      "orderindex": 5,
+      "status": {
+        "status": "to do",
+        "color": "#d3d3d3",
+        "hide_label": false
+      },
+      "priority": {
+        "priority": "normal",
+        "color": "#6fddff"
+      },
+      "assignee": {
+        "id": 183,
+        "username": "jsmith",
+        "email": "jsmith@example.com"
+      },
+      "due_date": "1709337600000",
+      "folder": { "id": "456789", "name": "Development" },
+      "space": { "id": "789012", "name": "Engineering" },
+      "task_count": 0
+    }
+  }
+}

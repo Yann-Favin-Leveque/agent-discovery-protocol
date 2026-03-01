@@ -1,0 +1,69 @@
+{
+  "name": "reverse_geocode",
+  "description": "Convert geographic coordinates (longitude, latitude) into a human-readable address. Returns results as a GeoJSON FeatureCollection ordered by administrative hierarchy specificity, from the most specific (address) to the broadest (country).",
+  "endpoint": "/search/geocode/v6/reverse",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "longitude",
+      "type": "number",
+      "description": "The longitude of the location to reverse geocode.",
+      "required": true,
+      "example": -77.03655
+    },
+    {
+      "name": "latitude",
+      "type": "number",
+      "description": "The latitude of the location to reverse geocode.",
+      "required": true,
+      "example": 38.89768
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results to return (1-5). Default is 1.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Comma-separated feature types to filter results (country, region, postcode, district, place, locality, neighborhood, address, street, block).",
+      "required": false,
+      "example": "address,place"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "IETF language tag for result language preference.",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/search/geocode/v6/reverse?longitude=-77.03655&latitude=38.89768&limit=1&access_token=YOUR_ACCESS_TOKEN",
+    "headers": {},
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [-77.03655, 38.89768]
+          },
+          "properties": {
+            "name": "1600 Pennsylvania Avenue NW",
+            "full_address": "1600 Pennsylvania Avenue NW, Washington, District of Columbia 20500, United States",
+            "feature_type": "address"
+          }
+        }
+      ]
+    }
+  }
+}

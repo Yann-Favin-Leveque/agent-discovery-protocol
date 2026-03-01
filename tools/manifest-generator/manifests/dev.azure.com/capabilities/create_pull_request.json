@@ -1,0 +1,116 @@
+{
+  "name": "create_pull_request",
+  "description": "Create a pull request in an Azure DevOps Git repository. Specify the source and target branches, title, description, and optional reviewers. The PR enables code review before merging changes into the target branch.",
+  "endpoint": "/{organization}/{project}/_apis/git/repositories/{repositoryId}/pullrequests",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "description": "The name of the Azure DevOps organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "description": "The name or ID of the project."
+    },
+    {
+      "name": "repositoryId",
+      "type": "string",
+      "required": true,
+      "description": "The ID or name of the Git repository."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "Version of the API to use. Use '7.1'."
+    },
+    {
+      "name": "sourceRefName",
+      "type": "string",
+      "required": true,
+      "description": "The source branch ref, e.g., 'refs/heads/feature/auth-flow'."
+    },
+    {
+      "name": "targetRefName",
+      "type": "string",
+      "required": true,
+      "description": "The target branch ref, e.g., 'refs/heads/main'."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "The title of the pull request."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Detailed description of the changes in the pull request. Supports Markdown."
+    },
+    {
+      "name": "reviewers",
+      "type": "array",
+      "required": false,
+      "description": "Array of reviewer objects, each with an 'id' field (the user's Azure DevOps identity ID)."
+    },
+    {
+      "name": "isDraft",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, creates a draft pull request that cannot be completed until published."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://dev.azure.com/my-org/MyWebApp/_apis/git/repositories/MyWebApp/pullrequests?api-version=7.1",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sourceRefName": "refs/heads/feature/auth-flow",
+      "targetRefName": "refs/heads/main",
+      "title": "Add OAuth2 authentication with Google and GitHub",
+      "description": "## Changes\n- Implemented OAuth2 login flow for Google and GitHub providers\n- Added token refresh logic with secure storage\n- Added unit tests for auth service\n\n## Testing\n- Tested login flow end-to-end in staging\n- Verified token refresh after expiry",
+      "reviewers": [
+        { "id": "d5e6f7a8-9012-34cd-efgh-5678901234ef" }
+      ],
+      "isDraft": false
+    }
+  },
+  "response_example": {
+    "pullRequestId": 287,
+    "codeReviewId": 287,
+    "status": "active",
+    "title": "Add OAuth2 authentication with Google and GitHub",
+    "description": "## Changes\n- Implemented OAuth2 login flow for Google and GitHub providers\n- Added token refresh logic with secure storage\n- Added unit tests for auth service\n\n## Testing\n- Tested login flow end-to-end in staging\n- Verified token refresh after expiry",
+    "sourceRefName": "refs/heads/feature/auth-flow",
+    "targetRefName": "refs/heads/main",
+    "createdBy": {
+      "displayName": "John Smith",
+      "uniqueName": "john.smith@company.com",
+      "id": "c4d5e6f7-8901-23ab-cdef-4567890123cd"
+    },
+    "creationDate": "2026-01-20T11:30:00Z",
+    "repository": {
+      "id": "f3e4d5c6-7890-12ab-cdef-3456789012cd",
+      "name": "MyWebApp"
+    },
+    "reviewers": [
+      {
+        "displayName": "Jane Doe",
+        "uniqueName": "jane.doe@company.com",
+        "id": "d5e6f7a8-9012-34cd-efgh-5678901234ef",
+        "vote": 0,
+        "isRequired": true
+      }
+    ],
+    "url": "https://dev.azure.com/my-org/MyWebApp/_apis/git/repositories/MyWebApp/pullRequests/287",
+    "isDraft": false,
+    "mergeStatus": "queued"
+  }
+}

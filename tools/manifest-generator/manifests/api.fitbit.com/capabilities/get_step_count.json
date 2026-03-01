@@ -1,0 +1,41 @@
+{
+  "name": "get_step_count",
+  "description": "Retrieve step count time series data for the authenticated user. Returns daily step totals for a specific date or date range. This is a convenience endpoint specifically for steps (a subset of the full activity summary). Use period values like '1d', '7d', '30d', '1w', '1m', '3m', '6m', '1y' to get step trends over time.",
+  "endpoint": "/1/user/-/activities/steps/date/{date}/{period}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "The end date for the time series, in YYYY-MM-DD format or 'today'."
+    },
+    {
+      "name": "period",
+      "type": "string",
+      "required": true,
+      "description": "The time period. One of: '1d', '7d', '30d', '1w', '1m', '3m', '6m', '1y'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/activities/steps/date/2025-01-15/7d.json",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "activities-steps": [
+        { "dateTime": "2025-01-09", "value": "7823" },
+        { "dateTime": "2025-01-10", "value": "10245" },
+        { "dateTime": "2025-01-11", "value": "5612" },
+        { "dateTime": "2025-01-12", "value": "3287" },
+        { "dateTime": "2025-01-13", "value": "9456" },
+        { "dateTime": "2025-01-14", "value": "11032" },
+        { "dateTime": "2025-01-15", "value": "8432" }
+      ]
+    }
+  }
+}

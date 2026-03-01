@@ -1,0 +1,30 @@
+{
+  "name": "get_survey_details",
+  "description": "Retrieve detailed survey structure including pages, questions, and answer choices. Use this to understand the full survey design before analyzing responses.",
+  "endpoint": "/v3/surveys/{survey_id}/details",
+  "method": "GET",
+  "parameters": [
+    { "name": "survey_id", "type": "string", "description": "The survey ID.", "required": true, "example": "123456789" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.surveymonkey.com/v3/surveys/123456789/details",
+    "headers": { "Authorization": "Bearer {access_token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "123456789",
+      "title": "Customer Satisfaction Survey",
+      "pages": [
+        {
+          "id": "page_1",
+          "title": "Page 1",
+          "questions": [
+            { "id": "q_1", "heading": "How satisfied are you?", "family": "single_choice", "answers": { "choices": [{ "id": "choice_1", "text": "Very Satisfied" }, { "id": "choice_2", "text": "Satisfied" }] } }
+          ]
+        }
+      ]
+    }
+  }
+}

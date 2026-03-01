@@ -1,0 +1,20 @@
+{
+  "name": "track_event",
+  "description": "Send a custom server-side event for a user to FullStory.",
+  "endpoint": "/server/v2/events",
+  "method": "POST",
+  "parameters": [
+    {"name": "user", "type": "object", "description": "User identification with uid or id.", "required": true, "example": {"uid": "user_123"}},
+    {"name": "events", "type": "array", "description": "Array of event objects with name and properties.", "required": true, "example": [{"name": "Purchase Complete", "properties": {"plan": "enterprise", "amount": 99.99}}]}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fullstory.com/server/v2/events",
+    "headers": {"Authorization": "Basic {api_key}", "Content-Type": "application/json"},
+    "body": {"user": {"uid": "user_123"}, "events": [{"name": "Purchase Complete", "properties": {"plan": "enterprise", "amount": 99.99}}]}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  }
+}

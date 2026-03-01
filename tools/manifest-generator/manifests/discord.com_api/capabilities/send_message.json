@@ -1,0 +1,69 @@
+{
+  "name": "send_message",
+  "description": "Send a message to a channel.",
+  "endpoint": "/v10/channels/{channel_id}/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "description": "The ID of the channel to send the message to.",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "The message content (max 2000 characters).",
+      "required": true,
+      "example": "Hello, Discord!"
+    },
+    {
+      "name": "tts",
+      "type": "boolean",
+      "description": "Whether this is a text-to-speech message.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "embeds",
+      "type": "array",
+      "description": "Array of embed objects to include in the message.",
+      "required": false,
+      "example": []
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://discord.com/api/v10/channels/123456789/messages",
+    "headers": {
+      "Authorization": "Bot YOUR_BOT_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "Hello, Discord!",
+      "tts": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "987654321",
+      "channel_id": "123456789",
+      "author": {
+        "id": "bot_id",
+        "username": "BotName",
+        "discriminator": "0000"
+      },
+      "content": "Hello, Discord!",
+      "timestamp": "2024-03-01T12:00:00.000000+00:00",
+      "edited_timestamp": null,
+      "tts": false,
+      "mention_everyone": false,
+      "mentions": [],
+      "mention_roles": [],
+      "pinned": false,
+      "type": 0
+    }
+  }
+}

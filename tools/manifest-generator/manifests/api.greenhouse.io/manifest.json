@@ -1,0 +1,54 @@
+{
+  "spec_version": "1.0",
+  "name": "Greenhouse Harvest API",
+  "description": "Greenhouse is an applicant tracking system (ATS) for managing recruiting and hiring workflows. Use the Harvest API to list and search candidates, manage job postings, track applications through hiring stages, add new candidates, and view scheduled interviews. Authentication uses Basic auth where the API key is the username with an empty password (base64 encode 'apikey:').",
+  "base_url": "https://harvest.greenhouse.io",
+  "auth": {
+    "type": "api_key",
+    "header": "Authorization",
+    "prefix": "Basic",
+    "setup_url": "https://app.greenhouse.io/configure/dev_center/credentials"
+  },
+  "capabilities": [
+    {
+      "name": "list_candidates",
+      "description": "List all candidates in the system with pagination. Can filter by creation date to retrieve only recently added candidates.",
+      "detail_url": "/capabilities/list_candidates"
+    },
+    {
+      "name": "get_candidate",
+      "description": "Retrieve full details for a specific candidate by ID, including their applications, email addresses, phone numbers, and custom fields.",
+      "detail_url": "/capabilities/get_candidate"
+    },
+    {
+      "name": "list_jobs",
+      "description": "List job postings with optional filtering by status (open, closed, draft) and department. Returns job titles, departments, offices, and opening counts.",
+      "detail_url": "/capabilities/list_jobs"
+    },
+    {
+      "name": "get_job",
+      "description": "Retrieve full details for a specific job by ID, including its hiring team, departments, offices, openings, and current status.",
+      "detail_url": "/capabilities/get_job"
+    },
+    {
+      "name": "list_applications",
+      "description": "List job applications with optional filtering by job ID and status. Returns application details including current stage, rejection reason, and source.",
+      "detail_url": "/capabilities/list_applications"
+    },
+    {
+      "name": "add_candidate",
+      "description": "Create a new candidate record and optionally attach them to one or more job applications. Requires at least first name and last name.",
+      "detail_url": "/capabilities/add_candidate"
+    },
+    {
+      "name": "advance_application",
+      "description": "Advance a job application to the next stage in the hiring pipeline. Moves the candidate forward in the configured interview workflow.",
+      "detail_url": "/capabilities/advance_application"
+    },
+    {
+      "name": "list_scheduled_interviews",
+      "description": "List all scheduled interviews across the organization. Can filter by creation date for retrieving recently scheduled interviews.",
+      "detail_url": "/capabilities/list_scheduled_interviews"
+    }
+  ]
+}

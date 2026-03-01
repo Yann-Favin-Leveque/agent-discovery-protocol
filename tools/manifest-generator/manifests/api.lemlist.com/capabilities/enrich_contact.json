@@ -1,0 +1,71 @@
+{
+  "name": "enrich_contact",
+  "description": "Find email addresses, phone numbers, and LinkedIn profiles for a prospect. Provide a name and company or a LinkedIn URL, and Lemlist will attempt to find verified contact information. Supports single lookups and bulk enrichment of up to 500 entities at once.",
+  "endpoint": "/api/enrich",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "firstName",
+      "type": "string",
+      "description": "The prospect's first name.",
+      "required": false,
+      "example": "John"
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "description": "The prospect's last name.",
+      "required": false,
+      "example": "Smith"
+    },
+    {
+      "name": "companyName",
+      "type": "string",
+      "description": "The prospect's company name.",
+      "required": false,
+      "example": "Acme Corp"
+    },
+    {
+      "name": "linkedinUrl",
+      "type": "string",
+      "description": "The prospect's LinkedIn profile URL. Alternative to name+company.",
+      "required": false,
+      "example": "https://linkedin.com/in/johnsmith"
+    },
+    {
+      "name": "companyDomain",
+      "type": "string",
+      "description": "The company's domain name for email pattern matching.",
+      "required": false,
+      "example": "acmecorp.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemlist.com/api/enrich",
+    "headers": {
+      "Authorization": "Basic {base64_encoded_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "firstName": "John",
+      "lastName": "Smith",
+      "companyName": "Acme Corp",
+      "companyDomain": "acmecorp.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "email": "john.smith@acmecorp.com",
+        "emailStatus": "verified",
+        "phone": "+1-555-123-4567",
+        "linkedinUrl": "https://linkedin.com/in/johnsmith",
+        "title": "CTO",
+        "company": "Acme Corp"
+      }
+    }
+  }
+}

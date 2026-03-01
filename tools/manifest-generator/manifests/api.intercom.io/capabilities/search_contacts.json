@@ -1,0 +1,116 @@
+{
+  "name": "search_contacts",
+  "description": "Search for contacts (users and leads) in your Intercom workspace using structured queries. Build queries with field-based filters using operators like '=', '!=', '~' (contains), 'IN', '>', '<'. Combine multiple filters with AND/OR logic. Returns paginated results with full contact profiles including email, name, role, custom attributes, tags, and activity metadata.",
+  "endpoint": "/contacts/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "object",
+      "required": true,
+      "description": "The search query object. For a single filter: {'field': 'email', 'operator': '=', 'value': 'user@example.com'}. For multiple filters: {'operator': 'AND', 'value': [filter1, filter2]}. Supported fields: email, name, role, phone, created_at, updated_at, signed_up_at, last_seen_at, owner_id, tag_id, segment_id, custom_attributes.*."
+    },
+    {
+      "name": "pagination",
+      "type": "object",
+      "required": false,
+      "description": "Pagination object with 'per_page' (max 150, default 50) and 'starting_after' (cursor from previous response for next page)."
+    },
+    {
+      "name": "sort",
+      "type": "object",
+      "required": false,
+      "description": "Sort object with 'field' (e.g., 'created_at', 'updated_at', 'name') and 'order' ('ascending' or 'descending')."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/contacts/search",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "query": {
+        "operator": "AND",
+        "value": [
+          {
+            "field": "role",
+            "operator": "=",
+            "value": "user"
+          },
+          {
+            "field": "custom_attributes.plan",
+            "operator": "=",
+            "value": "pro"
+          },
+          {
+            "field": "created_at",
+            "operator": ">",
+            "value": 1740787200
+          }
+        ]
+      },
+      "pagination": {
+        "per_page": 25
+      },
+      "sort": {
+        "field": "created_at",
+        "order": "descending"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "list",
+      "data": [
+        {
+          "type": "contact",
+          "id": "6578a0b1c2d3e4f567890abc",
+          "workspace_id": "abc12345",
+          "external_id": "user-29481",
+          "role": "user",
+          "email": "jane.doe@techcorp.com",
+          "name": "Jane Doe",
+          "phone": "+14155550199",
+          "avatar": null,
+          "owner_id": null,
+          "signed_up_at": 1740787200,
+          "last_seen_at": 1740873600,
+          "created_at": 1740787200,
+          "updated_at": 1740873600,
+          "custom_attributes": {
+            "plan": "pro",
+            "company_size": "50-200",
+            "onboarding_completed": true
+          },
+          "tags": {
+            "type": "list",
+            "data": [
+              {
+                "type": "tag",
+                "id": "8901234",
+                "name": "pro-user"
+              }
+            ]
+          },
+          "unsubscribed_from_emails": false,
+          "browser_language": "en"
+        }
+      ],
+      "total_count": 142,
+      "pages": {
+        "type": "pages",
+        "page": 1,
+        "per_page": 25,
+        "total_pages": 6,
+        "next": {
+          "page": 2,
+          "starting_after": "WzE3NDA4NzM2MDBd"
+        }
+      }
+    }
+  }
+}

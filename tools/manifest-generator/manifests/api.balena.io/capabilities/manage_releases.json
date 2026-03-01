@@ -1,0 +1,56 @@
+{
+  "name": "manage_releases",
+  "description": "List releases for an application, view release details including commit hash and creation date, or pin a device to a specific release version. Useful for tracking deployment history and managing rollbacks.",
+  "endpoint": "/v7/release",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter expression, e.g. filter by application ID or status.",
+      "required": false,
+      "example": "belongs_to__application eq 12345"
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Comma-separated list of fields to return.",
+      "required": false,
+      "example": "id,commit,status,created_at"
+    },
+    {
+      "name": "$orderby",
+      "type": "string",
+      "description": "Sort order for results.",
+      "required": false,
+      "example": "created_at desc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.balena-cloud.com/v7/release?$filter=belongs_to__application eq 12345&$select=id,commit,status,created_at&$orderby=created_at desc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "d": [
+        {
+          "id": 2345678,
+          "commit": "a1b2c3d4",
+          "status": "success",
+          "created_at": "2025-12-01T15:00:00.000Z"
+        },
+        {
+          "id": 2345677,
+          "commit": "e5f6g7h8",
+          "status": "success",
+          "created_at": "2025-11-28T10:00:00.000Z"
+        }
+      ]
+    }
+  }
+}

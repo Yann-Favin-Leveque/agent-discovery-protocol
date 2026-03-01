@@ -1,0 +1,56 @@
+{
+  "name": "list_devices",
+  "description": "List all Withings devices associated with the authenticated user's account. Returns each device's type (scale, BPM, watch, sleep tracker), model name, battery level, firmware version, and last weigh-in or sync timestamp.",
+  "endpoint": "/v2/user",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "description": "Must be 'getdevice' to list devices.",
+      "required": true,
+      "example": "getdevice"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/user",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "getdevice"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "devices": [
+          {
+            "type": "Scale",
+            "model": "Body+",
+            "model_id": 5,
+            "battery": "high",
+            "deviceid": "abc123def456",
+            "timezone": "America/New_York",
+            "last_session_date": 1701432000,
+            "firmware": "2076"
+          },
+          {
+            "type": "Activity Tracker",
+            "model": "ScanWatch",
+            "model_id": 93,
+            "battery": "medium",
+            "deviceid": "xyz789ghi012",
+            "timezone": "America/New_York",
+            "last_session_date": 1701460000,
+            "firmware": "3012"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "name": "list_deploys",
+  "description": "List all deploys for a specific Netlify site. Returns deploy IDs, states (ready, building, error, enqueued), timestamps, commit messages, branch names, and individual deploy URLs. Supports pagination.",
+  "endpoint": "/api/v1/sites/{site_id}/deploys",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "string",
+      "required": true,
+      "description": "The site ID (UUID) to list deploys for."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination. Default is 1."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Number of deploys per page. Default is 100."
+    },
+    {
+      "name": "branch",
+      "type": "string",
+      "required": false,
+      "description": "Filter deploys by Git branch name."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.netlify.com/api/v1/sites/a1b2c3d4-5678-90ab-cdef-1234567890ab/deploys?per_page=5"
+  },
+  "response_example": [
+    {
+      "id": "65a1b2c3d4e5f6g7",
+      "site_id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+      "state": "ready",
+      "name": "my-blog",
+      "url": "https://my-blog.netlify.app",
+      "deploy_url": "https://65a1b2c3d4e5f6g7--my-blog.netlify.app",
+      "admin_url": "https://app.netlify.com/sites/my-blog/deploys/65a1b2c3d4e5f6g7",
+      "branch": "main",
+      "commit_ref": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+      "commit_url": "https://github.com/my-org/my-blog/commit/a1b2c3d4e5f6",
+      "title": "fix: update article layout for mobile",
+      "context": "production",
+      "deploy_time": 45,
+      "created_at": "2026-01-18T14:30:00Z",
+      "updated_at": "2026-01-18T14:30:45Z",
+      "published_at": "2026-01-18T14:30:45Z"
+    },
+    {
+      "id": "60b2c3d4e5f6g7h8",
+      "site_id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+      "state": "ready",
+      "name": "my-blog",
+      "url": "https://my-blog.netlify.app",
+      "deploy_url": "https://60b2c3d4e5f6g7h8--my-blog.netlify.app",
+      "admin_url": "https://app.netlify.com/sites/my-blog/deploys/60b2c3d4e5f6g7h8",
+      "branch": "main",
+      "commit_ref": "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
+      "commit_url": "https://github.com/my-org/my-blog/commit/b2c3d4e5f6a1",
+      "title": "feat: add dark mode toggle",
+      "context": "production",
+      "deploy_time": 52,
+      "created_at": "2026-01-16T10:00:00Z",
+      "updated_at": "2026-01-16T10:00:52Z",
+      "published_at": "2026-01-16T10:00:52Z"
+    }
+  ]
+}

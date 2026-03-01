@@ -1,0 +1,46 @@
+{
+  "name": "delete_entry",
+  "description": "Permanently delete a content entry by its numeric ID from a specific content type. This action cannot be undone. The deleted entry's data is returned in the response for confirmation. Any relations pointing to this entry from other content types will be automatically unlinked.",
+  "endpoint": "/api/{content_type}/{id}",
+  "method": "DELETE",
+  "parameters": [
+    {
+      "name": "content_type",
+      "type": "string",
+      "required": true,
+      "description": "The pluralized API name of the content type (e.g., 'articles', 'products')."
+    },
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "The numeric ID of the entry to delete."
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.strapi.io/api/articles/15",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 15,
+        "attributes": {
+          "title": "Getting Started with Strapi v5",
+          "slug": "getting-started-with-strapi",
+          "content": "Updated guide for Strapi v5 with new features and improvements.",
+          "category": "tutorial",
+          "publishedAt": "2026-02-28T12:00:00.000Z",
+          "createdAt": "2026-02-28T12:00:00.000Z",
+          "updatedAt": "2026-02-28T16:30:00.000Z"
+        }
+      },
+      "meta": {}
+    }
+  }
+}

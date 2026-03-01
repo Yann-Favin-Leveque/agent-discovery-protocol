@@ -1,0 +1,45 @@
+{
+  "name": "get_thing_properties",
+  "description": "Get the current values of all properties (cloud variables) associated with a specific thing. Properties represent sensor readings, device states, or configuration values that sync between the physical device and the cloud.",
+  "endpoint": "/iot/v2/things/{thingId}/properties",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "thingId",
+      "type": "string",
+      "description": "The UUID of the thing whose properties to retrieve.",
+      "required": true,
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api2.arduino.cc/iot/v2/things/a1b2c3d4-e5f6-7890-abcd-ef1234567890/properties",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "p1a2b3c4-d5e6-7890-abcd-ef1234567890",
+        "name": "temperature",
+        "type": "FLOAT",
+        "permission": "READ_ONLY",
+        "last_value": 22.5,
+        "update_at": "2025-12-01T18:30:00.000Z",
+        "variable_name": "temperature"
+      },
+      {
+        "id": "p2a2b3c4-d5e6-7890-abcd-ef1234567891",
+        "name": "led_switch",
+        "type": "BOOL",
+        "permission": "READ_WRITE",
+        "last_value": false,
+        "update_at": "2025-12-01T18:25:00.000Z",
+        "variable_name": "led_switch"
+      }
+    ]
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "name": "translate_text",
+  "description": "Translate one or more text strings from a source language to a target language. Supports auto-detection of source language, formality control, custom glossaries, and context-aware translation quality improvements.",
+  "endpoint": "/v2/translate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "text",
+      "type": "array",
+      "description": "Array of text strings to translate (max 50 items, total body max 128 KiB).",
+      "required": true,
+      "example": ["Hello, world!", "How are you?"]
+    },
+    {
+      "name": "target_lang",
+      "type": "string",
+      "description": "Target language code (e.g. 'DE', 'FR', 'ES', 'JA').",
+      "required": true,
+      "example": "DE"
+    },
+    {
+      "name": "source_lang",
+      "type": "string",
+      "description": "Source language code. Auto-detected if omitted.",
+      "required": false,
+      "example": "EN"
+    },
+    {
+      "name": "context",
+      "type": "string",
+      "description": "Additional context to improve translation quality. Not translated itself and not billed.",
+      "required": false,
+      "example": "This is a formal business email."
+    },
+    {
+      "name": "formality",
+      "type": "string",
+      "description": "Desired formality level: 'default', 'more', 'less', 'prefer_more', 'prefer_less'. Not all languages support this.",
+      "required": false,
+      "example": "more"
+    },
+    {
+      "name": "glossary_id",
+      "type": "string",
+      "description": "ID of a custom glossary to enforce consistent term translations. Requires source_lang.",
+      "required": false,
+      "example": "def3a26b-3e84-45b3-84ae-0c0aaf3525f7"
+    },
+    {
+      "name": "model_type",
+      "type": "string",
+      "description": "Translation model preference: 'latency_optimized', 'quality_optimized', or 'prefer_quality_optimized'.",
+      "required": false,
+      "example": "quality_optimized"
+    },
+    {
+      "name": "split_sentences",
+      "type": "string",
+      "description": "Sentence splitting mode: '0' (none), '1' (default), 'nonewlines'.",
+      "required": false,
+      "example": "1"
+    },
+    {
+      "name": "preserve_formatting",
+      "type": "boolean",
+      "description": "Whether to preserve original text formatting.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "tag_handling",
+      "type": "string",
+      "description": "Enable XML or HTML tag handling: 'xml' or 'html'.",
+      "required": false,
+      "example": "html"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.deepl.com/v2/translate",
+    "headers": {
+      "Authorization": "DeepL-Auth-Key your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "text": ["Hello, world!", "How are you?"],
+      "target_lang": "DE"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "translations": [
+        {
+          "detected_source_language": "EN",
+          "text": "Hallo, Welt!"
+        },
+        {
+          "detected_source_language": "EN",
+          "text": "Wie geht es Ihnen?"
+        }
+      ]
+    }
+  }
+}

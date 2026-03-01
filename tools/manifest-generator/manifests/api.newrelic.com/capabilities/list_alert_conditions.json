@@ -1,0 +1,89 @@
+{
+  "name": "list_alert_conditions",
+  "description": "List all NRQL alert conditions associated with a specific alert policy. Returns condition names, NRQL queries, thresholds (critical and warning), signal configuration, and enabled status. Requires the policy_id to filter conditions.",
+  "endpoint": "/v2/alerts_nrql_conditions.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "policy_id",
+      "type": "integer",
+      "required": true,
+      "description": "The ID of the alert policy to list conditions for."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination (starts at 1)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.newrelic.com/v2/alerts_nrql_conditions.json?policy_id=555001",
+    "headers": {
+      "Api-Key": "NRAK-XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "nrql_conditions": [
+        {
+          "id": 777001,
+          "type": "static",
+          "name": "High Error Rate",
+          "enabled": true,
+          "terms": [
+            {
+              "duration": "5",
+              "operator": "above",
+              "priority": "critical",
+              "threshold": "5",
+              "time_function": "all"
+            },
+            {
+              "duration": "5",
+              "operator": "above",
+              "priority": "warning",
+              "threshold": "2",
+              "time_function": "all"
+            }
+          ],
+          "nrql": {
+            "query": "SELECT percentage(count(*), WHERE error IS true) FROM Transaction",
+            "since_value": "3"
+          },
+          "signal": {
+            "aggregation_window": 60,
+            "aggregation_method": "EVENT_FLOW",
+            "aggregation_delay": 120
+          }
+        },
+        {
+          "id": 777002,
+          "type": "static",
+          "name": "High Response Time",
+          "enabled": true,
+          "terms": [
+            {
+              "duration": "5",
+              "operator": "above",
+              "priority": "critical",
+              "threshold": "2",
+              "time_function": "all"
+            }
+          ],
+          "nrql": {
+            "query": "SELECT average(duration) FROM Transaction WHERE appName = 'my-app-production'",
+            "since_value": "3"
+          },
+          "signal": {
+            "aggregation_window": 60,
+            "aggregation_method": "EVENT_FLOW",
+            "aggregation_delay": 120
+          }
+        }
+      ]
+    }
+  }
+}

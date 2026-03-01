@@ -1,0 +1,41 @@
+{
+  "name": "list_conversations",
+  "description": "List and search conversations for a website. Supports filtering by status, assignee, and full-text search across messages.",
+  "endpoint": "/website/{website_id}/conversations/{page}",
+  "method": "GET",
+  "parameters": [
+    { "name": "website_id", "type": "string", "description": "The unique identifier for your Crisp website.", "required": true, "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890" },
+    { "name": "page", "type": "integer", "description": "The page number for pagination, starting at 1.", "required": true, "example": 1 },
+    { "name": "search_query", "type": "string", "description": "Full-text search query to filter conversations by message content.", "required": false, "example": "billing issue" },
+    { "name": "search_type", "type": "string", "description": "Type of search filter. One of: text, segment, filter.", "required": false, "example": "text" }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.crisp.chat/v1/website/a1b2c3d4-e5f6-7890-abcd-ef1234567890/conversations/1?search_query=billing+issue&search_type=text",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": null
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "error": false,
+      "reason": "listed",
+      "data": [
+        {
+          "session_id": "session_abc123",
+          "state": "unresolved",
+          "availability": "online",
+          "last_message": "I need help with my billing",
+          "updated_at": 1700000000000,
+          "meta": {
+            "nickname": "John Doe",
+            "email": "john@example.com"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "download_file",
+  "description": "Download a file from Backblaze B2 storage. You can download by file name (using the bucket name and file path) or by file ID. The response body contains the raw file bytes, with metadata in the response headers.",
+  "endpoint": "/b2api/v3/b2_download_file_by_name",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "bucketName",
+      "type": "string",
+      "description": "The name of the bucket containing the file. Used in the URL path.",
+      "required": true,
+      "example": "my-bucket"
+    },
+    {
+      "name": "fileName",
+      "type": "string",
+      "description": "The full name (including any path prefix) of the file to download.",
+      "required": true,
+      "example": "photos/cat.jpg"
+    },
+    {
+      "name": "Range",
+      "type": "string",
+      "description": "Optional byte range header for partial downloads (e.g., 'bytes=0-999').",
+      "required": false,
+      "example": "bytes=0-999"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://f000.backblazeb2.com/file/my-bucket/photos/cat.jpg",
+    "headers": {
+      "Authorization": "your-account-authorization-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "_note": "Response body contains raw file bytes. Metadata is returned in response headers.",
+      "headers": {
+        "Content-Type": "image/jpeg",
+        "Content-Length": "5242880",
+        "X-Bz-File-Id": "4_z4a48fe8875c6214145260818_f1125e3a7b02b1c64_d20260112_m103000_c001_v0001005_t0042",
+        "X-Bz-File-Name": "photos/cat.jpg",
+        "X-Bz-Content-Sha1": "cf23df2207d99a74fbe169e3eba035e633b65d94"
+      }
+    }
+  }
+}

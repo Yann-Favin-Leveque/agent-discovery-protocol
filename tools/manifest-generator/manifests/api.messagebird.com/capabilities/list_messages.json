@@ -1,0 +1,88 @@
+{
+  "name": "list_messages",
+  "description": "List messages sent and received on your MessageBird account. Returns a paginated list of message objects ordered by creation date (newest first). Each message includes delivery status summaries and recipient details. Use this to audit message history, monitor delivery rates, or find messages by reference.",
+  "endpoint": "/messages",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "originator",
+      "type": "string",
+      "required": false,
+      "description": "Filter messages by sender ID or originator name."
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "description": "Filter by message direction: 'mt' (mobile-terminated, sent) or 'mo' (mobile-originated, received)."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of messages to return per page. Default is 20, maximum is 250."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Number of messages to skip for pagination. Default is 0."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.messagebird.com/messages?limit=10&offset=0",
+    "headers": {
+      "Authorization": "AccessKey live_gshuPaZoeEG6ovIvTsgrmmGXc"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "offset": 0,
+      "limit": 10,
+      "count": 2,
+      "totalCount": 47,
+      "links": {
+        "first": "https://rest.messagebird.com/messages?offset=0&limit=10",
+        "previous": null,
+        "next": "https://rest.messagebird.com/messages?offset=10&limit=10",
+        "last": "https://rest.messagebird.com/messages?offset=40&limit=10"
+      },
+      "items": [
+        {
+          "id": "e8077d803532c0b5937c639b60216938",
+          "href": "https://rest.messagebird.com/messages/e8077d803532c0b5937c639b60216938",
+          "direction": "mt",
+          "type": "sms",
+          "originator": "MyCompany",
+          "body": "Your verification code is 847293.",
+          "reference": "verification-user-42981",
+          "createdDatetime": "2026-03-01T10:30:00+00:00",
+          "recipients": {
+            "totalCount": 2,
+            "totalSentCount": 0,
+            "totalDeliveredCount": 2,
+            "totalDeliveryFailedCount": 0
+          }
+        },
+        {
+          "id": "a3bc9d70e45f1234567890abcdef1234",
+          "href": "https://rest.messagebird.com/messages/a3bc9d70e45f1234567890abcdef1234",
+          "direction": "mt",
+          "type": "sms",
+          "originator": "MyCompany",
+          "body": "Your order has been shipped!",
+          "reference": "order-shipment-8847",
+          "createdDatetime": "2026-02-28T15:22:00+00:00",
+          "recipients": {
+            "totalCount": 1,
+            "totalSentCount": 0,
+            "totalDeliveredCount": 1,
+            "totalDeliveryFailedCount": 0
+          }
+        }
+      ]
+    }
+  }
+}

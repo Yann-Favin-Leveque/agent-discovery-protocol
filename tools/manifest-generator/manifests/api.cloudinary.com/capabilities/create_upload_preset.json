@@ -1,0 +1,44 @@
+{
+  "name": "create_upload_preset",
+  "description": "Create a reusable upload preset that defines default upload parameters like folder, tags, transformations, and access control. Presets simplify uploads by bundling common settings.",
+  "endpoint": "/v1_1/{cloud_name}/upload_presets",
+  "method": "POST",
+  "parameters": [
+    { "name": "name", "type": "string", "description": "The name of the upload preset.", "required": true, "example": "product_photos" },
+    { "name": "unsigned", "type": "boolean", "description": "If true, allows unsigned uploads from client-side code.", "required": false, "example": false },
+    { "name": "folder", "type": "string", "description": "Default folder to upload assets to.", "required": false, "example": "products" },
+    { "name": "tags", "type": "string", "description": "Default comma-separated tags to apply.", "required": false, "example": "product,auto-uploaded" },
+    { "name": "transformation", "type": "string", "description": "Default transformations to apply on upload.", "required": false, "example": "w_1200,h_1200,c_limit,q_auto" },
+    { "name": "allowed_formats", "type": "string", "description": "Comma-separated list of allowed file formats.", "required": false, "example": "jpg,png,webp" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudinary.com/v1_1/my_cloud/upload_presets",
+    "headers": {
+      "Authorization": "Basic {base64(api_key:api_secret)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "product_photos",
+      "unsigned": false,
+      "folder": "products",
+      "tags": "product,auto-uploaded",
+      "transformation": "w_1200,h_1200,c_limit,q_auto",
+      "allowed_formats": "jpg,png,webp"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "created",
+      "name": "product_photos",
+      "settings": {
+        "folder": "products",
+        "tags": "product,auto-uploaded",
+        "transformation": "w_1200,h_1200,c_limit,q_auto",
+        "allowed_formats": ["jpg", "png", "webp"],
+        "unsigned": false
+      }
+    }
+  }
+}

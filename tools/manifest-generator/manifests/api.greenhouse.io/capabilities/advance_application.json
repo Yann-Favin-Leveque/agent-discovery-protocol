@@ -1,0 +1,58 @@
+{
+  "name": "advance_application",
+  "description": "Advance a job application to the next stage in the hiring pipeline. Moves the candidate forward from their current interview stage to the next configured stage. The On-Behalf-Of header specifying a Greenhouse user ID is required. The application must be in 'active' status to be advanced.",
+  "endpoint": "/v1/applications/{id}/advance",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "The application's unique Greenhouse ID (e.g., 29483021)."
+    },
+    {
+      "name": "from_stage_id",
+      "type": "integer",
+      "required": false,
+      "description": "The ID of the stage the application is currently in. If provided, the advance will fail if the application is not actually in this stage (safety check)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://harvest.greenhouse.io/v1/applications/29483021/advance",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic dXNlcm5hbWU6cGFzc3dvcmQ=",
+      "On-Behalf-Of": "82934"
+    },
+    "body": {
+      "from_stage_id": 7834
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 29483021,
+      "candidate_id": 17681532,
+      "prospect": false,
+      "applied_at": "2024-10-15T14:22:00Z",
+      "rejected_at": null,
+      "last_activity_at": "2024-11-01T10:00:00Z",
+      "source": {
+        "id": 16,
+        "public_name": "Employee Referral"
+      },
+      "current_stage": {
+        "id": 7835,
+        "name": "Onsite Interview"
+      },
+      "jobs": [
+        {
+          "id": 45021,
+          "name": "Staff Software Engineer - Platform"
+        }
+      ],
+      "status": "active"
+    }
+  }
+}

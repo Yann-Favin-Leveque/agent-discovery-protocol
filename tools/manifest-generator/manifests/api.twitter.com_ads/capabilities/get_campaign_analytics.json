@@ -1,0 +1,94 @@
+{
+  "name": "get_campaign_analytics",
+  "description": "Retrieve performance analytics for campaigns, line items, or promoted tweets. Synchronous endpoint returns metrics like impressions, engagements, clicks, spend, video views, and conversions. Supports date range filtering and granularity options (DAY, TOTAL).",
+  "endpoint": "/12/stats/accounts/{account_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The X Ads account ID.",
+      "required": true,
+      "example": "abc123xyz"
+    },
+    {
+      "name": "entity",
+      "type": "string",
+      "description": "The entity type to get stats for. Options: CAMPAIGN, LINE_ITEM, PROMOTED_TWEET.",
+      "required": true,
+      "example": "CAMPAIGN"
+    },
+    {
+      "name": "entity_ids",
+      "type": "string",
+      "description": "Comma-separated list of entity IDs to get stats for.",
+      "required": true,
+      "example": "camp_xyz789"
+    },
+    {
+      "name": "start_time",
+      "type": "string",
+      "description": "Start of the analytics period in ISO 8601 format.",
+      "required": true,
+      "example": "2026-02-01T00:00:00Z"
+    },
+    {
+      "name": "end_time",
+      "type": "string",
+      "description": "End of the analytics period in ISO 8601 format.",
+      "required": true,
+      "example": "2026-03-01T00:00:00Z"
+    },
+    {
+      "name": "granularity",
+      "type": "string",
+      "description": "Time granularity for the data. Options: DAY, TOTAL.",
+      "required": false,
+      "example": "DAY"
+    },
+    {
+      "name": "metric_groups",
+      "type": "string",
+      "description": "Comma-separated list of metric groups to retrieve. Options: ENGAGEMENT, BILLING, VIDEO, WEB_CONVERSION, MOBILE_CONVERSION, MEDIA.",
+      "required": true,
+      "example": "ENGAGEMENT,BILLING"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://ads-api.twitter.com/12/stats/accounts/abc123xyz?entity=CAMPAIGN&entity_ids=camp_xyz789&start_time=2026-02-01T00:00:00Z&end_time=2026-03-01T00:00:00Z&granularity=TOTAL&metric_groups=ENGAGEMENT,BILLING",
+    "headers": {
+      "Authorization": "OAuth oauth_consumer_key=\"{consumer_key}\", oauth_token=\"{access_token}\", ..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "camp_xyz789",
+          "id_data": [
+            {
+              "metrics": {
+                "impressions": [145000],
+                "engagements": [8700],
+                "clicks": [3200],
+                "likes": [1500],
+                "retweets": [420],
+                "replies": [180],
+                "billed_charge_local_micro": [125000000]
+              },
+              "segment": null
+            }
+          ]
+        }
+      ],
+      "request": {
+        "params": {
+          "start_time": "2026-02-01T00:00:00Z",
+          "end_time": "2026-03-01T00:00:00Z"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "list_forms",
+  "description": "List all forms detected on a deployed Netlify site. Netlify automatically captures submissions from HTML forms that include the 'netlify' or 'data-netlify=\"true\"' attribute. Returns form names, IDs, submission counts, and creation timestamps.",
+  "endpoint": "/api/v1/sites/{site_id}/forms",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "string",
+      "required": true,
+      "description": "The site ID (UUID) to list forms for."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.netlify.com/api/v1/sites/a1b2c3d4-5678-90ab-cdef-1234567890ab/forms"
+  },
+  "response_example": [
+    {
+      "id": "f1a2b3c4d5e6f7g8",
+      "site_id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+      "name": "contact",
+      "paths": ["/contact"],
+      "submission_count": 42,
+      "fields": [
+        { "name": "name", "type": "text" },
+        { "name": "email", "type": "email" },
+        { "name": "message", "type": "textarea" }
+      ],
+      "created_at": "2025-06-15T10:00:00Z"
+    },
+    {
+      "id": "g2h3i4j5k6l7m8n9",
+      "site_id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+      "name": "newsletter",
+      "paths": ["/", "/blog"],
+      "submission_count": 156,
+      "fields": [
+        { "name": "email", "type": "email" }
+      ],
+      "created_at": "2025-06-15T10:00:00Z"
+    }
+  ]
+}

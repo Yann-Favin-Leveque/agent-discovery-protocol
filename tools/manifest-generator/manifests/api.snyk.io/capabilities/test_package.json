@@ -1,0 +1,69 @@
+{
+  "name": "test_package",
+  "description": "Test a specific package name and version for known vulnerabilities without needing to import or monitor it. Supports multiple ecosystems including npm, pip, maven, rubygems, and others. Returns all known vulnerabilities affecting the specified version. This is useful for pre-flight checks before adding a dependency to your project.",
+  "endpoint": "/v1/test/{ecosystem}/{package_name}/{version}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "ecosystem",
+      "type": "string",
+      "required": true,
+      "description": "The package ecosystem. One of: npm, pip, rubygems, maven, nuget, composer, golang, cocoapods, hex."
+    },
+    {
+      "name": "package_name",
+      "type": "string",
+      "required": true,
+      "description": "The name of the package to test. For scoped npm packages, use URL encoding (e.g., '%40scope%2Fpackage'). For Maven, use 'groupId/artifactId' format."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "The exact version of the package to test (e.g., '4.17.20')."
+    },
+    {
+      "name": "org",
+      "type": "string",
+      "required": false,
+      "description": "The organization UUID to attribute the test to. Uses the default org if omitted."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.snyk.io/v1/test/npm/lodash/4.17.20",
+    "headers": {
+      "Authorization": "token snyk-api-token-here",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": false,
+      "issues": {
+        "vulnerabilities": [
+          {
+            "id": "SNYK-JS-LODASH-1018905",
+            "title": "Prototype Pollution",
+            "severity": "critical",
+            "cvssScore": 9.8,
+            "packageName": "lodash",
+            "version": "4.17.20",
+            "language": "js",
+            "identifiers": {
+              "CVE": ["CVE-2021-23337"],
+              "CWE": ["CWE-1321"]
+            },
+            "fixedIn": ["4.17.21"],
+            "from": ["lodash@4.17.20"],
+            "upgradePath": ["lodash@4.17.21"]
+          }
+        ],
+        "licenses": []
+      },
+      "dependencyCount": 1,
+      "packageManager": "npm"
+    }
+  }
+}

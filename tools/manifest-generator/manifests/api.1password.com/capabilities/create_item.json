@@ -1,0 +1,29 @@
+{
+  "name": "create_item",
+  "description": "Create a new item in a vault. You can create logins, API credentials, secure notes, and other item types with custom fields.",
+  "endpoint": "/v1/vaults/{vaultId}/items",
+  "method": "POST",
+  "parameters": [
+    { "name": "vaultId", "type": "string", "description": "The vault UUID.", "required": true, "example": "vault_abc123" },
+    { "name": "title", "type": "string", "description": "Item title.", "required": true, "example": "New API Key" },
+    { "name": "category", "type": "string", "description": "Item category: LOGIN, PASSWORD, API_CREDENTIAL, SECURE_NOTE, etc.", "required": true, "example": "API_CREDENTIAL" },
+    { "name": "fields", "type": "array", "description": "Array of field objects.", "required": true, "example": [{ "label": "api_key", "type": "CONCEALED", "value": "sk-abc123" }] }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-connect-server:8080/v1/vaults/vault_abc123/items",
+    "headers": { "Authorization": "Bearer {connect_token}", "Content-Type": "application/json" },
+    "body": {
+      "title": "Stripe API Key",
+      "category": "API_CREDENTIAL",
+      "fields": [
+        { "label": "api_key", "type": "CONCEALED", "value": "YOUR_API_KEY_HERE" },
+        { "label": "environment", "type": "STRING", "value": "production" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "id": "item_new123", "title": "Stripe API Key", "category": "API_CREDENTIAL", "vaultId": "vault_abc123", "createdAt": "2024-02-05T14:00:00Z" }
+  }
+}

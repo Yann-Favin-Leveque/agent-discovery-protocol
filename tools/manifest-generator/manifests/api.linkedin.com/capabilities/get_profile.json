@@ -1,0 +1,59 @@
+{
+  "name": "get_profile",
+  "description": "Retrieve the authenticated member's LinkedIn profile including name, headline, vanity name, and profile picture. Uses the /v2/me endpoint which returns the current user's profile based on the access token.",
+  "endpoint": "/v2/me",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "projection",
+      "type": "string",
+      "description": "Field projection to select specific fields (e.g., (id,firstName,lastName,headline,vanityName,profilePicture)).",
+      "required": false,
+      "example": "(id,firstName,lastName,headline,vanityName,profilePicture)"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.linkedin.com/v2/me?projection=(id,firstName,lastName,headline,vanityName,profilePicture)",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "X-Restli-Protocol-Version": "2.0.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "yrZCpj2Z12",
+      "firstName": {
+        "localized": {
+          "en_US": "Jane"
+        },
+        "preferredLocale": {
+          "country": "US",
+          "language": "en"
+        }
+      },
+      "localizedFirstName": "Jane",
+      "lastName": {
+        "localized": {
+          "en_US": "Smith"
+        },
+        "preferredLocale": {
+          "country": "US",
+          "language": "en"
+        }
+      },
+      "localizedLastName": "Smith",
+      "headline": {
+        "localized": {
+          "en_US": "Software Engineer at TechCo"
+        }
+      },
+      "localizedHeadline": "Software Engineer at TechCo",
+      "vanityName": "janesmith",
+      "profilePicture": {
+        "displayImage": "urn:li:digitalmediaAsset:C4D00AAAAbBCDEFGhiJ"
+      }
+    }
+  }
+}

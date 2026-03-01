@@ -1,0 +1,70 @@
+{
+  "name": "manage_subscriptions",
+  "description": "Create, list, update, or delete subscribers in your Beehiiv publication. You can look up subscribers by email or ID, perform bulk creation and updates, and manage subscriber metadata and custom fields.",
+  "endpoint": "/v2/publications/{publication_id}/subscriptions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "publication_id",
+      "type": "string",
+      "description": "The ID of your Beehiiv publication.",
+      "required": true,
+      "example": "pub_abc123def456"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Filter subscriptions by email address.",
+      "required": false,
+      "example": "reader@example.com"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by subscription status. Options: active, inactive, validating.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results to return per page. Max 100.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for paginated results.",
+      "required": false,
+      "example": 1
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.beehiiv.com/v2/publications/pub_abc123def456/subscriptions?status=active&limit=25",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "sub_xyz789",
+          "email": "reader@example.com",
+          "status": "active",
+          "created_at": 1709280000,
+          "utm_source": "website",
+          "referral_code": "REF123",
+          "custom_fields": []
+        }
+      ],
+      "page": 1,
+      "limit": 25,
+      "total_results": 3200
+    }
+  }
+}

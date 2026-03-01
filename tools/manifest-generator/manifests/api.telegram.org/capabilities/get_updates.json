@@ -1,0 +1,90 @@
+{
+  "name": "get_updates",
+  "description": "Poll for new messages and updates from chats. Agents can receive user messages, commands, and callback queries.",
+  "endpoint": "/bot{token}/getUpdates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Identifier of the first update to be returned. Must be higher than previously received update_id if the last update was processed.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Limits the number of updates to be retrieved. Values between 1-100 are accepted. Default is 25.",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "timeout",
+      "type": "integer",
+      "description": "Timeout in seconds for long polling. Allows the server to hold the connection for up to the specified number of seconds waiting for updates.",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "allowed_updates",
+      "type": "array",
+      "description": "List of the types of updates you want your bot to receive. Omitting this parameter results in all update types except chat_member being returned.",
+      "required": false,
+      "example": ["message", "callback_query"]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.telegram.org/bot{token}/getUpdates",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "offset": 0,
+      "limit": 100,
+      "timeout": 30
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "result": [
+        {
+          "update_id": 111111111,
+          "message": {
+            "message_id": 1,
+            "date": 1704067200,
+            "chat": {
+              "id": 123456789,
+              "type": "private"
+            },
+            "from": {
+              "id": 123456789,
+              "is_bot": false,
+              "first_name": "John"
+            },
+            "text": "/start"
+          }
+        },
+        {
+          "update_id": 111111112,
+          "message": {
+            "message_id": 2,
+            "date": 1704067260,
+            "chat": {
+              "id": 123456789,
+              "type": "private"
+            },
+            "from": {
+              "id": 123456789,
+              "is_bot": false,
+              "first_name": "John"
+            },
+            "text": "Hello agent!"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "insights",
+  "description": "Manage insights — get summary metrics and trends for a project across it's workflows and branches, get summary metrics with trends for the entire org, and for each project, get all branches for a project. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/insights/pages/{project-slug}/summary",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "project-slug",
+      "type": "string",
+      "description": "Project slug in the form `vcs-slug/org-name/repo-name`. The `/` characters may be URL-escaped. For projects that use GitLab or GitHub App, use `circleci` as the `vcs-slug`, replace `org-name` with the organization ID (found in Organization Settings), and replace `repo-name` with the project ID (found in Project Settings).",
+      "required": true,
+      "example": "gh/CircleCI-Public/api-preview-docs"
+    },
+    {
+      "name": "reporting-window",
+      "type": "string",
+      "description": "The time window used to calculate summary metrics. If not provided, defaults to last-90-days",
+      "required": false,
+      "example": "last-90-days"
+    },
+    {
+      "name": "branches",
+      "type": "object",
+      "description": "The names of VCS branches to include in branch-level workflow metrics.",
+      "required": false,
+      "example": "A single branch: ?branches=main or for multiple branches: ?branches=main&branches=feature&branches=dev"
+    },
+    {
+      "name": "workflow-names",
+      "type": "object",
+      "description": "The names of workflows to include in workflow-level metrics.",
+      "required": false,
+      "example": "A single workflow name: ?workflow-names=build-test-deploy or\n    for multiple workflow names: ?workflow-names=build&workflow-names=test-and-deploy."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://circleci.com/api/v2/insights/pages/{project-slug}/summary",
+    "headers": {
+      "Content-Type": "application/json",
+      "Circle-Token": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "project-slug": "gh/CircleCI-Public/api-preview-docs"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "manage_auth_methods",
+  "description": "Enable, configure, and manage authentication methods in Vault. Supports methods like token, userpass, LDAP, AWS, Kubernetes, and more.",
+  "endpoint": "/v1/sys/auth/{path}",
+  "method": "POST",
+  "parameters": [
+    { "name": "path", "type": "string", "description": "Mount path for the auth method.", "required": true, "example": "userpass" },
+    { "name": "type", "type": "string", "description": "Auth method type (token, userpass, ldap, aws, kubernetes, etc.).", "required": true, "example": "userpass" },
+    { "name": "description", "type": "string", "description": "Description of this auth mount.", "required": false, "example": "Username and password authentication" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com:8200/v1/sys/auth/userpass",
+    "headers": { "X-Vault-Token": "{vault_token}", "Content-Type": "application/json" },
+    "body": { "type": "userpass", "description": "Username and password auth" }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

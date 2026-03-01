@@ -1,0 +1,81 @@
+{
+  "name": "create_task",
+  "description": "Create a new task in the workspace with a title and optional properties like assignee, due date, project, or description.",
+  "endpoint": "/1.0/tasks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name or title of the task.",
+      "required": true,
+      "example": "Implement user authentication"
+    },
+    {
+      "name": "projects",
+      "type": "array",
+      "description": "Array of project GIDs to add the task to.",
+      "required": false,
+      "example": ["1234567890"]
+    },
+    {
+      "name": "assignee",
+      "type": "string",
+      "description": "User GID to assign the task to.",
+      "required": false,
+      "example": "9876543210"
+    },
+    {
+      "name": "due_on",
+      "type": "string",
+      "description": "Due date in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2026-03-15"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "description": "Additional notes or description for the task.",
+      "required": false,
+      "example": "Add OAuth2 support for third-party integrations"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.asana.com/api/1.0/tasks",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "name": "Implement user authentication",
+        "projects": ["1234567890"],
+        "assignee": "9876543210",
+        "due_on": "2026-03-15",
+        "notes": "Add OAuth2 support for third-party integrations"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "gid": "1234567890",
+        "name": "Implement user authentication",
+        "completed": false,
+        "assignee": {
+          "gid": "9876543210",
+          "name": "Alice Smith"
+        },
+        "due_on": "2026-03-15",
+        "projects": [
+          {
+            "gid": "1234567890",
+            "name": "Website Redesign"
+          }
+        ]
+      }
+    }
+  }
+}

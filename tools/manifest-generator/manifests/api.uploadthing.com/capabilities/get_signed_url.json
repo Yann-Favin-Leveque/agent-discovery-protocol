@@ -1,0 +1,47 @@
+{
+  "name": "get_signed_url",
+  "description": "Generate a time-limited presigned URL for accessing a private file. Useful for granting temporary access to protected content.",
+  "endpoint": "/v6/requestFileAccess",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "fileKey",
+      "type": "string",
+      "description": "The key of the file to generate a signed URL for.",
+      "required": false,
+      "example": "f1a2b3c4d5e6"
+    },
+    {
+      "name": "customId",
+      "type": "string",
+      "description": "The custom ID of the file, as an alternative to fileKey.",
+      "required": false,
+      "example": "user-123-avatar"
+    },
+    {
+      "name": "expiresIn",
+      "type": "integer",
+      "description": "Number of seconds until the signed URL expires. Default varies by plan.",
+      "required": false,
+      "example": 3600
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uploadthing.com/v6/requestFileAccess",
+    "headers": {
+      "x-uploadthing-api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fileKey": "f1a2b3c4d5e6",
+      "expiresIn": 3600
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "url": "https://utfs.io/f/f1a2b3c4d5e6?x-id=GetObject&X-Amz-Expires=3600&X-Amz-Signature=..."
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "operations",
+  "description": "Manage operations — creates a point-in-time snapshot of a typesense node's state and data in the specified directory, triggers a follower node to initiate the raft voting process, which triggers leader re-election, clear the cached responses of search requests in the lru cache. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/operations/snapshot",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "snapshot_path",
+      "type": "string",
+      "description": "The directory on the server where the snapshot should be saved.",
+      "required": true,
+      "example": "example_value"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{protocol}://{hostname}:{port}/operations/snapshot",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-TYPESENSE-API-KEY": "{api_key}"
+    },
+    "body": {
+      "snapshot_path": "example_value"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "snapshot_path": "example_value"
+      }
+    }
+  }
+}

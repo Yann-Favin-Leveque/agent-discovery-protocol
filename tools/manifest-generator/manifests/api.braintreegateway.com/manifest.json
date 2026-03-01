@@ -1,0 +1,40 @@
+{
+  "spec_version": "1.0",
+  "name": "Braintree",
+  "description": "Braintree is a full-stack payment gateway owned by PayPal. It enables you to accept credit cards, debit cards, PayPal, Venmo, Apple Pay, and Google Pay in your app or website. Braintree handles PCI compliance, tokenization, and vault storage so you never touch raw card numbers. It supports transactions, customer management, subscriptions, and client token generation for Drop-in UI integration.",
+  "base_url": "https://payments.braintree-api.com",
+  "auth": {
+    "type": "api_key",
+    "header": "Authorization",
+    "prefix": "Basic",
+    "setup_url": "https://www.braintreegateway.com/login",
+    "note": "Braintree uses public_key, private_key, and merchant_id for authentication. For the GraphQL API, use Basic auth with base64(public_key:private_key). The merchant_id is passed in the Braintree-Version header or URL path."
+  },
+  "capabilities": [
+    {
+      "name": "create_transaction",
+      "description": "Charge a payment method (credit card, PayPal, Venmo, etc.) by creating a sale transaction. Supports payment method nonces from the client SDK, vaulted payment tokens, and direct card details (if PCI compliant).",
+      "detail_url": "/capabilities/create_transaction"
+    },
+    {
+      "name": "create_customer",
+      "description": "Create a customer in the Braintree vault to store their payment methods for future use. Customers can have multiple payment methods and a default payment method for recurring charges.",
+      "detail_url": "/capabilities/create_customer"
+    },
+    {
+      "name": "generate_client_token",
+      "description": "Generate a client token for initializing the Braintree client SDK (Drop-in UI or Hosted Fields) in a web or mobile app. The token authorizes the client to tokenize payment information securely.",
+      "detail_url": "/capabilities/generate_client_token"
+    },
+    {
+      "name": "find_transaction",
+      "description": "Look up the details of a specific transaction by its ID, or search for transactions matching specific criteria like status, amount, date range, and payment method.",
+      "detail_url": "/capabilities/find_transaction"
+    },
+    {
+      "name": "create_subscription",
+      "description": "Create a recurring subscription that automatically charges a customer's vaulted payment method on a defined billing cycle. Supports trial periods, discounts, add-ons, and prorated first charges.",
+      "detail_url": "/capabilities/create_subscription"
+    }
+  ]
+}

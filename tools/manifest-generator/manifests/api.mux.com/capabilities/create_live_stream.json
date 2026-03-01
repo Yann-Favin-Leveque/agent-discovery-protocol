@@ -1,0 +1,66 @@
+{
+  "name": "create_live_stream",
+  "description": "Create a new live stream with a stream key. Supports RTMP ingest, automatic recording, and low-latency playback.",
+  "endpoint": "/video/v1/live-streams",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "playback_policy",
+      "type": "array",
+      "description": "Array of playback policies. Use 'public' for open access or 'signed' for restricted access.",
+      "required": false,
+      "example": ["public"]
+    },
+    {
+      "name": "new_asset_settings",
+      "type": "object",
+      "description": "Settings for the asset automatically created when the stream ends. Controls playback policy and encoding of the recording.",
+      "required": false,
+      "example": { "playback_policy": ["public"] }
+    },
+    {
+      "name": "latency_mode",
+      "type": "string",
+      "description": "Latency mode for the stream. Options are 'low' for sub-5-second latency or 'standard' for normal latency.",
+      "required": false,
+      "example": "low"
+    },
+    {
+      "name": "reconnect_window",
+      "type": "number",
+      "description": "Time in seconds to wait for the stream to reconnect before ending. Default is 60.",
+      "required": false,
+      "example": 60
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mux.com/video/v1/live-streams",
+    "headers": {
+      "Authorization": "Basic {base64(token_id:token_secret)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "playback_policy": ["public"],
+      "new_asset_settings": { "playback_policy": ["public"] },
+      "latency_mode": "low",
+      "reconnect_window": 60
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "stream_def456",
+        "stream_key": "YOUR_API_KEY_HERE",
+        "status": "idle",
+        "playback_ids": [
+          { "id": "playback_live789", "policy": "public" }
+        ],
+        "latency_mode": "low",
+        "reconnect_window": 60,
+        "created_at": "2024-01-15T10:30:00Z"
+      }
+    }
+  }
+}

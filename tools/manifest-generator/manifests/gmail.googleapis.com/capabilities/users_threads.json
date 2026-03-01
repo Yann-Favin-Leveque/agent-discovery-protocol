@@ -1,0 +1,51 @@
+{
+  "name": "users_threads",
+  "description": "Manage users threads — moves the specified thread to the trash. any messages that belong to the thread are also moved to the trash, modifies the labels applied to the thread. this applies to all messages in the thread, removes the specified thread from the trash. any messages that belong to the thread are also removed from the trash. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/gmail/v1/users/{userId}/threads/{id}/trash",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address. The special value `me` can be used to indicate the authenticated user.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID of the thread to Trash.",
+      "required": true,
+      "example": "abc_123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/{userId}/threads/{id}/trash",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "userId": "me",
+      "id": "abc_123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "userId": "me",
+        "id": "abc_123"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://mail.google.com/",
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.addons.current.message.action",
+    "https://www.googleapis.com/auth/gmail.addons.current.action.compose",
+    "https://www.googleapis.com/auth/gmail.modify"
+  ]
+}

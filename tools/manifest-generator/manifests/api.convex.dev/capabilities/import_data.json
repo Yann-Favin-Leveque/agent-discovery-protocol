@@ -1,0 +1,21 @@
+{
+  "name": "import_data",
+  "description": "Import data into your Convex tables from JSON. Useful for seeding data, migrations, or bulk loading records into your backend.",
+  "endpoint": "/api/import",
+  "method": "POST",
+  "parameters": [
+    { "name": "table", "type": "string", "description": "The table name to import into.", "required": true, "example": "users" },
+    { "name": "data", "type": "array", "description": "Array of objects to import.", "required": true, "example": [{ "name": "Alice", "email": "alice@example.com" }] },
+    { "name": "mode", "type": "string", "description": "Import mode: 'append' or 'replace'.", "required": false, "example": "append" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-deployment.convex.cloud/api/import",
+    "headers": { "Authorization": "Convex {deploy_key}", "Content-Type": "application/json" },
+    "body": { "table": "users", "data": [{ "name": "Alice", "email": "alice@example.com" }], "mode": "append" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "status": "success", "numImported": 1 }
+  }
+}

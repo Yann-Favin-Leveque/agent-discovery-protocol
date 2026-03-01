@@ -1,0 +1,60 @@
+{
+  "name": "properties",
+  "description": "Manage properties — update a user application property, update a repository application property, update a commit application property. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/users/{selected_user}/properties/{app_key}/{property_name}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "selected_user",
+      "type": "string",
+      "description": "Either the UUID of the account surrounded by curly-braces, for example `{account UUID}`, OR an Atlassian Account ID.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "app_key",
+      "type": "string",
+      "description": "The key of the Connect app.",
+      "required": true,
+      "example": "example_value"
+    },
+    {
+      "name": "property_name",
+      "type": "string",
+      "description": "The name of the property.",
+      "required": true,
+      "example": "Example"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.bitbucket.org/2.0/users/{selected_user}/properties/{app_key}/{property_name}",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "selected_user": "example_value",
+      "app_key": "example_value",
+      "property_name": "Example"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "data": {
+        "selected_user": "example_value",
+        "app_key": "example_value",
+        "property_name": "Example"
+      }
+    }
+  },
+  "auth_scopes": [
+    "repository",
+    "repository:write",
+    "repository:admin",
+    "repository:delete",
+    "project"
+  ]
+}

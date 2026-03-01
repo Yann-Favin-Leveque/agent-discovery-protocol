@@ -1,0 +1,46 @@
+{
+  "name": "manage_scenes",
+  "description": "List, trigger, enable, or disable smart home scenes and tap-to-run automations. Scenes bundle multiple device actions into a single trigger. Use this to activate preset modes like 'Good Night' or 'Movie Mode' that control several devices at once.",
+  "endpoint": "/v1.0/homes/{home_id}/scenes",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "home_id",
+      "type": "string",
+      "description": "The ID of the home whose scenes to list or manage.",
+      "required": true,
+      "example": "12345678"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://openapi.tuyaus.com/v1.0/homes/12345678/scenes",
+    "headers": {
+      "client_id": "{client_id}",
+      "access_token": "{access_token}",
+      "sign": "{hmac_sha256_signature}",
+      "sign_method": "HMAC-SHA256",
+      "t": "1638360000000"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": [
+        {
+          "scene_id": "sc001abc",
+          "name": "Good Night",
+          "enabled": true,
+          "status": "enable"
+        },
+        {
+          "scene_id": "sc002def",
+          "name": "Movie Mode",
+          "enabled": true,
+          "status": "enable"
+        }
+      ]
+    }
+  }
+}

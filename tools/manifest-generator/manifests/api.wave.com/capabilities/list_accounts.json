@@ -1,0 +1,46 @@
+{
+  "name": "list_accounts",
+  "description": "Retrieve the chart of accounts for a business, showing all income, expense, asset, and liability accounts. Useful for understanding the financial structure and for categorizing transactions.",
+  "endpoint": "/graphql/public",
+  "method": "POST",
+  "parameters": [
+    { "name": "businessId", "type": "string", "description": "The ID of the business to list accounts for.", "required": true, "example": "QnVzaW5lc3M6YTBiMWMyZDM=" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql/public",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "query($businessId: ID!) { business(id: $businessId) { accounts { edges { node { id name type { name value } subtype { name value } normalBalanceType currency { code } } } } } }",
+      "variables": {
+        "businessId": "QnVzaW5lc3M6YTBiMWMyZDM="
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "business": {
+          "accounts": {
+            "edges": [
+              {
+                "node": {
+                  "id": "QWNjb3VudDoxMjM=",
+                  "name": "Sales Revenue",
+                  "type": { "name": "Income", "value": "INCOME" },
+                  "subtype": { "name": "Sales", "value": "SALES" },
+                  "normalBalanceType": "CREDIT",
+                  "currency": { "code": "USD" }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

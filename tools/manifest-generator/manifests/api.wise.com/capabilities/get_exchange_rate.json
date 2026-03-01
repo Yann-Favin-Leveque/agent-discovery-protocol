@@ -1,0 +1,47 @@
+{
+  "name": "get_exchange_rate",
+  "description": "Retrieve the current or historical mid-market exchange rate between two currencies. Wise uses the real mid-market rate without hidden markups. You can optionally specify a date for historical rates.",
+  "endpoint": "/v1/rates",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "source",
+      "type": "string",
+      "description": "ISO 4217 currency code for the source currency.",
+      "required": true,
+      "example": "USD"
+    },
+    {
+      "name": "target",
+      "type": "string",
+      "description": "ISO 4217 currency code for the target currency.",
+      "required": true,
+      "example": "EUR"
+    },
+    {
+      "name": "time",
+      "type": "string",
+      "description": "ISO 8601 timestamp for historical rate lookup. If omitted, returns the current rate.",
+      "required": false,
+      "example": "2026-01-01T00:00:00Z"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.wise.com/v1/rates?source=USD&target=EUR",
+    "headers": {
+      "Authorization": "Bearer your-api-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "rate": 0.92145,
+        "source": "USD",
+        "target": "EUR",
+        "time": "2026-01-12T10:30:00Z"
+      }
+    ]
+  }
+}

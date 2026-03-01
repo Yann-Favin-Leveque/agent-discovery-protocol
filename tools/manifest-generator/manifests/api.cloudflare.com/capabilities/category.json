@@ -1,0 +1,69 @@
+{
+  "name": "category",
+  "description": "Manage category — creates a new category, updates a category, get all application categories. Supports standard CRUD operations through the REST API.",
+  "endpoint": "/accounts/{account_id}/cloudforce-one/events/categories/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "Account ID.",
+      "required": true,
+      "example": "abc_123"
+    },
+    {
+      "name": "killChain",
+      "type": "number",
+      "description": "The killChain field.",
+      "required": true,
+      "example": 42
+    },
+    {
+      "name": "mitreAttack",
+      "type": "string[]",
+      "description": "The mitreAttack field.",
+      "required": false,
+      "example": [
+        "value1"
+      ]
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name field.",
+      "required": true,
+      "example": "name"
+    },
+    {
+      "name": "shortname",
+      "type": "string",
+      "description": "The shortname field.",
+      "required": false,
+      "example": "shortname"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudflare.com/client/v4/accounts/{account_id}/cloudforce-one/events/categories/create",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-Auth-Email": "{api_key}"
+    },
+    "body": {
+      "account_id": "abc_123",
+      "killChain": 42,
+      "name": "name"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true,
+      "data": {
+        "account_id": "abc_123",
+        "killChain": 42,
+        "name": "name"
+      }
+    }
+  }
+}
