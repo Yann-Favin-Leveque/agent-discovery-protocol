@@ -168,12 +168,18 @@ The Agent Discovery Protocol adds a **discovery layer** on top. Services describ
 - [x] Cloud-synced token storage
 - [x] Disk-backed caching (24h/1h/15min TTLs)
 - [x] Documentation (providers, agents, spec, API reference)
-- [ ] Stripe Connect marketplace integration
+- [x] Stripe Connect marketplace integration
+- [x] Provider onboarding (Connect with Stripe)
+- [x] User payment setup (Stripe Elements)
+- [x] Subscription management (create, cancel, upgrade/downgrade)
+- [x] Webhook handling (invoice events, account updates)
+- [x] Platform fee (10% via application_fee_percent)
+- [x] Billing page and transaction history
 - [ ] Push notifications for payment confirmation
 - [ ] Registry account dashboard
-- [ ] SDK packages for popular frameworks
+- [x] SDK packages for popular frameworks (Express, FastAPI, Next.js, Spring Boot)
 - [ ] Rate limiting and usage analytics
-- [ ] Service health monitoring
+- [x] Service health monitoring
 
 ## Contributing
 

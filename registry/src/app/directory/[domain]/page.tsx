@@ -3,6 +3,7 @@ import { getServiceByDomain, getCapabilitiesForService } from "@/lib/db";
 import { VerifyButton } from "./verify-button";
 import { ManifestToggle } from "./manifest-toggle";
 import { ReportButton } from "./report-button";
+import { HealthSection } from "./health-section";
 
 export async function generateMetadata({ params }: { params: { domain: string } }) {
   const service = await getServiceByDomain(params.domain);
@@ -98,6 +99,9 @@ export default async function ServiceDetailPage({
           </div>
         )}
       </div>
+
+      {/* Health */}
+      <HealthSection domain={service.domain} />
 
       {/* Capabilities */}
       <section className="mt-12">

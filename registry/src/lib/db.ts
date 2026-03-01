@@ -115,6 +115,78 @@ async function initSchema(db: Client) {
     CREATE INDEX IF NOT EXISTS idx_audit_log_domain ON audit_log(domain);
     CREATE INDEX IF NOT EXISTS idx_reports_domain ON reports(service_domain);
     CREATE INDEX IF NOT EXISTS idx_blocked_domains_domain ON blocked_domains(domain);
+
+    CREATE TABLE IF NOT EXISTS health_checks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      service_domain TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'up',
+      response_time_ms INTEGER,
+      checked_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_health_checks_domain ON health_checks(service_domain);
+    CREATE INDEX IF NOT EXISTS idx_health_checks_checked_at ON health_checks(checked_at);
+
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL UNIQUE,
+      name TEXT,
+      provider TEXT NOT NULL DEFAULT 'google',
+      provider_id TEXT NOT NULL,
+      stripe_customer_id TEXT,
+      payment_method_added INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+    CREATE INDEX IF NOT EXISTS idx_users_provider ON users(provider, provider_id);
+    CREATE INDEX IF NOT EXISTS idx_users_stripe ON users(stripe_customer_id);
+
+    CREATE TABLE IF NOT EXISTS provider_accounts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      service_domain TEXT NOT NULL UNIQUE,
+      stripe_connect_account_id TEXT NOT NULL,
+      onboarding_complete INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_provider_accounts_domain ON provider_accounts(service_domain);
+
+    CREATE TABLE IF NOT EXISTS subscriptions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL REFERENCES users(id),
+      service_domain TEXT NOT NULL,
+      stripe_subscription_id TEXT,
+      plan_name TEXT NOT NULL,
+      price_cents INTEGER NOT NULL DEFAULT 0,
+      currency TEXT NOT NULL DEFAULT 'usd',
+      interval TEXT NOT NULL DEFAULT 'month',
+      status TEXT NOT NULL DEFAULT 'active',
+      current_period_start TEXT,
+      current_period_end TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_subscriptions_user ON subscriptions(user_id);
+    CREATE INDEX IF NOT EXISTS idx_subscriptions_domain ON subscriptions(service_domain);
+    CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe ON subscriptions(stripe_subscription_id);
+
+    CREATE TABLE IF NOT EXISTS transactions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL REFERENCES users(id),
+      service_domain TEXT NOT NULL,
+      stripe_payment_intent_id TEXT,
+      amount_cents INTEGER NOT NULL DEFAULT 0,
+      currency TEXT NOT NULL DEFAULT 'usd',
+      platform_fee_cents INTEGER NOT NULL DEFAULT 0,
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_transactions_user ON transactions(user_id);
+    CREATE INDEX IF NOT EXISTS idx_transactions_domain ON transactions(service_domain);
   `);
 
   // Column migrations for existing databases — use try/catch because
@@ -231,6 +303,64 @@ export interface AuditLogRow {
   domain: string | null;
   ip_address: string | null;
   details: string | null;
+  created_at: string;
+}
+
+export interface HealthCheckRow {
+  id: number;
+  service_domain: string;
+  status: "up" | "down" | "degraded";
+  response_time_ms: number | null;
+  checked_at: string;
+}
+
+export interface UserRow {
+  id: number;
+  email: string;
+  name: string | null;
+  provider: string;
+  provider_id: string;
+  stripe_customer_id: string | null;
+  payment_method_added: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ProviderAccountRow {
+  id: number;
+  service_domain: string;
+  stripe_connect_account_id: string;
+  onboarding_complete: number;
+  created_at: string;
+}
+
+export type SubscriptionStatus = "active" | "canceled" | "past_due";
+
+export interface SubscriptionRow {
+  id: number;
+  user_id: number;
+  service_domain: string;
+  stripe_subscription_id: string | null;
+  plan_name: string;
+  price_cents: number;
+  currency: string;
+  interval: string;
+  status: SubscriptionStatus;
+  current_period_start: string | null;
+  current_period_end: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TransactionRow {
+  id: number;
+  user_id: number;
+  service_domain: string;
+  stripe_payment_intent_id: string | null;
+  amount_cents: number;
+  currency: string;
+  platform_fee_cents: number;
+  status: string;
   created_at: string;
 }
 
@@ -785,4 +915,342 @@ export async function getAuditLog(opts?: {
   });
 
   return { entries: rowsTo<AuditLogRow>(result.rows), total };
+}
+
+// ─── Users ────────────────────────────────────────────────────
+
+export async function getUserById(id: number): Promise<UserRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.execute({ sql: "SELECT * FROM users WHERE id = ?", args: [id] });
+  return result.rows.length > 0 ? rowTo<UserRow>(result.rows[0]) : undefined;
+}
+
+export async function getUserByEmail(email: string): Promise<UserRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.execute({ sql: "SELECT * FROM users WHERE email = ?", args: [email] });
+  return result.rows.length > 0 ? rowTo<UserRow>(result.rows[0]) : undefined;
+}
+
+export async function getUserByStripeCustomerId(customerId: string): Promise<UserRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.execute({ sql: "SELECT * FROM users WHERE stripe_customer_id = ?", args: [customerId] });
+  return result.rows.length > 0 ? rowTo<UserRow>(result.rows[0]) : undefined;
+}
+
+export async function upsertUser(data: {
+  email: string;
+  name?: string;
+  provider: string;
+  provider_id: string;
+}): Promise<UserRow> {
+  const db = await ensureInitialized();
+  const existing = await getUserByEmail(data.email);
+  if (existing) return existing;
+  const result = await db.execute({
+    sql: "INSERT INTO users (email, name, provider, provider_id) VALUES (?, ?, ?, ?)",
+    args: [data.email, data.name ?? null, data.provider, data.provider_id],
+  });
+  const id = Number(result.lastInsertRowid);
+  return (await getUserById(id))!;
+}
+
+export async function updateUserStripeCustomer(
+  userId: number,
+  stripeCustomerId: string
+): Promise<void> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: "UPDATE users SET stripe_customer_id = ?, updated_at = datetime('now') WHERE id = ?",
+    args: [stripeCustomerId, userId],
+  });
+}
+
+export async function updateUserPaymentMethod(
+  userId: number,
+  added: boolean
+): Promise<void> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: "UPDATE users SET payment_method_added = ?, updated_at = datetime('now') WHERE id = ?",
+    args: [added ? 1 : 0, userId],
+  });
+}
+
+// ─── Provider accounts ───────────────────────────────────────
+
+export async function getProviderAccount(
+  domain: string
+): Promise<ProviderAccountRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: "SELECT * FROM provider_accounts WHERE service_domain = ?",
+    args: [domain],
+  });
+  return result.rows.length > 0 ? rowTo<ProviderAccountRow>(result.rows[0]) : undefined;
+}
+
+export async function getProviderAccountByStripeId(
+  stripeAccountId: string
+): Promise<ProviderAccountRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: "SELECT * FROM provider_accounts WHERE stripe_connect_account_id = ?",
+    args: [stripeAccountId],
+  });
+  return result.rows.length > 0 ? rowTo<ProviderAccountRow>(result.rows[0]) : undefined;
+}
+
+export async function upsertProviderAccount(data: {
+  service_domain: string;
+  stripe_connect_account_id: string;
+}): Promise<ProviderAccountRow> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: `INSERT INTO provider_accounts (service_domain, stripe_connect_account_id)
+          VALUES (?, ?)
+          ON CONFLICT(service_domain) DO UPDATE SET stripe_connect_account_id = ?`,
+    args: [data.service_domain, data.stripe_connect_account_id, data.stripe_connect_account_id],
+  });
+  return (await getProviderAccount(data.service_domain))!;
+}
+
+export async function updateProviderOnboarding(
+  domain: string,
+  complete: boolean
+): Promise<void> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: "UPDATE provider_accounts SET onboarding_complete = ? WHERE service_domain = ?",
+    args: [complete ? 1 : 0, domain],
+  });
+}
+
+// ─── Subscriptions ────────────────────────────────────────────
+
+export async function getSubscriptionById(
+  id: number
+): Promise<SubscriptionRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.execute({ sql: "SELECT * FROM subscriptions WHERE id = ?", args: [id] });
+  return result.rows.length > 0 ? rowTo<SubscriptionRow>(result.rows[0]) : undefined;
+}
+
+export async function getSubscriptionByStripeId(
+  stripeSubId: string
+): Promise<SubscriptionRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: "SELECT * FROM subscriptions WHERE stripe_subscription_id = ?",
+    args: [stripeSubId],
+  });
+  return result.rows.length > 0 ? rowTo<SubscriptionRow>(result.rows[0]) : undefined;
+}
+
+export async function getUserSubscriptions(
+  userId: number
+): Promise<SubscriptionRow[]> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: "SELECT * FROM subscriptions WHERE user_id = ? ORDER BY created_at DESC",
+    args: [userId],
+  });
+  return rowsTo<SubscriptionRow>(result.rows);
+}
+
+export async function getSubscriptionsByDomain(
+  domain: string
+): Promise<SubscriptionRow[]> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: "SELECT * FROM subscriptions WHERE service_domain = ? AND status = 'active' ORDER BY created_at DESC",
+    args: [domain],
+  });
+  return rowsTo<SubscriptionRow>(result.rows);
+}
+
+export async function insertSubscription(data: {
+  user_id: number;
+  service_domain: string;
+  stripe_subscription_id: string;
+  plan_name: string;
+  price_cents: number;
+  currency: string;
+  interval: string;
+  status: SubscriptionStatus;
+  current_period_start?: string;
+  current_period_end?: string;
+}): Promise<SubscriptionRow> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: `INSERT INTO subscriptions (user_id, service_domain, stripe_subscription_id, plan_name, price_cents, currency, interval, status, current_period_start, current_period_end)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    args: [
+      data.user_id, data.service_domain, data.stripe_subscription_id,
+      data.plan_name, data.price_cents, data.currency, data.interval,
+      data.status, data.current_period_start ?? null, data.current_period_end ?? null,
+    ],
+  });
+  const id = Number(result.lastInsertRowid);
+  return (await getSubscriptionById(id))!;
+}
+
+export async function updateSubscriptionStatus(
+  stripeSubId: string,
+  status: SubscriptionStatus
+): Promise<void> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: "UPDATE subscriptions SET status = ?, updated_at = datetime('now') WHERE stripe_subscription_id = ?",
+    args: [status, stripeSubId],
+  });
+}
+
+export async function updateSubscriptionPeriod(
+  stripeSubId: string,
+  periodStart: string,
+  periodEnd: string
+): Promise<void> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: `UPDATE subscriptions SET current_period_start = ?, current_period_end = ?, updated_at = datetime('now')
+          WHERE stripe_subscription_id = ?`,
+    args: [periodStart, periodEnd, stripeSubId],
+  });
+}
+
+// ─── Transactions ─────────────────────────────────────────────
+
+export async function insertTransaction(data: {
+  user_id: number;
+  service_domain: string;
+  stripe_payment_intent_id: string;
+  amount_cents: number;
+  currency: string;
+  platform_fee_cents: number;
+  status: string;
+}): Promise<TransactionRow> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: `INSERT INTO transactions (user_id, service_domain, stripe_payment_intent_id, amount_cents, currency, platform_fee_cents, status)
+          VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    args: [
+      data.user_id, data.service_domain, data.stripe_payment_intent_id,
+      data.amount_cents, data.currency, data.platform_fee_cents, data.status,
+    ],
+  });
+  const id = Number(result.lastInsertRowid);
+  const row = await db.execute({ sql: "SELECT * FROM transactions WHERE id = ?", args: [id] });
+  return rowTo<TransactionRow>(row.rows[0]);
+}
+
+export async function getUserTransactions(
+  userId: number,
+  limit: number = 50
+): Promise<TransactionRow[]> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: "SELECT * FROM transactions WHERE user_id = ? ORDER BY created_at DESC LIMIT ?",
+    args: [userId, limit],
+  });
+  return rowsTo<TransactionRow>(result.rows);
+}
+
+// ─── Health checks ────────────────────────────────────────────
+
+export async function insertHealthCheck(data: {
+  service_domain: string;
+  status: "up" | "down" | "degraded";
+  response_time_ms: number | null;
+}): Promise<void> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: "INSERT INTO health_checks (service_domain, status, response_time_ms) VALUES (?, ?, ?)",
+    args: [data.service_domain, data.status, data.response_time_ms ?? null],
+  });
+}
+
+export async function cleanupOldHealthChecks(): Promise<number> {
+  const db = await ensureInitialized();
+  const result = await db.execute(
+    "DELETE FROM health_checks WHERE checked_at < datetime('now', '-30 days')"
+  );
+  return result.rowsAffected;
+}
+
+export async function getLatestHealthChecks(): Promise<HealthCheckRow[]> {
+  const db = await ensureInitialized();
+  const result = await db.execute(`
+    SELECT h.* FROM health_checks h
+    INNER JOIN (
+      SELECT service_domain, MAX(checked_at) as max_checked
+      FROM health_checks
+      GROUP BY service_domain
+    ) latest ON h.service_domain = latest.service_domain AND h.checked_at = latest.max_checked
+    ORDER BY h.service_domain
+  `);
+  return rowsTo<HealthCheckRow>(result.rows);
+}
+
+export async function getHealthChecksByDomain(
+  domain: string,
+  days: number = 7
+): Promise<HealthCheckRow[]> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: `SELECT * FROM health_checks
+          WHERE service_domain = ? AND checked_at >= datetime('now', '-' || ? || ' days')
+          ORDER BY checked_at ASC`,
+    args: [domain, days],
+  });
+  return rowsTo<HealthCheckRow>(result.rows);
+}
+
+export async function getUptimePercentage(
+  domain: string,
+  days: number = 7
+): Promise<number> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: `SELECT
+            COUNT(*) as total,
+            SUM(CASE WHEN status = 'up' THEN 1 ELSE 0 END) as up_count
+          FROM health_checks
+          WHERE service_domain = ? AND checked_at >= datetime('now', '-' || ? || ' days')`,
+    args: [domain, days],
+  });
+  const total = Number(result.rows[0].total);
+  if (total === 0) return 100;
+  const upCount = Number(result.rows[0].up_count);
+  return Math.round((upCount / total) * 10000) / 100;
+}
+
+export async function getOverallHealthStats(): Promise<{
+  total_monitored: number;
+  healthy: number;
+  degraded: number;
+  down: number;
+}> {
+  const db = await ensureInitialized();
+  const result = await db.execute(`
+    SELECT
+      COUNT(DISTINCT service_domain) as total_monitored,
+      SUM(CASE WHEN status = 'up' THEN 1 ELSE 0 END) as healthy,
+      SUM(CASE WHEN status = 'degraded' THEN 1 ELSE 0 END) as degraded,
+      SUM(CASE WHEN status = 'down' THEN 1 ELSE 0 END) as down
+    FROM (
+      SELECT h.service_domain, h.status
+      FROM health_checks h
+      INNER JOIN (
+        SELECT service_domain, MAX(checked_at) as max_checked
+        FROM health_checks
+        GROUP BY service_domain
+      ) latest ON h.service_domain = latest.service_domain AND h.checked_at = latest.max_checked
+    )
+  `);
+  return {
+    total_monitored: Number(result.rows[0].total_monitored) || 0,
+    healthy: Number(result.rows[0].healthy) || 0,
+    degraded: Number(result.rows[0].degraded) || 0,
+    down: Number(result.rows[0].down) || 0,
+  };
 }

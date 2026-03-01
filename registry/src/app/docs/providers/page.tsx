@@ -116,40 +116,114 @@ export default function ProvidersPage() {
             2
           </span>
           <h2 className="text-2xl font-bold">
-            Host it at <code className="text-accent">/.well-known/agent</code>
+            Serve it with an SDK
           </h2>
         </div>
         <p className="mt-4 text-muted">
-          Serve your manifest at the well-known path. That&apos;s all agents need
-          to find you.
+          Install the SDK for your framework. It auto-generates{" "}
+          <code className="text-accent">/.well-known/agent</code> and all
+          capability detail endpoints with proper CORS and caching headers.
         </p>
 
         <div className="mt-6">
-          <CodeBlock title="Express.js">{`app.get('/.well-known/agent', (req, res) => {
-  res.json(manifest);
+          <CodeBlock title="Express.js — npm install agent-well-known-express">{`const { agentManifest } = require('agent-well-known-express');
+
+app.use(agentManifest({
+  name: "My API",
+  description: "What my API does.",
+  base_url: "https://api.example.com",
+  auth: { type: "api_key", header: "Authorization", prefix: "Bearer" },
+  capabilities: [
+    {
+      name: "get_data",
+      description: "Fetch data by ID",
+      handler: { endpoint: "/v1/data", method: "GET" },
+      parameters: [
+        { name: "id", type: "string", required: true,
+          description: "The data ID", example: "abc-123" }
+      ]
+    }
+  ]
+}));
+// Auto-generates: GET /.well-known/agent
+//                 GET /.well-known/agent/capabilities/:name`}</CodeBlock>
+        </div>
+
+        <div className="mt-4">
+          <CodeBlock title="FastAPI — pip install agent-well-known-fastapi">{`from agent_well_known import AgentManifest, Capability
+
+manifest = AgentManifest(
+    name="My API",
+    description="What my API does.",
+    base_url="https://api.example.com",
+    auth={"type": "api_key", "header": "Authorization", "prefix": "Bearer"},
+    capabilities=[
+        Capability(
+            name="get_data",
+            description="Fetch data by ID",
+            endpoint="/v1/data", method="GET",
+            parameters=[{"name": "id", "type": "string",
+                         "required": True, "description": "The data ID",
+                         "example": "abc-123"}]
+        )
+    ]
+)
+manifest.mount(app)  # Registers both routes automatically`}</CodeBlock>
+        </div>
+
+        <div className="mt-4">
+          <CodeBlock title="Next.js — npm install agent-well-known-next">{`// app/.well-known/agent/route.ts
+import { createAgentManifest } from 'agent-well-known-next';
+
+export const GET = createAgentManifest({
+  name: "My API",
+  description: "What my API does.",
+  base_url: "https://api.example.com",
+  auth: { type: "api_key", header: "Authorization", prefix: "Bearer" },
+  capabilities: [
+    { name: "get_data", description: "Fetch data by ID",
+      endpoint: "/v1/data", method: "GET",
+      parameters: [{ name: "id", type: "string", required: true,
+                     description: "The data ID", example: "abc-123" }] }
+  ]
 });`}</CodeBlock>
         </div>
 
         <div className="mt-4">
-          <CodeBlock title="FastAPI (Python)">{`@app.get("/.well-known/agent")
-def agent_manifest():
-    return manifest`}</CodeBlock>
-        </div>
+          <CodeBlock title="Spring Boot — agent-well-known-spring-boot">{`@AgentManifest(
+    name = "My API",
+    description = "What my API does.",
+    baseUrl = "https://api.example.com",
+    auth = @AgentAuth(type = "api_key", header = "Authorization", prefix = "Bearer")
+)
+@SpringBootApplication
+public class MyApp { }
 
-        <div className="mt-4">
-          <CodeBlock title="Next.js Route Handler">{`// app/.well-known/agent/route.ts
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json(manifest);
-}`}</CodeBlock>
+// On your controller method:
+@AgentCapability(
+    name = "get_data", description = "Fetch data by ID",
+    endpoint = "/v1/data", method = "GET",
+    parameters = { @AgentParameter(name = "id", type = "string",
+                    required = true, description = "The data ID",
+                    example = "abc-123") }
+)
+@GetMapping("/v1/data")
+public Data getData(@RequestParam String id) { ... }`}</CodeBlock>
         </div>
 
         <p className="mt-4 text-sm text-muted">
-          Set <code className="text-accent">Content-Type: application/json</code>.
-          Add CORS headers if your API is public. Cache with{" "}
-          <code className="text-accent">Cache-Control: max-age=3600</code> for
-          performance.
+          All SDKs handle CORS headers, caching ({" "}
+          <code className="text-accent">Cache-Control: public, max-age=3600</code>
+          ), input validation, and auto-generated request examples. You can also{" "}
+          <a
+            href="https://github.com/user/agent-discovery-protocol/tree/main/spec"
+            className="text-accent hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            serve the manifest manually
+          </a>{" "}
+          without an SDK.
         </p>
       </section>
 
@@ -287,6 +361,91 @@ export async function GET() {
           </Link>
           . The registry will crawl your endpoint and verify it automatically.
         </p>
+      </section>
+
+      {/* Monetize */}
+      <section className="mt-16">
+        <div className="flex items-center gap-3">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">
+            $
+          </span>
+          <h2 className="text-2xl font-bold">Monetize your API</h2>
+        </div>
+        <p className="mt-4 text-muted">
+          Earn revenue from agents that use your API. Connect your Stripe account
+          and add pricing to your manifest — the registry handles billing, invoicing,
+          and payouts automatically.
+        </p>
+
+        <div className="mt-6 space-y-6">
+          <div>
+            <h3 className="font-semibold">1. Connect Stripe</h3>
+            <p className="mt-2 text-sm text-muted">
+              Link your existing Stripe account (or create a new one) to receive
+              payments. You manage your payouts, refunds, and tax reporting in your
+              own Stripe dashboard.
+            </p>
+            <Link
+              href="/providers/connect"
+              className="mt-3 inline-block rounded-lg bg-[#635BFF] px-5 py-2.5 font-medium text-white transition-colors hover:bg-[#7A73FF]"
+            >
+              Connect with Stripe
+            </Link>
+          </div>
+
+          <div>
+            <h3 className="font-semibold">2. Add pricing to your manifest</h3>
+            <p className="mt-2 text-sm text-muted">
+              Declare your plans in the <code className="text-accent">pricing</code>{" "}
+              field. Agents see this info and guide users through subscriptions.
+            </p>
+            <div className="mt-3">
+              <CodeBlock title="Pricing in manifest">{`"pricing": {
+  "type": "paid",
+  "plans": [
+    { "name": "Starter", "price": "$29/mo", "limits": "1,000 requests/day" },
+    { "name": "Pro", "price": "$99/mo", "limits": "Unlimited requests" }
+  ],
+  "plans_url": "https://example.com/pricing"
+}`}</CodeBlock>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-semibold">3. Get paid</h3>
+            <p className="mt-2 text-sm text-muted">
+              When an agent subscribes to your API through the gateway, the user is
+              charged via their saved payment method. You receive payouts directly to
+              your bank account through Stripe.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-white/5 bg-surface p-5">
+            <h4 className="text-sm font-semibold">Platform fee</h4>
+            <p className="mt-2 text-sm text-muted">
+              AgentDNS charges a <strong className="text-foreground">10% platform fee</strong> on
+              all subscriptions. This covers:
+            </p>
+            <ul className="mt-2 space-y-1 text-sm text-muted">
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-accent">&#8226;</span>
+                <span>Discovery — your API is searchable by every AI agent</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-accent">&#8226;</span>
+                <span>Auth brokering — OAuth and API key management for users</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-accent">&#8226;</span>
+                <span>Payment processing — billing, invoicing, and payouts</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-0.5 text-accent">&#8226;</span>
+                <span>Support — platform maintenance and reliability</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       {/* FAQ */}

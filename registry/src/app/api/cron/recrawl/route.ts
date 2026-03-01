@@ -4,6 +4,8 @@ import {
   updateServiceVerification,
   incrementCrawlFailure,
   markUnreachable,
+  insertHealthCheck,
+  cleanupOldHealthChecks,
 } from "@/lib/db";
 import { crawlService } from "@/lib/crawl";
 
@@ -48,6 +50,14 @@ export async function GET(request: NextRequest) {
         })),
       });
 
+      // Store health check: degraded if response > 5s
+      const healthStatus = crawl.response_time_ms > 5000 ? "degraded" : "up";
+      await insertHealthCheck({
+        service_domain: service.domain,
+        status: healthStatus,
+        response_time_ms: crawl.response_time_ms,
+      });
+
       results.push({
         domain: service.domain,
         status: "ok",
@@ -56,6 +66,13 @@ export async function GET(request: NextRequest) {
     } else {
       await incrementCrawlFailure(service.domain);
       const failures = service.crawl_failures + 1;
+
+      // Store health check as down
+      await insertHealthCheck({
+        service_domain: service.domain,
+        status: "down",
+        response_time_ms: crawl.response_time_ms,
+      });
 
       if (failures >= MAX_CONSECUTIVE_FAILURES) {
         await markUnreachable(service.domain);
@@ -74,6 +91,9 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  // Cleanup health checks older than 30 days
+  const cleaned = await cleanupOldHealthChecks();
+
   const ok = results.filter((r) => r.status === "ok").length;
   const failed = results.filter((r) => r.status === "failed").length;
   const unreachable = results.filter((r) => r.status === "unreachable").length;
@@ -85,6 +105,7 @@ export async function GET(request: NextRequest) {
       ok,
       failed,
       unreachable,
+      health_records_cleaned: cleaned,
       results,
     },
   });

@@ -50,7 +50,7 @@ function HowItWorksSection() {
       number: "01",
       title: "Service adds endpoint",
       description:
-        "Any API adds a /.well-known/agent endpoint returning a JSON manifest describing its capabilities. 10 minutes of work.",
+        "Install an SDK for Express, FastAPI, Next.js, or Spring Boot. Define your capabilities and the SDK serves a /.well-known/agent manifest automatically.",
       code: "GET /.well-known/agent → { capabilities: [...] }",
     },
     {
@@ -352,73 +352,110 @@ function ForAgentsSection() {
 }
 
 function ForProvidersSection() {
+  const sdks = [
+    {
+      framework: "Express.js",
+      pkg: "agent-well-known-express",
+      code: `const { agentManifest } = require('agent-well-known-express');
+
+app.use(agentManifest({
+  name: "My API",
+  description: "What my API does.",
+  base_url: "https://api.example.com",
+  auth: { type: "api_key", header: "Authorization" },
+  capabilities: [{ name: "send_email", ... }]
+}));`,
+    },
+    {
+      framework: "FastAPI",
+      pkg: "agent-well-known-fastapi",
+      code: `from agent_well_known import AgentManifest, Capability
+
+manifest = AgentManifest(
+    name="My API",
+    description="What my API does.",
+    base_url="https://api.example.com",
+    auth={"type": "api_key", "header": "Authorization"},
+    capabilities=[Capability(name="send_email", ...)]
+)
+manifest.mount(app)`,
+    },
+    {
+      framework: "Next.js",
+      pkg: "agent-well-known-next",
+      code: `import { createAgentManifest } from 'agent-well-known-next';
+
+// app/.well-known/agent/route.ts
+export const GET = createAgentManifest({
+  name: "My API",
+  description: "What my API does.",
+  base_url: "https://api.example.com",
+  auth: { type: "api_key", header: "Authorization" },
+  capabilities: [{ name: "send_email", ... }]
+});`,
+    },
+    {
+      framework: "Spring Boot",
+      pkg: "agent-well-known-spring-boot",
+      code: `@AgentManifest(
+    name = "My API",
+    description = "What my API does.",
+    baseUrl = "https://api.example.com"
+)
+@SpringBootApplication
+public class MyApp { }`,
+    },
+  ];
+
   return (
     <section className="border-t border-white/5 py-24">
       <div className="mx-auto max-w-5xl px-6">
-        <div className="grid gap-12 sm:grid-cols-2 items-center">
-          <div>
-            <div className="mb-4 inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
-              For Service Providers
-            </div>
-            <h2 className="text-3xl font-bold sm:text-4xl">
-              Your API, discoverable by every AI&nbsp;agent
-            </h2>
-            <p className="mt-4 text-muted">
-              Add one endpoint. That&apos;s it. Your API becomes accessible to
-              every agent using the protocol — no SDK to maintain, no plugin to
-              build, no marketplace to join. Services hosting their own manifest
-              are automatically verified.
-            </p>
-
-            <div className="mt-8 flex gap-4">
-              <Link
-                href="/docs/providers"
-                className="rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
-              >
-                Get started
-              </Link>
-              <Link
-                href="/playground"
-                className="rounded-lg border border-white/10 px-5 py-2.5 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
-              >
-                Try the playground
-              </Link>
-            </div>
+        <div className="text-center">
+          <div className="mb-4 inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
+            For Service Providers
           </div>
+          <h2 className="text-3xl font-bold sm:text-4xl">
+            Add the protocol to your API in one&nbsp;line
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-muted">
+            Pick your framework. Define your capabilities. Your API is
+            instantly discoverable by every AI agent — no MCP server
+            to build, no plugin to maintain.
+          </p>
+        </div>
 
-          <div className="rounded-xl border border-white/5 bg-surface-light p-6">
-            <pre className="overflow-x-auto font-mono text-sm leading-relaxed">
-              <code>
-                <span className="text-muted">{"// 10 minutes. That's all."}</span>
-                {"\n\n"}
-                <span className="text-accent">
-                  {"app.get('/.well-known/agent',"}
-                </span>
-                {"\n"}
-                <span className="text-accent">{"  (req, res) => {"}</span>
-                {"\n"}
-                <span className="text-foreground">
-                  {"    res.json({"}
-                </span>
-                {"\n"}
-                <span className="text-foreground">
-                  {'      spec_version: "1.0",'}
-                </span>
-                {"\n"}
-                <span className="text-foreground">
-                  {'      name: "Your API",'}
-                </span>
-                {"\n"}
-                <span className="text-foreground">
-                  {"      capabilities: [...]"}
-                </span>
-                {"\n"}
-                <span className="text-foreground">{"    });"}</span>
-                {"\n"}
-                <span className="text-accent">{"});"}</span>
-              </code>
-            </pre>
-          </div>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          {sdks.map((sdk) => (
+            <div
+              key={sdk.framework}
+              className="rounded-xl border border-white/5 bg-surface-light p-5"
+            >
+              <div className="mb-3 flex items-center justify-between">
+                <span className="font-semibold">{sdk.framework}</span>
+                <code className="rounded bg-surface px-2 py-0.5 font-mono text-xs text-muted">
+                  {sdk.pkg}
+                </code>
+              </div>
+              <pre className="overflow-x-auto rounded-lg bg-surface p-4 font-mono text-xs leading-relaxed">
+                <code className="text-accent-light">{sdk.code}</code>
+              </pre>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <Link
+            href="/docs/providers"
+            className="rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
+          >
+            Get started
+          </Link>
+          <Link
+            href="/playground"
+            className="rounded-lg border border-white/10 px-5 py-2.5 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
+          >
+            Try the playground
+          </Link>
         </div>
       </div>
     </section>
@@ -579,6 +616,12 @@ async function StatsSection() {
             </div>
           ))}
         </div>
+        <p className="mt-8 text-center text-sm text-muted">
+          All services are actively monitored.{" "}
+          <Link href="/status" className="text-accent hover:text-accent-light transition-colors">
+            Check real-time status
+          </Link>
+        </p>
       </div>
     </section>
   );

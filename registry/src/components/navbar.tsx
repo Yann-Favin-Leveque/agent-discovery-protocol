@@ -18,6 +18,12 @@ export function Navbar() {
             Directory
           </Link>
           <Link
+            href="/status"
+            className="text-sm text-muted transition-colors hover:text-foreground"
+          >
+            Status
+          </Link>
+          <Link
             href="/docs"
             className="text-sm text-muted transition-colors hover:text-foreground"
           >

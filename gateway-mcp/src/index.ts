@@ -14,6 +14,8 @@ import {
   isInitialized,
   getIdentity,
   setRegistryUrl,
+  loadConfig,
+  storeConnection,
   syncTokensToCloud,
   syncTokensFromCloud,
   clearAllCaches,
@@ -303,14 +305,15 @@ server.registerTool(
 server.registerTool(
   "subscribe",
   {
-    description: "Subscribe to a paid service plan. Shows plan details and asks for user confirmation. " +
+    description: "Subscribe to a paid service plan. Shows plan details and creates the subscription via the registry. " +
       "The agent can NEVER auto-approve payments — always requires human confirmation.",
     inputSchema: {
       domain: z.string().describe("Service domain"),
       plan: z.string().describe("Plan name to subscribe to (from the service's pricing info)"),
+      user_id: z.number().optional().describe("User ID in the registry (from identity)"),
     },
   },
-  async ({ domain, plan }) => {
+  async ({ domain, plan, user_id }) => {
     try {
       const manifest = await fetchManifest(domain);
 
@@ -345,28 +348,83 @@ server.registerTool(
       }
 
       const identity = getIdentity();
-      const paymentStatus = identity
-        ? "Your payment method on file will be used."
-        : "Set up a payment method first with `agent-gateway init`.";
+      if (!identity) {
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: "Not signed in. Run `agent-gateway init` to sign in and set up payments.",
+            },
+          ],
+          isError: true,
+        };
+      }
 
+      const config = loadConfig();
+
+      // Call registry subscription API
+      const res = await fetch(`${config.registry_url}/api/subscriptions/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${identity.registry_token}`,
+        },
+        body: JSON.stringify({
+          user_id: user_id,
+          service_domain: domain,
+          plan_name: plan,
+        }),
+        signal: AbortSignal.timeout(30000),
+      });
+
+      const result = await res.json() as { success: boolean; data?: Record<string, unknown>; error?: string; payment_setup_url?: string };
+
+      if (!result.success) {
+        // If no payment method, return setup URL
+        if (result.payment_setup_url) {
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text: `No payment method on file.\n\nPlease add a card at: ${result.payment_setup_url}\n\nThen try subscribing again.`,
+              },
+            ],
+            isError: true,
+          };
+        }
+        return {
+          content: [{ type: "text" as const, text: `Subscribe failed: ${result.error}` }],
+          isError: true,
+        };
+      }
+
+      const subData = result.data!;
       const text = [
-        `Subscription details for ${manifest.name}:`,
+        `Subscribed to ${manifest.name}!`,
         ``,
-        `  Plan: ${matchedPlan.name}`,
-        `  Price: ${matchedPlan.price}`,
-        `  Limits: ${matchedPlan.limits}`,
-        manifest.pricing.plans_url ? `  Details: ${manifest.pricing.plans_url}` : null,
-        ``,
-        `  Payment: ${paymentStatus}`,
+        `  Plan: ${subData.plan_name}`,
+        `  Price: $${(Number(subData.price_cents) / 100).toFixed(2)}/${subData.interval}`,
+        `  Status: ${subData.status}`,
+        subData.current_period_end ? `  Next billing: ${subData.current_period_end}` : null,
         ``,
         `  IMPORTANT: Payment requires user confirmation.`,
-        `  The user will receive a confirmation prompt (push notification or browser)`,
-        `  to approve this subscription with biometric/PIN confirmation.`,
-        ``,
-        `  To proceed, the user must confirm via the AgentDNS app or registry website.`,
+        `  The user must confirm via the AgentDNS app or registry website.`,
       ]
         .filter((l) => l !== null)
         .join("\n");
+
+      // Update local connection with subscription info
+      const conn = getConnection(domain);
+      if (conn) {
+        storeConnection({
+          ...conn,
+          subscription: {
+            plan: String(subData.plan_name),
+            status: "active",
+          },
+        });
+        syncTokensToCloud().catch(() => {});
+      }
 
       return { content: [{ type: "text" as const, text }] };
     } catch (err) {
@@ -388,7 +446,7 @@ server.registerTool(
 server.registerTool(
   "manage_subscriptions",
   {
-    description: "List, cancel, upgrade, or downgrade subscriptions. Without arguments, lists all active subscriptions.",
+    description: "List, cancel, upgrade, or downgrade subscriptions. Without arguments, lists all active subscriptions from the registry.",
     inputSchema: {
       domain: z.string().optional().describe("Service domain to manage"),
       action: z
@@ -396,12 +454,45 @@ server.registerTool(
         .optional()
         .describe("Action to perform"),
       plan: z.string().optional().describe("Target plan for upgrade/downgrade"),
+      user_id: z.number().optional().describe("User ID in the registry"),
+      subscription_id: z.number().optional().describe("Subscription ID for cancel/change actions"),
+      confirmation_token: z.string().optional().describe("User confirmation token (required for cancel/change)"),
     },
   },
-  async ({ domain, action, plan }) => {
+  async ({ domain, action, plan, user_id, subscription_id, confirmation_token }) => {
     try {
-      // List all subscriptions
-      if (!domain) {
+      const identity = getIdentity();
+      const config = loadConfig();
+
+      // List all subscriptions — try registry first, fall back to local
+      if (!domain && !action) {
+        if (identity && user_id) {
+          try {
+            const res = await fetch(
+              `${config.registry_url}/api/subscriptions/user/${user_id}`,
+              {
+                headers: { Authorization: `Bearer ${identity.registry_token}` },
+                signal: AbortSignal.timeout(10000),
+              }
+            );
+            const result = await res.json() as { success: boolean; data?: Array<Record<string, unknown>> };
+            if (result.success && result.data && result.data.length > 0) {
+              const list = result.data
+                .map(
+                  (s) =>
+                    `  ${s.service_domain} — ${s.plan_name} ($${(Number(s.price_cents) / 100).toFixed(2)}/${s.interval}) [${s.status}]`
+                )
+                .join("\n");
+              return {
+                content: [{ type: "text" as const, text: `Active subscriptions:\n\n${list}` }],
+              };
+            }
+          } catch {
+            // Fall through to local check
+          }
+        }
+
+        // Local fallback
         const connections = getAllConnections();
         const withSubs = connections.filter((c) => c.subscription);
 
@@ -424,25 +515,129 @@ server.registerTool(
           .join("\n");
 
         return {
+          content: [{ type: "text" as const, text: `Active subscriptions:\n\n${list}` }],
+        };
+      }
+
+      // Cancel subscription
+      if (action === "cancel") {
+        if (!subscription_id) {
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text: "subscription_id is required for cancellation. Use manage_subscriptions without action to list subscriptions and get IDs.",
+              },
+            ],
+            isError: true,
+          };
+        }
+
+        if (!confirmation_token) {
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text: "Cancellation requires user confirmation.\n\nThe user must provide a confirmation_token to proceed. This ensures the agent cannot auto-cancel subscriptions.",
+              },
+            ],
+            isError: true,
+          };
+        }
+
+        const res = await fetch(`${config.registry_url}/api/subscriptions/cancel`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${identity?.registry_token ?? ""}`,
+          },
+          body: JSON.stringify({ subscription_id, confirmation_token }),
+          signal: AbortSignal.timeout(15000),
+        });
+        const result = await res.json() as { success: boolean; data?: Record<string, unknown>; error?: string };
+
+        if (!result.success) {
+          return {
+            content: [{ type: "text" as const, text: `Cancel failed: ${result.error}` }],
+            isError: true,
+          };
+        }
+
+        return {
           content: [
             {
               type: "text" as const,
-              text: `Active subscriptions:\n\n${list}`,
+              text: `Subscription canceled.\n\n${result.data?.message ?? "Access continues until end of billing period."}`,
             },
           ],
         };
       }
 
-      // Manage specific subscription
-      if (!action) {
-        const conn = getConnection(domain);
-        if (!conn) {
+      // Upgrade/downgrade
+      if (action === "upgrade" || action === "downgrade") {
+        if (!subscription_id || !plan) {
           return {
             content: [
               {
                 type: "text" as const,
-                text: `Not connected to ${domain}. Use 'auth' to connect first.`,
+                text: "subscription_id and plan are required for plan changes.",
               },
+            ],
+            isError: true,
+          };
+        }
+
+        if (!confirmation_token) {
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text: "Plan changes require user confirmation.\n\nThe user must provide a confirmation_token to proceed.",
+              },
+            ],
+            isError: true,
+          };
+        }
+
+        const res = await fetch(`${config.registry_url}/api/subscriptions/change`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${identity?.registry_token ?? ""}`,
+          },
+          body: JSON.stringify({
+            subscription_id,
+            new_plan_name: plan,
+            confirmation_token,
+          }),
+          signal: AbortSignal.timeout(15000),
+        });
+        const result = await res.json() as { success: boolean; data?: Record<string, unknown>; error?: string };
+
+        if (!result.success) {
+          return {
+            content: [{ type: "text" as const, text: `Plan change failed: ${result.error}` }],
+            isError: true,
+          };
+        }
+
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `Plan changed: ${result.data?.old_plan} -> ${result.data?.new_plan}\n\n${result.data?.message ?? ""}`,
+            },
+          ],
+        };
+      }
+
+      // View specific domain subscription
+      if (domain) {
+        const conn = getConnection(domain);
+        if (!conn) {
+          return {
+            content: [
+              { type: "text" as const, text: `Not connected to ${domain}. Use 'auth' to connect first.` },
             ],
             isError: true,
           };
@@ -455,24 +650,9 @@ server.registerTool(
         return { content: [{ type: "text" as const, text }] };
       }
 
-      // Perform action (requires user confirmation)
-      const text = [
-        `Subscription management for ${domain}:`,
-        ``,
-        `  Action: ${action}`,
-        plan ? `  Target plan: ${plan}` : null,
-        ``,
-        `  This action requires user confirmation via push notification or browser.`,
-        action === "cancel" ? `  Cancel: ends your current plan at end of billing period.` : null,
-        action === "upgrade" ? `  Upgrade: moves to ${plan ?? "a higher"} plan (prorated).` : null,
-        action === "downgrade" ? `  Downgrade: moves to ${plan ?? "a lower"} plan at next billing cycle.` : null,
-        ``,
-        `  The user will be prompted to confirm this change.`,
-      ]
-        .filter((l) => l !== null)
-        .join("\n");
-
-      return { content: [{ type: "text" as const, text }] };
+      return {
+        content: [{ type: "text" as const, text: "Provide a domain, action, or no args to list subscriptions." }],
+      };
     } catch (err) {
       return {
         content: [
