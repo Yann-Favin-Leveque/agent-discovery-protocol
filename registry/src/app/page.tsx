@@ -424,6 +424,129 @@ function ForProvidersSection() {
   );
 }
 
+function VisionSection() {
+  const milestones = [
+    {
+      icon: "\u{1F50D}",
+      title: "Discovery",
+      status: "Live now",
+      statusColor: "bg-accent/10 text-accent",
+      description:
+        'Agents find your service by intent. "I need to send an invoice" \u2014 your API shows up.',
+    },
+    {
+      icon: "\u{1F511}",
+      title: "One-click OAuth",
+      status: "Coming soon",
+      statusColor: "bg-yellow-500/10 text-yellow-400",
+      description:
+        "Users authorize access in one click. No API key to copy, no signup form. Declare OAuth in your manifest and it just works.",
+    },
+    {
+      icon: "\u{1F4DD}",
+      title: "Agent onboarding",
+      status: "Planned",
+      statusColor: "bg-white/5 text-muted",
+      description:
+        "New users sign up to your service directly through their agent. Zero friction acquisition channel.",
+    },
+    {
+      icon: "\u{1F4B3}",
+      title: "In-agent subscriptions",
+      status: "Planned",
+      statusColor: "bg-white/5 text-muted",
+      description:
+        "Users approve plans from their agent with biometric confirmation. Payment handled by the registry.",
+    },
+  ];
+
+  return (
+    <section className="border-t border-white/5 py-24">
+      <div className="mx-auto max-w-5xl px-6">
+        {/* Header */}
+        <div className="text-center">
+          <div className="mb-4 inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
+            What&apos;s Next
+          </div>
+          <h2 className="text-3xl font-bold sm:text-4xl">
+            The Future: Frictionless Agent&nbsp;Access
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-muted">
+            Today, agents discover and call your API. Tomorrow, they&apos;ll
+            handle everything.
+          </p>
+        </div>
+
+        {/* Timeline */}
+        <div className="relative mt-16">
+          {/* Vertical line */}
+          <div className="absolute left-6 top-0 hidden h-full w-px bg-gradient-to-b from-accent/40 via-accent/20 to-transparent sm:block" />
+
+          <div className="space-y-6">
+            {milestones.map((m, i) => (
+              <div key={m.title} className="relative flex gap-6">
+                {/* Dot on the line */}
+                <div className="relative z-10 hidden sm:block">
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-full border text-lg ${
+                      i === 0
+                        ? "border-accent/40 bg-accent/10"
+                        : "border-white/10 bg-surface-light"
+                    }`}
+                  >
+                    {m.icon}
+                  </div>
+                </div>
+
+                {/* Card */}
+                <div
+                  className={`flex-1 rounded-xl border p-5 ${
+                    i === 0
+                      ? "border-accent/20 bg-gradient-to-r from-accent/5 to-transparent"
+                      : "border-white/5 bg-surface-light"
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="sm:hidden text-lg">{m.icon}</span>
+                    <h3 className="font-semibold">{m.title}</h3>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs font-medium ${m.statusColor}`}
+                    >
+                      {m.status}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {m.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="mt-16 rounded-xl border border-accent/20 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 p-8 text-center">
+          <p className="text-lg font-medium">
+            Want to be among the first services to support full agent
+            onboarding?
+          </p>
+          <a
+            href="mailto:yann.fl95@gmail.com"
+            className="mt-4 inline-block rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
+          >
+            Get in touch
+          </a>
+          <p className="mt-6 text-sm text-muted">
+            If your service already supports OAuth, you&apos;re ahead of the
+            curve. Declare it in your manifest and agents can connect users
+            today.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 async function StatsSection() {
   const dbStats = await getServiceStats();
   const stats = [
@@ -501,6 +624,7 @@ export default async function Home() {
       <WorksWithSection />
       <ForAgentsSection />
       <ForProvidersSection />
+      <VisionSection />
       <StatsSection />
       <CtaSection />
     </>
