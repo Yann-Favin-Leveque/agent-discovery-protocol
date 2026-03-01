@@ -27,12 +27,9 @@ interface HealthData {
 export function HealthSection({ domain, trustLevel }: { domain: string; trustLevel: string }) {
   const [data, setData] = useState<HealthData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [checking, setChecking] = useState(false);
 
-  useEffect(() => {
-    if (trustLevel !== "verified") {
-      setLoading(false);
-      return;
-    }
+  const fetchHealth = () => {
     fetch(`/api/health/${domain}?days=7`)
       .then((r) => r.json())
       .then((json) => {
@@ -40,6 +37,26 @@ export function HealthSection({ domain, trustLevel }: { domain: string; trustLev
       })
       .catch(() => {})
       .finally(() => setLoading(false));
+  };
+
+  const triggerCheck = async () => {
+    setChecking(true);
+    try {
+      await fetch(`/api/health/${domain}`, { method: "POST" });
+      fetchHealth();
+    } catch {
+      // ignore
+    } finally {
+      setChecking(false);
+    }
+  };
+
+  useEffect(() => {
+    if (trustLevel !== "verified") {
+      setLoading(false);
+      return;
+    }
+    fetchHealth();
   }, [domain, trustLevel]);
 
   if (trustLevel === "community") {
@@ -87,9 +104,18 @@ export function HealthSection({ domain, trustLevel }: { domain: string; trustLev
   if (!data || data.history.length === 0) {
     return (
       <section className="mt-12">
-        <h2 className="text-2xl font-bold">Health</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold">Health</h2>
+          <button
+            onClick={triggerCheck}
+            disabled={checking}
+            className="rounded-lg border border-accent/30 px-3 py-1.5 text-sm font-medium text-accent transition-colors hover:bg-accent/10 disabled:opacity-50"
+          >
+            {checking ? "Checking..." : "Check now"}
+          </button>
+        </div>
         <p className="mt-4 text-sm text-muted">
-          No health data available yet. Data will appear after the next scheduled check.
+          No health data available yet. Click &quot;Check now&quot; or wait for the next scheduled check.
         </p>
       </section>
     );
@@ -130,7 +156,16 @@ export function HealthSection({ domain, trustLevel }: { domain: string; trustLev
 
   return (
     <section className="mt-12">
-      <h2 className="text-2xl font-bold">Health</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Health</h2>
+        <button
+          onClick={triggerCheck}
+          disabled={checking}
+          className="rounded-lg border border-accent/30 px-3 py-1.5 text-sm font-medium text-accent transition-colors hover:bg-accent/10 disabled:opacity-50"
+        >
+          {checking ? "Checking..." : "Check now"}
+        </button>
+      </div>
 
       {/* Status + uptime row */}
       <div className="mt-4 flex flex-wrap items-center gap-4">

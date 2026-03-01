@@ -17,30 +17,18 @@ export const metadata: Metadata = {
 const PER_PAGE = 20;
 
 function TrustBadge({ level }: { level: string }) {
-  const badge =
-    level === "verified" ? (
-      <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs text-accent">
-        Verified
-      </span>
-    ) : level === "community" ? (
-      <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-xs text-blue-400">
-        Community
-      </span>
-    ) : (
-      <span className="rounded-full bg-yellow-500/10 px-2 py-0.5 text-xs text-yellow-400">
-        Unverified
-      </span>
-    );
-
-  return (
-    <Link
-      href="/docs/trust-levels"
-      onClick={(e) => e.stopPropagation()}
-      className="hover:opacity-80 transition-opacity"
-      title="Learn about trust levels"
-    >
-      {badge}
-    </Link>
+  return level === "verified" ? (
+    <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs text-accent">
+      Verified
+    </span>
+  ) : level === "community" ? (
+    <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-xs text-blue-400">
+      Community
+    </span>
+  ) : (
+    <span className="rounded-full bg-yellow-500/10 px-2 py-0.5 text-xs text-yellow-400">
+      Unverified
+    </span>
   );
 }
 

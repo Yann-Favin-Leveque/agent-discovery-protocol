@@ -1341,6 +1341,7 @@ export async function getOverallHealthStats(): Promise<{
     FROM (
       SELECT h.service_domain, h.status
       FROM health_checks h
+      INNER JOIN services s ON s.domain = h.service_domain AND s.trust_level = 'verified'
       INNER JOIN (
         SELECT service_domain, MAX(checked_at) as max_checked
         FROM health_checks
