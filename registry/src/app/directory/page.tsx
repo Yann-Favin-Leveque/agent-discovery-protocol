@@ -205,11 +205,10 @@ function Pagination({
   );
 }
 
-export default async function DirectoryPage({
-  searchParams,
-}: {
-  searchParams: { category?: string; search?: string; sort?: string; show_unverified?: string; page?: string };
+export default async function DirectoryPage(props: {
+  searchParams: Promise<{ category?: string; search?: string; sort?: string; show_unverified?: string; page?: string }>;
 }) {
+  const searchParams = await props.searchParams;
   const categories = await getAllCategories();
   const sort = (searchParams.sort as "newest" | "name" | "capabilities") ?? "newest";
   const showUnverified = searchParams.show_unverified === "true";

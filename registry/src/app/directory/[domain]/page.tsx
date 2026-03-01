@@ -6,18 +6,18 @@ import { ManifestToggle } from "./manifest-toggle";
 import { ReportButton } from "./report-button";
 import { HealthSection } from "./health-section";
 
-export async function generateMetadata({ params }: { params: { domain: string } }) {
-  const service = await getServiceByDomain(params.domain);
+export async function generateMetadata(props: { params: Promise<{ domain: string }> }) {
+  const { domain } = await props.params;
+  const service = await getServiceByDomain(domain);
   if (!service) return { title: "Not Found — AgentDNS" };
   return { title: `${service.name} — AgentDNS` };
 }
 
-export default async function ServiceDetailPage({
-  params,
-}: {
-  params: { domain: string };
+export default async function ServiceDetailPage(props: {
+  params: Promise<{ domain: string }>;
 }) {
-  const service = await getServiceByDomain(params.domain);
+  const { domain } = await props.params;
+  const service = await getServiceByDomain(domain);
   if (!service) notFound();
 
   const capabilities = await getCapabilitiesForService(service.id);
