@@ -415,7 +415,19 @@ export interface TransactionRow {
 // ─── Helpers ─────────────────────────────────────────────────────
 
 function rowTo<T>(row: QueryResultRow): T {
-  return row as unknown as T;
+  // Postgres returns Date objects for TIMESTAMPTZ — convert to ISO strings
+  // Postgres returns bigint strings for COUNT() — convert to numbers
+  const obj: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(row)) {
+    if (value instanceof Date) {
+      obj[key] = value.toISOString();
+    } else if (key === "cap_count" || key === "count" || key === "total") {
+      obj[key] = Number(value);
+    } else {
+      obj[key] = value;
+    }
+  }
+  return obj as unknown as T;
 }
 
 function rowsTo<T>(rows: QueryResultRow[]): T[] {
