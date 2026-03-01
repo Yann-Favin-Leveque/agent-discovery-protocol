@@ -29,6 +29,29 @@ curl https://agent-dns.dev/.well-known/agent
 curl https://agent-dns.dev/api/discover?q=email
 ```
 
+### Health Check Cron
+
+The registry runs hourly health checks on verified services via `/api/cron/recrawl`.
+
+**Vercel cron (configured in `registry/vercel.json`):**
+- Runs on the schedule defined in `vercel.json` (hourly: `0 * * * *`)
+- On the free plan, Vercel cron jobs run **once per day** regardless of the schedule
+- The `CRON_SECRET` env var must be set in Vercel for authentication
+
+**For true hourly checks, use an external cron service (e.g. cron-job.org):**
+1. Create a free account at [cron-job.org](https://cron-job.org)
+2. Create a new cron job with:
+   - **URL:** `https://agent-dns.dev/api/cron/recrawl`
+   - **Schedule:** Every hour (`0 * * * *`)
+   - **HTTP Method:** GET
+   - **Headers:** `Authorization: Bearer {CRON_SECRET}` (use the same value as the Vercel env var)
+3. Save and enable the cron job
+
+**Manual trigger:**
+```bash
+curl -H "Authorization: Bearer YOUR_CRON_SECRET" https://agent-dns.dev/api/cron/recrawl
+```
+
 ---
 
 ## Gateway MCP (npm: agent-gateway-mcp)

@@ -37,10 +37,17 @@ const sections = [
     tag: "Reference",
   },
   {
+    title: "Trust Levels",
+    href: "/docs/trust-levels",
+    description:
+      "Understand the three trust levels: Verified, Community, and Unverified. How verification works and how to upgrade.",
+    tag: "Guide",
+  },
+  {
     title: "Security",
     href: "/docs/security",
     description:
-      "Trust levels, rate limits, domain protection, and how to report abusive services.",
+      "Rate limits, domain protection, input validation, and how to report abusive services.",
     tag: "Security",
   },
 ];

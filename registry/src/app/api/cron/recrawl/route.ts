@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  getTrustedServices,
+  getVerifiedOnlyServices,
   updateServiceVerification,
   incrementCrawlFailure,
   markUnreachable,
@@ -16,9 +16,6 @@ export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
 
-  // TODO: remove after debugging auth issue
-  console.log("CRON_SECRET env:", cronSecret ? "SET (" + cronSecret.length + " chars)" : "NOT SET");
-  console.log("Auth header:", authHeader);
   if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json(
       { success: false, error: "Unauthorized." },
@@ -26,7 +23,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const services = await getTrustedServices();
+  const services = await getVerifiedOnlyServices();
   const results: Array<{
     domain: string;
     status: "ok" | "failed" | "unreachable";

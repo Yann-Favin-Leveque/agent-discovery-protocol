@@ -220,6 +220,7 @@ async function initSchema(db: Client) {
   }
 
   await seedCategories(db);
+  await seedAgentDNS(db);
 }
 
 const SEED_CATEGORIES = [
@@ -244,6 +245,55 @@ async function seedCategories(db: Client) {
     await db.execute({
       sql: "INSERT INTO categories (name, slug) SELECT ?, ? WHERE NOT EXISTS (SELECT 1 FROM categories WHERE slug = ?)",
       args: [cat.name, cat.slug, cat.slug],
+    });
+  }
+}
+
+async function seedAgentDNS(db: Client) {
+  // Register agent-dns.dev in its own registry as verified
+  const existing = await db.execute({
+    sql: "SELECT id FROM services WHERE domain = ?",
+    args: ["agent-dns.dev"],
+  });
+  if (existing.rows.length > 0) return;
+
+  await db.execute({
+    sql: `INSERT INTO services (name, domain, description, base_url, well_known_url, auth_type, auth_details, pricing_type, spec_version, verified, trust_level, last_crawled_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 'verified', datetime('now'))`,
+    args: [
+      "AgentDNS Registry",
+      "agent-dns.dev",
+      "The registry for the Agent Discovery Protocol. Search, discover, and verify services that implement the /.well-known/agent standard.",
+      "https://agent-dns.dev",
+      "https://agent-dns.dev/.well-known/agent",
+      "none",
+      JSON.stringify({ type: "none" }),
+      "free",
+      "1.0",
+    ],
+  });
+
+  // Get the service id
+  const svc = await db.execute({
+    sql: "SELECT id FROM services WHERE domain = ?",
+    args: ["agent-dns.dev"],
+  });
+  if (svc.rows.length === 0) return;
+  const serviceId = svc.rows[0].id as number;
+
+  // Add capabilities
+  const caps = [
+    { name: "discover_services", description: "Search for services by intent or keyword", detail_url: "/api/capabilities/discover_services", slug: "developer-tools" },
+    { name: "list_services", description: "List all registered services with filtering and pagination", detail_url: "/api/capabilities/list_services", slug: "developer-tools" },
+    { name: "submit_service", description: "Submit a new service to the registry", detail_url: "/api/capabilities/submit_service", slug: "developer-tools" },
+    { name: "verify_service", description: "Trigger verification of a service's manifest", detail_url: "/api/capabilities/verify_service", slug: "developer-tools" },
+  ];
+
+  for (const cap of caps) {
+    await db.execute({
+      sql: `INSERT INTO capabilities (service_id, name, description, detail_url, category_slug)
+           SELECT ?, ?, ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM capabilities WHERE service_id = ? AND name = ?)`,
+      args: [serviceId, cap.name, cap.description, cap.detail_url, cap.slug, serviceId, cap.name],
     });
   }
 }
@@ -708,6 +758,14 @@ export async function getTrustedServices(): Promise<ServiceRow[]> {
   const db = await ensureInitialized();
   const result = await db.execute(
     "SELECT * FROM services WHERE trust_level IN ('verified', 'community') ORDER BY last_crawled_at ASC"
+  );
+  return rowsTo<ServiceRow>(result.rows);
+}
+
+export async function getVerifiedOnlyServices(): Promise<ServiceRow[]> {
+  const db = await ensureInitialized();
+  const result = await db.execute(
+    "SELECT * FROM services WHERE trust_level = 'verified' ORDER BY last_crawled_at ASC"
   );
   return rowsTo<ServiceRow>(result.rows);
 }

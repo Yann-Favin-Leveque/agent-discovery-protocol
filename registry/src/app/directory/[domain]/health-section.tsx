@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   ResponsiveContainer,
   LineChart,
@@ -23,11 +24,15 @@ interface HealthData {
   }>;
 }
 
-export function HealthSection({ domain }: { domain: string }) {
+export function HealthSection({ domain, trustLevel }: { domain: string; trustLevel: string }) {
   const [data, setData] = useState<HealthData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (trustLevel !== "verified") {
+      setLoading(false);
+      return;
+    }
     fetch(`/api/health/${domain}?days=7`)
       .then((r) => r.json())
       .then((json) => {
@@ -35,7 +40,37 @@ export function HealthSection({ domain }: { domain: string }) {
       })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, [domain]);
+  }, [domain, trustLevel]);
+
+  if (trustLevel === "community") {
+    return (
+      <section className="mt-12">
+        <h2 className="text-2xl font-bold">Health</h2>
+        <div className="mt-4 rounded-xl border border-blue-500/20 bg-blue-500/5 p-5">
+          <p className="text-sm leading-relaxed text-blue-300">
+            This is a community-maintained manifest. Health monitoring is not available because
+            this service doesn&apos;t host its own{" "}
+            <code className="rounded bg-blue-500/10 px-1.5 py-0.5 text-blue-400">/.well-known/agent</code>{" "}
+            endpoint yet.{" "}
+            <Link href="/docs/trust-levels" className="text-blue-400 underline hover:text-blue-300">
+              Learn more about trust levels &rarr;
+            </Link>
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  if (trustLevel === "unverified") {
+    return (
+      <section className="mt-12">
+        <h2 className="text-2xl font-bold">Health</h2>
+        <p className="mt-4 text-sm text-muted">
+          Health monitoring is not available for unverified services.
+        </p>
+      </section>
+    );
+  }
 
   if (loading) {
     return (

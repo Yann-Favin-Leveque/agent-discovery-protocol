@@ -6,7 +6,7 @@ import Link from "next/link";
 interface ServiceHealth {
   domain: string;
   name: string;
-  status: "up" | "down" | "degraded" | "unknown";
+  status: "up" | "down" | "degraded" | "unknown" | "not_monitored";
   response_time_ms: number | null;
   uptime_percentage: number;
   last_checked: string | null;
@@ -23,7 +23,7 @@ interface HealthData {
   last_updated: string;
 }
 
-type FilterStatus = "all" | "up" | "down" | "degraded";
+type FilterStatus = "all" | "up" | "down" | "degraded" | "community";
 
 export function StatusDashboard() {
   const [data, setData] = useState<HealthData | null>(null);
@@ -55,7 +55,12 @@ export function StatusDashboard() {
   }, [fetchData]);
 
   const filteredServices = data?.services.filter((s) => {
-    if (filter !== "all" && s.status !== filter) return false;
+    if (filter === "community") {
+      if (s.trust_level !== "community") return false;
+    } else if (filter !== "all") {
+      if (s.status !== filter) return false;
+      if (s.trust_level === "community") return false;
+    }
     if (search) {
       const q = search.toLowerCase();
       return s.domain.toLowerCase().includes(q) || s.name.toLowerCase().includes(q);
@@ -83,6 +88,14 @@ export function StatusDashboard() {
         <p className="mt-2 text-muted">
           Real-time health monitoring for the AgentDNS registry
         </p>
+      </div>
+
+      {/* Trust level note */}
+      <div className="mt-6 rounded-lg border border-blue-500/20 bg-blue-500/5 px-5 py-3 text-sm text-blue-300">
+        Only verified services are health-monitored.{" "}
+        <Link href="/docs/trust-levels" className="text-blue-400 underline hover:text-blue-300">
+          Learn about trust levels &rarr;
+        </Link>
       </div>
 
       {/* Overall status banner */}
@@ -118,18 +131,18 @@ export function StatusDashboard() {
 
       {/* Filters & search */}
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-2">
-          {(["all", "up", "down", "degraded"] as FilterStatus[]).map((f) => (
+        <div className="flex flex-wrap gap-2">
+          {(["all", "up", "down", "degraded", "community"] as FilterStatus[]).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
                 filter === f
-                  ? "bg-accent text-background"
+                  ? f === "community" ? "bg-blue-500 text-white" : "bg-accent text-background"
                   : "bg-surface-light text-muted hover:text-foreground"
               }`}
             >
-              {f === "all" ? "All" : f === "up" ? "Up" : f === "down" ? "Down" : "Degraded"}
+              {f === "all" ? "All" : f === "up" ? "Up" : f === "down" ? "Down" : f === "degraded" ? "Degraded" : "Community"}
             </button>
           ))}
         </div>
@@ -178,6 +191,33 @@ export function StatusDashboard() {
 }
 
 function ServiceStatusRow({ service }: { service: ServiceHealth }) {
+  // Community services: show info box instead of health data
+  if (service.trust_level === "community") {
+    return (
+      <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 px-5 py-4">
+        <div className="flex items-center gap-4">
+          <span className="text-lg" title="Community">🔵</span>
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <Link href={`/directory/${service.domain}`} className="font-semibold hover:text-accent transition-colors">
+                {service.name}
+              </Link>
+              <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-xs text-blue-400">Community</span>
+            </div>
+            <p className="font-mono text-xs text-muted">{service.domain}</p>
+            <p className="mt-2 text-sm text-blue-300/80">
+              This is a community-maintained manifest. Health monitoring is not available because this service
+              doesn&apos;t host its own <code className="text-blue-400">/.well-known/agent</code> endpoint yet.{" "}
+              <Link href="/docs/trust-levels" className="text-blue-400 underline hover:text-blue-300">
+                Learn more about trust levels &rarr;
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const statusIcon =
     service.status === "up"
       ? "🟢"

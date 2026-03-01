@@ -617,9 +617,13 @@ async function StatsSection() {
           ))}
         </div>
         <p className="mt-8 text-center text-sm text-muted">
-          All services are actively monitored.{" "}
+          Verified services are actively monitored.{" "}
           <Link href="/status" className="text-accent hover:text-accent-light transition-colors">
             Check real-time status
+          </Link>
+          {" · "}
+          <Link href="/docs/trust-levels" className="text-accent hover:text-accent-light transition-colors">
+            Learn about trust levels
           </Link>
         </p>
       </div>

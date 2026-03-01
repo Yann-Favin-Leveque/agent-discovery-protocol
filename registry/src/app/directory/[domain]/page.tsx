@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { getServiceByDomain, getCapabilitiesForService } from "@/lib/db";
 import { VerifyButton } from "./verify-button";
 import { ManifestToggle } from "./manifest-toggle";
@@ -45,19 +46,25 @@ export default async function ServiceDetailPage({
           <p className="mt-1 font-mono text-sm text-muted">{service.domain}</p>
         </div>
         <div className="flex items-center gap-3">
-          {service.trust_level === "verified" ? (
-            <span className="rounded-full bg-accent/10 px-3 py-1 text-sm text-accent">
-              Verified
-            </span>
-          ) : service.trust_level === "community" ? (
-            <span className="rounded-full bg-blue-500/10 px-3 py-1 text-sm text-blue-400">
-              Community
-            </span>
-          ) : (
-            <span className="rounded-full bg-yellow-500/10 px-3 py-1 text-sm text-yellow-400">
-              Unverified
-            </span>
-          )}
+          <Link
+            href="/docs/trust-levels"
+            className="hover:opacity-80 transition-opacity"
+            title="Learn about trust levels"
+          >
+            {service.trust_level === "verified" ? (
+              <span className="rounded-full bg-accent/10 px-3 py-1 text-sm text-accent">
+                Verified
+              </span>
+            ) : service.trust_level === "community" ? (
+              <span className="rounded-full bg-blue-500/10 px-3 py-1 text-sm text-blue-400">
+                Community
+              </span>
+            ) : (
+              <span className="rounded-full bg-yellow-500/10 px-3 py-1 text-sm text-yellow-400">
+                Unverified
+              </span>
+            )}
+          </Link>
           <VerifyButton domain={service.domain} />
           <ReportButton domain={service.domain} />
         </div>
@@ -101,7 +108,7 @@ export default async function ServiceDetailPage({
       </div>
 
       {/* Health */}
-      <HealthSection domain={service.domain} />
+      <HealthSection domain={service.domain} trustLevel={service.trust_level} />
 
       {/* Capabilities */}
       <section className="mt-12">
