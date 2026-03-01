@@ -74,6 +74,8 @@ export function loadConfig(): GatewayConfig {
       if (saved.registry_url === DEFAULT_CONFIG.registry_url
         || saved.registry_url === "https://agentdns.dev") {
         delete saved.registry_url;
+        // Rewrite the file to remove the stale key
+        fs.writeFileSync(CONFIG_FILE, JSON.stringify(saved, null, 2));
       }
       config = { ...DEFAULT_CONFIG, ...saved };
     } catch {
