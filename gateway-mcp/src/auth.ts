@@ -1,5 +1,5 @@
 import http from "http";
-import { loadConfig, getToken, storeToken, storeConnection } from "./config.js";
+import { loadConfig, getToken, storeToken, storeConnection, getOAuthCredentials } from "./config.js";
 import { fetchManifest } from "./discovery.js";
 import type { StoredToken, Manifest } from "./types.js";
 
@@ -138,10 +138,20 @@ async function tryRefreshToken(
       return null;
     }
 
-    const body = new URLSearchParams({
+    const isGoogle = manifest.auth.authorization_url?.includes("google.com") || manifest.auth.authorization_url?.includes("googleapis.com");
+    const isGitHub = manifest.auth.authorization_url?.includes("github.com");
+    const oauthProvider = isGoogle ? "google" as const : isGitHub ? "github" as const : null;
+    const creds = oauthProvider ? getOAuthCredentials(oauthProvider) : null;
+
+    const refreshParams: Record<string, string> = {
       grant_type: "refresh_token",
       refresh_token: existing.refresh_token!,
-    });
+    };
+    if (creds) {
+      refreshParams.client_id = creds.clientId;
+      refreshParams.client_secret = creds.clientSecret;
+    }
+    const body = new URLSearchParams(refreshParams);
 
     const res = await fetch(manifest.auth.token_url, {
       method: "POST",
@@ -193,10 +203,23 @@ async function startOAuth2Flow(
   const redirectUri = `http://localhost:${port}/callback`;
   const state = Math.random().toString(36).substring(2);
 
+  // Determine OAuth credentials based on the provider domain
+  const isGoogle = auth.authorization_url!.includes("google.com") || auth.authorization_url!.includes("googleapis.com");
+  const isGitHub = auth.authorization_url!.includes("github.com");
+  const oauthProvider = isGoogle ? "google" : isGitHub ? "github" : null;
+  const credentials = oauthProvider ? getOAuthCredentials(oauthProvider) : null;
+
   const authUrl = new URL(auth.authorization_url);
   authUrl.searchParams.set("response_type", "code");
+  if (credentials) {
+    authUrl.searchParams.set("client_id", credentials.clientId);
+  }
   authUrl.searchParams.set("redirect_uri", redirectUri);
   authUrl.searchParams.set("state", state);
+  if (isGoogle) {
+    authUrl.searchParams.set("access_type", "offline");
+    authUrl.searchParams.set("prompt", "consent");
+  }
   if (auth.scopes?.length) {
     authUrl.searchParams.set("scope", auth.scopes.join(" "));
   }
@@ -238,11 +261,16 @@ async function startOAuth2Flow(
 
       // Exchange code for token
       try {
-        const tokenBody = new URLSearchParams({
+        const tokenParams: Record<string, string> = {
           grant_type: "authorization_code",
           code,
           redirect_uri: redirectUri,
-        });
+        };
+        if (credentials) {
+          tokenParams.client_id = credentials.clientId;
+          tokenParams.client_secret = credentials.clientSecret;
+        }
+        const tokenBody = new URLSearchParams(tokenParams);
 
         const tokenRes = await fetch(auth.token_url!, {
           method: "POST",
