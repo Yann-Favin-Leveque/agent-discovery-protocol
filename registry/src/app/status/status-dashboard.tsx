@@ -287,7 +287,7 @@ function ServiceStatusRow({ service }: { service: ServiceHealth }) {
 }
 
 function formatRelativeTime(dateStr: string): string {
-  const date = new Date(dateStr + "Z");
+  const date = new Date(dateStr);
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
   const diffMin = Math.floor(diffMs / 60000);

@@ -145,7 +145,7 @@ export function HealthSection({ domain, trustLevel }: { domain: string; trustLev
     );
 
   const chartData = data.history.map((h) => ({
-    time: new Date(h.checked_at + "Z").toLocaleDateString("en-US", {
+    time: new Date(h.checked_at).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       hour: "2-digit",
@@ -194,7 +194,7 @@ export function HealthSection({ domain, trustLevel }: { domain: string; trustLev
           <div className="rounded-lg border border-white/5 bg-surface-light px-4 py-2">
             <span className="text-xs text-muted">Last checked</span>
             <p className="font-mono text-sm">
-              {new Date(data.last_checked + "Z").toLocaleString()}
+              {new Date(data.last_checked).toLocaleString()}
             </p>
           </div>
         )}
