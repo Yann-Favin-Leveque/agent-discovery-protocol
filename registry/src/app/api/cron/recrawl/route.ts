@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const services = getVerifiedServices();
+  const services = await getVerifiedServices();
   const results: Array<{
     domain: string;
     status: "ok" | "failed" | "unreachable";
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
 
     if (crawl.success && crawl.manifest) {
       const manifest = crawl.manifest;
-      updateServiceVerification(service.domain, {
+      await updateServiceVerification(service.domain, {
         name: manifest.name,
         description: manifest.description,
         base_url: manifest.base_url,
@@ -54,11 +54,11 @@ export async function GET(request: NextRequest) {
         response_time_ms: crawl.response_time_ms,
       });
     } else {
-      incrementCrawlFailure(service.domain);
+      await incrementCrawlFailure(service.domain);
       const failures = service.crawl_failures + 1;
 
       if (failures >= MAX_CONSECUTIVE_FAILURES) {
-        markUnreachable(service.domain);
+        await markUnreachable(service.domain);
         results.push({
           domain: service.domain,
           status: "unreachable",

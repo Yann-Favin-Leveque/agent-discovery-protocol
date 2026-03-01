@@ -12,32 +12,35 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const results = discoverServices(q);
+    const results = await discoverServices(q);
 
-    const data = results.map((service) => ({
-      service: {
-        name: service.name,
-        domain: service.domain,
-        description: service.description,
-        base_url: service.base_url,
-        auth_type: service.auth_type,
-        pricing_type: service.pricing_type,
-        verified: !!service.verified,
-      },
-      matching_capabilities: service.matching_capabilities.map((cap) => ({
-        name: cap.name,
-        description: cap.description,
-        detail_url: cap.detail_url.startsWith("http")
-          ? cap.detail_url
-          : `${service.base_url}${cap.detail_url}`,
-      })),
-      all_capabilities: getCapabilitiesForService(service.id).map((cap) => ({
-        name: cap.name,
-        description: cap.description,
-        detail_url: cap.detail_url.startsWith("http")
-          ? cap.detail_url
-          : `${service.base_url}${cap.detail_url}`,
-      })),
+    const data = await Promise.all(results.map(async (service) => {
+      const allCaps = await getCapabilitiesForService(service.id);
+      return {
+        service: {
+          name: service.name,
+          domain: service.domain,
+          description: service.description,
+          base_url: service.base_url,
+          auth_type: service.auth_type,
+          pricing_type: service.pricing_type,
+          verified: !!service.verified,
+        },
+        matching_capabilities: service.matching_capabilities.map((cap) => ({
+          name: cap.name,
+          description: cap.description,
+          detail_url: cap.detail_url.startsWith("http")
+            ? cap.detail_url
+            : `${service.base_url}${cap.detail_url}`,
+        })),
+        all_capabilities: allCaps.map((cap) => ({
+          name: cap.name,
+          description: cap.description,
+          detail_url: cap.detail_url.startsWith("http")
+            ? cap.detail_url
+            : `${service.base_url}${cap.detail_url}`,
+        })),
+      };
     }));
 
     return NextResponse.json({

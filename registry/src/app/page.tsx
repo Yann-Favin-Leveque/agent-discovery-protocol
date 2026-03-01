@@ -338,8 +338,8 @@ function ForProvidersSection() {
   );
 }
 
-function StatsSection() {
-  const dbStats = getServiceStats();
+async function StatsSection() {
+  const dbStats = await getServiceStats();
   const stats = [
     {
       value: String(dbStats.total_services || 0),
@@ -405,7 +405,7 @@ function CtaSection() {
   );
 }
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <HeroSection />

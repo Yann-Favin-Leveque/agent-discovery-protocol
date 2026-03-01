@@ -53,14 +53,14 @@ function ServiceCard({ service, capCount }: { service: ServiceRow; capCount: num
   );
 }
 
-export default function DirectoryPage({
+export default async function DirectoryPage({
   searchParams,
 }: {
   searchParams: { category?: string; search?: string; sort?: string };
 }) {
-  const categories = getAllCategories();
+  const categories = await getAllCategories();
   const sort = (searchParams.sort as "newest" | "name" | "capabilities") ?? "newest";
-  const { services, total } = getAllServices({
+  const { services, total } = await getAllServices({
     category: searchParams.category,
     search: searchParams.search,
     sort,
@@ -71,7 +71,8 @@ export default function DirectoryPage({
   // Precompute capability counts
   const capCounts = new Map<number, number>();
   for (const s of services) {
-    capCounts.set(s.id, getCapabilitiesForService(s.id).length);
+    const caps = await getCapabilitiesForService(s.id);
+    capCounts.set(s.id, caps.length);
   }
 
   const activeCategory = searchParams.category ?? "all";

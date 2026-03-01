@@ -17,18 +17,21 @@ export async function GET(request: NextRequest) {
   const offset = parseInt(params.get("offset") ?? "0", 10);
 
   try {
-    const { services, total } = getAllServices({ category, search, sort, limit, offset });
+    const { services, total } = await getAllServices({ category, search, sort, limit, offset });
 
-    const data = services.map((s) => ({
-      name: s.name,
-      domain: s.domain,
-      description: s.description,
-      base_url: s.base_url,
-      auth_type: s.auth_type,
-      pricing_type: s.pricing_type,
-      verified: !!s.verified,
-      capability_count: getCapabilitiesForService(s.id).length,
-      created_at: s.created_at,
+    const data = await Promise.all(services.map(async (s) => {
+      const caps = await getCapabilitiesForService(s.id);
+      return {
+        name: s.name,
+        domain: s.domain,
+        description: s.description,
+        base_url: s.base_url,
+        auth_type: s.auth_type,
+        pricing_type: s.pricing_type,
+        verified: !!s.verified,
+        capability_count: caps.length,
+        created_at: s.created_at,
+      };
     }));
 
     return NextResponse.json({
@@ -66,7 +69,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const existing = getServiceByDomain(domain);
+    const existing = await getServiceByDomain(domain);
     if (existing) {
       return NextResponse.json(
         { success: false, error: `Service '${domain}' is already registered.` },
@@ -83,7 +86,7 @@ export async function POST(request: NextRequest) {
     }
 
     const manifest = crawl.manifest;
-    const service = insertService({
+    const service = await insertService({
       name: manifest.name,
       domain,
       description: manifest.description,
@@ -127,7 +130,7 @@ export async function POST(request: NextRequest) {
     const manifest = validation.manifest;
     const domain = extractDomain(manifest.base_url);
 
-    const existing = getServiceByDomain(domain);
+    const existing = await getServiceByDomain(domain);
     if (existing) {
       return NextResponse.json(
         { success: false, error: `Service '${domain}' is already registered.` },
@@ -135,7 +138,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const service = insertService({
+    const service = await insertService({
       name: manifest.name,
       domain,
       description: manifest.description,

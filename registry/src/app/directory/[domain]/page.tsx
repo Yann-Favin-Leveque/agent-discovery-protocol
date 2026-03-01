@@ -3,21 +3,21 @@ import { getServiceByDomain, getCapabilitiesForService } from "@/lib/db";
 import { VerifyButton } from "./verify-button";
 import { ManifestToggle } from "./manifest-toggle";
 
-export function generateMetadata({ params }: { params: { domain: string } }) {
-  const service = getServiceByDomain(params.domain);
+export async function generateMetadata({ params }: { params: { domain: string } }) {
+  const service = await getServiceByDomain(params.domain);
   if (!service) return { title: "Not Found — AgentDNS" };
   return { title: `${service.name} — AgentDNS` };
 }
 
-export default function ServiceDetailPage({
+export default async function ServiceDetailPage({
   params,
 }: {
   params: { domain: string };
 }) {
-  const service = getServiceByDomain(params.domain);
+  const service = await getServiceByDomain(params.domain);
   if (!service) notFound();
 
-  const capabilities = getCapabilitiesForService(service.id);
+  const capabilities = await getCapabilitiesForService(service.id);
   const auth = JSON.parse(service.auth_details);
 
   const manifest = {

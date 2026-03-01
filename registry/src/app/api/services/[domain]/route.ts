@@ -9,7 +9,7 @@ export async function GET(
   { params }: { params: { domain: string } }
 ) {
   try {
-    const service = getServiceByDomain(params.domain);
+    const service = await getServiceByDomain(params.domain);
     if (!service) {
       return NextResponse.json(
         { success: false, error: `Service '${params.domain}' not found.` },
@@ -17,7 +17,7 @@ export async function GET(
       );
     }
 
-    const capabilities = getCapabilitiesForService(service.id);
+    const capabilities = await getCapabilitiesForService(service.id);
 
     const manifest = {
       spec_version: service.spec_version,

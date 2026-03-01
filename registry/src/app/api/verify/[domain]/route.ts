@@ -11,7 +11,7 @@ export async function POST(
   { params }: { params: { domain: string } }
 ) {
   try {
-    const service = getServiceByDomain(params.domain);
+    const service = await getServiceByDomain(params.domain);
     if (!service) {
       return NextResponse.json(
         { success: false, error: `Service '${params.domain}' not found.` },
@@ -22,7 +22,7 @@ export async function POST(
     const crawl = await crawlService(params.domain);
 
     if (!crawl.success || !crawl.manifest) {
-      incrementCrawlFailure(params.domain);
+      await incrementCrawlFailure(params.domain);
       return NextResponse.json(
         {
           success: false,
@@ -43,7 +43,7 @@ export async function POST(
     const manifest = crawl.manifest;
 
     if (verified) {
-      updateServiceVerification(params.domain, {
+      await updateServiceVerification(params.domain, {
         name: manifest.name,
         description: manifest.description,
         base_url: manifest.base_url,
