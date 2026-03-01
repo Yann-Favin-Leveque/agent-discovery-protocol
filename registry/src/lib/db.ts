@@ -104,12 +104,8 @@ const SEED_CATEGORIES = [
 ];
 
 async function seedCategories(db: Client) {
-  const result = await db.execute("SELECT COUNT(*) as count FROM categories");
-  const count = Number(result.rows[0].count);
-  if (count > 0) return;
-
   const stmts = SEED_CATEGORIES.map((cat) => ({
-    sql: "INSERT INTO categories (name, slug) VALUES (?, ?)",
+    sql: "INSERT OR IGNORE INTO categories (name, slug) VALUES (?, ?)",
     args: [cat.name, cat.slug],
   }));
   await db.batch(stmts);
