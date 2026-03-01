@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminAuthorized, unauthorizedResponse } from "@/lib/admin-auth";
-import { insertService, getServiceByDomain, logAudit } from "@/lib/db";
+import { insertService, getServiceByDomain, upsertCapabilityDetail, logAudit } from "@/lib/db";
 import type { TrustLevel } from "@/lib/db";
 import { validateManifest, extractDomain, flattenErrors } from "@/lib/validate";
 import { getClientIp } from "@/lib/sanitize";
@@ -13,7 +13,7 @@ import { getClientIp } from "@/lib/sanitize";
  *  - Domain blocklist
  *  - Protected domain checks
  *
- * Body: { manifest: object, trust_level?: "community" | "verified" | "unverified" }
+ * Body: { manifest: object, trust_level?: "community" | "verified" | "unverified", capability_details?: Record<string, object> }
  * Auth: Bearer ADMIN_SECRET
  */
 export async function POST(request: NextRequest) {
@@ -54,6 +54,7 @@ export async function POST(request: NextRequest) {
 
   const manifest = validation.manifest;
   const domain = extractDomain(manifest.base_url);
+  const capabilityDetails = (body.capability_details as Record<string, unknown>) ?? {};
 
   // Skip blocklist check — admin can import anything
 
@@ -80,6 +81,7 @@ export async function POST(request: NextRequest) {
       name: c.name,
       description: c.description,
       detail_url: c.detail_url,
+      detail_json: capabilityDetails[c.name] ?? undefined,
     })),
   });
 
@@ -98,4 +100,56 @@ export async function POST(request: NextRequest) {
       trust_level: trustLevel,
     },
   }, { status: 201 });
+}
+
+/**
+ * PATCH /api/admin/services/import
+ *
+ * Update capability details for an existing service.
+ * Used by the re-import script to push detail_json for all capabilities.
+ *
+ * Body: { domain: string, capability_details: Record<string, object> }
+ * Auth: Bearer ADMIN_SECRET
+ */
+export async function PATCH(request: NextRequest) {
+  if (!isAdminAuthorized(request)) return unauthorizedResponse();
+
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      { success: false, error: "Invalid JSON body." },
+      { status: 400 }
+    );
+  }
+
+  const domain = body.domain as string;
+  const capabilityDetails = body.capability_details as Record<string, unknown>;
+
+  if (!domain || !capabilityDetails || typeof capabilityDetails !== "object") {
+    return NextResponse.json(
+      { success: false, error: "Request must include 'domain' (string) and 'capability_details' (object)." },
+      { status: 400 }
+    );
+  }
+
+  const service = await getServiceByDomain(domain);
+  if (!service) {
+    return NextResponse.json(
+      { success: false, error: `Service '${domain}' not found.` },
+      { status: 404 }
+    );
+  }
+
+  let updated = 0;
+  for (const [name, detail] of Object.entries(capabilityDetails)) {
+    const ok = await upsertCapabilityDetail(service.id, name, detail);
+    if (ok) updated++;
+  }
+
+  return NextResponse.json({
+    success: true,
+    data: { domain, capabilities_updated: updated },
+  });
 }

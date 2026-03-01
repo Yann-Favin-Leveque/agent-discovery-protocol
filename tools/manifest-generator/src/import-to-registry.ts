@@ -155,8 +155,32 @@ async function importManifest(domain: string, manifestPath: string): Promise<Imp
       return { domain, success: true, status: "valid (dry run)" };
     }
 
+    // Read capability detail files if they exist
+    const capabilityDetails: Record<string, unknown> = {};
+    const capDir = manifestPath.replace("/manifest.json", "/capabilities").replace("\\manifest.json", "\\capabilities");
+    try {
+      const capFiles = await readdir(capDir);
+      for (const file of capFiles) {
+        if (!file.endsWith(".json")) continue;
+        try {
+          const capRaw = await readFile(join(capDir, file), "utf-8");
+          const detail = JSON.parse(capRaw);
+          if (detail.name) {
+            capabilityDetails[detail.name] = detail;
+          }
+        } catch {
+          // Skip invalid capability files
+        }
+      }
+    } catch {
+      // No capabilities directory — that's fine
+    }
+
     // Submit to registry (follow redirects manually for POST)
-    const payload = JSON.stringify({ manifest });
+    const payload = JSON.stringify({
+      manifest,
+      ...(Object.keys(capabilityDetails).length > 0 ? { capability_details: capabilityDetails } : {}),
+    });
     let url = `${opts.registry}/api/services`;
     let res = await fetch(url, {
       method: "POST",

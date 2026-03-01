@@ -188,6 +188,16 @@ const { data } = await res.json();
 // detail.response_example → full example response`}</CodeBlock>
         </div>
 
+        <div className="mt-6 p-4 rounded-lg border border-accent/20 bg-accent/5">
+          <p className="text-sm text-muted">
+            <strong className="text-foreground">Registry fallback:</strong>{" "}
+            If a service does not implement its own capability detail endpoint
+            (most third-party APIs like Gmail, Stripe, etc.), the registry
+            automatically serves stored capability details. The Gateway MCP
+            handles this fallback transparently — no extra configuration needed.
+          </p>
+        </div>
+
         <p className="mt-4 text-sm text-muted">
           See the full{" "}
           <Link href="/docs/api" className="text-accent hover:underline">

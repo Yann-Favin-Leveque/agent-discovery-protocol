@@ -107,6 +107,18 @@ export default function ProvidersPage() {
   }
 }`}</CodeBlock>
         </div>
+
+        <div className="mt-6 p-4 rounded-lg border border-accent/20 bg-accent/5">
+          <p className="text-sm text-muted">
+            <strong className="text-foreground">Submitting capability details:</strong>{" "}
+            When submitting your service to the registry, you can include full
+            capability details (endpoint, method, parameters, examples) alongside
+            your manifest using the <code className="text-accent">capability_details</code> field.
+            This is especially useful for services that don&apos;t implement their own
+            capability detail endpoints — the registry will store and serve them
+            as a fallback for agents.
+          </p>
+        </div>
       </section>
 
       {/* Step 2 */}

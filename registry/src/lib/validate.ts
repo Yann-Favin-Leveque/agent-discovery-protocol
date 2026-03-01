@@ -258,6 +258,24 @@ export function flattenErrors(errors: ValidationError[]): string[] {
   return errors.map((e) => `${e.path}: ${e.message}`);
 }
 
+/** Validate a CapabilityDetail JSON object (lenient — checks required fields only) */
+export function validateCapabilityDetail(data: unknown): { valid: boolean; errors: string[] } {
+  const errors: string[] = [];
+  if (!data || typeof data !== "object") {
+    return { valid: false, errors: ["Must be a JSON object"] };
+  }
+  const d = data as Record<string, unknown>;
+
+  if (!d.name || typeof d.name !== "string") errors.push("name is required (string)");
+  if (!d.endpoint || typeof d.endpoint !== "string") errors.push("endpoint is required (string)");
+  if (!d.method || typeof d.method !== "string") errors.push("method is required (string)");
+  if (!Array.isArray(d.parameters)) errors.push("parameters is required (array)");
+  if (!d.request_example || typeof d.request_example !== "object") errors.push("request_example is required (object)");
+  if (!d.response_example || typeof d.response_example !== "object") errors.push("response_example is required (object)");
+
+  return { valid: errors.length === 0, errors };
+}
+
 export function extractDomain(baseUrl: string): string {
   try {
     const url = new URL(baseUrl);

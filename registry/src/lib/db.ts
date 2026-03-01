@@ -81,6 +81,7 @@ async function initSchema(p: Pool) {
         name TEXT NOT NULL,
         description TEXT NOT NULL,
         detail_url TEXT NOT NULL,
+        detail_json JSONB,
         category_slug TEXT REFERENCES categories(slug)
       )
     `);
@@ -319,6 +320,7 @@ export interface CapabilityRow {
   name: string;
   description: string;
   detail_url: string;
+  detail_json: unknown | null;
   category_slug: string | null;
 }
 
@@ -643,6 +645,7 @@ export async function insertService(data: {
     name: string;
     description: string;
     detail_url: string;
+    detail_json?: unknown;
     category_slug?: string;
   }>;
 }): Promise<ServiceRow> {
@@ -664,8 +667,8 @@ export async function insertService(data: {
 
   for (const cap of data.capabilities) {
     await db.query(
-      "INSERT INTO capabilities (service_id, name, description, detail_url, category_slug) VALUES ($1, $2, $3, $4, $5)",
-      [serviceId, cap.name, cap.description, cap.detail_url, cap.category_slug ?? null]
+      "INSERT INTO capabilities (service_id, name, description, detail_url, detail_json, category_slug) VALUES ($1, $2, $3, $4, $5, $6)",
+      [serviceId, cap.name, cap.description, cap.detail_url, cap.detail_json ? JSON.stringify(cap.detail_json) : null, cap.category_slug ?? null]
     );
   }
 
@@ -690,6 +693,7 @@ export async function updateServiceVerification(
       name: string;
       description: string;
       detail_url: string;
+      detail_json?: unknown;
       category_slug?: string;
     }>;
   }
@@ -718,8 +722,8 @@ export async function updateServiceVerification(
 
   for (const cap of manifest.capabilities) {
     await db.query(
-      "INSERT INTO capabilities (service_id, name, description, detail_url, category_slug) VALUES ($1, $2, $3, $4, $5)",
-      [service.id, cap.name, cap.description, cap.detail_url, cap.category_slug ?? null]
+      "INSERT INTO capabilities (service_id, name, description, detail_url, detail_json, category_slug) VALUES ($1, $2, $3, $4, $5, $6)",
+      [service.id, cap.name, cap.description, cap.detail_url, cap.detail_json ? JSON.stringify(cap.detail_json) : null, cap.category_slug ?? null]
     );
   }
 
@@ -728,6 +732,34 @@ export async function updateServiceVerification(
     [service.id]
   );
   return rowTo<ServiceRow>(result.rows[0]);
+}
+
+export async function getCapabilityDetail(
+  domain: string,
+  capabilityName: string
+): Promise<CapabilityRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.query(
+    `SELECT c.* FROM capabilities c
+     JOIN services s ON s.id = c.service_id
+     WHERE s.domain = $1 AND c.name = $2`,
+    [domain, capabilityName]
+  );
+  if (result.rows.length === 0) return undefined;
+  return rowTo<CapabilityRow>(result.rows[0]);
+}
+
+export async function upsertCapabilityDetail(
+  serviceId: number,
+  capabilityName: string,
+  detailJson: unknown
+): Promise<boolean> {
+  const db = await ensureInitialized();
+  const result = await db.query(
+    "UPDATE capabilities SET detail_json = $1 WHERE service_id = $2 AND name = $3",
+    [JSON.stringify(detailJson), serviceId, capabilityName]
+  );
+  return (result.rowCount ?? 0) > 0;
 }
 
 export async function getTrustedServices(): Promise<ServiceRow[]> {

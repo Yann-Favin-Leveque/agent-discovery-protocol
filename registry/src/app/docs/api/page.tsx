@@ -98,6 +98,12 @@ export default function ApiPage() {
             </a>
           </li>
           <li>
+            <a href="#get-capability-detail" className="text-muted hover:text-accent transition-colors">
+              <span className="inline-block w-12 font-mono text-blue-400">GET</span>
+              /api/services/:domain/capabilities/:name
+            </a>
+          </li>
+          <li>
             <a href="#verify" className="text-muted hover:text-accent transition-colors">
               <span className="inline-block w-12 font-mono text-green-400">POST</span>
               /api/verify/:domain
@@ -339,6 +345,55 @@ Content-Type: application/json
     "created_at": "2024-01-15T10:30:00Z",
     "last_crawled_at": "2024-01-20T08:00:00Z"
   }
+}`}</CodeBlock>
+        </div>
+      </section>
+
+      {/* GET /api/services/:domain/capabilities/:name */}
+      <section className="mt-16">
+        <EndpointHeader
+          method="GET"
+          path="/api/services/:domain/capabilities/:name"
+          id="get-capability-detail"
+        />
+        <p className="mt-4 text-muted">
+          Returns the full capability detail JSON for a specific capability on a service.
+          This includes the endpoint path, HTTP method, parameters, request/response examples,
+          required auth scopes, and rate limits. Used as a fallback when the service does not
+          implement its own capability detail endpoints.
+        </p>
+
+        <div className="mt-4">
+          <CodeBlock title="Request">{`GET /api/services/gmail.googleapis.com/capabilities/users_messages`}</CodeBlock>
+        </div>
+
+        <div className="mt-4">
+          <CodeBlock title="Response (200)">{`{
+  "name": "users_messages",
+  "description": "Manage users messages — send, list, modify labels...",
+  "endpoint": "/gmail/v1/users/{userId}/messages",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address. Use 'me' for the authenticated user.",
+      "required": true,
+      "example": "me"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "messages": [...], "nextPageToken": "..." }
+  },
+  "auth_scopes": ["https://www.googleapis.com/auth/gmail.readonly"]
 }`}</CodeBlock>
         </div>
       </section>

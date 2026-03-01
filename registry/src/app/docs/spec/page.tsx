@@ -472,6 +472,17 @@ export default function SpecPage() {
               <span className="text-accent">5.</span> Agent calls the capability with the right parameters
             </p>
           </div>
+
+          <div className="mt-6 p-4 rounded-lg border border-accent/20 bg-accent/5">
+            <p className="text-sm font-medium text-foreground mb-2">Registry as fallback</p>
+            <p className="text-sm text-muted">
+              In step 4, if the service&apos;s <code className="text-accent">detail_url</code> is
+              unreachable (e.g. third-party APIs that don&apos;t implement the spec), the
+              registry can serve stored capability details as a fallback via{" "}
+              <code className="text-accent">GET /api/services/:domain/capabilities/:name</code>.
+              The Gateway MCP handles this automatically.
+            </p>
+          </div>
         </div>
       </section>
 

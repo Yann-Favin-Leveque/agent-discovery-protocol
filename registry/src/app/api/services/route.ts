@@ -230,6 +230,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const capabilityDetails = (body.capability_details as Record<string, unknown>) ?? {};
+
     const service = await insertService({
       name: manifest.name,
       domain,
@@ -245,6 +247,7 @@ export async function POST(request: NextRequest) {
         name: c.name,
         description: c.description,
         detail_url: c.detail_url,
+        detail_json: capabilityDetails[c.name] ?? undefined,
       })),
     });
 

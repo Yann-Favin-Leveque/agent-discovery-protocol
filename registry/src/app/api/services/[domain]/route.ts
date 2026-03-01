@@ -18,6 +18,7 @@ export async function GET(
     }
 
     const capabilities = await getCapabilitiesForService(service.id);
+    const includeDetails = _request.nextUrl.searchParams.get("include_details") === "true";
 
     const manifest = {
       spec_version: service.spec_version,
@@ -30,6 +31,7 @@ export async function GET(
         name: c.name,
         description: c.description,
         detail_url: c.detail_url,
+        ...(includeDetails && c.detail_json ? { detail: c.detail_json } : {}),
       })),
     };
 

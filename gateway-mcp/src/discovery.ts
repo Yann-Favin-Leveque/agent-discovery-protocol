@@ -85,7 +85,7 @@ export async function fetchManifest(domain: string): Promise<Manifest> {
   }
 }
 
-// ─── Capability detail (always live) ─────────────────────────────
+// ─── Capability detail (service-first, registry fallback) ────────
 
 export async function fetchCapabilityDetail(
   domain: string,
@@ -99,11 +99,30 @@ export async function fetchCapabilityDetail(
     );
   }
 
+  // Step 1: Try the service's own detail_url (spec-compliant services)
   const detailUrl = cap.detail_url.startsWith("http")
     ? cap.detail_url
     : `${manifest.base_url}${cap.detail_url}`;
 
-  return await fetchJson<CapabilityDetail>(detailUrl);
+  try {
+    return await fetchJson<CapabilityDetail>(detailUrl);
+  } catch {
+    // Service doesn't serve capability details — fall through to registry
+  }
+
+  // Step 2: Fallback to registry's stored capability detail
+  const config = loadConfig();
+  try {
+    return await fetchJson<CapabilityDetail>(
+      `${config.registry_url}/api/services/${encodeURIComponent(domain)}/capabilities/${encodeURIComponent(capabilityName)}`
+    );
+  } catch {
+    throw new Error(
+      `Cannot fetch details for '${capabilityName}' on ${domain}. ` +
+      `The service's detail_url (${detailUrl}) is unreachable, ` +
+      `and the registry has no stored details for this capability.`
+    );
+  }
 }
 
 // ─── Cache management ────────────────────────────────────────────
