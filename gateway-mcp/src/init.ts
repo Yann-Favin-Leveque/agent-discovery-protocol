@@ -12,6 +12,29 @@ import {
 } from "./config.js";
 import type { UserIdentity, IdentityProvider } from "./types.js";
 
+// ─── Google Desktop OAuth credentials ────────────────────────────
+// Read from environment variables or ~/.agent-gateway/config.json.
+// These are "Desktop" type OAuth credentials (not secret for installed apps
+// per Google documentation). Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET
+// env vars, or add google_client_id/google_client_secret to config.json.
+
+function getGoogleOAuthCredentials(): { clientId: string; clientSecret: string } | null {
+  const config = loadConfig();
+  const raw = config as unknown as Record<string, unknown>;
+
+  const clientId =
+    process.env.GOOGLE_CLIENT_ID ??
+    (typeof raw.google_client_id === "string" ? raw.google_client_id : null);
+  const clientSecret =
+    process.env.GOOGLE_CLIENT_SECRET ??
+    (typeof raw.google_client_secret === "string" ? raw.google_client_secret : null);
+
+  if (!clientId || !clientSecret) return null;
+  return { clientId, clientSecret };
+}
+
+// ─── CLI helpers ─────────────────────────────────────────────────
+
 const IDENTITY_PROVIDERS: Record<IdentityProvider, string> = {
   google: "Google",
   github: "GitHub",
@@ -40,6 +63,8 @@ function parseArgs(): InitOptions {
 
   return opts;
 }
+
+// ─── Init flow ──────────────────────────────────────────────────
 
 async function init(): Promise<void> {
   const opts = parseArgs();
@@ -85,8 +110,214 @@ async function init(): Promise<void> {
   console.log(`  Signing in with ${providerName}...`);
   console.log("");
 
-  // Start OAuth flow with registry
-  const port = config.auth_callback_port;
+  let identity: UserIdentity;
+
+  if (provider === "google" && getGoogleOAuthCredentials()) {
+    // Direct Google OAuth (Desktop app flow)
+    identity = await googleDesktopOAuth(config.auth_callback_port, registryUrl);
+  } else {
+    // For GitHub/Microsoft (or Google without credentials), use registry-mediated flow
+    identity = await registryMediatedOAuth(provider, config.auth_callback_port, registryUrl);
+  }
+
+  storeIdentity(identity);
+
+  console.log(`  Signed in as ${identity.email}`);
+  console.log("");
+
+  // Sync existing connections from cloud
+  console.log("  Syncing connections from cloud...");
+  const sync = await syncTokensFromCloud();
+  if (sync.success) {
+    if (sync.count > 0) {
+      console.log(`  Restored ${sync.count} connection(s) from your account.`);
+    } else {
+      console.log("  No existing connections found. Start fresh!");
+    }
+  } else {
+    console.log("  Cloud sync skipped (will retry on next run).");
+  }
+
+  console.log("");
+  console.log("  Setup complete! Add this to your MCP client config:");
+  console.log("");
+  printMcpConfig(registryUrl);
+}
+
+// ─── Google Desktop OAuth ────────────────────────────────────────
+
+async function googleDesktopOAuth(
+  port: number,
+  registryUrl: string
+): Promise<UserIdentity> {
+  const creds = getGoogleOAuthCredentials();
+  if (!creds) throw new Error("Google OAuth credentials not configured");
+  const { clientId, clientSecret } = creds;
+  const redirectUri = `http://localhost:${port}/callback`;
+  const state = Math.random().toString(36).substring(2, 15);
+
+  // Build Google authorization URL
+  const authParams = new URLSearchParams({
+    client_id: clientId,
+    redirect_uri: redirectUri,
+    response_type: "code",
+    scope: "openid email profile",
+    state,
+    access_type: "offline",
+    prompt: "consent",
+  });
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${authParams.toString()}`;
+
+  // Start local callback server and wait for the authorization code
+  const codePromise = new Promise<string>((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      server.close();
+      reject(new Error("Authentication timeout — no callback received within 120 seconds."));
+    }, 120000);
+
+    const server = http.createServer(async (req, res) => {
+      const url = new URL(req.url ?? "/", `http://localhost:${port}`);
+
+      if (url.pathname !== "/callback") {
+        res.writeHead(404);
+        res.end("Not found");
+        return;
+      }
+
+      const error = url.searchParams.get("error");
+      if (error) {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(html("Authentication Failed", `<p>${error}</p><p>You can close this tab.</p>`));
+        clearTimeout(timeout);
+        server.close();
+        reject(new Error(`Auth error: ${error}`));
+        return;
+      }
+
+      const returnedState = url.searchParams.get("state");
+      if (returnedState !== state) {
+        res.writeHead(400, { "Content-Type": "text/html" });
+        res.end(html("Invalid Callback", "<p>State mismatch. Please try again.</p>"));
+        return;
+      }
+
+      const code = url.searchParams.get("code");
+      if (!code) {
+        res.writeHead(400, { "Content-Type": "text/html" });
+        res.end(html("Invalid Callback", "<p>Missing authorization code.</p>"));
+        return;
+      }
+
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(html(
+        "Connected to Agent Gateway!",
+        "<p>You can close this tab and return to your terminal.</p>"
+      ));
+
+      clearTimeout(timeout);
+      server.close();
+      resolve(code);
+    });
+
+    server.listen(port, () => {
+      // Server ready
+    });
+  });
+
+  // Open browser
+  try {
+    const open = (await import("open")).default;
+    await open(authUrl);
+    console.log("  Browser opened for sign-in.");
+  } catch {
+    console.log("  Open this URL in your browser:");
+    console.log("");
+    console.log(`  ${authUrl}`);
+  }
+
+  console.log("");
+  console.log(`  Waiting for sign-in on http://localhost:${port}/callback...`);
+  console.log("");
+
+  // Wait for the authorization code
+  const code = await codePromise;
+
+  // Exchange code for Google tokens
+  const tokenBody = new URLSearchParams({
+    client_id: clientId,
+    client_secret: clientSecret,
+    code,
+    redirect_uri: `http://localhost:${port}/callback`,
+    grant_type: "authorization_code",
+  });
+
+  const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: tokenBody.toString(),
+    signal: AbortSignal.timeout(10000),
+  });
+
+  if (!tokenRes.ok) {
+    const text = await tokenRes.text();
+    throw new Error(`Google token exchange failed: ${tokenRes.status} ${text}`);
+  }
+
+  const tokenData = (await tokenRes.json()) as {
+    access_token: string;
+    refresh_token?: string;
+    id_token?: string;
+    expires_in?: number;
+  };
+
+  // Exchange Google access token for a registry token via the CLI endpoint
+  const registryRes = await fetch(`${registryUrl}/api/auth/cli`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      provider: "google",
+      access_token: tokenData.access_token,
+    }),
+    signal: AbortSignal.timeout(10000),
+  });
+
+  if (!registryRes.ok) {
+    const text = await registryRes.text();
+    throw new Error(`Registry authentication failed: ${registryRes.status} ${text}`);
+  }
+
+  const registryData = (await registryRes.json()) as {
+    success: boolean;
+    data?: {
+      registry_token: string;
+      email: string;
+      name: string;
+      provider_id: string;
+    };
+    error?: string;
+  };
+
+  if (!registryData.success || !registryData.data) {
+    throw new Error(`Registry auth error: ${registryData.error ?? "unknown"}`);
+  }
+
+  return {
+    provider: "google",
+    provider_id: registryData.data.provider_id,
+    email: registryData.data.email,
+    name: registryData.data.name ?? undefined,
+    registry_token: registryData.data.registry_token,
+    connected_at: new Date().toISOString(),
+  };
+}
+
+// ─── Registry-mediated OAuth (GitHub, Microsoft) ─────────────────
+
+async function registryMediatedOAuth(
+  provider: IdentityProvider,
+  port: number,
+  registryUrl: string
+): Promise<UserIdentity> {
   const redirectUri = `http://localhost:${port}/callback`;
   const state = Math.random().toString(36).substring(2, 15);
 
@@ -125,7 +356,6 @@ async function init(): Promise<void> {
         return;
       }
 
-      // Registry returns identity data in the callback
       const registryToken = url.searchParams.get("token");
       const refreshToken = url.searchParams.get("refresh_token");
       const email = url.searchParams.get("email");
@@ -170,7 +400,7 @@ async function init(): Promise<void> {
     await open(authUrl);
     console.log("  Browser opened for sign-in.");
   } catch {
-    console.log(`  Open this URL in your browser:`);
+    console.log("  Open this URL in your browser:");
     console.log("");
     console.log(`  ${authUrl}`);
   }
@@ -179,35 +409,10 @@ async function init(): Promise<void> {
   console.log(`  Waiting for sign-in on http://localhost:${port}/callback...`);
   console.log("");
 
-  try {
-    const identity = await identityPromise;
-    storeIdentity(identity);
-
-    console.log(`  Signed in as ${identity.email}`);
-    console.log("");
-
-    // Sync existing connections from cloud
-    console.log("  Syncing connections from cloud...");
-    const sync = await syncTokensFromCloud();
-    if (sync.success) {
-      if (sync.count > 0) {
-        console.log(`  Restored ${sync.count} connection(s) from your account.`);
-      } else {
-        console.log("  No existing connections found. Start fresh!");
-      }
-    } else {
-      console.log("  Cloud sync skipped (will retry on next run).");
-    }
-
-    console.log("");
-    console.log("  Setup complete! Add this to your MCP client config:");
-    console.log("");
-    printMcpConfig(registryUrl);
-  } catch (err) {
-    console.error(`  Setup failed: ${err instanceof Error ? err.message : "unknown error"}`);
-    process.exit(1);
-  }
+  return identityPromise;
 }
+
+// ─── Helpers ────────────────────────────────────────────────────
 
 function printMcpConfig(registryUrl: string): void {
   const config: Record<string, unknown> = {
