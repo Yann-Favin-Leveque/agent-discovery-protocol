@@ -265,6 +265,92 @@ function WorksWithSection() {
   );
 }
 
+function ForAgentsSection() {
+  return (
+    <section className="border-t border-white/5 py-24">
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="grid gap-12 sm:grid-cols-2 items-center">
+          <div>
+            <div className="mb-4 inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
+              For Agent Developers
+            </div>
+            <h2 className="text-3xl font-bold sm:text-4xl">
+              Set up once, access every&nbsp;API
+            </h2>
+            <p className="mt-4 text-muted">
+              Install one gateway. Add it to your MCP config. That&apos;s it.
+              Your agent can now discover and use any API — no per-service
+              setup, no API keys to juggle, no plugins to install.
+            </p>
+
+            <div className="mt-8">
+              <Link
+                href="/docs/agents"
+                className="rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
+              >
+                View integration guide
+              </Link>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {/* Step 1 */}
+            <div className="rounded-xl border border-white/5 bg-surface-light p-5">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
+                  1
+                </span>
+                <span className="text-sm font-medium">Install the gateway</span>
+              </div>
+              <pre className="mt-3 overflow-x-auto rounded-lg bg-surface p-3 font-mono text-xs leading-relaxed">
+                <code className="text-accent-light">npm install -g agent-gateway-mcp</code>
+              </pre>
+            </div>
+
+            {/* Step 2 */}
+            <div className="rounded-xl border border-white/5 bg-surface-light p-5">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
+                  2
+                </span>
+                <span className="text-sm font-medium">Add to your MCP config</span>
+              </div>
+              <pre className="mt-3 overflow-x-auto rounded-lg bg-surface p-3 font-mono text-xs leading-relaxed">
+                <code className="text-accent-light">{`{
+  "mcpServers": {
+    "gateway": {
+      "command": "npx",
+      "args": ["agent-gateway-mcp"]
+    }
+  }
+}`}</code>
+              </pre>
+            </div>
+
+            {/* Step 3 */}
+            <div className="rounded-xl border border-accent/20 bg-surface-light p-5">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
+                  3
+                </span>
+                <span className="text-sm font-medium">That&apos;s it. Your agent can now discover and use any API.</span>
+              </div>
+              <div className="mt-3 rounded-lg border border-white/5 bg-surface p-3">
+                <p className="font-mono text-xs text-foreground">
+                  {`> "Send an email to Alice about tomorrow's meeting"`}
+                </p>
+                <p className="mt-2 font-mono text-xs text-muted">
+                  Gateway discovers &rarr; authenticates &rarr; sends. Done.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ForProvidersSection() {
   return (
     <section className="border-t border-white/5 py-24">
@@ -413,6 +499,7 @@ export default async function Home() {
       <TerminalDemoSection />
       <ComparisonSection />
       <WorksWithSection />
+      <ForAgentsSection />
       <ForProvidersSection />
       <StatsSection />
       <CtaSection />

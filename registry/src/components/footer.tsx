@@ -34,6 +34,14 @@ export function Footer() {
               Submit
             </Link>
             <a
+              href="https://www.npmjs.com/package/agent-gateway-mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-muted transition-colors hover:text-foreground"
+            >
+              npm
+            </a>
+            <a
               href="https://github.com/Yann-Favin-Leveque/agent-discovery-protocol"
               target="_blank"
               rel="noopener noreferrer"
