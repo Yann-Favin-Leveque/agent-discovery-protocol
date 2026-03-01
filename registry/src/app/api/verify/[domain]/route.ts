@@ -3,13 +3,25 @@ import {
   getServiceByDomain,
   updateServiceVerification,
   incrementCrawlFailure,
+  logAudit,
 } from "@/lib/db";
 import { crawlService } from "@/lib/crawl";
+import { getClientIp } from "@/lib/sanitize";
+import { checkRateLimit, RATE_LIMITS } from "@/lib/rate-limit";
 
 export async function POST(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: { domain: string } }
 ) {
+  const ip = getClientIp(request);
+  const rl = checkRateLimit(`${ip}:verify`, RATE_LIMITS.verifyService);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { success: false, error: "Rate limit exceeded. Try again later." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } }
+    );
+  }
+
   try {
     const service = await getServiceByDomain(params.domain);
     if (!service) {
@@ -23,6 +35,12 @@ export async function POST(
 
     if (!crawl.success || !crawl.manifest) {
       await incrementCrawlFailure(params.domain);
+      await logAudit({
+        action: "service_verification_failed",
+        domain: params.domain,
+        ip_address: ip,
+        details: JSON.stringify({ errors: crawl.errors }),
+      });
       return NextResponse.json(
         {
           success: false,
@@ -34,12 +52,7 @@ export async function POST(
       );
     }
 
-    // Verification criteria:
-    // 1. /.well-known/agent responds with valid JSON ✓ (crawl succeeded)
-    // 2. Manifest passes validation ✓ (crawlService validates)
-    // 3. At least one detail_url resolves
-    const verified = crawl.detail_url_ok !== false; // true or undefined (no caps) counts as verified
-
+    const verified = crawl.detail_url_ok !== false;
     const manifest = crawl.manifest;
 
     if (verified) {
@@ -59,11 +72,23 @@ export async function POST(
       });
     }
 
+    await logAudit({
+      action: verified ? "service_verified" : "service_verification_failed",
+      domain: params.domain,
+      ip_address: ip,
+      details: JSON.stringify({
+        verified,
+        detail_url_ok: crawl.detail_url_ok,
+        response_time_ms: crawl.response_time_ms,
+      }),
+    });
+
     return NextResponse.json({
       success: true,
       data: {
         domain: params.domain,
         verified,
+        trust_level: verified ? "verified" : service.trust_level,
         detail_url_ok: crawl.detail_url_ok,
         response_time_ms: crawl.response_time_ms,
         message: verified

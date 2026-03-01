@@ -224,6 +224,71 @@ export async function GET() {
         </ul>
       </section>
 
+      {/* Trust & Verification */}
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold">Trust &amp; Verification</h2>
+        <p className="mt-4 text-muted">
+          The registry uses a three-tier trust system to help agents make
+          informed decisions about which services to use.
+        </p>
+
+        <div className="mt-6 space-y-4">
+          <div className="rounded-xl border border-accent/20 bg-surface-light p-5">
+            <div className="flex items-center gap-3">
+              <span className="rounded-full bg-accent/10 px-3 py-1 text-sm text-accent">
+                Verified
+              </span>
+              <span className="text-sm text-muted">Highest trust</span>
+            </div>
+            <p className="mt-2 text-sm text-muted">
+              Your service hosts its own{" "}
+              <code className="text-accent">/.well-known/agent</code> manifest.
+              The registry crawls it periodically and confirms it&apos;s live.
+              This is the <strong className="text-foreground">recommended path</strong> — agents
+              prioritize verified services in search results.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-blue-500/20 bg-surface-light p-5">
+            <div className="flex items-center gap-3">
+              <span className="rounded-full bg-blue-500/10 px-3 py-1 text-sm text-blue-400">
+                Community
+              </span>
+              <span className="text-sm text-muted">Maintained by the registry</span>
+            </div>
+            <p className="mt-2 text-sm text-muted">
+              Services submitted manually and maintained by the AgentDNS team.
+              These are trusted but the service provider doesn&apos;t host the
+              manifest themselves. Good for services that don&apos;t want to
+              change their infrastructure.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-yellow-500/20 bg-surface-light p-5">
+            <div className="flex items-center gap-3">
+              <span className="rounded-full bg-yellow-500/10 px-3 py-1 text-sm text-yellow-400">
+                Unverified
+              </span>
+              <span className="text-sm text-muted">Not yet reviewed</span>
+            </div>
+            <p className="mt-2 text-sm text-muted">
+              Newly submitted services that haven&apos;t been verified yet.
+              Hidden from search results by default. Agents must explicitly
+              opt in to see unverified services.
+            </p>
+          </div>
+        </div>
+
+        <p className="mt-6 text-sm text-muted">
+          To get verified status: host your manifest at{" "}
+          <code className="text-accent">/.well-known/agent</code> and{" "}
+          <Link href="/submit" className="text-accent hover:underline">
+            submit your domain
+          </Link>
+          . The registry will crawl your endpoint and verify it automatically.
+        </p>
+      </section>
+
       {/* FAQ */}
       <section className="mt-16">
         <h2 className="text-2xl font-bold">FAQ</h2>

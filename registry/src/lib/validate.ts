@@ -1,3 +1,5 @@
+import { isSecureUrl, isValidDetailUrl, stripHtml } from "./sanitize";
+
 export interface ManifestCapability {
   name: string;
   description: string;
@@ -43,13 +45,9 @@ export interface ValidationError {
 
 const SUPPORTED_SPEC_VERSIONS = ["1.0"];
 
-function isValidUrl(str: string): boolean {
-  try {
-    const url = new URL(str);
-    return url.protocol === "http:" || url.protocol === "https:";
-  } catch {
-    return false;
-  }
+function isValidHttpsUrl(str: string): boolean {
+  const check = isSecureUrl(str);
+  return check.valid;
 }
 
 export function validateManifest(data: unknown): ValidationResult {
@@ -74,31 +72,52 @@ export function validateManifest(data: unknown): ValidationResult {
     });
   }
 
-  // name
+  // name — strip HTML
   if (!m.name || typeof m.name !== "string") {
     errors.push({ path: "name", message: "Required. Must be a non-empty string." });
-  } else if (m.name.trim().length === 0) {
-    errors.push({ path: "name", message: "Must not be empty or whitespace-only." });
-  } else if (m.name.length > 100) {
-    errors.push({ path: "name", message: "Must be 100 characters or fewer." });
+  } else {
+    const cleanName = stripHtml(m.name).trim();
+    m.name = cleanName;
+    if (cleanName.length === 0) {
+      errors.push({ path: "name", message: "Must not be empty or whitespace-only." });
+    } else if (cleanName.length > 100) {
+      errors.push({ path: "name", message: "Must be 100 characters or fewer." });
+    }
   }
 
-  // description
+  // description — strip HTML
   if (!m.description || typeof m.description !== "string") {
     errors.push({ path: "description", message: "Required. Must be a non-empty string (2-3 sentences describing your service for LLM understanding)." });
-  } else if (m.description.trim().length < 20) {
-    errors.push({ path: "description", message: "Too short. Write 2-3 sentences describing what your service does, written for an LLM to understand." });
-  } else if (m.description.length > 500) {
-    errors.push({ path: "description", message: "Must be 500 characters or fewer. Keep it concise." });
+  } else {
+    const cleanDesc = stripHtml(m.description).trim();
+    m.description = cleanDesc;
+    if (cleanDesc.length < 20) {
+      errors.push({ path: "description", message: "Too short. Write 2-3 sentences describing what your service does, written for an LLM to understand." });
+    } else if (cleanDesc.length > 500) {
+      errors.push({ path: "description", message: "Must be 500 characters or fewer. Keep it concise." });
+    }
   }
 
-  // base_url
+  // base_url — must be HTTPS, no private IPs
   if (!m.base_url || typeof m.base_url !== "string") {
-    errors.push({ path: "base_url", message: "Required. Must be a valid URL (e.g. \"https://api.example.com\")." });
-  } else if (!isValidUrl(m.base_url)) {
-    errors.push({ path: "base_url", message: `"${m.base_url}" is not a valid URL. Must start with http:// or https://.` });
-  } else if ((m.base_url as string).endsWith("/")) {
-    errors.push({ path: "base_url", message: "Should not end with a trailing slash." });
+    errors.push({ path: "base_url", message: "Required. Must be a valid HTTPS URL (e.g. \"https://api.example.com\")." });
+  } else {
+    const urlCheck = isSecureUrl(m.base_url);
+    if (!urlCheck.valid) {
+      errors.push({ path: "base_url", message: urlCheck.error ?? "Invalid URL." });
+    } else if ((m.base_url as string).endsWith("/")) {
+      errors.push({ path: "base_url", message: "Should not end with a trailing slash." });
+    }
+  }
+
+  // Extract base domain for detail_url validation
+  let baseDomain = "";
+  if (typeof m.base_url === "string") {
+    try {
+      baseDomain = new URL(m.base_url).hostname;
+    } catch {
+      // already caught above
+    }
   }
 
   // auth
@@ -115,15 +134,15 @@ export function validateManifest(data: unknown): ValidationResult {
     } else {
       if (auth.type === "oauth2") {
         if (!auth.authorization_url || typeof auth.authorization_url !== "string") {
-          errors.push({ path: "auth.authorization_url", message: "Required for OAuth2. Must be a valid URL." });
-        } else if (!isValidUrl(auth.authorization_url)) {
-          errors.push({ path: "auth.authorization_url", message: `"${auth.authorization_url}" is not a valid URL.` });
+          errors.push({ path: "auth.authorization_url", message: "Required for OAuth2. Must be a valid HTTPS URL." });
+        } else if (!isValidHttpsUrl(auth.authorization_url)) {
+          errors.push({ path: "auth.authorization_url", message: `"${auth.authorization_url}" must be a valid HTTPS URL.` });
         }
 
         if (!auth.token_url || typeof auth.token_url !== "string") {
-          errors.push({ path: "auth.token_url", message: "Required for OAuth2. Must be a valid URL." });
-        } else if (!isValidUrl(auth.token_url)) {
-          errors.push({ path: "auth.token_url", message: `"${auth.token_url}" is not a valid URL.` });
+          errors.push({ path: "auth.token_url", message: "Required for OAuth2. Must be a valid HTTPS URL." });
+        } else if (!isValidHttpsUrl(auth.token_url)) {
+          errors.push({ path: "auth.token_url", message: `"${auth.token_url}" must be a valid HTTPS URL.` });
         }
 
         if (auth.scopes !== undefined && !Array.isArray(auth.scopes)) {
@@ -138,8 +157,8 @@ export function validateManifest(data: unknown): ValidationResult {
         if (auth.prefix !== undefined && typeof auth.prefix !== "string") {
           errors.push({ path: "auth.prefix", message: "Must be a string if provided (e.g. \"Bearer\")." });
         }
-        if (auth.setup_url !== undefined && typeof auth.setup_url === "string" && !isValidUrl(auth.setup_url)) {
-          errors.push({ path: "auth.setup_url", message: `"${auth.setup_url}" is not a valid URL.` });
+        if (auth.setup_url !== undefined && typeof auth.setup_url === "string" && !isValidHttpsUrl(auth.setup_url)) {
+          errors.push({ path: "auth.setup_url", message: `"${auth.setup_url}" must be a valid HTTPS URL.` });
         }
       }
     }
@@ -162,8 +181,8 @@ export function validateManifest(data: unknown): ValidationResult {
         errors.push({ path: "pricing.plans", message: "Must be an array if provided." });
       }
 
-      if (pricing.plans_url !== undefined && typeof pricing.plans_url === "string" && !isValidUrl(pricing.plans_url)) {
-        errors.push({ path: "pricing.plans_url", message: `"${pricing.plans_url}" is not a valid URL.` });
+      if (pricing.plans_url !== undefined && typeof pricing.plans_url === "string" && !isValidHttpsUrl(pricing.plans_url)) {
+        errors.push({ path: "pricing.plans_url", message: `"${pricing.plans_url}" must be a valid HTTPS URL.` });
       }
     }
   }
@@ -197,21 +216,27 @@ export function validateManifest(data: unknown): ValidationResult {
         seenNames.add(c.name);
       }
 
+      // description — strip HTML
       if (!c.description || typeof c.description !== "string") {
         errors.push({ path: `${prefix}.description`, message: "Required. 1-2 sentences describing what this capability does." });
-      } else if ((c.description as string).length < 10) {
-        errors.push({ path: `${prefix}.description`, message: "Too short. Write 1-2 sentences so an LLM knows when to use this capability." });
+      } else {
+        const cleanCapDesc = stripHtml(c.description).trim();
+        c.description = cleanCapDesc;
+        if (cleanCapDesc.length < 10) {
+          errors.push({ path: `${prefix}.description`, message: "Too short. Write 1-2 sentences so an LLM knows when to use this capability." });
+        }
       }
 
+      // detail_url — validate against SSRF
       if (!c.detail_url || typeof c.detail_url !== "string") {
-        errors.push({ path: `${prefix}.detail_url`, message: "Required. A relative path (e.g. \"/capabilities/send_email\") or absolute URL." });
+        errors.push({ path: `${prefix}.detail_url`, message: "Required. A relative path (e.g. \"/capabilities/send_email\") or absolute HTTPS URL." });
+      } else if ((c.detail_url as string).length > 2048) {
+        errors.push({ path: `${prefix}.detail_url`, message: "URL must be 2048 characters or fewer." });
       } else {
         const detailUrl = c.detail_url as string;
-        // Absolute URLs must be valid, relative paths must start with /
-        if (detailUrl.startsWith("http") && !isValidUrl(detailUrl)) {
-          errors.push({ path: `${prefix}.detail_url`, message: `"${detailUrl}" is not a valid URL.` });
-        } else if (!detailUrl.startsWith("http") && !detailUrl.startsWith("/")) {
-          errors.push({ path: `${prefix}.detail_url`, message: "Relative paths must start with \"/\" (e.g. \"/capabilities/send_email\")." });
+        const detailCheck = isValidDetailUrl(detailUrl, baseDomain);
+        if (!detailCheck.valid) {
+          errors.push({ path: `${prefix}.detail_url`, message: detailCheck.error ?? "Invalid detail_url." });
         }
       }
     }

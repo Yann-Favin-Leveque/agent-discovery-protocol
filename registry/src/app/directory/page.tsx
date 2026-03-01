@@ -14,6 +14,28 @@ export const metadata: Metadata = {
   },
 };
 
+function TrustBadge({ level }: { level: string }) {
+  if (level === "verified") {
+    return (
+      <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs text-accent">
+        Verified
+      </span>
+    );
+  }
+  if (level === "community") {
+    return (
+      <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-xs text-blue-400">
+        Community
+      </span>
+    );
+  }
+  return (
+    <span className="rounded-full bg-yellow-500/10 px-2 py-0.5 text-xs text-yellow-400">
+      Unverified
+    </span>
+  );
+}
+
 function ServiceCard({ service, capCount }: { service: ServiceRow; capCount: number }) {
   return (
     <Link
@@ -22,17 +44,7 @@ function ServiceCard({ service, capCount }: { service: ServiceRow; capCount: num
     >
       <div className="flex items-start justify-between">
         <h3 className="font-semibold group-hover:text-accent">{service.name}</h3>
-        <div className="flex gap-2">
-          {service.verified ? (
-            <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs text-accent">
-              Verified
-            </span>
-          ) : (
-            <span className="rounded-full bg-yellow-500/10 px-2 py-0.5 text-xs text-yellow-400">
-              Unverified
-            </span>
-          )}
-        </div>
+        <TrustBadge level={service.trust_level} />
       </div>
 
       <p className="mt-1 font-mono text-xs text-muted">{service.domain}</p>
@@ -56,16 +68,19 @@ function ServiceCard({ service, capCount }: { service: ServiceRow; capCount: num
 export default async function DirectoryPage({
   searchParams,
 }: {
-  searchParams: { category?: string; search?: string; sort?: string };
+  searchParams: { category?: string; search?: string; sort?: string; show_unverified?: string };
 }) {
   const categories = await getAllCategories();
   const sort = (searchParams.sort as "newest" | "name" | "capabilities") ?? "newest";
+  const showUnverified = searchParams.show_unverified === "true";
+
   const { services, total } = await getAllServices({
     category: searchParams.category,
     search: searchParams.search,
     sort,
     limit: 50,
     offset: 0,
+    include_unverified: showUnverified,
   });
 
   // Precompute capability counts
@@ -77,13 +92,29 @@ export default async function DirectoryPage({
 
   const activeCategory = searchParams.category ?? "all";
 
+  // Build base query string for filter links
+  function buildQuery(overrides: Record<string, string | undefined>) {
+    const params: Record<string, string> = {
+      sort,
+      category: activeCategory,
+    };
+    if (searchParams.search) params.search = searchParams.search;
+    if (showUnverified) params.show_unverified = "true";
+    Object.assign(params, overrides);
+    // Remove defaults
+    if (params.category === "all") delete params.category;
+    if (params.show_unverified === "false") delete params.show_unverified;
+    const qs = new URLSearchParams(params).toString();
+    return `/directory${qs ? `?${qs}` : ""}`;
+  }
+
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-4xl font-bold">Service Directory</h1>
           <p className="mt-2 text-muted">
-            {total} {total === 1 ? "service" : "services"} indexed
+            {total} {total === 1 ? "service" : "services"}{showUnverified ? " total" : " trusted"}
           </p>
         </div>
 
@@ -91,6 +122,7 @@ export default async function DirectoryPage({
         <form method="GET" action="/directory" className="flex gap-2">
           <input type="hidden" name="category" value={activeCategory} />
           <input type="hidden" name="sort" value={sort} />
+          {showUnverified && <input type="hidden" name="show_unverified" value="true" />}
           <input
             name="search"
             type="text"
@@ -112,7 +144,7 @@ export default async function DirectoryPage({
         {/* Categories */}
         <div className="flex flex-wrap gap-2">
           <Link
-            href={`/directory?sort=${sort}${searchParams.search ? `&search=${searchParams.search}` : ""}`}
+            href={buildQuery({ category: undefined })}
             className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
               activeCategory === "all"
                 ? "bg-accent text-black"
@@ -124,7 +156,7 @@ export default async function DirectoryPage({
           {categories.map((cat) => (
             <Link
               key={cat.slug}
-              href={`/directory?category=${cat.slug}&sort=${sort}${searchParams.search ? `&search=${searchParams.search}` : ""}`}
+              href={buildQuery({ category: cat.slug })}
               className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
                 activeCategory === cat.slug
                   ? "bg-accent text-black"
@@ -136,13 +168,27 @@ export default async function DirectoryPage({
           ))}
         </div>
 
-        {/* Sort */}
-        <div className="ml-auto flex items-center gap-2 text-xs text-muted">
+        {/* Sort + Unverified toggle */}
+        <div className="ml-auto flex items-center gap-4 text-xs text-muted">
+          {/* Unverified toggle */}
+          <Link
+            href={buildQuery({ show_unverified: showUnverified ? "false" : "true" })}
+            className={`rounded-md px-2 py-1 transition-colors ${
+              showUnverified
+                ? "bg-yellow-500/10 text-yellow-400"
+                : "hover:text-foreground"
+            }`}
+          >
+            {showUnverified ? "Showing all" : "Show unverified"}
+          </Link>
+
+          <span className="text-white/20">|</span>
+
           <span>Sort:</span>
           {(["newest", "name", "capabilities"] as const).map((s) => (
             <Link
               key={s}
-              href={`/directory?sort=${s}&category=${activeCategory}${searchParams.search ? `&search=${searchParams.search}` : ""}`}
+              href={buildQuery({ sort: s })}
               className={`rounded-md px-2 py-1 transition-colors ${
                 sort === s
                   ? "bg-white/10 text-foreground"

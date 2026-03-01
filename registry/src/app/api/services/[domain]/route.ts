@@ -38,7 +38,8 @@ export async function GET(
       data: {
         domain: service.domain,
         well_known_url: service.well_known_url,
-        verified: !!service.verified,
+        verified: service.trust_level === "verified",
+        trust_level: service.trust_level,
         crawl_failures: service.crawl_failures,
         last_crawled_at: service.last_crawled_at,
         created_at: service.created_at,

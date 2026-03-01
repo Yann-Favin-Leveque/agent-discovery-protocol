@@ -287,12 +287,14 @@ agent-gateway-mcp --registry https://custom.dev       # Custom registry
 
 ## Security
 
+- **Trust levels** — Services are labeled `[VERIFIED]`, `[COMMUNITY]`, or `[UNVERIFIED]`. Verified services self-host their manifest and are crawled periodically. Community services are maintained by the registry. Unverified services have not been reviewed — exercise caution.
 - **Tokens encrypted at rest** on the registry
 - **Local cache** in `~/.agent-gateway/` (user-only permissions)
 - **OAuth2 with PKCE** for browser-based auth flows
 - **No master password** — your identity provider handles authentication
 - **Human-in-the-loop for payments** — the agent can never auto-approve subscriptions
 - **Token auto-refresh** — expired OAuth2 tokens are refreshed transparently
+- **Rate limiting** — Registry API endpoints are rate limited to prevent abuse
 
 ## Protocol
 

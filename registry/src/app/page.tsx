@@ -57,7 +57,7 @@ function HowItWorksSection() {
       number: "02",
       title: "Registry indexes it",
       description:
-        "The registry crawls and indexes the manifest. Services become searchable by intent — not by name.",
+        "The registry crawls and indexes the manifest. Verified and community-trusted services are prioritized. Services become searchable by intent — not by name.",
       code: 'discover("send email") → [ MailForge, SendGrid, ... ]',
     },
     {
@@ -366,7 +366,8 @@ function ForProvidersSection() {
             <p className="mt-4 text-muted">
               Add one endpoint. That&apos;s it. Your API becomes accessible to
               every agent using the protocol — no SDK to maintain, no plugin to
-              build, no marketplace to join.
+              build, no marketplace to join. Services hosting their own manifest
+              are automatically verified.
             </p>
 
             <div className="mt-8 flex gap-4">
@@ -559,8 +560,8 @@ async function StatsSection() {
       label: "Capabilities available",
     },
     {
-      value: String(dbStats.verified_services || 0),
-      label: "Verified services",
+      value: String(dbStats.trusted_services || 0),
+      label: "Trusted services",
     },
     { value: "6", label: "Gateway tools" },
   ];

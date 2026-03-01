@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  getVerifiedServices,
+  getTrustedServices,
   updateServiceVerification,
   incrementCrawlFailure,
   markUnreachable,
@@ -10,17 +10,17 @@ import { crawlService } from "@/lib/crawl";
 const MAX_CONSECUTIVE_FAILURES = 3;
 
 export async function GET(request: NextRequest) {
-  // Optional auth token for cron security
+  // CRON_SECRET is mandatory — reject if not configured or wrong
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json(
       { success: false, error: "Unauthorized." },
       { status: 401 }
     );
   }
 
-  const services = await getVerifiedServices();
+  const services = await getTrustedServices();
   const results: Array<{
     domain: string;
     status: "ok" | "failed" | "unreachable";

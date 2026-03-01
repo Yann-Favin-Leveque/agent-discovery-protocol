@@ -1,18 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { discoverServices, getCapabilitiesForService } from "@/lib/db";
+import { sanitizeSearch, getClientIp } from "@/lib/sanitize";
+import { checkRateLimit, RATE_LIMITS } from "@/lib/rate-limit";
 
 export async function GET(request: NextRequest) {
-  const q = request.nextUrl.searchParams.get("q")?.trim();
+  const ip = getClientIp(request);
+  const rl = checkRateLimit(`${ip}:discover`, RATE_LIMITS.discover);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { success: false, error: "Rate limit exceeded. Try again later." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfterSec) } }
+    );
+  }
 
-  if (!q) {
+  const rawQ = request.nextUrl.searchParams.get("q")?.trim();
+  if (!rawQ) {
     return NextResponse.json(
       { success: false, error: "Missing required query parameter 'q'. Example: /api/discover?q=send+email" },
       { status: 400 }
     );
   }
 
+  const q = sanitizeSearch(rawQ);
+  const includeUnverified = request.nextUrl.searchParams.get("include_unverified") === "true";
+
   try {
-    const results = await discoverServices(q);
+    const results = await discoverServices(q, { include_unverified: includeUnverified });
 
     const data = await Promise.all(results.map(async (service) => {
       const allCaps = await getCapabilitiesForService(service.id);
@@ -24,7 +37,8 @@ export async function GET(request: NextRequest) {
           base_url: service.base_url,
           auth_type: service.auth_type,
           pricing_type: service.pricing_type,
-          verified: !!service.verified,
+          verified: service.trust_level === "verified",
+          trust_level: service.trust_level,
         },
         matching_capabilities: service.matching_capabilities.map((cap) => ({
           name: cap.name,

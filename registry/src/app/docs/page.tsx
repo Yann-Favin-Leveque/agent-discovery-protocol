@@ -36,6 +36,13 @@ const sections = [
       "Registry REST API. Discover services, submit, verify, validate — with request/response examples.",
     tag: "Reference",
   },
+  {
+    title: "Security",
+    href: "/docs/security",
+    description:
+      "Trust levels, rate limits, domain protection, and how to report abusive services.",
+    tag: "Security",
+  },
 ];
 
 export default function DocsPage() {

@@ -228,6 +228,63 @@ print(f"Params: {[p['name'] for p in detail['parameters']]}")`}</CodeBlock>
         </p>
       </section>
 
+      {/* Security */}
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold">Security</h2>
+        <p className="mt-4 text-muted">
+          The registry provides trust signals to help your agent make safe
+          choices. Pay attention to trust levels when presenting services to
+          users.
+        </p>
+
+        <div className="mt-6 rounded-xl border border-white/5 bg-surface-light p-5">
+          <h3 className="font-semibold">Trust levels</h3>
+          <div className="mt-3 space-y-2 text-sm text-muted">
+            <p>
+              <span className="text-accent font-mono">[VERIFIED]</span> — Service
+              hosts its own manifest. Crawled periodically. Prioritized in results.
+            </p>
+            <p>
+              <span className="text-blue-400 font-mono">[COMMUNITY]</span> — Maintained
+              by AgentDNS. Trusted but not self-hosted.
+            </p>
+            <p>
+              <span className="text-yellow-400 font-mono">[UNVERIFIED]</span> — Not
+              reviewed. Hidden from results by default. Pass{" "}
+              <code className="text-accent">include_unverified=true</code> to see them.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-xl border border-white/5 bg-surface-light p-5">
+          <h3 className="font-semibold">Best practices</h3>
+          <ul className="mt-3 space-y-2 text-sm text-muted">
+            <li className="flex items-start gap-2">
+              <span className="mt-0.5 text-accent">&#10003;</span>
+              <span>Prefer verified services when multiple options match a query.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-0.5 text-accent">&#10003;</span>
+              <span>Warn users before connecting to unverified services.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-0.5 text-accent">&#10003;</span>
+              <span>Never auto-approve payments. Always require user confirmation.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-0.5 text-accent">&#10003;</span>
+              <span>
+                Use the{" "}
+                <Link href="/docs/security" className="text-accent hover:underline">
+                  Security docs
+                </Link>{" "}
+                for full details on rate limits and reporting.
+              </span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
       {/* Which to choose */}
       <section className="mt-16 rounded-xl border border-white/5 bg-surface-light p-8">
         <h2 className="text-xl font-bold">Which option should I use?</h2>

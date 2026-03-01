@@ -9,6 +9,7 @@ export function VerifyButton({ domain }: { domain: string }) {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<{
     verified: boolean;
+    trust_level?: string;
     detail_url_ok?: boolean;
     response_time_ms?: number;
   } | null>(null);
@@ -50,8 +51,14 @@ export function VerifyButton({ domain }: { domain: string }) {
       )}
       {result && (
         <div className="mt-2 space-y-0.5">
-          <p className={`text-xs ${result.verified ? "text-accent" : "text-yellow-400"}`}>
-            {result.verified ? "Verified" : "Unverified"} — {result.response_time_ms}ms
+          <p className={`text-xs ${
+            result.trust_level === "verified" ? "text-accent" :
+            result.trust_level === "community" ? "text-blue-400" :
+            "text-yellow-400"
+          }`}>
+            {result.trust_level === "verified" ? "Verified" :
+             result.trust_level === "community" ? "Community" :
+             "Unverified"} — {result.response_time_ms}ms
           </p>
           {result.detail_url_ok !== undefined && (
             <p className={`text-xs ${result.detail_url_ok ? "text-accent" : "text-yellow-400"}`}>

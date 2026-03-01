@@ -73,14 +73,17 @@ server.registerTool(
           .map((r) => {
             const connected = connectedDomains.has(r.service.domain);
             const status = connected ? "[CONNECTED]" : "[NOT CONNECTED]";
+            const trustLevel = r.service.trust_level ?? (r.service.verified ? "verified" : "unverified");
+            const trustBadge = trustLevel === "verified" ? "[VERIFIED]" :
+                               trustLevel === "community" ? "[COMMUNITY]" : "[UNVERIFIED]";
             const caps = r.matching_capabilities.length > 0
               ? r.matching_capabilities.map((c) => `    - ${c.name}: ${c.description}`).join("\n")
               : r.all_capabilities.map((c) => `    - ${c.name}: ${c.description}`).join("\n");
 
             return [
-              `${r.service.name} (${r.service.domain}) ${status}`,
+              `${r.service.name} (${r.service.domain}) ${trustBadge} ${status}`,
               `  ${r.service.description}`,
-              `  Auth: ${r.service.auth_type} | Pricing: ${r.service.pricing_type} | Verified: ${r.service.verified}`,
+              `  Auth: ${r.service.auth_type} | Pricing: ${r.service.pricing_type} | Trust: ${trustLevel}`,
               `  Capabilities:`,
               caps,
             ].join("\n");

@@ -144,6 +144,7 @@ export interface DiscoverResult {
     auth_type: string;
     pricing_type: string;
     verified: boolean;
+    trust_level?: string;
   };
   matching_capabilities: Array<{
     name: string;

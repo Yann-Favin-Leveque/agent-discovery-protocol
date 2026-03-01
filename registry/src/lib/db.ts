@@ -25,18 +25,28 @@ function getClient(): Client {
   return client;
 }
 
+let initPromise: Promise<Client> | null = null;
+
 async function ensureInitialized(): Promise<Client> {
   const db = getClient();
   if (initialized) return db;
 
-  await initSchema(db);
-  initialized = true;
-  return db;
+  if (!initPromise) {
+    initPromise = initSchema(db).then(() => {
+      initialized = true;
+      return db;
+    });
+  }
+  return initPromise;
 }
 
 // ─── Schema ──────────────────────────────────────────────────────
 
 async function initSchema(db: Client) {
+  // Enable WAL mode for better concurrency (local dev)
+  await db.execute("PRAGMA journal_mode=WAL").catch(() => {});
+  await db.execute("PRAGMA busy_timeout=5000").catch(() => {});
+
   await db.executeMultiple(`
     CREATE TABLE IF NOT EXISTS categories (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,6 +66,7 @@ async function initSchema(db: Client) {
       pricing_type TEXT DEFAULT 'free',
       spec_version TEXT NOT NULL DEFAULT '1.0',
       verified INTEGER NOT NULL DEFAULT 0,
+      trust_level TEXT NOT NULL DEFAULT 'unverified',
       crawl_failures INTEGER NOT NULL DEFAULT 0,
       last_crawled_at TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
@@ -71,19 +82,61 @@ async function initSchema(db: Client) {
       category_slug TEXT REFERENCES categories(slug)
     );
 
+    CREATE TABLE IF NOT EXISTS blocked_domains (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      domain TEXT NOT NULL UNIQUE,
+      reason TEXT,
+      blocked_at TEXT NOT NULL DEFAULT (datetime('now')),
+      blocked_by TEXT DEFAULT 'system'
+    );
+
+    CREATE TABLE IF NOT EXISTS reports (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      service_domain TEXT NOT NULL,
+      reporter_ip TEXT,
+      reason TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      resolved INTEGER NOT NULL DEFAULT 0
+    );
+
+    CREATE TABLE IF NOT EXISTS audit_log (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      action TEXT NOT NULL,
+      domain TEXT,
+      ip_address TEXT,
+      details TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
     CREATE INDEX IF NOT EXISTS idx_capabilities_service_id ON capabilities(service_id);
     CREATE INDEX IF NOT EXISTS idx_services_domain ON services(domain);
     CREATE INDEX IF NOT EXISTS idx_services_verified ON services(verified);
+    CREATE INDEX IF NOT EXISTS idx_services_trust_level ON services(trust_level);
+    CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log(action);
+    CREATE INDEX IF NOT EXISTS idx_audit_log_domain ON audit_log(domain);
+    CREATE INDEX IF NOT EXISTS idx_reports_domain ON reports(service_domain);
+    CREATE INDEX IF NOT EXISTS idx_blocked_domains_domain ON blocked_domains(domain);
   `);
 
-  // Check if crawl_failures column exists (migration)
+  // Column migrations for existing databases
   const columns = await db.execute("PRAGMA table_info(services)");
-  const hasCrawlFailures = columns.rows.some(
-    (row) => (row as unknown as { name: string }).name === "crawl_failures"
+  const colNames = columns.rows.map(
+    (row) => (row as unknown as { name: string }).name
   );
-  if (!hasCrawlFailures) {
+
+  if (!colNames.includes("crawl_failures")) {
     await db.execute(
       "ALTER TABLE services ADD COLUMN crawl_failures INTEGER NOT NULL DEFAULT 0"
+    );
+  }
+
+  if (!colNames.includes("trust_level")) {
+    await db.execute(
+      "ALTER TABLE services ADD COLUMN trust_level TEXT NOT NULL DEFAULT 'unverified'"
+    );
+    // Migrate existing verified data
+    await db.execute(
+      "UPDATE services SET trust_level = 'verified' WHERE verified = 1"
     );
   }
 
@@ -113,6 +166,8 @@ async function seedCategories(db: Client) {
 
 // ─── Row types ───────────────────────────────────────────────────
 
+export type TrustLevel = "verified" | "community" | "unverified";
+
 export interface ServiceRow {
   id: number;
   name: string;
@@ -125,6 +180,7 @@ export interface ServiceRow {
   pricing_type: string;
   spec_version: string;
   verified: number;
+  trust_level: TrustLevel;
   crawl_failures: number;
   last_crawled_at: string | null;
   created_at: string;
@@ -146,10 +202,35 @@ export interface CategoryRow {
   slug: string;
 }
 
+export interface BlockedDomainRow {
+  id: number;
+  domain: string;
+  reason: string | null;
+  blocked_at: string;
+  blocked_by: string;
+}
+
+export interface ReportRow {
+  id: number;
+  service_domain: string;
+  reporter_ip: string | null;
+  reason: string;
+  created_at: string;
+  resolved: number;
+}
+
+export interface AuditLogRow {
+  id: number;
+  action: string;
+  domain: string | null;
+  ip_address: string | null;
+  details: string | null;
+  created_at: string;
+}
+
 // ─── Helpers ─────────────────────────────────────────────────────
 
 function rowTo<T>(row: Row): T {
-  // libsql rows have column values accessible by name
   return row as unknown as T;
 }
 
@@ -193,10 +274,16 @@ export async function getAllServices(opts: {
   sort?: "newest" | "name" | "capabilities";
   limit?: number;
   offset?: number;
+  include_unverified?: boolean;
 }): Promise<{ services: ServiceRow[]; total: number }> {
   const db = await ensureInitialized();
   const conditions: string[] = [];
   const params: (string | number)[] = [];
+
+  // Trust filter: default to trusted only
+  if (!opts.include_unverified) {
+    conditions.push("s.trust_level IN ('verified', 'community')");
+  }
 
   if (opts.category && opts.category !== "all") {
     conditions.push(
@@ -222,6 +309,11 @@ export async function getAllServices(opts: {
   if (opts.sort === "name") orderBy = "s.name ASC";
   if (opts.sort === "capabilities") orderBy = "cap_count DESC, s.name ASC";
 
+  // When including unverified, sort trusted first
+  if (opts.include_unverified) {
+    orderBy = `CASE s.trust_level WHEN 'verified' THEN 0 WHEN 'community' THEN 1 ELSE 2 END, ${orderBy}`;
+  }
+
   const countResult = await db.execute({
     sql: `SELECT COUNT(DISTINCT s.id) as total FROM services s ${where}`,
     args: params,
@@ -244,7 +336,8 @@ export async function getAllServices(opts: {
 }
 
 export async function discoverServices(
-  query: string
+  query: string,
+  opts?: { include_unverified?: boolean }
 ): Promise<Array<ServiceRow & { matching_capabilities: CapabilityRow[] }>> {
   const terms = query
     .toLowerCase()
@@ -254,8 +347,14 @@ export async function discoverServices(
   if (terms.length === 0) return [];
 
   const db = await ensureInitialized();
+
+  // Default: trusted only
+  const trustFilter = opts?.include_unverified
+    ? ""
+    : "WHERE trust_level IN ('verified', 'community')";
+
   const allResult = await db.execute(
-    "SELECT * FROM services ORDER BY name"
+    `SELECT * FROM services ${trustFilter} ORDER BY name`
   );
   const allServices = rowsTo<ServiceRow>(allResult.rows);
 
@@ -299,7 +398,14 @@ export async function discoverServices(
     }
   }
 
-  scored.sort((a, b) => b.score - a.score);
+  // Boost trusted services in sort order
+  scored.sort((a, b) => {
+    const trustOrder = (s: ServiceRow) =>
+      s.trust_level === "verified" ? 0 : s.trust_level === "community" ? 1 : 2;
+    const trustDiff = trustOrder(a.service) - trustOrder(b.service);
+    if (trustDiff !== 0 && Math.abs(a.score - b.score) < 5) return trustDiff;
+    return b.score - a.score;
+  });
 
   return scored.slice(0, 10).map(({ service, matchingCaps }) => ({
     ...service,
@@ -317,7 +423,7 @@ export async function insertService(data: {
   auth_details: string;
   pricing_type: string;
   spec_version: string;
-  verified: boolean;
+  trust_level: TrustLevel;
   capabilities: Array<{
     name: string;
     description: string;
@@ -327,9 +433,11 @@ export async function insertService(data: {
 }): Promise<ServiceRow> {
   const db = await ensureInitialized();
 
+  const verified = data.trust_level === "verified" ? 1 : 0;
+
   const insertResult = await db.execute({
-    sql: `INSERT INTO services (name, domain, description, base_url, well_known_url, auth_type, auth_details, pricing_type, spec_version, verified, last_crawled_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
+    sql: `INSERT INTO services (name, domain, description, base_url, well_known_url, auth_type, auth_details, pricing_type, spec_version, verified, trust_level, last_crawled_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`,
     args: [
       data.name,
       data.domain,
@@ -340,7 +448,8 @@ export async function insertService(data: {
       data.auth_details,
       data.pricing_type,
       data.spec_version,
-      data.verified ? 1 : 0,
+      verified,
+      data.trust_level,
     ],
   });
 
@@ -393,8 +502,8 @@ export async function updateServiceVerification(
   await db.execute({
     sql: `UPDATE services SET
         name = ?, description = ?, base_url = ?, auth_type = ?, auth_details = ?,
-        pricing_type = ?, spec_version = ?, verified = 1, crawl_failures = 0,
-        last_crawled_at = datetime('now'), updated_at = datetime('now')
+        pricing_type = ?, spec_version = ?, verified = 1, trust_level = 'verified',
+        crawl_failures = 0, last_crawled_at = datetime('now'), updated_at = datetime('now')
        WHERE id = ?`,
     args: [
       manifest.name,
@@ -435,13 +544,16 @@ export async function updateServiceVerification(
   return rowTo<ServiceRow>(result.rows[0]);
 }
 
-export async function getVerifiedServices(): Promise<ServiceRow[]> {
+export async function getTrustedServices(): Promise<ServiceRow[]> {
   const db = await ensureInitialized();
   const result = await db.execute(
-    "SELECT * FROM services WHERE verified = 1 ORDER BY last_crawled_at ASC"
+    "SELECT * FROM services WHERE trust_level IN ('verified', 'community') ORDER BY last_crawled_at ASC"
   );
   return rowsTo<ServiceRow>(result.rows);
 }
+
+// Keep backward-compatible alias
+export const getVerifiedServices = getTrustedServices;
 
 export async function incrementCrawlFailure(domain: string): Promise<void> {
   const db = await ensureInitialized();
@@ -454,27 +566,217 @@ export async function incrementCrawlFailure(domain: string): Promise<void> {
 export async function markUnreachable(domain: string): Promise<void> {
   const db = await ensureInitialized();
   await db.execute({
-    sql: `UPDATE services SET verified = 0, updated_at = datetime('now') WHERE domain = ?`,
+    sql: `UPDATE services SET verified = 0, trust_level = 'unverified', updated_at = datetime('now') WHERE domain = ?`,
     args: [domain],
   });
+}
+
+export async function updateServiceTrustLevel(
+  domain: string,
+  trustLevel: TrustLevel
+): Promise<ServiceRow | undefined> {
+  const db = await ensureInitialized();
+  const verified = trustLevel === "verified" ? 1 : 0;
+  await db.execute({
+    sql: `UPDATE services SET trust_level = ?, verified = ?, updated_at = datetime('now') WHERE domain = ?`,
+    args: [trustLevel, verified, domain],
+  });
+  return getServiceByDomain(domain);
+}
+
+export async function deleteService(domain: string): Promise<boolean> {
+  const db = await ensureInitialized();
+  const service = await getServiceByDomain(domain);
+  if (!service) return false;
+  await db.execute({
+    sql: "DELETE FROM capabilities WHERE service_id = ?",
+    args: [service.id],
+  });
+  await db.execute({
+    sql: "DELETE FROM services WHERE id = ?",
+    args: [service.id],
+  });
+  return true;
 }
 
 export async function getServiceStats(): Promise<{
   total_services: number;
   total_capabilities: number;
   verified_services: number;
+  community_services: number;
+  trusted_services: number;
 }> {
   const db = await ensureInitialized();
-  const [services, caps, verified] = await Promise.all([
+  const [services, caps, verified, community] = await Promise.all([
     db.execute("SELECT COUNT(*) as count FROM services"),
     db.execute("SELECT COUNT(*) as count FROM capabilities"),
     db.execute(
-      "SELECT COUNT(*) as count FROM services WHERE verified = 1"
+      "SELECT COUNT(*) as count FROM services WHERE trust_level = 'verified'"
+    ),
+    db.execute(
+      "SELECT COUNT(*) as count FROM services WHERE trust_level = 'community'"
     ),
   ]);
+  const verifiedCount = Number(verified.rows[0].count);
+  const communityCount = Number(community.rows[0].count);
   return {
     total_services: Number(services.rows[0].count),
     total_capabilities: Number(caps.rows[0].count),
-    verified_services: Number(verified.rows[0].count),
+    verified_services: verifiedCount,
+    community_services: communityCount,
+    trusted_services: verifiedCount + communityCount,
   };
+}
+
+// ─── Blocked domains ─────────────────────────────────────────────
+
+export async function isBlockedDomain(domain: string): Promise<boolean> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: "SELECT 1 FROM blocked_domains WHERE domain = ?",
+    args: [domain],
+  });
+  return result.rows.length > 0;
+}
+
+export async function blockDomain(
+  domain: string,
+  reason: string,
+  blockedBy: string = "admin"
+): Promise<void> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: "INSERT OR IGNORE INTO blocked_domains (domain, reason, blocked_by) VALUES (?, ?, ?)",
+    args: [domain, reason, blockedBy],
+  });
+}
+
+export async function getBlockedDomains(): Promise<BlockedDomainRow[]> {
+  const db = await ensureInitialized();
+  const result = await db.execute(
+    "SELECT * FROM blocked_domains ORDER BY blocked_at DESC"
+  );
+  return rowsTo<BlockedDomainRow>(result.rows);
+}
+
+// ─── Reports ─────────────────────────────────────────────────────
+
+export async function insertReport(data: {
+  service_domain: string;
+  reporter_ip: string;
+  reason: string;
+}): Promise<ReportRow> {
+  const db = await ensureInitialized();
+  const result = await db.execute({
+    sql: "INSERT INTO reports (service_domain, reporter_ip, reason) VALUES (?, ?, ?)",
+    args: [data.service_domain, data.reporter_ip, data.reason],
+  });
+  const id = Number(result.lastInsertRowid);
+  const row = await db.execute({
+    sql: "SELECT * FROM reports WHERE id = ?",
+    args: [id],
+  });
+  return rowTo<ReportRow>(row.rows[0]);
+}
+
+export async function getReports(opts?: {
+  status?: "pending" | "resolved";
+  limit?: number;
+  offset?: number;
+}): Promise<{ reports: ReportRow[]; total: number }> {
+  const db = await ensureInitialized();
+  const conditions: string[] = [];
+  const params: (string | number)[] = [];
+
+  if (opts?.status === "pending") {
+    conditions.push("resolved = 0");
+  } else if (opts?.status === "resolved") {
+    conditions.push("resolved = 1");
+  }
+
+  const where =
+    conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+
+  const countResult = await db.execute({
+    sql: `SELECT COUNT(*) as total FROM reports ${where}`,
+    args: params,
+  });
+  const total = Number(countResult.rows[0].total);
+
+  const limit = opts?.limit ?? 50;
+  const offset = opts?.offset ?? 0;
+
+  const result = await db.execute({
+    sql: `SELECT * FROM reports ${where} ORDER BY created_at DESC LIMIT ? OFFSET ?`,
+    args: [...params, limit, offset],
+  });
+
+  return { reports: rowsTo<ReportRow>(result.rows), total };
+}
+
+export async function resolveReport(id: number): Promise<void> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: "UPDATE reports SET resolved = 1 WHERE id = ?",
+    args: [id],
+  });
+}
+
+// ─── Audit log ───────────────────────────────────────────────────
+
+export async function logAudit(entry: {
+  action: string;
+  domain?: string;
+  ip_address?: string;
+  details?: string;
+}): Promise<void> {
+  const db = await ensureInitialized();
+  await db.execute({
+    sql: "INSERT INTO audit_log (action, domain, ip_address, details) VALUES (?, ?, ?, ?)",
+    args: [
+      entry.action,
+      entry.domain ?? null,
+      entry.ip_address ?? null,
+      entry.details ?? null,
+    ],
+  });
+}
+
+export async function getAuditLog(opts?: {
+  action?: string;
+  domain?: string;
+  limit?: number;
+  offset?: number;
+}): Promise<{ entries: AuditLogRow[]; total: number }> {
+  const db = await ensureInitialized();
+  const conditions: string[] = [];
+  const params: (string | number)[] = [];
+
+  if (opts?.action) {
+    conditions.push("action = ?");
+    params.push(opts.action);
+  }
+  if (opts?.domain) {
+    conditions.push("domain = ?");
+    params.push(opts.domain);
+  }
+
+  const where =
+    conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+
+  const countResult = await db.execute({
+    sql: `SELECT COUNT(*) as total FROM audit_log ${where}`,
+    args: params,
+  });
+  const total = Number(countResult.rows[0].total);
+
+  const limit = opts?.limit ?? 50;
+  const offset = opts?.offset ?? 0;
+
+  const result = await db.execute({
+    sql: `SELECT * FROM audit_log ${where} ORDER BY created_at DESC LIMIT ? OFFSET ?`,
+    args: [...params, limit, offset],
+  });
+
+  return { entries: rowsTo<AuditLogRow>(result.rows), total };
 }

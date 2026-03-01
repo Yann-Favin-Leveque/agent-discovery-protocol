@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getServiceByDomain, getCapabilitiesForService } from "@/lib/db";
 import { VerifyButton } from "./verify-button";
 import { ManifestToggle } from "./manifest-toggle";
+import { ReportButton } from "./report-button";
 
 export async function generateMetadata({ params }: { params: { domain: string } }) {
   const service = await getServiceByDomain(params.domain);
@@ -43,9 +44,13 @@ export default async function ServiceDetailPage({
           <p className="mt-1 font-mono text-sm text-muted">{service.domain}</p>
         </div>
         <div className="flex items-center gap-3">
-          {service.verified ? (
+          {service.trust_level === "verified" ? (
             <span className="rounded-full bg-accent/10 px-3 py-1 text-sm text-accent">
               Verified
+            </span>
+          ) : service.trust_level === "community" ? (
+            <span className="rounded-full bg-blue-500/10 px-3 py-1 text-sm text-blue-400">
+              Community
             </span>
           ) : (
             <span className="rounded-full bg-yellow-500/10 px-3 py-1 text-sm text-yellow-400">
@@ -53,6 +58,7 @@ export default async function ServiceDetailPage({
             </span>
           )}
           <VerifyButton domain={service.domain} />
+          <ReportButton domain={service.domain} />
         </div>
       </div>
 
