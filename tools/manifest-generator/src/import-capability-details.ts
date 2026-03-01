@@ -56,14 +56,26 @@ async function main() {
   const results: Result[] = [];
   let totalCaps = 0;
 
-  for (const domain of entries) {
-    if (domain.startsWith("_")) continue;
+  for (const folderName of entries) {
+    if (folderName.startsWith("_")) continue;
 
-    const capDir = join(manifestsDir, domain, "capabilities");
+    const capDir = join(manifestsDir, folderName, "capabilities");
     try {
       await stat(capDir);
     } catch {
       continue; // No capabilities directory
+    }
+
+    // Resolve the real domain from the manifest's base_url (folder name may differ)
+    let domain = folderName;
+    try {
+      const manifestRaw = await readFile(join(manifestsDir, folderName, "manifest.json"), "utf-8");
+      const manifest = JSON.parse(manifestRaw);
+      if (manifest.base_url) {
+        domain = new URL(manifest.base_url).hostname;
+      }
+    } catch {
+      // Fall back to folder name
     }
 
     const capFiles = await readdir(capDir);
