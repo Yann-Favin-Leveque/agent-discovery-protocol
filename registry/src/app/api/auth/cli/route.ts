@@ -14,13 +14,9 @@ import { createRegistryToken } from "@/lib/auth";
  * Returns: { success: true, data: { registry_token, email, name, provider_id } }
  */
 export async function POST(request: NextRequest) {
-  const hasJwtSecret = !!process.env.JWT_SECRET;
-  console.log(`[cli-auth] START — JWT_SECRET present: ${hasJwtSecret}, env keys: ${Object.keys(process.env).filter(k => k.includes("JWT") || k.includes("TURSO") || k.includes("OAUTH")).join(", ")}`);
-
   try {
     const body = await request.json();
     const { provider, access_token } = body;
-    console.log(`[cli-auth] provider=${provider}, has_token=${!!access_token}`);
 
     if (!provider || !access_token) {
       return NextResponse.json(
@@ -38,24 +34,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify the access token by fetching user info from the provider
-    console.log(`[cli-auth] Fetching user info from ${provider}...`);
     const userInfo = await fetchUserInfo(provider as OAuthProvider, access_token);
-    console.log(`[cli-auth] Got user info: ${userInfo.email}`);
 
     // Upsert user in database
-    console.log(`[cli-auth] Upserting user...`);
     const user = await upsertUser({
       email: userInfo.email,
       name: userInfo.name ?? undefined,
       provider,
       provider_id: userInfo.provider_id,
     });
-    console.log(`[cli-auth] User upserted: id=${user.id}`);
 
     // Create a long-lived registry token
-    console.log(`[cli-auth] Creating registry token...`);
     const registryToken = await createRegistryToken(user);
-    console.log(`[cli-auth] Token created successfully`);
 
     return NextResponse.json({
       success: true,
@@ -69,9 +59,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Authentication failed";
-    const stack = err instanceof Error ? err.stack : "";
-    console.error(`[cli-auth] ERROR: ${message}`);
-    console.error(`[cli-auth] STACK: ${stack}`);
     return NextResponse.json(
       { success: false, error: message },
       { status: 401 }
