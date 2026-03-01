@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { discoverServices, getCapabilitiesForService } from "@/lib/db";
+import { discoverServices } from "@/lib/db";
 import { sanitizeSearch, getClientIp } from "@/lib/sanitize";
 import { checkRateLimit, RATE_LIMITS } from "@/lib/rate-limit";
 
@@ -24,37 +24,36 @@ export async function GET(request: NextRequest) {
   const q = sanitizeSearch(rawQ);
   const includeUnverified = request.nextUrl.searchParams.get("include_unverified") === "true";
 
-  try {
-    const results = await discoverServices(q, { include_unverified: includeUnverified });
+  const limit = Math.min(parseInt(request.nextUrl.searchParams.get("limit") ?? "10", 10), 50);
 
-    const data = await Promise.all(results.map(async (service) => {
-      const allCaps = await getCapabilitiesForService(service.id);
-      return {
-        service: {
-          name: service.name,
-          domain: service.domain,
-          description: service.description,
-          base_url: service.base_url,
-          auth_type: service.auth_type,
-          pricing_type: service.pricing_type,
-          verified: service.trust_level === "verified",
-          trust_level: service.trust_level,
-        },
-        matching_capabilities: service.matching_capabilities.map((cap) => ({
-          name: cap.name,
-          description: cap.description,
-          detail_url: cap.detail_url.startsWith("http")
-            ? cap.detail_url
-            : `${service.base_url}${cap.detail_url}`,
-        })),
-        all_capabilities: allCaps.map((cap) => ({
-          name: cap.name,
-          description: cap.description,
-          detail_url: cap.detail_url.startsWith("http")
-            ? cap.detail_url
-            : `${service.base_url}${cap.detail_url}`,
-        })),
-      };
+  try {
+    const results = await discoverServices(q, { include_unverified: includeUnverified, limit });
+
+    const data = results.map((service) => ({
+      service: {
+        name: service.name,
+        domain: service.domain,
+        description: service.description,
+        base_url: service.base_url,
+        auth_type: service.auth_type,
+        pricing_type: service.pricing_type,
+        verified: service.trust_level === "verified",
+        trust_level: service.trust_level,
+      },
+      matching_capabilities: service.matching_capabilities.map((cap) => ({
+        name: cap.name,
+        description: cap.description,
+        detail_url: cap.detail_url.startsWith("http")
+          ? cap.detail_url
+          : `${service.base_url}${cap.detail_url}`,
+      })),
+      all_capabilities: service.all_capabilities.map((cap) => ({
+        name: cap.name,
+        description: cap.description,
+        detail_url: cap.detail_url.startsWith("http")
+          ? cap.detail_url
+          : `${service.base_url}${cap.detail_url}`,
+      })),
     }));
 
     return NextResponse.json({

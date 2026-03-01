@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getAllServices, getAllCategories, getCapabilitiesForService } from "@/lib/db";
-import type { ServiceRow } from "@/lib/db";
+import { getAllServices, getAllCategories } from "@/lib/db";
+import type { ServiceListItem } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "Directory — AgentDNS",
@@ -38,7 +38,7 @@ function TrustBadge({ level }: { level: string }) {
   );
 }
 
-function ServiceCard({ service, capCount }: { service: ServiceRow; capCount: number }) {
+function ServiceCard({ service }: { service: ServiceListItem }) {
   return (
     <Link
       href={`/directory/${service.domain}`}
@@ -60,7 +60,7 @@ function ServiceCard({ service, capCount }: { service: ServiceRow; capCount: num
           {service.auth_type}
         </span>
         <span className="text-xs text-muted">
-          {capCount} {capCount === 1 ? "capability" : "capabilities"}
+          {service.cap_count} {service.cap_count === 1 ? "capability" : "capabilities"}
         </span>
       </div>
     </Link>
@@ -221,13 +221,6 @@ export default async function DirectoryPage({
 
   const totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
 
-  // Precompute capability counts
-  const capCounts = new Map<number, number>();
-  for (const s of services) {
-    const caps = await getCapabilitiesForService(s.id);
-    capCounts.set(s.id, caps.length);
-  }
-
   const activeCategory = searchParams.category ?? "all";
 
   // Build query string for links — preserves all current filters
@@ -372,7 +365,6 @@ export default async function DirectoryPage({
               <ServiceCard
                 key={service.id}
                 service={service}
-                capCount={capCounts.get(service.id) ?? 0}
               />
             ))}
           </div>

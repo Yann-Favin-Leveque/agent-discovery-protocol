@@ -18,16 +18,19 @@ import type { UserIdentity, IdentityProvider } from "./types.js";
 // per Google documentation). Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET
 // env vars, or add google_client_id/google_client_secret to config.json.
 
-function getGoogleOAuthCredentials(): { clientId: string; clientSecret: string } | null {
+function getOAuthCredentials(provider: "google" | "github"): { clientId: string; clientSecret: string } | null {
   const config = loadConfig();
   const raw = config as unknown as Record<string, unknown>;
 
+  const envPrefix = provider === "google" ? "GOOGLE" : "GITHUB";
+  const configPrefix = provider === "google" ? "google" : "github";
+
   const clientId =
-    process.env.GOOGLE_CLIENT_ID ??
-    (typeof raw.google_client_id === "string" ? raw.google_client_id : null);
+    process.env[`${envPrefix}_CLIENT_ID`] ??
+    (typeof raw[`${configPrefix}_client_id`] === "string" ? raw[`${configPrefix}_client_id`] as string : null);
   const clientSecret =
-    process.env.GOOGLE_CLIENT_SECRET ??
-    (typeof raw.google_client_secret === "string" ? raw.google_client_secret : null);
+    process.env[`${envPrefix}_CLIENT_SECRET`] ??
+    (typeof raw[`${configPrefix}_client_secret`] === "string" ? raw[`${configPrefix}_client_secret`] as string : null);
 
   if (!clientId || !clientSecret) return null;
   return { clientId, clientSecret };
@@ -112,11 +115,11 @@ async function init(): Promise<void> {
 
   let identity: UserIdentity;
 
-  if (provider === "google" && getGoogleOAuthCredentials()) {
-    // Direct Google OAuth (Desktop app flow)
-    identity = await googleDesktopOAuth(config.auth_callback_port, registryUrl);
+  if ((provider === "google" || provider === "github") && getOAuthCredentials(provider)) {
+    // Direct OAuth (Desktop app flow)
+    identity = await desktopOAuth(provider, config.auth_callback_port, registryUrl);
   } else {
-    // For GitHub/Microsoft (or Google without credentials), use registry-mediated flow
+    // For Microsoft (or providers without credentials), use registry-mediated flow
     identity = await registryMediatedOAuth(provider, config.auth_callback_port, registryUrl);
   }
 
@@ -144,29 +147,53 @@ async function init(): Promise<void> {
   printMcpConfig(registryUrl);
 }
 
-// ─── Google Desktop OAuth ────────────────────────────────────────
+// ─── Desktop OAuth (Google & GitHub) ─────────────────────────────
 
-async function googleDesktopOAuth(
+interface ProviderOAuthConfig {
+  authorizationUrl: string;
+  tokenUrl: string;
+  scopes: string;
+  extraAuthParams?: Record<string, string>;
+  tokenExchangeHeaders?: Record<string, string>;
+}
+
+const PROVIDER_OAUTH_CONFIG: Record<"google" | "github", ProviderOAuthConfig> = {
+  google: {
+    authorizationUrl: "https://accounts.google.com/o/oauth2/v2/auth",
+    tokenUrl: "https://oauth2.googleapis.com/token",
+    scopes: "openid email profile",
+    extraAuthParams: { access_type: "offline", prompt: "consent" },
+  },
+  github: {
+    authorizationUrl: "https://github.com/login/oauth/authorize",
+    tokenUrl: "https://github.com/login/oauth/access_token",
+    scopes: "read:user user:email",
+    tokenExchangeHeaders: { Accept: "application/json" },
+  },
+};
+
+async function desktopOAuth(
+  provider: "google" | "github",
   port: number,
   registryUrl: string
 ): Promise<UserIdentity> {
-  const creds = getGoogleOAuthCredentials();
-  if (!creds) throw new Error("Google OAuth credentials not configured");
+  const creds = getOAuthCredentials(provider);
+  if (!creds) throw new Error(`${provider} OAuth credentials not configured`);
   const { clientId, clientSecret } = creds;
+  const providerConfig = PROVIDER_OAUTH_CONFIG[provider];
   const redirectUri = `http://localhost:${port}/callback`;
   const state = Math.random().toString(36).substring(2, 15);
 
-  // Build Google authorization URL
+  // Build authorization URL
   const authParams = new URLSearchParams({
     client_id: clientId,
     redirect_uri: redirectUri,
     response_type: "code",
-    scope: "openid email profile",
+    scope: providerConfig.scopes,
     state,
-    access_type: "offline",
-    prompt: "consent",
+    ...providerConfig.extraAuthParams,
   });
-  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${authParams.toString()}`;
+  const authUrl = `${providerConfig.authorizationUrl}?${authParams.toString()}`;
 
   // Start local callback server and wait for the authorization code
   const codePromise = new Promise<string>((resolve, reject) => {
@@ -242,40 +269,47 @@ async function googleDesktopOAuth(
   // Wait for the authorization code
   const code = await codePromise;
 
-  // Exchange code for Google tokens
+  // Exchange code for provider tokens
   const tokenBody = new URLSearchParams({
     client_id: clientId,
     client_secret: clientSecret,
     code,
-    redirect_uri: `http://localhost:${port}/callback`,
+    redirect_uri: redirectUri,
     grant_type: "authorization_code",
   });
 
-  const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+  const tokenRes = await fetch(providerConfig.tokenUrl, {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...providerConfig.tokenExchangeHeaders,
+    },
     body: tokenBody.toString(),
     signal: AbortSignal.timeout(10000),
   });
 
   if (!tokenRes.ok) {
     const text = await tokenRes.text();
-    throw new Error(`Google token exchange failed: ${tokenRes.status} ${text}`);
+    throw new Error(`${provider} token exchange failed: ${tokenRes.status} ${text}`);
   }
 
   const tokenData = (await tokenRes.json()) as {
     access_token: string;
     refresh_token?: string;
-    id_token?: string;
-    expires_in?: number;
+    error?: string;
+    error_description?: string;
   };
 
-  // Exchange Google access token for a registry token via the CLI endpoint
+  if (tokenData.error) {
+    throw new Error(`${provider} token error: ${tokenData.error_description ?? tokenData.error}`);
+  }
+
+  // Exchange provider access token for a registry token via the CLI endpoint
   const registryRes = await fetch(`${registryUrl}/api/auth/cli`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      provider: "google",
+      provider,
       access_token: tokenData.access_token,
     }),
     signal: AbortSignal.timeout(10000),
@@ -302,7 +336,7 @@ async function googleDesktopOAuth(
   }
 
   return {
-    provider: "google",
+    provider,
     provider_id: registryData.data.provider_id,
     email: registryData.data.email,
     name: registryData.data.name ?? undefined,

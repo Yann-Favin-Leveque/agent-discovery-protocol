@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   getAllServices,
-  getCapabilitiesForService,
   insertService,
   getServiceByDomain,
   isBlockedDomain,
@@ -42,26 +41,29 @@ export async function GET(request: NextRequest) {
       include_unverified: includeUnverified,
     });
 
-    const data = await Promise.all(services.map(async (s) => {
-      const caps = await getCapabilitiesForService(s.id);
-      return {
-        name: s.name,
-        domain: s.domain,
-        description: s.description,
-        base_url: s.base_url,
-        auth_type: s.auth_type,
-        pricing_type: s.pricing_type,
-        verified: s.trust_level === "verified",
-        trust_level: s.trust_level,
-        capability_count: caps.length,
-        created_at: s.created_at,
-      };
+    const page = Math.floor(offset / limit) + 1;
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+
+    const data = services.map((s) => ({
+      name: s.name,
+      domain: s.domain,
+      description: s.description,
+      base_url: s.base_url,
+      auth_type: s.auth_type,
+      pricing_type: s.pricing_type,
+      verified: s.trust_level === "verified",
+      trust_level: s.trust_level,
+      capability_count: s.cap_count,
+      category: null,
+      created_at: s.created_at,
     }));
 
     return NextResponse.json({
       success: true,
       data,
-      pagination: { total, limit, offset },
+      total,
+      page,
+      totalPages,
     });
   } catch (err) {
     return NextResponse.json(

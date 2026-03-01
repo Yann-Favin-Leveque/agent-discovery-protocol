@@ -24,8 +24,8 @@ function getProviderConfig(provider: OAuthProvider): OAuthConfig {
   switch (provider) {
     case "google":
       return {
-        clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+        clientId: process.env.OAUTH_GOOGLE_WEB_APP_ID ?? process.env.GOOGLE_CLIENT_ID ?? "",
+        clientSecret: process.env.OAUTH_GOOGLE_WEB_APP_SECRET ?? process.env.GOOGLE_CLIENT_SECRET ?? "",
         authorizationUrl: "https://accounts.google.com/o/oauth2/v2/auth",
         tokenUrl: "https://oauth2.googleapis.com/token",
         userInfoUrl: "https://www.googleapis.com/oauth2/v2/userinfo",
@@ -33,8 +33,8 @@ function getProviderConfig(provider: OAuthProvider): OAuthConfig {
       };
     case "github":
       return {
-        clientId: process.env.GITHUB_CLIENT_ID ?? "",
-        clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
+        clientId: process.env.OAUTH_GITHUB_WEB_APP_ID ?? process.env.GITHUB_CLIENT_ID ?? "",
+        clientSecret: process.env.OAUTH_GITHUB_WEB_APP_SECRET ?? process.env.GITHUB_CLIENT_SECRET ?? "",
         authorizationUrl: "https://github.com/login/oauth/authorize",
         tokenUrl: "https://github.com/login/oauth/access_token",
         userInfoUrl: "https://api.github.com/user",
@@ -42,8 +42,8 @@ function getProviderConfig(provider: OAuthProvider): OAuthConfig {
       };
     case "microsoft":
       return {
-        clientId: process.env.MICROSOFT_CLIENT_ID ?? "",
-        clientSecret: process.env.MICROSOFT_CLIENT_SECRET ?? "",
+        clientId: process.env.OAUTH_MICROSOFT_WEB_APP_ID ?? process.env.MICROSOFT_CLIENT_ID ?? "",
+        clientSecret: process.env.OAUTH_MICROSOFT_WEB_APP_SECRET ?? process.env.MICROSOFT_CLIENT_SECRET ?? "",
         authorizationUrl:
           "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
         tokenUrl:
