@@ -180,9 +180,10 @@ The Agent Discovery Protocol adds a **discovery layer** on top. Services describ
 ### Coming Soon
 
 - [ ] Push notifications for payment confirmation
-- [ ] Registry account dashboard (OAuth login, subscriptions, billing, connections)
+- [x] Registry account dashboard (OAuth login, subscriptions, billing, connections)
 - [ ] Google OAuth app verification (currently test mode — submitting for full verification)
-- [ ] GitHub and Microsoft OAuth provider integration
+- [x] GitHub OAuth provider integration (gateway CLI + registry login)
+- [ ] Microsoft OAuth provider integration
 - [ ] More OAuth providers (Slack, Notion, Discord, Spotify, Dropbox)
 - [ ] Community manifest program (contribute manifests via GitHub PRs)
 - [ ] SDK publishing to npm/PyPI/Maven
