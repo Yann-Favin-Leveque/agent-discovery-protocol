@@ -59,12 +59,23 @@ export function loadConfig(): GatewayConfig {
   ensureDirs();
   let config: GatewayConfig;
   if (!fs.existsSync(CONFIG_FILE)) {
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(DEFAULT_CONFIG, null, 2));
+    // Write config without registry_url — the default lives in code
+    // so updates take effect without touching the user's config file
+    const { registry_url: _, ...persistable } = DEFAULT_CONFIG;
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify(persistable, null, 2));
     config = { ...DEFAULT_CONFIG };
   } else {
     try {
       const raw = fs.readFileSync(CONFIG_FILE, "utf-8");
-      config = { ...DEFAULT_CONFIG, ...JSON.parse(raw) };
+      const saved = JSON.parse(raw);
+      // Drop registry_url from saved config unless the user explicitly
+      // set a custom value (different from any known default).
+      // Also clean up the old incorrect domain from pre-0.2.2 installs.
+      if (saved.registry_url === DEFAULT_CONFIG.registry_url
+        || saved.registry_url === "https://agentdns.dev") {
+        delete saved.registry_url;
+      }
+      config = { ...DEFAULT_CONFIG, ...saved };
     } catch {
       config = { ...DEFAULT_CONFIG };
     }
@@ -77,7 +88,12 @@ export function loadConfig(): GatewayConfig {
 
 export function saveConfig(config: GatewayConfig): void {
   ensureDirs();
-  fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+  // Don't persist registry_url when it matches the default
+  const toSave: Partial<GatewayConfig> = { ...config };
+  if (toSave.registry_url === DEFAULT_CONFIG.registry_url) {
+    delete toSave.registry_url;
+  }
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify(toSave, null, 2));
 }
 
 // ─── Identity ────────────────────────────────────────────────────
