@@ -39,15 +39,9 @@ export async function GET(request: NextRequest) {
         pricing_type: service.pricing_type,
         verified: service.trust_level === "verified",
         trust_level: service.trust_level,
+        cap_count: service.cap_count,
       },
       matching_capabilities: service.matching_capabilities.map((cap) => ({
-        name: cap.name,
-        description: cap.description,
-        detail_url: cap.detail_url.startsWith("http")
-          ? cap.detail_url
-          : `${service.base_url}${cap.detail_url}`,
-      })),
-      all_capabilities: service.all_capabilities.map((cap) => ({
         name: cap.name,
         description: cap.description,
         detail_url: cap.detail_url.startsWith("http")

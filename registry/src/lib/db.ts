@@ -110,10 +110,14 @@ async function initSchema(db: Client) {
 
     CREATE INDEX IF NOT EXISTS idx_capabilities_service_id ON capabilities(service_id);
     CREATE INDEX IF NOT EXISTS idx_capabilities_category ON capabilities(category_slug);
+    CREATE INDEX IF NOT EXISTS idx_capabilities_service_category ON capabilities(service_id, category_slug);
     CREATE INDEX IF NOT EXISTS idx_services_domain ON services(domain);
     CREATE INDEX IF NOT EXISTS idx_services_verified ON services(verified);
     CREATE INDEX IF NOT EXISTS idx_services_created_at ON services(created_at);
     CREATE INDEX IF NOT EXISTS idx_services_name ON services(name);
+    CREATE INDEX IF NOT EXISTS idx_services_trust_level ON services(trust_level);
+    CREATE INDEX IF NOT EXISTS idx_services_trust_created ON services(trust_level, created_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_services_trust_name ON services(trust_level, name ASC);
     CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log(action);
     CREATE INDEX IF NOT EXISTS idx_audit_log_domain ON audit_log(domain);
     CREATE INDEX IF NOT EXISTS idx_reports_domain ON reports(service_domain);
@@ -214,11 +218,6 @@ async function initSchema(db: Client) {
   } catch {
     // Column already exists — ignore
   }
-
-  // Create index on trust_level AFTER the migration ensures the column exists
-  await db.execute(
-    "CREATE INDEX IF NOT EXISTS idx_services_trust_level ON services(trust_level)"
-  ).catch(() => {});
 
   await seedCategories(db);
 }
@@ -461,31 +460,35 @@ export async function getAllServices(opts: {
     orderBy = `CASE s.trust_level WHEN 'verified' THEN 0 WHEN 'community' THEN 1 ELSE 2 END, ${orderBy}`;
   }
 
-  const countResult = await db.execute({
-    sql: `SELECT COUNT(DISTINCT s.id) as total FROM services s ${where}`,
-    args: params,
-  });
-  const total = Number(countResult.rows[0].total);
-
   const limit = opts.limit ?? 50;
   const offset = opts.offset ?? 0;
 
-  const rowsResult = await db.execute({
-    sql: `SELECT s.*, (SELECT COUNT(*) FROM capabilities WHERE service_id = s.id) as cap_count
-       FROM services s
-       ${where}
-       ORDER BY ${orderBy}
-       LIMIT ? OFFSET ?`,
-    args: [...params, limit, offset],
-  });
+  // Run COUNT and data queries in parallel
+  const [countResult, rowsResult] = await Promise.all([
+    db.execute({
+      sql: `SELECT COUNT(DISTINCT s.id) as total FROM services s ${where}`,
+      args: params,
+    }),
+    db.execute({
+      sql: `SELECT s.*, COUNT(c.id) as cap_count
+         FROM services s
+         LEFT JOIN capabilities c ON c.service_id = s.id
+         ${where}
+         GROUP BY s.id
+         ORDER BY ${orderBy}
+         LIMIT ? OFFSET ?`,
+      args: [...params, limit, offset],
+    }),
+  ]);
 
+  const total = Number(countResult.rows[0].total);
   return { services: rowsTo<ServiceListItem>(rowsResult.rows), total };
 }
 
 export async function discoverServices(
   query: string,
   opts?: { include_unverified?: boolean; limit?: number }
-): Promise<Array<ServiceRow & { matching_capabilities: CapabilityRow[]; all_capabilities: CapabilityRow[] }>> {
+): Promise<Array<ServiceRow & { matching_capabilities: CapabilityRow[]; cap_count: number }>> {
   const terms = query
     .toLowerCase()
     .split(/\s+/)
@@ -496,92 +499,77 @@ export async function discoverServices(
   const db = await ensureInitialized();
   const maxResults = opts?.limit ?? 10;
 
-  // Default: trusted only
-  const trustFilter = opts?.include_unverified
-    ? ""
-    : "WHERE s.trust_level IN ('verified', 'community')";
+  // Build LIKE conditions for each term — match against service OR capability fields
+  const likeConditions: string[] = [];
+  const likeParams: string[] = [];
 
-  // Single query: fetch services with all their capabilities via LEFT JOIN
-  const result = await db.execute(
-    `SELECT s.*, c.id as cap_id, c.name as cap_name, c.description as cap_description,
-            c.detail_url as cap_detail_url, c.category_slug as cap_category_slug
-     FROM services s
-     LEFT JOIN capabilities c ON c.service_id = s.id
-     ${trustFilter}
-     ORDER BY s.name`
-  );
-
-  // Group rows by service, score in one pass
-  const serviceMap = new Map<number, {
-    service: ServiceRow;
-    score: number;
-    matchingCaps: CapabilityRow[];
-    allCaps: CapabilityRow[];
-  }>();
-
-  for (const row of result.rows) {
-    const serviceId = Number(row.id);
-
-    if (!serviceMap.has(serviceId)) {
-      const service = rowTo<ServiceRow>(row);
-      let score = 0;
-      const sName = service.name.toLowerCase();
-      const sDesc = service.description.toLowerCase();
-
-      for (const term of terms) {
-        if (sName.includes(term)) score += 10;
-        if (sDesc.includes(term)) score += 5;
-      }
-
-      serviceMap.set(serviceId, { service, score, matchingCaps: [], allCaps: [] });
-    }
-
-    // Track capability (if present — LEFT JOIN may produce null cap_id)
-    if (row.cap_id != null) {
-      const cap: CapabilityRow = {
-        id: Number(row.cap_id),
-        service_id: serviceId,
-        name: String(row.cap_name),
-        description: String(row.cap_description),
-        detail_url: String(row.cap_detail_url),
-        category_slug: row.cap_category_slug != null ? String(row.cap_category_slug) : null,
-      };
-
-      const entry = serviceMap.get(serviceId)!;
-      entry.allCaps.push(cap);
-
-      // Score capability for matching
-      const cName = cap.name.toLowerCase();
-      const cDesc = cap.description.toLowerCase();
-      let capScore = 0;
-
-      for (const term of terms) {
-        if (cName.includes(term)) capScore += 15;
-        if (cDesc.includes(term)) capScore += 8;
-      }
-
-      if (capScore > 0) {
-        entry.score += capScore;
-        entry.matchingCaps.push(cap);
-      }
-    }
+  for (const term of terms) {
+    const pattern = `%${term}%`;
+    likeConditions.push(
+      `(s.name LIKE ? OR s.description LIKE ? OR s.id IN (SELECT service_id FROM capabilities WHERE name LIKE ? OR description LIKE ?))`
+    );
+    likeParams.push(pattern, pattern, pattern, pattern);
   }
 
-  // Filter to matches, sort by score (trust-boosted), return top N
-  const scored = Array.from(serviceMap.values()).filter((s) => s.score > 0);
+  const trustCondition = opts?.include_unverified
+    ? ""
+    : "s.trust_level IN ('verified', 'community')";
 
-  scored.sort((a, b) => {
-    const trustOrder = (s: ServiceRow) =>
-      s.trust_level === "verified" ? 0 : s.trust_level === "community" ? 1 : 2;
-    const trustDiff = trustOrder(a.service) - trustOrder(b.service);
-    if (trustDiff !== 0 && Math.abs(a.score - b.score) < 5) return trustDiff;
-    return b.score - a.score;
+  const allConditions = [trustCondition, ...likeConditions].filter(Boolean);
+  const where = allConditions.length > 0 ? `WHERE ${allConditions.join(" AND ")}` : "";
+
+  // Step 1: Find matching services with cap_count, scored and limited in SQL
+  const servicesResult = await db.execute({
+    sql: `SELECT s.*, COUNT(c.id) as cap_count
+       FROM services s
+       LEFT JOIN capabilities c ON c.service_id = s.id
+       ${where}
+       GROUP BY s.id
+       ORDER BY
+         CASE s.trust_level WHEN 'verified' THEN 0 WHEN 'community' THEN 1 ELSE 2 END,
+         s.name ASC
+       LIMIT ?`,
+    args: [...likeParams, maxResults],
   });
 
-  return scored.slice(0, maxResults).map(({ service, matchingCaps, allCaps }) => ({
+  if (servicesResult.rows.length === 0) return [];
+
+  const services = rowsTo<ServiceRow & { cap_count: number }>(servicesResult.rows);
+  const serviceIds = services.map((s) => s.id);
+
+  // Step 2: Fetch only matching capabilities for these services
+  const capLikeConditions: string[] = [];
+  const capParams: (string | number)[] = [];
+
+  const placeholders = serviceIds.map(() => "?").join(", ");
+  capParams.push(...serviceIds);
+
+  for (const term of terms) {
+    const pattern = `%${term}%`;
+    capLikeConditions.push(`(c.name LIKE ? OR c.description LIKE ?)`);
+    capParams.push(pattern, pattern);
+  }
+
+  const capsResult = await db.execute({
+    sql: `SELECT c.* FROM capabilities c
+       WHERE c.service_id IN (${placeholders})
+       AND (${capLikeConditions.join(" OR ")})
+       ORDER BY c.name`,
+    args: capParams,
+  });
+
+  // Group matching capabilities by service_id
+  const capsByService = new Map<number, CapabilityRow[]>();
+  for (const row of capsResult.rows) {
+    const cap = rowTo<CapabilityRow>(row);
+    const list = capsByService.get(cap.service_id) ?? [];
+    list.push(cap);
+    capsByService.set(cap.service_id, list);
+  }
+
+  return services.map((service) => ({
     ...service,
-    matching_capabilities: matchingCaps,
-    all_capabilities: allCaps,
+    matching_capabilities: capsByService.get(service.id) ?? [],
   }));
 }
 

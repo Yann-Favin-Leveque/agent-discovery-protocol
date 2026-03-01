@@ -161,7 +161,6 @@ export default function ApiPage() {
           "detail_url": "https://api.mailforge.dev/api/capabilities/send_email"
         }
       ],
-      "all_capabilities": [ ... ]
     }
   ]
 }`}</CodeBlock>

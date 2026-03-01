@@ -81,7 +81,7 @@ server.registerTool(
                                trustLevel === "community" ? "\uD83D\uDD35 Community" : "\u26A0\uFE0F Unverified";
             const caps = r.matching_capabilities.length > 0
               ? r.matching_capabilities.map((c) => `    - ${c.name}: ${c.description}`).join("\n")
-              : r.all_capabilities.map((c) => `    - ${c.name}: ${c.description}`).join("\n");
+              : "    (no matching capabilities)";
 
             return [
               `${trustBadge} ${r.service.name} (${r.service.domain}) ${status}`,

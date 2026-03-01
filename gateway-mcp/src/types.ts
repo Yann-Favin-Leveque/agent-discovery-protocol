@@ -145,13 +145,9 @@ export interface DiscoverResult {
     pricing_type: string;
     verified: boolean;
     trust_level?: string;
+    cap_count?: number;
   };
   matching_capabilities: Array<{
-    name: string;
-    description: string;
-    detail_url: string;
-  }>;
-  all_capabilities: Array<{
     name: string;
     description: string;
     detail_url: string;
