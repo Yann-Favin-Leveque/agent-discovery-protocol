@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   },
 };
 
+const PER_PAGE = 20;
+
 function TrustBadge({ level }: { level: string }) {
   if (level === "verified") {
     return (
@@ -65,23 +67,159 @@ function ServiceCard({ service, capCount }: { service: ServiceRow; capCount: num
   );
 }
 
+/** Compute visible page numbers with ellipsis gaps. */
+function getPageRange(current: number, total: number): (number | "ellipsis")[] {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  const pages: (number | "ellipsis")[] = [];
+
+  // Always show first page
+  pages.push(1);
+
+  if (current > 3) {
+    pages.push("ellipsis");
+  }
+
+  // Pages around current
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+
+  if (current < total - 2) {
+    pages.push("ellipsis");
+  }
+
+  // Always show last page
+  pages.push(total);
+
+  return pages;
+}
+
+function Pagination({
+  currentPage,
+  totalPages,
+  total,
+  perPage,
+  buildPageUrl,
+}: {
+  currentPage: number;
+  totalPages: number;
+  total: number;
+  perPage: number;
+  buildPageUrl: (page: number) => string;
+}) {
+  if (total === 0) return null;
+
+  const rangeStart = (currentPage - 1) * perPage + 1;
+  const rangeEnd = Math.min(currentPage * perPage, total);
+  const pages = getPageRange(currentPage, totalPages);
+
+  return (
+    <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+      {/* Range display */}
+      <p className="text-sm text-muted">
+        Showing{" "}
+        <span className="font-medium text-foreground">{rangeStart}</span>
+        &ndash;
+        <span className="font-medium text-foreground">{rangeEnd}</span>
+        {" "}of{" "}
+        <span className="font-medium text-foreground">{total}</span>
+        {" "}services
+      </p>
+
+      {/* Navigation */}
+      {totalPages > 1 && (
+        <nav aria-label="Pagination" className="flex items-center gap-1">
+          {/* Previous */}
+          {currentPage > 1 ? (
+            <Link
+              href={buildPageUrl(currentPage - 1)}
+              className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent/30 hover:text-foreground"
+              aria-label="Previous page"
+            >
+              <span aria-hidden="true">&larr;</span> Prev
+            </Link>
+          ) : (
+            <span className="cursor-not-allowed rounded-lg border border-white/5 px-3 py-1.5 text-sm text-white/20">
+              <span aria-hidden="true">&larr;</span> Prev
+            </span>
+          )}
+
+          {/* Page numbers */}
+          <div className="flex items-center gap-1 px-1">
+            {pages.map((page, idx) =>
+              page === "ellipsis" ? (
+                <span
+                  key={`ellipsis-${idx}`}
+                  className="px-2 py-1.5 text-sm text-white/30"
+                >
+                  &hellip;
+                </span>
+              ) : page === currentPage ? (
+                <span
+                  key={page}
+                  className="min-w-[2rem] rounded-lg bg-accent px-2 py-1.5 text-center text-sm font-medium text-black"
+                  aria-current="page"
+                >
+                  {page}
+                </span>
+              ) : (
+                <Link
+                  key={page}
+                  href={buildPageUrl(page)}
+                  className="min-w-[2rem] rounded-lg border border-white/5 px-2 py-1.5 text-center text-sm text-muted transition-colors hover:border-accent/30 hover:text-foreground"
+                >
+                  {page}
+                </Link>
+              )
+            )}
+          </div>
+
+          {/* Next */}
+          {currentPage < totalPages ? (
+            <Link
+              href={buildPageUrl(currentPage + 1)}
+              className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent/30 hover:text-foreground"
+              aria-label="Next page"
+            >
+              Next <span aria-hidden="true">&rarr;</span>
+            </Link>
+          ) : (
+            <span className="cursor-not-allowed rounded-lg border border-white/5 px-3 py-1.5 text-sm text-white/20">
+              Next <span aria-hidden="true">&rarr;</span>
+            </span>
+          )}
+        </nav>
+      )}
+    </div>
+  );
+}
+
 export default async function DirectoryPage({
   searchParams,
 }: {
-  searchParams: { category?: string; search?: string; sort?: string; show_unverified?: string };
+  searchParams: { category?: string; search?: string; sort?: string; show_unverified?: string; page?: string };
 }) {
   const categories = await getAllCategories();
   const sort = (searchParams.sort as "newest" | "name" | "capabilities") ?? "newest";
   const showUnverified = searchParams.show_unverified === "true";
+  const currentPage = Math.max(1, parseInt(searchParams.page ?? "1", 10) || 1);
+  const offset = (currentPage - 1) * PER_PAGE;
 
   const { services, total } = await getAllServices({
     category: searchParams.category,
     search: searchParams.search,
     sort,
-    limit: 50,
-    offset: 0,
+    limit: PER_PAGE,
+    offset,
     include_unverified: showUnverified,
   });
+
+  const totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
 
   // Precompute capability counts
   const capCounts = new Map<number, number>();
@@ -92,7 +230,7 @@ export default async function DirectoryPage({
 
   const activeCategory = searchParams.category ?? "all";
 
-  // Build base query string for filter links
+  // Build query string for links — preserves all current filters
   function buildQuery(overrides: Record<string, string | undefined>) {
     const params: Record<string, string> = {
       sort,
@@ -100,12 +238,26 @@ export default async function DirectoryPage({
     };
     if (searchParams.search) params.search = searchParams.search;
     if (showUnverified) params.show_unverified = "true";
-    Object.assign(params, overrides);
-    // Remove defaults
+    // Apply overrides — delete keys set to undefined
+    for (const [key, value] of Object.entries(overrides)) {
+      if (value === undefined) {
+        delete params[key];
+      } else {
+        params[key] = value;
+      }
+    }
+    // Remove defaults to keep URLs clean
     if (params.category === "all") delete params.category;
     if (params.show_unverified === "false") delete params.show_unverified;
+    if (params.sort === "newest") delete params.sort;
+    if (params.page === "1") delete params.page;
     const qs = new URLSearchParams(params).toString();
     return `/directory${qs ? `?${qs}` : ""}`;
+  }
+
+  // Build URL for a specific page number (preserves all filters)
+  function buildPageUrl(page: number) {
+    return buildQuery({ page: String(page) });
   }
 
   return (
@@ -118,10 +270,10 @@ export default async function DirectoryPage({
           </p>
         </div>
 
-        {/* Search */}
+        {/* Search — resets to page 1 */}
         <form method="GET" action="/directory" className="flex gap-2">
-          <input type="hidden" name="category" value={activeCategory} />
-          <input type="hidden" name="sort" value={sort} />
+          {activeCategory !== "all" && <input type="hidden" name="category" value={activeCategory} />}
+          {sort !== "newest" && <input type="hidden" name="sort" value={sort} />}
           {showUnverified && <input type="hidden" name="show_unverified" value="true" />}
           <input
             name="search"
@@ -139,12 +291,12 @@ export default async function DirectoryPage({
         </form>
       </div>
 
-      {/* Filters */}
+      {/* Filters — all reset to page 1 */}
       <div className="mt-8 flex flex-wrap items-center gap-4">
         {/* Categories */}
         <div className="flex flex-wrap gap-2">
           <Link
-            href={buildQuery({ category: undefined })}
+            href={buildQuery({ category: undefined, page: undefined })}
             className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
               activeCategory === "all"
                 ? "bg-accent text-black"
@@ -156,7 +308,7 @@ export default async function DirectoryPage({
           {categories.map((cat) => (
             <Link
               key={cat.slug}
-              href={buildQuery({ category: cat.slug })}
+              href={buildQuery({ category: cat.slug, page: undefined })}
               className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
                 activeCategory === cat.slug
                   ? "bg-accent text-black"
@@ -168,11 +320,11 @@ export default async function DirectoryPage({
           ))}
         </div>
 
-        {/* Sort + Unverified toggle */}
+        {/* Sort + Unverified toggle — reset to page 1 */}
         <div className="ml-auto flex items-center gap-4 text-xs text-muted">
           {/* Unverified toggle */}
           <Link
-            href={buildQuery({ show_unverified: showUnverified ? "false" : "true" })}
+            href={buildQuery({ show_unverified: showUnverified ? "false" : "true", page: undefined })}
             className={`rounded-md px-2 py-1 transition-colors ${
               showUnverified
                 ? "bg-yellow-500/10 text-yellow-400"
@@ -188,7 +340,7 @@ export default async function DirectoryPage({
           {(["newest", "name", "capabilities"] as const).map((s) => (
             <Link
               key={s}
-              href={buildQuery({ sort: s })}
+              href={buildQuery({ sort: s, page: undefined })}
               className={`rounded-md px-2 py-1 transition-colors ${
                 sort === s
                   ? "bg-white/10 text-foreground"
@@ -214,15 +366,26 @@ export default async function DirectoryPage({
           </p>
         </div>
       ) : (
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              capCount={capCounts.get(service.id) ?? 0}
-            />
-          ))}
-        </div>
+        <>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <ServiceCard
+                key={service.id}
+                service={service}
+                capCount={capCounts.get(service.id) ?? 0}
+              />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            total={total}
+            perPage={PER_PAGE}
+            buildPageUrl={buildPageUrl}
+          />
+        </>
       )}
     </div>
   );
