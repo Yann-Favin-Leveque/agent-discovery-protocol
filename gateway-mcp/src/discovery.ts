@@ -37,29 +37,35 @@ async function fetchJson<T>(url: string): Promise<T> {
 // ─── Discovery (15min cache) ─────────────────────────────────────
 
 export async function discoverByQuery(
-  query: string
+  query: string,
+  options?: { include_unverified?: boolean }
 ): Promise<RegistryDiscoverResponse> {
+  const cacheKey = options?.include_unverified ? `${query}:unverified` : query;
+
   // Check in-memory hot cache
-  const mem = memDiscoveryCache.get(query);
+  const mem = memDiscoveryCache.get(cacheKey);
   if (mem && Date.now() - mem.at < CACHE_TTLS.discovery) {
     return mem.result;
   }
 
   // Check disk cache
-  const disk = getCachedDiscovery(query);
+  const disk = getCachedDiscovery(cacheKey);
   if (disk) {
-    memDiscoveryCache.set(query, { result: disk, at: Date.now() });
+    memDiscoveryCache.set(cacheKey, { result: disk, at: Date.now() });
     return disk;
   }
 
   // Fetch from registry
   const config = loadConfig();
-  const url = `${config.registry_url}/api/discover?q=${encodeURIComponent(query)}`;
+  let url = `${config.registry_url}/api/discover?q=${encodeURIComponent(query)}`;
+  if (options?.include_unverified) {
+    url += "&include_unverified=true";
+  }
   const result = await fetchJson<RegistryDiscoverResponse>(url);
 
   // Store in both caches
-  memDiscoveryCache.set(query, { result, at: Date.now() });
-  setCachedDiscovery(query, result);
+  memDiscoveryCache.set(cacheKey, { result, at: Date.now() });
+  setCachedDiscovery(cacheKey, result);
 
   return result;
 }

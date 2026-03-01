@@ -59,13 +59,14 @@ server.registerTool(
       query: z.string().optional().describe("Natural language search (e.g. 'send email', 'create invoice')"),
       domain: z.string().optional().describe("Specific domain to explore (e.g. 'api.mailforge.dev')"),
       capability: z.string().optional().describe("Capability name to drill into (requires domain)"),
+      include_unverified: z.boolean().optional().describe("Include unverified services in results (default: false, only trusted services shown)"),
     },
   },
-  async ({ query, domain, capability }) => {
+  async ({ query, domain, capability, include_unverified }) => {
     try {
       // Mode 1: Search registry by query
       if (query && !domain) {
-        const results = await discoverByQuery(query);
+        const results = await discoverByQuery(query, { include_unverified });
         const connections = getAllConnections();
         const connectedDomains = new Set(connections.map((c) => c.domain));
 
@@ -74,16 +75,16 @@ server.registerTool(
             const connected = connectedDomains.has(r.service.domain);
             const status = connected ? "[CONNECTED]" : "[NOT CONNECTED]";
             const trustLevel = r.service.trust_level ?? (r.service.verified ? "verified" : "unverified");
-            const trustBadge = trustLevel === "verified" ? "[VERIFIED]" :
-                               trustLevel === "community" ? "[COMMUNITY]" : "[UNVERIFIED]";
+            const trustBadge = trustLevel === "verified" ? "\u2705 Verified" :
+                               trustLevel === "community" ? "\uD83D\uDD35 Community" : "\u26A0\uFE0F Unverified";
             const caps = r.matching_capabilities.length > 0
               ? r.matching_capabilities.map((c) => `    - ${c.name}: ${c.description}`).join("\n")
               : r.all_capabilities.map((c) => `    - ${c.name}: ${c.description}`).join("\n");
 
             return [
-              `${r.service.name} (${r.service.domain}) ${trustBadge} ${status}`,
+              `${trustBadge} ${r.service.name} (${r.service.domain}) ${status}`,
               `  ${r.service.description}`,
-              `  Auth: ${r.service.auth_type} | Pricing: ${r.service.pricing_type} | Trust: ${trustLevel}`,
+              `  Auth: ${r.service.auth_type} | Pricing: ${r.service.pricing_type}`,
               `  Capabilities:`,
               caps,
             ].join("\n");
