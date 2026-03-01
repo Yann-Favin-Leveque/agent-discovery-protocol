@@ -56,11 +56,15 @@ export default function AgentsPage() {
 
         <div className="mt-6">
           <CodeBlock title="Install">{`npm install -g agent-gateway-mcp
-agent-gateway init   # Sign in with Google → done`}</CodeBlock>
+agent-gateway init   # Sign in with Google or GitHub → done`}</CodeBlock>
         </div>
 
         <div className="mt-4">
-          <CodeBlock title="MCP client config (Claude Desktop, Cursor, etc.)">{`{
+          <CodeBlock title="Claude Code">{`claude mcp add gateway -- agent-gateway-mcp`}</CodeBlock>
+        </div>
+
+        <div className="mt-4">
+          <CodeBlock title="Claude Desktop, Cursor, Windsurf, etc.">{`{
   "mcpServers": {
     "gateway": {
       "command": "agent-gateway-mcp"

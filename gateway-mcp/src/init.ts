@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import http from "http";
+import readline from "readline";
 import {
   loadConfig,
   saveConfig,
@@ -86,6 +87,31 @@ function parseArgs(): InitOptions {
   return opts;
 }
 
+// ─── Interactive provider prompt ─────────────────────────────────
+
+const PROVIDER_CHOICES: { key: string; provider: IdentityProvider; label: string }[] = [
+  { key: "1", provider: "google", label: "Google" },
+  { key: "2", provider: "github", label: "GitHub" },
+];
+
+async function promptProvider(): Promise<IdentityProvider> {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+
+  console.log("  Sign in to create your gateway identity:\n");
+  for (const c of PROVIDER_CHOICES) {
+    console.log(`  [${c.key}] ${c.label}`);
+  }
+  console.log("");
+
+  return new Promise<IdentityProvider>((resolve) => {
+    rl.question("  Choice (1-2, default 1): ", (answer) => {
+      rl.close();
+      const choice = PROVIDER_CHOICES.find((c) => c.key === answer.trim());
+      resolve(choice?.provider ?? "google");
+    });
+  });
+}
+
 // ─── Init flow ──────────────────────────────────────────────────
 
 async function init(): Promise<void> {
@@ -126,7 +152,7 @@ async function init(): Promise<void> {
   }
 
   // Determine provider
-  const provider = opts.provider ?? "google";
+  const provider = opts.provider ?? await promptProvider();
   const providerName = IDENTITY_PROVIDERS[provider] ?? provider;
 
   console.log(`  Signing in with ${providerName}...`);
