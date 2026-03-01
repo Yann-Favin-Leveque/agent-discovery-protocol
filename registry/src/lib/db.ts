@@ -157,11 +157,12 @@ const SEED_CATEGORIES = [
 ];
 
 async function seedCategories(db: Client) {
-  const stmts = SEED_CATEGORIES.map((cat) => ({
-    sql: "INSERT OR IGNORE INTO categories (name, slug) VALUES (?, ?)",
-    args: [cat.name, cat.slug],
-  }));
-  await db.batch(stmts);
+  for (const cat of SEED_CATEGORIES) {
+    await db.execute({
+      sql: "INSERT INTO categories (name, slug) SELECT ?, ? WHERE NOT EXISTS (SELECT 1 FROM categories WHERE slug = ?)",
+      args: [cat.name, cat.slug, cat.slug],
+    });
+  }
 }
 
 // ─── Row types ───────────────────────────────────────────────────
