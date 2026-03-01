@@ -118,19 +118,18 @@ async function initSchema(db: Client) {
     CREATE INDEX IF NOT EXISTS idx_blocked_domains_domain ON blocked_domains(domain);
   `);
 
-  // Column migrations for existing databases
-  const columns = await db.execute("PRAGMA table_info(services)");
-  const colNames = columns.rows.map(
-    (row) => (row as unknown as { name: string }).name
-  );
-
-  if (!colNames.includes("crawl_failures")) {
+  // Column migrations for existing databases — use try/catch because
+  // ALTER TABLE fails if the column already exists, and PRAGMA table_info
+  // doesn't work reliably on Turso HTTP.
+  try {
     await db.execute(
       "ALTER TABLE services ADD COLUMN crawl_failures INTEGER NOT NULL DEFAULT 0"
     );
+  } catch {
+    // Column already exists — ignore
   }
 
-  if (!colNames.includes("trust_level")) {
+  try {
     await db.execute(
       "ALTER TABLE services ADD COLUMN trust_level TEXT NOT NULL DEFAULT 'unverified'"
     );
@@ -138,6 +137,8 @@ async function initSchema(db: Client) {
     await db.execute(
       "UPDATE services SET trust_level = 'verified' WHERE verified = 1"
     );
+  } catch {
+    // Column already exists — ignore
   }
 
   await seedCategories(db);
