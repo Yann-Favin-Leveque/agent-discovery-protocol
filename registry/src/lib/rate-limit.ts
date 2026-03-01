@@ -48,7 +48,7 @@ export function checkRateLimit(
 }
 
 export const RATE_LIMITS = {
-  submitService: { maxRequests: 1000, windowMs: 60 * 60 * 1000 } as RateLimitConfig,
+  submitService: { maxRequests: 5, windowMs: 60 * 60 * 1000 } as RateLimitConfig,
   verifyService: { maxRequests: 3, windowMs: 60 * 60 * 1000 } as RateLimitConfig,
   discover: { maxRequests: 60, windowMs: 60 * 1000 } as RateLimitConfig,
   listServices: { maxRequests: 60, windowMs: 60 * 1000 } as RateLimitConfig,
