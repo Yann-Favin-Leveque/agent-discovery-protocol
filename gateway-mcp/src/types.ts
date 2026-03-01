@@ -119,8 +119,6 @@ export interface CacheEntry<T> {
 }
 
 export const CACHE_TTLS = {
-  manifest: 24 * 60 * 60 * 1000,   // 24 hours
-  capability: 60 * 60 * 1000,       // 1 hour
   discovery: 15 * 60 * 1000,        // 15 minutes
 } as const;
 

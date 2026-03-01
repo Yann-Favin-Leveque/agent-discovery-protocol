@@ -9,8 +9,6 @@ import type {
   CloudSyncState,
   CloudTokenBundle,
   CacheEntry,
-  Manifest,
-  CapabilityDetail,
   RegistryDiscoverResponse,
 } from "./types.js";
 import { CACHE_TTLS } from "./types.js";
@@ -21,8 +19,6 @@ const CONFIG_DIR = path.join(os.homedir(), ".agent-gateway");
 const CACHE_DIR = path.join(CONFIG_DIR, "cache");
 const CONFIG_FILE = path.join(CONFIG_DIR, "config.json");
 const TOKENS_FILE = path.join(CONFIG_DIR, "tokens.json");
-const MANIFEST_CACHE_DIR = path.join(CACHE_DIR, "manifests");
-const DETAIL_CACHE_DIR = path.join(CACHE_DIR, "details");
 const DISCOVERY_CACHE_DIR = path.join(CACHE_DIR, "discovery");
 
 const DEFAULT_CONFIG: GatewayConfig = {
@@ -48,8 +44,6 @@ function ensureDir(dir: string): void {
 function ensureDirs(): void {
   ensureDir(CONFIG_DIR);
   ensureDir(CACHE_DIR);
-  ensureDir(MANIFEST_CACHE_DIR);
-  ensureDir(DETAIL_CACHE_DIR);
   ensureDir(DISCOVERY_CACHE_DIR);
 }
 
@@ -317,26 +311,6 @@ function writeCacheEntry<T>(dir: string, key: string, data: T, ttl: number): voi
   } catch { /* ignore write failures */ }
 }
 
-// Manifest cache (24h)
-export function getCachedManifest(domain: string): Manifest | undefined {
-  return readCacheEntry<Manifest>(MANIFEST_CACHE_DIR, domain, CACHE_TTLS.manifest);
-}
-
-export function setCachedManifest(domain: string, manifest: Manifest): void {
-  writeCacheEntry(MANIFEST_CACHE_DIR, domain, manifest, CACHE_TTLS.manifest);
-}
-
-// Capability detail cache (1h)
-export function getCachedDetail(domain: string, capability: string): CapabilityDetail | undefined {
-  const key = `${domain}__${capability}`;
-  return readCacheEntry<CapabilityDetail>(DETAIL_CACHE_DIR, key, CACHE_TTLS.capability);
-}
-
-export function setCachedDetail(domain: string, capability: string, detail: CapabilityDetail): void {
-  const key = `${domain}__${capability}`;
-  writeCacheEntry(DETAIL_CACHE_DIR, key, detail, CACHE_TTLS.capability);
-}
-
 // Discovery cache (15min)
 export function getCachedDiscovery(query: string): RegistryDiscoverResponse | undefined {
   return readCacheEntry<RegistryDiscoverResponse>(DISCOVERY_CACHE_DIR, query, CACHE_TTLS.discovery);
@@ -348,7 +322,7 @@ export function setCachedDiscovery(query: string, results: RegistryDiscoverRespo
 
 // Clear all caches
 export function clearAllCaches(): void {
-  for (const dir of [MANIFEST_CACHE_DIR, DETAIL_CACHE_DIR, DISCOVERY_CACHE_DIR]) {
+  for (const dir of [DISCOVERY_CACHE_DIR]) {
     if (fs.existsSync(dir)) {
       for (const file of fs.readdirSync(dir)) {
         try { fs.unlinkSync(path.join(dir, file)); } catch { /* ignore */ }
