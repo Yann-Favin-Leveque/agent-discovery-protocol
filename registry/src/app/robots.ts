@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://agentdns.dev/sitemap.xml",
+    sitemap: "https://agent-dns.dev/sitemap.xml",
   };
 }

@@ -26,7 +26,7 @@ const DETAIL_CACHE_DIR = path.join(CACHE_DIR, "details");
 const DISCOVERY_CACHE_DIR = path.join(CACHE_DIR, "discovery");
 
 const DEFAULT_CONFIG: GatewayConfig = {
-  registry_url: "https://agentdns.dev",
+  registry_url: "https://agent-dns.dev",
   auth_callback_port: 9876,
 };
 

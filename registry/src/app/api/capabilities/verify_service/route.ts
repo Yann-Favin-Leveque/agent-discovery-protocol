@@ -18,7 +18,7 @@ export async function GET() {
     ],
     request_example: {
       method: "POST",
-      url: "https://agentdns.dev/api/verify/api.mailforge.dev",
+      url: "https://agent-dns.dev/api/verify/api.mailforge.dev",
       headers: {},
     },
     response_example: {

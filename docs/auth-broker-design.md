@@ -270,7 +270,7 @@ For services that support it, the registry could register itself automatically:
 POST /oauth/register
 {
   "client_name": "AgentDNS Registry",
-  "redirect_uris": ["https://agentdns.dev/auth/callback"],
+  "redirect_uris": ["https://agent-dns.dev/auth/callback"],
   "grant_types": ["authorization_code", "refresh_token"],
   "token_endpoint_auth_method": "client_secret_basic"
 }

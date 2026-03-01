@@ -107,7 +107,7 @@ app.get('/.well-known/agent', (req, res) => {
 });
 ```
 
-Then submit your domain to the registry at [agentdns.dev/submit](https://agentdns.dev/submit).
+Then submit your domain to the registry at [agent-dns.dev/submit](https://agent-dns.dev/submit).
 
 ## Local Development
 

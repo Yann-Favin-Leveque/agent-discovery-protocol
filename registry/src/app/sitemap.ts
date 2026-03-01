@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://agentdns.dev";
+  const baseUrl = "https://agent-dns.dev";
 
   return [
     {

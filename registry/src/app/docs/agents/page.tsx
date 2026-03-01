@@ -149,7 +149,7 @@ Agent: "Done! Invoice INV-2024-0042 sent to Acme Corp."`}</CodeBlock>
 
         <div className="mt-6">
           <CodeBlock title="Search for services (TypeScript)">{`const res = await fetch(
-  "https://agentdns.dev/api/discover?q=send+email"
+  "https://agent-dns.dev/api/discover?q=send+email"
 );
 const { data } = await res.json();
 

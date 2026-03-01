@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "AgentDNS — The DNS for AI Agents",
     description:
       "Discover any API. Zero installation. One gateway. Replace all your MCP plugins with a single protocol.",
-    url: "https://agentdns.dev",
+    url: "https://agent-dns.dev",
   },
   twitter: {
     card: "summary_large_image",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
-  metadataBase: new URL("https://agentdns.dev"),
+  metadataBase: new URL("https://agent-dns.dev"),
 };
 
 export default function RootLayout({

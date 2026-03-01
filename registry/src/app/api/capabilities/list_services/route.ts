@@ -46,7 +46,7 @@ export async function GET() {
     ],
     request_example: {
       method: "GET",
-      url: "https://agentdns.dev/api/services?category=email&sort=newest&limit=10",
+      url: "https://agent-dns.dev/api/services?category=email&sort=newest&limit=10",
       headers: {},
     },
     response_example: {

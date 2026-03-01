@@ -470,7 +470,7 @@ function printMcpConfig(registryUrl: string): void {
     mcpServers: {
       gateway: {
         command: "agent-gateway-mcp",
-        args: registryUrl !== "https://agentdns.dev"
+        args: registryUrl !== "https://agent-dns.dev"
           ? ["--registry", registryUrl]
           : [],
       },

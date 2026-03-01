@@ -66,7 +66,7 @@ export default function ApiPage() {
       <h1 className="mt-6 text-4xl font-bold">API Reference</h1>
       <p className="mt-4 text-lg text-muted">
         The AgentDNS registry REST API. Base URL:{" "}
-        <code className="text-accent">https://agentdns.dev</code>
+        <code className="text-accent">https://agent-dns.dev</code>
       </p>
 
       {/* TOC */}

@@ -18,7 +18,7 @@ export async function GET() {
     ],
     request_example: {
       method: "GET",
-      url: "https://agentdns.dev/api/discover?q=send+email",
+      url: "https://agent-dns.dev/api/discover?q=send+email",
       headers: {},
     },
     response_example: {

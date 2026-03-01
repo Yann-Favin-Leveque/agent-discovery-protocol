@@ -5,7 +5,7 @@ const REGISTRY_MANIFEST = {
   name: "AgentDNS Registry",
   description:
     "The searchable registry for the Agent Discovery Protocol. Find any API by intent, submit new services, and verify endpoints. This is the DNS for AI agents — query it to discover services instead of installing plugins.",
-  base_url: "https://agentdns.dev",
+  base_url: "https://agent-dns.dev",
   auth: {
     type: "none" as const,
   },
