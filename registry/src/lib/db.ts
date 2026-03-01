@@ -26,10 +26,16 @@ async function ensureInitialized(): Promise<Pool> {
   if (initialized) return p;
 
   if (!initPromise) {
-    initPromise = initSchema(p).then(() => {
+    // In production, skip schema creation — tables already exist
+    if (process.env.SKIP_SCHEMA_INIT === "true") {
       initialized = true;
-      return p;
-    });
+      initPromise = Promise.resolve(p);
+    } else {
+      initPromise = initSchema(p).then(() => {
+        initialized = true;
+        return p;
+      });
+    }
   }
   return initPromise;
 }
