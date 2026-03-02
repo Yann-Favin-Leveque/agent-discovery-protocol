@@ -16,8 +16,6 @@ import {
   setRegistryUrl,
   loadConfig,
   storeConnection,
-  syncTokensToCloud,
-  syncTokensFromCloud,
   clearAllCaches,
 } from "./config.js";
 
@@ -318,9 +316,6 @@ server.registerTool(
         };
       }
 
-      // Sync new connection to cloud (fire and forget)
-      syncTokensToCloud().catch(() => { /* silent */ });
-
       return {
         content: [
           {
@@ -350,7 +345,7 @@ server.registerTool(
   {
     description: "Connect to a service. For OAuth2 services, opens a browser for authorization. " +
       "For API key services, provide the key. For public APIs, auto-connects. " +
-      "Tokens are cloud-synced to your registry account.",
+      "Tokens are stored locally on your machine.",
     inputSchema: {
       domain: z.string().describe("Service domain to connect to"),
       api_key: z.string().optional().describe("API key (for api_key auth type services)"),
@@ -363,11 +358,6 @@ server.registerTool(
         result = await storeApiKey(domain, api_key);
       } else {
         result = await authenticate(domain);
-      }
-
-      // Sync to cloud on successful auth
-      if (result.success) {
-        syncTokensToCloud().catch(() => { /* silent */ });
       }
 
       return {
@@ -511,7 +501,6 @@ server.registerTool(
             status: "active",
           },
         });
-        syncTokensToCloud().catch(() => {});
       }
 
       return { content: [{ type: "text" as const, text }] };

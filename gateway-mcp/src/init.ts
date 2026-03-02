@@ -8,7 +8,6 @@ import {
   storeIdentity,
   isInitialized,
   getIdentity,
-  syncTokensFromCloud,
   setRegistryUrl,
   getOAuthCredentials,
 } from "./config.js";
@@ -93,16 +92,6 @@ async function init(): Promise<void> {
     console.log(`  Already signed in as ${identity.email} (${identity.provider})`);
     console.log("");
 
-    // Sync connections
-    console.log("  Syncing connections from cloud...");
-    const sync = await syncTokensFromCloud();
-    if (sync.success) {
-      console.log(`  Synced ${sync.count} new connection(s).`);
-    } else {
-      console.log(`  Sync skipped: ${sync.error}`);
-    }
-
-    console.log("");
     console.log("  You're all set! Your agent can now use the gateway.");
     console.log("");
     printMcpConfig(registryUrl);
@@ -131,20 +120,6 @@ async function init(): Promise<void> {
   console.log(`  Signed in as ${identity.email}`);
   console.log("");
 
-  // Sync existing connections from cloud
-  console.log("  Syncing connections from cloud...");
-  const sync = await syncTokensFromCloud();
-  if (sync.success) {
-    if (sync.count > 0) {
-      console.log(`  Restored ${sync.count} connection(s) from your account.`);
-    } else {
-      console.log("  No existing connections found. Start fresh!");
-    }
-  } else {
-    console.log("  Cloud sync skipped (will retry on next run).");
-  }
-
-  console.log("");
   console.log("  Setup complete! Add this to your MCP client config:");
   console.log("");
   printMcpConfig(registryUrl);

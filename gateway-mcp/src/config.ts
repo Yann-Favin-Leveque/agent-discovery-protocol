@@ -6,8 +6,6 @@ import type {
   StoredToken,
   Connection,
   UserIdentity,
-  CloudSyncState,
-  CloudTokenBundle,
   CacheEntry,
   Manifest,
   CapabilityDetail,
@@ -114,7 +112,6 @@ export function storeIdentity(identity: UserIdentity): void {
 export function clearIdentity(): void {
   const config = loadConfig();
   delete config.identity;
-  delete config.cloud_sync;
   saveConfig(config);
 }
 
@@ -190,99 +187,6 @@ export function getAllConnections(): Connection[] {
 export function getAllTokens(): StoredToken[] {
   const store = loadTokenStore();
   return Object.values(store.tokens);
-}
-
-// ─── Cloud sync ──────────────────────────────────────────────────
-
-export async function syncTokensToCloud(): Promise<{ success: boolean; error?: string }> {
-  const config = loadConfig();
-  if (!config.identity) {
-    return { success: false, error: "Not signed in. Run `agent-gateway init` first." };
-  }
-
-  const store = loadTokenStore();
-  const bundle: CloudTokenBundle = {
-    tokens: store.tokens,
-    connections: store.connections,
-    synced_at: new Date().toISOString(),
-  };
-
-  try {
-    const res = await fetch(`${config.registry_url}/api/gateway/sync`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${config.identity.registry_token}`,
-      },
-      body: JSON.stringify(bundle),
-      signal: AbortSignal.timeout(10000),
-    });
-
-    if (!res.ok) {
-      return { success: false, error: `Sync failed: HTTP ${res.status}` };
-    }
-
-    // Update sync state
-    config.cloud_sync = {
-      last_synced_at: bundle.synced_at,
-    };
-    saveConfig(config);
-    return { success: true };
-  } catch (err) {
-    return {
-      success: false,
-      error: `Sync failed: ${err instanceof Error ? err.message : "unknown"}`,
-    };
-  }
-}
-
-export async function syncTokensFromCloud(): Promise<{ success: boolean; count: number; error?: string }> {
-  const config = loadConfig();
-  if (!config.identity) {
-    return { success: false, count: 0, error: "Not signed in. Run `agent-gateway init` first." };
-  }
-
-  try {
-    const res = await fetch(`${config.registry_url}/api/gateway/sync`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${config.identity.registry_token}`,
-      },
-      signal: AbortSignal.timeout(10000),
-    });
-
-    if (!res.ok) {
-      return { success: false, count: 0, error: `Sync failed: HTTP ${res.status}` };
-    }
-
-    const bundle = (await res.json()) as CloudTokenBundle;
-    const store = loadTokenStore();
-
-    // Merge: cloud data wins for any conflicts
-    let count = 0;
-    for (const [domain, token] of Object.entries(bundle.tokens)) {
-      if (!store.tokens[domain]) count++;
-      store.tokens[domain] = token;
-    }
-    for (const [domain, conn] of Object.entries(bundle.connections)) {
-      store.connections[domain] = conn;
-    }
-
-    saveTokenStore(store);
-
-    config.cloud_sync = {
-      last_synced_at: bundle.synced_at,
-    };
-    saveConfig(config);
-
-    return { success: true, count };
-  } catch (err) {
-    return {
-      success: false,
-      count: 0,
-      error: `Sync failed: ${err instanceof Error ? err.message : "unknown"}`,
-    };
-  }
 }
 
 // ─── Disk cache ──────────────────────────────────────────────────
