@@ -194,11 +194,15 @@ function buildManifest(config) {
 
   manifest.capabilities = (config.capabilities || []).map(function (cap) {
     var name = cap.name || '';
-    return {
+    var entry = {
       name: name,
       description: cap.description || '',
       detail_url: '/.well-known/agent/capabilities/' + name,
     };
+    if (cap.resource_group) {
+      entry.resource_group = cap.resource_group;
+    }
+    return entry;
   });
 
   return manifest;
@@ -239,6 +243,10 @@ function buildCapabilityDetail(cap, config) {
 
   if (cap.rate_limits) {
     detail.rate_limits = cap.rate_limits;
+  }
+
+  if (cap.resource_group) {
+    detail.resource_group = cap.resource_group;
   }
 
   return detail;

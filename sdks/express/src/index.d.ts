@@ -107,6 +107,8 @@ export interface CapabilityConfig {
   auth_scopes?: string[];
   /** Rate limiting information. */
   rate_limits?: RateLimitConfig;
+  /** Logical resource group for organizing related capabilities (e.g. "messages", "users"). */
+  resource_group?: string;
 }
 
 /**

@@ -89,6 +89,8 @@ export interface CapabilityConfig {
   auth_scopes?: string[];
   /** Rate limits for this capability. */
   rate_limits?: RateLimitConfig;
+  /** Logical resource group for organizing related capabilities (e.g. "messages", "users"). */
+  resource_group?: string;
 }
 
 /** Shape of an auto-generated or user-provided request example. */
@@ -129,6 +131,7 @@ interface ManifestCapability {
   name: string;
   description: string;
   detail_url: string;
+  resource_group?: string;
 }
 
 interface Manifest {
@@ -161,6 +164,7 @@ interface CapabilityDetail {
   response_example?: ResponseExample;
   auth_scopes?: string[];
   rate_limits?: RateLimitConfig;
+  resource_group?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -340,11 +344,17 @@ function buildManifest(config: AgentConfig): Manifest {
     description: config.description,
     base_url: config.base_url,
     auth: config.auth,
-    capabilities: (config.capabilities || []).map((cap) => ({
-      name: cap.name,
-      description: cap.description,
-      detail_url: `/.well-known/agent/capabilities/${cap.name}`,
-    })),
+    capabilities: (config.capabilities || []).map((cap) => {
+      const entry: ManifestCapability = {
+        name: cap.name,
+        description: cap.description,
+        detail_url: `/.well-known/agent/capabilities/${cap.name}`,
+      };
+      if (cap.resource_group) {
+        entry.resource_group = cap.resource_group;
+      }
+      return entry;
+    }),
   };
 
   if (config.pricing) {
@@ -392,6 +402,10 @@ function buildCapabilityDetail(
 
   if (cap.rate_limits) {
     detail.rate_limits = cap.rate_limits;
+  }
+
+  if (cap.resource_group) {
+    detail.resource_group = cap.resource_group;
   }
 
   return detail;

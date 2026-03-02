@@ -58,6 +58,10 @@ class Capability(BaseModel):
         None,
         description="Rate-limiting info (e.g. requests_per_minute, daily_limit).",
     )
+    resource_group: Optional[str] = Field(
+        None,
+        description="Logical resource group for organizing related capabilities (e.g. 'messages', 'users').",
+    )
 
     # -- validators ---------------------------------------------------------
 
@@ -126,11 +130,14 @@ class Capability(BaseModel):
 
     def to_manifest_entry(self) -> Dict[str, Any]:
         """Return the lightweight summary used in the top-level manifest."""
-        return {
+        entry: Dict[str, Any] = {
             "name": self.name,
             "description": self.description,
             "detail_url": self._detail_url(),
         }
+        if self.resource_group is not None:
+            entry["resource_group"] = self.resource_group
+        return entry
 
     def to_detail(self, base_url: str, auth: Dict[str, Any]) -> Dict[str, Any]:
         """Return the full detail payload for the capability detail endpoint."""
@@ -155,6 +162,9 @@ class Capability(BaseModel):
 
         if self.rate_limits is not None:
             detail["rate_limits"] = self.rate_limits
+
+        if self.resource_group is not None:
+            detail["resource_group"] = self.resource_group
 
         return detail
 
