@@ -9,6 +9,8 @@ import type {
   CloudSyncState,
   CloudTokenBundle,
   CacheEntry,
+  Manifest,
+  CapabilityDetail,
   RegistryDiscoverResponse,
 } from "./types.js";
 import { CACHE_TTLS } from "./types.js";
@@ -20,6 +22,8 @@ const CACHE_DIR = path.join(CONFIG_DIR, "cache");
 const CONFIG_FILE = path.join(CONFIG_DIR, "config.json");
 const TOKENS_FILE = path.join(CONFIG_DIR, "tokens.json");
 const DISCOVERY_CACHE_DIR = path.join(CACHE_DIR, "discovery");
+const MANIFEST_CACHE_DIR = path.join(CACHE_DIR, "manifests");
+const CAPABILITY_CACHE_DIR = path.join(CACHE_DIR, "capabilities");
 
 const DEFAULT_CONFIG: GatewayConfig = {
   registry_url: "https://agent-dns.dev",
@@ -45,6 +49,8 @@ function ensureDirs(): void {
   ensureDir(CONFIG_DIR);
   ensureDir(CACHE_DIR);
   ensureDir(DISCOVERY_CACHE_DIR);
+  ensureDir(MANIFEST_CACHE_DIR);
+  ensureDir(CAPABILITY_CACHE_DIR);
 }
 
 // ─── Config ──────────────────────────────────────────────────────
@@ -320,9 +326,27 @@ export function setCachedDiscovery(query: string, results: RegistryDiscoverRespo
   writeCacheEntry(DISCOVERY_CACHE_DIR, query, results, CACHE_TTLS.discovery);
 }
 
+// Manifest cache (1 hour)
+export function getCachedManifest(domain: string): Manifest | undefined {
+  return readCacheEntry<Manifest>(MANIFEST_CACHE_DIR, domain, CACHE_TTLS.manifest);
+}
+
+export function setCachedManifest(domain: string, manifest: Manifest): void {
+  writeCacheEntry(MANIFEST_CACHE_DIR, domain, manifest, CACHE_TTLS.manifest);
+}
+
+// Capability detail cache (1 hour)
+export function getCachedCapability(domain: string, capName: string): CapabilityDetail | undefined {
+  return readCacheEntry<CapabilityDetail>(CAPABILITY_CACHE_DIR, `${domain}__${capName}`, CACHE_TTLS.capability);
+}
+
+export function setCachedCapability(domain: string, capName: string, detail: CapabilityDetail): void {
+  writeCacheEntry(CAPABILITY_CACHE_DIR, `${domain}__${capName}`, detail, CACHE_TTLS.capability);
+}
+
 // Clear all caches
 export function clearAllCaches(): void {
-  for (const dir of [DISCOVERY_CACHE_DIR]) {
+  for (const dir of [DISCOVERY_CACHE_DIR, MANIFEST_CACHE_DIR, CAPABILITY_CACHE_DIR]) {
     if (fs.existsSync(dir)) {
       for (const file of fs.readdirSync(dir)) {
         try { fs.unlinkSync(path.join(dir, file)); } catch { /* ignore */ }

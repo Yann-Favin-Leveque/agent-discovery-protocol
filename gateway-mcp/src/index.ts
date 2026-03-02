@@ -63,13 +63,14 @@ server.registerTool(
       capability: z.string().optional().describe("Capability name to drill into (requires domain)"),
       include_unverified: z.boolean().optional().describe("Include unverified services in results (default: false, only trusted services shown)"),
       resource: z.string().optional().describe("Filter capabilities by resource group (e.g. 'messages', 'users')"),
+      force_refresh: z.boolean().optional().describe("Bypass cache and fetch fresh data from the registry (default: false)"),
     },
   },
-  async ({ query, domain, capability, include_unverified, resource }) => {
+  async ({ query, domain, capability, include_unverified, resource, force_refresh }) => {
     try {
       // Mode 1: Search registry by query
       if (query && !domain) {
-        const results = await discoverByQuery(query, { include_unverified });
+        const results = await discoverByQuery(query, { include_unverified, force_refresh });
         const connections = getAllConnections();
         const connectedDomains = new Set(connections.map((c) => c.domain));
 
@@ -108,7 +109,7 @@ server.registerTool(
 
       // Mode 2: Fetch specific domain's manifest
       if (domain && !capability) {
-        const manifest = await fetchManifest(domain);
+        const manifest = await fetchManifest(domain, { force_refresh });
         const token = getToken(domain);
         const connected = token && token.access_token ? "[CONNECTED]" : "[NOT CONNECTED]";
 
@@ -196,7 +197,7 @@ server.registerTool(
 
       // Mode 3: Drill into a specific capability
       if (domain && capability) {
-        const detail = await fetchCapabilityDetail(domain, capability);
+        const detail = await fetchCapabilityDetail(domain, capability, { force_refresh });
         const manifest = await fetchManifest(domain);
         const fullUrl = detail.endpoint.startsWith("http")
           ? detail.endpoint

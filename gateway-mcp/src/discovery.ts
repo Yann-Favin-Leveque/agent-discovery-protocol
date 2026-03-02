@@ -2,6 +2,10 @@ import {
   loadConfig,
   getCachedDiscovery,
   setCachedDiscovery,
+  getCachedManifest,
+  setCachedManifest,
+  getCachedCapability,
+  setCachedCapability,
   clearAllCaches,
 } from "./config.js";
 import type {
@@ -11,9 +15,11 @@ import type {
 } from "./types.js";
 import { CACHE_TTLS } from "./types.js";
 
-// ─── In-memory hot cache (discovery only) ────────────────────────
+// ─── In-memory hot caches ────────────────────────────────────────
 
 const memDiscoveryCache = new Map<string, { result: RegistryDiscoverResponse; at: number }>();
+const memManifestCache = new Map<string, { result: Manifest; at: number }>();
+const memCapabilityCache = new Map<string, { result: CapabilityDetail; at: number }>();
 
 // ─── Fetch helper ────────────────────────────────────────────────
 
@@ -32,21 +38,23 @@ async function fetchJson<T>(url: string): Promise<T> {
 
 export async function discoverByQuery(
   query: string,
-  options?: { include_unverified?: boolean }
+  options?: { include_unverified?: boolean; force_refresh?: boolean }
 ): Promise<RegistryDiscoverResponse> {
   const cacheKey = options?.include_unverified ? `${query}:unverified` : query;
 
-  // Check in-memory hot cache
-  const mem = memDiscoveryCache.get(cacheKey);
-  if (mem && Date.now() - mem.at < CACHE_TTLS.discovery) {
-    return mem.result;
-  }
+  if (!options?.force_refresh) {
+    // Check in-memory hot cache
+    const mem = memDiscoveryCache.get(cacheKey);
+    if (mem && Date.now() - mem.at < CACHE_TTLS.discovery) {
+      return mem.result;
+    }
 
-  // Check disk cache
-  const disk = getCachedDiscovery(cacheKey);
-  if (disk) {
-    memDiscoveryCache.set(cacheKey, { result: disk, at: Date.now() });
-    return disk;
+    // Check disk cache
+    const disk = getCachedDiscovery(cacheKey);
+    if (disk) {
+      memDiscoveryCache.set(cacheKey, { result: disk, at: Date.now() });
+      return disk;
+    }
   }
 
   // Fetch from registry
@@ -64,14 +72,32 @@ export async function discoverByQuery(
   return result;
 }
 
-// ─── Manifest (always live) ──────────────────────────────────────
+// ─── Manifest (1h cache) ─────────────────────────────────────────
 
-export async function fetchManifest(domain: string): Promise<Manifest> {
-  // Try live /.well-known/agent first, fall back to registry
+export async function fetchManifest(
+  domain: string,
+  options?: { force_refresh?: boolean }
+): Promise<Manifest> {
+  if (!options?.force_refresh) {
+    // Check in-memory hot cache
+    const mem = memManifestCache.get(domain);
+    if (mem && Date.now() - mem.at < CACHE_TTLS.manifest) {
+      return mem.result;
+    }
+
+    // Check disk cache
+    const disk = getCachedManifest(domain);
+    if (disk) {
+      memManifestCache.set(domain, { result: disk, at: Date.now() });
+      return disk;
+    }
+  }
+
+  // Fetch: try live /.well-known/agent first, fall back to registry
+  let manifest: Manifest;
   try {
-    return await fetchJson<Manifest>(`https://${domain}/.well-known/agent`);
+    manifest = await fetchJson<Manifest>(`https://${domain}/.well-known/agent`);
   } catch {
-    // Service doesn't host its own endpoint — fetch from registry
     const config = loadConfig();
     const reg = await fetchJson<{ success: boolean; data: { manifest: Manifest } }>(
       `${config.registry_url}/api/services/${encodeURIComponent(domain)}`
@@ -81,17 +107,42 @@ export async function fetchManifest(domain: string): Promise<Manifest> {
         `Service '${domain}' has no /.well-known/agent endpoint and is not in the registry.`
       );
     }
-    return reg.data.manifest;
+    manifest = reg.data.manifest;
   }
+
+  // Store in both caches
+  memManifestCache.set(domain, { result: manifest, at: Date.now() });
+  setCachedManifest(domain, manifest);
+
+  return manifest;
 }
 
-// ─── Capability detail (service-first, registry fallback) ────────
+// ─── Capability detail (1h cache, service-first, registry fallback) ──
 
 export async function fetchCapabilityDetail(
   domain: string,
-  capabilityName: string
+  capabilityName: string,
+  options?: { force_refresh?: boolean }
 ): Promise<CapabilityDetail> {
-  const manifest = await fetchManifest(domain);
+  const cacheKey = `${domain}__${capabilityName}`;
+
+  if (!options?.force_refresh) {
+    // Check in-memory hot cache
+    const mem = memCapabilityCache.get(cacheKey);
+    if (mem && Date.now() - mem.at < CACHE_TTLS.capability) {
+      return mem.result;
+    }
+
+    // Check disk cache
+    const disk = getCachedCapability(domain, capabilityName);
+    if (disk) {
+      memCapabilityCache.set(cacheKey, { result: disk, at: Date.now() });
+      return disk;
+    }
+  }
+
+  // Need manifest to find detail_url
+  const manifest = await fetchManifest(domain, options);
   const cap = manifest.capabilities.find((c) => c.name === capabilityName);
   if (!cap) {
     throw new Error(
@@ -99,35 +150,47 @@ export async function fetchCapabilityDetail(
     );
   }
 
-  // Step 1: Try the service's own detail_url (spec-compliant services)
   const detailUrl = cap.detail_url.startsWith("http")
     ? cap.detail_url
     : `${manifest.base_url}${cap.detail_url}`;
 
+  let detail: CapabilityDetail | undefined;
+
+  // Step 1: Try the service's own detail_url
   try {
-    return await fetchJson<CapabilityDetail>(detailUrl);
+    detail = await fetchJson<CapabilityDetail>(detailUrl);
   } catch {
-    // Service doesn't serve capability details — fall through to registry
+    // Fall through to registry
   }
 
   // Step 2: Fallback to registry's stored capability detail
-  const config = loadConfig();
-  try {
-    return await fetchJson<CapabilityDetail>(
-      `${config.registry_url}/api/services/${encodeURIComponent(domain)}/capabilities/${encodeURIComponent(capabilityName)}`
-    );
-  } catch {
-    throw new Error(
-      `Cannot fetch details for '${capabilityName}' on ${domain}. ` +
-      `The service's detail_url (${detailUrl}) is unreachable, ` +
-      `and the registry has no stored details for this capability.`
-    );
+  if (!detail) {
+    const config = loadConfig();
+    try {
+      detail = await fetchJson<CapabilityDetail>(
+        `${config.registry_url}/api/services/${encodeURIComponent(domain)}/capabilities/${encodeURIComponent(capabilityName)}`
+      );
+    } catch {
+      throw new Error(
+        `Cannot fetch details for '${capabilityName}' on ${domain}. ` +
+        `The service's detail_url (${detailUrl}) is unreachable, ` +
+        `and the registry has no stored details for this capability.`
+      );
+    }
   }
+
+  // Store in both caches
+  memCapabilityCache.set(cacheKey, { result: detail, at: Date.now() });
+  setCachedCapability(domain, capabilityName, detail);
+
+  return detail;
 }
 
 // ─── Cache management ────────────────────────────────────────────
 
 export function clearCache(): void {
   memDiscoveryCache.clear();
+  memManifestCache.clear();
+  memCapabilityCache.clear();
   clearAllCaches();
 }

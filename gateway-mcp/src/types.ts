@@ -122,6 +122,8 @@ export interface CacheEntry<T> {
 
 export const CACHE_TTLS = {
   discovery: 15 * 60 * 1000,        // 15 minutes
+  manifest: 60 * 60 * 1000,         // 1 hour  — manifests rarely change
+  capability: 60 * 60 * 1000,       // 1 hour  — capability details rarely change
 } as const;
 
 // ─── Config ──────────────────────────────────────────────────────
