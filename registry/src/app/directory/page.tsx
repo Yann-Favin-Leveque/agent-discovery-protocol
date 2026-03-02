@@ -32,7 +32,19 @@ function TrustBadge({ level }: { level: string }) {
   );
 }
 
+function formatCrawledDate(iso: string | null): string | null {
+  if (!iso) return null;
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  } catch {
+    return null;
+  }
+}
+
 function ServiceCard({ service }: { service: ServiceListItem }) {
+  const crawledDate = formatCrawledDate(service.last_crawled_at);
+
   return (
     <Link
       href={`/directory/${service.domain}`}
@@ -49,13 +61,20 @@ function ServiceCard({ service }: { service: ServiceListItem }) {
         {service.description}
       </p>
 
-      <div className="mt-4 flex items-center gap-3">
-        <span className="rounded-md bg-surface px-2 py-0.5 font-mono text-xs text-muted">
-          {service.auth_type}
-        </span>
-        <span className="text-xs text-muted">
-          {service.cap_count} {service.cap_count === 1 ? "capability" : "capabilities"}
-        </span>
+      <div className="mt-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="rounded-md bg-surface px-2 py-0.5 font-mono text-xs text-muted">
+            {service.auth_type}
+          </span>
+          <span className="text-xs text-muted">
+            {service.cap_count} {service.cap_count === 1 ? "capability" : "capabilities"}
+          </span>
+        </div>
+        {crawledDate && service.trust_level === "community" && (
+          <span className="text-[10px] text-muted/60" title="Manifest last crawled">
+            Crawled {crawledDate}
+          </span>
+        )}
       </div>
     </Link>
   );

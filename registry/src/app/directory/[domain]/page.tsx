@@ -101,8 +101,16 @@ export default async function ServiceDetailPage(props: {
         )}
         {service.last_crawled_at && (
           <div className="rounded-lg border border-white/5 bg-surface-light px-4 py-2">
-            <span className="text-xs text-muted">Last verified</span>
-            <p className="font-mono text-sm">{service.last_crawled_at}</p>
+            <span className="text-xs text-muted">Last crawled</span>
+            <p className="font-mono text-sm">
+              {(() => {
+                try {
+                  return new Date(service.last_crawled_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+                } catch {
+                  return service.last_crawled_at;
+                }
+              })()}
+            </p>
           </div>
         )}
       </div>
