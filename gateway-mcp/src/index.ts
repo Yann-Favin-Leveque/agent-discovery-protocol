@@ -3,7 +3,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { discoverByQuery, fetchManifest, fetchCapabilityDetail, clearCache } from "./discovery.js";
+import { discoverByQuery, fetchManifest, fetchCapabilityDetail, pickTopCapabilities, fetchTopCapabilityDetails, clearCache } from "./discovery.js";
 import { authenticate, storeApiKey } from "./auth.js";
 import { callCapability } from "./caller.js";
 import {
@@ -174,6 +174,34 @@ server.registerTool(
           ].join("\n");
         }
 
+        // Fetch top capabilities inline (best-effort, parallel)
+        let topSection = "";
+        if (!resource) {
+          const topNames = pickTopCapabilities(allCaps, 3);
+          if (topNames.length > 0) {
+            const topDetails = await fetchTopCapabilityDetails(domain, topNames, { force_refresh });
+            if (topDetails.length > 0) {
+              const topLines = topDetails.map((d) => {
+                const fullUrl = d.endpoint.startsWith("http") ? d.endpoint : `${manifest.base_url}${d.endpoint}`;
+                const params = d.parameters
+                  .map((p) => `      ${p.name} (${p.type}${p.required ? ", required" : ""}): ${p.description}`)
+                  .join("\n");
+                return [
+                  `  ${d.name}: ${d.description}`,
+                  `    ${d.method} ${fullUrl}`,
+                  `    Parameters:`,
+                  params,
+                ].join("\n");
+              });
+              topSection = [
+                ``,
+                `Top capabilities (ready to call):`,
+                ...topLines,
+              ].join("\n");
+            }
+          }
+        }
+
         const text = [
           `${manifest.name} (${domain}) ${connected}`,
           `${manifest.description}`,
@@ -184,6 +212,7 @@ server.registerTool(
           `Spec version: ${manifest.spec_version}`,
           ``,
           capsSection,
+          topSection || null,
           ``,
           `To use a capability, call the 'call' tool with domain="${domain}" and the capability name.`,
           `To see full details on a capability, call 'discover' with domain="${domain}" and capability="<name>".`,

@@ -186,6 +186,52 @@ export async function fetchCapabilityDetail(
   return detail;
 }
 
+// ─── Top capabilities scoring ───────────────────────────────────
+
+const TOP_VERBS = ["list", "get", "search", "send", "create"];
+
+function scoreCapability(name: string): number {
+  const lower = name.toLowerCase();
+  for (let i = 0; i < TOP_VERBS.length; i++) {
+    if (lower.endsWith(`_${TOP_VERBS[i]}`) || lower.startsWith(`${TOP_VERBS[i]}_`)) {
+      return TOP_VERBS.length - i; // higher score for earlier verbs
+    }
+  }
+  return 0;
+}
+
+/**
+ * Pick the top N most useful capabilities from a manifest.
+ * Prioritizes list/get/search/send/create operations.
+ */
+export function pickTopCapabilities(
+  capabilities: Array<{ name: string; description: string; detail_url: string; resource_group?: string }>,
+  n = 3
+): string[] {
+  return capabilities
+    .map((c) => ({ name: c.name, score: scoreCapability(c.name) }))
+    .filter((c) => c.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, n)
+    .map((c) => c.name);
+}
+
+/**
+ * Fetch top capability details for a domain (parallel fetch, best-effort).
+ */
+export async function fetchTopCapabilityDetails(
+  domain: string,
+  capNames: string[],
+  options?: { force_refresh?: boolean }
+): Promise<CapabilityDetail[]> {
+  const results = await Promise.allSettled(
+    capNames.map((name) => fetchCapabilityDetail(domain, name, options))
+  );
+  return results
+    .filter((r): r is PromiseFulfilledResult<CapabilityDetail> => r.status === "fulfilled")
+    .map((r) => r.value);
+}
+
 // ─── Cache management ────────────────────────────────────────────
 
 export function clearCache(): void {

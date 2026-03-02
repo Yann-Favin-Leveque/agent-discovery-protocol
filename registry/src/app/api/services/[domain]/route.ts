@@ -31,6 +31,7 @@ export async function GET(
         name: c.name,
         description: c.description,
         detail_url: c.detail_url,
+        ...(c.resource_group ? { resource_group: c.resource_group } : {}),
         ...(includeDetails && c.detail_json ? { detail: c.detail_json } : {}),
       })),
     };

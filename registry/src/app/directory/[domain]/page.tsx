@@ -37,6 +37,34 @@ export default async function ServiceDetailPage(props: {
     })),
   };
 
+  // Pick top capabilities (list/get/create operations with detail_json)
+  const TOP_VERBS = ["list", "get", "search", "send", "create"];
+  const topCaps = capabilities
+    .filter((c) => c.detail_json)
+    .map((c) => {
+      const lower = c.name.toLowerCase();
+      let score = 0;
+      for (let i = 0; i < TOP_VERBS.length; i++) {
+        if (lower.endsWith(`_${TOP_VERBS[i]}`) || lower.startsWith(`${TOP_VERBS[i]}_`)) {
+          score = TOP_VERBS.length - i;
+          break;
+        }
+      }
+      return { ...c, score };
+    })
+    .filter((c) => c.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+
+  // Group capabilities by resource_group
+  const groups = new Map<string, typeof capabilities>();
+  for (const cap of capabilities) {
+    const group = cap.resource_group ?? "other";
+    if (!groups.has(group)) groups.set(group, []);
+    groups.get(group)!.push(cap);
+  }
+  const hasGroups = groups.size > 1 || !groups.has("other");
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       {/* Header */}
@@ -118,39 +146,134 @@ export default async function ServiceDetailPage(props: {
       {/* Health */}
       <HealthSection domain={service.domain} trustLevel={service.trust_level} />
 
-      {/* Capabilities */}
-      <section className="mt-12">
-        <h2 className="text-2xl font-bold">Capabilities</h2>
-        <div className="mt-6 space-y-4">
-          {capabilities.map((cap) => {
-            const fullUrl = cap.detail_url.startsWith("http")
-              ? cap.detail_url
-              : `${service.base_url}${cap.detail_url}`;
+      {/* Top Capabilities */}
+      {topCaps.length > 0 && (
+        <section className="mt-12">
+          <h2 className="text-2xl font-bold">Top Capabilities</h2>
+          <p className="mt-2 text-sm text-muted">
+            Most commonly used operations — ready to call without drill-down.
+          </p>
+          <div className="mt-6 space-y-4">
+            {topCaps.map((cap) => {
+              const detail = cap.detail_json as Record<string, unknown> | null;
+              if (!detail) return null;
+              const method = (detail.method as string) ?? "GET";
+              const endpoint = (detail.endpoint as string) ?? "";
+              const fullEndpoint = endpoint.startsWith("http")
+                ? endpoint
+                : `${service.base_url}${endpoint}`;
+              const params = (detail.parameters as Array<{ name: string; type: string; required: boolean; description: string }>) ?? [];
 
-            return (
-              <div
-                key={cap.id}
-                className="rounded-xl border border-white/5 bg-surface-light p-5"
-              >
-                <div className="flex items-start justify-between">
-                  <h3 className="font-mono font-semibold text-accent">
-                    {cap.name}
-                  </h3>
-                  {cap.category_slug && (
-                    <span className="rounded-full bg-surface px-2 py-0.5 text-xs text-muted">
-                      {cap.category_slug}
+              return (
+                <div
+                  key={cap.id}
+                  className="rounded-xl border border-accent/20 bg-surface-light p-5"
+                >
+                  <div className="flex items-start justify-between">
+                    <h3 className="font-mono font-semibold text-accent">
+                      {cap.name}
+                    </h3>
+                    <span className="rounded-full bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
+                      {method}
                     </span>
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {cap.description}
+                  </p>
+                  <p className="mt-3 font-mono text-xs text-accent-light">
+                    {method} {fullEndpoint}
+                  </p>
+                  {params.length > 0 && (
+                    <div className="mt-3 space-y-1">
+                      {params.slice(0, 5).map((p) => (
+                        <p key={p.name} className="font-mono text-xs text-muted">
+                          <span className="text-white/70">{p.name}</span>{" "}
+                          <span className="text-muted">({p.type}{p.required ? ", required" : ""})</span>{" "}
+                          — {p.description}
+                        </p>
+                      ))}
+                      {params.length > 5 && (
+                        <p className="font-mono text-xs text-muted">
+                          ...and {params.length - 5} more parameters
+                        </p>
+                      )}
+                    </div>
                   )}
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {cap.description}
-                </p>
-                <p className="mt-3 font-mono text-xs text-muted">
-                  Detail: {fullUrl}
-                </p>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* All Capabilities */}
+      <section className="mt-12">
+        <h2 className="text-2xl font-bold">
+          All Capabilities <span className="text-lg font-normal text-muted">({capabilities.length})</span>
+        </h2>
+        <div className="mt-6 space-y-6">
+          {hasGroups ? (
+            Array.from(groups.entries()).map(([group, caps]) => (
+              <div key={group}>
+                <h3 className="font-mono text-sm font-semibold text-white/70">
+                  {group} <span className="font-normal text-muted">({caps.length})</span>
+                </h3>
+                <div className="mt-3 space-y-3">
+                  {caps.map((cap) => {
+                    const detail = cap.detail_json as Record<string, unknown> | null;
+                    const method = detail ? (detail.method as string) : null;
+                    return (
+                      <div
+                        key={cap.id}
+                        className="rounded-lg border border-white/5 bg-surface-light p-4"
+                      >
+                        <div className="flex items-center gap-2">
+                          {method && (
+                            <span className="rounded bg-surface px-1.5 py-0.5 font-mono text-xs text-muted">
+                              {method}
+                            </span>
+                          )}
+                          <span className="font-mono text-sm font-semibold text-accent">
+                            {cap.name}
+                          </span>
+                        </div>
+                        <p className="mt-1 text-sm text-muted">{cap.description}</p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            );
-          })}
+            ))
+          ) : (
+            capabilities.map((cap) => {
+              const fullUrl = cap.detail_url.startsWith("http")
+                ? cap.detail_url
+                : `${service.base_url}${cap.detail_url}`;
+              return (
+                <div
+                  key={cap.id}
+                  className="rounded-xl border border-white/5 bg-surface-light p-5"
+                >
+                  <div className="flex items-start justify-between">
+                    <h3 className="font-mono font-semibold text-accent">
+                      {cap.name}
+                    </h3>
+                    {cap.category_slug && (
+                      <span className="rounded-full bg-surface px-2 py-0.5 text-xs text-muted">
+                        {cap.category_slug}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {cap.description}
+                  </p>
+                  <p className="mt-3 font-mono text-xs text-muted">
+                    Detail: {fullUrl}
+                  </p>
+                </div>
+              );
+            })
+          )}
         </div>
       </section>
 
@@ -166,8 +289,18 @@ export default async function ServiceDetailPage(props: {
 {`Service: ${service.name}
 Description: ${service.description}
 Auth: ${service.auth_type}
-Capabilities:
-${capabilities.map((c) => `  - ${c.name}: ${c.description}`).join("\n")}`}
+Capabilities (${capabilities.length} total):
+${hasGroups
+  ? Array.from(groups.entries()).map(([g, caps]) => `  ${g} (${caps.length}):\n${caps.map((c) => `    - ${c.name}: ${c.description}`).join("\n")}`).join("\n")
+  : capabilities.map((c) => `  - ${c.name}: ${c.description}`).join("\n")}${
+topCaps.length > 0
+  ? `\n\nTop capabilities (ready to call):\n${topCaps.map((c) => {
+      const d = c.detail_json as Record<string, unknown> | null;
+      if (!d) return `  - ${c.name}`;
+      return `  - ${c.name}: ${d.method} ${d.endpoint}`;
+    }).join("\n")}`
+  : ""
+}`}
           </pre>
         </div>
       </section>
