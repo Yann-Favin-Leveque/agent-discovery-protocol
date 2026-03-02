@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
         pricing_type: service.pricing_type,
         verified: service.trust_level === "verified",
         trust_level: service.trust_level,
+        category: service.category_slug ?? null,
         cap_count: service.cap_count,
       },
       matching_capabilities: service.matching_capabilities.map((cap) => ({

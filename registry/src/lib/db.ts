@@ -311,6 +311,7 @@ export interface ServiceRow {
   trust_level: TrustLevel;
   crawl_failures: number;
   last_crawled_at: string | null;
+  category_slug: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -490,9 +491,7 @@ export async function getAllServices(opts: {
   }
 
   if (opts.category && opts.category !== "all") {
-    conditions.push(
-      `s.id IN (SELECT service_id FROM capabilities WHERE category_slug = $${paramIdx})`
-    );
+    conditions.push(`s.category_slug = $${paramIdx}`);
     params.push(opts.category);
     paramIdx++;
   }

@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
       verified: s.trust_level === "verified",
       trust_level: s.trust_level,
       capability_count: s.cap_count,
-      category: null,
+      category: s.category_slug ?? null,
       created_at: s.created_at,
     }));
 
