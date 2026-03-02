@@ -185,6 +185,19 @@ async function initSchema(p: Pool) {
       )
     `);
 
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS oauth_clients (
+        id SERIAL PRIMARY KEY,
+        service_domain TEXT NOT NULL UNIQUE,
+        client_id TEXT NOT NULL,
+        client_secret TEXT NOT NULL,
+        redirect_uri TEXT DEFAULT 'http://localhost:9876/callback',
+        extra_params JSONB,
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+
     // Indexes
     const indexes = [
       "CREATE INDEX IF NOT EXISTS idx_capabilities_service_id ON capabilities(service_id)",
@@ -212,6 +225,7 @@ async function initSchema(p: Pool) {
       "CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe ON subscriptions(stripe_subscription_id)",
       "CREATE INDEX IF NOT EXISTS idx_transactions_user ON transactions(user_id)",
       "CREATE INDEX IF NOT EXISTS idx_transactions_domain ON transactions(service_domain)",
+      "CREATE INDEX IF NOT EXISTS idx_oauth_clients_domain ON oauth_clients(service_domain)",
     ];
     for (const idx of indexes) {
       await client.query(idx);
@@ -1391,4 +1405,58 @@ export async function getOverallHealthStats(): Promise<{
     degraded: Number(result.rows[0].degraded) || 0,
     down: Number(result.rows[0].down) || 0,
   };
+}
+
+// ─── OAuth Clients ──────────────────────────────────────────────
+
+export interface OAuthClientRow {
+  id: number;
+  service_domain: string;
+  client_id: string;
+  client_secret: string;
+  redirect_uri: string;
+  extra_params: Record<string, unknown> | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function getOAuthClient(domain: string): Promise<OAuthClientRow | undefined> {
+  const db = await ensureInitialized();
+  const result = await db.query(
+    "SELECT * FROM oauth_clients WHERE service_domain = $1",
+    [domain]
+  );
+  return result.rows.length > 0 ? rowTo<OAuthClientRow>(result.rows[0]) : undefined;
+}
+
+export async function upsertOAuthClient(
+  domain: string,
+  clientId: string,
+  clientSecret: string,
+  redirectUri?: string,
+  extraParams?: Record<string, unknown>
+): Promise<OAuthClientRow> {
+  const db = await ensureInitialized();
+  const result = await db.query(
+    `INSERT INTO oauth_clients (service_domain, client_id, client_secret, redirect_uri, extra_params)
+     VALUES ($1, $2, $3, $4, $5)
+     ON CONFLICT (service_domain)
+     DO UPDATE SET client_id = $2, client_secret = $3, redirect_uri = COALESCE($4, oauth_clients.redirect_uri),
+       extra_params = COALESCE($5, oauth_clients.extra_params), updated_at = NOW()
+     RETURNING *`,
+    [domain, clientId, clientSecret, redirectUri ?? "http://localhost:9876/callback", extraParams ? JSON.stringify(extraParams) : null]
+  );
+  return rowTo<OAuthClientRow>(result.rows[0]);
+}
+
+export async function getAllOAuthClients(): Promise<OAuthClientRow[]> {
+  const db = await ensureInitialized();
+  const result = await db.query("SELECT * FROM oauth_clients ORDER BY service_domain");
+  return result.rows.map(r => rowTo<OAuthClientRow>(r));
+}
+
+export async function deleteOAuthClient(domain: string): Promise<boolean> {
+  const db = await ensureInitialized();
+  const result = await db.query("DELETE FROM oauth_clients WHERE service_domain = $1", [domain]);
+  return (result.rowCount ?? 0) > 0;
 }

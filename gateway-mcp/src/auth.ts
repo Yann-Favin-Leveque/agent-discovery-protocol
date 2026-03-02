@@ -128,6 +128,46 @@ export async function storeApiKey(
   };
 }
 
+// Fetch OAuth client_id from the registry (for non-Google/GitHub services)
+async function fetchRegistryOAuthClient(domain: string): Promise<{ client_id: string; redirect_uri?: string; extra_params?: Record<string, unknown> } | null> {
+  try {
+    const config = loadConfig();
+    const res = await fetch(`${config.registry_url}/api/services/${encodeURIComponent(domain)}/oauth-client`, {
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data.success) return null;
+    return data.data;
+  } catch {
+    return null;
+  }
+}
+
+// Exchange authorization code or refresh token via the registry proxy
+async function registryTokenExchange(domain: string, params: Record<string, string>): Promise<{
+  access_token: string;
+  refresh_token?: string;
+  expires_in?: number;
+  scope?: string;
+} | null> {
+  try {
+    const config = loadConfig();
+    const res = await fetch(`${config.registry_url}/api/services/${encodeURIComponent(domain)}/oauth-token`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params),
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data.success) return null;
+    return data.data;
+  } catch {
+    return null;
+  }
+}
+
 async function tryRefreshToken(
   domain: string,
   existing: StoredToken
@@ -138,19 +178,41 @@ async function tryRefreshToken(
       return null;
     }
 
+    // Try registry proxy first (works for any service with registered OAuth client)
+    const registryResult = await registryTokenExchange(domain, {
+      grant_type: "refresh_token",
+      refresh_token: existing.refresh_token!,
+    });
+
+    if (registryResult) {
+      const token: StoredToken = {
+        domain,
+        type: "oauth2",
+        access_token: registryResult.access_token,
+        refresh_token: registryResult.refresh_token ?? existing.refresh_token,
+        expires_at: registryResult.expires_in
+          ? Date.now() + registryResult.expires_in * 1000
+          : undefined,
+        scopes: existing.scopes,
+      };
+      storeToken(token);
+      return token;
+    }
+
+    // Fallback: direct exchange with hardcoded Google/GitHub credentials
     const isGoogle = manifest.auth.authorization_url?.includes("google.com") || manifest.auth.authorization_url?.includes("googleapis.com");
     const isGitHub = manifest.auth.authorization_url?.includes("github.com");
     const oauthProvider = isGoogle ? "google" as const : isGitHub ? "github" as const : null;
     const creds = oauthProvider ? getOAuthCredentials(oauthProvider) : null;
 
+    if (!creds) return null;
+
     const refreshParams: Record<string, string> = {
       grant_type: "refresh_token",
       refresh_token: existing.refresh_token!,
+      client_id: creds.clientId,
+      client_secret: creds.clientSecret,
     };
-    if (creds) {
-      refreshParams.client_id = creds.clientId;
-      refreshParams.client_secret = creds.clientSecret;
-    }
     const body = new URLSearchParams(refreshParams);
 
     const res = await fetch(manifest.auth.token_url, {
@@ -203,17 +265,42 @@ async function startOAuth2Flow(
   const redirectUri = `http://localhost:${port}/callback`;
   const state = Math.random().toString(36).substring(2);
 
-  // Determine OAuth credentials based on the provider domain
+  // Resolve OAuth credentials — try registry first, then hardcoded fallback
   const isGoogle = auth.authorization_url!.includes("google.com") || auth.authorization_url!.includes("googleapis.com");
   const isGitHub = auth.authorization_url!.includes("github.com");
-  const oauthProvider = isGoogle ? "google" : isGitHub ? "github" : null;
-  const credentials = oauthProvider ? getOAuthCredentials(oauthProvider) : null;
 
+  let clientId: string | null = null;
+  let useRegistryProxy = false;
+  let extraAuthParams: Record<string, unknown> | null = null;
+
+  // 1. Try registry for any service
+  const registryClient = await fetchRegistryOAuthClient(domain);
+  if (registryClient) {
+    clientId = registryClient.client_id;
+    extraAuthParams = registryClient.extra_params ?? null;
+    useRegistryProxy = true;
+  }
+
+  // 2. Fallback to hardcoded Google/GitHub credentials
+  if (!clientId) {
+    const oauthProvider = isGoogle ? "google" : isGitHub ? "github" : null;
+    const creds = oauthProvider ? getOAuthCredentials(oauthProvider) : null;
+    if (creds) {
+      clientId = creds.clientId;
+    }
+  }
+
+  if (!clientId) {
+    return {
+      success: false,
+      message: `No OAuth credentials available for ${domain}. The service needs an OAuth client registered in the registry.`,
+    };
+  }
+
+  // Build authorization URL
   const authUrl = new URL(auth.authorization_url);
   authUrl.searchParams.set("response_type", "code");
-  if (credentials) {
-    authUrl.searchParams.set("client_id", credentials.clientId);
-  }
+  authUrl.searchParams.set("client_id", clientId);
   authUrl.searchParams.set("redirect_uri", redirectUri);
   authUrl.searchParams.set("state", state);
   if (isGoogle) {
@@ -222,6 +309,12 @@ async function startOAuth2Flow(
   }
   if (auth.scopes?.length) {
     authUrl.searchParams.set("scope", auth.scopes.join(" "));
+  }
+  // Apply extra_params from registry (e.g. Reddit's "duration": "permanent")
+  if (extraAuthParams) {
+    for (const [key, value] of Object.entries(extraAuthParams)) {
+      authUrl.searchParams.set(key, String(value));
+    }
   }
 
   // Start local callback server
@@ -261,34 +354,45 @@ async function startOAuth2Flow(
 
       // Exchange code for token
       try {
-        const tokenParams: Record<string, string> = {
-          grant_type: "authorization_code",
-          code,
-          redirect_uri: redirectUri,
-        };
-        if (credentials) {
-          tokenParams.client_id = credentials.clientId;
-          tokenParams.client_secret = credentials.clientSecret;
+        let tokenData: { access_token: string; refresh_token?: string; expires_in?: number; scope?: string };
+
+        if (useRegistryProxy) {
+          // Exchange via registry proxy (client_secret stays server-side)
+          const result = await registryTokenExchange(domain, {
+            code,
+            redirect_uri: redirectUri,
+          });
+          if (!result) throw new Error("Token exchange via registry failed.");
+          tokenData = result;
+        } else {
+          // Direct exchange with hardcoded credentials (Google/GitHub fallback)
+          const oauthProvider = isGoogle ? "google" : isGitHub ? "github" : null;
+          const creds = oauthProvider ? getOAuthCredentials(oauthProvider) : null;
+
+          const tokenParams: Record<string, string> = {
+            grant_type: "authorization_code",
+            code,
+            redirect_uri: redirectUri,
+          };
+          if (creds) {
+            tokenParams.client_id = creds.clientId;
+            tokenParams.client_secret = creds.clientSecret;
+          }
+          const tokenBody = new URLSearchParams(tokenParams);
+
+          const tokenRes = await fetch(auth.token_url!, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: tokenBody.toString(),
+            signal: AbortSignal.timeout(10000),
+          });
+
+          if (!tokenRes.ok) {
+            throw new Error(`Token exchange failed: HTTP ${tokenRes.status}`);
+          }
+
+          tokenData = (await tokenRes.json()) as typeof tokenData;
         }
-        const tokenBody = new URLSearchParams(tokenParams);
-
-        const tokenRes = await fetch(auth.token_url!, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: tokenBody.toString(),
-          signal: AbortSignal.timeout(10000),
-        });
-
-        if (!tokenRes.ok) {
-          throw new Error(`Token exchange failed: HTTP ${tokenRes.status}`);
-        }
-
-        const tokenData = (await tokenRes.json()) as {
-          access_token: string;
-          refresh_token?: string;
-          expires_in?: number;
-          scope?: string;
-        };
 
         const token: StoredToken = {
           domain,

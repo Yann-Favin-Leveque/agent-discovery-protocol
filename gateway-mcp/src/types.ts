@@ -100,19 +100,6 @@ export interface Connection {
   connected_at: string;
 }
 
-// ─── Cloud sync ──────────────────────────────────────────────────
-
-export interface CloudSyncState {
-  last_synced_at?: string;
-  sync_token?: string; // ETag or version for incremental sync
-}
-
-export interface CloudTokenBundle {
-  tokens: Record<string, StoredToken>;
-  connections: Record<string, Connection>;
-  synced_at: string;
-}
-
 // ─── Cache ───────────────────────────────────────────────────────
 
 export interface CacheEntry<T> {
@@ -133,7 +120,6 @@ export interface GatewayConfig {
   registry_url: string;
   auth_callback_port: number;
   identity?: UserIdentity;
-  cloud_sync?: CloudSyncState;
 }
 
 // ─── Registry API types ──────────────────────────────────────────
