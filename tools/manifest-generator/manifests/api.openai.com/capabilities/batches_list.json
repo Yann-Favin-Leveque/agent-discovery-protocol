@@ -1,0 +1,43 @@
+{
+  "name": "batches_list",
+  "description": "List all batch jobs in your organization.",
+  "resource_group": "batches",
+  "endpoint": "/v1/batches",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "after",
+      "type": "string",
+      "required": false,
+      "description": "Cursor for pagination."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of batches to retrieve (default 20)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openai.com/v1/batches",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "batch-abc123",
+          "object": "batch",
+          "endpoint": "/v1/chat/completions",
+          "status": "completed",
+          "created_at": 1709164800
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "envelope_audit_events_get",
+  "description": "Retrieve the complete audit trail for an envelope showing all events (created, sent, delivered, signed, completed).",
+  "resource_group": "envelope",
+  "endpoint": "/v2.1/accounts/{accountId}/envelopes/{envelopeId}/audit_events",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "envelopeId",
+      "type": "string",
+      "required": true,
+      "description": "Envelope ID.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/envelopes/env-abc-123/audit_events",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "auditEvents": [
+        {
+          "eventFields": [
+            {
+              "name": "logTime",
+              "value": "2025-01-15T14:30:00.000Z"
+            },
+            {
+              "name": "Action",
+              "value": "Sent"
+            },
+            {
+              "name": "UserName",
+              "value": "Jane Admin"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

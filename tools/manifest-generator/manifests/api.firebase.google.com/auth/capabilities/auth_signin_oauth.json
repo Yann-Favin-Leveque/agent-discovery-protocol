@@ -1,0 +1,55 @@
+{
+  "name": "auth_signin_oauth",
+  "resource_group": "auth",
+  "description": "Sign in with an OAuth credential from a third-party provider (Google, Facebook, etc).",
+  "endpoint": "/v1/accounts:signInWithIdp",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "requestUri",
+      "type": "string",
+      "required": true,
+      "description": "The URI to which the IDP redirects back."
+    },
+    {
+      "name": "postBody",
+      "type": "string",
+      "required": true,
+      "description": "URL-encoded OAuth credential (id_token, access_token, providerId)."
+    },
+    {
+      "name": "returnSecureToken",
+      "type": "boolean",
+      "required": false,
+      "description": "Return tokens."
+    },
+    {
+      "name": "returnIdpCredential",
+      "type": "boolean",
+      "required": false,
+      "description": "Return the IDP credential."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key=AIzaSyXXXXXX",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requestUri": "https://myapp.com",
+      "postBody": "id_token=GOOGLE_ID_TOKEN&providerId=google.com",
+      "returnSecureToken": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "idToken": "eyJhbGciOi...",
+      "email": "alice@gmail.com",
+      "refreshToken": "AMf-vBx...",
+      "localId": "uid123",
+      "federatedId": "google.com/12345"
+    }
+  }
+}

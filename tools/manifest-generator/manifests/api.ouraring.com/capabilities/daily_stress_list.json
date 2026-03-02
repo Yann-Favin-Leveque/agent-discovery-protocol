@@ -1,0 +1,55 @@
+{
+  "name": "daily_stress_list",
+  "description": "Retrieve daily stress and recovery time data in seconds for a date range. Supports pagination with next_token.",
+  "resource_group": "daily",
+  "endpoint": "/v2/usercollection/daily_stress",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token from previous response.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "stress"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/daily_stress?start_date=2025-01-10&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "abc-012",
+          "day": "2025-01-15",
+          "stress_high": 3600,
+          "recovery_high": 14400,
+          "day_summary": "restored"
+        }
+      ],
+      "next_token": null
+    }
+  }
+}

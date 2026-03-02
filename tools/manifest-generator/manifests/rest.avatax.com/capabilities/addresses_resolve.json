@@ -1,0 +1,87 @@
+{
+  "name": "addresses_resolve",
+  "description": "Validate and resolve an address with latitude/longitude coordinates.",
+  "endpoint": "/api/v2/addresses/resolve",
+  "method": "POST",
+  "resource_group": "addresses",
+  "parameters": [
+    {
+      "name": "line1",
+      "type": "string",
+      "description": "Street address line 1.",
+      "required": true,
+      "example": "123 Main St"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "City.",
+      "required": false,
+      "example": "Austin"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "State/region.",
+      "required": false,
+      "example": "TX"
+    },
+    {
+      "name": "postalCode",
+      "type": "string",
+      "description": "Postal code.",
+      "required": false,
+      "example": "78756"
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "Country code.",
+      "required": true,
+      "example": "US"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.avatax.com/api/v2/addresses/resolve",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "line1": "123 Main St",
+      "city": "Austin",
+      "region": "TX",
+      "postalCode": "78756",
+      "country": "US"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "address": {
+        "line1": "123 MAIN ST",
+        "city": "AUSTIN",
+        "region": "TX",
+        "postalCode": "78756-1234",
+        "country": "US"
+      },
+      "validatedAddresses": [
+        {
+          "line1": "123 MAIN ST",
+          "latitude": 30.3074,
+          "longitude": -97.7322
+        }
+      ],
+      "coordinates": {
+        "latitude": 30.3074,
+        "longitude": -97.7322
+      },
+      "resolutionQuality": "External"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

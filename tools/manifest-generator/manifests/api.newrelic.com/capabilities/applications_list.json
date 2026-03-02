@@ -1,0 +1,61 @@
+{
+  "name": "applications_list",
+  "description": "List all monitored applications with their health status and performance summaries.",
+  "resource_group": "applications",
+  "endpoint": "/v2/applications.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "filter[name]",
+      "type": "string",
+      "required": false,
+      "description": "Filter by application name",
+      "location": "query"
+    },
+    {
+      "name": "filter[host]",
+      "type": "string",
+      "required": false,
+      "description": "Filter by host",
+      "location": "query"
+    },
+    {
+      "name": "filter[ids]",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated application IDs",
+      "location": "query"
+    },
+    {
+      "name": "filter[language]",
+      "type": "string",
+      "required": false,
+      "description": "Filter by language (java, ruby, python, etc.)",
+      "location": "query"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number",
+      "location": "query"
+    }
+  ],
+  "request_example": {},
+  "response_example": {
+    "applications": [
+      {
+        "id": 12345,
+        "name": "My App",
+        "language": "java",
+        "health_status": "green",
+        "application_summary": {
+          "response_time": 150,
+          "throughput": 100,
+          "error_rate": 0.5
+        }
+      }
+    ]
+  },
+  "auth_scopes": []
+}

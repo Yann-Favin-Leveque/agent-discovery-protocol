@@ -1,0 +1,43 @@
+{
+  "name": "messages_inbound_list",
+  "description": "Search inbound messages.",
+  "resource_group": "messages",
+  "endpoint": "/messages/inbound",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "count",
+      "type": "number",
+      "description": "Messages per request (max 500).",
+      "required": true,
+      "example": 100
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "description": "Records to skip.",
+      "required": true,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.postmarkapp.com/messages/inbound?count=100&offset=0",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TotalCount": 10,
+      "InboundMessages": [
+        {
+          "MessageID": "abc-456",
+          "From": "sender@example.com"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "audio_transcription_create",
+  "description": "Transcribe audio to text using Whisper Large V3 on Groq hardware for ultra-fast processing. Supports multiple audio formats and optional word-level timestamps.",
+  "resource_group": "audio",
+  "endpoint": "/openai/v1/audio/transcriptions",
+  "method": "POST",
+  "parameters": [
+    {"name": "file", "type": "file", "required": true, "description": "Audio file (mp3, mp4, wav, webm, m4a, mpeg, mpga)."},
+    {"name": "model", "type": "string", "required": true, "description": "Model: 'whisper-large-v3' or 'whisper-large-v3-turbo'."},
+    {"name": "language", "type": "string", "required": false, "description": "Language in ISO-639-1 format."},
+    {"name": "prompt", "type": "string", "required": false, "description": "Optional text to guide the model."},
+    {"name": "response_format", "type": "string", "required": false, "description": "Output format: 'json', 'text', 'srt', 'verbose_json', 'vtt'."},
+    {"name": "temperature", "type": "number", "required": false, "description": "Sampling temperature (0-1)."},
+    {"name": "timestamp_granularities", "type": "array", "required": false, "description": "Timestamp level: 'word', 'segment'."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.groq.com/openai/v1/audio/transcriptions",
+    "headers": {"Authorization": "Bearer gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+    "body": "multipart/form-data: file=@recording.mp3&model=whisper-large-v3"
+  },
+  "response_example": {"status": 200, "body": {"text": "Hello, this is a test recording."}}
+}

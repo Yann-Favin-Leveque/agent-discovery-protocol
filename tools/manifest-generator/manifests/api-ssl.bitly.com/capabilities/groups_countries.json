@@ -1,0 +1,52 @@
+{
+  "name": "groups_countries",
+  "description": "Get country-level click metrics for all group Bitlinks.",
+  "endpoint": "/v4/groups/{group_guid}/countries",
+  "method": "GET",
+  "resource_group": "groups",
+  "parameters": [
+    {
+      "name": "group_guid",
+      "type": "string",
+      "description": "The group GUID.",
+      "required": true,
+      "example": "Ba1bc2de3fg"
+    },
+    {
+      "name": "unit",
+      "type": "string",
+      "description": "Time unit.",
+      "required": false,
+      "example": "day"
+    },
+    {
+      "name": "units",
+      "type": "integer",
+      "description": "Number of time units.",
+      "required": false,
+      "example": 30
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api-ssl.bitly.com/v4/groups/Ba1bc2de3fg/countries?unit=day&units=30",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "metrics": [
+        {
+          "value": "US",
+          "clicks": 1500
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "dns_settings_get",
+  "description": "Retrieve DNS settings for a zone including nameserver configuration and zone transfer settings.",
+  "endpoint": "/zones/{zone_id}/dns_settings",
+  "method": "GET",
+  "resource_group": "dns_settings",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_settings",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "foundation_dns": false,
+        "multi_provider": false,
+        "nameservers": {
+          "type": "cloudflare.standard"
+        },
+        "secondary_overrides": false
+      }
+    }
+  },
+  "auth_scopes": ["dns_records:read"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

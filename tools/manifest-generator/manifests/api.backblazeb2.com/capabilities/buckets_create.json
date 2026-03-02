@@ -1,0 +1,68 @@
+{
+  "name": "buckets_create",
+  "description": "Create a new storage bucket.",
+  "resource_group": "buckets",
+  "endpoint": "/b2api/v3/b2_create_bucket",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "Your account ID.",
+      "required": true
+    },
+    {
+      "name": "bucketName",
+      "type": "string",
+      "description": "Unique bucket name (6-50 chars, a-z, 0-9, -).",
+      "required": true,
+      "example": "my-bucket"
+    },
+    {
+      "name": "bucketType",
+      "type": "string",
+      "description": "Bucket type: allPublic or allPrivate.",
+      "required": true,
+      "example": "allPrivate"
+    },
+    {
+      "name": "bucketInfo",
+      "type": "object",
+      "description": "Custom bucket info.",
+      "required": false
+    },
+    {
+      "name": "corsRules",
+      "type": "array",
+      "description": "CORS configuration.",
+      "required": false
+    },
+    {
+      "name": "lifecycleRules",
+      "type": "array",
+      "description": "Lifecycle rules.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_create_bucket",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "accountId": "abc123",
+      "bucketName": "my-bucket",
+      "bucketType": "allPrivate"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "bucketId": "bucket123",
+      "bucketName": "my-bucket",
+      "bucketType": "allPrivate"
+    }
+  }
+}

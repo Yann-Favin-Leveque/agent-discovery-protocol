@@ -1,0 +1,22 @@
+{
+  "name": "site_info_get",
+  "description": "Retrieve information about the Moodle site including version, capabilities, and user info.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_webservice_get_site_info",
+  "method": "POST",
+  "resource_group": "site",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_webservice_get_site_info&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "sitename": "My Moodle", "username": "admin", "firstname": "Admin", "lastname": "User", "release": "4.3", "version": "2023100900", "functions": [{ "name": "core_user_create_users", "version": "2023100900" }] }
+  },
+  "auth_scopes": ["core_webservice_get_site_info"],
+  "rate_limits": { "requests_per_minute": 120 }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "contacts_list",
+  "description": "List all contacts with pagination.",
+  "resource_group": "contacts",
+  "endpoint": "/crm/v3/objects/contacts",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results (default 10, max 100)."
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor."
+    },
+    {
+      "name": "properties",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated properties to return."
+    },
+    {
+      "name": "associations",
+      "type": "string",
+      "required": false,
+      "description": "Associated objects to include."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hubapi.com/crm/v3/objects/contacts?limit=10&properties=email,firstname,lastname"
+  },
+  "response_example": {
+    "results": [
+      {
+        "id": "101",
+        "properties": {
+          "email": "jane@example.com",
+          "firstname": "Jane",
+          "lastname": "Doe"
+        },
+        "createdAt": "2026-01-15T10:00:00Z"
+      }
+    ],
+    "paging": {
+      "next": {
+        "after": "102"
+      }
+    }
+  }
+}

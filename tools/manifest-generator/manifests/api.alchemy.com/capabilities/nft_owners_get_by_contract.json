@@ -1,0 +1,60 @@
+{
+  "name": "nft_owners_get_by_contract",
+  "description": "Retrieve all owners of NFTs within a specific contract. Supports block number snapshots for historical ownership data.",
+  "endpoint": "/nft/v3/{apiKey}/getOwnersForContract",
+  "method": "GET",
+  "resource_group": "nft",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "contractAddress",
+      "type": "string",
+      "required": true,
+      "description": "NFT contract address."
+    },
+    {
+      "name": "withTokenBalances",
+      "type": "boolean",
+      "required": false,
+      "description": "Include token balance per owner."
+    },
+    {
+      "name": "block",
+      "type": "string",
+      "required": false,
+      "description": "Block number for snapshot (hex or 'latest')."
+    },
+    {
+      "name": "pageKey",
+      "type": "string",
+      "required": false,
+      "description": "Pagination key."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://eth-mainnet.g.alchemy.com/nft/v3/{apiKey}/getOwnersForContract?contractAddress=0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D&withTokenBalances=true",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ownerAddresses": [
+        {
+          "ownerAddress": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+          "tokenBalances": [{ "tokenId": "1234", "balance": "1" }]
+        }
+      ],
+      "pageKey": "next_page_key"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

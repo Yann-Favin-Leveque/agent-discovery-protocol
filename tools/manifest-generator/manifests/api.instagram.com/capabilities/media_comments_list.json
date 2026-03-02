@@ -1,0 +1,60 @@
+{
+  "name": "media_comments_list",
+  "resource_group": "comments",
+  "description": "Retrieve comments on a specific media post, including commenter username, comment text, timestamp, and like count.",
+  "endpoint": "/{media_id}/comments",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "media_id",
+      "type": "string",
+      "description": "The ID of the media object.",
+      "required": true,
+      "in": "path",
+      "example": "17854360000000000"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields for each comment.",
+      "required": false,
+      "in": "query",
+      "example": "id,text,username,timestamp,like_count,replies"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of comments per page.",
+      "required": false,
+      "in": "query",
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17854360000000000/comments?fields=id,text,username,timestamp,like_count",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "17858890000000000",
+          "text": "Amazing photo!",
+          "username": "commenter1",
+          "timestamp": "2024-03-01T16:00:00+0000",
+          "like_count": 5
+        }
+      ],
+      "paging": {
+        "cursors": {
+          "after": "QVFIcGF..."
+        }
+      }
+    }
+  },
+  "auth_scopes": ["instagram_manage_comments"]
+}

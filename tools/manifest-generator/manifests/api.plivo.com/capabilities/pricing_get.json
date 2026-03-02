@@ -1,0 +1,47 @@
+{
+  "name": "pricing_get",
+  "description": "Retrieve messaging or voice pricing for a specific country.",
+  "resource_group": "pricing",
+  "endpoint": "/v1/Account/{auth_id}/Pricing/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "country_iso",
+      "type": "string",
+      "description": "ISO 2-letter country code.",
+      "required": true,
+      "example": "US"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Pricing/?country_iso=US",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "country": "United States",
+      "country_code": 1,
+      "country_iso": "US",
+      "message": {
+        "inbound": {
+          "rate": "0.00000"
+        },
+        "outbound": {
+          "rate": "0.00350"
+        }
+      }
+    }
+  }
+}

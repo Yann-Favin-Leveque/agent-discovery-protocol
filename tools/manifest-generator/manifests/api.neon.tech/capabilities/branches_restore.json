@@ -1,0 +1,56 @@
+{
+  "name": "branches_restore",
+  "resource_group": "branches",
+  "description": "Restore a branch to a point in time.",
+  "endpoint": "/projects/{project_id}/branches/{branch_id}/restore",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "branch_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Branch ID."
+    },
+    {
+      "name": "source_branch_id",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Source branch."
+    },
+    {
+      "name": "source_timestamp",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "ISO 8601 timestamp."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123/branches/br-def456/restore",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "source_branch_id": "br-abc123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "branch": {
+        "id": "br-def456"
+      }
+    }
+  }
+}

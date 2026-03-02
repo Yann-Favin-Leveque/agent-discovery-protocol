@@ -1,0 +1,39 @@
+{
+  "name": "files_upload_session_finish",
+  "description": "Finish an upload session and save the file.",
+  "resource_group": "files",
+  "endpoint": "/2/files/upload_session/finish",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "cursor",
+      "type": "object",
+      "description": "Object with session_id and offset.",
+      "required": true
+    },
+    {
+      "name": "commit",
+      "type": "object",
+      "description": "Object with path, mode, autorename.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://content.dropboxapi.com/2/files/upload_session/finish",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Dropbox-API-Arg": "{\"cursor\":{\"session_id\":\"session123\",\"offset\":2097152},\"commit\":{\"path\":\"/large_file.zip\",\"mode\":\"add\"}}",
+      "Content-Type": "application/octet-stream"
+    },
+    "body": "<final chunk>"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "large_file.zip",
+      "path_display": "/large_file.zip",
+      "size": 2097152
+    }
+  }
+}

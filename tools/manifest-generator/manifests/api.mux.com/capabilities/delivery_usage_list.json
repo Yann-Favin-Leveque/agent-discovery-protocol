@@ -1,0 +1,47 @@
+{
+  "name": "delivery_usage_list",
+  "resource_group": "delivery_usage",
+  "description": "List video delivery usage data.",
+  "endpoint": "/video/v1/delivery-usage",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "timeframe[]",
+      "type": "string",
+      "required": false,
+      "description": "Unix timestamp range."
+    },
+    {
+      "name": "asset_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by asset."
+    },
+    {
+      "name": "live_stream_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by live stream."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mux.com/video/v1/delivery-usage",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "asset_id": "asset_abc123",
+          "delivered_seconds": 5000.0,
+          "asset_duration": 120.5
+        }
+      ],
+      "total_row_count": 1
+    }
+  }
+}

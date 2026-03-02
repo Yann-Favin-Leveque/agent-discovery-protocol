@@ -1,0 +1,58 @@
+{
+  "name": "files_watch",
+  "description": "Subscribe to push notifications for changes to a file.",
+  "resource_group": "files",
+  "endpoint": "/drive/v3/files/{fileId}/watch",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "fileId",
+      "type": "string",
+      "description": "The file ID.",
+      "required": true
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Unique channel ID.",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Channel type: web_hook.",
+      "required": true,
+      "example": "web_hook"
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "description": "Webhook URL.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.googleapis.com/drive/v3/files/1abc/watch",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "channel-1",
+      "type": "web_hook",
+      "address": "https://example.com/webhook"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "api#channel",
+      "id": "channel-1",
+      "resourceId": "res123"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive"
+  ]
+}

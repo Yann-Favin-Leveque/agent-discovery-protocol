@@ -1,0 +1,64 @@
+{
+  "name": "posts_create",
+  "description": "Create a new post with HTML content, subject, and scheduling options.",
+  "resource_group": "posts",
+  "endpoint": "/v2/publications/{publicationId}/posts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "publicationId",
+      "type": "string",
+      "description": "Publication ID.",
+      "required": true
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Post title / subject.",
+      "required": true,
+      "example": "Weekly Digest"
+    },
+    {
+      "name": "content_html",
+      "type": "string",
+      "description": "HTML content.",
+      "required": true
+    },
+    {
+      "name": "subtitle",
+      "type": "string",
+      "description": "Preview text.",
+      "required": false
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "draft or confirmed.",
+      "required": false,
+      "example": "draft"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.beehiiv.com/v2/publications/pub_xxx/posts",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Weekly Digest",
+      "content_html": "<p>Hello</p>",
+      "status": "draft"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "post_yyy",
+        "title": "Weekly Digest",
+        "status": "draft"
+      }
+    }
+  }
+}

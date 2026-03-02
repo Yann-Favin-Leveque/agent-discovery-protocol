@@ -1,0 +1,78 @@
+{
+  "name": "messages_send",
+  "description": "Send a message in a conversation. Supports text, files, and structured content like picker cards.",
+  "endpoint": "/v1/website/{website_id}/conversation/{session_id}/message",
+  "method": "POST",
+  "resource_group": "messages",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    },
+    {
+      "name": "session_id",
+      "type": "string",
+      "description": "The conversation session identifier.",
+      "required": true,
+      "example": "session_19e5240f-0a8d-461e-a661-a3123f3e"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Message type: text, file, animation, audio, picker, field, carousel, note, event.",
+      "required": true,
+      "example": "text"
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Message sender: 'operator' or 'user'.",
+      "required": true,
+      "example": "operator"
+    },
+    {
+      "name": "origin",
+      "type": "string",
+      "description": "Message origin: 'chat', 'email', etc.",
+      "required": true,
+      "example": "chat"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "The message content (text or structured payload).",
+      "required": true,
+      "example": "Hello! How can I help you today?"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/conversation/session_19e5240f-0a8d-461e-a661-a3123f3e/message",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "Content-Type": "application/json",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {
+      "type": "text",
+      "from": "operator",
+      "origin": "chat",
+      "content": "Hello! How can I help you today?"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "fingerprint": 163435890010
+      }
+    }
+  },
+  "auth_scopes": ["website:conversation:messages"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

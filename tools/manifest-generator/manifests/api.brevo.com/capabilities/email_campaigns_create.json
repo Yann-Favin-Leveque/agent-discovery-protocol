@@ -1,0 +1,73 @@
+{
+  "name": "email_campaigns_create",
+  "description": "Create a new email campaign.",
+  "resource_group": "email_campaigns",
+  "endpoint": "/emailCampaigns",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Campaign name.",
+      "required": true
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Email subject.",
+      "required": true
+    },
+    {
+      "name": "sender",
+      "type": "object",
+      "description": "Sender with name and email.",
+      "required": true
+    },
+    {
+      "name": "htmlContent",
+      "type": "string",
+      "description": "HTML content.",
+      "required": true
+    },
+    {
+      "name": "recipients",
+      "type": "object",
+      "description": "Recipients with listIds.",
+      "required": true
+    },
+    {
+      "name": "scheduledAt",
+      "type": "string",
+      "description": "ISO 8601 schedule time.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/emailCampaigns",
+    "headers": {
+      "api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Summer Sale",
+      "subject": "Big Sale!",
+      "sender": {
+        "name": "My Store",
+        "email": "store@example.com"
+      },
+      "htmlContent": "<p>Sale!</p>",
+      "recipients": {
+        "listIds": [
+          1
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 2
+    }
+  }
+}

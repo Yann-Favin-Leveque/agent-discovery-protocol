@@ -1,0 +1,59 @@
+{
+  "name": "campaigns_update",
+  "description": "Update an existing campaign.",
+  "resource_group": "campaigns",
+  "endpoint": "/12/accounts/{account_id}/campaigns/{campaign_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "Ad account ID.",
+      "required": true
+    },
+    {
+      "name": "campaign_id",
+      "type": "string",
+      "description": "Campaign ID.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated name.",
+      "required": false
+    },
+    {
+      "name": "entity_status",
+      "type": "string",
+      "description": "Updated status.",
+      "required": false
+    },
+    {
+      "name": "daily_budget_amount_local_micro",
+      "type": "integer",
+      "description": "Updated budget.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://ads-api.twitter.com/12/accounts/abc123/campaigns/camp_1",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "entity_status": "PAUSED"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "camp_1",
+        "entity_status": "PAUSED"
+      }
+    }
+  }
+}

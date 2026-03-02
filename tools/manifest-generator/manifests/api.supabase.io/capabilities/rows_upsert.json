@@ -1,0 +1,63 @@
+{
+  "name": "rows_upsert",
+  "description": "Insert rows or update on conflict (upsert). Requires 'resolution=merge-duplicates' Prefer header.",
+  "endpoint": "/rest/v1/{table}",
+  "method": "POST",
+  "resource_group": "database",
+  "parameters": [
+    {
+      "name": "table",
+      "type": "string",
+      "description": "Table name",
+      "required": true,
+      "example": "posts"
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "Row data with conflict column value",
+      "required": true,
+      "example": {
+        "id": 3,
+        "title": "Updated Post",
+        "status": "published"
+      }
+    },
+    {
+      "name": "Prefer",
+      "type": "string",
+      "description": "Must include 'resolution=merge-duplicates'",
+      "required": true,
+      "example": "return=representation,resolution=merge-duplicates"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/rest/v1/posts",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}",
+      "Content-Type": "application/json",
+      "Prefer": "return=representation,resolution=merge-duplicates"
+    },
+    "body": {
+      "id": 3,
+      "title": "Updated Post",
+      "status": "published"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 3,
+        "title": "Updated Post",
+        "status": "published"
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

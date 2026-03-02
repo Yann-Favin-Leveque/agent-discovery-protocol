@@ -1,0 +1,62 @@
+{
+  "name": "payments_list",
+  "description": "List all payments with optional filtering.",
+  "resource_group": "payments",
+  "endpoint": "/payments",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "created_at[gte]",
+      "type": "string",
+      "description": "Filter by creation date (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "mandate",
+      "type": "string",
+      "description": "Filter by mandate ID.",
+      "required": false
+    },
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Filter by customer ID.",
+      "required": false
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status.",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.gocardless.com/payments?limit=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "GoCardless-Version": "2015-07-06"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "payments": [
+        {
+          "id": "PM000123"
+        }
+      ],
+      "meta": {
+        "cursors": {
+          "after": "PM000124"
+        }
+      }
+    }
+  }
+}

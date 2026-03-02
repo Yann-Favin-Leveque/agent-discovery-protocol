@@ -1,0 +1,48 @@
+{
+  "name": "orders_authorize",
+  "description": "Authorize payment for an approved order. Holds funds without capturing them.",
+  "endpoint": "/v2/checkout/orders/{id}/authorize",
+  "method": "POST",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Order ID",
+      "required": true,
+      "example": "ORDER_ID"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v2/checkout/orders/{id}/authorize",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ORDER_ID",
+      "status": "COMPLETED",
+      "purchase_units": [
+        {
+          "payments": {
+            "authorizations": [
+              {
+                "id": "AUTH_ID",
+                "status": "CREATED"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

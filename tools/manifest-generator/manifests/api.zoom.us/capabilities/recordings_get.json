@@ -1,0 +1,60 @@
+{
+  "name": "recordings_get",
+  "description": "Retrieve all recording files and details for a specific meeting. Returns download URLs, file types, sizes, and recording views.",
+  "endpoint": "/meetings/{meetingId}/recordings",
+  "method": "GET",
+  "resource_group": "recordings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "string",
+      "description": "The meeting ID or UUID.",
+      "required": true,
+      "example": "abc123def"
+    },
+    {
+      "name": "include_fields",
+      "type": "string",
+      "description": "Include additional fields: download_access_token.",
+      "required": false,
+      "example": "download_access_token"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/meetings/abc123def/recordings",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uuid": "abc123def",
+      "id": 1234567890,
+      "host_id": "host1",
+      "host_email": "host@example.com",
+      "topic": "Weekly Team Sync",
+      "start_time": "2024-01-15T10:00:00Z",
+      "duration": 60,
+      "total_size": 104857600,
+      "recording_files": [
+        {
+          "id": "file1",
+          "meeting_id": "abc123def",
+          "recording_start": "2024-01-15T10:00:00Z",
+          "recording_end": "2024-01-15T11:00:00Z",
+          "file_type": "MP4",
+          "file_size": 52428800,
+          "status": "completed",
+          "download_url": "https://zoom.us/rec/download/...",
+          "play_url": "https://zoom.us/rec/play/..."
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["recording:read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "name": "directions_get",
+  "description": "Calculate turn-by-turn directions between coordinates for driving, walking, or cycling.",
+  "endpoint": "/directions/v5/{profile}/{coordinates}",
+  "method": "GET",
+  "resource_group": "navigation",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile: mapbox/driving-traffic, mapbox/driving, mapbox/walking, mapbox/cycling.",
+      "required": true,
+      "example": "mapbox/driving"
+    },
+    {
+      "name": "coordinates",
+      "type": "string",
+      "description": "Semicolon-separated lng,lat pairs (2-25).",
+      "required": true,
+      "example": "-73.989,40.733;-74.006,40.714"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "pk.xxx"
+    },
+    {
+      "name": "alternatives",
+      "type": "boolean",
+      "description": "Return alternative routes.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "steps",
+      "type": "boolean",
+      "description": "Include turn-by-turn instructions.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "geometries",
+      "type": "string",
+      "description": "Route geometry format: geojson, polyline, polyline6.",
+      "required": false,
+      "example": "geojson"
+    },
+    {
+      "name": "overview",
+      "type": "string",
+      "description": "Geometry detail: full, simplified, false.",
+      "required": false,
+      "example": "full"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Instruction language.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "annotations",
+      "type": "string",
+      "description": "Metadata: distance, duration, speed, congestion.",
+      "required": false,
+      "example": "distance,duration"
+    },
+    {
+      "name": "exclude",
+      "type": "string",
+      "description": "Exclude road types: motorway, toll, ferry.",
+      "required": false,
+      "example": "toll,ferry"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/directions/v5/mapbox/driving/-73.989,40.733;-74.006,40.714?steps=true&geometries=geojson&access_token=pk.xxx",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "routes": [
+        {
+          "distance": 3500,
+          "duration": 600,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                -73.989,
+                40.733
+              ],
+              [
+                -74.006,
+                40.714
+              ]
+            ]
+          },
+          "legs": [
+            {
+              "steps": [
+                {
+                  "maneuver": {
+                    "instruction": "Head south"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "waypoints": [
+        {
+          "name": "Start",
+          "location": [
+            -73.989,
+            40.733
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

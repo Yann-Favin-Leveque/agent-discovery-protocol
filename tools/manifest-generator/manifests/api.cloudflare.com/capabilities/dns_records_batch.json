@@ -1,0 +1,85 @@
+{
+  "name": "dns_records_batch",
+  "resource_group": "dns_records",
+  "description": "Batch create, update, and delete DNS records atomically.",
+  "endpoint": "/zones/{zone_id}/dns_records/batch",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "deletes",
+      "type": "array",
+      "required": false,
+      "in": "body",
+      "description": "Records to delete."
+    },
+    {
+      "name": "patches",
+      "type": "array",
+      "required": false,
+      "in": "body",
+      "description": "Records to patch."
+    },
+    {
+      "name": "puts",
+      "type": "array",
+      "required": false,
+      "in": "body",
+      "description": "Records to replace."
+    },
+    {
+      "name": "posts",
+      "type": "array",
+      "required": false,
+      "in": "body",
+      "description": "Records to create."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dns_records/batch",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "posts": [
+        {
+          "type": "A",
+          "name": "new.example.com",
+          "content": "1.2.3.4",
+          "ttl": 3600
+        }
+      ],
+      "deletes": [
+        {
+          "id": "rec-old"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "posts": [
+          {
+            "id": "rec-new"
+          }
+        ],
+        "deletes": [
+          {
+            "id": "rec-old"
+          }
+        ]
+      }
+    }
+  }
+}

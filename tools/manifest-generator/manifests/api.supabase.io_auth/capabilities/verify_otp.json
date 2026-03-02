@@ -1,0 +1,75 @@
+{
+  "name": "verify_otp",
+  "description": "Verify an OTP code or token hash sent via email or phone. Returns a session with access and refresh tokens on success.",
+  "endpoint": "/auth/v1/verify",
+  "method": "POST",
+  "resource_group": "auth",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Verification type: sms, email, signup, magiclink, recovery, invite, email_change, phone_change.",
+      "required": true,
+      "example": "email"
+    },
+    {
+      "name": "token",
+      "type": "string",
+      "description": "The OTP code or token hash to verify.",
+      "required": true,
+      "example": "123456"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email address (required for email-based verification).",
+      "required": false,
+      "example": "user@example.com"
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "description": "Phone number (required for phone-based verification).",
+      "required": false,
+      "example": "+1234567890"
+    },
+    {
+      "name": "redirect_to",
+      "type": "string",
+      "description": "URL to redirect to after verification.",
+      "required": false,
+      "example": "https://example.com/welcome"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-project.supabase.co/auth/v1/verify",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "email",
+      "token": "123456",
+      "email": "user@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "access_token": "eyJhbGciOiJIUzI1NiIs...",
+      "token_type": "bearer",
+      "expires_in": 3600,
+      "refresh_token": "abc123-refresh",
+      "user": {
+        "id": "uuid-1234",
+        "email": "user@example.com",
+        "email_confirmed_at": "2024-01-15T10:05:00Z"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

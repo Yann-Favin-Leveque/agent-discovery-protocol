@@ -1,0 +1,24 @@
+{
+  "name": "transactions_authorize",
+  "description": "Authorize a payment method without capturing funds. The authorized amount is held and can be captured later.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    {"name": "amount", "type": "string", "description": "Authorization amount.", "required": true, "example": "100.00"},
+    {"name": "paymentMethodId", "type": "string", "description": "ID of a vaulted payment method.", "required": false, "example": "cGF5bWVudG1ldGhvZF9uNnFmOWo"},
+    {"name": "paymentMethodNonce", "type": "string", "description": "Single-use nonce.", "required": false, "example": "fake-valid-nonce"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://payments.braintree-api.com/graphql",
+    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
+    "body": {"query": "mutation AuthorizePaymentMethod($input: AuthorizePaymentMethodInput!) { authorizePaymentMethod(input: $input) { transaction { id status amount { value } } } }", "variables": {"input": {"paymentMethodId": "cGF5bWVudG1ldGhvZF9uNnFmOWo", "transaction": {"amount": "100.00"}}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"authorizePaymentMethod": {"transaction": {"id": "dHJhbnNhY3Rpb25fOHg2NjRi", "status": "AUTHORIZED", "amount": {"value": "100.00"}}}}}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 300}
+}

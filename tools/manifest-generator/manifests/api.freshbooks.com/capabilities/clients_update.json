@@ -1,0 +1,71 @@
+{
+  "name": "clients_update",
+  "description": "Update an existing client's details such as name, email, or billing address.",
+  "endpoint": "/accounting/account/{account_id}/users/clients/{client_id}",
+  "method": "PUT",
+  "resource_group": "clients",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw"
+    },
+    {
+      "name": "client_id",
+      "type": "integer",
+      "description": "The client ID to update.",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "fname",
+      "type": "string",
+      "description": "Updated first name.",
+      "required": false,
+      "example": "Jonathan"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Updated email address.",
+      "required": false,
+      "example": "jonathan@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/users/clients/12345",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "client": {
+        "fname": "Jonathan",
+        "email": "jonathan@example.com"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "response": {
+        "result": {
+          "client": {
+            "id": 12345,
+            "fname": "Jonathan",
+            "lname": "Doe",
+            "email": "jonathan@example.com"
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": ["user:clients:write"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

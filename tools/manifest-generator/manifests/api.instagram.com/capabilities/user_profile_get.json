@@ -1,0 +1,46 @@
+{
+  "name": "user_profile_get",
+  "resource_group": "users",
+  "description": "Retrieve the authenticated Instagram user's profile information including username, bio, follower count, media count, and profile picture URL.",
+  "endpoint": "/{user_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID or 'me' for the authenticated user.",
+      "required": true,
+      "in": "path",
+      "example": "me"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to return.",
+      "required": false,
+      "in": "query",
+      "example": "id,username,name,biography,followers_count,follows_count,media_count,profile_picture_url,website"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/me?fields=id,username,name,biography,followers_count,follows_count,media_count,profile_picture_url",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "17841400000000000",
+      "username": "mybusiness",
+      "name": "My Business",
+      "biography": "Official account of My Business",
+      "followers_count": 12500,
+      "follows_count": 350,
+      "media_count": 482,
+      "profile_picture_url": "https://scontent.cdninstagram.com/..."
+    }
+  },
+  "auth_scopes": ["instagram_basic"]
+}

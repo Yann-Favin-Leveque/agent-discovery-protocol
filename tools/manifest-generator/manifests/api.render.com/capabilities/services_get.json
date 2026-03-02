@@ -1,0 +1,24 @@
+{
+  "name": "services_get",
+  "description": "Retrieve detailed information about a specific service including its type, repository, branch, build command, start command, deploy status, plan, and region.",
+  "resource_group": "services",
+  "endpoint": "/v1/services/{serviceId}",
+  "method": "GET",
+  "parameters": [
+    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID to retrieve."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5"
+  },
+  "response_example": {
+    "id": "srv-a1b2c3d4e5",
+    "name": "my-api-server",
+    "type": "web_service",
+    "repo": "https://github.com/my-org/my-api",
+    "branch": "main",
+    "autoDeploy": "yes",
+    "suspended": "not_suspended",
+    "serviceDetails": {"buildCommand": "npm install", "startCommand": "npm start", "url": "https://my-api-server.onrender.com", "plan": "starter", "region": "oregon", "env": "node", "numInstances": 1}
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "chats_get",
+  "description": "Fetch the full details and message transcript for a specific chat session.",
+  "endpoint": "/v1/property/{propertyId}/chat/{chatId}",
+  "method": "GET",
+  "resource_group": "chats",
+  "parameters": [
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The property ID",
+      "required": true,
+      "example": "property_id_123"
+    },
+    {
+      "name": "chatId",
+      "type": "string",
+      "description": "The chat session ID",
+      "required": true,
+      "example": "chat_123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tawk.to/v1/property/property_id_123/chat/chat_123",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "chat_123",
+      "messages": [
+        {
+          "sender": "visitor",
+          "text": "Hello",
+          "time": "2024-01-15T10:30:00Z"
+        }
+      ],
+      "visitor": {
+        "name": "John",
+        "email": "john@example.com"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

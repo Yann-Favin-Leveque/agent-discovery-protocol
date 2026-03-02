@@ -1,0 +1,66 @@
+{
+  "name": "work_items_update",
+  "description": "Update a work item using JSON Patch operations.",
+  "resource_group": "work_items",
+  "endpoint": "/{organization}/{project}/_apis/wit/workitems/{id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project."
+    },
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "Work item ID."
+    },
+    {
+      "name": "body",
+      "type": "array",
+      "required": true,
+      "description": "JSON Patch array."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://dev.azure.com/myorg/MyProject/_apis/wit/workitems/42?api-version=7.1",
+    "headers": {
+      "Content-Type": "application/json-patch+json",
+      "Authorization": "Basic base64(user:pat)"
+    },
+    "body": [
+      {
+        "op": "add",
+        "path": "/fields/System.State",
+        "value": "Resolved"
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 42,
+      "fields": {
+        "System.State": "Resolved"
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "name": "playlist_items_list",
+  "description": "List videos in a playlist.",
+  "endpoint": "/youtube/v3/playlistItems",
+  "method": "GET",
+  "resource_group": "playlist_items",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,contentDetails"
+    },
+    {
+      "name": "playlistId",
+      "type": "string",
+      "description": "Playlist ID",
+      "required": true,
+      "example": "PL_playlist_id"
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results (1-50)",
+      "required": false,
+      "example": "25"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "videoId",
+      "type": "string",
+      "description": "Filter by video ID",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/playlistItems",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "snippet": {
+            "title": "Video in Playlist",
+            "position": 0,
+            "resourceId": {
+              "videoId": "abc123"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.readonly"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "name": "inventory_batch_change",
+  "description": "Adjust or set inventory counts for catalog items across locations.",
+  "endpoint": "/v2/inventory/changes/batch-create",
+  "method": "POST",
+  "resource_group": "inventory",
+  "parameters": [
+    {
+      "name": "idempotency_key",
+      "type": "string",
+      "description": "Unique key",
+      "required": true,
+      "example": "inv-change-key"
+    },
+    {
+      "name": "changes",
+      "type": "array",
+      "description": "Array of inventory changes",
+      "required": true,
+      "example": [
+        {
+          "type": "ADJUSTMENT",
+          "adjustment": {
+            "catalog_object_id": "item_var_123",
+            "location_id": "LOCATION_ID",
+            "quantity": "5",
+            "from_state": "NONE",
+            "to_state": "IN_STOCK"
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/inventory/changes/batch-create",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "idempotency_key": "inv-change-key",
+      "changes": [
+        {
+          "type": "ADJUSTMENT",
+          "adjustment": {
+            "catalog_object_id": "item_var_123",
+            "location_id": "LOCATION_ID",
+            "quantity": "5",
+            "from_state": "NONE",
+            "to_state": "IN_STOCK"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "counts": [
+        {
+          "catalog_object_id": "item_var_123",
+          "location_id": "LOCATION_ID",
+          "quantity": "5",
+          "state": "IN_STOCK"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

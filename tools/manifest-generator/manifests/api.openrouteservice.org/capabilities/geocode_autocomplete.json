@@ -1,0 +1,57 @@
+{
+  "name": "geocode_autocomplete",
+  "description": "Type-ahead geocoding search that returns results as the user types.",
+  "endpoint": "/geocode/autocomplete",
+  "method": "GET",
+  "resource_group": "geocoding",
+  "parameters": [
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Partial address or place name",
+      "required": true,
+      "example": "Heidelb"
+    },
+    {
+      "name": "focus.point.lon",
+      "type": "number",
+      "description": "Longitude to bias results",
+      "required": false,
+      "example": 8.681495
+    },
+    {
+      "name": "focus.point.lat",
+      "type": "number",
+      "description": "Latitude to bias results",
+      "required": false,
+      "example": 49.41461
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openrouteservice.org/geocode/autocomplete",
+    "headers": {
+      "Authorization": "{api_key}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Heidelberg",
+            "label": "Heidelberg, Germany"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

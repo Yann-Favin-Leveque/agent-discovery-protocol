@@ -1,0 +1,43 @@
+{
+  "name": "large_files_finish",
+  "description": "Finish a large file upload by combining all parts.",
+  "resource_group": "large_files",
+  "endpoint": "/b2api/v3/b2_finish_large_file",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "fileId",
+      "type": "string",
+      "description": "Large file ID.",
+      "required": true
+    },
+    {
+      "name": "partSha1Array",
+      "type": "array",
+      "description": "Array of SHA1 hashes for each part in order.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_finish_large_file",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fileId": "largefile123",
+      "partSha1Array": [
+        "sha1_part1",
+        "sha1_part2"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "fileId": "largefile123",
+      "fileName": "large-file.zip"
+    }
+  }
+}

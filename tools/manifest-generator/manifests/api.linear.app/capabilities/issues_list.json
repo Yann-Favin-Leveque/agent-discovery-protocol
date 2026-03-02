@@ -1,0 +1,62 @@
+{
+  "name": "issues_list",
+  "description": "List issues with optional filtering.",
+  "resource_group": "issues",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "filter",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Filter by team, state, assignee, label, project, priority, etc."
+    },
+    {
+      "name": "first",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Number of issues to return"
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Cursor for pagination"
+    },
+    {
+      "name": "orderBy",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Sort field (createdAt, updatedAt, priority)"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "{ issues(filter: { team: { key: { eq: \"ENG\" } } }, first: 50) { nodes { id identifier title state { name } assignee { name } priority priorityLabel } pageInfo { hasNextPage endCursor } } }"
+  },
+  "response_example": {
+    "data": {
+      "issues": {
+        "nodes": [
+          {
+            "id": "issue-id",
+            "identifier": "ENG-123",
+            "title": "Fix bug",
+            "state": {
+              "name": "In Progress"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

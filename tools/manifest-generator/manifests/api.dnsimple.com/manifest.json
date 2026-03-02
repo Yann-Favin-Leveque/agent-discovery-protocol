@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "DNSimple API",
-  "description": "[DNSimple](https://dnsimple.com) provides DNS hosting and domain registration that is simple and friendly. We provide an extensive API and an easy-to-use web interface so you can get your domain registered and set up with a minimal amount of effort.",
+  "description": "DNSimple provides DNS hosting, domain registration, and SSL certificate management. Use this API to manage domains, DNS records, registrations, SSL certificates, contacts, and webhooks.",
   "base_url": "https://api.dnsimple.com/v2",
   "auth": {
     "type": "api_key",
@@ -10,64 +10,196 @@
   },
   "capabilities": [
     {
-      "name": "accounts",
-      "description": "Manage accounts — list accounts. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/accounts"
+      "name": "accounts_list",
+      "description": "List all accounts the authenticated user has access to.",
+      "resource_group": "accounts",
+      "detail_url": "/capabilities/accounts_list"
     },
     {
-      "name": "identity",
-      "description": "Manage identity — exchange authorization code for access token, whoami. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/identity"
+      "name": "identity_whoami",
+      "description": "Retrieve details about the currently authenticated user or account.",
+      "resource_group": "identity",
+      "detail_url": "/capabilities/identity_whoami"
     },
     {
-      "name": "billing",
-      "description": "Manage billing — list billing charges, analytics about dns queries. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/billing"
+      "name": "domains_list",
+      "description": "List all domains in an account with optional filtering and pagination.",
+      "resource_group": "domains",
+      "detail_url": "/capabilities/domains_list"
     },
     {
-      "name": "domains",
-      "description": "Manage domains — create a domain, list domains, domains research status. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/domains"
+      "name": "domains_create",
+      "description": "Create a new domain and its corresponding DNS zone.",
+      "resource_group": "domains",
+      "detail_url": "/capabilities/domains_create"
     },
     {
-      "name": "domain_dnssec",
-      "description": "Manage domain dnssec — enable dnssec, create a delegation signer record, dnssec status. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/domain_dnssec"
+      "name": "domains_get",
+      "description": "Retrieve details of an existing domain.",
+      "resource_group": "domains",
+      "detail_url": "/capabilities/domains_get"
     },
     {
-      "name": "domain_emailforwards",
-      "description": "Manage domain emailforwards — create an email forward, list email forwards, retrieve an email forward. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/domain_emailforwards"
+      "name": "domains_delete",
+      "description": "Permanently delete a domain from the account.",
+      "resource_group": "domains",
+      "detail_url": "/capabilities/domains_delete"
     },
     {
-      "name": "domain_pushes",
-      "description": "Manage domain pushes — initiate a push, accept a push, list pushes. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/domain_pushes"
+      "name": "zone_records_list",
+      "description": "List all DNS records for a zone with optional filtering by name and type.",
+      "resource_group": "zones",
+      "detail_url": "/capabilities/zone_records_list"
     },
     {
-      "name": "domain_certificates",
-      "description": "Manage domain certificates — let's encrypt: order a certificate, let's encrypt: issue a certificate, let's encrypt: order a certificate renewal. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/domain_certificates"
+      "name": "zone_records_create",
+      "description": "Create a new DNS record in a zone.",
+      "resource_group": "zones",
+      "detail_url": "/capabilities/zone_records_create"
     },
     {
-      "name": "tlds",
-      "description": "Manage tlds — list tlds, retrieve the tld, list tld extended attributes. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/tlds"
+      "name": "zone_records_get",
+      "description": "Retrieve details of a specific DNS record.",
+      "resource_group": "zones",
+      "detail_url": "/capabilities/zone_records_get"
     },
     {
-      "name": "registrar",
-      "description": "Manage registrar — register a domain, transfer a domain, authorize a domain transfer out. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/registrar"
+      "name": "zone_records_update",
+      "description": "Update an existing DNS record.",
+      "resource_group": "zones",
+      "detail_url": "/capabilities/zone_records_update"
     },
     {
-      "name": "registrar_transfer",
-      "description": "Manage registrar transfer — enable domain transfer lock, domain transfer lock status, retrieve a domain transfer. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/registrar_transfer"
+      "name": "zone_records_delete",
+      "description": "Permanently delete a DNS record from a zone.",
+      "resource_group": "zones",
+      "detail_url": "/capabilities/zone_records_delete"
     },
     {
-      "name": "registrar_renewal",
-      "description": "Manage registrar renewal — renew a domain, enable domain auto-renewal, retrieve a domain renewal. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/registrar_renewal"
+      "name": "registrar_check_domain",
+      "description": "Check domain availability for registration.",
+      "resource_group": "registrar",
+      "detail_url": "/capabilities/registrar_check_domain"
+    },
+    {
+      "name": "registrar_get_prices",
+      "description": "Retrieve registration, renewal, and transfer prices for a domain.",
+      "resource_group": "registrar",
+      "detail_url": "/capabilities/registrar_get_prices"
+    },
+    {
+      "name": "registrar_register_domain",
+      "description": "Register a domain name.",
+      "resource_group": "registrar",
+      "detail_url": "/capabilities/registrar_register_domain"
+    },
+    {
+      "name": "registrar_renew_domain",
+      "description": "Renew an existing domain registration.",
+      "resource_group": "registrar",
+      "detail_url": "/capabilities/registrar_renew_domain"
+    },
+    {
+      "name": "registrar_transfer_domain",
+      "description": "Transfer a domain from another registrar.",
+      "resource_group": "registrar",
+      "detail_url": "/capabilities/registrar_transfer_domain"
+    },
+    {
+      "name": "zones_list",
+      "description": "List all DNS zones in the account.",
+      "resource_group": "zones",
+      "detail_url": "/capabilities/zones_list"
+    },
+    {
+      "name": "contacts_list",
+      "description": "List all contacts in the account.",
+      "resource_group": "contacts",
+      "detail_url": "/capabilities/contacts_list"
+    },
+    {
+      "name": "contacts_create",
+      "description": "Create a new contact for domain registrations.",
+      "resource_group": "contacts",
+      "detail_url": "/capabilities/contacts_create"
+    },
+    {
+      "name": "certificates_letsencrypt_purchase",
+      "description": "Order a Let's Encrypt SSL certificate for a domain.",
+      "resource_group": "certificates",
+      "detail_url": "/capabilities/certificates_letsencrypt_purchase"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List all registered webhooks.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Register a new webhook endpoint.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Remove a registered webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "dnssec_enable",
+      "description": "Enable DNSSEC for a domain.",
+      "resource_group": "dnssec",
+      "detail_url": "/capabilities/dnssec_enable"
+    },
+    {
+      "name": "dnssec_disable",
+      "description": "Disable DNSSEC for a domain.",
+      "resource_group": "dnssec",
+      "detail_url": "/capabilities/dnssec_disable"
+    },
+    {
+      "name": "billing_list_charges",
+      "description": "List billing charges for the account.",
+      "resource_group": "billing",
+      "detail_url": "/capabilities/billing_list_charges"
+    },
+    {
+      "name": "tlds_list",
+      "description": "List all TLDs supported for registration and transfer.",
+      "resource_group": "tlds",
+      "detail_url": "/capabilities/tlds_list"
+    },
+    {
+      "name": "domain_delegation_get",
+      "description": "List the name servers a domain is delegated to.",
+      "resource_group": "registrar",
+      "detail_url": "/capabilities/domain_delegation_get"
+    },
+    {
+      "name": "domain_delegation_update",
+      "description": "Change the name servers a domain is delegated to.",
+      "resource_group": "registrar",
+      "detail_url": "/capabilities/domain_delegation_update"
+    },
+    {
+      "name": "email_forwards_list",
+      "description": "List email forwards for a domain.",
+      "resource_group": "email_forwards",
+      "detail_url": "/capabilities/email_forwards_list"
+    },
+    {
+      "name": "email_forwards_create",
+      "description": "Create a new email forward for a domain.",
+      "resource_group": "email_forwards",
+      "detail_url": "/capabilities/email_forwards_create"
+    },
+    {
+      "name": "email_forwards_delete",
+      "description": "Delete an email forward.",
+      "resource_group": "email_forwards",
+      "detail_url": "/capabilities/email_forwards_delete"
     }
   ]
 }

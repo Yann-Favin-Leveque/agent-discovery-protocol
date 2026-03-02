@@ -1,0 +1,53 @@
+{
+  "name": "daily_cardiovascular_age_list",
+  "description": "Retrieve estimated cardiovascular age for a date range. Supports pagination with next_token.",
+  "resource_group": "daily",
+  "endpoint": "/v2/usercollection/daily_cardiovascular_age",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token from previous response.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "cardiovascular_age"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/daily_cardiovascular_age?start_date=2025-01-10&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "abc-901",
+          "day": "2025-01-15",
+          "vascular_age": 35
+        }
+      ],
+      "next_token": null
+    }
+  }
+}

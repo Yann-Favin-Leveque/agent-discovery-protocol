@@ -1,0 +1,67 @@
+{
+  "name": "webhooks_create",
+  "resource_group": "webhooks",
+  "description": "Create a webhook for a project to receive real-time event notifications.",
+  "endpoint": "/{account_id}/buckets/{project_id}/webhooks.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Account ID",
+      "example": 9999999
+    },
+    {
+      "name": "project_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Project ID",
+      "example": 2085958499
+    },
+    {
+      "name": "payload_url",
+      "type": "string",
+      "required": true,
+      "description": "HTTPS URL for payloads",
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "types",
+      "type": "array",
+      "required": false,
+      "description": "Event types to subscribe to",
+      "example": [
+        "Comment",
+        "Todo",
+        "Message"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://3.basecampapi.com/9999999/buckets/2085958499/webhooks.json",
+    "headers": {
+      "Authorization": "Bearer BC3_TOKEN",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApp (user@example.com)"
+    },
+    "body": {
+      "payload_url": "https://example.com/webhook",
+      "types": [
+        "Comment",
+        "Todo"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1000,
+      "active": true,
+      "payload_url": "https://example.com/webhook"
+    }
+  }
+}

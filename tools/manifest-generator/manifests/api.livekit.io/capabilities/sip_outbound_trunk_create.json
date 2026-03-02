@@ -1,0 +1,44 @@
+{
+  "name": "sip_outbound_trunk_create",
+  "description": "Create an outbound SIP trunk for placing calls from LiveKit rooms to external phone numbers or SIP endpoints.",
+  "endpoint": "/twirp/livekit.SIP/CreateSIPOutboundTrunk",
+  "method": "POST",
+  "resource_group": "sip",
+  "parameters": [
+    {
+      "name": "trunk",
+      "type": "object",
+      "required": true,
+      "description": "Trunk configuration with 'name', 'address' (SIP server), 'numbers' (caller IDs), and authentication credentials."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.SIP/CreateSIPOutboundTrunk",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "trunk": {
+        "name": "Outbound Trunk",
+        "address": "sip.provider.com",
+        "numbers": ["+14155550200"],
+        "auth_username": "user",
+        "auth_password": "pass"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sip_trunk_id": "ST_outbound_01",
+      "name": "Outbound Trunk",
+      "address": "sip.provider.com"
+    }
+  },
+  "auth_scopes": ["sipAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

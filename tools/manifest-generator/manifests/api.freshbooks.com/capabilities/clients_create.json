@@ -1,0 +1,81 @@
+{
+  "name": "clients_create",
+  "description": "Create a new client with name, email, organization, and billing address.",
+  "endpoint": "/accounting/account/{account_id}/users/clients",
+  "method": "POST",
+  "resource_group": "clients",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw"
+    },
+    {
+      "name": "fname",
+      "type": "string",
+      "description": "Client first name.",
+      "required": false,
+      "example": "John"
+    },
+    {
+      "name": "lname",
+      "type": "string",
+      "description": "Client last name.",
+      "required": false,
+      "example": "Doe"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Client email address.",
+      "required": true,
+      "example": "john@example.com"
+    },
+    {
+      "name": "organization",
+      "type": "string",
+      "description": "Client organization/company name.",
+      "required": false,
+      "example": "Acme Corp"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/users/clients",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "client": {
+        "fname": "John",
+        "lname": "Doe",
+        "email": "john@example.com",
+        "organization": "Acme Corp"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "response": {
+        "result": {
+          "client": {
+            "id": 12345,
+            "fname": "John",
+            "lname": "Doe",
+            "email": "john@example.com",
+            "organization": "Acme Corp"
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": ["user:clients:write"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

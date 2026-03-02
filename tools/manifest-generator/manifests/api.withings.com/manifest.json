@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Withings",
-  "description": "Withings provides health and wellness data from connected devices like smart scales, blood pressure monitors, sleep trackers, and activity watches. The API gives access to body measurements, sleep analysis, heart rate data, and daily activity metrics collected by Withings hardware.",
+  "description": "Withings provides health and wellness data from connected devices like smart scales, blood pressure monitors, sleep trackers, and activity watches. The API gives access to body measurements (weight, fat mass, muscle mass, bone mass, hydration), blood pressure readings, heart rate, ECG, sleep analysis, daily activity metrics, workout data, and device information.",
   "base_url": "https://wbsapi.withings.net",
   "auth": {
     "type": "oauth2",
@@ -13,34 +13,82 @@
   },
   "capabilities": [
     {
-      "name": "get_body_measurements",
-      "description": "Retrieve body measurements such as weight, fat mass, muscle mass, BMI, and body water percentage recorded by Withings scales.",
-      "detail_url": "/capabilities/get_body_measurements"
+      "name": "measure_getmeas",
+      "description": "Retrieve body measurements (weight, height, fat mass, muscle mass, bone mass, hydration, blood pressure, heart pulse, temperature, SpO2).",
+      "resource_group": "measure",
+      "detail_url": "/capabilities/measure_getmeas"
     },
     {
-      "name": "get_heart_data",
-      "description": "Retrieve heart rate readings including resting heart rate, blood pressure measurements, and ECG recordings from Withings devices.",
-      "detail_url": "/capabilities/get_heart_data"
+      "name": "measure_getactivity",
+      "description": "Retrieve daily activity data (steps, distance, calories, elevation, active duration, heart rate).",
+      "resource_group": "measure",
+      "detail_url": "/capabilities/measure_getactivity"
     },
     {
-      "name": "get_sleep_data",
-      "description": "Retrieve sleep tracking data including duration, sleep stages (deep, light, REM, awake), and sleep quality scores.",
-      "detail_url": "/capabilities/get_sleep_data"
+      "name": "measure_getworkouts",
+      "description": "Retrieve workout sessions with type, duration, distance, calories, and heart rate data.",
+      "resource_group": "measure",
+      "detail_url": "/capabilities/measure_getworkouts"
     },
     {
-      "name": "get_activity_data",
-      "description": "Retrieve daily activity metrics such as steps, distance, calories burned, elevation, and active minutes.",
-      "detail_url": "/capabilities/get_activity_data"
+      "name": "measure_getintradayactivity",
+      "description": "Retrieve high-resolution intraday activity data at minute-level granularity.",
+      "resource_group": "measure",
+      "detail_url": "/capabilities/measure_getintradayactivity"
     },
     {
-      "name": "get_intraday_activity",
-      "description": "Retrieve high-resolution intraday activity data with heart rate, steps, and calories at minute-level granularity.",
-      "detail_url": "/capabilities/get_intraday_activity"
+      "name": "sleep_get",
+      "description": "Retrieve detailed sleep data with sleep stages, heart rate, and breathing disturbances.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_get"
     },
     {
-      "name": "list_devices",
-      "description": "List all Withings devices associated with the user account, including device type, model, battery level, and last sync time.",
-      "detail_url": "/capabilities/list_devices"
+      "name": "sleep_getsummary",
+      "description": "Retrieve sleep summary data including total duration, stages breakdown, and quality score.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_getsummary"
+    },
+    {
+      "name": "heart_get",
+      "description": "Retrieve ECG recordings and atrial fibrillation detection results.",
+      "resource_group": "heart",
+      "detail_url": "/capabilities/heart_get"
+    },
+    {
+      "name": "heart_list",
+      "description": "List available heart (ECG) recordings with signal data and classifications.",
+      "resource_group": "heart",
+      "detail_url": "/capabilities/heart_list"
+    },
+    {
+      "name": "user_getdevice",
+      "description": "List all Withings devices associated with the user account.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/user_getdevice"
+    },
+    {
+      "name": "user_getgoals",
+      "description": "Retrieve the user's health goals (weight, steps, sleep).",
+      "resource_group": "user",
+      "detail_url": "/capabilities/user_getgoals"
+    },
+    {
+      "name": "notify_subscribe",
+      "description": "Subscribe to webhook notifications for data updates.",
+      "resource_group": "notify",
+      "detail_url": "/capabilities/notify_subscribe"
+    },
+    {
+      "name": "notify_list",
+      "description": "List active webhook subscriptions.",
+      "resource_group": "notify",
+      "detail_url": "/capabilities/notify_list"
+    },
+    {
+      "name": "notify_revoke",
+      "description": "Revoke a webhook subscription.",
+      "resource_group": "notify",
+      "detail_url": "/capabilities/notify_revoke"
     }
   ]
 }

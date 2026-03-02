@@ -1,0 +1,53 @@
+{
+  "name": "teams_invite_user",
+  "description": "Invite a user to a team.",
+  "endpoint": "/v2/teams/{teamId}/members",
+  "method": "POST",
+  "resource_group": "teams",
+  "parameters": [
+    {
+      "name": "teamId",
+      "type": "string",
+      "description": "Team ID",
+      "required": true,
+      "example": "team_123"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email to invite",
+      "required": true,
+      "example": "newuser@example.com"
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "description": "Role (MEMBER, DEVELOPER, BILLING, OWNER)",
+      "required": false,
+      "example": "MEMBER"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vercel.com/v2/teams/team_123/members",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "newuser@example.com",
+      "role": "MEMBER"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uid": "user_456",
+      "email": "newuser@example.com"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

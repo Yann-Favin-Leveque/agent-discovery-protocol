@@ -1,0 +1,42 @@
+{
+  "name": "sip_dispatch_rule_create",
+  "description": "Create a dispatch rule to route incoming SIP calls to specific rooms, generate individual rooms per caller, or per callee.",
+  "endpoint": "/twirp/livekit.SIP/CreateSIPDispatchRule",
+  "method": "POST",
+  "resource_group": "sip",
+  "parameters": [
+    {
+      "name": "rule",
+      "type": "object",
+      "required": true,
+      "description": "Dispatch rule configuration with 'trunk_ids' (array), and either 'dispatch_rule_direct' (room name) or 'dispatch_rule_individual' (room prefix)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.SIP/CreateSIPDispatchRule",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "rule": {
+        "trunk_ids": ["ST_inbound_01"],
+        "dispatch_rule_direct": {
+          "room_name": "support-room"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sip_dispatch_rule_id": "SDR_01",
+      "trunk_ids": ["ST_inbound_01"]
+    }
+  },
+  "auth_scopes": ["sipAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

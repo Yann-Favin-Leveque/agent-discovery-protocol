@@ -1,0 +1,64 @@
+{
+  "name": "webp_convert",
+  "description": "Convert an HTML string or URL to a WebP screenshot image.",
+  "resource_group": "convert",
+  "endpoint": "/convert/webp",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "source",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "URL or HTML string to convert."
+    },
+    {
+      "name": "viewport",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Rendering window size. Default: '1280x1024'."
+    },
+    {
+      "name": "fullpage",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "Capture entire scrollable page. Default: false."
+    },
+    {
+      "name": "quality",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "WebP quality 10-100. Default: 80."
+    },
+    {
+      "name": "dpi",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "DPI scaling: 1, 2, or 4. Default: 1."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pdfshift.io/v3/convert/webp",
+    "headers": {
+      "X-API-Key": "your-pdfshift-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "source": "https://example.com",
+      "fullpage": true,
+      "quality": 85
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "image/webp"
+    },
+    "body": "<binary WebP content>"
+  }
+}

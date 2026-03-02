@@ -1,0 +1,72 @@
+{
+  "name": "orders_update",
+  "description": "Update an open order (add/remove line items, apply discounts).",
+  "endpoint": "/v2/orders/{order_id}",
+  "method": "PUT",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "order_id",
+      "type": "string",
+      "description": "Order ID",
+      "required": true,
+      "example": "order_abc"
+    },
+    {
+      "name": "idempotency_key",
+      "type": "string",
+      "description": "Unique key",
+      "required": true,
+      "example": "update-order-key"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://connect.squareup.com/v2/orders/order_abc",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "idempotency_key": "update-order-key",
+      "order": {
+        "version": 1,
+        "line_items": [
+          {
+            "name": "New Item",
+            "quantity": "1",
+            "base_price_money": {
+              "amount": 300,
+              "currency": "USD"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "order": {
+        "id": "order_abc",
+        "version": 2,
+        "state": "OPEN"
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

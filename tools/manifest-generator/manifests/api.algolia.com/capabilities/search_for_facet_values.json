@@ -1,0 +1,52 @@
+{
+  "name": "search_for_facet_values",
+  "description": "Search for values of a specific facet attribute, optionally matching a partial text query. Useful for building facet autocomplete.",
+  "endpoint": "/1/indexes/{indexName}/facets/{facetName}/query",
+  "method": "POST",
+  "resource_group": "search",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index to search.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "facetName",
+      "type": "string",
+      "description": "Name of the facet attribute to search.",
+      "required": true,
+      "example": "brand"
+    },
+    {
+      "name": "facetQuery",
+      "type": "string",
+      "description": "Text to search for within facet values.",
+      "required": false,
+      "example": "app"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}-dsn.algolia.net/1/indexes/products/facets/brand/query",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": { "facetQuery": "app" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "facetHits": [
+        { "value": "Apple", "highlighted": "<em>App</em>le", "count": 42 }
+      ]
+    }
+  },
+  "auth_scopes": ["search"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "sessions_verify",
+  "resource_group": "sessions",
+  "description": "Verify a session token to confirm validity and retrieve session details.",
+  "endpoint": "/v1/sessions/{session_id}/verify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "session_id",
+      "type": "string",
+      "required": true,
+      "description": "The session ID.",
+      "in": "path"
+    },
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "The session token to verify."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/sessions/sess_abc123/verify",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "token": "eyJhbGciOiJSUzI1NiJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sess_abc123",
+      "object": "session",
+      "status": "active",
+      "user_id": "user_2abc123"
+    }
+  }
+}

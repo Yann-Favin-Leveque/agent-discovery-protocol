@@ -1,0 +1,84 @@
+{
+  "name": "zone_records_create",
+  "description": "Create a new DNS record in a zone.",
+  "resource_group": "zones",
+  "endpoint": "/{account}/zones/{zone}/records",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "zone",
+      "type": "string",
+      "required": true,
+      "description": "Zone name."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Record name."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Record type: A, AAAA, CNAME, MX, TXT, NS, SRV, etc."
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "description": "Record content."
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "required": false,
+      "description": "TTL in seconds. Default: 3600."
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "required": false,
+      "description": "Priority (for MX, SRV)."
+    },
+    {
+      "name": "regions",
+      "type": "array",
+      "required": false,
+      "description": "Regions for regional records."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dnsimple.com/v2/1010/zones/example.com/records",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "www",
+      "type": "A",
+      "content": "192.0.2.1",
+      "ttl": 3600
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": 2,
+        "zone_id": "example.com",
+        "name": "www",
+        "type": "A",
+        "content": "192.0.2.1",
+        "ttl": 3600
+      }
+    }
+  }
+}

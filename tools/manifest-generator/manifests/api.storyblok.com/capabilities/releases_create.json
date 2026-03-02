@@ -1,0 +1,56 @@
+{
+  "name": "releases_create",
+  "description": "Create a new content release for grouping story changes.",
+  "endpoint": "/v1/spaces/{space_id}/releases",
+  "method": "POST",
+  "resource_group": "releases",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "integer",
+      "description": "Space ID",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "release",
+      "type": "object",
+      "description": "Release object",
+      "required": true,
+      "example": {
+        "name": "Spring Update",
+        "release_at": "2026-04-01T10:00:00Z"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mapi.storyblok.com/v1/spaces/12345/releases",
+    "headers": {
+      "Authorization": "your-management-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "release": {
+        "name": "Spring Update",
+        "release_at": "2026-04-01T10:00:00Z"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "release": {
+        "id": 2,
+        "name": "Spring Update"
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

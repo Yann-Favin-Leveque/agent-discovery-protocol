@@ -1,0 +1,70 @@
+{
+  "name": "documents_list",
+  "description": "List all documents in your account with optional filtering by status, date range, search text, and labels. Returns paginated results.",
+  "endpoint": "/v1/document/list",
+  "method": "GET",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "Page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination. Default 1."
+    },
+    {
+      "name": "PageSize",
+      "type": "integer",
+      "required": false,
+      "description": "Number of items per page. Default 10, max 100."
+    },
+    {
+      "name": "Status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by status: 'InProgress', 'Completed', 'Declined', 'Expired', 'Revoked', 'Draft'."
+    },
+    {
+      "name": "SearchKey",
+      "type": "string",
+      "required": false,
+      "description": "Search by document title, signer name, or email."
+    },
+    {
+      "name": "StartDate",
+      "type": "string",
+      "required": false,
+      "description": "Filter documents created on or after this ISO 8601 date."
+    },
+    {
+      "name": "EndDate",
+      "type": "string",
+      "required": false,
+      "description": "Filter documents created before this ISO 8601 date."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.boldsign.com/v1/document/list?Page=1&PageSize=20&Status=InProgress",
+    "headers": {
+      "X-API-KEY": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "pageDetails": { "page": 1, "pageSize": 20, "totalRecordsCount": 5 },
+      "result": [
+        {
+          "documentId": "doc_abc123",
+          "status": "InProgress",
+          "title": "Employment Agreement",
+          "createdDate": "2024-01-15T12:00:00Z"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

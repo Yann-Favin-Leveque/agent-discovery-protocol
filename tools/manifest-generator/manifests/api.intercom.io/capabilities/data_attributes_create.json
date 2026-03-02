@@ -1,0 +1,71 @@
+{
+  "name": "data_attributes_create",
+  "description": "Create a new custom data attribute for contacts or companies.",
+  "resource_group": "data_attributes",
+  "endpoint": "/data_attributes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Attribute name (alphanumeric and underscores)."
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Model: 'contact' or 'company'."
+    },
+    {
+      "name": "data_type",
+      "type": "string",
+      "required": true,
+      "description": "Data type: 'string', 'integer', 'float', 'boolean', 'date'."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Description of the attribute."
+    },
+    {
+      "name": "options",
+      "type": "array",
+      "required": false,
+      "description": "For string type, optional list of allowed values."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/data_attributes",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "name": "subscription_tier",
+      "model": "contact",
+      "data_type": "string",
+      "description": "Customer subscription tier",
+      "options": [
+        "free",
+        "starter",
+        "pro",
+        "enterprise"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "data_attribute",
+      "id": "attr-2",
+      "name": "subscription_tier",
+      "model": "contact",
+      "data_type": "string",
+      "custom": true
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a new webhook for content change notifications.",
+  "endpoint": "/v1/spaces/{space_id}/webhook_endpoints",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "integer",
+      "description": "Space ID",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "webhook_endpoint",
+      "type": "object",
+      "description": "Webhook configuration",
+      "required": true,
+      "example": {
+        "name": "Deploy Hook",
+        "endpoint": "https://example.com/deploy",
+        "actions": [
+          "story.published"
+        ]
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mapi.storyblok.com/v1/spaces/12345/webhook_endpoints",
+    "headers": {
+      "Authorization": "your-management-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "webhook_endpoint": {
+        "name": "Deploy Hook",
+        "endpoint": "https://example.com/deploy",
+        "actions": [
+          "story.published"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "webhook_endpoint": {
+        "id": 2,
+        "name": "Deploy Hook"
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

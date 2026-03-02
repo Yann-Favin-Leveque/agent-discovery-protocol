@@ -1,0 +1,51 @@
+{
+  "name": "envelope_documents_get",
+  "description": "Download the combined document PDF or a specific document from an envelope.",
+  "resource_group": "envelope",
+  "endpoint": "/v2.1/accounts/{accountId}/envelopes/{envelopeId}/documents/{documentId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "envelopeId",
+      "type": "string",
+      "required": true,
+      "description": "Envelope ID.",
+      "in": "path"
+    },
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "description": "Document ID or 'combined' for all documents merged.",
+      "in": "path"
+    },
+    {
+      "name": "certificate",
+      "type": "string",
+      "required": false,
+      "description": "Include certificate of completion: 'true' or 'false'.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/envelopes/env-abc-123/documents/combined",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "<PDF binary data>"
+  }
+}

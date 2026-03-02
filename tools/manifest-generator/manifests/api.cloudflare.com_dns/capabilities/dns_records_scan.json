@@ -1,0 +1,38 @@
+{
+  "name": "dns_records_scan",
+  "description": "Trigger an asynchronous DNS record scan to discover existing DNS records for the zone.",
+  "endpoint": "/zones/{zone_id}/dns_records/scan/trigger",
+  "method": "POST",
+  "resource_group": "dns_records",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_records/scan/trigger",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "recs_added": 0,
+        "recs_added_by_type": {},
+        "total_records_parsed": 0
+      }
+    }
+  },
+  "auth_scopes": ["dns_records:edit"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

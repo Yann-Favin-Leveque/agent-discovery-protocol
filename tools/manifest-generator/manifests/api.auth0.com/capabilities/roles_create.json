@@ -1,0 +1,23 @@
+{
+  "name": "roles_create",
+  "description": "Create a new role with a name and description for RBAC-based access control.",
+  "endpoint": "/api/v2/roles",
+  "method": "POST",
+  "resource_group": "roles",
+  "parameters": [
+    {"name": "name", "type": "string", "description": "Role name.", "required": true, "example": "editor"},
+    {"name": "description", "type": "string", "description": "Role description.", "required": false, "example": "Can edit content"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://YOUR_DOMAIN.auth0.com/api/v2/roles",
+    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
+    "body": {"name": "editor", "description": "Can edit content"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": "rol_xyz789", "name": "editor", "description": "Can edit content"}
+  },
+  "auth_scopes": ["create:roles"],
+  "rate_limits": {"requests_per_minute": 50}
+}

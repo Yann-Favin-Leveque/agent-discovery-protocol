@@ -1,0 +1,49 @@
+{
+  "name": "embeddings_create",
+  "description": "Generate vector embeddings for one or more text inputs. Returns numerical arrays representing semantic meaning, useful for search, classification, clustering, and retrieval-augmented generation.",
+  "resource_group": "embeddings",
+  "endpoint": "/v1/embeddings",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "The embedding model to use.",
+      "example": "BAAI/bge-large-en-v1.5"
+    },
+    {
+      "name": "input",
+      "type": "string|array",
+      "required": true,
+      "description": "Text content to embed. Can be a single string or array of strings.",
+      "example": "New York City"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.together.xyz/v1/embeddings",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "BAAI/bge-large-en-v1.5",
+      "input": "New York City"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "model": "BAAI/bge-large-en-v1.5",
+      "data": [
+        {
+          "object": "embedding",
+          "embedding": [0.123, -0.456, 0.789],
+          "index": 0
+        }
+      ]
+    }
+  }
+}

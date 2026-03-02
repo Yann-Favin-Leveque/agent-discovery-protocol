@@ -1,0 +1,53 @@
+{
+  "name": "notifications_create",
+  "description": "Send a notification to an order customer via email or create an internal note.",
+  "resource_group": "notifications",
+  "endpoint": "/orders/{token}/notifications",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "Order token."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Type: Comment, OrderStatusChanged, OrderShipped, TrackingNumber, Invoice."
+    },
+    {
+      "name": "deliveryMethod",
+      "type": "string",
+      "required": true,
+      "description": "Delivery method: Email or None."
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Notification text."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.snipcart.com/api/orders/order-uuid/notifications",
+    "headers": {
+      "Authorization": "Basic {api_key_base64}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "Comment",
+      "deliveryMethod": "Email",
+      "message": "Your order has shipped!"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "type": "Comment",
+      "deliveryMethod": "Email"
+    }
+  }
+}

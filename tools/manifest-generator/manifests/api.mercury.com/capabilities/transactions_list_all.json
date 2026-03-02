@@ -1,0 +1,29 @@
+{
+  "name": "transactions_list_all",
+  "description": "List all transactions across all accounts in the organization.",
+  "endpoint": "/api/v1/transactions",
+  "method": "GET",
+  "resource_group": "transactions",
+  "parameters": [
+    { "name": "start", "type": "string", "description": "Start date filter in ISO 8601 format", "required": false, "example": "2025-01-01" },
+    { "name": "end", "type": "string", "description": "End date filter in ISO 8601 format", "required": false, "example": "2025-01-31" },
+    { "name": "limit", "type": "integer", "description": "Maximum number of transactions to return", "required": false, "example": 50 },
+    { "name": "offset", "type": "integer", "description": "Pagination offset", "required": false, "example": 0 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mercury.com/api/v1/transactions?limit=50",
+    "headers": { "Authorization": "Bearer {token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total": 250,
+      "transactions": [
+        { "id": "txn_abc123", "amount": -1500.00, "counterpartyName": "AWS", "status": "sent" }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": { "requests_per_minute": 60 }
+}

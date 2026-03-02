@@ -1,0 +1,72 @@
+{
+  "name": "geocode_reverse",
+  "description": "Convert geographic coordinates (latitude/longitude) into a human-readable address and place information.",
+  "endpoint": "/maps/api/geocode/json",
+  "method": "GET",
+  "resource_group": "geocoding",
+  "parameters": [
+    {
+      "name": "latlng",
+      "type": "string",
+      "description": "Latitude and longitude coordinates (e.g., 40.714224,-73.961452).",
+      "required": true,
+      "example": "40.714224,-73.961452"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "result_type",
+      "type": "string",
+      "description": "Filter by address type (e.g., street_address, locality). Pipe-separated.",
+      "required": false,
+      "example": "street_address"
+    },
+    {
+      "name": "location_type",
+      "type": "string",
+      "description": "Filter by location type: ROOFTOP, RANGE_INTERPOLATED, GEOMETRIC_CENTER, APPROXIMATE.",
+      "required": false,
+      "example": "ROOFTOP"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for results.",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "formatted_address": "277 Bedford Ave, Brooklyn, NY 11211, USA",
+          "geometry": {
+            "location": {"lat": 40.714232, "lng": -73.9612889}
+          },
+          "place_id": "ChIJd8BlQ2BZwokRjMKi1dE_JTo",
+          "address_components": [
+            {"long_name": "277", "short_name": "277", "types": ["street_number"]},
+            {"long_name": "Bedford Avenue", "short_name": "Bedford Ave", "types": ["route"]}
+          ]
+        }
+      ],
+      "status": "OK"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

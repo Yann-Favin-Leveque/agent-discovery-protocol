@@ -1,0 +1,54 @@
+{
+  "name": "templates_update",
+  "description": "Update an existing message template.",
+  "resource_group": "templates",
+  "endpoint": "/api/v1/apps/{app_id}/templates/{template_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "required": true,
+      "description": "App ID."
+    },
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": true,
+      "description": "Template ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Updated name."
+    },
+    {
+      "name": "contents",
+      "type": "object",
+      "required": false,
+      "description": "Updated content."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.onesignal.com/api/v1/apps/app-uuid/templates/tmpl-uuid",
+    "headers": {
+      "Authorization": "Basic <rest_api_key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Updated Welcome",
+      "contents": {
+        "en": "Welcome aboard!"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "tmpl-uuid",
+      "name": "Updated Welcome"
+    }
+  }
+}

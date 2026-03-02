@@ -1,0 +1,52 @@
+{
+  "name": "payment_intents_update",
+  "description": "Update a PaymentIntent's amount, metadata, or other properties.",
+  "endpoint": "/v1/payment_intents/{id}",
+  "method": "POST",
+  "resource_group": "payment_intents",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "PaymentIntent ID",
+      "required": true,
+      "example": "pi_abc123"
+    },
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Updated amount",
+      "required": false,
+      "example": 2500
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Updated metadata",
+      "required": false,
+      "example": {
+        "order_id": "1235"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/payment_intents/pi_abc123",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "amount=2500"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "pi_abc123",
+      "amount": 2500
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

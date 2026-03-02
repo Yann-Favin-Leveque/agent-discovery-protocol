@@ -1,0 +1,44 @@
+{
+  "name": "records_delete_by_query",
+  "description": "Delete all records matching a filter expression from an index without knowing individual objectIDs.",
+  "endpoint": "/1/indexes/{indexName}/deleteByQuery",
+  "method": "POST",
+  "resource_group": "records",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "filters",
+      "type": "string",
+      "description": "Filter expression to select records for deletion.",
+      "required": true,
+      "example": "category:discontinued"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/deleteByQuery",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": { "filters": "category:discontinued" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "updatedAt": "2024-06-15T10:30:00.000Z",
+      "taskID": 685
+    }
+  },
+  "auth_scopes": ["deleteObject"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "refunds_list",
+  "description": "List refunds with optional date range filtering.",
+  "endpoint": "/v2/refunds",
+  "method": "GET",
+  "resource_group": "refunds",
+  "parameters": [
+    {
+      "name": "begin_time",
+      "type": "string",
+      "description": "Start date (RFC 3339)",
+      "required": false,
+      "example": "2026-03-01T00:00:00Z"
+    },
+    {
+      "name": "location_id",
+      "type": "string",
+      "description": "Filter by location",
+      "required": false,
+      "example": "LOCATION_ID"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://connect.squareup.com/v2/refunds",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "refunds": [
+        {
+          "id": "ref_456",
+          "status": "COMPLETED",
+          "amount_money": {
+            "amount": 50,
+            "currency": "USD"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

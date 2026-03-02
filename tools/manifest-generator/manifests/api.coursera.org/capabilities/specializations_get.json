@@ -1,0 +1,56 @@
+{
+  "name": "specializations_get",
+  "description": "Retrieve detailed information about a specific specialization by its ID.",
+  "endpoint": "/api/onDemandSpecializations.v1/{id}",
+  "method": "GET",
+  "resource_group": "specializations",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The unique specialization identifier.",
+      "required": true,
+      "example": "jhu-data-science"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to include.",
+      "required": false,
+      "example": "name,slug,description,logo,courseIds,partnerIds"
+    },
+    {
+      "name": "includes",
+      "type": "string",
+      "description": "Linked resources to include.",
+      "required": false,
+      "example": "courseIds,partnerIds"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/onDemandSpecializations.v1/jhu-data-science?fields=name,slug,description,logo,courseIds,partnerIds",
+    "headers": {},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "jhu-data-science",
+          "slug": "jhu-data-science",
+          "name": "Data Science",
+          "description": "Ask the right questions, manipulate data sets, and create visualizations...",
+          "logo": "https://coursera-s12n-assets.s3.amazonaws.com/jhu-ds/logo.png",
+          "courseIds": ["course1", "course2", "course3"],
+          "partnerIds": ["johns-hopkins"]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

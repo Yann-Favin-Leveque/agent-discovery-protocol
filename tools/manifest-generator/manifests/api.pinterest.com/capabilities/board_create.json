@@ -1,0 +1,56 @@
+{
+  "name": "board_create",
+  "resource_group": "boards",
+  "description": "Create a new board.",
+  "endpoint": "/boards",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Board name.",
+      "required": true,
+      "in": "body",
+      "example": "Travel Ideas"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "privacy",
+      "type": "string",
+      "description": "PUBLIC or SECRET.",
+      "required": false,
+      "in": "body",
+      "example": "PUBLIC"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pinterest.com/v5/boards",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Travel Ideas",
+      "privacy": "PUBLIC"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "549755885175",
+      "name": "Travel Ideas",
+      "privacy": "PUBLIC",
+      "pin_count": 0
+    }
+  },
+  "auth_scopes": [
+    "boards:write"
+  ]
+}

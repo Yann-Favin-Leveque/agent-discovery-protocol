@@ -1,0 +1,47 @@
+{
+  "name": "items_list",
+  "description": "List all items in a specific vault. Returns item summaries without full field details. Supports filtering by title or tag.",
+  "endpoint": "/v1/vaults/{vaultUUID}/items",
+  "method": "GET",
+  "resource_group": "items",
+  "parameters": [
+    {
+      "name": "vaultUUID",
+      "type": "string",
+      "description": "UUID of the vault containing the items.",
+      "required": true,
+      "example": "hfnjvi6aymbsnfc2xeeoheizda"
+    },
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "SCIM-style filter to narrow results by title or tag (e.g., 'title co \"API\"').",
+      "required": false,
+      "example": "title co \"database\""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.1password.com/v1/vaults/hfnjvi6aymbsnfc2xeeoheizda/items?filter=title%20co%20%22database%22",
+    "headers": { "Authorization": "Bearer {token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "wepiqdxdzncjtnvmv5fegud4qy",
+        "title": "Database Credentials",
+        "version": 3,
+        "vault": { "id": "hfnjvi6aymbsnfc2xeeoheizda" },
+        "category": "LOGIN",
+        "lastEditedBy": "DOIHOHSJHSG2WIQHDSJ",
+        "createdAt": "2023-05-10T08:15:00Z",
+        "updatedAt": "2024-03-20T11:45:00Z"
+      }
+    ]
+  },
+  "auth_scopes": ["vaults"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

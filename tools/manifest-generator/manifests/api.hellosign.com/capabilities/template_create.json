@@ -1,0 +1,70 @@
+{
+  "name": "template_create",
+  "description": "Create a new reusable signing template with signer roles and form fields.",
+  "endpoint": "/v3/template/create",
+  "method": "POST",
+  "resource_group": "template",
+  "parameters": [
+    {
+      "name": "signer_roles",
+      "type": "array",
+      "description": "Signer role objects.",
+      "required": true,
+      "example": [
+        {
+          "name": "Client",
+          "order": 0
+        }
+      ]
+    },
+    {
+      "name": "file_urls",
+      "type": "array",
+      "description": "Document URLs.",
+      "required": false,
+      "example": [
+        "https://example.com/template.pdf"
+      ]
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Template title.",
+      "required": false,
+      "example": "NDA Template"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/template/create",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "signer_roles": [
+        {
+          "name": "Client",
+          "order": 0
+        }
+      ],
+      "file_urls": [
+        "https://example.com/template.pdf"
+      ],
+      "title": "NDA Template"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "template": {
+        "template_id": "c26b8a16",
+        "title": "NDA Template"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "events_track",
+  "description": "Record a user action or event with properties, sending it to all connected destinations.",
+  "resource_group": "tracking",
+  "endpoint": "/v1/track",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "required": false,
+      "description": "User ID (required if anonymousId not provided)"
+    },
+    {
+      "name": "anonymousId",
+      "type": "string",
+      "required": false,
+      "description": "Anonymous ID"
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "required": true,
+      "description": "Event name"
+    },
+    {
+      "name": "properties",
+      "type": "object",
+      "required": false,
+      "description": "Event properties"
+    },
+    {
+      "name": "context",
+      "type": "object",
+      "required": false,
+      "description": "Context with device, location info"
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 timestamp"
+    }
+  ],
+  "request_example": {
+    "userId": "user_123",
+    "event": "Order Completed",
+    "properties": {
+      "revenue": 52.0,
+      "currency": "USD"
+    },
+    "timestamp": "2025-01-01T00:00:00Z"
+  },
+  "response_example": {
+    "success": true
+  },
+  "auth_scopes": []
+}

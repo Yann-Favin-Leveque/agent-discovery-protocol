@@ -1,0 +1,73 @@
+{
+  "name": "customers_list",
+  "description": "Retrieve a paginated list of all customers.",
+  "endpoint": "/v1/customers",
+  "method": "GET",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "data_source_uuid",
+      "type": "string",
+      "description": "Filter by data source.",
+      "required": false
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "description": "Filter by external ID.",
+      "required": false
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Filter by email.",
+      "required": false
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status: Lead, Active, Past Due, Cancelled.",
+      "required": false
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page (default 200).",
+      "required": false,
+      "example": 200
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.chartmogul.com/v1/customers?per_page=50",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "entries": [
+        {
+          "uuid": "cus_93b06efd",
+          "external_id": "cus_123",
+          "name": "Acme Corp",
+          "status": "Active",
+          "mrr": 9900
+        }
+      ],
+      "cursor": "next_page_cursor",
+      "has_more": true
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

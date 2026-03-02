@@ -1,0 +1,36 @@
+{
+  "name": "events_bulk_delete",
+  "description": "Delete all events managed by your application from a user's calendars in a single request. Use with caution.",
+  "endpoint": "/v1/events",
+  "method": "DELETE",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "calendar_ids[]",
+      "type": "array",
+      "required": false,
+      "description": "Restrict deletion to specific calendar IDs. Deletes from all calendars if omitted."
+    },
+    {
+      "name": "delete_all",
+      "type": "boolean",
+      "required": true,
+      "description": "Must be set to true to confirm bulk deletion."
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.cronofy.com/v1/events?delete_all=true",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {}
+  },
+  "auth_scopes": ["delete_event"],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

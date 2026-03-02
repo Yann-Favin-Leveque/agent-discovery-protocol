@@ -1,0 +1,62 @@
+{
+  "name": "organization_invitations_list",
+  "resource_group": "organization_invitations",
+  "description": "List pending organization invitations.",
+  "endpoint": "/organizations/{org_uuid}/invitations",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "org_uuid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization UUID",
+      "example": "BBBB-CCCC-DDDD"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by status (pending, accepted, declined)",
+      "example": "pending"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Filter by invited email",
+      "example": "newuser@example.com"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.calendly.com/organizations/BBBB-CCCC-DDDD/invitations?status=pending",
+    "headers": {
+      "Authorization": "Bearer CALENDLY_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "collection": [
+        {
+          "uri": "https://api.calendly.com/organizations/BBBB-CCCC-DDDD/invitations/MMMM",
+          "email": "newuser@example.com",
+          "status": "pending",
+          "created_at": "2025-03-10T12:00:00Z"
+        }
+      ],
+      "pagination": {
+        "count": 20,
+        "next_page_token": null
+      }
+    }
+  }
+}

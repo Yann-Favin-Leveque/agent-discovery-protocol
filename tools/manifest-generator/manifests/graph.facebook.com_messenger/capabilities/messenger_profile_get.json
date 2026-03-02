@@ -1,0 +1,47 @@
+{
+  "name": "messenger_profile_get",
+  "description": "Retrieve the current Messenger Profile settings including greeting, get_started, persistent_menu, and whitelisted_domains.",
+  "endpoint": "/me/messenger_profile",
+  "method": "GET",
+  "resource_group": "messenger_profile",
+  "parameters": [
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of profile fields: greeting, get_started, persistent_menu, whitelisted_domains, ice_breakers.",
+      "required": true,
+      "example": "greeting,get_started,persistent_menu,whitelisted_domains"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v18.0/me/messenger_profile?fields=greeting,get_started,persistent_menu,whitelisted_domains",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "greeting": [{ "locale": "default", "text": "Welcome!" }],
+          "get_started": { "payload": "get_started_clicked" },
+          "persistent_menu": [
+            {
+              "locale": "default",
+              "call_to_actions": [
+                { "type": "postback", "title": "Help", "payload": "help" }
+              ]
+            }
+          ],
+          "whitelisted_domains": ["https://example.com"]
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["pages_messaging"],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

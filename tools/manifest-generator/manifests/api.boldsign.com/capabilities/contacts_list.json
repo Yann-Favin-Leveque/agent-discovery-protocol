@@ -1,0 +1,53 @@
+{
+  "name": "contacts_list",
+  "description": "List all contacts in your BoldSign account with optional search by name or email and pagination.",
+  "endpoint": "/v1/contacts/list",
+  "method": "GET",
+  "resource_group": "contacts",
+  "parameters": [
+    {
+      "name": "Page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number. Default 1."
+    },
+    {
+      "name": "PageSize",
+      "type": "integer",
+      "required": false,
+      "description": "Items per page. Default 10."
+    },
+    {
+      "name": "SearchKey",
+      "type": "string",
+      "required": false,
+      "description": "Search by name or email address."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.boldsign.com/v1/contacts/list?Page=1&PageSize=20",
+    "headers": {
+      "X-API-KEY": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "pageDetails": { "page": 1, "pageSize": 20, "totalRecordsCount": 15 },
+      "result": [
+        {
+          "id": "contact_001",
+          "name": "John Doe",
+          "email": "john@example.com",
+          "companyName": "Acme Corp",
+          "jobTitle": "CTO"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

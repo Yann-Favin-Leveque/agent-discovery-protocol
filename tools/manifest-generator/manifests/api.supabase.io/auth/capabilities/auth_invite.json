@@ -1,0 +1,41 @@
+{
+  "name": "auth_invite",
+  "resource_group": "auth",
+  "description": "Invite a user by email (admin only). Sends an invitation email.",
+  "endpoint": "/invite",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "description": "Email to invite."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": false,
+      "description": "Metadata for the invited user."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://myproject.supabase.co/auth/v1/invite",
+    "headers": {
+      "apikey": "your-anon-key",
+      "Authorization": "Bearer your-service-role-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "bob@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-here",
+      "email": "bob@example.com",
+      "invited_at": "2024-01-15T10:30:00Z"
+    }
+  }
+}

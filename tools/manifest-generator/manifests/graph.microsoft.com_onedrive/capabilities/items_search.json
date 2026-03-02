@@ -1,0 +1,46 @@
+{
+  "name": "items_search",
+  "description": "Search for files and folders by name or content.",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/root/search(q='{search-text}')",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "search-text",
+      "type": "string",
+      "description": "Search query.",
+      "required": true,
+      "example": "budget"
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "description": "Max results.",
+      "required": false
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Properties to select.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/root/search(q='budget')?$top=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": "item789",
+          "name": "budget.xlsx"
+        }
+      ]
+    }
+  }
+}

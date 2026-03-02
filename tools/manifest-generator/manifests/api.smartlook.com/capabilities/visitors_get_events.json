@@ -1,0 +1,44 @@
+{
+  "name": "visitors_get_events",
+  "description": "Retrieve all events triggered by a specific visitor.",
+  "endpoint": "/api/v1/visitors/{visitor_id}/events",
+  "method": "GET",
+  "resource_group": "visitors",
+  "parameters": [
+    {
+      "name": "visitor_id",
+      "type": "string",
+      "description": "The visitor ID.",
+      "required": true,
+      "example": "vis_123"
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "description": "Maximum results to return.",
+      "required": false,
+      "example": 50
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.eu.smartlook.cloud/api/v1/visitors/vis_123/events?limit=50",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        { "name": "click_cta", "timestamp": "2024-01-20T10:01:00Z", "session_id": "rec_abc123" },
+        { "name": "form_submit", "timestamp": "2024-01-20T10:05:00Z", "session_id": "rec_abc123" }
+      ],
+      "total_count": 150
+    }
+  },
+  "auth_scopes": ["read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "services_update",
+  "description": "Update a service's configuration including build command, start command, plan, branch, auto-deploy, and scaling settings.",
+  "resource_group": "services",
+  "endpoint": "/v1/services/{serviceId}",
+  "method": "PATCH",
+  "parameters": [
+    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID to update."},
+    {"name": "name", "type": "string", "required": false, "description": "New service name."},
+    {"name": "branch", "type": "string", "required": false, "description": "New Git branch."},
+    {"name": "autoDeploy", "type": "string", "required": false, "description": "Auto-deploy: yes or no."},
+    {"name": "serviceDetails", "type": "object", "required": false, "description": "Updated config: buildCommand, startCommand, plan, region, numInstances, healthCheckPath."}
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5",
+    "body": {"serviceDetails": {"plan": "standard", "numInstances": 2}}
+  },
+  "response_example": {
+    "id": "srv-a1b2c3d4e5",
+    "name": "my-api-server",
+    "serviceDetails": {"plan": "standard", "numInstances": 2},
+    "updatedAt": "2026-01-20T15:00:00Z"
+  }
+}

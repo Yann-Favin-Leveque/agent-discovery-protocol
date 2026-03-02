@@ -1,0 +1,84 @@
+{
+  "name": "calls_create",
+  "resource_group": "calls",
+  "description": "Initiate an outbound phone call.",
+  "endpoint": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "AccountSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Account SID",
+      "example": "ACXXX"
+    },
+    {
+      "name": "To",
+      "type": "string",
+      "required": true,
+      "description": "Destination phone number",
+      "example": "+15558675310"
+    },
+    {
+      "name": "From",
+      "type": "string",
+      "required": true,
+      "description": "Twilio phone number",
+      "example": "+15017122661"
+    },
+    {
+      "name": "Url",
+      "type": "string",
+      "required": false,
+      "description": "TwiML URL for call instructions",
+      "example": "https://example.com/twiml"
+    },
+    {
+      "name": "Twiml",
+      "type": "string",
+      "required": false,
+      "description": "Inline TwiML",
+      "example": "<Response><Say>Hello!</Say></Response>"
+    },
+    {
+      "name": "StatusCallback",
+      "type": "string",
+      "required": false,
+      "description": "Status webhook URL",
+      "example": "https://example.com/call-status"
+    },
+    {
+      "name": "Record",
+      "type": "boolean",
+      "required": false,
+      "description": "Record the call",
+      "example": false
+    },
+    {
+      "name": "Timeout",
+      "type": "integer",
+      "required": false,
+      "description": "Ring timeout seconds",
+      "example": 30
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/ACXXX/Calls.json",
+    "headers": {
+      "Authorization": "Basic BASE64(AccountSid:AuthToken)",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "To=%2B15558675310&From=%2B15017122661&Twiml=%3CResponse%3E%3CSay%3EHello%3C/Say%3E%3C/Response%3E"
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "sid": "CAXXX",
+      "to": "+15558675310",
+      "from": "+15017122661",
+      "status": "queued"
+    }
+  }
+}

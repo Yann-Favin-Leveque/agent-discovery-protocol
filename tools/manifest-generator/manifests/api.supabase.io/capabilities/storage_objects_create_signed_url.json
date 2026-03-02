@@ -1,0 +1,52 @@
+{
+  "name": "storage_objects_create_signed_url",
+  "description": "Generate a signed URL for temporary access to a private file.",
+  "endpoint": "/storage/v1/object/sign/{bucket_id}/{path}",
+  "method": "POST",
+  "resource_group": "storage",
+  "parameters": [
+    {
+      "name": "bucket_id",
+      "type": "string",
+      "description": "Bucket ID",
+      "required": true,
+      "example": "documents"
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "description": "File path",
+      "required": true,
+      "example": "contracts/agreement.pdf"
+    },
+    {
+      "name": "expiresIn",
+      "type": "integer",
+      "description": "URL expiry in seconds",
+      "required": true,
+      "example": 3600
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/storage/v1/object/sign/documents/contracts/agreement.pdf",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "expiresIn": 3600
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signedURL": "/storage/v1/object/sign/documents/contracts/agreement.pdf?token=eyJ..."
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

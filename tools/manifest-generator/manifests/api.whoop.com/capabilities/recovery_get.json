@@ -1,0 +1,40 @@
+{
+  "name": "recovery_get",
+  "description": "Retrieve a single recovery score by its associated cycle ID.",
+  "resource_group": "recovery",
+  "endpoint": "/developer/v1/cycle/{cycleId}/recovery",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "cycleId",
+      "type": "integer",
+      "required": true,
+      "description": "The cycle ID.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "read:recovery"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.prod.whoop.com/developer/v1/cycle/12345/recovery",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "cycle_id": 12345,
+      "score_state": "SCORED",
+      "score": {
+        "recovery_score": 78,
+        "resting_heart_rate": 52,
+        "hrv_rmssd_milli": 45.2,
+        "spo2_percentage": 96.5,
+        "skin_temp_celsius": 33.8
+      }
+    }
+  }
+}

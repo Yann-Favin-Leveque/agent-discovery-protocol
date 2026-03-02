@@ -1,0 +1,54 @@
+{
+  "name": "institutions_search",
+  "description": "Search for financial institutions by name.",
+  "resource_group": "institutions",
+  "endpoint": "/institutions/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "Search query."
+    },
+    {
+      "name": "products",
+      "type": "array",
+      "required": false,
+      "description": "Filter by products."
+    },
+    {
+      "name": "country_codes",
+      "type": "array",
+      "required": true,
+      "description": "Country codes."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/institutions/search",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "query": "Chase",
+      "country_codes": [
+        "US"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "institutions": [
+        {
+          "institution_id": "ins_109508",
+          "name": "Chase"
+        }
+      ],
+      "request_id": "abc"
+    }
+  }
+}

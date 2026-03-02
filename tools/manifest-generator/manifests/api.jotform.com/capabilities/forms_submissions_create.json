@@ -1,0 +1,43 @@
+{
+  "name": "forms_submissions_create",
+  "resource_group": "submissions",
+  "description": "Create a submission for a form.",
+  "endpoint": "/form/{formID}/submissions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "formID",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Form ID."
+    },
+    {
+      "name": "submission",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Submission data keyed by question ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.jotform.com/form/123456/submissions",
+    "headers": {
+      "APIKEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "submission[1]": "John Doe",
+      "submission[2]": "john@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "content": {
+        "submissionID": "sub-789"
+      }
+    }
+  }
+}

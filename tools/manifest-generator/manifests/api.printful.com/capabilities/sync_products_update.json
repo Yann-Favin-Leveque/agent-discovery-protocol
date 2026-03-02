@@ -1,0 +1,50 @@
+{
+  "name": "sync_products_update",
+  "description": "Update a synchronized product.",
+  "resource_group": "sync_products",
+  "endpoint": "/sync/products/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Sync product ID."
+    },
+    {
+      "name": "sync_product",
+      "type": "object",
+      "required": false,
+      "description": "Updated product details."
+    },
+    {
+      "name": "sync_variants",
+      "type": "array",
+      "required": false,
+      "description": "Updated variants."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.printful.com/sync/products/123",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sync_product": {
+        "name": "Updated T-Shirt"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "result": {
+        "id": 123,
+        "name": "Updated T-Shirt"
+      }
+    }
+  }
+}

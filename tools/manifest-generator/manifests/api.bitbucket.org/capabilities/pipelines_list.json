@@ -1,0 +1,63 @@
+{
+  "name": "pipelines_list",
+  "description": "List pipelines for a repository.",
+  "resource_group": "pipelines",
+  "endpoint": "/repositories/{workspace}/{repo_slug}/pipelines",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace."
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repo slug."
+    },
+    {
+      "name": "pagelen",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort field."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace/my-project/pipelines?sort=-created_on&pagelen=5",
+    "headers": {
+      "Authorization": "Bearer oauth-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "values": [
+        {
+          "uuid": "{pipeline-uuid}",
+          "build_number": 50,
+          "state": {
+            "name": "COMPLETED",
+            "result": {
+              "name": "SUCCESSFUL"
+            }
+          },
+          "target": {
+            "ref_name": "main"
+          },
+          "duration_in_seconds": 120
+        }
+      ]
+    }
+  }
+}

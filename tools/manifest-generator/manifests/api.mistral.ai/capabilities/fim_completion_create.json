@@ -1,0 +1,25 @@
+{
+  "name": "fim_completion_create",
+  "description": "Generate code completions using fill-in-the-middle (FIM) for code editors and IDE integrations. Provide prefix and optional suffix to get code inserted between them.",
+  "resource_group": "fim",
+  "endpoint": "/v1/fim/completions",
+  "method": "POST",
+  "parameters": [
+    {"name": "model", "type": "string", "required": true, "description": "Model ID (e.g. 'codestral-latest')."},
+    {"name": "prompt", "type": "string", "required": true, "description": "Code prefix before the cursor."},
+    {"name": "suffix", "type": "string", "required": false, "description": "Code suffix after the cursor."},
+    {"name": "temperature", "type": "number", "required": false, "description": "Sampling temperature."},
+    {"name": "max_tokens", "type": "integer", "required": false, "description": "Maximum tokens to generate."},
+    {"name": "stop", "type": "array", "required": false, "description": "Stop sequences."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/fim/completions",
+    "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "body": {"model": "codestral-latest", "prompt": "def fibonacci(n):\n    ", "suffix": "\n    return result", "max_tokens": 100}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": "fim-abc123", "choices": [{"index": 0, "message": {"content": "if n <= 1:\n        return n\n    result = fibonacci(n-1) + fibonacci(n-2)"}, "finish_reason": "stop"}]}
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "name": "portfolio_tokens_get",
+  "description": "Get fungible token holdings (native and ERC-20) for one or more wallet addresses across multiple networks, including balances, prices, and metadata.",
+  "endpoint": "/v3/{apiKey}/getTokensByAddress",
+  "method": "GET",
+  "resource_group": "portfolio",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "addresses",
+      "type": "array",
+      "required": true,
+      "description": "Wallet addresses to query (query parameter, comma-separated)."
+    },
+    {
+      "name": "networks",
+      "type": "array",
+      "required": false,
+      "description": "Networks to query (e.g., 'eth-mainnet', 'polygon-mainnet')."
+    },
+    {
+      "name": "withPrices",
+      "type": "boolean",
+      "required": false,
+      "description": "Include current token prices. Default false."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.g.alchemy.com/v3/{apiKey}/getTokensByAddress?addresses=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&networks=eth-mainnet&withPrices=true",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "tokens": [
+          {
+            "network": "eth-mainnet",
+            "address": "0x0000000000000000000000000000000000000000",
+            "name": "Ethereum",
+            "symbol": "ETH",
+            "decimals": 18,
+            "balance": "15000000000000000000",
+            "price": { "currency": "usd", "value": "2500.00" }
+          },
+          {
+            "network": "eth-mainnet",
+            "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+            "name": "USD Coin",
+            "symbol": "USDC",
+            "decimals": 6,
+            "balance": "100000000",
+            "price": { "currency": "usd", "value": "1.00" }
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

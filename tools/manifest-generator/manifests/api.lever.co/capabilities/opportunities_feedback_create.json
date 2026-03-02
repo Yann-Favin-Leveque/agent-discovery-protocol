@@ -1,0 +1,58 @@
+{
+  "name": "opportunities_feedback_create",
+  "resource_group": "Opportunities",
+  "endpoint": "/v1/opportunities/{opportunity}/feedback",
+  "method": "POST",
+  "description": "Submit interview feedback for an opportunity.",
+  "parameters": [
+    {
+      "name": "opportunity",
+      "type": "string",
+      "required": true,
+      "description": "Opportunity UUID."
+    },
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": true,
+      "description": "Feedback template UUID."
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "required": true,
+      "description": "Array of field values."
+    },
+    {
+      "name": "perform_as",
+      "type": "string",
+      "required": false,
+      "description": "User UUID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lever.co/v1/opportunities/abc-123/feedback",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "template_id": "tmpl-1",
+      "fields": [
+        {
+          "value": "Excellent communication"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "fb-1",
+        "templateId": "tmpl-1"
+      }
+    }
+  }
+}

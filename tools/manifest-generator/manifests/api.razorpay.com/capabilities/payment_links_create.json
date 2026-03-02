@@ -1,0 +1,73 @@
+{
+  "name": "payment_links_create",
+  "description": "Create a shareable payment link that customers can use to pay.",
+  "resource_group": "payment_links",
+  "endpoint": "/v1/payment_links",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Amount in smallest currency unit.",
+      "required": true
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO currency code.",
+      "required": true,
+      "example": "INR"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Payment description.",
+      "required": true
+    },
+    {
+      "name": "customer",
+      "type": "object",
+      "description": "Customer details (name, email, contact).",
+      "required": false
+    },
+    {
+      "name": "notify",
+      "type": "object",
+      "description": "Notification preferences.",
+      "required": false
+    },
+    {
+      "name": "callback_url",
+      "type": "string",
+      "description": "Callback URL after payment.",
+      "required": false
+    },
+    {
+      "name": "callback_method",
+      "type": "string",
+      "description": "HTTP method for callback.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/payment_links",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": 50000,
+      "currency": "INR",
+      "description": "Test payment link"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "plink_ExjpAUN3gVHrPJ",
+      "amount": 50000,
+      "short_url": "https://rzp.io/i/w2CEwq"
+    }
+  }
+}

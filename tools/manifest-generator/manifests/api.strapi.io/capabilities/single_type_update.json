@@ -1,0 +1,51 @@
+{
+  "name": "single_type_update",
+  "description": "Update or create the document for a single type content type. If no document exists, it creates one.",
+  "resource_group": "single_types",
+  "endpoint": "/api/{singularApiId}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "singularApiId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The singular API ID of the single type (e.g., 'homepage')."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "An object containing the field values to set or update."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.strapi.io/api/homepage",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "heroTitle": "Updated Welcome Message",
+        "heroSubtitle": "New subtitle"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 1,
+        "attributes": {
+          "heroTitle": "Updated Welcome Message",
+          "heroSubtitle": "New subtitle",
+          "updatedAt": "2026-03-01T12:00:00.000Z"
+        }
+      },
+      "meta": {}
+    }
+  }
+}

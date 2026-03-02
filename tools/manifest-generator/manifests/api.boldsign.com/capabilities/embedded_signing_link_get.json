@@ -1,0 +1,44 @@
+{
+  "name": "embedded_signing_link_get",
+  "description": "Generate an embedded signing link to embed the signing experience directly in your application using an iframe.",
+  "endpoint": "/v1/document/getEmbeddedSignLink",
+  "method": "GET",
+  "resource_group": "embedded",
+  "parameters": [
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "description": "The document ID to generate a signing link for (query parameter)."
+    },
+    {
+      "name": "signerEmail",
+      "type": "string",
+      "required": true,
+      "description": "Email address of the signer to generate the link for (query parameter)."
+    },
+    {
+      "name": "redirectUrl",
+      "type": "string",
+      "required": false,
+      "description": "URL to redirect to after signing is complete."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.boldsign.com/v1/document/getEmbeddedSignLink?documentId=doc_abc123&signerEmail=john@example.com",
+    "headers": {
+      "X-API-KEY": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signLink": "https://app.boldsign.com/document/sign/abc123?token=xyz789"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

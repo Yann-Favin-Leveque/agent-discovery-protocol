@@ -1,0 +1,60 @@
+{
+  "name": "statistics_get",
+  "resource_group": "statistics",
+  "description": "Get account statistics: bandwidth, requests, cache hit ratio.",
+  "endpoint": "/statistics",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "dateFrom",
+      "type": "string",
+      "required": false,
+      "description": "Start date (YYYY-MM-DD)."
+    },
+    {
+      "name": "dateTo",
+      "type": "string",
+      "required": false,
+      "description": "End date."
+    },
+    {
+      "name": "pullZone",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by pull zone ID."
+    },
+    {
+      "name": "serverZoneId",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by server zone."
+    },
+    {
+      "name": "loadErrors",
+      "type": "boolean",
+      "required": false,
+      "description": "Include error stats."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bunny.net/statistics?dateFrom=2024-01-01&dateTo=2024-01-31",
+    "headers": {
+      "AccessKey": "your-api-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TotalBandwidthUsed": 10737418240,
+      "TotalRequestsServed": 500000,
+      "CacheHitRate": 0.95,
+      "BandwidthUsedChart": {
+        "2024-01-01": 349175808
+      },
+      "RequestsServedChart": {
+        "2024-01-01": 16129
+      }
+    }
+  }
+}

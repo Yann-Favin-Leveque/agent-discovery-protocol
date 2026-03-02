@@ -1,0 +1,58 @@
+{
+  "name": "deploy_requests_list",
+  "resource_group": "deploy_requests",
+  "description": "List deploy requests for a database with pagination.",
+  "endpoint": "/organizations/{organization}/databases/{database}/deploy-requests",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Page number."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/deploy-requests",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "dr-123",
+          "state": "open",
+          "branch": "feature",
+          "into_branch": "main",
+          "number": 1
+        }
+      ]
+    }
+  }
+}

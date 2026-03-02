@@ -1,0 +1,70 @@
+{
+  "name": "snapping_post",
+  "description": "Snap coordinates to the nearest point on the road network.",
+  "endpoint": "/v2/snap/{profile}",
+  "method": "POST",
+  "resource_group": "snapping",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile",
+      "required": true,
+      "example": "driving-car"
+    },
+    {
+      "name": "locations",
+      "type": "array",
+      "description": "Array of [longitude, latitude] coordinate pairs to snap",
+      "required": true,
+      "example": [
+        [
+          8.681495,
+          49.41461
+        ]
+      ]
+    },
+    {
+      "name": "radius",
+      "type": "number",
+      "description": "Maximum snap distance in meters",
+      "required": false,
+      "example": 350
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/v2/snap/{profile}",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "locations": [
+        [
+          8.681495,
+          49.41461
+        ]
+      ],
+      "radius": 350
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "locations": [
+        {
+          "location": [
+            8.681495,
+            49.41461
+          ],
+          "snapped_distance": 12.5
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

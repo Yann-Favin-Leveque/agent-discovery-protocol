@@ -1,0 +1,63 @@
+{
+  "name": "tickets_update",
+  "description": "Update a ticket's attributes, state, or assignment.",
+  "resource_group": "tickets",
+  "endpoint": "/tickets/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ticket ID."
+    },
+    {
+      "name": "ticket_attributes",
+      "type": "object",
+      "required": false,
+      "description": "Updated attributes."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "New state: submitted, in_progress, waiting_on_customer, resolved."
+    },
+    {
+      "name": "assignment",
+      "type": "object",
+      "required": false,
+      "description": "Assignment object: {admin_id: 'admin-1'} or {team_id: 'team-1'}."
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "required": false,
+      "description": "Set to true to reopen a resolved ticket."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.intercom.io/tickets/ticket-123",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "state": "in_progress",
+      "assignment": {
+        "admin_id": "admin-1"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "ticket",
+      "id": "ticket-123",
+      "state": "in_progress"
+    }
+  }
+}

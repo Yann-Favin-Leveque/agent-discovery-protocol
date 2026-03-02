@@ -1,0 +1,50 @@
+{
+  "name": "lists_remove_contacts",
+  "description": "Remove contacts from a list.",
+  "resource_group": "lists",
+  "endpoint": "/contacts/lists/{listId}/contacts/remove",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "listId",
+      "type": "integer",
+      "description": "List ID.",
+      "required": true
+    },
+    {
+      "name": "emails",
+      "type": "array",
+      "description": "Emails to remove.",
+      "required": false
+    },
+    {
+      "name": "ids",
+      "type": "array",
+      "description": "Contact IDs to remove.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/contacts/lists/1/contacts/remove",
+    "headers": {
+      "api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "emails": [
+        "a@example.com"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "contacts": {
+        "success": [
+          "a@example.com"
+        ]
+      }
+    }
+  }
+}

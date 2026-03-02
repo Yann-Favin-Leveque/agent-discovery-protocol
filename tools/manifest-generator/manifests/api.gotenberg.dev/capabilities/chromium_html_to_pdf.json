@@ -1,0 +1,172 @@
+{
+  "name": "chromium_html_to_pdf",
+  "description": "Convert an HTML file named 'index.html' and optional assets (CSS, images, fonts) to a PDF document using the Chromium rendering engine. Supports custom paper size, margins, headers, footers, page ranges, PDF/A compliance, accessibility tagging, encryption, and document splitting.",
+  "resource_group": "chromium",
+  "endpoint": "/forms/chromium/convert/html",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "files",
+      "type": "file",
+      "required": true,
+      "location": "formData",
+      "description": "An HTML file named 'index.html' to convert. Additional asset files (CSS, images, fonts) can be included and referenced by relative filename."
+    },
+    {
+      "name": "header.html",
+      "type": "file",
+      "required": false,
+      "location": "formData",
+      "description": "Complete HTML document for page header."
+    },
+    {
+      "name": "footer.html",
+      "type": "file",
+      "required": false,
+      "location": "formData",
+      "description": "Complete HTML document for page footer."
+    },
+    {
+      "name": "paperWidth",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Paper width (e.g., '8.5in'). Default: 8.5."
+    },
+    {
+      "name": "paperHeight",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Paper height (e.g., '11in'). Default: 11."
+    },
+    {
+      "name": "marginTop",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Top margin. Default: 0.39."
+    },
+    {
+      "name": "marginBottom",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Bottom margin. Default: 0.39."
+    },
+    {
+      "name": "marginLeft",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Left margin. Default: 0.39."
+    },
+    {
+      "name": "marginRight",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Right margin. Default: 0.39."
+    },
+    {
+      "name": "landscape",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Landscape orientation. Default: false."
+    },
+    {
+      "name": "scale",
+      "type": "number",
+      "required": false,
+      "location": "formData",
+      "description": "Page rendering zoom factor. Default: 1.0."
+    },
+    {
+      "name": "printBackground",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Include background graphics/colors. Default: false."
+    },
+    {
+      "name": "emulatedMediaType",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Media type: 'screen' or 'print'. Default: 'print'."
+    },
+    {
+      "name": "waitDelay",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Duration to wait before converting (e.g., '5s')."
+    },
+    {
+      "name": "waitForExpression",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "JavaScript expression that must return true before converting."
+    },
+    {
+      "name": "nativePageRanges",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Page ranges to include (e.g., '1-5, 8, 11-13')."
+    },
+    {
+      "name": "pdfa",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "PDF/A standard: 'PDF/A-1b', 'PDF/A-2b', or 'PDF/A-3b'."
+    },
+    {
+      "name": "pdfua",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Enable PDF/UA accessibility compliance. Default: false."
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "JSON string with XMP metadata (Author, Title, Keywords, etc.)."
+    },
+    {
+      "name": "userPassword",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Password required to open the PDF."
+    },
+    {
+      "name": "ownerPassword",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Password required to change permissions."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "http://localhost:3000/forms/chromium/convert/html",
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with 'files' containing index.html, optional style.css, and form fields: paperWidth=8.5, paperHeight=11, printBackground=true"
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": "attachment; filename=output.pdf"
+    },
+    "body": "<binary PDF content>"
+  }
+}

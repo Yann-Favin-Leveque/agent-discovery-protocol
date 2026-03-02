@@ -1,0 +1,73 @@
+{
+  "name": "tax_rates_by_address",
+  "description": "Get tax rates for a specific address without creating a transaction.",
+  "endpoint": "/api/v2/taxrates/byaddress",
+  "method": "GET",
+  "resource_group": "tax_rates",
+  "parameters": [
+    {
+      "name": "line1",
+      "type": "string",
+      "description": "Street address.",
+      "required": true,
+      "example": "123 Main St"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "City.",
+      "required": false,
+      "example": "Austin"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "State.",
+      "required": true,
+      "example": "TX"
+    },
+    {
+      "name": "postalCode",
+      "type": "string",
+      "description": "Postal code.",
+      "required": true,
+      "example": "78756"
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "Country code.",
+      "required": true,
+      "example": "US"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.avatax.com/api/v2/taxrates/byaddress?line1=123+Main+St&city=Austin&region=TX&postalCode=78756&country=US",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "totalRate": 0.0825,
+      "rates": [
+        {
+          "rate": 0.0625,
+          "name": "TX STATE TAX",
+          "type": "State"
+        },
+        {
+          "rate": 0.02,
+          "name": "AUSTIN CITY TAX",
+          "type": "City"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "name": "history_list",
+  "description": "Lists the history of all changes to the given mailbox. Results are returned in chronological order.",
+  "resource_group": "history",
+  "endpoint": "/gmail/v1/users/{userId}/history",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "startHistoryId",
+      "type": "string",
+      "description": "Returns history after this history ID.",
+      "required": true,
+      "example": "12345"
+    },
+    {
+      "name": "maxResults",
+      "type": "number",
+      "description": "Maximum history records to return (max 500).",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Page token for pagination.",
+      "required": false
+    },
+    {
+      "name": "labelId",
+      "type": "string",
+      "description": "Only return messages with this label.",
+      "required": false,
+      "example": "INBOX"
+    },
+    {
+      "name": "historyTypes",
+      "type": "array",
+      "description": "History types: messageAdded, messageDeleted, labelAdded, labelRemoved.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/history?startHistoryId=12345",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "history": [
+        {
+          "id": "12346",
+          "messagesAdded": [
+            {
+              "message": {
+                "id": "18e2abc123"
+              }
+            }
+          ]
+        }
+      ],
+      "nextPageToken": "token123",
+      "historyId": "12350"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.readonly"
+  ]
+}

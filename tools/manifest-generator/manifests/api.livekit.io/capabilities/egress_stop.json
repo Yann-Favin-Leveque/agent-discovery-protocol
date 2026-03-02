@@ -1,0 +1,37 @@
+{
+  "name": "egress_stop",
+  "description": "Stop an active egress recording or streaming session by its egress ID.",
+  "endpoint": "/twirp/livekit.Egress/StopEgress",
+  "method": "POST",
+  "resource_group": "egress",
+  "parameters": [
+    {
+      "name": "egress_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique egress session identifier to stop."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.Egress/StopEgress",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "egress_id": "EG_abc123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "egress_id": "EG_abc123",
+      "status": "EGRESS_ENDING"
+    }
+  },
+  "auth_scopes": ["roomRecord"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

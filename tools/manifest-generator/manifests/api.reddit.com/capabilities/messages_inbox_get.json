@@ -1,0 +1,63 @@
+{
+  "name": "messages_inbox_get",
+  "resource_group": "messages",
+  "description": "Retrieve the authenticated user's inbox messages including comment replies, post replies, and private messages.",
+  "endpoint": "/message/inbox",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "mark",
+      "type": "boolean",
+      "description": "Whether to mark messages as read after fetching.",
+      "required": false,
+      "in": "query",
+      "example": true
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of messages to return (1-100).",
+      "required": false,
+      "in": "query",
+      "example": 25
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Fullname for forward pagination.",
+      "required": false,
+      "in": "query",
+      "example": "t4_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/message/inbox?limit=25",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "Listing",
+      "data": {
+        "children": [
+          {
+            "kind": "t4",
+            "data": {
+              "id": "msg123",
+              "author": "otheruser",
+              "subject": "Hello!",
+              "body": "Just wanted to say hi.",
+              "new": true,
+              "created_utc": 1709312400
+            }
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": ["privatemessages"]
+}

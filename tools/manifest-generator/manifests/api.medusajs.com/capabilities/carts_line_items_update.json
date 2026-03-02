@@ -1,0 +1,52 @@
+{
+  "name": "carts_line_items_update",
+  "description": "Update a line item quantity.",
+  "resource_group": "carts",
+  "endpoint": "/store/carts/{id}/line-items/{line_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Cart ID."
+    },
+    {
+      "name": "line_id",
+      "type": "string",
+      "required": true,
+      "description": "Line item ID."
+    },
+    {
+      "name": "quantity",
+      "type": "integer",
+      "required": true,
+      "description": "Updated quantity."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.medusajs.com/store/carts/cart_01/line-items/item_01",
+    "headers": {
+      "x-publishable-api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "quantity": 2
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "cart": {
+        "id": "cart_01",
+        "items": [
+          {
+            "id": "item_01",
+            "quantity": 2
+          }
+        ]
+      }
+    }
+  }
+}

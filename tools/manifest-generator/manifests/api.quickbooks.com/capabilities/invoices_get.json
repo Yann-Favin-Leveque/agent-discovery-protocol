@@ -1,0 +1,48 @@
+{
+  "name": "invoices_get",
+  "description": "Retrieve a specific invoice by its ID with all line items and payment details.",
+  "endpoint": "/v3/company/{realmId}/invoice/{invoiceId}",
+  "method": "GET",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "invoiceId",
+      "type": "string",
+      "description": "The invoice ID",
+      "required": true,
+      "example": "130"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/invoice/130?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Invoice": {
+        "Id": "130",
+        "DocNumber": "1070",
+        "TotalAmt": 150.0,
+        "Balance": 150.0
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

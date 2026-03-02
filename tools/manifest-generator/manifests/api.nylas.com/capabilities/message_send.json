@@ -1,0 +1,93 @@
+{
+  "name": "message_send",
+  "description": "Send a new email message on behalf of the authenticated user.",
+  "resource_group": "message",
+  "endpoint": "/v3/grants/{grant_id}/messages/send",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID, email, or 'me' (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "description": "Recipients list with name and email.",
+      "required": true,
+      "example": [
+        {
+          "name": "Jane",
+          "email": "jane@example.com"
+        }
+      ]
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Email subject.",
+      "required": true,
+      "example": "Hello from Nylas"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "HTML email body.",
+      "required": true,
+      "example": "<p>Hello!</p>"
+    },
+    {
+      "name": "cc",
+      "type": "array",
+      "description": "CC recipients.",
+      "required": false
+    },
+    {
+      "name": "bcc",
+      "type": "array",
+      "description": "BCC recipients.",
+      "required": false
+    },
+    {
+      "name": "reply_to",
+      "type": "array",
+      "description": "Reply-to addresses.",
+      "required": false
+    },
+    {
+      "name": "tracking_options",
+      "type": "object",
+      "description": "Email tracking options.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.us.nylas.com/v3/grants/me/messages/send",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "to": [
+        {
+          "name": "Jane",
+          "email": "jane@example.com"
+        }
+      ],
+      "subject": "Hello from Nylas",
+      "body": "<p>Hello!</p>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "msg_new",
+        "thread_id": "thread_abc"
+      }
+    }
+  }
+}

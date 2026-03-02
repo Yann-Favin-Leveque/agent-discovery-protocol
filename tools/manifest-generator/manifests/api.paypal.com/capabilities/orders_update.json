@@ -1,0 +1,58 @@
+{
+  "name": "orders_update",
+  "description": "Update an order with CREATED or APPROVED status using JSON Patch operations.",
+  "endpoint": "/v2/checkout/orders/{id}",
+  "method": "PATCH",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Order ID",
+      "required": true,
+      "example": "ORDER_ID"
+    },
+    {
+      "name": "body",
+      "type": "array",
+      "description": "Array of JSON Patch operations",
+      "required": true,
+      "example": [
+        {
+          "op": "replace",
+          "path": "/purchase_units/@reference_id=='default'/amount",
+          "value": {
+            "currency_code": "USD",
+            "value": "150.00"
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api-m.paypal.com/v2/checkout/orders/{id}",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "op": "replace",
+        "path": "/purchase_units/@reference_id=='default'/amount",
+        "value": {
+          "currency_code": "USD",
+          "value": "150.00"
+        }
+      }
+    ]
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

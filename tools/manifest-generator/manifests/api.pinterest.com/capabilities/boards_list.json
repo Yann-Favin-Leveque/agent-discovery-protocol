@@ -1,0 +1,55 @@
+{
+  "name": "boards_list",
+  "resource_group": "boards",
+  "description": "Fetch a paginated list of boards.",
+  "endpoint": "/boards",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "bookmark",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Items per page.",
+      "required": false,
+      "in": "query",
+      "example": 25
+    },
+    {
+      "name": "privacy",
+      "type": "string",
+      "description": "ALL, PUBLIC, SECRET.",
+      "required": false,
+      "in": "query",
+      "example": "ALL"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pinterest.com/v5/boards?page_size=25",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "549755885175",
+          "name": "Travel Ideas",
+          "pin_count": 42
+        }
+      ],
+      "bookmark": "Y2Jh..."
+    }
+  },
+  "auth_scopes": [
+    "boards:read"
+  ]
+}

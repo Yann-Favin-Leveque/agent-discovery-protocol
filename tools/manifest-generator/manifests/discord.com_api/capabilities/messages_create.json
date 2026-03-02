@@ -1,0 +1,107 @@
+{
+  "name": "messages_create",
+  "resource_group": "messages",
+  "description": "Post a message to a guild text or DM channel. Supports text, embeds, components, and file attachments.",
+  "endpoint": "/v10/channels/{channel_id}/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Channel ID to post to",
+      "example": "123456789012345678"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": false,
+      "description": "Message content (up to 2000 chars)",
+      "example": "Hello Discord!"
+    },
+    {
+      "name": "embeds",
+      "type": "array",
+      "required": false,
+      "description": "Array of embed objects (up to 10)",
+      "example": [
+        {
+          "title": "Notification",
+          "description": "Something happened",
+          "color": 5814783
+        }
+      ]
+    },
+    {
+      "name": "tts",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable text-to-speech",
+      "example": false
+    },
+    {
+      "name": "message_reference",
+      "type": "object",
+      "required": false,
+      "description": "Reference to reply to a message",
+      "example": {
+        "message_id": "987654321012345678"
+      }
+    },
+    {
+      "name": "components",
+      "type": "array",
+      "required": false,
+      "description": "Array of message component objects",
+      "example": []
+    },
+    {
+      "name": "flags",
+      "type": "integer",
+      "required": false,
+      "description": "Message flags bitfield",
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://discord.com/api/v10/channels/123456789012345678/messages",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "Hello Discord!",
+      "embeds": [
+        {
+          "title": "Status",
+          "description": "All systems operational",
+          "color": 5814783
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "111111111111111111",
+      "type": 0,
+      "content": "Hello Discord!",
+      "channel_id": "123456789012345678",
+      "author": {
+        "id": "222222222222222222",
+        "username": "MyBot",
+        "bot": true
+      },
+      "timestamp": "2025-03-15T10:00:00.000000+00:00",
+      "embeds": [
+        {
+          "title": "Status",
+          "description": "All systems operational",
+          "color": 5814783
+        }
+      ]
+    }
+  }
+}

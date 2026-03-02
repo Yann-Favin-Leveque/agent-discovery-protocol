@@ -1,0 +1,48 @@
+{
+  "name": "metrics_by_campaign",
+  "description": "Get deliverability metrics grouped by campaign.",
+  "endpoint": "/api/v1/metrics/deliverability/campaign",
+  "method": "GET",
+  "resource_group": "metrics",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start datetime",
+      "required": true,
+      "example": "2026-03-01T00:00"
+    },
+    {
+      "name": "metrics",
+      "type": "string",
+      "description": "Metrics to return",
+      "required": true,
+      "example": "count_delivered,count_unique_opened"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/metrics/deliverability/campaign?from=2026-03-01T00:00&metrics=count_delivered,count_unique_opened",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "campaign_id": "summer-sale",
+          "count_delivered": 500,
+          "count_unique_opened": 200
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

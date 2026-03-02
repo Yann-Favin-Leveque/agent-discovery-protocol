@@ -1,0 +1,20 @@
+{
+  "name": "accounts_redact",
+  "description": "Permanently redact all PII from an account and its associated inquiries. This action is irreversible.",
+  "resource_group": "accounts",
+  "endpoint": "/accounts/{account_id}/redact",
+  "method": "POST",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The account ID to redact.", "required": true, "example": "act_abc123"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://withpersona.com/api/v1/accounts/act_abc123/redact",
+    "headers": {"Authorization": "Bearer {api_key}", "Persona-Version": "2023-01-05"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"type": "account", "id": "act_abc123", "attributes": {"redacted-at": "2024-01-20T10:00:00.000Z"}}}
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

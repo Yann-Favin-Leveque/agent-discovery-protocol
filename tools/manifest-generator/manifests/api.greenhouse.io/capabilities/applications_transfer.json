@@ -1,0 +1,56 @@
+{
+  "name": "applications_transfer",
+  "resource_group": "Applications",
+  "endpoint": "/v1/applications/{id}/transfer_to_job",
+  "method": "POST",
+  "description": "Transfer an application to a different job.",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Application ID."
+    },
+    {
+      "name": "new_job_id",
+      "type": "integer",
+      "required": true,
+      "description": "Target job ID."
+    },
+    {
+      "name": "new_stage_id",
+      "type": "integer",
+      "required": false,
+      "description": "Initial stage in new job."
+    },
+    {
+      "name": "On-Behalf-Of",
+      "type": "integer",
+      "required": true,
+      "description": "User ID (header)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://harvest.greenhouse.io/v1/applications/29483021/transfer_to_job",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6",
+      "On-Behalf-Of": "4321",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "new_job_id": 45030
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 29483021,
+      "jobs": [
+        {
+          "id": 45030
+        }
+      ]
+    }
+  }
+}

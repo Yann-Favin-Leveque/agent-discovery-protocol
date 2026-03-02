@@ -1,0 +1,64 @@
+{
+  "name": "image_edit",
+  "description": "Edit an existing image by providing a prompt describing the desired changes, with optional mask for targeted editing.",
+  "resource_group": "images",
+  "endpoint": "/v1/images/edits",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "image",
+      "type": "file",
+      "required": true,
+      "description": "The image to edit. Must be a valid PNG file, less than 4MB, and square."
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": true,
+      "description": "A text description of the desired edit."
+    },
+    {
+      "name": "mask",
+      "type": "file",
+      "required": false,
+      "description": "An additional image with transparent areas indicating where edits should be applied."
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "description": "The model to use (default 'dall-e-2')."
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "required": false,
+      "description": "Number of images to generate (1-10, default 1)."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "required": false,
+      "description": "Image size: '256x256', '512x512', '1024x1024' (default)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/images/edits",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "body": "multipart/form-data with image, prompt, and optional mask fields"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "created": 1709164800,
+      "data": [
+        {
+          "url": "https://oaidalleapiprodscus.blob.core.windows.net/..."
+        }
+      ]
+    }
+  }
+}

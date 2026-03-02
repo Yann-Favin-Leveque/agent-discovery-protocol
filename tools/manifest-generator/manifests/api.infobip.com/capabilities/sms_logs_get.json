@@ -1,0 +1,74 @@
+{
+  "name": "sms_logs_get",
+  "description": "Retrieve detailed logs for sent and received SMS messages with filtering by date, status, sender, destination, and bulk ID.",
+  "endpoint": "/sms/3/logs",
+  "method": "GET",
+  "resource_group": "sms",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "required": false,
+      "description": "Filter by sender ID."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": false,
+      "description": "Filter by destination phone number."
+    },
+    {
+      "name": "bulkId",
+      "type": "string",
+      "required": false,
+      "description": "Filter by bulk message ID."
+    },
+    {
+      "name": "sentSince",
+      "type": "string",
+      "required": false,
+      "description": "Lower limit on sent date in ISO 8601 format."
+    },
+    {
+      "name": "sentUntil",
+      "type": "string",
+      "required": false,
+      "description": "Upper limit on sent date in ISO 8601 format."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of log entries to return. Default 50, max 1000."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.infobip.com/sms/3/logs?sentSince=2024-01-15T00:00:00.000Z&limit=20",
+    "headers": {
+      "Authorization": "App {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "bulkId": "2034072219640523072",
+          "messageId": "msg-id-12345",
+          "to": "14155550123",
+          "from": "ServiceSMS",
+          "text": "Your code is 482910",
+          "sentAt": "2024-01-15T12:00:00.000+0000",
+          "doneAt": "2024-01-15T12:00:02.000+0000",
+          "smsCount": 1,
+          "status": { "groupName": "DELIVERED", "name": "DELIVERED_TO_HANDSET" }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

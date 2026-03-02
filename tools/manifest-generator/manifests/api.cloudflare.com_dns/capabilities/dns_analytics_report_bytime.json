@@ -1,0 +1,79 @@
+{
+  "name": "dns_analytics_report_bytime",
+  "description": "Retrieve DNS query analytics grouped by time interval. Returns time series data for charting and monitoring.",
+  "endpoint": "/zones/{zone_id}/dns_analytics/report/bytime",
+  "method": "GET",
+  "resource_group": "dns_analytics",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "description": "Start date/time in ISO 8601.",
+      "required": false,
+      "example": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "description": "End date/time in ISO 8601.",
+      "required": false,
+      "example": "2024-01-31T23:59:59Z"
+    },
+    {
+      "name": "metrics",
+      "type": "string",
+      "description": "Comma-separated metrics.",
+      "required": false,
+      "example": "queryCount"
+    },
+    {
+      "name": "dimensions",
+      "type": "string",
+      "description": "Comma-separated dimensions.",
+      "required": false,
+      "example": "queryType"
+    },
+    {
+      "name": "time_delta",
+      "type": "string",
+      "description": "Time interval granularity: hour, day, week, month.",
+      "required": false,
+      "example": "day"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_analytics/report/bytime?since=2024-01-01T00:00:00Z&until=2024-01-07T23:59:59Z&time_delta=day&metrics=queryCount",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "data": [
+          {"dimensions": [], "metrics": [50000]},
+          {"dimensions": [], "metrics": [48000]}
+        ],
+        "data_lag": 60,
+        "time_intervals": [
+          ["2024-01-01T00:00:00Z", "2024-01-02T00:00:00Z"],
+          ["2024-01-02T00:00:00Z", "2024-01-03T00:00:00Z"]
+        ]
+      }
+    }
+  },
+  "auth_scopes": ["analytics:read"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

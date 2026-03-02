@@ -1,0 +1,54 @@
+{
+  "name": "collaborations_create",
+  "description": "Create a collaboration to share a file or folder with a user or group.",
+  "resource_group": "collaborations",
+  "endpoint": "/2.0/collaborations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "item",
+      "type": "object",
+      "description": "Item to share with type and id.",
+      "required": true
+    },
+    {
+      "name": "accessible_by",
+      "type": "object",
+      "description": "User/group to share with.",
+      "required": true
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "description": "Permission role: editor, viewer, etc.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.box.com/2.0/collaborations",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "item": {
+        "type": "folder",
+        "id": "67890"
+      },
+      "accessible_by": {
+        "type": "user",
+        "login": "jane@example.com"
+      },
+      "role": "editor"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "type": "collaboration",
+      "id": "collab123",
+      "role": "editor"
+    }
+  }
+}

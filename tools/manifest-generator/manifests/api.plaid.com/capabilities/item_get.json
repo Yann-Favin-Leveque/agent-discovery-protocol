@@ -1,0 +1,44 @@
+{
+  "name": "item_get",
+  "description": "Retrieve information about an Item including status and available products.",
+  "resource_group": "items",
+  "endpoint": "/item/get",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token for the Item."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/item/get",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "item": {
+        "item_id": "item_abc",
+        "institution_id": "ins_109508",
+        "available_products": [
+          "balance",
+          "identity"
+        ],
+        "billed_products": [
+          "transactions"
+        ]
+      },
+      "request_id": "abc"
+    }
+  }
+}

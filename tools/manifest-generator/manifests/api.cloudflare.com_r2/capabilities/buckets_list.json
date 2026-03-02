@@ -1,0 +1,52 @@
+{
+  "name": "buckets_list",
+  "description": "List all R2 buckets in an account.",
+  "resource_group": "buckets",
+  "endpoint": "/accounts/{account_id}/r2/buckets",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Cloudflare account identifier"
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Pagination cursor"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "location": "query",
+      "description": "Results per page (max 1000)"
+    },
+    {
+      "name": "name_contains",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Filter buckets by name substring"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "response_example": {
+    "success": true,
+    "result": {
+      "buckets": [
+        {
+          "name": "my-bucket",
+          "creation_date": "2024-01-01T00:00:00Z"
+        }
+      ]
+    }
+  }
+}

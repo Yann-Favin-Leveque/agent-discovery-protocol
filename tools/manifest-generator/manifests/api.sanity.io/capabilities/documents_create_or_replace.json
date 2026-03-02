@@ -1,0 +1,68 @@
+{
+  "name": "documents_create_or_replace",
+  "description": "Create a document or replace it entirely if it already exists. Requires a document ID.",
+  "endpoint": "/v{apiVersion}/data/mutate/{dataset}",
+  "method": "POST",
+  "resource_group": "mutations",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "_id",
+      "type": "string",
+      "description": "Document ID to create or replace",
+      "required": true,
+      "example": "post-123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/data/mutate/production",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "mutations": [
+        {
+          "createOrReplace": {
+            "_id": "post-123",
+            "_type": "post",
+            "title": "Replaced Post"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transactionId": "def456",
+      "results": [
+        {
+          "id": "post-123",
+          "operation": "update"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

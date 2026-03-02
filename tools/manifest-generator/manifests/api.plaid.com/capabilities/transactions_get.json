@@ -1,0 +1,63 @@
+{
+  "name": "transactions_get",
+  "description": "Fetch transactions for a date range.",
+  "resource_group": "transactions",
+  "endpoint": "/transactions/get",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token."
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": true,
+      "description": "Start date YYYY-MM-DD."
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": true,
+      "description": "End date YYYY-MM-DD."
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "required": false,
+      "description": "Options with count, offset, account_ids."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/transactions/get",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc",
+      "start_date": "2024-07-01",
+      "end_date": "2024-08-15"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transactions": [
+        {
+          "transaction_id": "tx_abc",
+          "amount": 50.0,
+          "date": "2024-08-15",
+          "name": "Amazon",
+          "merchant_name": "Amazon"
+        }
+      ],
+      "total_transactions": 45,
+      "request_id": "abc"
+    }
+  }
+}

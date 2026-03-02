@@ -1,0 +1,24 @@
+{
+  "name": "presence_get",
+  "description": "Retrieve the current presence set for a channel, showing all members currently present.",
+  "resource_group": "presence",
+  "endpoint": "/channels/{channelId}/presence",
+  "method": "GET",
+  "parameters": [
+    {"name": "channelId", "type": "string", "description": "The channel name.", "required": true, "example": "my-channel"},
+    {"name": "limit", "type": "integer", "description": "Maximum number of presence members to return (default 100, max 1000).", "required": false, "example": 100},
+    {"name": "clientId", "type": "string", "description": "Filter by client ID.", "required": false}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.ably.io/channels/my-channel/presence",
+    "headers": {"Authorization": "Basic {base64_api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {"clientId": "user1", "connectionId": "conn_abc", "data": "online", "action": "present", "timestamp": 1705312200000}
+    ]
+  },
+  "rate_limits": {"requests_per_minute": 1500}
+}

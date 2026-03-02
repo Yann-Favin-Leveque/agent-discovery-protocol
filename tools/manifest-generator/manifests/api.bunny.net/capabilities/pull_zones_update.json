@@ -1,0 +1,72 @@
+{
+  "name": "pull_zones_update",
+  "resource_group": "pull_zones",
+  "description": "Update pull zone configuration.",
+  "endpoint": "/pullzone/{id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Pull zone ID.",
+      "in": "path"
+    },
+    {
+      "name": "OriginUrl",
+      "type": "string",
+      "required": false,
+      "description": "Updated origin URL."
+    },
+    {
+      "name": "CacheControlMaxAgeOverride",
+      "type": "integer",
+      "required": false,
+      "description": "Cache TTL in seconds."
+    },
+    {
+      "name": "EnableSmartCache",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable smart caching."
+    },
+    {
+      "name": "EnableGeoZoneUS",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable US zone."
+    },
+    {
+      "name": "EnableGeoZoneEU",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable EU zone."
+    },
+    {
+      "name": "BlockedIps",
+      "type": "array",
+      "required": false,
+      "description": "Blocked IP addresses."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bunny.net/pullzone/12345",
+    "headers": {
+      "AccessKey": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "CacheControlMaxAgeOverride": 86400,
+      "EnableSmartCache": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Id": 12345,
+      "CacheControlMaxAgeOverride": 86400,
+      "EnableSmartCache": true
+    }
+  }
+}

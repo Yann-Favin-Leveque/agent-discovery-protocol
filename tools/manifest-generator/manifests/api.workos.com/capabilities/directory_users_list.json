@@ -1,0 +1,66 @@
+{
+  "name": "directory_users_list",
+  "resource_group": "directory_sync",
+  "description": "List users from a directory sync connection.",
+  "endpoint": "/directory_users",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "directory_id",
+      "type": "string",
+      "required": true,
+      "description": "Directory ID."
+    },
+    {
+      "name": "group_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by group."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    },
+    {
+      "name": "before",
+      "type": "string",
+      "required": false,
+      "description": "Cursor."
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "required": false,
+      "description": "Cursor."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.workos.com/directory_users?directory_id=dir_abc",
+    "headers": {
+      "Authorization": "Bearer sk_xxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "dir_usr_abc",
+          "directory_id": "dir_abc",
+          "first_name": "Alice",
+          "last_name": "Johnson",
+          "emails": [
+            {
+              "primary": true,
+              "value": "alice@acme.com"
+            }
+          ],
+          "state": "active"
+        }
+      ]
+    }
+  }
+}

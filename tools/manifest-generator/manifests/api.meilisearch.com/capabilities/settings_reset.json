@@ -1,0 +1,39 @@
+{
+  "name": "settings_reset",
+  "description": "Reset all settings of an index to their default values. Returns an asynchronous task.",
+  "endpoint": "/indexes/{indexUid}/settings",
+  "method": "DELETE",
+  "resource_group": "settings",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.meilisearch.com/indexes/movies/settings",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "taskUid": 11,
+      "indexUid": "movies",
+      "status": "enqueued",
+      "type": "settingsUpdate",
+      "enqueuedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "settings.update"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

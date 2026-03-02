@@ -1,0 +1,61 @@
+{
+  "name": "datasets_create",
+  "description": "Create a new empty dataset.",
+  "endpoint": "/datasets/v1/{username}",
+  "method": "POST",
+  "resource_group": "datasets",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Mapbox username.",
+      "required": true,
+      "example": "myuser"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "sk.xxx"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Dataset name.",
+      "required": false,
+      "example": "Store Locations"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Dataset description.",
+      "required": false,
+      "example": "All retail store locations"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mapbox.com/datasets/v1/myuser?access_token=sk.xxx",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Store Locations",
+      "description": "All retail stores"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ds_abc",
+      "name": "Store Locations"
+    }
+  },
+  "auth_scopes": [
+    "datasets:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "contacts_list",
+  "description": "List all contacts in the Front address book with name, email, and custom fields.",
+  "endpoint": "/contacts",
+  "method": "GET",
+  "resource_group": "contacts",
+  "parameters": [
+    {"name": "q", "type": "string", "description": "Search query to filter contacts.", "required": false, "example": "john"},
+    {"name": "page_token", "type": "string", "description": "Pagination token.", "required": false, "example": "abc"},
+    {"name": "limit", "type": "integer", "description": "Max results per page.", "required": false, "example": 50}
+  ],
+  "request_example": {"method": "GET", "url": "https://api2.frontapp.com/contacts?limit=50", "headers": {"Authorization": "Bearer {token}"}, "body": {}},
+  "response_example": {"status": 200, "body": {"_results": [{"id": "crd_123", "name": "John Doe", "description": "VIP customer", "handles": [{"handle": "john@example.com", "source": "email"}]}]}},
+  "auth_scopes": ["shared:contacts.read"],
+  "rate_limits": {"requests_per_minute": 120}
+}

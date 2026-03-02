@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
-  "name": "Cloud Storage JSON API",
-  "description": "Stores and retrieves potentially large, immutable data objects.",
+  "name": "Google Cloud Storage",
+  "description": "Stores and retrieves potentially large, immutable data objects. Provides APIs for bucket management, object operations, access control, notifications, and HMAC key management.",
   "base_url": "https://storage.googleapis.com/storage/v1",
   "auth": {
     "type": "oauth2",
@@ -16,65 +16,83 @@
     ]
   },
   "capabilities": [
-    {
-      "name": "anywhere_caches",
-      "description": "Manage anywherecaches — creates an anywhere cache instance, pauses an anywhere cache instance, resumes a paused or disabled anywhere cache instance. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/anywhere_caches"
-    },
-    {
-      "name": "bucket_access_controls",
-      "description": "Manage bucketaccesscontrols — creates a new acl entry on the specified bucket, updates an acl entry on the specified bucket, retrieves acl entries on the specified bucket. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/bucket_access_controls"
-    },
-    {
-      "name": "buckets",
-      "description": "Manage buckets — creates a new bucket, restores a soft-deleted bucket, initiates a long-running relocate bucket operation on the specified bucket. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/buckets"
-    },
-    {
-      "name": "operations",
-      "description": "Manage operations — starts asynchronous cancellation on a long-running operation. the server makes a best effort to cancel the operation, but success is not guaranteed, starts asynchronous advancement of the relocate bucket operation in the case of required write downtime, to allow it to lock the bucket at the source location, and proceed with the bucket location swap. the server makes a best effort to advance the relocate bucket operation, but success is not guaranteed, lists operations that match the specified filter in the request. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/operations"
-    },
-    {
-      "name": "channels",
-      "description": "Manage channels — stop watching resources through this channel. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/channels"
-    },
-    {
-      "name": "default_object_access_controls",
-      "description": "Manage defaultobjectaccesscontrols — creates a new default object acl entry on the specified bucket, updates a default object acl entry on the specified bucket, retrieves default object acl entries on the specified bucket. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/default_object_access_controls"
-    },
-    {
-      "name": "folders",
-      "description": "Manage folders — creates a new folder. only applicable to buckets with hierarchical namespace enabled, deletes a folder recursively. only applicable to buckets with hierarchical namespace enabled, renames a source folder to a destination folder. only applicable to buckets with hierarchical namespace enabled. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/folders"
-    },
-    {
-      "name": "managed_folders",
-      "description": "Manage managedfolders — creates a new managed folder, updates an iam policy for the specified managed folder, lists managed folders in the given bucket. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/managed_folders"
-    },
-    {
-      "name": "notifications",
-      "description": "Manage notifications — creates a notification subscription for a given bucket, retrieves a list of notification subscriptions for a given bucket, view a notification configuration. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/notifications"
-    },
-    {
-      "name": "object_access_controls",
-      "description": "Manage objectaccesscontrols — creates a new acl entry on the specified object, updates an acl entry on the specified object, retrieves acl entries on the specified object. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/object_access_controls"
-    },
-    {
-      "name": "objects",
-      "description": "Manage objects — stores a new object and metadata, watch for changes on all objects in a bucket, initiates a long-running bulk restore operation on the specified bucket. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/objects"
-    },
-    {
-      "name": "projects_hmac_keys",
-      "description": "Manage projects hmackeys — creates a new hmac key for the specified service account, updates the state of an hmac key. see the [hmac key resource descriptor](https://cloud.google.com/storage/docs/json_api/v1/projects/hmackeys/update#request-body) for valid states, retrieves a list of hmac keys matching the criteria. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/projects_hmac_keys"
-    }
+    { "name": "anywhere_caches_insert", "description": "Create an Anywhere Cache instance in a bucket.", "resource_group": "anywhere_caches", "detail_url": "/capabilities/anywhere_caches_insert" },
+    { "name": "anywhere_caches_update", "description": "Update configuration of an Anywhere Cache instance.", "resource_group": "anywhere_caches", "detail_url": "/capabilities/anywhere_caches_update" },
+    { "name": "anywhere_caches_get", "description": "Get metadata of an Anywhere Cache instance.", "resource_group": "anywhere_caches", "detail_url": "/capabilities/anywhere_caches_get" },
+    { "name": "anywhere_caches_list", "description": "List Anywhere Cache instances for a bucket.", "resource_group": "anywhere_caches", "detail_url": "/capabilities/anywhere_caches_list" },
+    { "name": "anywhere_caches_pause", "description": "Pause an Anywhere Cache instance.", "resource_group": "anywhere_caches", "detail_url": "/capabilities/anywhere_caches_pause" },
+    { "name": "anywhere_caches_resume", "description": "Resume a paused or disabled Anywhere Cache instance.", "resource_group": "anywhere_caches", "detail_url": "/capabilities/anywhere_caches_resume" },
+    { "name": "anywhere_caches_disable", "description": "Disable an Anywhere Cache instance.", "resource_group": "anywhere_caches", "detail_url": "/capabilities/anywhere_caches_disable" },
+    { "name": "bucket_access_controls_list", "description": "List ACL entries on a bucket.", "resource_group": "bucket_access_controls", "detail_url": "/capabilities/bucket_access_controls_list" },
+    { "name": "bucket_access_controls_get", "description": "Get an ACL entry for an entity on a bucket.", "resource_group": "bucket_access_controls", "detail_url": "/capabilities/bucket_access_controls_get" },
+    { "name": "bucket_access_controls_insert", "description": "Create a new ACL entry on a bucket.", "resource_group": "bucket_access_controls", "detail_url": "/capabilities/bucket_access_controls_insert" },
+    { "name": "bucket_access_controls_update", "description": "Update an ACL entry on a bucket.", "resource_group": "bucket_access_controls", "detail_url": "/capabilities/bucket_access_controls_update" },
+    { "name": "bucket_access_controls_patch", "description": "Patch an ACL entry on a bucket.", "resource_group": "bucket_access_controls", "detail_url": "/capabilities/bucket_access_controls_patch" },
+    { "name": "bucket_access_controls_delete", "description": "Delete an ACL entry from a bucket.", "resource_group": "bucket_access_controls", "detail_url": "/capabilities/bucket_access_controls_delete" },
+    { "name": "buckets_list", "description": "List buckets in a project.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_list" },
+    { "name": "buckets_get", "description": "Get metadata for a specific bucket.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_get" },
+    { "name": "buckets_insert", "description": "Create a new bucket.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_insert" },
+    { "name": "buckets_update", "description": "Update a bucket (full replacement).", "resource_group": "buckets", "detail_url": "/capabilities/buckets_update" },
+    { "name": "buckets_patch", "description": "Patch a bucket (partial update).", "resource_group": "buckets", "detail_url": "/capabilities/buckets_patch" },
+    { "name": "buckets_delete", "description": "Permanently delete an empty bucket.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_delete" },
+    { "name": "buckets_get_iam_policy", "description": "Get the IAM policy for a bucket.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_get_iam_policy" },
+    { "name": "buckets_set_iam_policy", "description": "Set the IAM policy for a bucket.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_set_iam_policy" },
+    { "name": "buckets_test_iam_permissions", "description": "Test IAM permissions on a bucket.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_test_iam_permissions" },
+    { "name": "buckets_lock_retention_policy", "description": "Irreversibly lock the retention policy on a bucket.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_lock_retention_policy" },
+    { "name": "buckets_relocate", "description": "Initiate a bucket relocation operation.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_relocate" },
+    { "name": "buckets_restore", "description": "Restore a soft-deleted bucket.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_restore" },
+    { "name": "buckets_list_channels", "description": "List notification channels for a bucket.", "resource_group": "buckets", "detail_url": "/capabilities/buckets_list_channels" },
+    { "name": "channels_stop", "description": "Stop receiving object change notifications through a channel.", "resource_group": "channels", "detail_url": "/capabilities/channels_stop" },
+    { "name": "default_object_access_controls_list", "description": "List default object ACL entries on a bucket.", "resource_group": "default_object_access_controls", "detail_url": "/capabilities/default_object_access_controls_list" },
+    { "name": "default_object_access_controls_get", "description": "Get a default object ACL entry.", "resource_group": "default_object_access_controls", "detail_url": "/capabilities/default_object_access_controls_get" },
+    { "name": "default_object_access_controls_insert", "description": "Create a new default object ACL entry.", "resource_group": "default_object_access_controls", "detail_url": "/capabilities/default_object_access_controls_insert" },
+    { "name": "default_object_access_controls_update", "description": "Update a default object ACL entry.", "resource_group": "default_object_access_controls", "detail_url": "/capabilities/default_object_access_controls_update" },
+    { "name": "default_object_access_controls_patch", "description": "Patch a default object ACL entry.", "resource_group": "default_object_access_controls", "detail_url": "/capabilities/default_object_access_controls_patch" },
+    { "name": "default_object_access_controls_delete", "description": "Delete a default object ACL entry.", "resource_group": "default_object_access_controls", "detail_url": "/capabilities/default_object_access_controls_delete" },
+    { "name": "folders_insert", "description": "Create a new folder in a hierarchical namespace bucket.", "resource_group": "folders", "detail_url": "/capabilities/folders_insert" },
+    { "name": "folders_get", "description": "Get metadata for a folder.", "resource_group": "folders", "detail_url": "/capabilities/folders_get" },
+    { "name": "folders_list", "description": "List folders in a bucket.", "resource_group": "folders", "detail_url": "/capabilities/folders_list" },
+    { "name": "folders_delete", "description": "Delete an empty folder.", "resource_group": "folders", "detail_url": "/capabilities/folders_delete" },
+    { "name": "folders_rename", "description": "Rename a folder.", "resource_group": "folders", "detail_url": "/capabilities/folders_rename" },
+    { "name": "managed_folders_list", "description": "List managed folders in a bucket.", "resource_group": "managed_folders", "detail_url": "/capabilities/managed_folders_list" },
+    { "name": "managed_folders_get", "description": "Get metadata for a managed folder.", "resource_group": "managed_folders", "detail_url": "/capabilities/managed_folders_get" },
+    { "name": "managed_folders_insert", "description": "Create a managed folder.", "resource_group": "managed_folders", "detail_url": "/capabilities/managed_folders_insert" },
+    { "name": "managed_folders_delete", "description": "Delete a managed folder.", "resource_group": "managed_folders", "detail_url": "/capabilities/managed_folders_delete" },
+    { "name": "managed_folders_get_iam_policy", "description": "Get IAM policy for a managed folder.", "resource_group": "managed_folders", "detail_url": "/capabilities/managed_folders_get_iam_policy" },
+    { "name": "managed_folders_set_iam_policy", "description": "Set IAM policy for a managed folder.", "resource_group": "managed_folders", "detail_url": "/capabilities/managed_folders_set_iam_policy" },
+    { "name": "managed_folders_test_iam_permissions", "description": "Test IAM permissions on a managed folder.", "resource_group": "managed_folders", "detail_url": "/capabilities/managed_folders_test_iam_permissions" },
+    { "name": "notifications_list", "description": "List notification configurations for a bucket.", "resource_group": "notifications", "detail_url": "/capabilities/notifications_list" },
+    { "name": "notifications_get", "description": "Get a notification configuration.", "resource_group": "notifications", "detail_url": "/capabilities/notifications_get" },
+    { "name": "notifications_insert", "description": "Create a notification configuration for a bucket.", "resource_group": "notifications", "detail_url": "/capabilities/notifications_insert" },
+    { "name": "notifications_delete", "description": "Delete a notification configuration.", "resource_group": "notifications", "detail_url": "/capabilities/notifications_delete" },
+    { "name": "object_access_controls_list", "description": "List ACL entries for an object.", "resource_group": "object_access_controls", "detail_url": "/capabilities/object_access_controls_list" },
+    { "name": "object_access_controls_get", "description": "Get an ACL entry for an object.", "resource_group": "object_access_controls", "detail_url": "/capabilities/object_access_controls_get" },
+    { "name": "object_access_controls_insert", "description": "Create a new ACL entry for an object.", "resource_group": "object_access_controls", "detail_url": "/capabilities/object_access_controls_insert" },
+    { "name": "object_access_controls_update", "description": "Update an ACL entry for an object.", "resource_group": "object_access_controls", "detail_url": "/capabilities/object_access_controls_update" },
+    { "name": "object_access_controls_patch", "description": "Patch an ACL entry for an object.", "resource_group": "object_access_controls", "detail_url": "/capabilities/object_access_controls_patch" },
+    { "name": "object_access_controls_delete", "description": "Delete an ACL entry for an object.", "resource_group": "object_access_controls", "detail_url": "/capabilities/object_access_controls_delete" },
+    { "name": "objects_list", "description": "List objects in a bucket.", "resource_group": "objects", "detail_url": "/capabilities/objects_list" },
+    { "name": "objects_get", "description": "Get an object's metadata or download its content.", "resource_group": "objects", "detail_url": "/capabilities/objects_get" },
+    { "name": "objects_insert", "description": "Upload a new object to a bucket.", "resource_group": "objects", "detail_url": "/capabilities/objects_insert" },
+    { "name": "objects_update", "description": "Update an object's metadata (full replacement).", "resource_group": "objects", "detail_url": "/capabilities/objects_update" },
+    { "name": "objects_patch", "description": "Patch an object's metadata (partial update).", "resource_group": "objects", "detail_url": "/capabilities/objects_patch" },
+    { "name": "objects_delete", "description": "Delete an object.", "resource_group": "objects", "detail_url": "/capabilities/objects_delete" },
+    { "name": "objects_compose", "description": "Compose multiple objects into a single object.", "resource_group": "objects", "detail_url": "/capabilities/objects_compose" },
+    { "name": "objects_copy", "description": "Copy an object to a new location.", "resource_group": "objects", "detail_url": "/capabilities/objects_copy" },
+    { "name": "objects_rewrite", "description": "Rewrite an object to a new location with optional transformations.", "resource_group": "objects", "detail_url": "/capabilities/objects_rewrite" },
+    { "name": "objects_move", "description": "Move an object within the same bucket.", "resource_group": "objects", "detail_url": "/capabilities/objects_move" },
+    { "name": "objects_restore", "description": "Restore a soft-deleted object.", "resource_group": "objects", "detail_url": "/capabilities/objects_restore" },
+    { "name": "objects_bulk_restore", "description": "Bulk restore soft-deleted objects in a bucket.", "resource_group": "objects", "detail_url": "/capabilities/objects_bulk_restore" },
+    { "name": "objects_watch_all", "description": "Watch for changes on all objects in a bucket.", "resource_group": "objects", "detail_url": "/capabilities/objects_watch_all" },
+    { "name": "operations_list", "description": "List long-running operations on a bucket.", "resource_group": "operations", "detail_url": "/capabilities/operations_list" },
+    { "name": "operations_get", "description": "Get status of a long-running operation.", "resource_group": "operations", "detail_url": "/capabilities/operations_get" },
+    { "name": "operations_cancel", "description": "Cancel a long-running operation.", "resource_group": "operations", "detail_url": "/capabilities/operations_cancel" },
+    { "name": "operations_advance_relocate_bucket", "description": "Advance a bucket relocation operation.", "resource_group": "operations", "detail_url": "/capabilities/operations_advance_relocate_bucket" },
+    { "name": "hmac_keys_list", "description": "List HMAC keys for a project.", "resource_group": "hmac_keys", "detail_url": "/capabilities/hmac_keys_list" },
+    { "name": "hmac_keys_get", "description": "Get metadata for an HMAC key.", "resource_group": "hmac_keys", "detail_url": "/capabilities/hmac_keys_get" },
+    { "name": "hmac_keys_create", "description": "Create a new HMAC key for a service account.", "resource_group": "hmac_keys", "detail_url": "/capabilities/hmac_keys_create" },
+    { "name": "hmac_keys_update", "description": "Update the state of an HMAC key.", "resource_group": "hmac_keys", "detail_url": "/capabilities/hmac_keys_update" },
+    { "name": "hmac_keys_delete", "description": "Delete an HMAC key.", "resource_group": "hmac_keys", "detail_url": "/capabilities/hmac_keys_delete" },
+    { "name": "service_account_get", "description": "Get the Cloud Storage service agent email for a project.", "resource_group": "service_account", "detail_url": "/capabilities/service_account_get" }
   ]
 }

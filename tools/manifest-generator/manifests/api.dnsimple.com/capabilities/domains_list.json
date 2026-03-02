@@ -1,0 +1,72 @@
+{
+  "name": "domains_list",
+  "description": "List all domains in an account with optional filtering and pagination.",
+  "resource_group": "domains",
+  "endpoint": "/{account}/domains",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "name_like",
+      "type": "string",
+      "required": false,
+      "description": "Filter by name substring."
+    },
+    {
+      "name": "registrant_id",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by registrant contact ID."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort field (e.g., 'name:asc')."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.dnsimple.com/v2/1010/domains",
+    "headers": {
+      "Authorization": "Bearer <token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 1,
+          "account_id": 1010,
+          "name": "example.com",
+          "state": "registered",
+          "auto_renew": true,
+          "expires_on": "2025-01-01"
+        }
+      ],
+      "pagination": {
+        "current_page": 1,
+        "per_page": 30,
+        "total_entries": 1
+      }
+    }
+  }
+}

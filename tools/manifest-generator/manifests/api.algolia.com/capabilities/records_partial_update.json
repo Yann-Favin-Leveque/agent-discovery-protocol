@@ -1,0 +1,59 @@
+{
+  "name": "records_partial_update",
+  "description": "Partially update a record by merging provided attributes without replacing the entire object.",
+  "endpoint": "/1/indexes/{indexName}/{objectID}/partial",
+  "method": "POST",
+  "resource_group": "records",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "objectID",
+      "type": "string",
+      "description": "The unique ID of the record to update.",
+      "required": true,
+      "example": "12345"
+    },
+    {
+      "name": "createIfNotExists",
+      "type": "boolean",
+      "description": "If true, create the record if it does not exist (default: true).",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "Attributes to update on the record.",
+      "required": true,
+      "example": { "price": 1799 }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/12345/partial",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": { "price": 1799 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "updatedAt": "2024-06-15T09:30:00.000Z",
+      "taskID": 682,
+      "objectID": "12345"
+    }
+  },
+  "auth_scopes": ["addObject"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

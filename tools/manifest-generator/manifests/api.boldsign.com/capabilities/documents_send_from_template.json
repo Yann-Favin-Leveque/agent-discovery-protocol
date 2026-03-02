@@ -1,0 +1,87 @@
+{
+  "name": "documents_send_from_template",
+  "description": "Send a document for e-signature using a pre-configured template. Assign signers to template roles and optionally customize fields.",
+  "endpoint": "/v1/template/send",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "templateId",
+      "type": "string",
+      "required": true,
+      "description": "The template ID to use (query parameter)."
+    },
+    {
+      "name": "Roles",
+      "type": "array",
+      "required": true,
+      "description": "Array of role assignments with 'RoleIndex', 'SignerName', 'SignerEmail', and 'SignerType'."
+    },
+    {
+      "name": "Title",
+      "type": "string",
+      "required": false,
+      "description": "Override the template title."
+    },
+    {
+      "name": "Message",
+      "type": "string",
+      "required": false,
+      "description": "Custom message for the signing notification."
+    },
+    {
+      "name": "BrandId",
+      "type": "string",
+      "required": false,
+      "description": "Brand ID for custom branding."
+    },
+    {
+      "name": "Labels",
+      "type": "array",
+      "required": false,
+      "description": "Tags or labels to categorize the document."
+    },
+    {
+      "name": "ExpiryDays",
+      "type": "integer",
+      "required": false,
+      "description": "Number of days before the document expires."
+    },
+    {
+      "name": "CC",
+      "type": "array",
+      "required": false,
+      "description": "CC recipients' email addresses."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.boldsign.com/v1/template/send?templateId=tmpl_abc123",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-KEY": "{api_key}"
+    },
+    "body": {
+      "Roles": [
+        {
+          "RoleIndex": 1,
+          "SignerName": "Jane Smith",
+          "SignerEmail": "jane@example.com",
+          "SignerType": "Signer"
+        }
+      ],
+      "Title": "NDA Agreement - Jane Smith",
+      "Message": "Please review and sign the NDA."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "documentId": "doc_from_tmpl_789"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

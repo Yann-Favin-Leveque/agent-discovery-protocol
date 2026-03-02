@@ -1,0 +1,80 @@
+{
+  "name": "stories_get",
+  "description": "Retrieve a single story by its slug or numeric ID with all nested components.",
+  "endpoint": "/v2/cdn/stories/{slug_or_id}",
+  "method": "GET",
+  "resource_group": "stories",
+  "parameters": [
+    {
+      "name": "slug_or_id",
+      "type": "string",
+      "description": "Story slug path or numeric ID",
+      "required": true,
+      "example": "home"
+    },
+    {
+      "name": "token",
+      "type": "string",
+      "description": "API token (public or preview)",
+      "required": true,
+      "example": "your-token"
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "description": "Content version: published or draft",
+      "required": false,
+      "example": "published"
+    },
+    {
+      "name": "resolve_relations",
+      "type": "string",
+      "description": "Resolve relations for specified component fields",
+      "required": false,
+      "example": "post.author"
+    },
+    {
+      "name": "resolve_links",
+      "type": "string",
+      "description": "Resolve internal links: url, story, or link",
+      "required": false,
+      "example": "url"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language code for i18n",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.storyblok.com/v2/cdn/stories/home?token=your-token&version=published",
+    "headers": {
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "story": {
+        "id": 123,
+        "name": "Home",
+        "slug": "home",
+        "content": {
+          "component": "page",
+          "body": []
+        },
+        "published_at": "2026-03-01T10:00:00Z"
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

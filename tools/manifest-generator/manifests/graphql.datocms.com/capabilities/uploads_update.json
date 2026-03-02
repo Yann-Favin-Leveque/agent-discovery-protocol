@@ -1,0 +1,57 @@
+{
+  "name": "uploads_update",
+  "description": "Update metadata (author, copyright, notes, tags, default field metadata) of an existing uploaded media asset.",
+  "resource_group": "uploads",
+  "endpoint": "/uploads/{upload_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "upload_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique upload ID to update."
+    },
+    {
+      "name": "data.attributes",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "Metadata fields to update: author, copyright, notes, tags, default_field_metadata."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://site-api.datocms.com/uploads/upload123",
+    "headers": {
+      "Authorization": "Bearer your-datocms-api-token",
+      "Content-Type": "application/vnd.api+json",
+      "Accept": "application/json",
+      "X-Api-Version": "3"
+    },
+    "body": {
+      "data": {
+        "type": "upload",
+        "id": "upload123",
+        "attributes": {
+          "author": "Updated Author",
+          "tags": ["updated", "hero"]
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "upload",
+        "id": "upload123",
+        "attributes": {
+          "author": "Updated Author",
+          "tags": ["updated", "hero"],
+          "updated_at": "2026-03-01T14:00:00.000Z"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "boards_duplicate",
+  "description": "Duplicate a board.",
+  "resource_group": "boards",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "board_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Board ID to duplicate"
+    },
+    {
+      "name": "duplicate_type",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Type: duplicate_board_with_structure, duplicate_board_with_pulses, duplicate_board_with_pulses_and_updates"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "mutation { duplicate_board (board_id: 123, duplicate_type: duplicate_board_with_pulses) { board { id name } } }"
+  }
+}

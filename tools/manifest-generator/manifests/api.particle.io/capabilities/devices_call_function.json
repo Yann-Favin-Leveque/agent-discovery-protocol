@@ -1,0 +1,49 @@
+{
+  "name": "devices_call_function",
+  "description": "Call a function on a device.",
+  "resource_group": "devices",
+  "endpoint": "/v1/devices/{deviceId}/{functionName}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "deviceId",
+      "type": "string",
+      "description": "Device ID.",
+      "required": true
+    },
+    {
+      "name": "functionName",
+      "type": "string",
+      "description": "Function name.",
+      "required": true,
+      "example": "toggle"
+    },
+    {
+      "name": "arg",
+      "type": "string",
+      "description": "Argument string (max 622 chars).",
+      "required": false,
+      "example": "on"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.particle.io/v1/devices/abc123/toggle",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "arg": "on"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "abc123",
+      "name": "my-device",
+      "connected": true,
+      "return_value": 1
+    }
+  }
+}

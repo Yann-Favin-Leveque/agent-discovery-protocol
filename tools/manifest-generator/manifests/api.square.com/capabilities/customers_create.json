@@ -1,0 +1,84 @@
+{
+  "name": "customers_create",
+  "description": "Create a new customer profile with contact information.",
+  "endpoint": "/v2/customers",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "given_name",
+      "type": "string",
+      "description": "First name",
+      "required": false,
+      "example": "John"
+    },
+    {
+      "name": "family_name",
+      "type": "string",
+      "description": "Last name",
+      "required": false,
+      "example": "Doe"
+    },
+    {
+      "name": "email_address",
+      "type": "string",
+      "description": "Email address",
+      "required": false,
+      "example": "john@example.com"
+    },
+    {
+      "name": "phone_number",
+      "type": "string",
+      "description": "Phone number",
+      "required": false,
+      "example": "+15551234567"
+    },
+    {
+      "name": "idempotency_key",
+      "type": "string",
+      "description": "Unique key for idempotency",
+      "required": true,
+      "example": "cust-key-123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/customers",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "given_name": "John",
+      "family_name": "Doe",
+      "email_address": "john@example.com",
+      "idempotency_key": "cust-key-123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "customer": {
+        "id": "cust_789",
+        "given_name": "John",
+        "family_name": "Doe",
+        "email_address": "john@example.com"
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

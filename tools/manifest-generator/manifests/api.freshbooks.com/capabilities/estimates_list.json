@@ -1,0 +1,24 @@
+{
+  "name": "estimates_list",
+  "description": "List all estimates with pagination and optional filtering by client or status.",
+  "endpoint": "/accounting/account/{account_id}/estimates/estimates",
+  "method": "GET",
+  "resource_group": "estimates",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
+    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1},
+    {"name": "search[customerid]", "type": "integer", "description": "Filter by client ID.", "required": false, "example": 12345}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/estimates/estimates?page=1",
+    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha"},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"response": {"result": {"estimates": [{"id": 444, "customerid": 12345, "amount": {"amount": "1000.00", "code": "USD"}, "create_date": "2024-08-15"}], "page": 1, "total": 20}}}
+  },
+  "auth_scopes": ["user:estimates:read"],
+  "rate_limits": {"requests_per_minute": 100}
+}

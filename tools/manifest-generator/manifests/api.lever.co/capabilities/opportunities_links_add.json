@@ -1,0 +1,50 @@
+{
+  "name": "opportunities_links_add",
+  "resource_group": "Opportunities",
+  "endpoint": "/v1/opportunities/{opportunity}/addLinks",
+  "method": "POST",
+  "description": "Add links (portfolio, LinkedIn, etc.) to an opportunity's contact.",
+  "parameters": [
+    {
+      "name": "opportunity",
+      "type": "string",
+      "required": true,
+      "description": "Opportunity UUID."
+    },
+    {
+      "name": "links",
+      "type": "array",
+      "required": true,
+      "description": "Array of URL strings."
+    },
+    {
+      "name": "perform_as",
+      "type": "string",
+      "required": false,
+      "description": "User UUID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lever.co/v1/opportunities/abc-123/addLinks",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "links": [
+        "https://linkedin.com/in/johndoe"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "links": [
+          "https://linkedin.com/in/johndoe"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "egress_web_start",
+  "description": "Start recording an arbitrary web page as video/audio output. Useful for recording dashboards, presentations, or custom UIs.",
+  "endpoint": "/twirp/livekit.Egress/StartWebEgress",
+  "method": "POST",
+  "resource_group": "egress",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "URL of the web page to record."
+    },
+    {
+      "name": "audio_only",
+      "type": "boolean",
+      "required": false,
+      "description": "Record only audio from the web page."
+    },
+    {
+      "name": "video_only",
+      "type": "boolean",
+      "required": false,
+      "description": "Record only video from the web page."
+    },
+    {
+      "name": "file_outputs",
+      "type": "array",
+      "required": false,
+      "description": "File output configurations."
+    },
+    {
+      "name": "stream_outputs",
+      "type": "array",
+      "required": false,
+      "description": "RTMP stream output configurations."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.Egress/StartWebEgress",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "url": "https://example.com/dashboard",
+      "file_outputs": [{ "filepath": "recordings/web-capture.mp4" }]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "egress_id": "EG_web_01",
+      "status": "EGRESS_STARTING"
+    }
+  },
+  "auth_scopes": ["roomRecord"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

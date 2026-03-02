@@ -1,0 +1,61 @@
+{
+  "name": "sending_domains_create",
+  "description": "Register a new sending domain for email delivery. Requires DNS verification.",
+  "endpoint": "/api/v1/sending-domains",
+  "method": "POST",
+  "resource_group": "sending_domains",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Domain name to register",
+      "required": true,
+      "example": "mail.example.com"
+    },
+    {
+      "name": "generate_dkim",
+      "type": "boolean",
+      "description": "Auto-generate DKIM keys",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "dkim_key_length",
+      "type": "integer",
+      "description": "DKIM key length: 1024 or 2048",
+      "required": false,
+      "example": 1024
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/sending-domains",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "domain": "mail.example.com",
+      "generate_dkim": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "domain": "mail.example.com",
+        "dkim": {
+          "public": "MIGf...",
+          "selector": "scph0417",
+          "signing_domain": "mail.example.com"
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

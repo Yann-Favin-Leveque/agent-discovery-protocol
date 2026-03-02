@@ -1,0 +1,63 @@
+{
+  "name": "keys_create",
+  "description": "Create a new API key with specific access control rules.",
+  "endpoint": "/keys",
+  "method": "POST",
+  "resource_group": "keys",
+  "parameters": [
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Human-readable description",
+      "required": true,
+      "example": "Search-only key"
+    },
+    {
+      "name": "actions",
+      "type": "array",
+      "description": "Allowed actions (e.g., documents:search, collections:create)",
+      "required": true,
+      "example": [
+        "documents:search"
+      ]
+    },
+    {
+      "name": "collections",
+      "type": "array",
+      "description": "Collections this key can access",
+      "required": true,
+      "example": [
+        "products"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.typesense.org/keys",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "description": "Search-only key",
+      "actions": [
+        "documents:search"
+      ],
+      "collections": [
+        "products"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "value": "xyz123",
+      "description": "Search-only key"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

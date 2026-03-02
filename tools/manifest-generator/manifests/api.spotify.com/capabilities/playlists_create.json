@@ -1,0 +1,66 @@
+{
+  "name": "playlists_create",
+  "description": "Create a new playlist for the authenticated user.",
+  "resource_group": "playlists",
+  "endpoint": "/v1/users/{user_id}/playlists",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "The user's Spotify ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "The name for the new playlist."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Description for the playlist."
+    },
+    {
+      "name": "public",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether the playlist is public. Default: true."
+    },
+    {
+      "name": "collaborative",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether collaborative. Default: false."
+    }
+  ],
+  "auth_scopes": [
+    "playlist-modify-public",
+    "playlist-modify-private"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.spotify.com/v1/users/smedjan/playlists",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "My New Playlist",
+      "description": "New playlist description",
+      "public": false
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "newPlaylistId",
+      "name": "My New Playlist",
+      "owner": {
+        "display_name": "smedjan"
+      }
+    }
+  }
+}

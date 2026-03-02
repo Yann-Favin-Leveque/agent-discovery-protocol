@@ -1,0 +1,41 @@
+{
+  "name": "audit_logs_list",
+  "resource_group": "organizations",
+  "description": "List audit log entries for an organization.",
+  "endpoint": "/organizations/{organization}/audit-log",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Page number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/acme/audit-log",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "al-123",
+          "action": "database.created"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "schedule_update",
+  "description": "Update an existing schedule.",
+  "resource_group": "schedule",
+  "endpoint": "/api/v3/schedules/{scheduleId}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "scheduleId",
+      "type": "string",
+      "description": "Schedule ID (path parameter).",
+      "required": true,
+      "example": "sched_abc"
+    },
+    {
+      "name": "cron",
+      "type": "string",
+      "description": "Updated cron expression.",
+      "required": false,
+      "example": "0 10 * * 1-5"
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "description": "Updated timezone.",
+      "required": false
+    },
+    {
+      "name": "externalId",
+      "type": "string",
+      "description": "Updated external ID.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.trigger.dev/api/v3/schedules/sched_abc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "cron": "0 10 * * 1-5"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sched_abc",
+      "cron": "0 10 * * 1-5"
+    }
+  }
+}

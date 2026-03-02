@@ -1,0 +1,59 @@
+{
+  "name": "carts_update",
+  "description": "Update a cart with discount codes or addresses.",
+  "resource_group": "carts",
+  "endpoint": "/store/carts/{id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Cart ID."
+    },
+    {
+      "name": "region_id",
+      "type": "string",
+      "required": false,
+      "description": "Updated region."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Customer email."
+    },
+    {
+      "name": "shipping_address",
+      "type": "object",
+      "required": false,
+      "description": "Shipping address."
+    },
+    {
+      "name": "billing_address",
+      "type": "object",
+      "required": false,
+      "description": "Billing address."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.medusajs.com/store/carts/cart_01",
+    "headers": {
+      "x-publishable-api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "customer@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "cart": {
+        "id": "cart_01",
+        "email": "customer@example.com"
+      }
+    }
+  }
+}

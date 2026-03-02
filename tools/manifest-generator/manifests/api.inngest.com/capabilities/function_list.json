@@ -1,0 +1,48 @@
+{
+  "name": "function_list",
+  "description": "List all registered functions across apps in the environment.",
+  "resource_group": "function",
+  "endpoint": "/v1/functions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.inngest.com/v1/functions?limit=10",
+    "headers": {
+      "Authorization": "Bearer {signing_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "my-app-my-function",
+          "name": "My Function",
+          "slug": "my-app-my-function",
+          "app_id": "my-app",
+          "triggers": [
+            {
+              "event": "app/user.created"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

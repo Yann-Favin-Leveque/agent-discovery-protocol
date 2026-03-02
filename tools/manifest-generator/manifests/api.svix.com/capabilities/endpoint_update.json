@@ -1,0 +1,66 @@
+{
+  "name": "endpoint_update",
+  "description": "Update an existing endpoint (full replacement).",
+  "resource_group": "endpoint",
+  "endpoint": "/api/v1/app/{app_id}/endpoint/{endpoint_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "endpoint_id",
+      "type": "string",
+      "description": "Endpoint ID or UID (path parameter).",
+      "required": true,
+      "example": "ep_abc"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Endpoint URL.",
+      "required": true,
+      "example": "https://example.com/webhook-v2"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description.",
+      "required": false
+    },
+    {
+      "name": "filterTypes",
+      "type": "array",
+      "description": "Event types to filter.",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Disabled state.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.svix.com/api/v1/app/app_123/endpoint/ep_abc",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook-v2"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ep_abc",
+      "url": "https://example.com/webhook-v2"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "webhooks_list",
+  "description": "List all configured webhooks for a property.",
+  "endpoint": "/v1/property/{propertyId}/webhooks",
+  "method": "GET",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The property ID",
+      "required": true,
+      "example": "property_id_123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tawk.to/v1/property/property_id_123/webhooks",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "wh_001",
+          "url": "https://example.com/webhook",
+          "events": [
+            "chat:start",
+            "chat:end"
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

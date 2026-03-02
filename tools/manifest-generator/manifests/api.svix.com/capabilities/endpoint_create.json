@@ -1,0 +1,95 @@
+{
+  "name": "endpoint_create",
+  "description": "Create a new webhook endpoint for an application to receive messages.",
+  "resource_group": "endpoint",
+  "endpoint": "/api/v1/app/{app_id}/endpoint",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Endpoint URL to receive webhooks.",
+      "required": true,
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Endpoint description.",
+      "required": false,
+      "example": "Production webhook"
+    },
+    {
+      "name": "filterTypes",
+      "type": "array",
+      "description": "Event types to filter for this endpoint.",
+      "required": false,
+      "example": [
+        "user.created",
+        "order.completed"
+      ]
+    },
+    {
+      "name": "channels",
+      "type": "array",
+      "description": "Channels to filter.",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Whether endpoint is disabled.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "secret",
+      "type": "string",
+      "description": "Signing secret for the endpoint.",
+      "required": false
+    },
+    {
+      "name": "rateLimit",
+      "type": "integer",
+      "description": "Rate limit for the endpoint.",
+      "required": false
+    },
+    {
+      "name": "uid",
+      "type": "string",
+      "description": "Optional unique identifier.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.svix.com/api/v1/app/app_123/endpoint",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "description": "Production webhook",
+      "filterTypes": [
+        "user.created"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "ep_abc",
+      "url": "https://example.com/webhook",
+      "description": "Production webhook",
+      "createdAt": "2024-01-01T00:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "dns_records_import",
+  "description": "Import DNS records from a BIND zone file. Upload zone file content to bulk-create records.",
+  "endpoint": "/zones/{zone_id}/dns_records/import",
+  "method": "POST",
+  "resource_group": "dns_records",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    },
+    {
+      "name": "file",
+      "type": "string",
+      "description": "BIND zone file content as multipart form data.",
+      "required": true,
+      "example": "example.com. IN A 198.51.100.4"
+    },
+    {
+      "name": "proxied",
+      "type": "string",
+      "description": "Whether imported records should be proxied (true/false).",
+      "required": false,
+      "example": "true"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_records/import",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "file": "@zonefile.txt"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "recs_added": 5,
+        "total_records_parsed": 6
+      }
+    }
+  },
+  "auth_scopes": ["dns_records:edit"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

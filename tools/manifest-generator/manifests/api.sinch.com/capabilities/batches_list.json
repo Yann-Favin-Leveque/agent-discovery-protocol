@@ -1,0 +1,73 @@
+{
+  "name": "batches_list",
+  "description": "List all sent SMS batches with optional filtering by date range, sender number, and status. Results are paginated.",
+  "endpoint": "/xms/v1/{service_plan_id}/batches",
+  "method": "GET",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination. Default 0."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "description": "Number of items per page. Default 30, max 100."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": false,
+      "description": "Filter by sender number."
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Filter batches created on or after this ISO 8601 date."
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "Filter batches created before this ISO 8601 date."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/batches?page=0&page_size=30",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 2,
+      "page": 0,
+      "batches": [
+        {
+          "id": "batch-id-01",
+          "from": "12015550145",
+          "type": "mt_text",
+          "created_at": "2024-01-15T12:00:00.000Z",
+          "canceled": false
+        }
+      ],
+      "page_size": 30
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "project_glossaries_update",
+  "description": "Set or update the glossaries assigned to a project.",
+  "resource_group": "glossaries",
+  "endpoint": "/api/integration/v1/project/{project_id}/glossaries",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique project ID."
+    },
+    {
+      "name": "glossaryIds",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of glossary IDs to assign."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://smartcat.com/api/integration/v1/project/project-uuid-123/glossaries",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}",
+      "Content-Type": "application/json"
+    },
+    "body": ["glossary-uuid-123", "glossary-uuid-456"]
+  },
+  "response_example": {
+    "status": 200,
+    "body": ["glossary-uuid-123", "glossary-uuid-456"]
+  }
+}

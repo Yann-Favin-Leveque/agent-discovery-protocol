@@ -1,0 +1,40 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook for event notifications.",
+  "resource_group": "webhooks",
+  "endpoint": "/api/hooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "targetUrl",
+      "type": "string",
+      "description": "Webhook callback URL.",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Event types to listen for.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemlist.com/api/hooks",
+    "headers": {
+      "Authorization": "Basic {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "targetUrl": "https://example.com/webhook",
+      "type": "emailsSent"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "_id": "hook_1",
+      "targetUrl": "https://example.com/webhook"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "domains_create",
+  "description": "Create a new domain and its corresponding DNS zone.",
+  "resource_group": "domains",
+  "endpoint": "/{account}/domains",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Domain name to create."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dnsimple.com/v2/1010/domains",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "example.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": 1,
+        "account_id": 1010,
+        "name": "example.com",
+        "state": "hosted"
+      }
+    }
+  }
+}

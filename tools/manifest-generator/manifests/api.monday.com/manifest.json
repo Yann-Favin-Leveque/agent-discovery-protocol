@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Monday.com",
-  "description": "Monday.com is a work operating system that powers teams to run projects and workflows. Its GraphQL API lets you manage boards, items, columns, groups, and updates programmatically. All operations go through a single GraphQL endpoint.",
+  "description": "Monday.com is a work operating system with a GraphQL API for managing boards, items, columns, groups, updates, subitems, workspaces, users, and tags. All operations use a single POST endpoint with GraphQL queries and mutations.",
   "base_url": "https://api.monday.com/v2",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,190 @@
   },
   "capabilities": [
     {
-      "name": "list_boards",
-      "description": "Retrieve all boards accessible to the authenticated user, with optional filtering and pagination.",
-      "detail_url": "/capabilities/list_boards"
+      "name": "boards_list",
+      "description": "List all boards accessible to the user.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_list"
     },
     {
-      "name": "get_board",
-      "description": "Get detailed information about a specific board, including its columns, groups, and settings.",
-      "detail_url": "/capabilities/get_board"
+      "name": "boards_get",
+      "description": "Get detailed information about a specific board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_get"
     },
     {
-      "name": "list_items",
-      "description": "Retrieve items from a board or group with their column values and metadata.",
-      "detail_url": "/capabilities/list_items"
+      "name": "boards_create",
+      "description": "Create a new board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_create"
     },
     {
-      "name": "create_item",
-      "description": "Create a new item on a board, optionally in a specific group with column values.",
-      "detail_url": "/capabilities/create_item"
+      "name": "boards_update",
+      "description": "Update a board's properties.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_update"
     },
     {
-      "name": "update_item",
-      "description": "Update column values on an existing item on a board.",
-      "detail_url": "/capabilities/update_item"
+      "name": "boards_delete",
+      "description": "Delete a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_delete"
     },
     {
-      "name": "create_update",
-      "description": "Post a text update (comment) on an item for team communication.",
-      "detail_url": "/capabilities/create_update"
+      "name": "boards_archive",
+      "description": "Archive a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_archive"
+    },
+    {
+      "name": "boards_duplicate",
+      "description": "Duplicate a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_duplicate"
+    },
+    {
+      "name": "items_list",
+      "description": "Get items from a board.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_list"
+    },
+    {
+      "name": "items_get",
+      "description": "Get a specific item by ID.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_get"
+    },
+    {
+      "name": "items_create",
+      "description": "Create a new item on a board.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_create"
+    },
+    {
+      "name": "items_update",
+      "description": "Update column values on an item.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_update"
+    },
+    {
+      "name": "items_delete",
+      "description": "Delete an item.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_delete"
+    },
+    {
+      "name": "items_move_to_group",
+      "description": "Move an item to a different group.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_move_to_group"
+    },
+    {
+      "name": "items_archive",
+      "description": "Archive an item.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_archive"
+    },
+    {
+      "name": "items_duplicate",
+      "description": "Duplicate an item.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_duplicate"
+    },
+    {
+      "name": "subitems_create",
+      "description": "Create a subitem under an item.",
+      "resource_group": "subitems",
+      "detail_url": "/capabilities/subitems_create"
+    },
+    {
+      "name": "groups_list",
+      "description": "List groups on a board.",
+      "resource_group": "groups",
+      "detail_url": "/capabilities/groups_list"
+    },
+    {
+      "name": "groups_create",
+      "description": "Create a new group on a board.",
+      "resource_group": "groups",
+      "detail_url": "/capabilities/groups_create"
+    },
+    {
+      "name": "groups_update",
+      "description": "Update a group.",
+      "resource_group": "groups",
+      "detail_url": "/capabilities/groups_update"
+    },
+    {
+      "name": "groups_delete",
+      "description": "Delete a group from a board.",
+      "resource_group": "groups",
+      "detail_url": "/capabilities/groups_delete"
+    },
+    {
+      "name": "columns_list",
+      "description": "List columns on a board.",
+      "resource_group": "columns",
+      "detail_url": "/capabilities/columns_list"
+    },
+    {
+      "name": "columns_create",
+      "description": "Create a new column on a board.",
+      "resource_group": "columns",
+      "detail_url": "/capabilities/columns_create"
+    },
+    {
+      "name": "columns_update",
+      "description": "Update column value for an item.",
+      "resource_group": "columns",
+      "detail_url": "/capabilities/columns_update"
+    },
+    {
+      "name": "updates_list",
+      "description": "List updates (comments) on an item.",
+      "resource_group": "updates",
+      "detail_url": "/capabilities/updates_list"
+    },
+    {
+      "name": "updates_create",
+      "description": "Post an update (comment) on an item.",
+      "resource_group": "updates",
+      "detail_url": "/capabilities/updates_create"
+    },
+    {
+      "name": "updates_delete",
+      "description": "Delete an update.",
+      "resource_group": "updates",
+      "detail_url": "/capabilities/updates_delete"
+    },
+    {
+      "name": "workspaces_list",
+      "description": "List workspaces.",
+      "resource_group": "workspaces",
+      "detail_url": "/capabilities/workspaces_list"
+    },
+    {
+      "name": "users_list",
+      "description": "List users in the account.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_list"
+    },
+    {
+      "name": "users_get",
+      "description": "Get the current user.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_get"
+    },
+    {
+      "name": "tags_list",
+      "description": "List tags.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_list"
+    },
+    {
+      "name": "tags_create",
+      "description": "Create a tag.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_create"
     }
   ]
 }

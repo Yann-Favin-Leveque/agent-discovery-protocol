@@ -1,0 +1,47 @@
+{
+  "name": "users_batch_import_create",
+  "description": "Create a batch import job to asynchronously import up to 50,000 user records.",
+  "endpoint": "/v2/users/batch",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "requests",
+      "type": "array",
+      "description": "Array of user objects to import (max 50,000 per batch).",
+      "required": true,
+      "example": [
+        { "uid": "user_1", "display_name": "Alice", "email": "alice@example.com" },
+        { "uid": "user_2", "display_name": "Bob", "email": "bob@example.com" }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fullstory.com/v2/users/batch",
+    "headers": {
+      "Authorization": "Basic {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requests": [
+        { "uid": "user_1", "display_name": "Alice", "email": "alice@example.com", "properties": { "plan_str": "pro" } },
+        { "uid": "user_2", "display_name": "Bob", "email": "bob@example.com" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "job": {
+        "id": "job_users_abc123",
+        "state": "PROCESSING",
+        "created": "2024-01-20T10:00:00Z"
+      }
+    }
+  },
+  "auth_scopes": ["server"],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

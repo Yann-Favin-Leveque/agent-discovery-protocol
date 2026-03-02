@@ -1,0 +1,95 @@
+{
+  "name": "issues_create",
+  "description": "Create a new issue.",
+  "resource_group": "issues",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Issue title"
+    },
+    {
+      "name": "teamId",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Team ID"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Issue description in Markdown"
+    },
+    {
+      "name": "assigneeId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Assignee user ID"
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Priority (0=none, 1=urgent, 2=high, 3=medium, 4=low)"
+    },
+    {
+      "name": "stateId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Workflow state ID"
+    },
+    {
+      "name": "labelIds",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Label IDs"
+    },
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Project ID"
+    },
+    {
+      "name": "cycleId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Cycle ID"
+    },
+    {
+      "name": "estimate",
+      "type": "number",
+      "required": false,
+      "location": "body",
+      "description": "Point estimate"
+    },
+    {
+      "name": "dueDate",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Due date (YYYY-MM-DD)"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "mutation { issueCreate(input: { title: \"Fix login bug\", teamId: \"team-id\", priority: 2, description: \"Users cannot log in\" }) { success issue { id identifier title } } }"
+  }
+}

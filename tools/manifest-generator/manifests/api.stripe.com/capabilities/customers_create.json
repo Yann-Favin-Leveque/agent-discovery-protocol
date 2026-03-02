@@ -1,0 +1,68 @@
+{
+  "name": "customers_create",
+  "description": "Create a new customer with email, name, and payment info.",
+  "endpoint": "/v1/customers",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Customer email",
+      "required": false,
+      "example": "john@example.com"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Customer name",
+      "required": false,
+      "example": "John Doe"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description",
+      "required": false,
+      "example": "Premium customer"
+    },
+    {
+      "name": "payment_method",
+      "type": "string",
+      "description": "Default payment method ID",
+      "required": false,
+      "example": "pm_abc123"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata",
+      "required": false,
+      "example": {
+        "plan": "premium"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/customers",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "email=john@example.com&name=John Doe"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cus_abc123",
+      "object": "customer",
+      "email": "john@example.com",
+      "name": "John Doe"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

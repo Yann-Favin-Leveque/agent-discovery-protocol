@@ -1,0 +1,52 @@
+{
+  "name": "subscriptions_update",
+  "description": "Update a subscription, such as changing items or billing details.",
+  "resource_group": "subscriptions",
+  "endpoint": "/subscriptions/{subscription_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "subscription_id",
+      "type": "string",
+      "description": "The subscription ID.",
+      "required": true
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Updated items.",
+      "required": false
+    },
+    {
+      "name": "proration_billing_mode",
+      "type": "string",
+      "description": "How to handle proration.",
+      "required": false
+    },
+    {
+      "name": "scheduled_change",
+      "type": "object",
+      "description": "Schedule a change for next billing.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.paddle.com/subscriptions/sub_01h1vjes1y163xfj1rh1tkfb65",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "proration_billing_mode": "prorated_immediately"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "sub_01h1vjes1y163xfj1rh1tkfb65"
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "name": "records_list",
+  "description": "List records in a table with optional filtering and sorting.",
+  "resource_group": "records",
+  "endpoint": "/v0/{baseId}/{tableIdOrName}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "baseId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID of the Airtable base"
+    },
+    {
+      "name": "tableIdOrName",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID or name of the table"
+    },
+    {
+      "name": "fields[]",
+      "type": "array",
+      "required": false,
+      "location": "query",
+      "description": "Only return specific fields"
+    },
+    {
+      "name": "filterByFormula",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Airtable formula to filter records"
+    },
+    {
+      "name": "maxRecords",
+      "type": "integer",
+      "required": false,
+      "location": "query",
+      "description": "Maximum number of records to return"
+    },
+    {
+      "name": "pageSize",
+      "type": "integer",
+      "required": false,
+      "location": "query",
+      "description": "Number of records per page (max 100)"
+    },
+    {
+      "name": "offset",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Pagination offset from previous response"
+    },
+    {
+      "name": "sort[0][field]",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Field name to sort by"
+    },
+    {
+      "name": "sort[0][direction]",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Sort direction (asc or desc)"
+    },
+    {
+      "name": "view",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "View name or ID to use for filtering/sorting"
+    }
+  ],
+  "auth_scopes": [
+    "data.records:read",
+    "data.records:write",
+    "schema.bases:read",
+    "schema.bases:write"
+  ],
+  "response_example": {
+    "records": [
+      {
+        "id": "recABC",
+        "fields": {
+          "Name": "Task 1",
+          "Status": "Todo"
+        },
+        "createdTime": "2024-01-01T00:00:00.000Z"
+      }
+    ]
+  }
+}

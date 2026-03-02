@@ -1,0 +1,68 @@
+{
+  "name": "orders_create",
+  "description": "Create a new order.",
+  "resource_group": "orders",
+  "endpoint": "/orders",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "payment_method",
+      "type": "string",
+      "required": false,
+      "description": "Payment method ID."
+    },
+    {
+      "name": "billing",
+      "type": "object",
+      "required": false,
+      "description": "Billing address object."
+    },
+    {
+      "name": "shipping",
+      "type": "object",
+      "required": false,
+      "description": "Shipping address object."
+    },
+    {
+      "name": "line_items",
+      "type": "array",
+      "required": true,
+      "description": "Array of line items with product_id and quantity."
+    },
+    {
+      "name": "customer_id",
+      "type": "integer",
+      "required": false,
+      "description": "Customer ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}/wp-json/wc/v3/orders",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "line_items": [
+        {
+          "product_id": 794,
+          "quantity": 2
+        }
+      ],
+      "billing": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john@example.com"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 728,
+      "status": "pending",
+      "total": "43.98"
+    }
+  }
+}

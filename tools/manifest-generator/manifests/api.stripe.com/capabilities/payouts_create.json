@@ -1,0 +1,45 @@
+{
+  "name": "payouts_create",
+  "description": "Create a payout to send funds to your bank account.",
+  "endpoint": "/v1/payouts",
+  "method": "POST",
+  "resource_group": "payouts",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Payout amount in cents",
+      "required": true,
+      "example": 10000
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Currency code",
+      "required": true,
+      "example": "usd"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/payouts",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "amount=10000&currency=usd"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "po_abc123",
+      "object": "payout",
+      "amount": 10000,
+      "status": "pending"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

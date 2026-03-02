@@ -1,0 +1,59 @@
+{
+  "name": "analytics_events_create",
+  "description": "Submit an analytics event such as a click or conversion.",
+  "endpoint": "/analytics/events",
+  "method": "POST",
+  "resource_group": "analytics",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Event type (click, conversion, etc.)",
+      "required": true,
+      "example": "click"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Analytics rule name",
+      "required": true,
+      "example": "product_clicks"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Event data payload",
+      "required": true,
+      "example": {
+        "q": "laptop",
+        "doc_id": "1"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.typesense.org/analytics/events",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "click",
+      "name": "product_clicks",
+      "data": {
+        "q": "laptop",
+        "doc_id": "1"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "ok": true
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

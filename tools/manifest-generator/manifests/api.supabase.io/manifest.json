@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Supabase",
-  "description": "Supabase is an open-source Firebase alternative that provides a full backend platform built on PostgreSQL. It offers a RESTful API (via PostgREST) for database CRUD operations, authentication, file storage, edge functions, and real-time subscriptions -- all auto-generated from your database schema.",
+  "description": "Supabase is an open-source Firebase alternative built on PostgreSQL. It provides auto-generated RESTful APIs for database CRUD, authentication, file storage, edge functions, and real-time subscriptions.",
   "base_url": "https://api.supabase.io",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,196 @@
   },
   "capabilities": [
     {
-      "name": "query_rows",
-      "description": "Read rows from any table in your Supabase database with filtering, sorting, pagination, and column selection. Supports complex filters, full-text search, and relational joins through foreign key references.",
-      "detail_url": "/capabilities/query_rows"
+      "name": "rows_select",
+      "description": "Read rows from any table with filtering, sorting, pagination, and column selection using PostgREST syntax.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/rows_select",
+      "resource_group": "database"
     },
     {
-      "name": "insert_rows",
-      "description": "Insert one or more rows into a database table. Supports upserts (insert or update on conflict), returning the inserted data, and bulk inserts for efficient data loading.",
-      "detail_url": "/capabilities/insert_rows"
+      "name": "rows_insert",
+      "description": "Insert one or more rows into a table. Supports upserts and bulk inserts.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/rows_insert",
+      "resource_group": "database"
     },
     {
-      "name": "update_rows",
-      "description": "Update existing rows in a table that match filter conditions. Supports partial updates, returning modified rows, and conditional updates with complex filter expressions.",
-      "detail_url": "/capabilities/update_rows"
+      "name": "rows_update",
+      "description": "Update rows matching filter conditions. Always requires a filter to prevent full-table updates.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/rows_update",
+      "resource_group": "database"
     },
     {
-      "name": "delete_rows",
-      "description": "Delete rows from a table that match filter conditions. Returns the deleted rows if requested. Always requires a filter to prevent accidental full-table deletion.",
-      "detail_url": "/capabilities/delete_rows"
+      "name": "rows_upsert",
+      "description": "Insert rows or update on conflict (upsert). Requires 'resolution=merge-duplicates' Prefer header.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/rows_upsert",
+      "resource_group": "database"
     },
     {
-      "name": "call_function",
-      "description": "Invoke a PostgreSQL function (stored procedure) through the REST API. Useful for complex operations, transactions, or business logic that lives in the database layer.",
-      "detail_url": "/capabilities/call_function"
+      "name": "rows_delete",
+      "description": "Delete rows matching filter conditions. Always requires a filter.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/rows_delete",
+      "resource_group": "database"
     },
     {
-      "name": "manage_storage",
-      "description": "Upload, download, list, move, and delete files in Supabase Storage buckets. Supports generating signed URLs for temporary access and managing bucket-level configurations.",
-      "detail_url": "/capabilities/manage_storage"
+      "name": "rpc_call",
+      "description": "Call a PostgreSQL function (RPC) via the REST API. Useful for complex operations and transactions.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/rpc_call",
+      "resource_group": "database"
+    },
+    {
+      "name": "auth_signup",
+      "description": "Sign up a new user with email and password.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_signup",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_signin_password",
+      "description": "Sign in a user with email and password.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_signin_password",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_signin_otp",
+      "description": "Send a magic link or OTP to a user's email or phone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_signin_otp",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_signout",
+      "description": "Sign out a user and invalidate their session.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_signout",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_get_user",
+      "description": "Retrieve the currently authenticated user's profile.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_get_user",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_update_user",
+      "description": "Update the currently authenticated user's email, password, or metadata.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_update_user",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_refresh_token",
+      "description": "Refresh an access token using a refresh token.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_refresh_token",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_reset_password",
+      "description": "Send a password reset email to a user.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_reset_password",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_invite_user",
+      "description": "Invite a user by email (admin only, requires service_role key).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_invite_user",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_admin_list_users",
+      "description": "List all users (admin only, requires service_role key).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_admin_list_users",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_admin_get_user",
+      "description": "Retrieve a specific user by ID (admin only).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_admin_get_user",
+      "resource_group": "auth"
+    },
+    {
+      "name": "auth_admin_delete_user",
+      "description": "Delete a user by ID (admin only).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/auth_admin_delete_user",
+      "resource_group": "auth"
+    },
+    {
+      "name": "storage_buckets_list",
+      "description": "List all storage buckets in the project.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_buckets_list",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_buckets_create",
+      "description": "Create a new storage bucket.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_buckets_create",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_buckets_get",
+      "description": "Retrieve a specific bucket by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_buckets_get",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_buckets_delete",
+      "description": "Delete a storage bucket (must be empty).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_buckets_delete",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_buckets_empty",
+      "description": "Empty all objects from a storage bucket.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_buckets_empty",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_objects_upload",
+      "description": "Upload a file to a storage bucket.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_objects_upload",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_objects_download",
+      "description": "Download a file from a storage bucket.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_objects_download",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_objects_list",
+      "description": "List files in a storage bucket path.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_objects_list",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_objects_move",
+      "description": "Move or rename a file within or between buckets.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_objects_move",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_objects_delete",
+      "description": "Delete one or more files from a storage bucket.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_objects_delete",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_objects_create_signed_url",
+      "description": "Generate a signed URL for temporary access to a private file.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_objects_create_signed_url",
+      "resource_group": "storage"
+    },
+    {
+      "name": "storage_objects_get_public_url",
+      "description": "Get the public URL for a file in a public bucket.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/storage_objects_get_public_url",
+      "resource_group": "storage"
+    },
+    {
+      "name": "edge_functions_invoke",
+      "description": "Invoke a Supabase Edge Function by name.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/edge_functions_invoke",
+      "resource_group": "edge_functions"
+    },
+    {
+      "name": "realtime_subscribe",
+      "description": "Subscribe to real-time changes on a table via WebSocket. Connect to the Realtime server and listen for INSERT, UPDATE, DELETE events.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io/capabilities/realtime_subscribe",
+      "resource_group": "realtime"
     }
   ]
 }

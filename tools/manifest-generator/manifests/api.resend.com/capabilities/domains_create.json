@@ -1,0 +1,49 @@
+{
+  "name": "domains_create",
+  "description": "Create a new sending domain.",
+  "resource_group": "domains",
+  "endpoint": "/domains",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Domain name.",
+      "required": true,
+      "example": "example.com"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "Region: us-east-1, eu-west-1, sa-east-1, ap-northeast-1.",
+      "required": false,
+      "example": "us-east-1"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.resend.com/domains",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "example.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "dom-123",
+      "name": "example.com",
+      "status": "not_started",
+      "records": [
+        {
+          "type": "MX",
+          "name": "example.com",
+          "value": "feedback-smtp.us-east-1.amazonses.com"
+        }
+      ]
+    }
+  }
+}

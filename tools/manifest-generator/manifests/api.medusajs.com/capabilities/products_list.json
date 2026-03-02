@@ -1,0 +1,79 @@
+{
+  "name": "products_list",
+  "description": "Browse and search the product catalog.",
+  "resource_group": "products",
+  "endpoint": "/store/products",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": false,
+      "description": "Search query."
+    },
+    {
+      "name": "collection_id",
+      "type": "array",
+      "required": false,
+      "description": "Filter by collection IDs."
+    },
+    {
+      "name": "category_id",
+      "type": "array",
+      "required": false,
+      "description": "Filter by category IDs."
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false,
+      "description": "Filter by tag values."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results to skip."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.medusajs.com/store/products?limit=10",
+    "headers": {
+      "x-publishable-api-key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "products": [
+        {
+          "id": "prod_01",
+          "title": "Medusa T-Shirt",
+          "handle": "medusa-t-shirt",
+          "variants": [
+            {
+              "id": "var_01",
+              "title": "S / Black",
+              "prices": [
+                {
+                  "amount": 2000,
+                  "currency_code": "usd"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "count": 1,
+      "offset": 0,
+      "limit": 10
+    }
+  }
+}

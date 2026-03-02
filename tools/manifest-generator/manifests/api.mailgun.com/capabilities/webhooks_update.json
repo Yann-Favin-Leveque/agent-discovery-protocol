@@ -1,0 +1,47 @@
+{
+  "name": "webhooks_update",
+  "description": "Update an existing webhook.",
+  "resource_group": "webhooks",
+  "endpoint": "/v3/domains/{domain}/webhooks/{webhook_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun domain.",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "description": "Webhook event type.",
+      "required": true,
+      "example": "delivered"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Updated URL.",
+      "required": true,
+      "example": "https://example.com/new-webhook"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.mailgun.com/v3/domains/mg.example.com/webhooks/delivered",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/new-webhook"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "Webhook has been updated"
+    }
+  }
+}

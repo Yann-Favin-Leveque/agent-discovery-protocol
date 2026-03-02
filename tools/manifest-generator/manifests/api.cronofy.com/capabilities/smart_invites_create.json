@@ -1,0 +1,77 @@
+{
+  "name": "smart_invites_create",
+  "description": "Send a calendar invite to recipients and track their RSVP responses (accept, decline, tentative) without requiring calendar authorization from recipients.",
+  "endpoint": "/v1/smart_invites",
+  "method": "POST",
+  "resource_group": "smart_invites",
+  "parameters": [
+    {
+      "name": "smart_invite_id",
+      "type": "string",
+      "required": true,
+      "description": "Unique identifier for the smart invite."
+    },
+    {
+      "name": "callback_url",
+      "type": "string",
+      "required": true,
+      "description": "Webhook URL to receive RSVP status changes."
+    },
+    {
+      "name": "event",
+      "type": "object",
+      "required": true,
+      "description": "Event details with 'summary', 'start', 'end', 'tzid', and optional 'description', 'location'."
+    },
+    {
+      "name": "recipients",
+      "type": "array",
+      "required": true,
+      "description": "Array of recipient objects with 'email' fields."
+    },
+    {
+      "name": "organizer",
+      "type": "object",
+      "required": true,
+      "description": "Organizer with 'name' and 'email' fields."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cronofy.com/v1/smart_invites",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {api_key}"
+    },
+    "body": {
+      "smart_invite_id": "invite-001",
+      "callback_url": "https://example.com/webhooks/cronofy",
+      "event": {
+        "summary": "Team Lunch",
+        "start": "2024-01-22T12:00:00Z",
+        "end": "2024-01-22T13:00:00Z",
+        "tzid": "America/New_York",
+        "location": { "description": "Restaurant downtown" }
+      },
+      "recipients": [
+        { "email": "alice@example.com" },
+        { "email": "bob@example.com" }
+      ],
+      "organizer": { "name": "John", "email": "john@example.com" }
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "smart_invite_id": "invite-001",
+      "recipients": [
+        { "email": "alice@example.com", "status": "pending" },
+        { "email": "bob@example.com", "status": "pending" }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

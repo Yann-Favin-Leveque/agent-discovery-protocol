@@ -1,0 +1,51 @@
+{
+  "name": "items_update",
+  "description": "Update a DriveItem's metadata (rename, move, etc.).",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/items/{item-id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "item-id",
+      "type": "string",
+      "description": "The item ID.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "New name.",
+      "required": false
+    },
+    {
+      "name": "parentReference",
+      "type": "object",
+      "description": "New parent folder reference for moving.",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "New description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/item123",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "renamed.pdf"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "item123",
+      "name": "renamed.pdf"
+    }
+  }
+}

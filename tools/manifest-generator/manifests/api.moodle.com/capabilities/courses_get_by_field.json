@@ -1,0 +1,24 @@
+{
+  "name": "courses_get_by_field",
+  "description": "Retrieve courses matching a specific field value such as shortname or category.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_course_get_courses_by_field",
+  "method": "POST",
+  "resource_group": "courses",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "field", "type": "string", "description": "Field to search by (id, ids, shortname, idnumber, category)", "required": true, "example": "shortname" },
+    { "name": "value", "type": "string", "description": "Value to match", "required": true, "example": "PHYS101" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_course_get_courses_by_field&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "field": "shortname", "value": "PHYS101" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "courses": [{ "id": 5, "fullname": "Introduction to Physics", "shortname": "PHYS101" }] }
+  },
+  "auth_scopes": ["core_course_get_courses_by_field"],
+  "rate_limits": { "requests_per_minute": 120 }
+}

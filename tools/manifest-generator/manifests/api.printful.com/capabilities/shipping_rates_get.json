@@ -1,0 +1,57 @@
+{
+  "name": "shipping_rates_get",
+  "description": "Calculate shipping rates for items and destination.",
+  "resource_group": "shipping",
+  "endpoint": "/shipping/rates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "recipient",
+      "type": "object",
+      "required": true,
+      "description": "Destination address."
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "required": true,
+      "description": "Items to ship."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.printful.com/shipping/rates",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipient": {
+        "country_code": "US",
+        "state_code": "CA"
+      },
+      "items": [
+        {
+          "variant_id": 4011,
+          "quantity": 1
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "result": [
+        {
+          "id": "STANDARD",
+          "name": "Standard",
+          "rate": "4.49",
+          "currency": "USD",
+          "minDeliveryDays": 4,
+          "maxDeliveryDays": 8
+        }
+      ]
+    }
+  }
+}

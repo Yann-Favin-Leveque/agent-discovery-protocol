@@ -1,0 +1,40 @@
+{
+  "name": "businesses_list",
+  "description": "List all businesses associated with the authenticated user's Wave account.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "businesses",
+  "parameters": [],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "query { businesses { edges { node { id name } } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "businesses": {
+          "edges": [
+            {
+              "node": {
+                "id": "QnVzaW5lc3M6...",
+                "name": "My Business"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "name": "synonyms_save",
+  "description": "Create or update a synonym set for an index so alternative terms return the same search results.",
+  "endpoint": "/1/indexes/{indexName}/synonyms/{objectID}",
+  "method": "PUT",
+  "resource_group": "synonyms",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "objectID",
+      "type": "string",
+      "description": "Unique ID for the synonym.",
+      "required": true,
+      "example": "syn-phone-mobile"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Synonym type: 'synonym', 'oneWaySynonym', 'altCorrection1', 'altCorrection2', 'placeholder'.",
+      "required": true,
+      "example": "synonym"
+    },
+    {
+      "name": "synonyms",
+      "type": "array",
+      "description": "Array of synonym terms.",
+      "required": true,
+      "example": ["phone", "mobile", "cellphone", "smartphone"]
+    },
+    {
+      "name": "forwardToReplicas",
+      "type": "boolean",
+      "description": "Whether to forward to replica indices.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/synonyms/syn-phone-mobile?forwardToReplicas=true",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "objectID": "syn-phone-mobile",
+      "type": "synonym",
+      "synonyms": ["phone", "mobile", "cellphone", "smartphone"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "syn-phone-mobile",
+      "updatedAt": "2024-06-15T13:00:00.000Z",
+      "taskID": 691
+    }
+  },
+  "auth_scopes": ["editSettings"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

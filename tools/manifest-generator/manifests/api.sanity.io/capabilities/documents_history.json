@@ -1,0 +1,64 @@
+{
+  "name": "documents_history",
+  "description": "Retrieve the transaction history for a specific document showing all changes over time.",
+  "endpoint": "/v{apiVersion}/data/history/{dataset}/transactions/{documentId}",
+  "method": "GET",
+  "resource_group": "history",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "documentId",
+      "type": "string",
+      "description": "Document ID",
+      "required": true,
+      "example": "post-123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/data/history/production/transactions/post-123",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transactions": [
+        {
+          "id": "txn1",
+          "timestamp": "2026-03-01T10:00:00Z",
+          "author": "user123",
+          "mutations": [
+            {
+              "patch": {
+                "id": "post-123"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

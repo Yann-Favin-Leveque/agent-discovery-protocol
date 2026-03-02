@@ -1,0 +1,66 @@
+{
+  "name": "assets_list",
+  "resource_group": "assets",
+  "description": "List assets from a source.",
+  "endpoint": "/api/v1/sources/{source_id}/assets",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "source_id",
+      "type": "string",
+      "required": true,
+      "description": "Source ID.",
+      "in": "path"
+    },
+    {
+      "name": "page[cursor]",
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor."
+    },
+    {
+      "name": "page[limit]",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page. Max 500."
+    },
+    {
+      "name": "filter[categories]",
+      "type": "string",
+      "required": false,
+      "description": "Filter by category."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort field."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.imgix.com/api/v1/sources/source-id/assets?page[limit]=20",
+    "headers": {
+      "Authorization": "Bearer imgix-api-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "images/photo.jpg",
+          "type": "assets",
+          "attributes": {
+            "origin_path": "images/photo.jpg",
+            "name": "photo.jpg",
+            "media_width": 1200,
+            "media_height": 800,
+            "content_type": "image/jpeg",
+            "file_size": 245000
+          }
+        }
+      ]
+    }
+  }
+}

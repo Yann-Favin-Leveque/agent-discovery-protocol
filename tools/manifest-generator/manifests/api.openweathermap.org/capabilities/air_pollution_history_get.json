@@ -1,0 +1,68 @@
+{
+  "name": "air_pollution_history_get",
+  "description": "Get historical air pollution data from November 27, 2020 onwards. Specify start and end Unix timestamps.",
+  "resource_group": "air_pollution",
+  "endpoint": "/data/2.5/air_pollution/history",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": true,
+      "description": "Latitude.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": true,
+      "description": "Longitude.",
+      "in": "query"
+    },
+    {
+      "name": "start",
+      "type": "integer",
+      "required": true,
+      "description": "Start date as Unix timestamp (UTC).",
+      "in": "query"
+    },
+    {
+      "name": "end",
+      "type": "integer",
+      "required": true,
+      "description": "End date as Unix timestamp (UTC).",
+      "in": "query"
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/2.5/air_pollution/history?lat=48.8566&lon=2.3522&start=1705276800&end=1705363200&appid=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "list": [
+        {
+          "dt": 1705276800,
+          "main": {
+            "aqi": 2
+          },
+          "components": {
+            "co": 230.31,
+            "no2": 15.84,
+            "o3": 68.78,
+            "pm2_5": 8.92
+          }
+        }
+      ]
+    }
+  }
+}

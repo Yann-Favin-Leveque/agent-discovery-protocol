@@ -1,0 +1,22 @@
+{
+  "name": "image_edit_search_replace",
+  "description": "Find and replace objects or elements in an image by describing what to search for and what to replace it with.",
+  "resource_group": "edit",
+  "endpoint": "/v2beta/stable-image/edit/search-and-replace",
+  "method": "POST",
+  "parameters": [
+    {"name": "image", "type": "file", "required": true, "description": "The source image."},
+    {"name": "prompt", "type": "string", "required": true, "description": "Description of what to replace the searched object with."},
+    {"name": "search_prompt", "type": "string", "required": true, "description": "Description of the object to find and replace."},
+    {"name": "negative_prompt", "type": "string", "required": false, "description": "What to exclude."},
+    {"name": "output_format", "type": "string", "required": false, "description": "Output format."},
+    {"name": "seed", "type": "integer", "required": false, "description": "Random seed."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stability.ai/v2beta/stable-image/edit/search-and-replace",
+    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Accept": "image/*"},
+    "body": "multipart/form-data: image=@photo.jpg&search_prompt='car'&prompt='red sports car'"
+  },
+  "response_example": {"status": 200, "body": "Binary edited image content"}
+}

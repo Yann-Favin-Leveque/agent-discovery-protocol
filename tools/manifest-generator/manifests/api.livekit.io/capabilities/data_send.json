@@ -1,0 +1,61 @@
+{
+  "name": "data_send",
+  "description": "Send data packets to participants in a room via reliable (TCP-like) or lossy (UDP-like) transport. Useful for chat messages, game state, and custom signaling.",
+  "endpoint": "/twirp/livekit.RoomService/SendData",
+  "method": "POST",
+  "resource_group": "rooms",
+  "parameters": [
+    {
+      "name": "room",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room."
+    },
+    {
+      "name": "data",
+      "type": "string",
+      "required": true,
+      "description": "Base64-encoded data payload to send."
+    },
+    {
+      "name": "kind",
+      "type": "string",
+      "required": false,
+      "description": "Transport kind: 'RELIABLE' (default) or 'LOSSY'."
+    },
+    {
+      "name": "destination_identities",
+      "type": "array",
+      "required": false,
+      "description": "Array of participant identities to send data to. Sends to all if empty."
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "required": false,
+      "description": "Optional topic string for filtering data messages on the client."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/SendData",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room": "interview-room-42",
+      "data": "SGVsbG8gV29ybGQ=",
+      "kind": "RELIABLE",
+      "topic": "chat"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": ["roomAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

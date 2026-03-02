@@ -1,0 +1,69 @@
+{
+  "name": "assets_upload_image",
+  "description": "Upload an image file to the Sanity asset pipeline. Returns an asset document with URL and metadata.",
+  "endpoint": "/v{apiVersion}/assets/images/{dataset}",
+  "method": "POST",
+  "resource_group": "assets",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "filename",
+      "type": "string",
+      "description": "Original filename (query parameter)",
+      "required": false,
+      "example": "photo.jpg"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Label for the asset",
+      "required": false,
+      "example": "Hero Image"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/assets/images/production?filename=photo.jpg",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "image/jpeg"
+    },
+    "body": "(binary image data)"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "document": {
+        "_id": "image-abc123",
+        "_type": "sanity.imageAsset",
+        "url": "https://cdn.sanity.io/images/proj/production/abc123-800x600.jpg",
+        "metadata": {
+          "dimensions": {
+            "width": 800,
+            "height": 600
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "forms_list",
+  "resource_group": "forms",
+  "description": "List all forms in your Tally account with pagination.",
+  "endpoint": "/forms",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Page number. Default: 1."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Forms per page. Default: 50, max: 500."
+    },
+    {
+      "name": "workspaceIds",
+      "type": "array",
+      "required": false,
+      "in": "query",
+      "description": "Filter by workspace IDs."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tally.so/forms?page=1&limit=50",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "form-123",
+          "name": "Feedback Form",
+          "status": "PUBLISHED",
+          "numberOfSubmissions": 42
+        }
+      ],
+      "page": 1,
+      "limit": 50,
+      "total": 5,
+      "hasMore": false
+    }
+  }
+}

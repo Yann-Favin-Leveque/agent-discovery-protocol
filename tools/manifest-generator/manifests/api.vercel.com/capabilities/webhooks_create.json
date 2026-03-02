@@ -1,0 +1,49 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook for deployment events.",
+  "endpoint": "/v1/webhooks",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Webhook URL",
+      "required": true,
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "Events to subscribe to",
+      "required": true,
+      "example": [
+        "deployment.created"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vercel.com/v1/webhooks",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "events": [
+        "deployment.created"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "wh_456"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

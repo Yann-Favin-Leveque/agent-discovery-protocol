@@ -1,0 +1,33 @@
+{
+  "name": "meetings_invitation_get",
+  "description": "Retrieve the meeting invitation text for a specific meeting. Returns the email-ready invitation with join URL and dial-in details.",
+  "endpoint": "/meetings/{meetingId}/invitation",
+  "method": "GET",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "integer",
+      "description": "The meeting ID.",
+      "required": true,
+      "example": 1234567890
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/meetings/1234567890/invitation",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "invitation": "Jane Doe is inviting you to a scheduled Zoom meeting.\n\nTopic: Weekly Team Sync\nTime: Jan 15, 2024 10:00 AM Eastern Time\n\nJoin Zoom Meeting\nhttps://zoom.us/j/1234567890\n\nMeeting ID: 123 456 7890\nPasscode: abc123"
+    }
+  },
+  "auth_scopes": ["meeting:read"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "heart_rate_intraday_get",
+  "description": "Retrieve intraday heart rate data at 1-second or 1-minute detail level for a specific date. Requires personal-type application or approved intraday access.",
+  "resource_group": "heart_rate",
+  "endpoint": "/1/user/-/activities/heart/date/{date}/1d/{detail-level}.json",
+  "method": "GET",
+  "parameters": [
+    { "name": "date", "type": "string", "required": true, "description": "The date in YYYY-MM-DD format.", "in": "path" },
+    { "name": "detail-level", "type": "string", "required": true, "description": "Detail level: '1sec' or '1min'.", "in": "path" }
+  ],
+  "auth_scopes": ["heartrate"],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/activities/heart/date/2025-01-15/1d/1min.json",
+    "headers": { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9..." }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "activities-heart-intraday": {
+        "dataset": [
+          { "time": "08:00:00", "value": 72 },
+          { "time": "08:01:00", "value": 74 },
+          { "time": "08:02:00", "value": 71 }
+        ],
+        "datasetInterval": 1,
+        "datasetType": "minute"
+      }
+    }
+  }
+}

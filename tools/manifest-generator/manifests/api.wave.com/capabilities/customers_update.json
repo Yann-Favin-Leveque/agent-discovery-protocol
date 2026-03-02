@@ -1,0 +1,60 @@
+{
+  "name": "customers_update",
+  "description": "Update an existing customer's information.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Customer ID",
+      "required": true,
+      "example": "Q3VzdG9tZXI6..."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated name",
+      "required": false,
+      "example": "Jane Doe"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Updated email",
+      "required": false,
+      "example": "jane.doe@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: CustomerPatchInput!) { customerPatch(input: $input) { customer { id name email } didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "customerPatch": {
+          "customer": {
+            "id": "Q3VzdG9tZXI6...",
+            "name": "Jane Doe"
+          },
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

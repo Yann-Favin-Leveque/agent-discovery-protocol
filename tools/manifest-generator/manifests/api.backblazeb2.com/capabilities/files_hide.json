@@ -1,0 +1,41 @@
+{
+  "name": "files_hide",
+  "description": "Hide a file (mark as deleted without removing it).",
+  "resource_group": "files",
+  "endpoint": "/b2api/v3/b2_hide_file",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "The bucket ID.",
+      "required": true
+    },
+    {
+      "name": "fileName",
+      "type": "string",
+      "description": "The file name to hide.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_hide_file",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "bucketId": "bucket123",
+      "fileName": "test/file.txt"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "fileId": "file456",
+      "fileName": "test/file.txt",
+      "action": "hide"
+    }
+  }
+}

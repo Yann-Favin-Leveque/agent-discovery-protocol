@@ -1,0 +1,60 @@
+{
+  "name": "meetings_poll_create",
+  "description": "Create a poll for a meeting. Define poll title and questions with single or multiple choice answers.",
+  "endpoint": "/meetings/{meetingId}/polls",
+  "method": "POST",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "integer",
+      "description": "The meeting ID.",
+      "required": true,
+      "example": 1234567890
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Poll title.",
+      "required": true,
+      "example": "Team Preferences"
+    },
+    {
+      "name": "questions",
+      "type": "array",
+      "description": "Array of question objects with name, type (single/multiple), and answers.",
+      "required": true,
+      "example": [{"name": "Preferred time?", "type": "single", "answers": ["Morning", "Afternoon"]}]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.zoom.us/v2/meetings/1234567890/polls",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Team Preferences",
+      "questions": [
+        {
+          "name": "Preferred meeting time?",
+          "type": "single",
+          "answers": ["Morning", "Afternoon", "Evening"]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "poll123",
+      "title": "Team Preferences",
+      "status": "notstart"
+    }
+  },
+  "auth_scopes": ["meeting:write"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

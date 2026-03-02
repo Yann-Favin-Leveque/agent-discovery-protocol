@@ -1,0 +1,60 @@
+{
+  "name": "storage_zones_update",
+  "resource_group": "storage_zones",
+  "description": "Update storage zone configuration.",
+  "endpoint": "/storagezone/{id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Storage zone ID.",
+      "in": "path"
+    },
+    {
+      "name": "ReplicationRegions",
+      "type": "array",
+      "required": false,
+      "description": "Updated replication regions."
+    },
+    {
+      "name": "OriginUrl",
+      "type": "string",
+      "required": false,
+      "description": "Updated origin URL."
+    },
+    {
+      "name": "Custom404FilePath",
+      "type": "string",
+      "required": false,
+      "description": "Custom 404 page path."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bunny.net/storagezone/67890",
+    "headers": {
+      "AccessKey": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ReplicationRegions": [
+        "NY",
+        "SG",
+        "SYD"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Id": 67890,
+      "ReplicationRegions": [
+        "NY",
+        "SG",
+        "SYD"
+      ]
+    }
+  }
+}

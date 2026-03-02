@@ -1,0 +1,57 @@
+{
+  "name": "heart_rate_list",
+  "description": "Retrieve continuous heart rate measurements at 5-minute intervals throughout the day and night.",
+  "resource_group": "heart_rate",
+  "endpoint": "/v2/usercollection/heartrate",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_datetime",
+      "type": "string",
+      "required": false,
+      "description": "Start datetime ISO 8601.",
+      "in": "query"
+    },
+    {
+      "name": "end_datetime",
+      "type": "string",
+      "required": false,
+      "description": "End datetime ISO 8601.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "heartrate"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/heartrate?start_datetime=2025-01-15T00:00:00&end_datetime=2025-01-15T23:59:59",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "bpm": 72,
+          "source": "awake",
+          "timestamp": "2025-01-15T10:00:00+00:00"
+        },
+        {
+          "bpm": 58,
+          "source": "rest",
+          "timestamp": "2025-01-15T02:00:00+00:00"
+        }
+      ]
+    }
+  }
+}

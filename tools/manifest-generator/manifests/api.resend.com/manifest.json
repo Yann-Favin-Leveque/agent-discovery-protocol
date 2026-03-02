@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Resend",
-  "description": "Resend provides a REST API for programmatic access to its features. Use it to automate workflows and integrate with other services.",
+  "description": "Email API for developers. Send transactional and marketing emails, manage contacts, domains, templates, broadcasts, and webhooks.",
   "base_url": "https://api.resend.com",
   "auth": {
     "type": "api_key",
@@ -10,59 +10,382 @@
   },
   "capabilities": [
     {
-      "name": "emails",
-      "description": "Manage emails — send an email, trigger up to 100 batch emails at once, cancel the schedule of the e-mail. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/emails"
+      "name": "emails_send",
+      "description": "Send an email to one or more recipients with HTML, text, attachments, and scheduling support.",
+      "detail_url": "/capabilities/emails_send",
+      "resource_group": "emails"
     },
     {
-      "name": "receiving_emails",
-      "description": "Manage receiving emails — retrieve a list of received emails, retrieve a single received email, retrieve a list of attachments for a received email. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/receiving_emails"
+      "name": "emails_list",
+      "description": "Retrieve a paginated list of sent emails.",
+      "detail_url": "/capabilities/emails_list",
+      "resource_group": "emails"
     },
     {
-      "name": "domains",
-      "description": "Manage domains — create a new domain, verify an existing domain, retrieve a list of domains. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/domains"
+      "name": "emails_get",
+      "description": "Retrieve a single email by its ID.",
+      "detail_url": "/capabilities/emails_get",
+      "resource_group": "emails"
     },
     {
-      "name": "api_keys",
-      "description": "Manage api keys — create a new api key, retrieve a list of api keys, remove an existing api key. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/api_keys"
+      "name": "emails_update",
+      "description": "Update a scheduled email's send time.",
+      "detail_url": "/capabilities/emails_update",
+      "resource_group": "emails"
     },
     {
-      "name": "templates",
-      "description": "Manage templates — create a template, publish a template, duplicate a template. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/templates"
+      "name": "emails_cancel",
+      "description": "Cancel the scheduled sending of an email.",
+      "detail_url": "/capabilities/emails_cancel",
+      "resource_group": "emails"
     },
     {
-      "name": "contacts",
-      "description": "Manage contacts — create a new contact, add a contact to a segment, retrieve a list of contacts. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/contacts"
+      "name": "emails_batch",
+      "description": "Send up to 100 emails in a single batch request.",
+      "detail_url": "/capabilities/emails_batch",
+      "resource_group": "emails"
     },
     {
-      "name": "broadcasts",
-      "description": "Manage broadcasts — create a broadcast, send or schedule a broadcast, retrieve a list of broadcasts. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/broadcasts"
+      "name": "emails_attachments_list",
+      "description": "Retrieve attachments for a sent email.",
+      "detail_url": "/capabilities/emails_attachments_list",
+      "resource_group": "emails"
     },
     {
-      "name": "webhooks",
-      "description": "Manage webhooks — create a new webhook, retrieve a list of webhooks, retrieve a single webhook. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/webhooks"
+      "name": "emails_attachments_get",
+      "description": "Retrieve a single attachment from a sent email.",
+      "detail_url": "/capabilities/emails_attachments_get",
+      "resource_group": "emails"
     },
     {
-      "name": "segments",
-      "description": "Manage segments — create a new segment, retrieve a list of segments, retrieve a single segment. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/segments"
+      "name": "receiving_emails_list",
+      "description": "Retrieve a list of received emails.",
+      "detail_url": "/capabilities/receiving_emails_list",
+      "resource_group": "receiving"
     },
     {
-      "name": "topics",
-      "description": "Manage topics — create a new topic, retrieve a list of topics, retrieve a single topic. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/topics"
+      "name": "receiving_emails_get",
+      "description": "Retrieve a single received email by ID.",
+      "detail_url": "/capabilities/receiving_emails_get",
+      "resource_group": "receiving"
     },
     {
-      "name": "contact_properties",
-      "description": "Manage contact properties — create a new contact property, retrieve a list of contact properties, retrieve a single contact property. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/contact_properties"
+      "name": "receiving_emails_attachments_list",
+      "description": "Retrieve attachments for a received email.",
+      "detail_url": "/capabilities/receiving_emails_attachments_list",
+      "resource_group": "receiving"
+    },
+    {
+      "name": "receiving_emails_attachments_get",
+      "description": "Retrieve a single attachment from a received email.",
+      "detail_url": "/capabilities/receiving_emails_attachments_get",
+      "resource_group": "receiving"
+    },
+    {
+      "name": "domains_create",
+      "description": "Create a new sending domain.",
+      "detail_url": "/capabilities/domains_create",
+      "resource_group": "domains"
+    },
+    {
+      "name": "domains_list",
+      "description": "Retrieve a list of all sending domains.",
+      "detail_url": "/capabilities/domains_list",
+      "resource_group": "domains"
+    },
+    {
+      "name": "domains_get",
+      "description": "Retrieve a single domain by ID.",
+      "detail_url": "/capabilities/domains_get",
+      "resource_group": "domains"
+    },
+    {
+      "name": "domains_update",
+      "description": "Update a domain's tracking settings.",
+      "detail_url": "/capabilities/domains_update",
+      "resource_group": "domains"
+    },
+    {
+      "name": "domains_delete",
+      "description": "Remove an existing domain.",
+      "detail_url": "/capabilities/domains_delete",
+      "resource_group": "domains"
+    },
+    {
+      "name": "domains_verify",
+      "description": "Verify an existing domain's DNS records.",
+      "detail_url": "/capabilities/domains_verify",
+      "resource_group": "domains"
+    },
+    {
+      "name": "api_keys_create",
+      "description": "Create a new API key.",
+      "detail_url": "/capabilities/api_keys_create",
+      "resource_group": "api_keys"
+    },
+    {
+      "name": "api_keys_list",
+      "description": "Retrieve a list of all API keys.",
+      "detail_url": "/capabilities/api_keys_list",
+      "resource_group": "api_keys"
+    },
+    {
+      "name": "api_keys_delete",
+      "description": "Remove an existing API key.",
+      "detail_url": "/capabilities/api_keys_delete",
+      "resource_group": "api_keys"
+    },
+    {
+      "name": "templates_create",
+      "description": "Create a new email template.",
+      "detail_url": "/capabilities/templates_create",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_list",
+      "description": "Retrieve a list of all templates.",
+      "detail_url": "/capabilities/templates_list",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_get",
+      "description": "Retrieve a single template by ID or alias.",
+      "detail_url": "/capabilities/templates_get",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_update",
+      "description": "Update an existing template.",
+      "detail_url": "/capabilities/templates_update",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_delete",
+      "description": "Remove an existing template.",
+      "detail_url": "/capabilities/templates_delete",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_publish",
+      "description": "Publish a template to make it available for sending.",
+      "detail_url": "/capabilities/templates_publish",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_duplicate",
+      "description": "Duplicate an existing template.",
+      "detail_url": "/capabilities/templates_duplicate",
+      "resource_group": "templates"
+    },
+    {
+      "name": "contacts_create",
+      "description": "Create a new contact.",
+      "detail_url": "/capabilities/contacts_create",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "contacts_list",
+      "description": "Retrieve a list of contacts with optional segment filtering.",
+      "detail_url": "/capabilities/contacts_list",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "contacts_get",
+      "description": "Retrieve a single contact by ID or email.",
+      "detail_url": "/capabilities/contacts_get",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "contacts_update",
+      "description": "Update a contact by ID or email.",
+      "detail_url": "/capabilities/contacts_update",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "contacts_delete",
+      "description": "Remove a contact by ID or email.",
+      "detail_url": "/capabilities/contacts_delete",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "contacts_segments_list",
+      "description": "List segments a contact belongs to.",
+      "detail_url": "/capabilities/contacts_segments_list",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "contacts_segments_add",
+      "description": "Add a contact to a segment.",
+      "detail_url": "/capabilities/contacts_segments_add",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "contacts_segments_remove",
+      "description": "Remove a contact from a segment.",
+      "detail_url": "/capabilities/contacts_segments_remove",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "contacts_topics_get",
+      "description": "Retrieve topic subscriptions for a contact.",
+      "detail_url": "/capabilities/contacts_topics_get",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "contacts_topics_update",
+      "description": "Update topic subscriptions for a contact.",
+      "detail_url": "/capabilities/contacts_topics_update",
+      "resource_group": "contacts"
+    },
+    {
+      "name": "broadcasts_create",
+      "description": "Create a new broadcast email campaign.",
+      "detail_url": "/capabilities/broadcasts_create",
+      "resource_group": "broadcasts"
+    },
+    {
+      "name": "broadcasts_list",
+      "description": "Retrieve a list of all broadcasts.",
+      "detail_url": "/capabilities/broadcasts_list",
+      "resource_group": "broadcasts"
+    },
+    {
+      "name": "broadcasts_get",
+      "description": "Retrieve a single broadcast by ID.",
+      "detail_url": "/capabilities/broadcasts_get",
+      "resource_group": "broadcasts"
+    },
+    {
+      "name": "broadcasts_update",
+      "description": "Update an existing broadcast.",
+      "detail_url": "/capabilities/broadcasts_update",
+      "resource_group": "broadcasts"
+    },
+    {
+      "name": "broadcasts_delete",
+      "description": "Remove a draft broadcast.",
+      "detail_url": "/capabilities/broadcasts_delete",
+      "resource_group": "broadcasts"
+    },
+    {
+      "name": "broadcasts_send",
+      "description": "Send or schedule a broadcast for delivery.",
+      "detail_url": "/capabilities/broadcasts_send",
+      "resource_group": "broadcasts"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a new webhook endpoint.",
+      "detail_url": "/capabilities/webhooks_create",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "Retrieve a list of all webhooks.",
+      "detail_url": "/capabilities/webhooks_list",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Retrieve a single webhook by ID.",
+      "detail_url": "/capabilities/webhooks_get",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update an existing webhook.",
+      "detail_url": "/capabilities/webhooks_update",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Remove an existing webhook.",
+      "detail_url": "/capabilities/webhooks_delete",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "segments_create",
+      "description": "Create a new contact segment.",
+      "detail_url": "/capabilities/segments_create",
+      "resource_group": "segments"
+    },
+    {
+      "name": "segments_list",
+      "description": "Retrieve a list of all segments.",
+      "detail_url": "/capabilities/segments_list",
+      "resource_group": "segments"
+    },
+    {
+      "name": "segments_get",
+      "description": "Retrieve a single segment by ID.",
+      "detail_url": "/capabilities/segments_get",
+      "resource_group": "segments"
+    },
+    {
+      "name": "segments_delete",
+      "description": "Remove an existing segment.",
+      "detail_url": "/capabilities/segments_delete",
+      "resource_group": "segments"
+    },
+    {
+      "name": "topics_create",
+      "description": "Create a new subscription topic.",
+      "detail_url": "/capabilities/topics_create",
+      "resource_group": "topics"
+    },
+    {
+      "name": "topics_list",
+      "description": "Retrieve a list of all topics.",
+      "detail_url": "/capabilities/topics_list",
+      "resource_group": "topics"
+    },
+    {
+      "name": "topics_get",
+      "description": "Retrieve a single topic by ID.",
+      "detail_url": "/capabilities/topics_get",
+      "resource_group": "topics"
+    },
+    {
+      "name": "topics_update",
+      "description": "Update an existing topic.",
+      "detail_url": "/capabilities/topics_update",
+      "resource_group": "topics"
+    },
+    {
+      "name": "topics_delete",
+      "description": "Remove an existing topic.",
+      "detail_url": "/capabilities/topics_delete",
+      "resource_group": "topics"
+    },
+    {
+      "name": "contact_properties_create",
+      "description": "Create a new custom contact property.",
+      "detail_url": "/capabilities/contact_properties_create",
+      "resource_group": "contact_properties"
+    },
+    {
+      "name": "contact_properties_list",
+      "description": "Retrieve a list of all contact properties.",
+      "detail_url": "/capabilities/contact_properties_list",
+      "resource_group": "contact_properties"
+    },
+    {
+      "name": "contact_properties_get",
+      "description": "Retrieve a single contact property by ID.",
+      "detail_url": "/capabilities/contact_properties_get",
+      "resource_group": "contact_properties"
+    },
+    {
+      "name": "contact_properties_update",
+      "description": "Update an existing contact property.",
+      "detail_url": "/capabilities/contact_properties_update",
+      "resource_group": "contact_properties"
+    },
+    {
+      "name": "contact_properties_delete",
+      "description": "Remove an existing contact property.",
+      "detail_url": "/capabilities/contact_properties_delete",
+      "resource_group": "contact_properties"
     }
   ]
 }

@@ -1,0 +1,122 @@
+{
+  "name": "images_create",
+  "description": "Generate images from text prompts using open-source diffusion models like FLUX and Stable Diffusion XL. Supports configurable resolution, steps, negative prompts, LoRA adapters, and seed for reproducibility.",
+  "resource_group": "images",
+  "endpoint": "/v1/images/generations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "The image generation model to use.",
+      "example": "black-forest-labs/FLUX.1-schnell"
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": true,
+      "description": "A description of the desired image.",
+      "example": "A cartoon of an astronaut riding a horse on the moon"
+    },
+    {
+      "name": "steps",
+      "type": "integer",
+      "required": false,
+      "description": "Number of generation steps. Default is 20.",
+      "example": 20
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "required": false,
+      "description": "Number of images to generate. Default is 1."
+    },
+    {
+      "name": "width",
+      "type": "integer",
+      "required": false,
+      "description": "Width in pixels. Default is 1024.",
+      "example": 1024
+    },
+    {
+      "name": "height",
+      "type": "integer",
+      "required": false,
+      "description": "Height in pixels. Default is 1024.",
+      "example": 1024
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Seed value for reproducible generations."
+    },
+    {
+      "name": "negative_prompt",
+      "type": "string",
+      "required": false,
+      "description": "Text describing what the image should not contain."
+    },
+    {
+      "name": "guidance_scale",
+      "type": "number",
+      "required": false,
+      "description": "Controls prompt alignment. Higher values produce images more faithful to the prompt. Default is 3.5."
+    },
+    {
+      "name": "response_format",
+      "type": "string",
+      "required": false,
+      "description": "Output format: 'base64' or 'url'."
+    },
+    {
+      "name": "output_format",
+      "type": "string",
+      "required": false,
+      "description": "Image format: 'jpeg' or 'png'. Default is 'jpeg'."
+    },
+    {
+      "name": "image_url",
+      "type": "string",
+      "required": false,
+      "description": "URL of input image for models supporting image-to-image generation."
+    },
+    {
+      "name": "image_loras",
+      "type": "array",
+      "required": false,
+      "description": "Array of LoRA objects with 'path' and 'scale' properties."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.together.xyz/v1/images/generations",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "black-forest-labs/FLUX.1-schnell",
+      "prompt": "A cartoon of an astronaut riding a horse on the moon",
+      "width": 1024,
+      "height": 1024,
+      "steps": 20
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "img-abc123",
+      "model": "black-forest-labs/FLUX.1-schnell",
+      "object": "list",
+      "data": [
+        {
+          "index": 0,
+          "type": "url",
+          "url": "https://api.together.xyz/imgproxy/..."
+        }
+      ]
+    }
+  }
+}

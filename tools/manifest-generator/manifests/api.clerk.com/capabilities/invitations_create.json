@@ -1,0 +1,54 @@
+{
+  "name": "invitations_create",
+  "resource_group": "invitations",
+  "description": "Create and send an invitation to sign up for your application.",
+  "endpoint": "/v1/invitations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email_address",
+      "type": "string",
+      "required": true,
+      "description": "Email to invite."
+    },
+    {
+      "name": "public_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Metadata to attach."
+    },
+    {
+      "name": "redirect_url",
+      "type": "string",
+      "required": false,
+      "description": "URL to redirect after acceptance."
+    },
+    {
+      "name": "notify",
+      "type": "boolean",
+      "required": false,
+      "description": "Send invitation email. Default true."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/invitations",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email_address": "bob@example.com",
+      "redirect_url": "https://app.example.com/welcome"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "inv_abc",
+      "object": "invitation",
+      "email_address": "bob@example.com",
+      "status": "pending"
+    }
+  }
+}

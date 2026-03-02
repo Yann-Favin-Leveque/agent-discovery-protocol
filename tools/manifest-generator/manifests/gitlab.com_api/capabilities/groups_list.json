@@ -1,0 +1,47 @@
+{
+  "name": "groups_list",
+  "description": "List groups accessible to the authenticated user.",
+  "resource_group": "groups",
+  "endpoint": "/groups",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "description": "Search by group name."
+    },
+    {
+      "name": "owned",
+      "type": "boolean",
+      "required": false,
+      "description": "Only groups owned by current user."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/groups?owned=true",
+    "headers": {
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 10,
+        "name": "my-org",
+        "path": "my-org",
+        "full_path": "my-org",
+        "visibility": "private",
+        "web_url": "https://gitlab.com/groups/my-org"
+      }
+    ]
+  }
+}

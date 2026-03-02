@@ -1,0 +1,62 @@
+{
+  "name": "invoices_list",
+  "description": "Retrieve all invoices with optional filtering by status, date, and contact.",
+  "resource_group": "invoices",
+  "endpoint": "/Invoices",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "where",
+      "type": "string",
+      "required": false,
+      "description": "Filter expression."
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "description": "Sort order."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "Statuses",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated statuses."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.transactions.read"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.xero.com/api.xro/2.0/Invoices?Statuses=AUTHORISED&page=1",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Invoices": [
+        {
+          "InvoiceID": "abc-123",
+          "Type": "ACCREC",
+          "InvoiceNumber": "INV-001",
+          "Contact": {
+            "Name": "Acme Corp"
+          },
+          "Status": "AUTHORISED",
+          "Total": 1500.0,
+          "AmountDue": 1500.0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "deployments_redeploy",
+  "description": "Redeploy a previous deployment.",
+  "resource_group": "deployments",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "deploymentId",
+      "type": "string",
+      "required": true,
+      "description": "Deployment ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($id: String!) { deploymentRedeploy(id: $id) { id status } }",
+      "variables": {
+        "id": "dep-abc"
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "deploymentRedeploy": {
+        "id": "dep-new2",
+        "status": "BUILDING"
+      }
+    }
+  }
+}

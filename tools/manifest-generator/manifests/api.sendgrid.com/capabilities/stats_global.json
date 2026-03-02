@@ -1,0 +1,56 @@
+{
+  "name": "stats_global",
+  "description": "Retrieve global email statistics for a date range.",
+  "resource_group": "stats",
+  "endpoint": "/v3/stats",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "Start date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "End date (YYYY-MM-DD).",
+      "required": false,
+      "example": "2024-01-31"
+    },
+    {
+      "name": "aggregated_by",
+      "type": "string",
+      "description": "Aggregation: day, week, or month.",
+      "required": false,
+      "example": "day"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sendgrid.com/v3/stats?start_date=2024-01-01&aggregated_by=day",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "date": "2024-01-01",
+        "stats": [
+          {
+            "metrics": {
+              "requests": 100,
+              "delivered": 95,
+              "opens": 50,
+              "clicks": 20,
+              "bounces": 2
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "name": "call_create",
+  "description": "Initiate an outbound voice call.",
+  "resource_group": "call",
+  "endpoint": "/v1/Account/{auth_id}/Call/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Caller ID (must be a Plivo number).",
+      "required": true,
+      "example": "+14151234567"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "Destination number(s) in E.164 format. Multiple numbers separated by <.",
+      "required": true,
+      "example": "+14157654321"
+    },
+    {
+      "name": "answer_url",
+      "type": "string",
+      "description": "URL to fetch XML for call handling.",
+      "required": true,
+      "example": "https://example.com/answer/"
+    },
+    {
+      "name": "answer_method",
+      "type": "string",
+      "description": "HTTP method for answer_url: GET or POST.",
+      "required": false,
+      "example": "POST"
+    },
+    {
+      "name": "ring_url",
+      "type": "string",
+      "description": "URL notified when call starts ringing.",
+      "required": false
+    },
+    {
+      "name": "hangup_url",
+      "type": "string",
+      "description": "URL notified when call hangs up.",
+      "required": false
+    },
+    {
+      "name": "ring_timeout",
+      "type": "integer",
+      "description": "Ring timeout in seconds (default 120).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "caller_name",
+      "type": "string",
+      "description": "Caller name for SIP calls.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Call/",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "from": "+14151234567",
+      "to": "+14157654321",
+      "answer_url": "https://example.com/answer/"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "message": "call fired",
+      "request_uuid": "9834029e-58b6-11e1-b8b7-a5bd0e4e126f",
+      "api_id": "97ceeb52-58b6-11e1-86da-77300b68f8bb"
+    }
+  }
+}

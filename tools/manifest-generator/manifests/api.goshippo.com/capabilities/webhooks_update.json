@@ -1,0 +1,50 @@
+{
+  "name": "webhooks_update",
+  "description": "Update a webhook.",
+  "endpoint": "/webhooks/{webhook_id}",
+  "method": "PUT",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "description": "Webhook object ID.",
+      "required": true,
+      "example": "wh_abc123"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "New URL.",
+      "required": false
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "description": "New event type.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.goshippo.com/webhooks/wh_abc123",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/new-webhook"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object_id": "wh_abc123",
+      "url": "https://example.com/new-webhook"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "name": "usage_records_create",
+  "description": "Create a usage record for a metered subscription item.",
+  "resource_group": "usage_records",
+  "endpoint": "/v1/usage-records",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "data.type",
+      "type": "string",
+      "description": "Resource type.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.quantity",
+      "type": "integer",
+      "description": "Usage quantity.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.action",
+      "type": "string",
+      "description": "Action: increment or set.",
+      "required": true,
+      "example": "increment"
+    },
+    {
+      "name": "data.relationships.subscription_item",
+      "type": "object",
+      "description": "Subscription item relationship.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemonsqueezy.com/v1/usage-records",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "usage-records",
+        "attributes": {
+          "quantity": 10,
+          "action": "increment"
+        },
+        "relationships": {
+          "subscription-item": {
+            "data": {
+              "type": "subscription-items",
+              "id": "1"
+            }
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "type": "usage-records",
+        "id": "1"
+      }
+    }
+  }
+}

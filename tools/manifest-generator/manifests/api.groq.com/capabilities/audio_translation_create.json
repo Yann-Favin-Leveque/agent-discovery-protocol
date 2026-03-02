@@ -1,0 +1,21 @@
+{
+  "name": "audio_translation_create",
+  "description": "Translate audio from any supported language into English text using Whisper Large V3 on Groq hardware.",
+  "resource_group": "audio",
+  "endpoint": "/openai/v1/audio/translations",
+  "method": "POST",
+  "parameters": [
+    {"name": "file", "type": "file", "required": true, "description": "Audio file to translate."},
+    {"name": "model", "type": "string", "required": true, "description": "Model: 'whisper-large-v3'."},
+    {"name": "prompt", "type": "string", "required": false, "description": "Optional text to guide the model."},
+    {"name": "response_format", "type": "string", "required": false, "description": "Output format: 'json', 'text', 'srt', 'verbose_json', 'vtt'."},
+    {"name": "temperature", "type": "number", "required": false, "description": "Sampling temperature (0-1)."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.groq.com/openai/v1/audio/translations",
+    "headers": {"Authorization": "Bearer gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+    "body": "multipart/form-data: file=@french_audio.mp3&model=whisper-large-v3"
+  },
+  "response_example": {"status": 200, "body": {"text": "Hello, my name is Pierre and I come from France."}}
+}

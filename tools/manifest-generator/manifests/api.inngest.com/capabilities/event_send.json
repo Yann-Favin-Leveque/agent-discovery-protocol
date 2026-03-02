@@ -1,0 +1,68 @@
+{
+  "name": "event_send",
+  "description": "Send one or more events to Inngest to trigger matching functions. Events are sent using an Event Key for authentication.",
+  "resource_group": "event",
+  "endpoint": "/e/{eventKey}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "eventKey",
+      "type": "string",
+      "description": "Inngest Event Key (path parameter).",
+      "required": true,
+      "example": "evt_key_abc123"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Event name (dot-notation recommended).",
+      "required": true,
+      "example": "app/user.created"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Event payload data.",
+      "required": true,
+      "example": {
+        "user_id": "usr_123",
+        "email": "user@example.com"
+      }
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Optional deduplication ID.",
+      "required": false
+    },
+    {
+      "name": "ts",
+      "type": "integer",
+      "description": "Event timestamp (Unix ms). Defaults to now.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://inn.gs/e/{eventKey}",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "app/user.created",
+      "data": {
+        "user_id": "usr_123",
+        "email": "user@example.com"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ids": [
+        "01HWAVEB858VPPX47Z65GR6P6R"
+      ],
+      "status": 200
+    }
+  }
+}

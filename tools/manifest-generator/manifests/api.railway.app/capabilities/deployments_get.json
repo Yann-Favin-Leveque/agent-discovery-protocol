@@ -1,0 +1,36 @@
+{
+  "name": "deployments_get",
+  "description": "Get deployment details.",
+  "resource_group": "deployments",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "deploymentId",
+      "type": "string",
+      "required": true,
+      "description": "Deployment ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "query($id: String!) { deployment(id: $id) { id status createdAt meta { commitHash commitMessage } } }",
+      "variables": {
+        "id": "dep-abc"
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "deployment": {
+        "id": "dep-abc",
+        "status": "SUCCESS",
+        "meta": {
+          "commitHash": "abc123"
+        }
+      }
+    }
+  }
+}

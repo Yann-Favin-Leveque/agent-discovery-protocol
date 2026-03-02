@@ -1,0 +1,90 @@
+{
+  "name": "attempt_list_by_endpoint",
+  "description": "List all delivery attempts for a specific endpoint, with optional filtering by status and time.",
+  "resource_group": "attempt",
+  "endpoint": "/api/v1/app/{app_id}/attempt/endpoint/{endpoint_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "endpoint_id",
+      "type": "string",
+      "description": "Endpoint ID or UID (path parameter).",
+      "required": true,
+      "example": "ep_abc"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "iterator",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    },
+    {
+      "name": "status",
+      "type": "integer",
+      "description": "Filter: 0 (success), 1 (pending), 2 (fail), 3 (sending).",
+      "required": false
+    },
+    {
+      "name": "status_code_class",
+      "type": "integer",
+      "description": "Filter by HTTP status class: 0, 2, 4, 5.",
+      "required": false
+    },
+    {
+      "name": "event_types",
+      "type": "array",
+      "description": "Filter by event types.",
+      "required": false
+    },
+    {
+      "name": "before",
+      "type": "string",
+      "description": "Before this time (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "After this time (ISO 8601).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.svix.com/api/v1/app/app_123/attempt/endpoint/ep_abc?limit=10",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "atmpt_abc",
+          "status": 0,
+          "responseStatusCode": 200,
+          "timestamp": "2024-01-01T00:00:00Z",
+          "msgId": "msg_abc",
+          "endpointId": "ep_abc"
+        }
+      ],
+      "done": true
+    }
+  }
+}

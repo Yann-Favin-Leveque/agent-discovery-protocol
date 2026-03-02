@@ -1,0 +1,98 @@
+{
+  "name": "users_create",
+  "resource_group": "users",
+  "description": "Create a new user with email, phone, username, password, or external credentials.",
+  "endpoint": "/v1/users",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email_address",
+      "type": "array",
+      "required": false,
+      "description": "Email addresses for the user."
+    },
+    {
+      "name": "phone_number",
+      "type": "array",
+      "required": false,
+      "description": "Phone numbers for the user."
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "required": false,
+      "description": "Username."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "description": "Password."
+    },
+    {
+      "name": "first_name",
+      "type": "string",
+      "required": false,
+      "description": "First name."
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "required": false,
+      "description": "Last name."
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "required": false,
+      "description": "External ID from your system."
+    },
+    {
+      "name": "public_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Public metadata visible to frontend and backend."
+    },
+    {
+      "name": "private_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Private metadata visible only to backend."
+    },
+    {
+      "name": "skip_password_checks",
+      "type": "boolean",
+      "required": false,
+      "description": "Skip password complexity checks."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/users",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email_address": [
+        "alice@example.com"
+      ],
+      "first_name": "Alice",
+      "password": "securePass123!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "user_2abc123",
+      "object": "user",
+      "first_name": "Alice",
+      "email_addresses": [
+        {
+          "email_address": "alice@example.com"
+        }
+      ],
+      "created_at": 1702656000000
+    }
+  }
+}

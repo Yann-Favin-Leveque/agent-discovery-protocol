@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "DatoCMS",
-  "description": "DatoCMS is a headless CMS with a GraphQL Content Delivery API and a REST Content Management API. Use the CMA REST API to create, read, update, and delete content records, manage content models, and upload media assets. GraphQL is also available at graphql.datocms.com for read-optimized queries.",
+  "description": "DatoCMS is a headless CMS with a GraphQL Content Delivery API and a REST Content Management API. Use the CMA REST API to create, read, update, and delete content records, manage content models, upload media assets, and publish/unpublish records. The base URL for the CMA is site-api.datocms.com.",
   "base_url": "https://site-api.datocms.com",
   "auth": {
     "type": "api_key",
@@ -11,39 +11,82 @@
   },
   "capabilities": [
     {
-      "name": "list_items",
-      "description": "List all records (items) belonging to a specific content model. Supports pagination, filtering, and ordering.",
-      "detail_url": "/capabilities/list_items"
+      "name": "items_list",
+      "resource_group": "items",
+      "description": "List all content records with filtering by type, text search, field values, sorting, and pagination.",
+      "detail_url": "/capabilities/items_list"
     },
     {
-      "name": "get_item",
-      "description": "Retrieve a single content record by its ID, including all field values and metadata.",
-      "detail_url": "/capabilities/get_item"
+      "name": "items_get",
+      "resource_group": "items",
+      "description": "Retrieve a single content record by its ID with optional nested block expansion.",
+      "detail_url": "/capabilities/items_get"
     },
     {
-      "name": "create_item",
+      "name": "items_create",
+      "resource_group": "items",
       "description": "Create a new content record for a given model type with specified field values.",
-      "detail_url": "/capabilities/create_item"
+      "detail_url": "/capabilities/items_create"
     },
     {
-      "name": "update_item",
-      "description": "Update an existing content record by its ID, modifying one or more field values.",
-      "detail_url": "/capabilities/update_item"
+      "name": "items_update",
+      "resource_group": "items",
+      "description": "Update an existing content record by its ID. Omitted fields remain unchanged; null clears a field.",
+      "detail_url": "/capabilities/items_update"
     },
     {
-      "name": "delete_item",
+      "name": "items_delete",
+      "resource_group": "items",
       "description": "Permanently delete a content record by its ID.",
-      "detail_url": "/capabilities/delete_item"
+      "detail_url": "/capabilities/items_delete"
     },
     {
-      "name": "list_models",
-      "description": "List all content models (item types) defined in the DatoCMS project, including their fields and validation rules.",
-      "detail_url": "/capabilities/list_models"
+      "name": "items_duplicate",
+      "resource_group": "items",
+      "description": "Create a duplicate copy of an existing content record.",
+      "detail_url": "/capabilities/items_duplicate"
     },
     {
-      "name": "upload_asset",
-      "description": "Upload a file or image asset to DatoCMS media library. Supports images, documents, and videos with optional metadata.",
-      "detail_url": "/capabilities/upload_asset"
+      "name": "items_publish",
+      "resource_group": "items",
+      "description": "Publish a content record, optionally limited to specific locales.",
+      "detail_url": "/capabilities/items_publish"
+    },
+    {
+      "name": "items_unpublish",
+      "resource_group": "items",
+      "description": "Unpublish a content record, reverting it to draft status.",
+      "detail_url": "/capabilities/items_unpublish"
+    },
+    {
+      "name": "item_types_list",
+      "resource_group": "item_types",
+      "description": "List all content models (item types) defined in the project with their field definitions.",
+      "detail_url": "/capabilities/item_types_list"
+    },
+    {
+      "name": "uploads_list",
+      "resource_group": "uploads",
+      "description": "List all uploaded media assets with filtering, search, and pagination.",
+      "detail_url": "/capabilities/uploads_list"
+    },
+    {
+      "name": "uploads_create",
+      "resource_group": "uploads",
+      "description": "Create a new upload (media asset) in the DatoCMS media library.",
+      "detail_url": "/capabilities/uploads_create"
+    },
+    {
+      "name": "uploads_update",
+      "resource_group": "uploads",
+      "description": "Update metadata (author, copyright, notes, tags) of an existing upload.",
+      "detail_url": "/capabilities/uploads_update"
+    },
+    {
+      "name": "uploads_delete",
+      "resource_group": "uploads",
+      "description": "Permanently delete an uploaded media asset by its ID.",
+      "detail_url": "/capabilities/uploads_delete"
     }
   ]
 }

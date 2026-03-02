@@ -1,0 +1,47 @@
+{
+  "name": "playlist_items_update",
+  "description": "Update a playlist item's position or video reference.",
+  "endpoint": "/youtube/v3/playlistItems",
+  "method": "PUT",
+  "resource_group": "playlist_items",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts to update",
+      "required": true,
+      "example": "snippet"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://youtube.googleapis.com/youtube/v3/playlistItems",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "PLI_item_id",
+      "snippet": {
+        "playlistId": "PL_playlist_id",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "abc123"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "PLI_item_id"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

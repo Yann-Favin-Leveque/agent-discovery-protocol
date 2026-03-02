@@ -1,0 +1,76 @@
+{
+  "name": "responses_list_bulk",
+  "resource_group": "responses",
+  "description": "List full expanded responses with all answers.",
+  "endpoint": "/v3/surveys/{survey_id}/responses/bulk",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "survey_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Survey ID."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Page number."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Results per page."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Filter status."
+    },
+    {
+      "name": "simple",
+      "type": "boolean",
+      "required": false,
+      "in": "query",
+      "description": "Include question/answer text."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.surveymonkey.com/v3/surveys/123456/responses/bulk?simple=true",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "resp-1",
+          "pages": [
+            {
+              "id": "p1",
+              "questions": [
+                {
+                  "id": "q1",
+                  "answers": [
+                    {
+                      "text": "Very satisfied"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

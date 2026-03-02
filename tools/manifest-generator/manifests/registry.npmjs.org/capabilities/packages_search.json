@@ -1,0 +1,75 @@
+{
+  "name": "packages_search",
+  "description": "Search for npm packages by keyword, author, or description.",
+  "resource_group": "packages",
+  "endpoint": "/-/v1/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "description": "Search query. Supports qualifiers: author:, maintainer:, scope:, keywords:."
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "required": false,
+      "description": "Result count (max 250, default 20)."
+    },
+    {
+      "name": "from",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset."
+    },
+    {
+      "name": "quality",
+      "type": "number",
+      "required": false,
+      "description": "Quality weighting (0-1)."
+    },
+    {
+      "name": "popularity",
+      "type": "number",
+      "required": false,
+      "description": "Popularity weighting (0-1)."
+    },
+    {
+      "name": "maintenance",
+      "type": "number",
+      "required": false,
+      "description": "Maintenance weighting (0-1)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://registry.npmjs.org/-/v1/search?text=express&size=5"
+  },
+  "response_example": {
+    "objects": [
+      {
+        "package": {
+          "name": "express",
+          "version": "4.21.0",
+          "description": "Fast web framework for node.",
+          "links": {
+            "npm": "https://www.npmjs.com/package/express"
+          },
+          "publisher": {
+            "username": "dougwilson"
+          }
+        },
+        "score": {
+          "final": 0.95,
+          "detail": {
+            "quality": 0.98,
+            "popularity": 0.99,
+            "maintenance": 0.88
+          }
+        }
+      }
+    ],
+    "total": 1
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "events_batch_import_errors_get",
+  "description": "Retrieve errors from a batch events import job.",
+  "endpoint": "/v2/events/batch/{job_id}/errors",
+  "method": "GET",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "job_id",
+      "type": "string",
+      "description": "The batch import job ID.",
+      "required": true,
+      "example": "job_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fullstory.com/v2/events/batch/job_abc123/errors",
+    "headers": {
+      "Authorization": "Basic {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "errors": [
+        { "index": 42, "message": "Invalid user uid format", "code": "INVALID_ARGUMENT" }
+      ]
+    }
+  },
+  "auth_scopes": ["server"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

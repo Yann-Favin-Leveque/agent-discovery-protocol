@@ -1,0 +1,56 @@
+{
+  "name": "envelope_update",
+  "description": "Update an envelope's properties. Use to send a draft (change status to 'sent'), void a sent envelope, or modify envelope settings.",
+  "resource_group": "envelope",
+  "endpoint": "/v2.1/accounts/{accountId}/envelopes/{envelopeId}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "envelopeId",
+      "type": "string",
+      "required": true,
+      "description": "Envelope ID.",
+      "in": "path"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "New status: 'sent' or 'voided'.",
+      "in": "body"
+    },
+    {
+      "name": "voidedReason",
+      "type": "string",
+      "required": false,
+      "description": "Reason for voiding (required when voiding).",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/envelopes/env-abc-123",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "voided",
+      "voidedReason": "Contract terms changed"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  }
+}

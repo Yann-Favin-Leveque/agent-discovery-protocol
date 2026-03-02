@@ -1,0 +1,44 @@
+{
+  "name": "funnels_get_dropoff_visitors",
+  "description": "Retrieve the list of visitors who dropped off at a specific funnel step.",
+  "endpoint": "/api/v1/funnels/{funnel_id}/visitors/drop-off",
+  "method": "GET",
+  "resource_group": "funnels",
+  "parameters": [
+    {
+      "name": "funnel_id",
+      "type": "string",
+      "description": "The funnel ID.",
+      "required": true,
+      "example": "funnel_123"
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "description": "Maximum results to return.",
+      "required": false,
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.eu.smartlook.cloud/api/v1/funnels/funnel_123/visitors/drop-off?limit=25",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        { "visitor_id": "vis_123", "dropped_at_step": 1, "session_id": "rec_abc123" },
+        { "visitor_id": "vis_456", "dropped_at_step": 2, "session_id": "rec_def456" }
+      ],
+      "total_count": 745
+    }
+  },
+  "auth_scopes": ["read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "app_list",
+  "description": "List all registered apps in the environment.",
+  "resource_group": "app",
+  "endpoint": "/v1/apps",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.inngest.com/v1/apps?limit=10",
+    "headers": {
+      "Authorization": "Bearer {signing_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "my-app",
+          "name": "My Application",
+          "url": "https://example.com/api/inngest",
+          "connected_at": "2024-01-01T00:00:00Z"
+        }
+      ]
+    }
+  }
+}

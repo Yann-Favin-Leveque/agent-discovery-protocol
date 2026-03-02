@@ -1,0 +1,15 @@
+{
+  "name": "messages_list",
+  "description": "List all messages in a conversation.",
+  "endpoint": "/conversations/{conversation_id}/messages",
+  "method": "GET",
+  "resource_group": "messages",
+  "parameters": [
+    {"name": "conversation_id", "type": "string", "description": "The conversation ID.", "required": true, "example": "cnv_abc123"},
+    {"name": "page_token", "type": "string", "description": "Pagination token.", "required": false, "example": "abc"}
+  ],
+  "request_example": {"method": "GET", "url": "https://api2.frontapp.com/conversations/cnv_abc123/messages", "headers": {"Authorization": "Bearer {token}"}, "body": {}},
+  "response_example": {"status": 200, "body": {"_results": [{"id": "msg_111", "body": "Hello, I need help.", "type": "email", "is_inbound": true, "created_at": 1693560000}]}},
+  "auth_scopes": ["shared:messages.read"],
+  "rate_limits": {"requests_per_minute": 120}
+}

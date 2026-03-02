@@ -1,0 +1,92 @@
+{
+  "name": "payments_create",
+  "description": "Create a new payment to charge a customer. Returns a checkout URL.",
+  "resource_group": "payments",
+  "endpoint": "/v2/payments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Amount with currency and value.",
+      "required": true,
+      "example": {
+        "currency": "EUR",
+        "value": "10.00"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Payment description (max 255 chars).",
+      "required": true,
+      "example": "Order #12345"
+    },
+    {
+      "name": "redirectUrl",
+      "type": "string",
+      "description": "URL to redirect after payment.",
+      "required": true
+    },
+    {
+      "name": "webhookUrl",
+      "type": "string",
+      "description": "URL for status updates.",
+      "required": false
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "description": "Force specific payment method.",
+      "required": false,
+      "example": "ideal"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Custom metadata (up to 1KB).",
+      "required": false
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "Language for payment screen.",
+      "required": false
+    },
+    {
+      "name": "captureMode",
+      "type": "string",
+      "description": "automatic or manual.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/payments",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": {
+        "currency": "EUR",
+        "value": "10.00"
+      },
+      "description": "Order #12345",
+      "redirectUrl": "https://example.com/redirect"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "payment",
+      "id": "tr_7UhSN1zuXS",
+      "status": "open",
+      "_links": {
+        "checkout": {
+          "href": "https://www.mollie.com/checkout/..."
+        }
+      }
+    }
+  }
+}

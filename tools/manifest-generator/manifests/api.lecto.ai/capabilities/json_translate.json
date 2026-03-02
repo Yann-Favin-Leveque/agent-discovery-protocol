@@ -1,0 +1,66 @@
+{
+  "name": "json_translate",
+  "description": "Translate a JSON payload while preserving its structure. Supports protected keys to skip specific JSON keys from translation, useful for keeping IDs, URLs, and other non-translatable values intact.",
+  "resource_group": "translate",
+  "endpoint": "/v1/translate/json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "json",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "The JSON payload as a string to translate."
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of target language codes."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Source language code."
+    },
+    {
+      "name": "protected_keys",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Array of JSON key names whose values should not be translated (e.g., ['id', 'url', 'slug'])."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lecto.ai/v1/translate/json",
+    "headers": {
+      "X-API-Key": "your-lecto-api-key",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "json": "{\"title\": \"Hello World\", \"description\": \"A greeting\", \"id\": \"abc123\"}",
+      "to": ["fr"],
+      "from": "en",
+      "protected_keys": ["id"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "translations": [
+        {
+          "to": "fr",
+          "json": "{\"title\": \"Bonjour le monde\", \"description\": \"Un salut\", \"id\": \"abc123\"}"
+        }
+      ],
+      "from": "en",
+      "protected_keys": ["id"],
+      "character_count": 40
+    }
+  }
+}

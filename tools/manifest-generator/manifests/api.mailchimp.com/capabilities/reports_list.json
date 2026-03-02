@@ -1,0 +1,49 @@
+{
+  "name": "reports_list",
+  "description": "List reports for all sent campaigns.",
+  "endpoint": "/3.0/reports",
+  "method": "GET",
+  "resource_group": "reports",
+  "parameters": [
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Results to skip.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us1.api.mailchimp.com/3.0/reports?count=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "reports": [
+        {
+          "id": "camp123",
+          "emails_sent": 5000,
+          "opens": {
+            "open_rate": 0.24
+          }
+        }
+      ],
+      "total_items": 50
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

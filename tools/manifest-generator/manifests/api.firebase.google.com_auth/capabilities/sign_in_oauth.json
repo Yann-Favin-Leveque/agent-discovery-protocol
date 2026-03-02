@@ -1,0 +1,68 @@
+{
+  "name": "sign_in_oauth",
+  "description": "Sign in with an OAuth credential from a third-party provider (Google, Facebook, Twitter, etc.). Exchange the provider token for a Firebase ID token.",
+  "endpoint": "/accounts:signInWithIdp",
+  "method": "POST",
+  "resource_group": "auth",
+  "parameters": [
+    {
+      "name": "postBody",
+      "type": "string",
+      "description": "URL-encoded provider credential (e.g., id_token=xxx&providerId=google.com).",
+      "required": true,
+      "example": "id_token=eyJhbGci...&providerId=google.com"
+    },
+    {
+      "name": "requestUri",
+      "type": "string",
+      "description": "The URI to which the IDP redirects back (e.g., http://localhost).",
+      "required": true,
+      "example": "http://localhost"
+    },
+    {
+      "name": "returnIdpCredential",
+      "type": "boolean",
+      "description": "Whether to return the IDP credential.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "returnSecureToken",
+      "type": "boolean",
+      "description": "Whether to return an ID and refresh token.",
+      "required": true,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key=AIzaSy...",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "postBody": "id_token=eyJhbGci...&providerId=google.com",
+      "requestUri": "http://localhost",
+      "returnIdpCredential": true,
+      "returnSecureToken": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "federatedId": "https://accounts.google.com/123456",
+      "providerId": "google.com",
+      "localId": "ZY1rJK0eYLg...",
+      "emailVerified": true,
+      "email": "user@gmail.com",
+      "idToken": "eyJhbGciOiJSUzI1NiIs...",
+      "refreshToken": "AEu4IL3...",
+      "expiresIn": "3600",
+      "rawUserInfo": "{\"name\":\"John Doe\"}"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

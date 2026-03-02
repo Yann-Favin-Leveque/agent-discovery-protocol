@@ -1,0 +1,57 @@
+{
+  "name": "domains_list",
+  "description": "Retrieve a list of all custom domains in the workspace.",
+  "endpoint": "/domains",
+  "method": "GET",
+  "resource_group": "domains",
+  "parameters": [
+    {
+      "name": "archived",
+      "type": "boolean",
+      "description": "Filter by archived status.",
+      "required": false
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "description": "Search domains by slug.",
+      "required": false
+    },
+    {
+      "name": "page",
+      "type": "number",
+      "description": "Page number.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "pageSize",
+      "type": "number",
+      "description": "Items per page.",
+      "required": false,
+      "example": 50
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.dub.co/domains",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "dom_abc123",
+        "slug": "links.acme.com",
+        "verified": true,
+        "primary": false
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

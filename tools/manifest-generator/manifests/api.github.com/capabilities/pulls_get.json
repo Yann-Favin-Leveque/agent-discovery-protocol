@@ -1,0 +1,58 @@
+{
+  "name": "pulls_get",
+  "description": "Get a specific pull request by number.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repos/{owner}/{repo}/pulls/{pull_number}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "pull_number",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "The PR number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/octocat/my-project/pulls/101",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "number": 101,
+      "title": "Add dark mode",
+      "body": "Implements dark mode theme...",
+      "state": "open",
+      "mergeable": true,
+      "merged": false,
+      "additions": 250,
+      "deletions": 30,
+      "changed_files": 8,
+      "head": {
+        "ref": "feature/dark-mode"
+      },
+      "base": {
+        "ref": "main"
+      }
+    }
+  }
+}

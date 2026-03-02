@@ -1,0 +1,121 @@
+{
+  "name": "chat_postMessage",
+  "resource_group": "chat",
+  "description": "Send a message to a channel, DM, or group. Supports text, blocks, and attachments for rich formatting.",
+  "endpoint": "/chat.postMessage",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channel",
+      "type": "string",
+      "required": true,
+      "description": "Channel ID to send message to",
+      "example": "C1234567890"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "required": false,
+      "description": "Message text (required if no blocks/attachments)",
+      "example": "Hello from the API!"
+    },
+    {
+      "name": "blocks",
+      "type": "array",
+      "required": false,
+      "description": "Array of Block Kit layout blocks",
+      "example": [
+        {
+          "type": "section",
+          "text": {
+            "type": "mrkdwn",
+            "text": "*Hello* from the API!"
+          }
+        }
+      ]
+    },
+    {
+      "name": "attachments",
+      "type": "array",
+      "required": false,
+      "description": "Array of secondary attachments",
+      "example": []
+    },
+    {
+      "name": "thread_ts",
+      "type": "string",
+      "required": false,
+      "description": "Parent message timestamp for threading",
+      "example": "1234567890.123456"
+    },
+    {
+      "name": "reply_broadcast",
+      "type": "boolean",
+      "required": false,
+      "description": "Post threaded reply to channel too",
+      "example": false
+    },
+    {
+      "name": "unfurl_links",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable URL unfurling",
+      "example": true
+    },
+    {
+      "name": "unfurl_media",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable media unfurling",
+      "example": true
+    },
+    {
+      "name": "mrkdwn",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable markdown formatting",
+      "example": true
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "description": "Event metadata object",
+      "example": {
+        "event_type": "task_created",
+        "event_payload": {
+          "id": "12345"
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://slack.com/api/chat.postMessage",
+    "headers": {
+      "Authorization": "Bearer xoxb-xxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "channel": "C1234567890",
+      "text": "Hello from the API!",
+      "mrkdwn": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "channel": "C1234567890",
+      "ts": "1503435956.000247",
+      "message": {
+        "text": "Hello from the API!",
+        "username": "bot",
+        "bot_id": "B12345",
+        "type": "message",
+        "subtype": "bot_message",
+        "ts": "1503435956.000247"
+      }
+    }
+  }
+}

@@ -1,17 +1,151 @@
 {
   "spec_version": "1.0",
-  "name": "The Plaid API",
-  "description": "The Plaid REST API. Please see https://plaid.com/docs/api for more details.",
+  "name": "Plaid",
+  "description": "Plaid connects applications to users' bank accounts. Access account data, transactions, identity information, income verification, investment holdings, and initiate ACH transfers. Plaid acts as the secure intermediary between financial institutions and applications.",
   "base_url": "https://production.plaid.com",
   "auth": {
     "type": "api_key",
-    "header": "PLAID-CLIENT-ID"
+    "header": "PLAID-CLIENT-ID",
+    "setup_url": "https://dashboard.plaid.com/signup"
   },
   "capabilities": [
     {
-      "name": "plaid",
-      "description": "Manage plaid — create an asset report, retrieve an asset report, retrieve a pdf asset report. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/plaid"
+      "name": "link_token_create",
+      "description": "Create a Link token to initialize Plaid Link for user authentication.",
+      "resource_group": "link",
+      "detail_url": "/capabilities/link_token_create"
+    },
+    {
+      "name": "item_public_token_exchange",
+      "description": "Exchange a public token from Link for an access token.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/item_public_token_exchange"
+    },
+    {
+      "name": "item_get",
+      "description": "Retrieve information about an Item including status and available products.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/item_get"
+    },
+    {
+      "name": "item_remove",
+      "description": "Remove an Item and revoke the access token.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/item_remove"
+    },
+    {
+      "name": "item_webhook_update",
+      "description": "Update the webhook URL for an Item.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/item_webhook_update"
+    },
+    {
+      "name": "accounts_get",
+      "description": "Retrieve all accounts for a linked Item including balances.",
+      "resource_group": "accounts",
+      "detail_url": "/capabilities/accounts_get"
+    },
+    {
+      "name": "accounts_balance_get",
+      "description": "Retrieve real-time balance data from the financial institution.",
+      "resource_group": "accounts",
+      "detail_url": "/capabilities/accounts_balance_get"
+    },
+    {
+      "name": "transactions_sync",
+      "description": "Get incremental transaction updates using a cursor.",
+      "resource_group": "transactions",
+      "detail_url": "/capabilities/transactions_sync"
+    },
+    {
+      "name": "transactions_get",
+      "description": "Fetch transactions for a date range.",
+      "resource_group": "transactions",
+      "detail_url": "/capabilities/transactions_get"
+    },
+    {
+      "name": "transactions_recurring_get",
+      "description": "Fetch recurring transaction streams (subscriptions, regular bills).",
+      "resource_group": "transactions",
+      "detail_url": "/capabilities/transactions_recurring_get"
+    },
+    {
+      "name": "auth_get",
+      "description": "Retrieve bank account and routing numbers for ACH payments.",
+      "resource_group": "auth",
+      "detail_url": "/capabilities/auth_get"
+    },
+    {
+      "name": "identity_get",
+      "description": "Retrieve identity info (names, emails, phones, addresses) from the institution.",
+      "resource_group": "identity",
+      "detail_url": "/capabilities/identity_get"
+    },
+    {
+      "name": "investments_holdings_get",
+      "description": "Retrieve investment holdings including securities and values.",
+      "resource_group": "investments",
+      "detail_url": "/capabilities/investments_holdings_get"
+    },
+    {
+      "name": "investments_transactions_get",
+      "description": "Retrieve investment transactions (buys, sells, dividends).",
+      "resource_group": "investments",
+      "detail_url": "/capabilities/investments_transactions_get"
+    },
+    {
+      "name": "transfer_authorization_create",
+      "description": "Authorize a transfer to check if it can be initiated.",
+      "resource_group": "transfer",
+      "detail_url": "/capabilities/transfer_authorization_create"
+    },
+    {
+      "name": "transfer_create",
+      "description": "Initiate a new ACH or RTP transfer after authorization.",
+      "resource_group": "transfer",
+      "detail_url": "/capabilities/transfer_create"
+    },
+    {
+      "name": "transfer_get",
+      "description": "Retrieve information about a specific transfer.",
+      "resource_group": "transfer",
+      "detail_url": "/capabilities/transfer_get"
+    },
+    {
+      "name": "transfer_list",
+      "description": "List transfers with optional date filtering.",
+      "resource_group": "transfer",
+      "detail_url": "/capabilities/transfer_list"
+    },
+    {
+      "name": "institutions_get_by_id",
+      "description": "Retrieve details about a financial institution by ID.",
+      "resource_group": "institutions",
+      "detail_url": "/capabilities/institutions_get_by_id"
+    },
+    {
+      "name": "institutions_search",
+      "description": "Search for financial institutions by name.",
+      "resource_group": "institutions",
+      "detail_url": "/capabilities/institutions_search"
+    },
+    {
+      "name": "categories_get",
+      "description": "Get all transaction categories used by Plaid.",
+      "resource_group": "transactions",
+      "detail_url": "/capabilities/categories_get"
+    },
+    {
+      "name": "asset_report_create",
+      "description": "Create an Asset Report for underwriting purposes.",
+      "resource_group": "assets",
+      "detail_url": "/capabilities/asset_report_create"
+    },
+    {
+      "name": "asset_report_get",
+      "description": "Retrieve a completed Asset Report in JSON.",
+      "resource_group": "assets",
+      "detail_url": "/capabilities/asset_report_get"
     }
   ]
 }

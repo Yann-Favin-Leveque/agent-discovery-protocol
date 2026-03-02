@@ -1,0 +1,49 @@
+{
+  "name": "submissions_list",
+  "description": "List submissions for an assignment.",
+  "resource_group": "submissions",
+  "endpoint": "/api/v1/courses/{course_id}/assignments/{assignment_id}/submissions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "assignment_id",
+      "type": "integer",
+      "description": "Assignment ID.",
+      "required": true,
+      "example": 2001
+    },
+    {
+      "name": "include[]",
+      "type": "string",
+      "description": "Include extra data.",
+      "required": false,
+      "example": "submission_comments"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/assignments/2001/submissions",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 3001,
+        "user_id": 5001,
+        "score": 95,
+        "submitted_at": "2026-01-31T20:00:00Z",
+        "workflow_state": "graded"
+      }
+    ]
+  }
+}

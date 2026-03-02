@@ -1,0 +1,55 @@
+{
+  "name": "users_tweets_list",
+  "description": "Retrieve tweets by a specific user.",
+  "resource_group": "users",
+  "endpoint": "/2/users/{id}/tweets",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "User ID."
+    },
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (5-100)."
+    },
+    {
+      "name": "tweet.fields",
+      "type": "string",
+      "required": false,
+      "description": "Tweet fields to return."
+    },
+    {
+      "name": "pagination_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twitter.com/2/users/44196397/tweets?max_results=10&tweet.fields=created_at",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "123",
+          "text": "A tweet",
+          "created_at": "2024-01-15T12:00:00.000Z"
+        }
+      ],
+      "meta": {
+        "result_count": 10
+      }
+    }
+  }
+}

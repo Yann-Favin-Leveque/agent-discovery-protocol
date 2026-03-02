@@ -1,0 +1,51 @@
+{
+  "name": "heart_get",
+  "description": "Retrieve a specific ECG recording with signal data and atrial fibrillation classification.",
+  "resource_group": "heart",
+  "endpoint": "/v2/heart",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'get'."
+    },
+    {
+      "name": "signalid",
+      "type": "integer",
+      "required": true,
+      "description": "The ECG signal ID to retrieve."
+    }
+  ],
+  "auth_scopes": [
+    "user.metrics"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/heart",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "get",
+      "signalid": 12345
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "signal": [
+          0.1,
+          0.15,
+          0.2
+        ],
+        "sampling_frequency": 300,
+        "wearposition": 1
+      }
+    }
+  }
+}

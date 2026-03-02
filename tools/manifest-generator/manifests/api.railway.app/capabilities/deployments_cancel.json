@@ -1,0 +1,30 @@
+{
+  "name": "deployments_cancel",
+  "description": "Cancel an in-progress deployment.",
+  "resource_group": "deployments",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "deploymentId",
+      "type": "string",
+      "required": true,
+      "description": "Deployment ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($id: String!) { deploymentCancel(id: $id) }",
+      "variables": {
+        "id": "dep-abc"
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "deploymentCancel": true
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "pull_zones_list",
+  "resource_group": "pull_zones",
+  "description": "List all CDN pull zones in your account.",
+  "endpoint": "/pullzone",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "perPage",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "description": "Search by name."
+    },
+    {
+      "name": "includeCertificate",
+      "type": "boolean",
+      "required": false,
+      "description": "Include SSL certificate info."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bunny.net/pullzone?page=1&perPage=20",
+    "headers": {
+      "AccessKey": "your-api-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Items": [
+        {
+          "Id": 12345,
+          "Name": "my-zone",
+          "OriginUrl": "https://origin.example.com",
+          "Hostnames": [
+            {
+              "Id": 1,
+              "Value": "cdn.example.com",
+              "HasCertificate": true
+            }
+          ],
+          "MonthlyBandwidthUsed": 1073741824,
+          "Enabled": true
+        }
+      ],
+      "TotalItems": 5,
+      "CurrentPage": 1
+    }
+  }
+}

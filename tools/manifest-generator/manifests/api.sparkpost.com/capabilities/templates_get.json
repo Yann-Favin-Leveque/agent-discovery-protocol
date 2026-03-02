@@ -1,0 +1,50 @@
+{
+  "name": "templates_get",
+  "description": "Retrieve a specific template by ID. Optionally get the draft version.",
+  "endpoint": "/api/v1/templates/{id}",
+  "method": "GET",
+  "resource_group": "templates",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Template ID",
+      "required": true,
+      "example": "my-template"
+    },
+    {
+      "name": "draft",
+      "type": "boolean",
+      "description": "Return draft version if true",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/templates/my-template?draft=true",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "id": "my-template",
+        "name": "Welcome Email",
+        "published": false,
+        "content": {
+          "from": "noreply@example.com",
+          "subject": "Welcome {{name}}"
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

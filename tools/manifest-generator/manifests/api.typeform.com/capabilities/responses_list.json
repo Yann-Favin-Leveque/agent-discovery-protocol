@@ -1,0 +1,87 @@
+{
+  "name": "responses_list",
+  "resource_group": "responses",
+  "description": "Retrieve submitted responses for a form with filtering and pagination.",
+  "endpoint": "/forms/{form_id}/responses",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Form ID."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Responses per page. Default: 25, max: 1000."
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Filter responses after this date (ISO 8601)."
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Filter responses before this date."
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Fetch responses after this token."
+    },
+    {
+      "name": "before",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Fetch responses before this token."
+    },
+    {
+      "name": "completed",
+      "type": "boolean",
+      "required": false,
+      "in": "query",
+      "description": "Filter by completion status."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.typeform.com/forms/abc123XYZ/responses?page_size=25",
+    "headers": {
+      "Authorization": "Bearer {personal_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total_items": 100,
+      "page_count": 4,
+      "items": [
+        {
+          "response_id": "resp-123",
+          "submitted_at": "2025-01-15T10:30:00Z",
+          "answers": [
+            {
+              "field": {
+                "id": "field1"
+              },
+              "type": "text",
+              "text": "John"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

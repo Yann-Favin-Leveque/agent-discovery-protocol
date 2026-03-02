@@ -1,0 +1,85 @@
+{
+  "name": "purchases_create",
+  "description": "Record a business expense or purchase categorized by account and vendor.",
+  "endpoint": "/v3/company/{realmId}/purchase",
+  "method": "POST",
+  "resource_group": "purchases",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "PaymentType",
+      "type": "string",
+      "description": "Cash, Check, or CreditCard",
+      "required": true,
+      "example": "Cash"
+    },
+    {
+      "name": "AccountRef",
+      "type": "object",
+      "description": "Bank/credit card account",
+      "required": true,
+      "example": {
+        "value": "35"
+      }
+    },
+    {
+      "name": "Line",
+      "type": "array",
+      "description": "Expense line items",
+      "required": true,
+      "example": [
+        {
+          "Amount": 50.0,
+          "DetailType": "AccountBasedExpenseLineDetail"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/purchase?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "PaymentType": "Cash",
+      "AccountRef": {
+        "value": "35"
+      },
+      "Line": [
+        {
+          "Amount": 50.0,
+          "DetailType": "AccountBasedExpenseLineDetail",
+          "AccountBasedExpenseLineDetail": {
+            "AccountRef": {
+              "value": "7"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Purchase": {
+        "Id": "178",
+        "TotalAmt": 50.0,
+        "PaymentType": "Cash"
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "orders_refund",
+  "description": "Issue a refund for an order.",
+  "resource_group": "orders",
+  "endpoint": "/v1/orders/{id}/refund",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The order ID.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.amount",
+      "type": "integer",
+      "description": "Amount to refund in cents.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemonsqueezy.com/v1/orders/1/refund",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "orders",
+        "attributes": {
+          "amount": 999
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "orders",
+        "id": "1",
+        "attributes": {
+          "refunded": true
+        }
+      }
+    }
+  }
+}

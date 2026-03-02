@@ -1,0 +1,54 @@
+{
+  "name": "organizations_create",
+  "resource_group": "organizations",
+  "description": "Create a new organization representing a customer company.",
+  "endpoint": "/organizations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Organization name."
+    },
+    {
+      "name": "domains",
+      "type": "array",
+      "required": false,
+      "description": "Associated domains."
+    },
+    {
+      "name": "allow_profiles_outside_organization",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow users from non-org domains."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.workos.com/organizations",
+    "headers": {
+      "Authorization": "Bearer sk_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Acme Corp",
+      "domains": [
+        "acme.com"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "org_abc",
+      "name": "Acme Corp",
+      "domains": [
+        {
+          "id": "dom_abc",
+          "domain": "acme.com"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "totps_recovery_codes_recover",
+  "resource_group": "totps",
+  "description": "Use a recovery code as a backup when TOTP authenticator is unavailable.",
+  "endpoint": "/v1/totps/recovery_codes/recover",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID."
+    },
+    {
+      "name": "recovery_code",
+      "type": "string",
+      "required": true,
+      "description": "Recovery code."
+    },
+    {
+      "name": "session_token",
+      "type": "string",
+      "required": false,
+      "description": "Existing session."
+    },
+    {
+      "name": "session_duration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Session lifetime."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/totps/recovery_codes/recover",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user_id": "user-live-abc",
+      "recovery_code": "abcd-efgh"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "session_token": "sess-token-xyz"
+    }
+  }
+}

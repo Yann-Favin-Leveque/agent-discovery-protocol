@@ -1,0 +1,45 @@
+{
+  "name": "user_profile_get",
+  "description": "Retrieve a Messenger user's profile information including name, profile picture, locale, and timezone.",
+  "endpoint": "/{user_id}",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The PSID of the Messenger user.",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated profile fields: first_name, last_name, profile_pic, locale, timezone, gender.",
+      "required": false,
+      "example": "first_name,last_name,profile_pic,locale,timezone"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v18.0/1234567890?fields=first_name,last_name,profile_pic,locale,timezone",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "first_name": "John",
+      "last_name": "Doe",
+      "profile_pic": "https://platform-lookaside.fbsbx.com/platform/profilepic/...",
+      "locale": "en_US",
+      "timezone": -5,
+      "id": "1234567890"
+    }
+  },
+  "auth_scopes": ["pages_messaging"],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

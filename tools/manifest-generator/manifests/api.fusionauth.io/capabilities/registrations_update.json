@@ -1,0 +1,57 @@
+{
+  "name": "registrations_update",
+  "resource_group": "registrations",
+  "description": "Update a user's registration for an application (roles, data).",
+  "endpoint": "/api/user/registration/{userId}/{applicationId}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "required": true,
+      "description": "User UUID.",
+      "in": "path"
+    },
+    {
+      "name": "applicationId",
+      "type": "string",
+      "required": true,
+      "description": "Application UUID.",
+      "in": "path"
+    },
+    {
+      "name": "registration",
+      "type": "object",
+      "required": true,
+      "description": "Updated registration data."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://fusionauth.example.com/api/user/registration/user-uuid/app-uuid",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "registration": {
+        "roles": [
+          "admin",
+          "user"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "registration": {
+        "applicationId": "app-uuid",
+        "roles": [
+          "admin",
+          "user"
+        ]
+      }
+    }
+  }
+}

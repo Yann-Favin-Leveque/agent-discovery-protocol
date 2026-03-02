@@ -1,0 +1,31 @@
+{
+  "name": "flags_list",
+  "description": "Get all feature flags and remote config values for the current environment. Returns the default flag states without any identity-specific overrides.",
+  "resource_group": "flags",
+  "endpoint": "/flags/",
+  "method": "GET",
+  "parameters": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://edge.api.flagsmith.com/api/v1/flags/",
+    "headers": {"X-Environment-Key": "{environment_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1,
+        "feature": {"id": 101, "name": "new_checkout", "type": "FLAG"},
+        "enabled": true,
+        "feature_state_value": null
+      },
+      {
+        "id": 2,
+        "feature": {"id": 102, "name": "header_color", "type": "CONFIG"},
+        "enabled": true,
+        "feature_state_value": "#2d7ff9"
+      }
+    ]
+  },
+  "rate_limits": {"requests_per_minute": 500}
+}

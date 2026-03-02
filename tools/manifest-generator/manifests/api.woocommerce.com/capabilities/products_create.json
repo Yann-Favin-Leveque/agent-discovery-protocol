@@ -1,0 +1,74 @@
+{
+  "name": "products_create",
+  "description": "Create a new product.",
+  "resource_group": "products",
+  "endpoint": "/products",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Product name.",
+      "example": "New Product"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Product type: simple, grouped, external, variable."
+    },
+    {
+      "name": "regular_price",
+      "type": "string",
+      "required": false,
+      "description": "Regular price.",
+      "example": "21.99"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "HTML description."
+    },
+    {
+      "name": "categories",
+      "type": "array",
+      "required": false,
+      "description": "Array of category objects with id."
+    },
+    {
+      "name": "images",
+      "type": "array",
+      "required": false,
+      "description": "Array of image objects with src."
+    },
+    {
+      "name": "sku",
+      "type": "string",
+      "required": false,
+      "description": "Product SKU."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}/wp-json/wc/v3/products",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "New Product",
+      "type": "simple",
+      "regular_price": "21.99"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 795,
+      "name": "New Product",
+      "price": "21.99"
+    }
+  }
+}

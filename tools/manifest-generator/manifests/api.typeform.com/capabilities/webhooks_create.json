@@ -1,0 +1,57 @@
+{
+  "name": "webhooks_create",
+  "resource_group": "webhooks",
+  "description": "Create or update a webhook for a form.",
+  "endpoint": "/forms/{form_id}/webhooks/{tag}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "form_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Form ID."
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Webhook tag name."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Webhook URL."
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Enable the webhook."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.typeform.com/forms/abc123XYZ/webhooks/my-webhook",
+    "headers": {
+      "Authorization": "Bearer {personal_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "enabled": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "wh-123",
+      "url": "https://example.com/webhook",
+      "enabled": true
+    }
+  }
+}

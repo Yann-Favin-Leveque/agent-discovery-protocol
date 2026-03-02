@@ -1,0 +1,55 @@
+{
+  "name": "workflows_update",
+  "description": "Update an existing workflow.",
+  "resource_group": "workflows",
+  "endpoint": "/v1/workflows/{workflowId}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "workflowId",
+      "type": "string",
+      "required": true,
+      "description": "Workflow ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Updated name."
+    },
+    {
+      "name": "steps",
+      "type": "array",
+      "required": false,
+      "description": "Updated steps."
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable/disable."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.novu.co/v1/workflows/wf1",
+    "headers": {
+      "Authorization": "ApiKey <key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Updated Welcome",
+      "active": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "_id": "wf1",
+        "name": "Updated Welcome",
+        "active": false
+      }
+    }
+  }
+}

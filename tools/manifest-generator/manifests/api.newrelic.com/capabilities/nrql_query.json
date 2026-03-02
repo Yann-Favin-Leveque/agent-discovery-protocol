@@ -1,0 +1,40 @@
+{
+  "name": "nrql_query",
+  "description": "Execute an NRQL query via the NerdGraph GraphQL API to retrieve telemetry data.",
+  "resource_group": "nerdgraph",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "GraphQL query containing NRQL"
+    },
+    {
+      "name": "variables",
+      "type": "object",
+      "required": false,
+      "description": "GraphQL variables"
+    }
+  ],
+  "request_example": {
+    "query": "{ actor { account(id: 12345) { nrql(query: \"SELECT count(*) FROM Transaction SINCE 1 hour ago\") { results } } } }"
+  },
+  "response_example": {
+    "data": {
+      "actor": {
+        "account": {
+          "nrql": {
+            "results": [
+              {
+                "count": 42000
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": []
+}

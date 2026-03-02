@@ -1,0 +1,58 @@
+{
+  "name": "meetings_livestream_update",
+  "description": "Configure live streaming settings for a meeting. Set the stream URL, stream key, and page URL for platforms like YouTube or Facebook.",
+  "endpoint": "/meetings/{meetingId}/livestream",
+  "method": "PATCH",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "integer",
+      "description": "The meeting ID.",
+      "required": true,
+      "example": 1234567890
+    },
+    {
+      "name": "stream_url",
+      "type": "string",
+      "description": "Streaming URL (e.g., RTMP URL).",
+      "required": true,
+      "example": "rtmp://live.youtube.com/live2"
+    },
+    {
+      "name": "stream_key",
+      "type": "string",
+      "description": "Stream key for authentication.",
+      "required": true,
+      "example": "abc-123-def"
+    },
+    {
+      "name": "page_url",
+      "type": "string",
+      "description": "The public streaming page URL.",
+      "required": true,
+      "example": "https://youtube.com/live/abc123"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.zoom.us/v2/meetings/1234567890/livestream",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "stream_url": "rtmp://live.youtube.com/live2",
+      "stream_key": "abc-123-def",
+      "page_url": "https://youtube.com/live/abc123"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": ["meeting:write"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

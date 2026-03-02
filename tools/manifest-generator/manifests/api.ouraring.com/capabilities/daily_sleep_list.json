@@ -1,0 +1,63 @@
+{
+  "name": "daily_sleep_list",
+  "description": "Retrieve daily sleep score summaries including total sleep, efficiency, latency, contributors (deep sleep, REM, restfulness, timing) for a date range. Supports pagination with next_token.",
+  "resource_group": "daily",
+  "endpoint": "/v2/usercollection/daily_sleep",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token from previous response.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "sleep"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/daily_sleep?start_date=2025-01-10&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "abc-123",
+          "day": "2025-01-15",
+          "score": 85,
+          "timestamp": "2025-01-15T00:00:00+00:00",
+          "contributors": {
+            "deep_sleep": 90,
+            "efficiency": 82,
+            "latency": 95,
+            "rem_sleep": 78,
+            "restfulness": 70,
+            "timing": 88,
+            "total_sleep": 85
+          }
+        }
+      ],
+      "next_token": null
+    }
+  }
+}

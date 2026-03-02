@@ -1,0 +1,46 @@
+{
+  "name": "columns_update",
+  "description": "Update column value for an item.",
+  "resource_group": "columns",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "board_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Board ID"
+    },
+    {
+      "name": "item_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Item ID"
+    },
+    {
+      "name": "column_id",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Column ID"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "New value as JSON string"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "mutation { change_column_value (board_id: 123, item_id: 456, column_id: \"status\", value: \"{\\\"label\\\":\\\"Done\\\"}\") { id } }"
+  }
+}

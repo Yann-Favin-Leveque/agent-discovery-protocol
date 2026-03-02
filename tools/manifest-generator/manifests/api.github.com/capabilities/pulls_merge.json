@@ -1,0 +1,75 @@
+{
+  "name": "pulls_merge",
+  "description": "Merge a pull request. The head branch can optionally be deleted after merge.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repos/{owner}/{repo}/pulls/{pull_number}/merge",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "pull_number",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "The PR number."
+    },
+    {
+      "name": "commit_title",
+      "type": "string",
+      "required": false,
+      "description": "Custom merge commit title."
+    },
+    {
+      "name": "commit_message",
+      "type": "string",
+      "required": false,
+      "description": "Custom merge commit message."
+    },
+    {
+      "name": "merge_method",
+      "type": "string",
+      "required": false,
+      "description": "Merge method: merge, squash, or rebase. Default merge."
+    },
+    {
+      "name": "sha",
+      "type": "string",
+      "required": false,
+      "description": "Head SHA to verify before merging."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.github.com/repos/octocat/my-project/pulls/101/merge",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "merge_method": "squash",
+      "commit_title": "feat: add dark mode support (#101)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sha": "def456",
+      "merged": true,
+      "message": "Pull Request successfully merged"
+    }
+  }
+}

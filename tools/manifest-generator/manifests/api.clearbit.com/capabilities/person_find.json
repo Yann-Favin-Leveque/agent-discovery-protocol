@@ -1,0 +1,72 @@
+{
+  "name": "person_find",
+  "description": "Look up a person by email address to retrieve social profiles, employment, and demographic data.",
+  "endpoint": "/v2/people/find",
+  "method": "GET",
+  "resource_group": "enrichment",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email address to look up.",
+      "required": true,
+      "example": "alex@alexmaccaw.com"
+    },
+    {
+      "name": "webhook_url",
+      "type": "string",
+      "description": "URL for async webhook delivery.",
+      "required": false
+    },
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "description": "Custom ID included in webhook payload.",
+      "required": false
+    },
+    {
+      "name": "subscribe",
+      "type": "boolean",
+      "description": "Subscribe to future updates.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clearbit.com/v2/people/find?email=alex@alexmaccaw.com",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "d54c36b1-4c5c-4b7e-8e6f-abc123",
+      "fullName": "Alex MacCaw",
+      "email": "alex@alexmaccaw.com",
+      "gender": null,
+      "location": "San Francisco, CA",
+      "employment": {
+        "domain": "clearbit.com",
+        "name": "Clearbit",
+        "title": "CEO",
+        "role": "ceo",
+        "seniority": "executive"
+      },
+      "twitter": {
+        "handle": "maboroshi"
+      },
+      "linkedin": {
+        "handle": "alexmaccaw"
+      },
+      "facebook": {
+        "handle": null
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

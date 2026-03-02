@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Notion",
-  "description": "Notion is an all-in-one workspace for notes, databases, wikis, and project management. The API lets you create and update pages, query and create databases, search across a workspace, and read page content blocks programmatically.",
+  "description": "Notion is an all-in-one workspace for notes, databases, wikis, and project management. The API provides full CRUD for pages, databases, blocks, comments, users, file uploads, data sources, and workspace search.",
   "base_url": "https://api.notion.com",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,244 @@
   },
   "capabilities": [
     {
-      "name": "create_page",
-      "description": "Create a new page in Notion as a child of a specified parent page or database, with properties and content blocks.",
-      "detail_url": "/capabilities/create_page"
+      "name": "pages_create",
+      "description": "Create a new page as a child of an existing page or database.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_create"
     },
     {
-      "name": "query_database",
-      "description": "Query a Notion database with filters and sorts to retrieve matching pages and their property values.",
-      "detail_url": "/capabilities/query_database"
+      "name": "pages_get",
+      "description": "Retrieve a page by ID.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_get"
+    },
+    {
+      "name": "pages_update",
+      "description": "Update properties of an existing page.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_update"
+    },
+    {
+      "name": "pages_delete",
+      "description": "Trash a page (set archived to true).",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_delete"
+    },
+    {
+      "name": "pages_move",
+      "description": "Move a page to a new parent.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_move"
+    },
+    {
+      "name": "pages_get_markdown",
+      "description": "Retrieve page content rendered as markdown.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_get_markdown"
+    },
+    {
+      "name": "pages_update_markdown",
+      "description": "Update page content using markdown.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_update_markdown"
+    },
+    {
+      "name": "page_property_get",
+      "description": "Retrieve a page property item.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/page_property_get"
+    },
+    {
+      "name": "databases_create",
+      "description": "Create a new database as a child of a page.",
+      "resource_group": "databases",
+      "detail_url": "/capabilities/databases_create"
+    },
+    {
+      "name": "databases_get",
+      "description": "Retrieve a database by ID.",
+      "resource_group": "databases",
+      "detail_url": "/capabilities/databases_get"
+    },
+    {
+      "name": "databases_update",
+      "description": "Update database title, description, or properties.",
+      "resource_group": "databases",
+      "detail_url": "/capabilities/databases_update"
+    },
+    {
+      "name": "databases_query",
+      "description": "Query a database with filters and sorts.",
+      "resource_group": "databases",
+      "detail_url": "/capabilities/databases_query"
+    },
+    {
+      "name": "blocks_get",
+      "description": "Retrieve a block by ID.",
+      "resource_group": "blocks",
+      "detail_url": "/capabilities/blocks_get"
+    },
+    {
+      "name": "blocks_update",
+      "description": "Update a block's content.",
+      "resource_group": "blocks",
+      "detail_url": "/capabilities/blocks_update"
+    },
+    {
+      "name": "blocks_delete",
+      "description": "Delete a block.",
+      "resource_group": "blocks",
+      "detail_url": "/capabilities/blocks_delete"
+    },
+    {
+      "name": "blocks_children_list",
+      "description": "List child blocks of a block or page.",
+      "resource_group": "blocks",
+      "detail_url": "/capabilities/blocks_children_list"
+    },
+    {
+      "name": "blocks_children_append",
+      "description": "Append new children blocks to a parent.",
+      "resource_group": "blocks",
+      "detail_url": "/capabilities/blocks_children_append"
+    },
+    {
+      "name": "users_list",
+      "description": "List all users in the workspace.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_list"
+    },
+    {
+      "name": "users_get",
+      "description": "Retrieve a user by ID.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_get"
+    },
+    {
+      "name": "users_me",
+      "description": "Retrieve the bot user associated with the API token.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_me"
+    },
+    {
+      "name": "comments_create",
+      "description": "Create a comment on a page or discussion thread.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_create"
+    },
+    {
+      "name": "comments_get",
+      "description": "Retrieve a comment by ID.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_get"
+    },
+    {
+      "name": "page_comments_list",
+      "description": "List comments on a page.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/page_comments_list"
+    },
+    {
+      "name": "block_comments_list",
+      "description": "List comments on a block.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/block_comments_list"
     },
     {
       "name": "search",
-      "description": "Search across all pages and databases in the workspace that the integration has access to, by title or content.",
+      "description": "Search across pages and databases in the workspace.",
+      "resource_group": "search",
       "detail_url": "/capabilities/search"
     },
     {
-      "name": "update_page",
-      "description": "Update the properties of an existing Notion page, such as changing status, title, or custom property values.",
-      "detail_url": "/capabilities/update_page"
+      "name": "files_create",
+      "description": "Initiate a file upload.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_create"
     },
     {
-      "name": "create_database",
-      "description": "Create a new database as a child of a specified parent page, defining its property schema and title.",
-      "detail_url": "/capabilities/create_database"
+      "name": "files_get",
+      "description": "Get file upload details.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_get"
     },
     {
-      "name": "get_block_children",
-      "description": "Retrieve the content blocks that are children of a specific block or page, enabling you to read page content.",
-      "detail_url": "/capabilities/get_block_children"
+      "name": "files_send",
+      "description": "Send file content to Notion.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_send"
+    },
+    {
+      "name": "files_complete",
+      "description": "Finalize a file upload.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_complete"
+    },
+    {
+      "name": "files_list",
+      "description": "List file uploads.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_list"
+    },
+    {
+      "name": "oauth_token_create",
+      "description": "Create an access token via OAuth.",
+      "resource_group": "oauth",
+      "detail_url": "/capabilities/oauth_token_create"
+    },
+    {
+      "name": "oauth_token_refresh",
+      "description": "Refresh an access token.",
+      "resource_group": "oauth",
+      "detail_url": "/capabilities/oauth_token_refresh"
+    },
+    {
+      "name": "oauth_token_revoke",
+      "description": "Revoke an access token.",
+      "resource_group": "oauth",
+      "detail_url": "/capabilities/oauth_token_revoke"
+    },
+    {
+      "name": "oauth_token_introspect",
+      "description": "Introspect a token's status and scope.",
+      "resource_group": "oauth",
+      "detail_url": "/capabilities/oauth_token_introspect"
+    },
+    {
+      "name": "data_sources_create",
+      "description": "Create a data source.",
+      "resource_group": "data_sources",
+      "detail_url": "/capabilities/data_sources_create"
+    },
+    {
+      "name": "data_sources_get",
+      "description": "Retrieve a data source.",
+      "resource_group": "data_sources",
+      "detail_url": "/capabilities/data_sources_get"
+    },
+    {
+      "name": "data_sources_update",
+      "description": "Update a data source.",
+      "resource_group": "data_sources",
+      "detail_url": "/capabilities/data_sources_update"
+    },
+    {
+      "name": "data_sources_query",
+      "description": "Query a data source.",
+      "resource_group": "data_sources",
+      "detail_url": "/capabilities/data_sources_query"
+    },
+    {
+      "name": "data_sources_templates_list",
+      "description": "List available data source templates.",
+      "resource_group": "data_sources",
+      "detail_url": "/capabilities/data_sources_templates_list"
+    },
+    {
+      "name": "data_sources_properties_update",
+      "description": "Update data source properties.",
+      "resource_group": "data_sources",
+      "detail_url": "/capabilities/data_sources_properties_update"
     }
   ]
 }

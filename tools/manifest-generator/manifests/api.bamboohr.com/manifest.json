@@ -1,21 +1,34 @@
 {
   "spec_version": "1.0",
   "name": "BambooHR",
-  "description": "BambooHR is a cloud-based human resources platform for managing employee data, time-off requests, and company directories. The API enables programmatic access to employee records, time-off management, job information, and organizational reporting.",
+  "description": "BambooHR is a cloud-based human resources platform for managing employee data, time-off requests, and company directories. The API enables programmatic access to employee records, time-off management, job information, reports, and organizational metadata.",
   "base_url": "https://api.bamboohr.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
     "prefix": "Basic",
-    "setup_url": "https://documentation.bamboohr.com/docs/getting-started"
+    "setup_url": "https://documentation.bamboohr.com/docs/getting-started",
+    "note": "Use Basic auth with base64(api_key:x). The 'x' is a literal character as the password."
   },
   "capabilities": [
-    { "name": "list_employees", "description": "Get a directory of all employees with their basic information like name, department, and job title.", "detail_url": "/capabilities/list_employees" },
-    { "name": "get_employee", "description": "Get detailed information about a specific employee including personal data, job info, and custom fields.", "detail_url": "/capabilities/get_employee" },
-    { "name": "create_employee", "description": "Add a new employee to the company directory with their personal and job information.", "detail_url": "/capabilities/create_employee" },
-    { "name": "request_time_off", "description": "Submit a time-off request for an employee specifying dates, type, and amount.", "detail_url": "/capabilities/request_time_off" },
-    { "name": "list_time_off_requests", "description": "List time-off requests with optional filtering by employee, status, or date range.", "detail_url": "/capabilities/list_time_off_requests" },
-    { "name": "get_time_off_balances", "description": "Get the current time-off balances for an employee across all leave types.", "detail_url": "/capabilities/get_time_off_balances" },
-    { "name": "list_job_info", "description": "Get the job information history for an employee including title changes, department transfers, and compensation.", "detail_url": "/capabilities/list_job_info" }
+    {"name": "employees_list", "description": "Get the employee directory with names, departments, and job titles.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/employees_list", "resource_group": "employees"},
+    {"name": "employees_get", "description": "Get detailed information about a specific employee.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/employees_get", "resource_group": "employees"},
+    {"name": "employees_create", "description": "Add a new employee to the company directory.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/employees_create", "resource_group": "employees"},
+    {"name": "employees_update", "description": "Update an existing employee's record.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/employees_update", "resource_group": "employees"},
+    {"name": "time_off_requests_list", "description": "List time-off requests with filtering by employee, status, or date range.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/time_off_requests_list", "resource_group": "time_off"},
+    {"name": "time_off_request_create", "description": "Submit a new time-off request for an employee.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/time_off_request_create", "resource_group": "time_off"},
+    {"name": "time_off_balances_get", "description": "Get current time-off balances for an employee.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/time_off_balances_get", "resource_group": "time_off"},
+    {"name": "time_off_types_list", "description": "List all time-off types configured for the company.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/time_off_types_list", "resource_group": "time_off"},
+    {"name": "time_off_policies_list", "description": "List all time-off policies available for employees.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/time_off_policies_list", "resource_group": "time_off"},
+    {"name": "whos_out", "description": "View who is currently out or will be out within a date range.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/whos_out", "resource_group": "time_off"},
+    {"name": "tables_get_rows", "description": "Get tabular data rows for an employee (job info, compensation, etc.).", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/tables_get_rows", "resource_group": "tables"},
+    {"name": "tables_add_row", "description": "Add a new row to an employee's tabular data.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/tables_add_row", "resource_group": "tables"},
+    {"name": "reports_get_company", "description": "Run a saved company report and retrieve results.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/reports_get_company", "resource_group": "reports"},
+    {"name": "reports_request_custom", "description": "Request a custom report specifying which fields to include.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/reports_request_custom", "resource_group": "reports"},
+    {"name": "metadata_fields_list", "description": "List all employee fields available in your BambooHR account.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/metadata_fields_list", "resource_group": "metadata"},
+    {"name": "metadata_tables_list", "description": "List all tabular data tables and their fields.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/metadata_tables_list", "resource_group": "metadata"},
+    {"name": "metadata_users_list", "description": "List all BambooHR system users and access levels.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/metadata_users_list", "resource_group": "metadata"},
+    {"name": "webhooks_list", "description": "List all configured webhooks.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/webhooks_list", "resource_group": "webhooks"},
+    {"name": "webhooks_create", "description": "Create a webhook for employee data change notifications.", "detail_url": "https://agent-dns.dev/api/services/api.bamboohr.com/capabilities/webhooks_create", "resource_group": "webhooks"}
   ]
 }

@@ -1,0 +1,42 @@
+{
+  "name": "call_get",
+  "description": "Retrieve details of a specific call by its UUID.",
+  "resource_group": "call",
+  "endpoint": "/v1/Account/{auth_id}/Call/{call_uuid}/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "call_uuid",
+      "type": "string",
+      "description": "The call UUID (path parameter).",
+      "required": true,
+      "example": "abc-123-def-456"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Call/{call_uuid}/",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "call_uuid": "abc-123-def-456",
+      "from_number": "+14151234567",
+      "to_number": "+14157654321",
+      "call_duration": 45,
+      "call_direction": "outbound",
+      "end_time": "2024-01-15T10:30:00Z"
+    }
+  }
+}

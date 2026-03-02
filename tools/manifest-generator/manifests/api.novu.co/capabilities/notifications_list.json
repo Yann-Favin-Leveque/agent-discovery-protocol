@@ -1,0 +1,65 @@
+{
+  "name": "notifications_list",
+  "description": "List notification events with filtering by channels, templates, and date ranges.",
+  "resource_group": "notifications",
+  "endpoint": "/v1/notifications",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "channels",
+      "type": "string",
+      "required": false,
+      "description": "Filter by channels."
+    },
+    {
+      "name": "templates",
+      "type": "string",
+      "required": false,
+      "description": "Filter by template IDs."
+    },
+    {
+      "name": "subscriberIds",
+      "type": "string",
+      "required": false,
+      "description": "Filter by subscriber IDs."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.novu.co/v1/notifications?limit=10",
+    "headers": {
+      "Authorization": "ApiKey <key>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "_id": "notif1",
+          "_templateId": "wf1",
+          "subscriber": {
+            "subscriberId": "user123"
+          },
+          "channels": [
+            "email"
+          ],
+          "createdAt": "2024-06-20T00:00:00Z"
+        }
+      ],
+      "totalCount": 1
+    }
+  }
+}

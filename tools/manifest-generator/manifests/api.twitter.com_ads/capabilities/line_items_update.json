@@ -1,0 +1,53 @@
+{
+  "name": "line_items_update",
+  "description": "Update an existing line item.",
+  "resource_group": "line_items",
+  "endpoint": "/12/accounts/{account_id}/line_items/{line_item_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "Ad account ID.",
+      "required": true
+    },
+    {
+      "name": "line_item_id",
+      "type": "string",
+      "description": "Line item ID.",
+      "required": true
+    },
+    {
+      "name": "bid_amount_local_micro",
+      "type": "integer",
+      "description": "Updated bid.",
+      "required": false
+    },
+    {
+      "name": "entity_status",
+      "type": "string",
+      "description": "Updated status.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://ads-api.twitter.com/12/accounts/abc123/line_items/li_1",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "entity_status": "PAUSED"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "li_1",
+        "entity_status": "PAUSED"
+      }
+    }
+  }
+}

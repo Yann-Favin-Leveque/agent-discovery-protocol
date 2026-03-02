@@ -1,0 +1,51 @@
+{
+  "name": "submissions_get",
+  "resource_group": "submissions",
+  "description": "Get a specific form submission with all responses.",
+  "endpoint": "/forms/{formId}/submissions/{submissionId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "formId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Form ID."
+    },
+    {
+      "name": "submissionId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Submission ID."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tally.so/forms/form-123/submissions/sub-456",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "questions": [
+        {
+          "id": "q-1",
+          "label": "Name"
+        }
+      ],
+      "submission": {
+        "id": "sub-456",
+        "isCompleted": true,
+        "responses": [
+          {
+            "questionId": "q-1",
+            "answer": "John"
+          }
+        ]
+      }
+    }
+  }
+}

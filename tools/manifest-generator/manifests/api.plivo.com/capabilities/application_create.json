@@ -1,0 +1,76 @@
+{
+  "name": "application_create",
+  "description": "Create a new application for handling incoming calls and messages.",
+  "resource_group": "application",
+  "endpoint": "/v1/Account/{auth_id}/Application/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "app_name",
+      "type": "string",
+      "description": "Name of the application.",
+      "required": true,
+      "example": "My App"
+    },
+    {
+      "name": "answer_url",
+      "type": "string",
+      "description": "URL for handling incoming calls.",
+      "required": true,
+      "example": "https://example.com/answer/"
+    },
+    {
+      "name": "answer_method",
+      "type": "string",
+      "description": "HTTP method: GET or POST.",
+      "required": false,
+      "example": "POST"
+    },
+    {
+      "name": "hangup_url",
+      "type": "string",
+      "description": "URL notified on call hangup.",
+      "required": false
+    },
+    {
+      "name": "message_url",
+      "type": "string",
+      "description": "URL for handling incoming messages.",
+      "required": false
+    },
+    {
+      "name": "message_method",
+      "type": "string",
+      "description": "HTTP method for message_url.",
+      "required": false,
+      "example": "POST"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Application/",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "app_name": "My App",
+      "answer_url": "https://example.com/answer/"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "message": "created",
+      "app_id": "123456789",
+      "api_id": "xxx"
+    }
+  }
+}

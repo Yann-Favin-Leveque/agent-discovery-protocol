@@ -1,0 +1,69 @@
+{
+  "name": "recipients_create",
+  "description": "Create a recipient account with banking details for sending money.",
+  "resource_group": "recipients",
+  "endpoint": "/v1/accounts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "integer",
+      "description": "Profile ID.",
+      "required": true
+    },
+    {
+      "name": "accountHolderName",
+      "type": "string",
+      "description": "Recipient full name.",
+      "required": true
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Recipient currency.",
+      "required": true,
+      "example": "EUR"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Account type (e.g. iban, sort_code, aba, etc.).",
+      "required": true,
+      "example": "iban"
+    },
+    {
+      "name": "details",
+      "type": "object",
+      "description": "Bank account details specific to the type.",
+      "required": true,
+      "example": {
+        "IBAN": "DE89370400440532013000"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.wise.com/v1/accounts",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "profile": 12345,
+      "accountHolderName": "Jane Smith",
+      "currency": "EUR",
+      "type": "iban",
+      "details": {
+        "IBAN": "DE89370400440532013000"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 13967839,
+      "accountHolderName": "Jane Smith",
+      "currency": "EUR"
+    }
+  }
+}

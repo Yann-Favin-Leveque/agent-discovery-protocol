@@ -1,0 +1,141 @@
+{
+  "name": "completions_create",
+  "description": "Generate text completions for a given prompt using language, code, or image models. Returns one or more text completions with token usage information.",
+  "resource_group": "completions",
+  "endpoint": "/v1/completions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "The model ID to use for completion.",
+      "example": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": true,
+      "description": "The context string for the model to complete.",
+      "example": "The largest city in France is"
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of tokens to generate."
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "Sampling temperature between 0 and 1.",
+      "example": 0.7
+    },
+    {
+      "name": "top_p",
+      "type": "number",
+      "required": false,
+      "description": "Nucleus sampling threshold for token filtering."
+    },
+    {
+      "name": "top_k",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum tokens to consider per generation step."
+    },
+    {
+      "name": "repetition_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Controls repeated sequence likelihood."
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "required": false,
+      "description": "Stream tokens as server-sent events if true."
+    },
+    {
+      "name": "stop",
+      "type": "array",
+      "required": false,
+      "description": "Sequences that truncate output when generated."
+    },
+    {
+      "name": "logprobs",
+      "type": "integer",
+      "required": false,
+      "description": "Return log probabilities for top k tokens (0-20)."
+    },
+    {
+      "name": "echo",
+      "type": "boolean",
+      "required": false,
+      "description": "Include the prompt in the response."
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "required": false,
+      "description": "Number of completions to generate (1-128)."
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Seed value for reproducibility."
+    },
+    {
+      "name": "min_p",
+      "type": "number",
+      "required": false,
+      "description": "Alternative to top_p/top_k (0-1)."
+    },
+    {
+      "name": "presence_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Penalty for new topics (-2.0 to 2.0)."
+    },
+    {
+      "name": "frequency_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Penalty for repeated tokens (-2.0 to 2.0)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.together.xyz/v1/completions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "prompt": "The largest city in France is",
+      "max_tokens": 1
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cmpl-abc123",
+      "object": "text.completion",
+      "created": 1234567890,
+      "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "choices": [
+        {
+          "text": " Paris",
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 8,
+        "completion_tokens": 1,
+        "total_tokens": 9
+      }
+    }
+  }
+}

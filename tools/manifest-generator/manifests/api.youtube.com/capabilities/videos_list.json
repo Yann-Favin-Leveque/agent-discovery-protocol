@@ -1,0 +1,98 @@
+{
+  "name": "videos_list",
+  "description": "Retrieve details for one or more videos by ID, chart, or user rating.",
+  "endpoint": "/youtube/v3/videos",
+  "method": "GET",
+  "resource_group": "videos",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts (snippet, contentDetails, statistics, status, player)",
+      "required": true,
+      "example": "snippet,statistics"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Comma-separated video IDs",
+      "required": false,
+      "example": "abc123,def456"
+    },
+    {
+      "name": "chart",
+      "type": "string",
+      "description": "Chart type (mostPopular)",
+      "required": false,
+      "example": "mostPopular"
+    },
+    {
+      "name": "myRating",
+      "type": "string",
+      "description": "Filter by user rating (like, dislike)",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results (1-50)",
+      "required": false,
+      "example": "10"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "regionCode",
+      "type": "string",
+      "description": "Country code for chart results",
+      "required": false,
+      "example": "US"
+    },
+    {
+      "name": "videoCategoryId",
+      "type": "string",
+      "description": "Filter chart by category",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/videos",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "youtube#videoListResponse",
+      "items": [
+        {
+          "id": "abc123",
+          "snippet": {
+            "title": "Video Title",
+            "channelTitle": "Channel"
+          },
+          "statistics": {
+            "viewCount": "1000000",
+            "likeCount": "50000"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.readonly"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

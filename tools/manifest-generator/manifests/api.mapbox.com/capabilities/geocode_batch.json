@@ -1,0 +1,66 @@
+{
+  "name": "geocode_batch",
+  "description": "Geocode up to 50 queries (forward, reverse, or structured) in a single request.",
+  "endpoint": "/search/geocode/v6/batch",
+  "method": "POST",
+  "resource_group": "geocoding",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "pk.xxx"
+    },
+    {
+      "name": "body",
+      "type": "array",
+      "description": "Array of geocoding query objects.",
+      "required": true,
+      "example": [
+        {
+          "q": "New York"
+        },
+        {
+          "q": "London"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mapbox.com/search/geocode/v6/batch?access_token=pk.xxx",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "q": "New York"
+      },
+      {
+        "q": "London"
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "batch": [
+        {
+          "type": "FeatureCollection",
+          "features": [
+            {
+              "properties": {
+                "full_address": "New York, NY"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

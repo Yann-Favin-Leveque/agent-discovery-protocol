@@ -1,0 +1,50 @@
+{
+  "name": "repositories_list",
+  "description": "List repositories for a namespace.",
+  "resource_group": "repositories",
+  "endpoint": "/repositories/{namespace}/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "namespace",
+      "type": "string",
+      "required": true,
+      "description": "User or organization name."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "description": "Page size."
+    },
+    {
+      "name": "ordering",
+      "type": "string",
+      "required": false,
+      "description": "Sort: last_updated, name."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://hub.docker.com/v2/repositories/my-org/?page_size=10"
+  },
+  "response_example": {
+    "count": 5,
+    "results": [
+      {
+        "name": "my-app",
+        "namespace": "my-org",
+        "description": "My application",
+        "star_count": 10,
+        "pull_count": 5000,
+        "last_updated": "2026-01-20T14:00:00Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "uploads_create",
+  "description": "Create a new tileset upload from a staged file or existing dataset.",
+  "endpoint": "/uploads/v1/{username}",
+  "method": "POST",
+  "resource_group": "uploads",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Username.",
+      "required": true,
+      "example": "myuser"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "sk.xxx"
+    },
+    {
+      "name": "tileset",
+      "type": "string",
+      "description": "Target tileset ID.",
+      "required": true,
+      "example": "myuser.my-tileset"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "S3 URL of staged file.",
+      "required": true,
+      "example": "https://s3.amazonaws.com/bucket/file.mbtiles"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Tileset name.",
+      "required": false,
+      "example": "My Tileset"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mapbox.com/uploads/v1/myuser?access_token=sk.xxx",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tileset": "myuser.my-tileset",
+      "url": "https://s3.amazonaws.com/bucket/file.mbtiles",
+      "name": "My Tileset"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "upload_abc",
+      "tileset": "myuser.my-tileset",
+      "complete": false,
+      "progress": 0
+    }
+  },
+  "auth_scopes": [
+    "uploads:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

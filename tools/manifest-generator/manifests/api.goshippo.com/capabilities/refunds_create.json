@@ -1,0 +1,39 @@
+{
+  "name": "refunds_create",
+  "description": "Request a refund for a purchased label.",
+  "endpoint": "/refunds",
+  "method": "POST",
+  "resource_group": "refunds",
+  "parameters": [
+    {
+      "name": "transaction",
+      "type": "string",
+      "description": "Transaction object ID to refund.",
+      "required": true,
+      "example": "txn_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/refunds",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transaction": "txn_abc123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "object_id": "rfnd_abc123",
+      "transaction": "txn_abc123",
+      "status": "QUEUED"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

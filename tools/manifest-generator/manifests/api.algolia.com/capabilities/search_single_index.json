@@ -1,0 +1,97 @@
+{
+  "name": "search_single_index",
+  "description": "Perform a full-text search query against a single Algolia index. Supports filters, facets, pagination, typo tolerance, and geo-search.",
+  "endpoint": "/1/indexes/{indexName}/query",
+  "method": "POST",
+  "resource_group": "search",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index to search.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "The search query text.",
+      "required": false,
+      "example": "laptop"
+    },
+    {
+      "name": "filters",
+      "type": "string",
+      "description": "Filter expression to apply (e.g., 'category:electronics AND price < 1000').",
+      "required": false,
+      "example": "category:electronics"
+    },
+    {
+      "name": "facets",
+      "type": "array",
+      "description": "List of attributes to retrieve facet values for.",
+      "required": false,
+      "example": ["category", "brand"]
+    },
+    {
+      "name": "hitsPerPage",
+      "type": "integer",
+      "description": "Number of hits per page (default: 20).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number to retrieve (0-indexed).",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "attributesToRetrieve",
+      "type": "array",
+      "description": "List of attributes to include in results.",
+      "required": false,
+      "example": ["name", "price", "description"]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}-dsn.algolia.net/1/indexes/products/query",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "laptop",
+      "filters": "category:electronics",
+      "hitsPerPage": 20,
+      "page": 0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "hits": [
+        {
+          "objectID": "12345",
+          "name": "MacBook Pro",
+          "price": 1999,
+          "_highlightResult": {
+            "name": { "value": "<em>Laptop</em> MacBook Pro", "matchLevel": "full" }
+          }
+        }
+      ],
+      "nbHits": 150,
+      "page": 0,
+      "nbPages": 8,
+      "hitsPerPage": 20,
+      "processingTimeMS": 1
+    }
+  },
+  "auth_scopes": ["search"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

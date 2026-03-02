@@ -1,0 +1,59 @@
+{
+  "name": "accounts_search",
+  "resource_group": "accounts",
+  "description": "Search for accounts by username or display name.",
+  "endpoint": "/api/v1/accounts/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Search query.",
+      "required": true,
+      "in": "query",
+      "example": "mastodon"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (default 40, max 80).",
+      "required": false,
+      "in": "query",
+      "example": 40
+    },
+    {
+      "name": "resolve",
+      "type": "boolean",
+      "description": "Attempt WebFinger lookup.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "following",
+      "type": "boolean",
+      "description": "Limit to followed accounts.",
+      "required": false,
+      "in": "query"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/accounts/search?q=mastodon&limit=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "12345",
+        "username": "mastodon",
+        "display_name": "Mastodon"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:accounts"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook for specific shipping events.",
+  "endpoint": "/v1/environment/webhooks",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Webhook URL.",
+      "required": true,
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "description": "Event type (track, batch, etc.).",
+      "required": true,
+      "example": "track"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/environment/webhooks",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "event": "track"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "webhook_id": "se-wh-456",
+      "url": "https://example.com/webhook",
+      "event": "track"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

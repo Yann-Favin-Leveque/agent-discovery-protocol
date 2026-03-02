@@ -1,0 +1,59 @@
+{
+  "name": "files_list_folder",
+  "description": "List the contents of a folder.",
+  "resource_group": "files",
+  "endpoint": "/2/files/list_folder",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "description": "Folder path (empty string for root).",
+      "required": true,
+      "example": ""
+    },
+    {
+      "name": "recursive",
+      "type": "boolean",
+      "description": "List recursively.",
+      "required": false
+    },
+    {
+      "name": "include_mounted_folders",
+      "type": "boolean",
+      "description": "Include mounted folders.",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max entries per response.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/files/list_folder",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "path": ""
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "entries": [
+        {
+          "name": "file.txt",
+          ".tag": "file",
+          "path_display": "/file.txt"
+        }
+      ],
+      "cursor": "cursor123",
+      "has_more": false
+    }
+  }
+}

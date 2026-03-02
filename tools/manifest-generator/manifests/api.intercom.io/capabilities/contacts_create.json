@@ -1,0 +1,79 @@
+{
+  "name": "contacts_create",
+  "description": "Create a new contact (user or lead) with email, name, role, and custom attributes.",
+  "resource_group": "contacts",
+  "endpoint": "/contacts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "role",
+      "type": "string",
+      "required": true,
+      "description": "Contact role: user or lead."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Email address. Required for users."
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "required": false,
+      "description": "Your unique identifier for this contact."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Full name."
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "required": false,
+      "description": "Phone number."
+    },
+    {
+      "name": "custom_attributes",
+      "type": "object",
+      "required": false,
+      "description": "Key-value pairs of custom data attributes."
+    },
+    {
+      "name": "signed_up_at",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp of when the user signed up."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/contacts",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "role": "user",
+      "email": "john@example.com",
+      "name": "John Smith",
+      "external_id": "user-12345",
+      "custom_attributes": {
+        "plan": "free"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "contact",
+      "id": "abc123def456",
+      "role": "user",
+      "email": "john@example.com",
+      "name": "John Smith"
+    }
+  }
+}

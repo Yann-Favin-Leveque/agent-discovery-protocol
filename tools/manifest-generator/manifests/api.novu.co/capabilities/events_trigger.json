@@ -1,0 +1,67 @@
+{
+  "name": "events_trigger",
+  "description": "Trigger a notification workflow for one or more recipients. Matches the trigger identifier to a configured workflow.",
+  "resource_group": "events",
+  "endpoint": "/v1/events/trigger",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Workflow trigger identifier."
+    },
+    {
+      "name": "to",
+      "type": "object",
+      "required": true,
+      "description": "Recipient(s) - subscriber ID string or object with subscriberId."
+    },
+    {
+      "name": "payload",
+      "type": "object",
+      "required": false,
+      "description": "Custom payload data for the notification template."
+    },
+    {
+      "name": "overrides",
+      "type": "object",
+      "required": false,
+      "description": "Provider-specific overrides."
+    },
+    {
+      "name": "transactionId",
+      "type": "string",
+      "required": false,
+      "description": "Unique transaction ID for idempotency."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.novu.co/v1/events/trigger",
+    "headers": {
+      "Authorization": "ApiKey <key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "welcome-flow",
+      "to": {
+        "subscriberId": "user123",
+        "email": "user@example.com"
+      },
+      "payload": {
+        "firstName": "John"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "acknowledged": true,
+        "status": "processed",
+        "transactionId": "tx-abc123"
+      }
+    }
+  }
+}

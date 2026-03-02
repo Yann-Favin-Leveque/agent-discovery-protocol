@@ -1,0 +1,70 @@
+{
+  "name": "users_search",
+  "resource_group": "users",
+  "description": "Search for users by email, phone, status, or custom query.",
+  "endpoint": "/v1/users/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results. Default 100."
+    },
+    {
+      "name": "query",
+      "type": "object",
+      "required": false,
+      "description": "Search query object with operator and operands."
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/users/search",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "limit": 10,
+      "query": {
+        "operator": "AND",
+        "operands": [
+          {
+            "filter_name": "status",
+            "filter_value": [
+              "active"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "results": [
+        {
+          "user_id": "user-live-abc",
+          "emails": [
+            {
+              "email": "alice@example.com"
+            }
+          ],
+          "status": "active"
+        }
+      ],
+      "results_metadata": {
+        "total": 1,
+        "next_cursor": null
+      }
+    }
+  }
+}

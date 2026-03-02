@@ -1,0 +1,101 @@
+{
+  "name": "webinars_create",
+  "description": "Create a new webinar for a user. Configure topic, start time, duration, registration, panelists, and webinar settings.",
+  "endpoint": "/users/{userId}/webinars",
+  "method": "POST",
+  "resource_group": "webinars",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email. Use 'me' for authenticated user.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "description": "Webinar topic.",
+      "required": false,
+      "example": "Product Launch Webinar"
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "description": "Webinar type: 5 (webinar), 6 (recurring no fixed time), 9 (recurring fixed time).",
+      "required": false,
+      "example": 5
+    },
+    {
+      "name": "start_time",
+      "type": "string",
+      "description": "Start time in ISO 8601 format.",
+      "required": false,
+      "example": "2024-02-01T14:00:00Z"
+    },
+    {
+      "name": "duration",
+      "type": "integer",
+      "description": "Duration in minutes.",
+      "required": false,
+      "example": 90
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "description": "Timezone for the webinar.",
+      "required": false,
+      "example": "America/New_York"
+    },
+    {
+      "name": "agenda",
+      "type": "string",
+      "description": "Webinar description or agenda.",
+      "required": false,
+      "example": "Join us for the launch of our new product"
+    },
+    {
+      "name": "settings",
+      "type": "object",
+      "description": "Webinar settings including approval_type, registration_type, auto_recording, etc.",
+      "required": false,
+      "example": {"approval_type": 0, "auto_recording": "cloud"}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.zoom.us/v2/users/me/webinars",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "topic": "Product Launch Webinar",
+      "type": 5,
+      "start_time": "2024-02-01T14:00:00Z",
+      "duration": 90,
+      "settings": {
+        "approval_type": 0,
+        "auto_recording": "cloud"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uuid": "web123",
+      "id": 9876543210,
+      "host_id": "host1",
+      "topic": "Product Launch Webinar",
+      "type": 5,
+      "start_time": "2024-02-01T14:00:00Z",
+      "duration": 90,
+      "join_url": "https://zoom.us/w/9876543210",
+      "registration_url": "https://zoom.us/webinar/register/9876543210"
+    }
+  },
+  "auth_scopes": ["webinar:write"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

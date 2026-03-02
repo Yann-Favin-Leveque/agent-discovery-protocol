@@ -1,0 +1,49 @@
+{
+  "name": "domains_update",
+  "description": "Update a domain's tracking settings.",
+  "resource_group": "domains",
+  "endpoint": "/domains/{domain_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "domain_id",
+      "type": "string",
+      "description": "The domain ID.",
+      "required": true,
+      "example": "dom-123"
+    },
+    {
+      "name": "open_tracking",
+      "type": "boolean",
+      "description": "Enable open tracking.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "click_tracking",
+      "type": "boolean",
+      "description": "Enable click tracking.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.resend.com/domains/dom-123",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "open_tracking": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "dom-123",
+      "name": "example.com",
+      "open_tracking": true
+    }
+  }
+}

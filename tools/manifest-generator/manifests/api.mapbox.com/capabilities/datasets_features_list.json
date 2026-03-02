@@ -1,0 +1,63 @@
+{
+  "name": "datasets_features_list",
+  "description": "List all features in a dataset as GeoJSON.",
+  "endpoint": "/datasets/v1/{username}/{dataset_id}/features",
+  "method": "GET",
+  "resource_group": "datasets",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Username.",
+      "required": true,
+      "example": "myuser"
+    },
+    {
+      "name": "dataset_id",
+      "type": "string",
+      "description": "Dataset ID.",
+      "required": true,
+      "example": "ds_abc"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "sk.xxx"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/datasets/v1/myuser/ds_abc/features?access_token=sk.xxx",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "id": "store_1",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -73.989,
+              40.733
+            ]
+          },
+          "properties": {
+            "name": "NYC Store"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "datasets:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

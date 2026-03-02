@@ -1,0 +1,50 @@
+{
+  "name": "databases_create_token",
+  "resource_group": "databases",
+  "description": "Generate an auth token for a database.",
+  "endpoint": "/v1/organizations/{organizationSlug}/databases/{databaseName}/auth/tokens",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "databaseName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "expiration",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Token expiration (e.g., '2w', '30d')."
+    },
+    {
+      "name": "authorization",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Permission level: full-access or read-only."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.turso.tech/v1/organizations/my-org/databases/my-db/auth/tokens?expiration=2w",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "jwt": "eyJ..."
+    }
+  }
+}

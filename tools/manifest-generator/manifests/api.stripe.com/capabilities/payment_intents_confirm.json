@@ -1,0 +1,43 @@
+{
+  "name": "payment_intents_confirm",
+  "description": "Confirm a PaymentIntent to attempt payment.",
+  "endpoint": "/v1/payment_intents/{id}/confirm",
+  "method": "POST",
+  "resource_group": "payment_intents",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "PaymentIntent ID",
+      "required": true,
+      "example": "pi_abc123"
+    },
+    {
+      "name": "payment_method",
+      "type": "string",
+      "description": "Payment method ID",
+      "required": false,
+      "example": "pm_card_visa"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/payment_intents/pi_abc123/confirm",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "payment_method=pm_card_visa"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "pi_abc123",
+      "status": "succeeded"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

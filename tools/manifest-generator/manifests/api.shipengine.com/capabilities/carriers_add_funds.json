@@ -1,0 +1,55 @@
+{
+  "name": "carriers_add_funds",
+  "description": "Add funds to a carrier account balance.",
+  "endpoint": "/v1/carriers/{carrier_id}/add_funds",
+  "method": "PUT",
+  "resource_group": "carriers",
+  "parameters": [
+    {
+      "name": "carrier_id",
+      "type": "string",
+      "description": "The carrier ID.",
+      "required": true,
+      "example": "se-121861"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Currency code.",
+      "required": true,
+      "example": "usd"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Amount to add.",
+      "required": true,
+      "example": 50.0
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.shipengine.com/v1/carriers/se-121861/add_funds",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "currency": "usd",
+      "amount": 50.0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "balance": {
+        "currency": "usd",
+        "amount": 150.0
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

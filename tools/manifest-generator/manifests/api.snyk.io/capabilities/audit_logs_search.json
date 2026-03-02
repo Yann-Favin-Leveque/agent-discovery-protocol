@@ -1,0 +1,59 @@
+{
+  "name": "audit_logs_search",
+  "description": "Search organization audit logs for security and compliance events.",
+  "resource_group": "audit_logs",
+  "endpoint": "/rest/orgs/{org_id}/audit_logs/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization UUID."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "API version date."
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": false,
+      "description": "Start cursor."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.snyk.io/rest/orgs/org-uuid/audit_logs/search?version=2024-06-21",
+    "headers": {
+      "Authorization": "token <api_token>",
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": {
+      "filters": {}
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "log-uuid",
+          "type": "audit_log_event",
+          "attributes": {
+            "event": "project.create",
+            "created": "2024-06-20T00:00:00Z"
+          }
+        }
+      ]
+    }
+  }
+}

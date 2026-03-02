@@ -1,0 +1,102 @@
+{
+  "name": "docs_list",
+  "resource_group": "docs",
+  "description": "List all documents accessible to the authenticated user with optional filtering.",
+  "endpoint": "/docs",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "isOwner",
+      "type": "boolean",
+      "required": false,
+      "description": "Filter to docs owned by the user",
+      "example": true
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": false,
+      "description": "Search query to filter docs by name",
+      "example": "Project Plan"
+    },
+    {
+      "name": "sourceDoc",
+      "type": "string",
+      "required": false,
+      "description": "Filter to docs copied from this source doc ID",
+      "example": "AbCDeFGH"
+    },
+    {
+      "name": "isStarred",
+      "type": "boolean",
+      "required": false,
+      "description": "Filter to starred docs",
+      "example": true
+    },
+    {
+      "name": "inGallery",
+      "type": "boolean",
+      "required": false,
+      "description": "Filter to docs in the gallery",
+      "example": false
+    },
+    {
+      "name": "workspaceId",
+      "type": "string",
+      "required": false,
+      "description": "Filter to docs in a workspace",
+      "example": "ws-1234"
+    },
+    {
+      "name": "folderId",
+      "type": "string",
+      "required": false,
+      "description": "Filter to docs in a folder",
+      "example": "fl-5678"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum results to return",
+      "example": 25
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token for next page",
+      "example": "eyJsaW1pd"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://coda.io/apis/v1/docs?isOwner=true&limit=25",
+    "headers": {
+      "Authorization": "Bearer CODA_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "AbCDeFGH",
+          "type": "doc",
+          "href": "https://coda.io/apis/v1/docs/AbCDeFGH",
+          "browserLink": "https://coda.io/d/_dAbCDeFGH",
+          "name": "Project Plan",
+          "owner": "user@example.com",
+          "createdAt": "2025-01-15T10:00:00.000Z",
+          "updatedAt": "2025-03-10T14:30:00.000Z",
+          "folder": {
+            "id": "fl-5678",
+            "type": "folder",
+            "browserLink": "https://coda.io/docs?folderId=fl-5678"
+          }
+        }
+      ],
+      "nextPageToken": null
+    }
+  }
+}

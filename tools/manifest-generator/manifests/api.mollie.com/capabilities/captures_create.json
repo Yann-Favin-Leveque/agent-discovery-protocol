@@ -1,0 +1,56 @@
+{
+  "name": "captures_create",
+  "description": "Create a capture for an authorized payment to collect funds.",
+  "resource_group": "captures",
+  "endpoint": "/v2/payments/{paymentId}/captures",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "paymentId",
+      "type": "string",
+      "description": "The authorized payment ID.",
+      "required": true
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Amount to capture.",
+      "required": true,
+      "example": {
+        "currency": "EUR",
+        "value": "10.00"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Capture description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS/captures",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": {
+        "currency": "EUR",
+        "value": "10.00"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "capture",
+      "id": "cpt_4qqhO89gsT",
+      "amount": {
+        "currency": "EUR",
+        "value": "10.00"
+      }
+    }
+  }
+}

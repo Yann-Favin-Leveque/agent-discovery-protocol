@@ -1,0 +1,110 @@
+{
+  "name": "document_create",
+  "description": "Create a new document from a template or from scratch. Specify recipients, tokens (merge fields), fields, pricing tables, and metadata. The document is created as a draft until explicitly sent.",
+  "resource_group": "document",
+  "endpoint": "/public/v1/documents",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Document name.",
+      "in": "body"
+    },
+    {
+      "name": "template_uuid",
+      "type": "string",
+      "required": false,
+      "description": "Template ID to create from. Omit to create from scratch.",
+      "in": "body"
+    },
+    {
+      "name": "recipients",
+      "type": "array",
+      "required": true,
+      "description": "Array of recipient objects with email, first_name, last_name, role.",
+      "in": "body"
+    },
+    {
+      "name": "tokens",
+      "type": "array",
+      "required": false,
+      "description": "Array of merge field tokens with name and value.",
+      "in": "body"
+    },
+    {
+      "name": "fields",
+      "type": "object",
+      "required": false,
+      "description": "Pre-filled field values keyed by field API name.",
+      "in": "body"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "description": "Custom metadata key-value pairs.",
+      "in": "body"
+    },
+    {
+      "name": "pricing_tables",
+      "type": "array",
+      "required": false,
+      "description": "Pricing table data for quotes.",
+      "in": "body"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false,
+      "description": "Array of tag strings.",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pandadoc.com/public/v1/documents",
+    "headers": {
+      "Authorization": "API-Key YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Service Agreement - Acme Corp",
+      "template_uuid": "tmpl-abc-123",
+      "recipients": [
+        {
+          "email": "client@acme.com",
+          "first_name": "John",
+          "last_name": "Doe",
+          "role": "Client"
+        }
+      ],
+      "tokens": [
+        {
+          "name": "Client.Company",
+          "value": "Acme Corporation"
+        },
+        {
+          "name": "Contract.Date",
+          "value": "2025-01-15"
+        }
+      ],
+      "tags": [
+        "Q1-2025",
+        "service-agreement"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "doc-abc-123",
+      "name": "Service Agreement - Acme Corp",
+      "status": "document.draft",
+      "date_created": "2025-01-15T14:30:00.000Z",
+      "uuid": "doc-abc-123"
+    }
+  }
+}

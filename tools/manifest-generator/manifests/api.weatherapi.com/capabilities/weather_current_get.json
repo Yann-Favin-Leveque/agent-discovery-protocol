@@ -1,0 +1,79 @@
+{
+  "name": "weather_current_get",
+  "description": "Get real-time weather conditions including temperature, wind, humidity, pressure, visibility, UV index, feels like, and air quality data. Also returns location and astronomy info.",
+  "resource_group": "weather",
+  "endpoint": "/v1/current.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "Location query: city name, lat/lon, US/UK/Canada postal code, IP address, or 'auto:ip'.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "aqi",
+      "type": "string",
+      "required": false,
+      "description": "Include air quality data: 'yes' or 'no'.",
+      "in": "query"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "required": false,
+      "description": "Language code.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q=Paris&aqi=yes"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "name": "Paris",
+        "region": "Ile-de-France",
+        "country": "France",
+        "lat": 48.87,
+        "lon": 2.33,
+        "tz_id": "Europe/Paris",
+        "localtime": "2025-01-15 14:30"
+      },
+      "current": {
+        "temp_c": 18.5,
+        "temp_f": 65.3,
+        "condition": {
+          "text": "Sunny",
+          "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png",
+          "code": 1000
+        },
+        "wind_mph": 8.1,
+        "wind_kph": 13.0,
+        "wind_dir": "SW",
+        "pressure_mb": 1015,
+        "humidity": 55,
+        "cloud": 5,
+        "feelslike_c": 17.2,
+        "vis_km": 10,
+        "uv": 3,
+        "air_quality": {
+          "pm2_5": 8.9,
+          "pm10": 12.5,
+          "o3": 68.8
+        }
+      }
+    }
+  }
+}

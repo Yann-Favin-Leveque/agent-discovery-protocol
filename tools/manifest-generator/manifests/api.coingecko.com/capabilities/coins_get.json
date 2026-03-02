@@ -1,0 +1,33 @@
+{
+  "name": "coins_get",
+  "description": "Get comprehensive data for a specific coin including description, links, images, genesis date, market data, developer stats, and community data.",
+  "resource_group": "coins",
+  "endpoint": "/coins/{id}",
+  "method": "GET",
+  "parameters": [
+    {"name": "id", "type": "string", "description": "Coin ID.", "required": true, "example": "bitcoin"},
+    {"name": "localization", "type": "boolean", "description": "Include localized languages.", "required": false, "example": false},
+    {"name": "tickers", "type": "boolean", "description": "Include ticker data.", "required": false, "example": false},
+    {"name": "market_data", "type": "boolean", "description": "Include market data.", "required": false, "example": true},
+    {"name": "community_data", "type": "boolean", "description": "Include community data.", "required": false, "example": false},
+    {"name": "developer_data", "type": "boolean", "description": "Include developer data.", "required": false, "example": false},
+    {"name": "sparkline", "type": "boolean", "description": "Include sparkline data.", "required": false, "example": false}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coingecko.com/api/v3/coins/bitcoin?localization=false&tickers=false&market_data=true",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "bitcoin",
+      "symbol": "btc",
+      "name": "Bitcoin",
+      "description": {"en": "Bitcoin is the first successful internet money..."},
+      "links": {"homepage": ["http://www.bitcoin.org"], "blockchain_site": ["https://blockchair.com/bitcoin/"]},
+      "market_data": {"current_price": {"usd": 43250.50}, "market_cap": {"usd": 847000000000}, "total_volume": {"usd": 25000000000}}
+    }
+  },
+  "rate_limits": {"requests_per_minute": 30}
+}

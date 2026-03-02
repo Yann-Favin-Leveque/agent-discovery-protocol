@@ -1,0 +1,58 @@
+{
+  "name": "signature_request_list",
+  "description": "List all signature requests with pagination and search filtering.",
+  "endpoint": "/v3/signature_request/list",
+  "method": "GET",
+  "resource_group": "signature_request",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Results per page (max 100).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "Search query to filter requests.",
+      "required": false,
+      "example": "NDA"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hellosign.com/v3/signature_request/list?page=1&page_size=20",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "list_info": {
+        "num_pages": 5,
+        "num_results": 100,
+        "page": 1
+      },
+      "signature_requests": [
+        {
+          "signature_request_id": "fa5c8a0b",
+          "title": "NDA",
+          "is_complete": true
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

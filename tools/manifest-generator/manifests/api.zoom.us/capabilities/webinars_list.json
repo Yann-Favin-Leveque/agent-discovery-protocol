@@ -1,0 +1,61 @@
+{
+  "name": "webinars_list",
+  "description": "List all webinars scheduled by a user. Returns webinar IDs, topics, start times, durations, and statuses.",
+  "endpoint": "/users/{userId}/webinars",
+  "method": "GET",
+  "resource_group": "webinars",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email. Use 'me' for authenticated user.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of records per page (max 300).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "next_page_token",
+      "type": "string",
+      "description": "Token for the next page.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/users/me/webinars?page_size=30",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page_size": 30,
+      "total_records": 1,
+      "webinars": [
+        {
+          "uuid": "web123",
+          "id": 9876543210,
+          "host_id": "host1",
+          "topic": "Product Launch Webinar",
+          "type": 5,
+          "start_time": "2024-02-01T14:00:00Z",
+          "duration": 90,
+          "timezone": "America/New_York",
+          "join_url": "https://zoom.us/w/9876543210"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["webinar:read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "courses_list",
+  "description": "List active courses for the current user.",
+  "resource_group": "courses",
+  "endpoint": "/api/v1/courses",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "enrollment_type",
+      "type": "string",
+      "description": "Filter by enrollment type.",
+      "required": false,
+      "example": "teacher"
+    },
+    {
+      "name": "state[]",
+      "type": "string",
+      "description": "Filter by state.",
+      "required": false,
+      "example": "available"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://canvas.instructure.com/api/v1/courses?per_page=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1234,
+        "name": "Intro to CS",
+        "course_code": "CS101",
+        "enrollment_term_id": 1
+      }
+    ]
+  }
+}

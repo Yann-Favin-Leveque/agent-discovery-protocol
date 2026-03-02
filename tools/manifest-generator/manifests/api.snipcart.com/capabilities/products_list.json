@@ -1,0 +1,57 @@
+{
+  "name": "products_list",
+  "description": "Retrieve products tracked by Snipcart with sales statistics.",
+  "resource_group": "products",
+  "endpoint": "/products",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max items returned. Default 20."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Items to skip. Default 0."
+    },
+    {
+      "name": "userDefinedId",
+      "type": "string",
+      "required": false,
+      "description": "Filter by user-defined product ID."
+    },
+    {
+      "name": "orderBy",
+      "type": "string",
+      "required": false,
+      "description": "Sort by: nbrSales, salesValue, creationDate."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.snipcart.com/api/products?limit=10",
+    "headers": {
+      "Authorization": "Basic {api_key_base64}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "totalItems": 5,
+      "items": [
+        {
+          "userDefinedId": "PROD-001",
+          "name": "Product A",
+          "price": 30.0,
+          "statistics": {
+            "numberOfSales": 25
+          }
+        }
+      ]
+    }
+  }
+}

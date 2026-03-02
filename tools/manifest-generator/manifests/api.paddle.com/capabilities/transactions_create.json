@@ -1,0 +1,70 @@
+{
+  "name": "transactions_create",
+  "description": "Create a new transaction for a checkout or invoice.",
+  "resource_group": "transactions",
+  "endpoint": "/transactions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Array of items with price_id and quantity.",
+      "required": true
+    },
+    {
+      "name": "customer_id",
+      "type": "string",
+      "description": "Existing customer ID.",
+      "required": false
+    },
+    {
+      "name": "address_id",
+      "type": "string",
+      "description": "Billing address ID.",
+      "required": false
+    },
+    {
+      "name": "currency_code",
+      "type": "string",
+      "description": "Three-letter ISO 4217 currency code.",
+      "required": false
+    },
+    {
+      "name": "collection_mode",
+      "type": "string",
+      "description": "How to collect payment: automatic or manual.",
+      "required": false
+    },
+    {
+      "name": "discount_id",
+      "type": "string",
+      "description": "Discount to apply.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/transactions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "items": [
+        {
+          "price_id": "pri_01h1vjes1y163xfj1rh1tkfb65",
+          "quantity": 1
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "txn_01h1vjes1y163xfj1rh1tkfb65",
+        "status": "draft"
+      }
+    }
+  }
+}

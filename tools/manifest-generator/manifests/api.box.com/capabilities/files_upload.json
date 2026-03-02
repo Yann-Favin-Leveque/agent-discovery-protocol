@@ -1,0 +1,49 @@
+{
+  "name": "files_upload",
+  "description": "Upload a small file to Box (under 50 MB).",
+  "resource_group": "files",
+  "endpoint": "/2.0/files/content",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "attributes",
+      "type": "object",
+      "description": "File attributes with name and parent.id.",
+      "required": true
+    },
+    {
+      "name": "file",
+      "type": "binary",
+      "description": "File binary content.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://upload.box.com/api/2.0/files/content",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "attributes": {
+        "name": "file.pdf",
+        "parent": {
+          "id": "0"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "entries": [
+        {
+          "type": "file",
+          "id": "12345",
+          "name": "file.pdf"
+        }
+      ]
+    }
+  }
+}

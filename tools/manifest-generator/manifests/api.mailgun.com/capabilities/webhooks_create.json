@@ -1,0 +1,53 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a new webhook for a domain.",
+  "resource_group": "webhooks",
+  "endpoint": "/v3/domains/{domain}/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun domain.",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Webhook event type.",
+      "required": true,
+      "example": "delivered"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Webhook target URL.",
+      "required": true,
+      "example": "https://example.com/webhook"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mailgun.com/v3/domains/mg.example.com/webhooks",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "delivered",
+      "url": "https://example.com/webhook"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "Webhook has been created",
+      "webhook": {
+        "urls": [
+          "https://example.com/webhook"
+        ]
+      }
+    }
+  }
+}

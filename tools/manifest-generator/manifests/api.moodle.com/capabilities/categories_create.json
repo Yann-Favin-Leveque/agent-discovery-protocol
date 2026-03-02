@@ -1,0 +1,25 @@
+{
+  "name": "categories_create",
+  "description": "Create one or more course categories in Moodle.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_course_create_categories",
+  "method": "POST",
+  "resource_group": "categories",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "categories[0][name]", "type": "string", "description": "Category name", "required": true, "example": "Science" },
+    { "name": "categories[0][parent]", "type": "integer", "description": "Parent category ID (0 for top-level)", "required": false, "example": 0 },
+    { "name": "categories[0][description]", "type": "string", "description": "Category description", "required": false, "example": "Science department courses" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_course_create_categories&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "categories[0][name]": "Science", "categories[0][parent]": 0 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{ "id": 2, "name": "Science" }]
+  },
+  "auth_scopes": ["core_course_create_categories"],
+  "rate_limits": { "requests_per_minute": 30 }
+}

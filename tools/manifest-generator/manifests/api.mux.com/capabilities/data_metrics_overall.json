@@ -1,0 +1,51 @@
+{
+  "name": "data_metrics_overall",
+  "resource_group": "data",
+  "description": "Get overall metric values across all video views.",
+  "endpoint": "/data/v1/metrics/overall",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "timeframe[]",
+      "type": "string",
+      "required": false,
+      "description": "Unix timestamp range."
+    },
+    {
+      "name": "filters[]",
+      "type": "string",
+      "required": false,
+      "description": "Metric filters."
+    },
+    {
+      "name": "measurement",
+      "type": "string",
+      "required": false,
+      "description": "Measurement: 95th, median, avg."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mux.com/data/v1/metrics/overall?timeframe[]=1702656000&timeframe[]=1702742400",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "viewer_experience_score": {
+          "value": 0.92
+        },
+        "views": {
+          "value": 15000
+        },
+        "unique_viewers": {
+          "value": 8000
+        }
+      },
+      "total_row_count": 1
+    }
+  }
+}

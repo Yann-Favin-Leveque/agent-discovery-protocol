@@ -1,0 +1,47 @@
+{
+  "name": "sign_in_oauth",
+  "description": "Initiate OAuth sign-in with a third-party provider (Google, GitHub, etc.). Returns the OAuth authorization URL to redirect the user to.",
+  "endpoint": "/auth/v1/authorize",
+  "method": "GET",
+  "resource_group": "auth",
+  "parameters": [
+    {
+      "name": "provider",
+      "type": "string",
+      "description": "OAuth provider name: google, github, gitlab, bitbucket, facebook, apple, twitter, discord, etc.",
+      "required": true,
+      "example": "google"
+    },
+    {
+      "name": "redirect_to",
+      "type": "string",
+      "description": "URL to redirect to after OAuth flow completes.",
+      "required": false,
+      "example": "https://example.com/auth/callback"
+    },
+    {
+      "name": "scopes",
+      "type": "string",
+      "description": "Space-separated OAuth scopes to request from the provider.",
+      "required": false,
+      "example": "email profile"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://your-project.supabase.co/auth/v1/authorize?provider=google&redirect_to=https://example.com/auth/callback",
+    "headers": {
+      "apikey": "{anon_key}"
+    }
+  },
+  "response_example": {
+    "status": 302,
+    "body": {
+      "url": "https://accounts.google.com/o/oauth2/v2/auth?client_id=xxx&redirect_uri=xxx&scope=email+profile"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

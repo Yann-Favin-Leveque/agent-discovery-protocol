@@ -1,0 +1,56 @@
+{
+  "name": "assets_upload_file",
+  "description": "Upload a file (non-image) to the Sanity asset pipeline. Returns an asset document.",
+  "endpoint": "/v{apiVersion}/assets/files/{dataset}",
+  "method": "POST",
+  "resource_group": "assets",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "filename",
+      "type": "string",
+      "description": "Original filename",
+      "required": false,
+      "example": "report.pdf"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/assets/files/production?filename=report.pdf",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/pdf"
+    },
+    "body": "(binary file data)"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "document": {
+        "_id": "file-def456",
+        "_type": "sanity.fileAsset",
+        "url": "https://cdn.sanity.io/files/proj/production/def456.pdf"
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

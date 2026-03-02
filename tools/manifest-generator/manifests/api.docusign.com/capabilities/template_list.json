@@ -1,0 +1,62 @@
+{
+  "name": "template_list",
+  "description": "List available templates in the account with filtering and search.",
+  "resource_group": "template",
+  "endpoint": "/v2.1/accounts/{accountId}/templates",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "search_text",
+      "type": "string",
+      "required": false,
+      "description": "Search templates by name.",
+      "in": "query"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page.",
+      "in": "query"
+    },
+    {
+      "name": "start_position",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/templates?search_text=NDA&count=10",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "resultSetSize": "1",
+      "templates": [
+        {
+          "templateId": "tmpl-abc-123",
+          "name": "Standard NDA",
+          "description": "Non-disclosure agreement template",
+          "created": "2024-06-15T10:00:00.000Z",
+          "lastModified": "2025-01-10T09:00:00.000Z"
+        }
+      ]
+    }
+  }
+}

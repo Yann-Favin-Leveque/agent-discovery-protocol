@@ -1,0 +1,44 @@
+{
+  "name": "invoices_get",
+  "description": "Retrieve a specific invoice by ID.",
+  "resource_group": "invoices",
+  "endpoint": "/Invoices/{InvoiceID}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "InvoiceID",
+      "type": "string",
+      "required": true,
+      "description": "The invoice UUID."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.transactions.read"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.xero.com/api.xro/2.0/Invoices/abc-123",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Invoices": [
+        {
+          "InvoiceID": "abc-123",
+          "Total": 1500.0,
+          "LineItems": [
+            {
+              "Description": "Consulting",
+              "Quantity": 10,
+              "UnitAmount": 150.0
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

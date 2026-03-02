@@ -1,0 +1,26 @@
+{
+  "name": "contacts_create",
+  "description": "Create a new contact with name, email, phone, and custom attributes.",
+  "endpoint": "/api/v1/accounts/{account_id}/contacts",
+  "method": "POST",
+  "resource_group": "contacts",
+  "parameters": [
+    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
+    {"name": "name", "type": "string", "description": "Contact name.", "required": false, "example": "Jane Smith"},
+    {"name": "email", "type": "string", "description": "Email address.", "required": false, "example": "jane@example.com"},
+    {"name": "phone_number", "type": "string", "description": "Phone number.", "required": false, "example": "+1234567890"},
+    {"name": "custom_attributes", "type": "object", "description": "Custom attributes.", "required": false, "example": {"company": "Acme"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chatwoot.com/api/v1/accounts/1/contacts",
+    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
+    "body": {"name": "Jane Smith", "email": "jane@example.com", "phone_number": "+1234567890"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"payload": {"contact": {"id": 43, "name": "Jane Smith", "email": "jane@example.com"}}}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 250}
+}

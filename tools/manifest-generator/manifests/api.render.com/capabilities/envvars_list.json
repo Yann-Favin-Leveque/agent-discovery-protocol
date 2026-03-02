@@ -1,0 +1,20 @@
+{
+  "name": "envvars_list",
+  "description": "List all environment variables configured for a service.",
+  "resource_group": "environment_variables",
+  "endpoint": "/v1/services/{serviceId}/env-vars",
+  "method": "GET",
+  "parameters": [
+    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID."},
+    {"name": "cursor", "type": "string", "required": false, "description": "Cursor for pagination."},
+    {"name": "limit", "type": "integer", "required": false, "description": "Max results to return."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5/env-vars"
+  },
+  "response_example": [
+    {"envVar": {"key": "NODE_ENV", "value": "production"}, "cursor": "env-cursor-1"},
+    {"envVar": {"key": "DATABASE_URL", "value": "postgresql://user:pass@db:5432/mydb"}, "cursor": "env-cursor-2"}
+  ]
+}

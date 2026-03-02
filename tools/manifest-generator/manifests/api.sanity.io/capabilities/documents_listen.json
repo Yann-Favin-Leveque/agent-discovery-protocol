@@ -1,0 +1,79 @@
+{
+  "name": "documents_listen",
+  "description": "Subscribe to real-time document changes via Server-Sent Events (SSE). Filter changes with a GROQ query.",
+  "endpoint": "/v{apiVersion}/data/listen/{dataset}",
+  "method": "GET",
+  "resource_group": "listen",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "GROQ query to filter events",
+      "required": true,
+      "example": "*[_type == 'post']"
+    },
+    {
+      "name": "includeResult",
+      "type": "boolean",
+      "description": "Include resulting document in events",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "includePreviousRevision",
+      "type": "boolean",
+      "description": "Include document state before change",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "description": "Event timing: transaction or query",
+      "required": false,
+      "example": "query"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/data/listen/production?query=*[_type == 'post']&includeResult=true",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Accept": "text/event-stream"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "event": "mutation",
+      "documentId": "post-123",
+      "transition": "update",
+      "result": {
+        "_id": "post-123",
+        "_type": "post",
+        "title": "Updated Post"
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

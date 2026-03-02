@@ -1,0 +1,49 @@
+{
+  "name": "volumes_create",
+  "description": "Create and attach a persistent volume.",
+  "resource_group": "volumes",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "description": "Project ID."
+    },
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "Service ID."
+    },
+    {
+      "name": "mountPath",
+      "type": "string",
+      "required": true,
+      "description": "Mount path."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($input: VolumeCreateInput!) { volumeCreate(input: $input) { id name mountPath } }",
+      "variables": {
+        "input": {
+          "projectId": "proj-abc",
+          "serviceId": "srv-abc",
+          "mountPath": "/data"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "volumeCreate": {
+        "id": "vol-new",
+        "mountPath": "/data"
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "name": "parcels_create",
+  "description": "Create a parcel with dimensions and weight.",
+  "endpoint": "/v2/parcels",
+  "method": "POST",
+  "resource_group": "parcels",
+  "parameters": [
+    {
+      "name": "length",
+      "type": "number",
+      "description": "Length in inches.",
+      "required": false,
+      "example": 10.0
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "description": "Width in inches.",
+      "required": false,
+      "example": 8.0
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "description": "Height in inches.",
+      "required": false,
+      "example": 4.0
+    },
+    {
+      "name": "weight",
+      "type": "number",
+      "description": "Weight in ounces.",
+      "required": true,
+      "example": 24.0
+    },
+    {
+      "name": "predefined_package",
+      "type": "string",
+      "description": "Predefined carrier package type.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/parcels",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "parcel": {
+        "length": 10,
+        "width": 8,
+        "height": 4,
+        "weight": 24
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "prcl_abc123",
+      "object": "Parcel",
+      "length": 10.0,
+      "width": 8.0,
+      "height": 4.0,
+      "weight": 24.0
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

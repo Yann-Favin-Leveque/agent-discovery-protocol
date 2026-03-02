@@ -1,55 +1,314 @@
 {
   "spec_version": "1.0",
   "name": "Mastodon",
-  "description": "Mastodon is a decentralized, open-source social network based on the ActivityPub protocol. The API allows agents to post statuses (toots), browse timelines, interact with posts via boosts and favorites, search content, and manage account information across federated instances.",
+  "description": "Mastodon is a decentralized, open-source social network based on ActivityPub. The API allows agents to post statuses, browse timelines, interact with posts, search content, manage accounts, upload media, handle notifications, vote on polls, and manage bookmarks and favorites.",
   "base_url": "https://mastodon.social",
   "auth": {
     "type": "oauth2",
     "authorization_url": "https://mastodon.social/oauth/authorize",
     "token_url": "https://mastodon.social/oauth/token",
-    "scopes": ["read", "write", "follow"],
+    "scopes": [
+      "read",
+      "write",
+      "follow",
+      "push"
+    ],
     "setup_url": "https://mastodon.social/settings/applications"
   },
   "capabilities": [
     {
-      "name": "post_status",
-      "description": "Publish a new status (toot) with text content, optional media attachments, content warnings, and visibility settings.",
-      "detail_url": "/capabilities/post_status"
+      "name": "status_create",
+      "resource_group": "statuses",
+      "description": "Publish a new status (toot) with text, media, content warnings, and visibility settings.",
+      "detail_url": "/capabilities/status_create"
     },
     {
-      "name": "get_timeline",
-      "description": "Fetch the home, local, or federated timeline as a paginated list of statuses.",
-      "detail_url": "/capabilities/get_timeline"
+      "name": "status_get",
+      "resource_group": "statuses",
+      "description": "Retrieve a single status by its ID with content, author, media, and engagement counts.",
+      "detail_url": "/capabilities/status_get"
     },
     {
-      "name": "get_status",
-      "description": "Retrieve a single status by its ID, including content, author, media attachments, and engagement counts.",
-      "detail_url": "/capabilities/get_status"
+      "name": "statuses_get_multiple",
+      "resource_group": "statuses",
+      "description": "Retrieve multiple statuses by their IDs.",
+      "detail_url": "/capabilities/statuses_get_multiple"
     },
     {
-      "name": "search_content",
-      "description": "Search Mastodon for statuses, accounts, or hashtags matching a query string.",
-      "detail_url": "/capabilities/search_content"
+      "name": "status_delete",
+      "resource_group": "statuses",
+      "description": "Delete one of your own statuses.",
+      "detail_url": "/capabilities/status_delete"
     },
     {
-      "name": "boost_status",
-      "description": "Reblog (boost) a status to share it with your followers on your profile.",
-      "detail_url": "/capabilities/boost_status"
+      "name": "status_edit",
+      "resource_group": "statuses",
+      "description": "Edit a previously posted status to change text, sensitivity, media, or poll.",
+      "detail_url": "/capabilities/status_edit"
     },
     {
-      "name": "favorite_status",
-      "description": "Mark a status as a favorite (like) to show appreciation and save it to your favorites list.",
-      "detail_url": "/capabilities/favorite_status"
+      "name": "status_context_get",
+      "resource_group": "statuses",
+      "description": "Get parent and child statuses in the thread of a given status.",
+      "detail_url": "/capabilities/status_context_get"
     },
     {
-      "name": "get_account",
-      "description": "Retrieve profile information for the authenticated user or a specified account, including display name, bio, and follower counts.",
-      "detail_url": "/capabilities/get_account"
+      "name": "status_translate",
+      "resource_group": "statuses",
+      "description": "Translate a status into a specified language.",
+      "detail_url": "/capabilities/status_translate"
     },
     {
-      "name": "get_notifications",
-      "description": "Fetch a paginated list of notifications including mentions, follows, boosts, and favorites.",
-      "detail_url": "/capabilities/get_notifications"
+      "name": "status_reblog",
+      "resource_group": "statuses",
+      "description": "Boost (reblog) a status to share it with your followers.",
+      "detail_url": "/capabilities/status_reblog"
+    },
+    {
+      "name": "status_unreblog",
+      "resource_group": "statuses",
+      "description": "Undo a boost of a status.",
+      "detail_url": "/capabilities/status_unreblog"
+    },
+    {
+      "name": "status_favourite",
+      "resource_group": "statuses",
+      "description": "Add a status to your favourites list.",
+      "detail_url": "/capabilities/status_favourite"
+    },
+    {
+      "name": "status_unfavourite",
+      "resource_group": "statuses",
+      "description": "Remove a status from your favourites list.",
+      "detail_url": "/capabilities/status_unfavourite"
+    },
+    {
+      "name": "status_bookmark",
+      "resource_group": "statuses",
+      "description": "Privately bookmark a status.",
+      "detail_url": "/capabilities/status_bookmark"
+    },
+    {
+      "name": "status_unbookmark",
+      "resource_group": "statuses",
+      "description": "Remove a status from your bookmarks.",
+      "detail_url": "/capabilities/status_unbookmark"
+    },
+    {
+      "name": "status_pin",
+      "resource_group": "statuses",
+      "description": "Pin a status to the top of your profile.",
+      "detail_url": "/capabilities/status_pin"
+    },
+    {
+      "name": "status_unpin",
+      "resource_group": "statuses",
+      "description": "Unpin a status from your profile.",
+      "detail_url": "/capabilities/status_unpin"
+    },
+    {
+      "name": "status_mute",
+      "resource_group": "statuses",
+      "description": "Mute notifications for a conversation thread.",
+      "detail_url": "/capabilities/status_mute"
+    },
+    {
+      "name": "status_reblogged_by_list",
+      "resource_group": "statuses",
+      "description": "View who boosted a given status.",
+      "detail_url": "/capabilities/status_reblogged_by_list"
+    },
+    {
+      "name": "status_favourited_by_list",
+      "resource_group": "statuses",
+      "description": "View who favourited a given status.",
+      "detail_url": "/capabilities/status_favourited_by_list"
+    },
+    {
+      "name": "status_history_get",
+      "resource_group": "statuses",
+      "description": "View the edit history of a status.",
+      "detail_url": "/capabilities/status_history_get"
+    },
+    {
+      "name": "timeline_home_get",
+      "resource_group": "timelines",
+      "description": "Fetch the home timeline of statuses from followed users.",
+      "detail_url": "/capabilities/timeline_home_get"
+    },
+    {
+      "name": "timeline_public_get",
+      "resource_group": "timelines",
+      "description": "Fetch the public (local or federated) timeline.",
+      "detail_url": "/capabilities/timeline_public_get"
+    },
+    {
+      "name": "timeline_hashtag_get",
+      "resource_group": "timelines",
+      "description": "Fetch public statuses containing a given hashtag.",
+      "detail_url": "/capabilities/timeline_hashtag_get"
+    },
+    {
+      "name": "timeline_list_get",
+      "resource_group": "timelines",
+      "description": "Fetch statuses from a specific list timeline.",
+      "detail_url": "/capabilities/timeline_list_get"
+    },
+    {
+      "name": "account_verify_credentials",
+      "resource_group": "accounts",
+      "description": "Verify the current access token and get the authenticated account.",
+      "detail_url": "/capabilities/account_verify_credentials"
+    },
+    {
+      "name": "account_get",
+      "resource_group": "accounts",
+      "description": "Retrieve profile information for a specific account.",
+      "detail_url": "/capabilities/account_get"
+    },
+    {
+      "name": "account_statuses_list",
+      "resource_group": "accounts",
+      "description": "Get statuses posted by a specific account.",
+      "detail_url": "/capabilities/account_statuses_list"
+    },
+    {
+      "name": "account_followers_list",
+      "resource_group": "accounts",
+      "description": "Get a list of accounts following a given account.",
+      "detail_url": "/capabilities/account_followers_list"
+    },
+    {
+      "name": "account_following_list",
+      "resource_group": "accounts",
+      "description": "Get accounts that a given account follows.",
+      "detail_url": "/capabilities/account_following_list"
+    },
+    {
+      "name": "account_follow",
+      "resource_group": "accounts",
+      "description": "Follow a given account.",
+      "detail_url": "/capabilities/account_follow"
+    },
+    {
+      "name": "account_unfollow",
+      "resource_group": "accounts",
+      "description": "Unfollow a given account.",
+      "detail_url": "/capabilities/account_unfollow"
+    },
+    {
+      "name": "account_block",
+      "resource_group": "accounts",
+      "description": "Block a given account.",
+      "detail_url": "/capabilities/account_block"
+    },
+    {
+      "name": "account_unblock",
+      "resource_group": "accounts",
+      "description": "Unblock a given account.",
+      "detail_url": "/capabilities/account_unblock"
+    },
+    {
+      "name": "account_mute",
+      "resource_group": "accounts",
+      "description": "Mute a given account.",
+      "detail_url": "/capabilities/account_mute"
+    },
+    {
+      "name": "account_unmute",
+      "resource_group": "accounts",
+      "description": "Unmute a given account.",
+      "detail_url": "/capabilities/account_unmute"
+    },
+    {
+      "name": "account_relationships_get",
+      "resource_group": "accounts",
+      "description": "Check relationships (follow, block, mute) with specified accounts.",
+      "detail_url": "/capabilities/account_relationships_get"
+    },
+    {
+      "name": "accounts_search",
+      "resource_group": "accounts",
+      "description": "Search for accounts by username or display name.",
+      "detail_url": "/capabilities/accounts_search"
+    },
+    {
+      "name": "account_update_credentials",
+      "resource_group": "accounts",
+      "description": "Update the authenticated user display name, bio, avatar, and preferences.",
+      "detail_url": "/capabilities/account_update_credentials"
+    },
+    {
+      "name": "search_v2",
+      "resource_group": "search",
+      "description": "Search for accounts, statuses, and hashtags matching a query.",
+      "detail_url": "/capabilities/search_v2"
+    },
+    {
+      "name": "notifications_list",
+      "resource_group": "notifications",
+      "description": "Get a paginated list of notifications including mentions, follows, boosts, and favourites.",
+      "detail_url": "/capabilities/notifications_list"
+    },
+    {
+      "name": "notification_get",
+      "resource_group": "notifications",
+      "description": "View a single notification by ID.",
+      "detail_url": "/capabilities/notification_get"
+    },
+    {
+      "name": "notifications_clear",
+      "resource_group": "notifications",
+      "description": "Clear all notifications.",
+      "detail_url": "/capabilities/notifications_clear"
+    },
+    {
+      "name": "notification_dismiss",
+      "resource_group": "notifications",
+      "description": "Dismiss a specific notification.",
+      "detail_url": "/capabilities/notification_dismiss"
+    },
+    {
+      "name": "media_upload",
+      "resource_group": "media",
+      "description": "Upload a media attachment for use with a new status.",
+      "detail_url": "/capabilities/media_upload"
+    },
+    {
+      "name": "media_get",
+      "resource_group": "media",
+      "description": "Get a media attachment to check processing status.",
+      "detail_url": "/capabilities/media_get"
+    },
+    {
+      "name": "media_update",
+      "resource_group": "media",
+      "description": "Update media attachment description or focus point before posting.",
+      "detail_url": "/capabilities/media_update"
+    },
+    {
+      "name": "poll_get",
+      "resource_group": "polls",
+      "description": "View a poll attached to a status.",
+      "detail_url": "/capabilities/poll_get"
+    },
+    {
+      "name": "poll_vote",
+      "resource_group": "polls",
+      "description": "Vote on a poll attached to a status.",
+      "detail_url": "/capabilities/poll_vote"
+    },
+    {
+      "name": "bookmarks_list",
+      "resource_group": "bookmarks",
+      "description": "Get a list of bookmarked statuses.",
+      "detail_url": "/capabilities/bookmarks_list"
+    },
+    {
+      "name": "favourites_list",
+      "resource_group": "favourites",
+      "description": "Get a list of favourited statuses.",
+      "detail_url": "/capabilities/favourites_list"
     }
   ]
 }

@@ -1,0 +1,38 @@
+{
+  "name": "env_vars_list",
+  "description": "List environment variables.",
+  "resource_group": "environment_variables",
+  "endpoint": "/v7/device_environment_variable",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter by device.",
+      "required": false,
+      "example": "device eq 1"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.balena-cloud.com/v7/device_environment_variable?$filter=device eq 1",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "d": [
+        {
+          "id": 1,
+          "name": "API_KEY",
+          "value": "xxx",
+          "device": {
+            "__id": 1
+          }
+        }
+      ]
+    }
+  }
+}

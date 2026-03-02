@@ -1,0 +1,43 @@
+{
+  "name": "schedule_list",
+  "description": "List all schedules with pagination.",
+  "resource_group": "schedule",
+  "endpoint": "/api/v3/schedules",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.trigger.dev/api/v3/schedules?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "sched_abc",
+          "taskIdentifier": "my-task",
+          "cron": "0 9 * * 1-5",
+          "active": true
+        }
+      ]
+    }
+  }
+}

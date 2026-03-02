@@ -1,0 +1,54 @@
+{
+  "name": "nearest_station_data_get",
+  "description": "Get air quality data from the nearest monitoring station to GPS coordinates or IP location.",
+  "resource_group": "data",
+  "endpoint": "/v2/nearest_station",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": false,
+      "description": "Latitude.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": false,
+      "description": "Longitude.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.airvisual.com/v2/nearest_station?lat=48.8566&lon=2.3522&key=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": {
+        "name": "Paris-Centre",
+        "city": "Paris",
+        "current": {
+          "pollution": {
+            "aqius": 42,
+            "mainus": "p2",
+            "p2": {
+              "conc": 10.2
+            }
+          }
+        }
+      }
+    }
+  }
+}

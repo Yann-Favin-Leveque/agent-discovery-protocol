@@ -1,0 +1,22 @@
+{
+  "name": "webhooks_list",
+  "description": "List all registered webhook callbacks for an account.",
+  "endpoint": "/events/account/{account_id}/events/callbacks",
+  "method": "GET",
+  "resource_group": "webhooks",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/events/account/xB2yw/events/callbacks",
+    "headers": {"Authorization": "Bearer {token}"},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"response": {"result": {"callbacks": [{"callbackid": 777, "event": "invoice.create", "uri": "https://example.com/webhooks/freshbooks", "verified": true}]}}}
+  },
+  "auth_scopes": ["user:webhooks:read"],
+  "rate_limits": {"requests_per_minute": 100}
+}

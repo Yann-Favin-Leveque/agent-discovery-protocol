@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Coda",
-  "description": "Coda is a document collaboration platform that combines spreadsheets, docs, and automation in one place. Use this API to programmatically manage documents, access tables and rows, and automate workflows across your Coda workspace.",
+  "description": "Coda is a document collaboration platform that combines spreadsheets, docs, and automation. Use this API to manage documents, tables, rows, columns, formulas, controls, pages, and automations programmatically.",
   "base_url": "https://coda.io/apis/v1",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,154 @@
   },
   "capabilities": [
     {
-      "name": "list_docs",
-      "description": "List all documents accessible to the authenticated user, including metadata like name, owner, creation date, and timestamps.",
-      "detail_url": "/capabilities/list_docs"
+      "name": "docs_list",
+      "description": "List all documents accessible to the authenticated user with optional filtering.",
+      "resource_group": "docs",
+      "detail_url": "/capabilities/docs_list"
     },
     {
-      "name": "get_table",
-      "description": "Retrieve detailed information about a specific table in a document, including columns, field types, and configuration.",
-      "detail_url": "/capabilities/get_table"
+      "name": "docs_get",
+      "description": "Retrieve detailed information about a specific document.",
+      "resource_group": "docs",
+      "detail_url": "/capabilities/docs_get"
     },
     {
-      "name": "list_rows",
-      "description": "Fetch rows from a table with optional filtering, sorting, and field selection. Supports pagination for large datasets.",
-      "detail_url": "/capabilities/list_rows"
+      "name": "docs_create",
+      "description": "Create a new Coda document, optionally from a template.",
+      "resource_group": "docs",
+      "detail_url": "/capabilities/docs_create"
     },
     {
-      "name": "insert_rows",
-      "description": "Add one or more new rows to a table with specified column values. Supports batch operations and cell-level data insertion.",
-      "detail_url": "/capabilities/insert_rows"
+      "name": "docs_delete",
+      "description": "Delete a document by its ID.",
+      "resource_group": "docs",
+      "detail_url": "/capabilities/docs_delete"
     },
     {
-      "name": "update_row",
-      "description": "Modify an existing row in a table by updating specific column values while preserving other data.",
-      "detail_url": "/capabilities/update_row"
+      "name": "pages_list",
+      "description": "List all pages within a document.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_list"
     },
     {
-      "name": "list_pages",
-      "description": "Retrieve all pages within a document, including their hierarchy, names, and metadata.",
-      "detail_url": "/capabilities/list_pages"
+      "name": "pages_get",
+      "description": "Retrieve a specific page by ID.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_get"
+    },
+    {
+      "name": "pages_update",
+      "description": "Update a page's name, subtitle, or icon.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_update"
+    },
+    {
+      "name": "tables_list",
+      "description": "List all tables in a document.",
+      "resource_group": "tables",
+      "detail_url": "/capabilities/tables_list"
+    },
+    {
+      "name": "tables_get",
+      "description": "Retrieve detailed information about a specific table.",
+      "resource_group": "tables",
+      "detail_url": "/capabilities/tables_get"
+    },
+    {
+      "name": "columns_list",
+      "description": "List all columns in a table.",
+      "resource_group": "columns",
+      "detail_url": "/capabilities/columns_list"
+    },
+    {
+      "name": "columns_get",
+      "description": "Retrieve a specific column by ID.",
+      "resource_group": "columns",
+      "detail_url": "/capabilities/columns_get"
+    },
+    {
+      "name": "rows_list",
+      "description": "List rows from a table with optional filtering, sorting, and pagination.",
+      "resource_group": "rows",
+      "detail_url": "/capabilities/rows_list"
+    },
+    {
+      "name": "rows_get",
+      "description": "Retrieve a specific row by ID.",
+      "resource_group": "rows",
+      "detail_url": "/capabilities/rows_get"
+    },
+    {
+      "name": "rows_upsert",
+      "description": "Insert or update rows in a table. Rows matching keyColumns are updated; others are inserted.",
+      "resource_group": "rows",
+      "detail_url": "/capabilities/rows_upsert"
+    },
+    {
+      "name": "rows_update",
+      "description": "Update a specific row's cell values.",
+      "resource_group": "rows",
+      "detail_url": "/capabilities/rows_update"
+    },
+    {
+      "name": "rows_delete",
+      "description": "Delete specified rows from a table.",
+      "resource_group": "rows",
+      "detail_url": "/capabilities/rows_delete"
+    },
+    {
+      "name": "formulas_list",
+      "description": "List all named formulas in a document.",
+      "resource_group": "formulas",
+      "detail_url": "/capabilities/formulas_list"
+    },
+    {
+      "name": "formulas_get",
+      "description": "Retrieve a specific formula and its current value.",
+      "resource_group": "formulas",
+      "detail_url": "/capabilities/formulas_get"
+    },
+    {
+      "name": "controls_list",
+      "description": "List all controls (buttons, sliders, etc.) in a document.",
+      "resource_group": "controls",
+      "detail_url": "/capabilities/controls_list"
+    },
+    {
+      "name": "controls_get",
+      "description": "Retrieve a specific control and its current value.",
+      "resource_group": "controls",
+      "detail_url": "/capabilities/controls_get"
+    },
+    {
+      "name": "automations_list",
+      "description": "List all automations in a document.",
+      "resource_group": "automations",
+      "detail_url": "/capabilities/automations_list"
+    },
+    {
+      "name": "automations_trigger",
+      "description": "Trigger an automation rule to run immediately.",
+      "resource_group": "automations",
+      "detail_url": "/capabilities/automations_trigger"
+    },
+    {
+      "name": "resolve_browser_link",
+      "description": "Resolve a Coda browser URL to API resource metadata.",
+      "resource_group": "misc",
+      "detail_url": "/capabilities/resolve_browser_link"
+    },
+    {
+      "name": "whoami",
+      "description": "Retrieve information about the authenticated API token owner.",
+      "resource_group": "misc",
+      "detail_url": "/capabilities/whoami"
+    },
+    {
+      "name": "mutation_status",
+      "description": "Check the status of an asynchronous mutation (row insert/update/delete).",
+      "resource_group": "misc",
+      "detail_url": "/capabilities/mutation_status"
     }
   ]
 }

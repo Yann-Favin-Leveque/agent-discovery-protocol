@@ -1,0 +1,70 @@
+{
+  "name": "components_create",
+  "description": "Create a new component definition (content type schema).",
+  "endpoint": "/v1/spaces/{space_id}/components",
+  "method": "POST",
+  "resource_group": "components",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "integer",
+      "description": "Space ID",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "component",
+      "type": "object",
+      "description": "Component definition",
+      "required": true,
+      "example": {
+        "name": "hero",
+        "schema": {
+          "title": {
+            "type": "text"
+          },
+          "image": {
+            "type": "image"
+          }
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mapi.storyblok.com/v1/spaces/12345/components",
+    "headers": {
+      "Authorization": "your-management-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "component": {
+        "name": "hero",
+        "schema": {
+          "title": {
+            "type": "text"
+          },
+          "image": {
+            "type": "image"
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "component": {
+        "id": 3,
+        "name": "hero"
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

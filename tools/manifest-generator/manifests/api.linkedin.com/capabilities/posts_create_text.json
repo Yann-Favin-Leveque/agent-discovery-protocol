@@ -1,0 +1,70 @@
+{
+  "name": "posts_create_text",
+  "description": "Publish a text-only post to LinkedIn.",
+  "resource_group": "posts",
+  "endpoint": "/v2/posts",
+  "method": "POST",
+  "auth_scopes": [
+    "w_member_social"
+  ],
+  "parameters": [
+    {
+      "name": "author",
+      "type": "string",
+      "required": true,
+      "description": "Author URN (e.g., urn:li:person:abc123).",
+      "example": "urn:li:person:abc123"
+    },
+    {
+      "name": "commentary",
+      "type": "string",
+      "required": true,
+      "description": "Post text content.",
+      "example": "Excited to share my latest project!"
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "required": true,
+      "description": "Visibility: PUBLIC or CONNECTIONS.",
+      "example": "PUBLIC"
+    },
+    {
+      "name": "lifecycleState",
+      "type": "string",
+      "required": true,
+      "description": "Must be PUBLISHED.",
+      "example": "PUBLISHED"
+    },
+    {
+      "name": "distribution",
+      "type": "object",
+      "required": true,
+      "description": "Distribution settings with feedDistribution: MAIN_FEED."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.linkedin.com/v2/posts",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "X-Restli-Protocol-Version": "2.0.0"
+    },
+    "body": {
+      "author": "urn:li:person:abc123",
+      "commentary": "Excited to share my latest project!",
+      "visibility": "PUBLIC",
+      "lifecycleState": "PUBLISHED",
+      "distribution": {
+        "feedDistribution": "MAIN_FEED"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "urn:li:share:123456789"
+    }
+  }
+}

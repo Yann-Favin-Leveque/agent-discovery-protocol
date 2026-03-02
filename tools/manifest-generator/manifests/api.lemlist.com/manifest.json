@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Lemlist",
-  "description": "Lemlist is a sales engagement and outreach automation platform. Use it to manage cold email campaigns, add and track leads through sequences, enrich contact data, send multi-channel messages (email, LinkedIn, WhatsApp), and monitor campaign performance with detailed analytics.",
+  "description": "Lemlist is a sales engagement and outreach automation platform. Manage cold email campaigns, add and track leads through sequences, enrich contact data, send multi-channel messages (email, LinkedIn, WhatsApp), and monitor campaign performance.",
   "base_url": "https://api.lemlist.com",
   "auth": {
     "type": "api_key",
@@ -11,39 +11,184 @@
   },
   "capabilities": [
     {
-      "name": "manage_campaigns",
-      "description": "Create, update, start, pause, or retrieve outreach campaigns. Get campaign stats and reports on deliverability, opens, clicks, and replies.",
-      "detail_url": "/capabilities/manage_campaigns"
+      "name": "campaigns_list",
+      "resource_group": "campaigns",
+      "description": "List all campaigns in your team.",
+      "detail_url": "/capabilities/campaigns_list"
     },
     {
-      "name": "manage_leads",
-      "description": "Add leads to campaigns, update lead info, mark as interested/not interested, pause or resume leads, and manage custom variables.",
-      "detail_url": "/capabilities/manage_leads"
+      "name": "campaigns_get",
+      "resource_group": "campaigns",
+      "description": "Get a specific campaign by ID.",
+      "detail_url": "/capabilities/campaigns_get"
     },
     {
-      "name": "send_message",
-      "description": "Send an email, LinkedIn message, or WhatsApp message to a contact through the Lemlist inbox.",
-      "detail_url": "/capabilities/send_message"
+      "name": "campaigns_create",
+      "resource_group": "campaigns",
+      "description": "Create a new outreach campaign.",
+      "detail_url": "/capabilities/campaigns_create"
     },
     {
-      "name": "enrich_contact",
-      "description": "Find email addresses, phone numbers, and LinkedIn profiles for prospects. Supports single and bulk enrichment of up to 500 entities.",
-      "detail_url": "/capabilities/enrich_contact"
+      "name": "campaigns_update",
+      "resource_group": "campaigns",
+      "description": "Update campaign settings.",
+      "detail_url": "/capabilities/campaigns_update"
     },
     {
-      "name": "get_activities",
-      "description": "Retrieve the history of all campaign activities including email sends, opens, clicks, replies, and bounces.",
-      "detail_url": "/capabilities/get_activities"
+      "name": "campaigns_start",
+      "resource_group": "campaigns",
+      "description": "Start or resume a paused campaign.",
+      "detail_url": "/capabilities/campaigns_start"
     },
     {
-      "name": "manage_unsubscribes",
-      "description": "Add or remove emails and domains from your unsubscribe list. Retrieve and export all unsubscribed contacts.",
-      "detail_url": "/capabilities/manage_unsubscribes"
+      "name": "campaigns_pause",
+      "resource_group": "campaigns",
+      "description": "Pause a running campaign.",
+      "detail_url": "/capabilities/campaigns_pause"
     },
     {
-      "name": "search_prospects",
-      "description": "Search the Lemlist people and companies database to find new prospects using filters, keywords, and pagination.",
-      "detail_url": "/capabilities/search_prospects"
+      "name": "campaigns_get_stats",
+      "resource_group": "campaigns",
+      "description": "Get performance statistics for a campaign.",
+      "detail_url": "/capabilities/campaigns_get_stats"
+    },
+    {
+      "name": "campaigns_export",
+      "resource_group": "campaigns",
+      "description": "Export campaign leads to CSV.",
+      "detail_url": "/capabilities/campaigns_export"
+    },
+    {
+      "name": "leads_create",
+      "resource_group": "leads",
+      "description": "Create a lead and add to a campaign.",
+      "detail_url": "/capabilities/leads_create"
+    },
+    {
+      "name": "leads_list",
+      "resource_group": "leads",
+      "description": "List leads in a campaign with optional filtering.",
+      "detail_url": "/capabilities/leads_list"
+    },
+    {
+      "name": "leads_get",
+      "resource_group": "leads",
+      "description": "Get a lead by email or ID.",
+      "detail_url": "/capabilities/leads_get"
+    },
+    {
+      "name": "leads_update",
+      "resource_group": "leads",
+      "description": "Update a lead in a campaign.",
+      "detail_url": "/capabilities/leads_update"
+    },
+    {
+      "name": "leads_delete",
+      "resource_group": "leads",
+      "description": "Delete or unsubscribe a lead.",
+      "detail_url": "/capabilities/leads_delete"
+    },
+    {
+      "name": "leads_pause",
+      "resource_group": "leads",
+      "description": "Pause a lead in campaigns.",
+      "detail_url": "/capabilities/leads_pause"
+    },
+    {
+      "name": "leads_resume",
+      "resource_group": "leads",
+      "description": "Resume a paused lead.",
+      "detail_url": "/capabilities/leads_resume"
+    },
+    {
+      "name": "leads_mark_interested",
+      "resource_group": "leads",
+      "description": "Mark a lead as interested.",
+      "detail_url": "/capabilities/leads_mark_interested"
+    },
+    {
+      "name": "leads_mark_not_interested",
+      "resource_group": "leads",
+      "description": "Mark a lead as not interested.",
+      "detail_url": "/capabilities/leads_mark_not_interested"
+    },
+    {
+      "name": "activities_list",
+      "resource_group": "activities",
+      "description": "Get history of all campaign activities.",
+      "detail_url": "/capabilities/activities_list"
+    },
+    {
+      "name": "enrichment_enrich",
+      "resource_group": "enrichment",
+      "description": "Enrich data by finding emails, phones, or LinkedIn info.",
+      "detail_url": "/capabilities/enrichment_enrich"
+    },
+    {
+      "name": "enrichment_bulk",
+      "resource_group": "enrichment",
+      "description": "Batch enrich up to 500 entities.",
+      "detail_url": "/capabilities/enrichment_bulk"
+    },
+    {
+      "name": "unsubscribes_list",
+      "resource_group": "unsubscribes",
+      "description": "List all unsubscribed emails and domains.",
+      "detail_url": "/capabilities/unsubscribes_list"
+    },
+    {
+      "name": "unsubscribes_add",
+      "resource_group": "unsubscribes",
+      "description": "Add email or domain to unsubscribe list.",
+      "detail_url": "/capabilities/unsubscribes_add"
+    },
+    {
+      "name": "unsubscribes_delete",
+      "resource_group": "unsubscribes",
+      "description": "Remove email from unsubscribe list.",
+      "detail_url": "/capabilities/unsubscribes_delete"
+    },
+    {
+      "name": "team_get",
+      "resource_group": "team",
+      "description": "Get team information.",
+      "detail_url": "/capabilities/team_get"
+    },
+    {
+      "name": "team_get_credits",
+      "resource_group": "team",
+      "description": "Get remaining team credits.",
+      "detail_url": "/capabilities/team_get_credits"
+    },
+    {
+      "name": "webhooks_create",
+      "resource_group": "webhooks",
+      "description": "Create a webhook for event notifications.",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_list",
+      "resource_group": "webhooks",
+      "description": "List all configured webhooks.",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_delete",
+      "resource_group": "webhooks",
+      "description": "Delete a webhook.",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "inbox_send_email",
+      "resource_group": "inbox",
+      "description": "Send an email through lemlist inbox.",
+      "detail_url": "/capabilities/inbox_send_email"
+    },
+    {
+      "name": "inbox_send_linkedin",
+      "resource_group": "inbox",
+      "description": "Send a LinkedIn message through lemlist.",
+      "detail_url": "/capabilities/inbox_send_linkedin"
     }
   ]
 }

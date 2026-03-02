@@ -1,0 +1,60 @@
+{
+  "name": "fulfillments_create",
+  "description": "Create a fulfillment for an order with tracking number, URL, and carrier information.",
+  "resource_group": "fulfillments",
+  "endpoint": "/admin/api/2024-10/fulfillments.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "line_items_by_fulfillment_order",
+      "type": "array",
+      "required": true,
+      "description": "Array of fulfillment order line items."
+    },
+    {
+      "name": "tracking_info",
+      "type": "object",
+      "required": false,
+      "description": "Tracking info with number, url, and company."
+    },
+    {
+      "name": "notify_customer",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to notify the customer."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}.myshopify.com/admin/api/2024-10/fulfillments.json",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fulfillment": {
+        "line_items_by_fulfillment_order": [
+          {
+            "fulfillment_order_id": 1046000778
+          }
+        ],
+        "tracking_info": {
+          "number": "1Z999AA10123456784",
+          "company": "UPS"
+        },
+        "notify_customer": true
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "fulfillment": {
+        "id": 1069019875,
+        "order_id": 450789469,
+        "status": "success",
+        "tracking_number": "1Z999AA10123456784"
+      }
+    }
+  }
+}

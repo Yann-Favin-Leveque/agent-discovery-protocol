@@ -1,0 +1,53 @@
+{
+  "name": "groups_create",
+  "description": "Create a new group of phone numbers that can be used as a batch message target. A phone number can only occur once in a group.",
+  "endpoint": "/xms/v1/{service_plan_id}/groups",
+  "method": "POST",
+  "resource_group": "groups",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Name of the group for identification."
+    },
+    {
+      "name": "members",
+      "type": "array",
+      "required": false,
+      "description": "Array of phone numbers in E.164 format to add as initial members."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/groups",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {api_token}"
+    },
+    "body": {
+      "name": "VIP Customers",
+      "members": ["14155550123", "14155550124", "14155550125"]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "group-id-01",
+      "name": "VIP Customers",
+      "size": 3,
+      "created_at": "2024-01-15T12:00:00.000Z",
+      "modified_at": "2024-01-15T12:00:00.000Z"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

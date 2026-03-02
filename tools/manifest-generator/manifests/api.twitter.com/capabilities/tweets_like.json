@@ -1,0 +1,43 @@
+{
+  "name": "tweets_like",
+  "description": "Like a tweet.",
+  "resource_group": "likes",
+  "endpoint": "/2/users/{id}/likes",
+  "method": "POST",
+  "auth_scopes": [
+    "like.write"
+  ],
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Authenticated user ID."
+    },
+    {
+      "name": "tweet_id",
+      "type": "string",
+      "required": true,
+      "description": "Tweet ID to like."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.twitter.com/2/users/123456/likes",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tweet_id": "1234567890123456789"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "liked": true
+      }
+    }
+  }
+}

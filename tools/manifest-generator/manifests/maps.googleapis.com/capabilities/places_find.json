@@ -1,0 +1,73 @@
+{
+  "name": "places_find",
+  "description": "Find a place from text input or phone number. Returns the most likely place match with its place ID for use in other API calls.",
+  "endpoint": "/maps/api/place/findplacefromtext/json",
+  "method": "GET",
+  "resource_group": "places",
+  "parameters": [
+    {
+      "name": "input",
+      "type": "string",
+      "description": "Text input or phone number to search for.",
+      "required": true,
+      "example": "Museum of Modern Art"
+    },
+    {
+      "name": "inputtype",
+      "type": "string",
+      "description": "Input type: textquery or phonenumber.",
+      "required": true,
+      "example": "textquery"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated place data fields to return (e.g., place_id,name,formatted_address,geometry).",
+      "required": false,
+      "example": "place_id,name,formatted_address,geometry,rating"
+    },
+    {
+      "name": "locationbias",
+      "type": "string",
+      "description": "Location bias: ipbias, point:lat,lng, circle:radius@lat,lng, or rectangle:south,west|north,east.",
+      "required": false,
+      "example": "circle:5000@37.7749,-122.4194"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for results.",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum+of+Modern+Art&inputtype=textquery&fields=place_id,name,formatted_address&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "candidates": [
+        {
+          "name": "The Museum of Modern Art",
+          "place_id": "ChIJKxDbe_lYwokRVf__s8CPn-o",
+          "formatted_address": "11 W 53rd St, New York, NY 10019"
+        }
+      ],
+      "status": "OK"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

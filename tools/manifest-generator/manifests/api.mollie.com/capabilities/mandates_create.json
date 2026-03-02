@@ -1,0 +1,56 @@
+{
+  "name": "mandates_create",
+  "description": "Create a mandate for a customer to authorize recurring payments.",
+  "resource_group": "mandates",
+  "endpoint": "/v2/customers/{customerId}/mandates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "The customer ID.",
+      "required": true
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "description": "Payment method (e.g. directdebit).",
+      "required": true,
+      "example": "directdebit"
+    },
+    {
+      "name": "consumerName",
+      "type": "string",
+      "description": "Consumer full name.",
+      "required": true
+    },
+    {
+      "name": "consumerAccount",
+      "type": "string",
+      "description": "Consumer IBAN.",
+      "required": true,
+      "example": "NL55INGB0000000000"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/mandates",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "method": "directdebit",
+      "consumerName": "John Doe",
+      "consumerAccount": "NL55INGB0000000000"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "mandate",
+      "id": "mdt_h3gAaD5zP",
+      "status": "valid"
+    }
+  }
+}

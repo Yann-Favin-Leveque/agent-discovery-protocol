@@ -1,0 +1,76 @@
+{
+  "name": "lemur_task",
+  "description": "Run a custom LLM task on one or more transcripts using LeMUR.",
+  "endpoint": "/v2/lemur/v3/generate/task",
+  "method": "POST",
+  "resource_group": "lemur",
+  "parameters": [
+    {
+      "name": "transcript_ids",
+      "type": "array",
+      "description": "Array of transcript IDs to process.",
+      "required": true,
+      "example": [
+        "abc123"
+      ]
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "description": "Custom prompt for the LLM task.",
+      "required": true,
+      "example": "Summarize the key action items from this meeting."
+    },
+    {
+      "name": "final_model",
+      "type": "string",
+      "description": "LLM model: default, basic, or a specific model.",
+      "required": false,
+      "example": "default"
+    },
+    {
+      "name": "max_output_size",
+      "type": "integer",
+      "description": "Max output tokens.",
+      "required": false,
+      "example": 3000
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "description": "Temperature for generation (0-1).",
+      "required": false,
+      "example": 0.0
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.assemblyai.com/v2/lemur/v3/generate/task",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transcript_ids": [
+        "abc123"
+      ],
+      "prompt": "Summarize the key action items from this meeting.",
+      "final_model": "default"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req_abc123",
+      "response": "The key action items discussed were: 1. Complete the project proposal by Friday. 2. Schedule a follow-up meeting next week.",
+      "usage": {
+        "input_tokens": 1500,
+        "output_tokens": 50
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "timeactivities_create",
+  "description": "Record a time activity for billable time tracking.",
+  "endpoint": "/v3/company/{realmId}/timeactivity",
+  "method": "POST",
+  "resource_group": "timeactivities",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "NameOf",
+      "type": "string",
+      "description": "Employee or Vendor",
+      "required": true,
+      "example": "Employee"
+    },
+    {
+      "name": "EmployeeRef",
+      "type": "object",
+      "description": "Employee reference",
+      "required": false,
+      "example": {
+        "value": "55"
+      }
+    },
+    {
+      "name": "Hours",
+      "type": "integer",
+      "description": "Hours worked",
+      "required": true,
+      "example": 8
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/timeactivity?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "NameOf": "Employee",
+      "EmployeeRef": {
+        "value": "55"
+      },
+      "Hours": 8,
+      "Minutes": 0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TimeActivity": {
+        "Id": "4",
+        "Hours": 8,
+        "BillableStatus": "Billable"
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "invoice_get_async",
+  "description": "Retrieve the results of an asynchronous invoice parsing job.",
+  "endpoint": "/v1/products/mindee/invoices/v4/documents/queue/{job_id}",
+  "method": "GET",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "job_id",
+      "type": "string",
+      "description": "The job ID from the async prediction request.",
+      "required": true,
+      "example": "job_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mindee.com/v1/products/mindee/invoices/v4/documents/queue/job_abc123",
+    "headers": {
+      "Authorization": "Token {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "api_request": {
+        "status": "success"
+      },
+      "job": {
+        "id": "job_abc123",
+        "status": "completed"
+      },
+      "document": {
+        "inference": {
+          "prediction": {
+            "invoice_number": {
+              "value": "INV-001"
+            },
+            "total_amount": {
+              "value": 1250.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

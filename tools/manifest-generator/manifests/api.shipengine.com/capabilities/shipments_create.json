@@ -1,0 +1,96 @@
+{
+  "name": "shipments_create",
+  "description": "Create a new shipment with origin/destination addresses and package details.",
+  "endpoint": "/v1/shipments",
+  "method": "POST",
+  "resource_group": "shipments",
+  "parameters": [
+    {
+      "name": "ship_to",
+      "type": "object",
+      "description": "Destination address.",
+      "required": true
+    },
+    {
+      "name": "ship_from",
+      "type": "object",
+      "description": "Origin address.",
+      "required": true
+    },
+    {
+      "name": "packages",
+      "type": "array",
+      "description": "Array of package objects with weight and dimensions.",
+      "required": true
+    },
+    {
+      "name": "carrier_id",
+      "type": "string",
+      "description": "Carrier account ID.",
+      "required": false
+    },
+    {
+      "name": "service_code",
+      "type": "string",
+      "description": "Carrier service code.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/shipments",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ship_to": {
+        "name": "John Smith",
+        "address_line1": "525 S Winchester Blvd",
+        "city_locality": "San Jose",
+        "state_province": "CA",
+        "postal_code": "95128",
+        "country_code": "US"
+      },
+      "ship_from": {
+        "name": "My Warehouse",
+        "address_line1": "4009 Marathon Blvd",
+        "city_locality": "Austin",
+        "state_province": "TX",
+        "postal_code": "78756",
+        "country_code": "US"
+      },
+      "packages": [
+        {
+          "weight": {
+            "value": 1.5,
+            "unit": "pound"
+          },
+          "dimensions": {
+            "length": 10,
+            "width": 8,
+            "height": 4,
+            "unit": "inch"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "shipment_id": "se-1234567",
+      "shipment_status": "pending",
+      "ship_to": {
+        "name": "John Smith"
+      },
+      "ship_from": {
+        "name": "My Warehouse"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

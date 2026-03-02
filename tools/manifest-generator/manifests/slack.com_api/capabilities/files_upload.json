@@ -1,0 +1,93 @@
+{
+  "name": "files_upload",
+  "resource_group": "files",
+  "description": "Upload a file to Slack and share it in channels.",
+  "endpoint": "/files.upload",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channels",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated channel IDs to share in",
+      "example": "C1234567890"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": false,
+      "description": "File content (for text files)",
+      "example": "File content here"
+    },
+    {
+      "name": "file",
+      "type": "binary",
+      "required": false,
+      "description": "File data (multipart/form-data)",
+      "example": "(binary)"
+    },
+    {
+      "name": "filename",
+      "type": "string",
+      "required": false,
+      "description": "Filename",
+      "example": "report.txt"
+    },
+    {
+      "name": "filetype",
+      "type": "string",
+      "required": false,
+      "description": "File type identifier",
+      "example": "txt"
+    },
+    {
+      "name": "initial_comment",
+      "type": "string",
+      "required": false,
+      "description": "Comment to add with the file",
+      "example": "Here is the latest report"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "File title",
+      "example": "Monthly Report"
+    },
+    {
+      "name": "thread_ts",
+      "type": "string",
+      "required": false,
+      "description": "Thread timestamp to share in",
+      "example": "1503435956.000247"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://slack.com/api/files.upload",
+    "headers": {
+      "Authorization": "Bearer xoxb-xxx",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "channels": "C1234567890",
+      "content": "File content here",
+      "filename": "report.txt",
+      "title": "Monthly Report"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "file": {
+        "id": "F1234567890",
+        "name": "report.txt",
+        "title": "Monthly Report",
+        "mimetype": "text/plain",
+        "filetype": "txt",
+        "size": 1024
+      }
+    }
+  }
+}

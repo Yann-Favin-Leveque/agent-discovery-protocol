@@ -1,0 +1,55 @@
+{
+  "name": "opportunities_panels_create",
+  "resource_group": "Opportunities",
+  "endpoint": "/v1/opportunities/{opportunity}/panels",
+  "method": "POST",
+  "description": "Create an interview panel for an opportunity.",
+  "parameters": [
+    {
+      "name": "opportunity",
+      "type": "string",
+      "required": true,
+      "description": "Opportunity UUID."
+    },
+    {
+      "name": "interviewers",
+      "type": "array",
+      "required": true,
+      "description": "User UUIDs for panel."
+    },
+    {
+      "name": "date",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp."
+    },
+    {
+      "name": "perform_as",
+      "type": "string",
+      "required": false,
+      "description": "User UUID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lever.co/v1/opportunities/abc-123/panels",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "interviewers": [
+        "user-1",
+        "user-2"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "panel-1"
+      }
+    }
+  }
+}

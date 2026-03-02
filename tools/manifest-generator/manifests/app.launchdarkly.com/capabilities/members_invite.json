@@ -1,0 +1,19 @@
+{
+  "name": "members_invite",
+  "description": "Invite a new member to the LaunchDarkly account.",
+  "resource_group": "members",
+  "endpoint": "/members",
+  "method": "POST",
+  "parameters": [
+    {"name": "email", "type": "string", "description": "Email address to invite.", "required": true, "example": "newdev@example.com"},
+    {"name": "role", "type": "string", "description": "Role to assign (reader, writer, admin).", "required": false, "example": "writer"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.launchdarkly.com/api/v2/members",
+    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
+    "body": [{"email": "newdev@example.com", "role": "writer"}]
+  },
+  "response_example": {"status": 201, "body": {"items": [{"_id": "mem_new", "email": "newdev@example.com", "role": "writer"}]}},
+  "rate_limits": {"requests_per_minute": 120}
+}

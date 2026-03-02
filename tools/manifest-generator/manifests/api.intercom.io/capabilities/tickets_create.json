@@ -1,0 +1,77 @@
+{
+  "name": "tickets_create",
+  "description": "Create a support ticket associated with a contact and ticket type for structured issue tracking.",
+  "resource_group": "tickets",
+  "endpoint": "/tickets",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "ticket_type_id",
+      "type": "string",
+      "required": true,
+      "description": "The ticket type ID defining the ticket schema."
+    },
+    {
+      "name": "contacts",
+      "type": "array",
+      "required": true,
+      "description": "Array of contact objects: [{id: 'contact-id'}]."
+    },
+    {
+      "name": "ticket_attributes",
+      "type": "object",
+      "required": false,
+      "description": "Key-value pairs matching the ticket type's custom attributes."
+    },
+    {
+      "name": "company_id",
+      "type": "string",
+      "required": false,
+      "description": "Associated company ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/tickets",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "ticket_type_id": "ticket-type-1",
+      "contacts": [
+        {
+          "id": "contact-abc"
+        }
+      ],
+      "ticket_attributes": {
+        "_default_title_": "Bug Report",
+        "_default_description_": "Login page crashes on mobile"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "ticket",
+      "id": "ticket-123",
+      "ticket_type": {
+        "type": "ticket_type",
+        "id": "ticket-type-1"
+      },
+      "ticket_attributes": {
+        "_default_title_": "Bug Report"
+      },
+      "contacts": {
+        "contacts": [
+          {
+            "id": "contact-abc"
+          }
+        ]
+      },
+      "state": "submitted",
+      "created_at": 1740960000
+    }
+  }
+}

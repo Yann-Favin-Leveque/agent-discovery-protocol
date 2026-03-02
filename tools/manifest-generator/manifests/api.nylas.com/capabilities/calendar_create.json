@@ -1,0 +1,56 @@
+{
+  "name": "calendar_create",
+  "description": "Create a new calendar.",
+  "resource_group": "calendar",
+  "endpoint": "/v3/grants/{grant_id}/calendars",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Calendar name.",
+      "required": true,
+      "example": "Work Calendar"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Calendar description.",
+      "required": false
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "description": "Timezone.",
+      "required": false,
+      "example": "America/New_York"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.us.nylas.com/v3/grants/me/calendars",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Work Calendar"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "cal_abc",
+        "name": "Work Calendar"
+      }
+    }
+  }
+}

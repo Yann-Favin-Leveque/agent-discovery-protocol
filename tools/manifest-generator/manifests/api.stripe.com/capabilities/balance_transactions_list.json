@@ -1,0 +1,48 @@
+{
+  "name": "balance_transactions_list",
+  "description": "List balance transactions (funds movements) with filtering.",
+  "endpoint": "/v1/balance_transactions",
+  "method": "GET",
+  "resource_group": "balance",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter by type: charge, refund, payout, etc.",
+      "required": false,
+      "example": "charge"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/balance_transactions?type=charge&limit=10",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "txn_abc123",
+          "amount": 2000,
+          "type": "charge",
+          "status": "available"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "forms_create",
+  "resource_group": "forms",
+  "description": "Create a new Typeform form with specified title, fields, and settings.",
+  "endpoint": "/forms",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Form title."
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "required": false,
+      "in": "body",
+      "description": "Array of form field definitions."
+    },
+    {
+      "name": "settings",
+      "type": "object",
+      "required": false,
+      "in": "body",
+      "description": "Form settings (language, progress_bar, etc.)."
+    },
+    {
+      "name": "workspace",
+      "type": "object",
+      "required": false,
+      "in": "body",
+      "description": "Workspace to create form in."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.typeform.com/forms",
+    "headers": {
+      "Authorization": "Bearer {personal_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "My Survey",
+      "fields": [
+        {
+          "type": "short_text",
+          "title": "What is your name?"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "abc123XYZ",
+      "title": "My Survey",
+      "_links": {
+        "display": "https://form.typeform.com/to/abc123XYZ"
+      }
+    }
+  }
+}

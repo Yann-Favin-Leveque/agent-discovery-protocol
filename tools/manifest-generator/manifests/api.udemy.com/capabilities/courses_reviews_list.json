@@ -1,0 +1,67 @@
+{
+  "name": "courses_reviews_list",
+  "description": "Fetch user reviews and ratings for a specific course.",
+  "endpoint": "/api-2.0/courses/{course_id}/reviews/",
+  "method": "GET",
+  "resource_group": "courses",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "The numeric course ID",
+      "required": true,
+      "example": "1234"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": "1"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of reviews per page",
+      "required": false,
+      "example": "10"
+    },
+    {
+      "name": "fields[course_review]",
+      "type": "string",
+      "description": "Comma-separated list of review fields to return",
+      "required": false,
+      "example": "content,rating,created,user"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://www.udemy.com/api-2.0/courses/1234/reviews/?page_size=10",
+    "headers": {
+      "Authorization": "Basic {base64_client_id:client_secret}",
+      "Accept": "application/json, text/plain, */*"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 450000,
+      "results": [
+        {
+          "id": 5678,
+          "content": "Great course!",
+          "rating": 5.0,
+          "created": "2024-01-15T10:30:00Z",
+          "user": {
+            "title": "John D."
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

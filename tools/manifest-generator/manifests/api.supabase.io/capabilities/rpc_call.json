@@ -1,0 +1,49 @@
+{
+  "name": "rpc_call",
+  "description": "Call a PostgreSQL function (RPC) via the REST API. Useful for complex operations and transactions.",
+  "endpoint": "/rest/v1/rpc/{function_name}",
+  "method": "POST",
+  "resource_group": "database",
+  "parameters": [
+    {
+      "name": "function_name",
+      "type": "string",
+      "description": "PostgreSQL function name",
+      "required": true,
+      "example": "get_user_stats"
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "Function arguments as key-value pairs",
+      "required": false,
+      "example": {
+        "user_id": "abc-123"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/rest/v1/rpc/get_user_stats",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}",
+      "Content-Type": "application/json",
+      "Prefer": "return=representation"
+    },
+    "body": {
+      "user_id": "abc-123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total_posts": 42,
+      "total_comments": 156
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

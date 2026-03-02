@@ -1,0 +1,78 @@
+{
+  "name": "repos_create",
+  "description": "Create a new repository for the authenticated user.",
+  "resource_group": "repositories",
+  "endpoint": "/user/repos",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Repository name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Repository description."
+    },
+    {
+      "name": "private",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether the repo is private. Default false."
+    },
+    {
+      "name": "auto_init",
+      "type": "boolean",
+      "required": false,
+      "description": "Create initial commit with README. Default false."
+    },
+    {
+      "name": "gitignore_template",
+      "type": "string",
+      "required": false,
+      "description": "Gitignore template (e.g., 'Node', 'Python')."
+    },
+    {
+      "name": "license_template",
+      "type": "string",
+      "required": false,
+      "description": "License template (e.g., 'mit', 'apache-2.0')."
+    },
+    {
+      "name": "homepage",
+      "type": "string",
+      "required": false,
+      "description": "URL for the project homepage."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.github.com/user/repos",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "name": "new-project",
+      "description": "My new project",
+      "private": true,
+      "auto_init": true,
+      "license_template": "mit"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 789012,
+      "name": "new-project",
+      "full_name": "octocat/new-project",
+      "private": true,
+      "html_url": "https://github.com/octocat/new-project",
+      "default_branch": "main"
+    }
+  }
+}

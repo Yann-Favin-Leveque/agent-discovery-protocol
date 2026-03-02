@@ -1,0 +1,98 @@
+{
+  "name": "shipments_create",
+  "description": "Create a shipment to get rates from multiple carriers.",
+  "endpoint": "/shipments",
+  "method": "POST",
+  "resource_group": "shipments",
+  "parameters": [
+    {
+      "name": "address_from",
+      "type": "object",
+      "description": "Origin address object or ID.",
+      "required": true
+    },
+    {
+      "name": "address_to",
+      "type": "object",
+      "description": "Destination address object or ID.",
+      "required": true
+    },
+    {
+      "name": "parcels",
+      "type": "array",
+      "description": "Array of parcel objects or IDs.",
+      "required": true
+    },
+    {
+      "name": "customs_declaration",
+      "type": "string",
+      "description": "Customs declaration ID for international.",
+      "required": false
+    },
+    {
+      "name": "async",
+      "type": "boolean",
+      "description": "If true, rates are fetched asynchronously.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/shipments",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "address_from": {
+        "name": "Warehouse",
+        "street1": "388 Townsend St",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94107",
+        "country": "US"
+      },
+      "address_to": {
+        "name": "John Smith",
+        "street1": "417 Montgomery St",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94104",
+        "country": "US"
+      },
+      "parcels": [
+        {
+          "length": "10",
+          "width": "8",
+          "height": "4",
+          "distance_unit": "in",
+          "weight": "2",
+          "mass_unit": "lb"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "object_id": "shp_abc123",
+      "status": "SUCCESS",
+      "rates": [
+        {
+          "object_id": "rate_abc123",
+          "provider": "USPS",
+          "servicelevel": {
+            "name": "Priority Mail"
+          },
+          "amount": "7.58",
+          "currency": "USD",
+          "estimated_days": 3
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "name": "optimization_submit",
+  "description": "Submit a routing optimization problem (vehicle routing / TSP).",
+  "endpoint": "/optimized-trips/v2",
+  "method": "POST",
+  "resource_group": "optimization",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "pk.xxx"
+    },
+    {
+      "name": "locations",
+      "type": "array",
+      "description": "Array of location objects with coordinates.",
+      "required": true,
+      "example": [
+        {
+          "coordinates": [
+            -73.989,
+            40.733
+          ]
+        },
+        {
+          "coordinates": [
+            -74.006,
+            40.714
+          ]
+        }
+      ]
+    },
+    {
+      "name": "vehicles",
+      "type": "array",
+      "description": "Vehicle definitions.",
+      "required": true,
+      "example": [
+        {
+          "start_location": 0,
+          "end_location": 0
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mapbox.com/optimized-trips/v2?access_token=pk.xxx",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "locations": [
+        {
+          "coordinates": [
+            -73.989,
+            40.733
+          ]
+        },
+        {
+          "coordinates": [
+            -74.006,
+            40.714
+          ]
+        }
+      ],
+      "vehicles": [
+        {
+          "start_location": 0,
+          "end_location": 0
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "id": "opt_abc123",
+      "status": "pending"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

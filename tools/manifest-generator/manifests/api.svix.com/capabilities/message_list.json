@@ -1,0 +1,80 @@
+{
+  "name": "message_list",
+  "description": "List all webhook messages sent to an application.",
+  "resource_group": "message",
+  "endpoint": "/api/v1/app/{app_id}/msg",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "iterator",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    },
+    {
+      "name": "event_types",
+      "type": "array",
+      "description": "Filter by event types.",
+      "required": false
+    },
+    {
+      "name": "channel",
+      "type": "string",
+      "description": "Filter by channel.",
+      "required": false
+    },
+    {
+      "name": "before",
+      "type": "string",
+      "description": "Only messages before this time (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Only messages after this time (ISO 8601).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.svix.com/api/v1/app/app_123/msg?limit=10",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "msg_abc",
+          "eventType": "user.created",
+          "payload": {
+            "type": "user.created",
+            "data": {
+              "id": "usr_123"
+            }
+          },
+          "timestamp": "2024-01-01T00:00:00Z"
+        }
+      ],
+      "done": true
+    }
+  }
+}

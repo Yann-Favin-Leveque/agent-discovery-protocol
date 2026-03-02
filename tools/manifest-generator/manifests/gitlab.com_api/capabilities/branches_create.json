@@ -1,0 +1,49 @@
+{
+  "name": "branches_create",
+  "description": "Create a new branch.",
+  "resource_group": "branches",
+  "endpoint": "/projects/{id}/repository/branches",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "branch",
+      "type": "string",
+      "required": true,
+      "description": "New branch name."
+    },
+    {
+      "name": "ref",
+      "type": "string",
+      "required": true,
+      "description": "Source branch name or commit SHA."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/123/repository/branches",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    },
+    "body": {
+      "branch": "feature/new-feature",
+      "ref": "main"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "name": "feature/new-feature",
+      "commit": {
+        "id": "abc123"
+      }
+    }
+  }
+}

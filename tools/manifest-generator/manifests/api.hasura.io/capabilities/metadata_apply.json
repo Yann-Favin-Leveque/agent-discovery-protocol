@@ -1,0 +1,47 @@
+{
+  "name": "metadata_apply",
+  "resource_group": "metadata",
+  "description": "Apply metadata changes such as tracking tables, creating relationships, and setting permissions.",
+  "endpoint": "/v1/metadata",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Operation type (e.g., pg_track_table, pg_create_object_relationship, pg_create_insert_permission, bulk)."
+    },
+    {
+      "name": "args",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Operation-specific arguments."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project}.hasura.app/v1/metadata",
+    "headers": {
+      "x-hasura-admin-secret": "{admin_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "pg_track_table",
+      "args": {
+        "source": "default",
+        "table": {
+          "schema": "public",
+          "name": "users"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "success"
+    }
+  }
+}

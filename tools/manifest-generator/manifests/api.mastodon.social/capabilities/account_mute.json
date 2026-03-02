@@ -1,0 +1,50 @@
+{
+  "name": "account_mute",
+  "resource_group": "accounts",
+  "description": "Mute a given account.",
+  "endpoint": "/api/v1/accounts/{id}/mute",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Account ID.",
+      "required": true,
+      "in": "path",
+      "example": "12345"
+    },
+    {
+      "name": "notifications",
+      "type": "boolean",
+      "description": "Also mute notifications.",
+      "required": false,
+      "in": "body",
+      "example": true
+    },
+    {
+      "name": "duration",
+      "type": "integer",
+      "description": "Mute duration in seconds (0=indefinite).",
+      "required": false,
+      "in": "body",
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mastodon.social/api/v1/accounts/12345/mute",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "12345",
+      "muting": true
+    }
+  },
+  "auth_scopes": [
+    "write:mutes"
+  ]
+}

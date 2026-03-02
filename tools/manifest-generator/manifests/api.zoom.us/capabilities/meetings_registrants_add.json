@@ -1,0 +1,64 @@
+{
+  "name": "meetings_registrants_add",
+  "description": "Register a participant for a meeting that requires registration. Submit registrant details like name, email, and custom fields.",
+  "endpoint": "/meetings/{meetingId}/registrants",
+  "method": "POST",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "integer",
+      "description": "The meeting ID.",
+      "required": true,
+      "example": 1234567890
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Registrant email address.",
+      "required": true,
+      "example": "jane@example.com"
+    },
+    {
+      "name": "first_name",
+      "type": "string",
+      "description": "Registrant first name.",
+      "required": true,
+      "example": "Jane"
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "description": "Registrant last name.",
+      "required": false,
+      "example": "Doe"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.zoom.us/v2/meetings/1234567890/registrants",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "jane@example.com",
+      "first_name": "Jane",
+      "last_name": "Doe"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1234567890,
+      "registrant_id": "regid456",
+      "topic": "Weekly Team Sync",
+      "start_time": "2024-01-15T10:00:00Z",
+      "join_url": "https://zoom.us/j/1234567890?tk=abc"
+    }
+  },
+  "auth_scopes": ["meeting:write"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

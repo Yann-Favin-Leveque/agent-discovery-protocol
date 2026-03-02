@@ -1,0 +1,35 @@
+{
+  "name": "incidents_list_unresolved",
+  "description": "List only unresolved incidents on a status page, filtering out any incidents that have been resolved.",
+  "resource_group": "incidents",
+  "endpoint": "/v1/pages/{page_id}/incidents/unresolved",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the status page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.statuspage.io/v1/pages/pg1a2b3c4d5e6/incidents/unresolved",
+    "headers": {
+      "Authorization": "OAuth your-api-key-here"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "inc1a2b3c4d5e6",
+        "name": "API Latency Issues",
+        "status": "investigating",
+        "impact": "minor",
+        "created_at": "2026-03-01T10:00:00Z",
+        "resolved_at": null
+      }
+    ]
+  }
+}

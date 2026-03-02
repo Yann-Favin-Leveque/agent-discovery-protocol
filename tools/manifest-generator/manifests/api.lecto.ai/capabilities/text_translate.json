@@ -1,0 +1,61 @@
+{
+  "name": "text_translate",
+  "description": "Translate one or more text strings to one or more target languages. Supports automatic source language detection when 'from' is omitted. Handles both plain text and HTML content.",
+  "resource_group": "translate",
+  "endpoint": "/v1/translate/text",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "texts",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of text strings to translate."
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of target language codes (e.g., ['fr', 'de', 'es'])."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Source language code. Omit for automatic detection."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lecto.ai/v1/translate/text",
+    "headers": {
+      "X-API-Key": "your-lecto-api-key",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "texts": ["Hello, world!", "How are you?"],
+      "to": ["fr", "de"],
+      "from": "en"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "translations": [
+        {
+          "to": "fr",
+          "texts": ["Bonjour le monde !", "Comment allez-vous ?"]
+        },
+        {
+          "to": "de",
+          "texts": ["Hallo Welt!", "Wie geht es Ihnen?"]
+        }
+      ],
+      "from": "en",
+      "character_count": 30
+    }
+  }
+}

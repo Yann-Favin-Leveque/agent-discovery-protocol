@@ -1,0 +1,53 @@
+{
+  "name": "transit_sign",
+  "description": "Sign data using a named key in the Transit engine.",
+  "resource_group": "transit",
+  "endpoint": "/v1/transit/sign/{name}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Signing key name."
+    },
+    {
+      "name": "input",
+      "type": "string",
+      "required": true,
+      "description": "Base64-encoded input data."
+    },
+    {
+      "name": "hash_algorithm",
+      "type": "string",
+      "required": false,
+      "description": "Hash algorithm: sha2-256, sha2-384, sha2-512."
+    },
+    {
+      "name": "key_version",
+      "type": "integer",
+      "required": false,
+      "description": "Key version to use."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com/v1/transit/sign/my-key",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "input": "bXkgZGF0YQ=="
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "signature": "vault:v1:MEUCIQDx...",
+        "key_version": 1
+      }
+    }
+  }
+}

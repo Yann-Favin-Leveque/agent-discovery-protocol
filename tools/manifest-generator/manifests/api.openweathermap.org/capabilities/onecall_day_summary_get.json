@@ -1,0 +1,77 @@
+{
+  "name": "onecall_day_summary_get",
+  "description": "Get aggregated weather summary for a specific date including min/max temperature, precipitation total, and dominant weather.",
+  "resource_group": "onecall",
+  "endpoint": "/data/3.0/onecall/day_summary",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": true,
+      "description": "Latitude.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": true,
+      "description": "Longitude.",
+      "in": "query"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "Date in YYYY-MM-DD format.",
+      "in": "query"
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Units: standard, metric, or imperial.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=48.8566&lon=2.3522&date=2025-01-15&appid=YOUR_API_KEY&units=metric"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "lat": 48.86,
+      "lon": 2.35,
+      "date": "2025-01-15",
+      "temperature": {
+        "min": 12.1,
+        "max": 20.3,
+        "afternoon": 18.5,
+        "night": 13.2,
+        "evening": 15.8,
+        "morning": 12.5
+      },
+      "pressure": {
+        "afternoon": 1015
+      },
+      "humidity": {
+        "afternoon": 55
+      },
+      "wind": {
+        "max": {
+          "speed": 5.1,
+          "direction": 220
+        }
+      }
+    }
+  }
+}

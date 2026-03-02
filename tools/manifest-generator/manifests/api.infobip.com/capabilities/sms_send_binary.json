@@ -1,0 +1,76 @@
+{
+  "name": "sms_send_binary",
+  "description": "Send binary SMS messages containing raw data payloads for specialized use cases like OTA configuration, WAP push, or SIM toolkit commands.",
+  "endpoint": "/sms/2/binary/advanced",
+  "method": "POST",
+  "resource_group": "sms",
+  "parameters": [
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Array of binary message objects with destinations and binary content."
+    },
+    {
+      "name": "messages[].destinations",
+      "type": "array",
+      "required": true,
+      "description": "Array of destination objects with 'to' (E.164 phone number)."
+    },
+    {
+      "name": "messages[].from",
+      "type": "string",
+      "required": false,
+      "description": "Sender ID or phone number."
+    },
+    {
+      "name": "messages[].binary",
+      "type": "object",
+      "required": true,
+      "description": "Binary content object with 'hex' (hexadecimal data), 'dataCoding' (integer), and 'esmClass' (integer)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/sms/2/binary/advanced",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "messages": [
+        {
+          "from": "InfoSMS",
+          "destinations": [{ "to": "14155550123" }],
+          "binary": {
+            "hex": "54 65 73 74 20 6d 65 73 73 61 67 65 2e",
+            "dataCoding": 0,
+            "esmClass": 0
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "bulkId": "2034072219640523073",
+      "messages": [
+        {
+          "to": "14155550123",
+          "status": {
+            "groupId": 1,
+            "groupName": "PENDING",
+            "id": 26,
+            "name": "PENDING_ACCEPTED"
+          },
+          "messageId": "msg-id-12345"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

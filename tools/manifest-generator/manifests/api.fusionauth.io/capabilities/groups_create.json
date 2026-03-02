@@ -1,0 +1,47 @@
+{
+  "name": "groups_create",
+  "resource_group": "groups",
+  "description": "Create a new group to organize users.",
+  "endpoint": "/api/group",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "group",
+      "type": "object",
+      "required": true,
+      "description": "Group object with name, tenantId, data."
+    },
+    {
+      "name": "roleIds",
+      "type": "array",
+      "required": false,
+      "description": "Application role IDs to assign to group."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/group",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "group": {
+        "name": "Administrators",
+        "tenantId": "tenant-uuid"
+      },
+      "roleIds": [
+        "role-uuid"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "group": {
+        "id": "group-uuid",
+        "name": "Administrators"
+      }
+    }
+  }
+}

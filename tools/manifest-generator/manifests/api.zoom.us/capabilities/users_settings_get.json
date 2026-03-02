@@ -1,0 +1,55 @@
+{
+  "name": "users_settings_get",
+  "description": "Retrieve a user's settings including meeting, recording, email notification, and feature settings.",
+  "endpoint": "/users/{userId}/settings",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email. Use 'me' for authenticated user.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "option",
+      "type": "string",
+      "description": "Setting type: meeting_authentication, recording_authentication, or meeting_security.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/users/me/settings",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "schedule_meeting": {
+        "host_video": true,
+        "participants_video": false,
+        "default_password_for_scheduled_meetings": true
+      },
+      "in_meeting": {
+        "e2e_encryption": false,
+        "chat": true,
+        "screen_sharing": true,
+        "annotation": true
+      },
+      "recording": {
+        "local_recording": true,
+        "cloud_recording": true,
+        "auto_recording": "none"
+      }
+    }
+  },
+  "auth_scopes": ["user:read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

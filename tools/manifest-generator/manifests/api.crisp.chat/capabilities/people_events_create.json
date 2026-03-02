@@ -1,0 +1,68 @@
+{
+  "name": "people_events_create",
+  "description": "Track a new event for a specific people profile.",
+  "endpoint": "/v1/website/{website_id}/people/{people_id}/event",
+  "method": "POST",
+  "resource_group": "people",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    },
+    {
+      "name": "people_id",
+      "type": "string",
+      "description": "The unique people profile identifier.",
+      "required": true,
+      "example": "c7b72a68-be91-4e29-b6a0-efbb3b72ed1b"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Event description text.",
+      "required": true,
+      "example": "Upgraded to Pro plan"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Additional event data as key-value pairs.",
+      "required": false,
+      "example": {"plan": "pro", "amount": 99}
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "description": "Event color tag (red, orange, yellow, green, blue, purple, pink, brown, grey, black).",
+      "required": false,
+      "example": "green"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/people/c7b72a68-be91-4e29-b6a0-efbb3b72ed1b/event",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "Content-Type": "application/json",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {
+      "text": "Upgraded to Pro plan",
+      "data": {"plan": "pro", "amount": 99},
+      "color": "green"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {}
+    }
+  },
+  "auth_scopes": ["website:people:events"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

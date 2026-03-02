@@ -1,0 +1,61 @@
+{
+  "name": "threads_create_reply",
+  "description": "Send a reply to a conversation. The reply is delivered to the customer via email.",
+  "endpoint": "/v2/conversations/{id}/reply",
+  "method": "POST",
+  "resource_group": "threads",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Conversation ID.",
+      "required": true,
+      "example": 123
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Reply body (HTML).",
+      "required": true,
+      "example": "<p>Thanks for reaching out!</p>"
+    },
+    {
+      "name": "customer",
+      "type": "object",
+      "description": "Customer receiving the reply.",
+      "required": true,
+      "example": {
+        "email": "customer@example.com"
+      }
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Set conversation status after reply.",
+      "required": false,
+      "example": "closed"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.helpscout.net/v2/conversations/123/reply",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "text": "<p>Thanks for reaching out!</p>",
+      "customer": {
+        "email": "customer@example.com"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

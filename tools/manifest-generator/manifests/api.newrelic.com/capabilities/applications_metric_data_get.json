@@ -1,0 +1,78 @@
+{
+  "name": "applications_metric_data_get",
+  "description": "Get metric timeslice data for an application.",
+  "resource_group": "applications",
+  "endpoint": "/v2/applications/{application_id}/metrics/data.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "application_id",
+      "type": "integer",
+      "required": true,
+      "description": "Application ID",
+      "location": "path"
+    },
+    {
+      "name": "names[]",
+      "type": "string",
+      "required": true,
+      "description": "Metric names to retrieve",
+      "location": "query"
+    },
+    {
+      "name": "values[]",
+      "type": "string",
+      "required": false,
+      "description": "Metric values to retrieve",
+      "location": "query"
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": false,
+      "description": "Start time ISO 8601",
+      "location": "query"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": false,
+      "description": "End time ISO 8601",
+      "location": "query"
+    },
+    {
+      "name": "period",
+      "type": "integer",
+      "required": false,
+      "description": "Period in seconds",
+      "location": "query"
+    },
+    {
+      "name": "summarize",
+      "type": "boolean",
+      "required": false,
+      "description": "Return a single summary",
+      "location": "query"
+    }
+  ],
+  "request_example": {},
+  "response_example": {
+    "metric_data": {
+      "metrics": [
+        {
+          "name": "HttpDispatcher",
+          "timeslices": [
+            {
+              "from": "2025-01-01T00:00:00",
+              "to": "2025-01-01T01:00:00",
+              "values": {
+                "average_response_time": 150
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": []
+}

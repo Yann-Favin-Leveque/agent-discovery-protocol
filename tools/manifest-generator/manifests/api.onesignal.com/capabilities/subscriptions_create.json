@@ -1,0 +1,47 @@
+{
+  "name": "subscriptions_create",
+  "description": "Create a new subscription (push, email, SMS) for a user.",
+  "resource_group": "subscriptions",
+  "endpoint": "/api/v1/subscriptions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "subscription",
+      "type": "object",
+      "required": true,
+      "description": "Subscription object with type and token."
+    },
+    {
+      "name": "retain_previous_owner",
+      "type": "boolean",
+      "required": false,
+      "description": "Keep previous ownership."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.onesignal.com/api/v1/subscriptions",
+    "headers": {
+      "Authorization": "Basic <rest_api_key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subscription": {
+        "type": "Email",
+        "token": "new@example.com",
+        "enabled": true
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "subscription": {
+        "id": "sub-uuid",
+        "type": "Email",
+        "token": "new@example.com",
+        "enabled": true
+      }
+    }
+  }
+}

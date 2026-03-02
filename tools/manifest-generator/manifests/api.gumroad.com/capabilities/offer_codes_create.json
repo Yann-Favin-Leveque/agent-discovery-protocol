@@ -1,0 +1,64 @@
+{
+  "name": "offer_codes_create",
+  "description": "Create a new offer code for a product.",
+  "resource_group": "offer_codes",
+  "endpoint": "/v2/products/{product_id}/offer_codes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "product_id",
+      "type": "string",
+      "required": true,
+      "description": "Product ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Offer code string.",
+      "example": "SUMMER"
+    },
+    {
+      "name": "amount_off",
+      "type": "integer",
+      "required": true,
+      "description": "Amount off in cents.",
+      "example": 500
+    },
+    {
+      "name": "offer_type",
+      "type": "string",
+      "required": false,
+      "description": "Type: cents or percent."
+    },
+    {
+      "name": "max_purchase_count",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum uses."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gumroad.com/v2/products/abc123/offer_codes",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "SUMMER",
+      "amount_off": 500
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "offer_code": {
+        "id": "oc_02",
+        "name": "SUMMER",
+        "amount_off": 500
+      }
+    }
+  }
+}

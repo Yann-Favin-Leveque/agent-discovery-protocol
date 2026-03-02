@@ -1,0 +1,61 @@
+{
+  "name": "rates_calculate",
+  "description": "Calculate shipping rates across multiple carriers for a shipment.",
+  "endpoint": "/v1/rates",
+  "method": "POST",
+  "resource_group": "rates",
+  "parameters": [
+    {
+      "name": "shipment_id",
+      "type": "string",
+      "description": "Existing shipment ID to rate.",
+      "required": true,
+      "example": "se-1234567"
+    },
+    {
+      "name": "rate_options",
+      "type": "object",
+      "description": "Options including carrier_ids array.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/rates",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "shipment_id": "se-1234567",
+      "rate_options": {
+        "carrier_ids": [
+          "se-121861"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "rate_response": {
+        "rates": [
+          {
+            "rate_id": "se-rate-123",
+            "carrier_id": "se-121861",
+            "shipping_amount": {
+              "currency": "usd",
+              "amount": 7.99
+            },
+            "service_code": "usps_priority_mail",
+            "delivery_days": 3
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

@@ -1,61 +1,55 @@
 {
   "name": "import_project",
-  "description": "Import a repository or target into Snyk for continuous vulnerability monitoring. Snyk will connect to the source (e.g., GitHub), clone the repository, analyze its dependencies, and set up ongoing monitoring that alerts you to new vulnerabilities. You must first have an integration configured (e.g., GitHub integration) in the Snyk organization. The import is asynchronous -- the response includes a location header to poll for import status.",
-  "endpoint": "/v1/org/{org_id}/integrations/{integration_id}/import",
+  "description": "Import a repository or target for continuous vulnerability monitoring (v1 API).",
+  "resource_group": "integrations",
+  "endpoint": "/v1/org/{orgId}/integrations/{integrationId}/import",
   "method": "POST",
   "parameters": [
     {
-      "name": "org_id",
+      "name": "orgId",
       "type": "string",
       "required": true,
-      "description": "The UUID of the Snyk organization to import the project into."
+      "description": "Organization ID."
     },
     {
-      "name": "integration_id",
+      "name": "integrationId",
       "type": "string",
       "required": true,
-      "description": "The UUID of the configured integration (e.g., GitHub, GitLab, Bitbucket). Obtain from the integrations API."
+      "description": "Integration ID."
     },
     {
       "name": "target",
       "type": "object",
       "required": true,
-      "description": "The target to import. For GitHub: { 'owner': 'org-or-user', 'name': 'repo-name', 'branch': 'main' }. The branch field is optional and defaults to the default branch."
+      "description": "Target to import with owner and name."
     },
     {
       "name": "files",
       "type": "array",
       "required": false,
-      "description": "Optional array of specific manifest files to import, e.g., [{ 'path': 'frontend/package.json' }]. If omitted, Snyk auto-discovers all supported manifests."
+      "description": "Specific files to test."
     }
   ],
   "request_example": {
     "method": "POST",
-    "url": "https://api.snyk.io/v1/org/a1b2c3d4-e5f6-7890-abcd-ef1234567890/integrations/i1a2b3c4-d5e6-7890-abcd-ef1234567890/import",
+    "url": "https://api.snyk.io/v1/org/org-uuid/integrations/int-uuid/import",
     "headers": {
-      "Authorization": "token snyk-api-token-here",
+      "Authorization": "token <api_token>",
       "Content-Type": "application/json"
     },
     "body": {
       "target": {
         "owner": "my-org",
-        "name": "my-app",
+        "name": "my-repo",
         "branch": "main"
-      },
-      "files": [
-        { "path": "package.json" },
-        { "path": "backend/requirements.txt" }
-      ]
+      }
     }
   },
   "response_example": {
     "status": 201,
     "body": {
-      "id": "imp-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-      "status": "pending",
-      "created": "2026-02-28T12:00:00.000Z",
-      "logs": [],
-      "projects": []
+      "id": "import-job-uuid",
+      "status": "pending"
     }
   }
 }

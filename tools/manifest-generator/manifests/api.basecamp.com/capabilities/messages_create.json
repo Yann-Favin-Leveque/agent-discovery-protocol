@@ -1,0 +1,83 @@
+{
+  "name": "messages_create",
+  "resource_group": "messages",
+  "description": "Post a new message to a project's message board.",
+  "endpoint": "/{account_id}/buckets/{project_id}/message_boards/{board_id}/messages.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Account ID",
+      "example": 9999999
+    },
+    {
+      "name": "project_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Project ID",
+      "example": 2085958499
+    },
+    {
+      "name": "board_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Message board ID",
+      "example": 7654321
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "required": true,
+      "description": "Message subject",
+      "example": "Sprint Update"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": false,
+      "description": "HTML message body",
+      "example": "<p>Sprint goals completed!</p>"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "description": "Set to active to publish immediately",
+      "example": "active"
+    },
+    {
+      "name": "category_id",
+      "type": "integer",
+      "required": false,
+      "description": "Message type/category ID",
+      "example": 123
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://3.basecampapi.com/9999999/buckets/2085958499/message_boards/7654321/messages.json",
+    "headers": {
+      "Authorization": "Bearer BC3_TOKEN",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApp (user@example.com)"
+    },
+    "body": {
+      "subject": "Sprint Update",
+      "content": "<p>Sprint goals completed!</p>",
+      "status": "active"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1069479301,
+      "subject": "Sprint Update",
+      "content": "<p>Sprint goals completed!</p>"
+    }
+  }
+}

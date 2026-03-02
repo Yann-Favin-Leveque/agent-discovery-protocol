@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Cloudflare DNS",
-  "description": "Cloudflare DNS provides authoritative DNS services with DDoS protection and global anycast. Use this API to manage DNS records, configure DNSSEC, and access DNS analytics for your zones.",
+  "description": "Cloudflare DNS provides authoritative DNS services with DDoS protection and global anycast. Manage DNS records (A, AAAA, CNAME, MX, TXT, etc.), configure DNSSEC, import/export zone files, run batch operations, and access DNS query analytics.",
   "base_url": "https://api.cloudflare.com/client/v4",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,106 @@
   },
   "capabilities": [
     {
-      "name": "manage_dns_records",
-      "description": "Create, list, update, and delete DNS records (A, AAAA, CNAME, MX, TXT, etc.) for a zone.",
-      "detail_url": "/capabilities/manage_dns_records"
+      "name": "dns_records_list",
+      "description": "List, search, sort, and filter DNS records for a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_list",
+      "resource_group": "dns_records"
     },
     {
-      "name": "get_dns_record",
-      "description": "Retrieve details of a specific DNS record by its ID.",
-      "detail_url": "/capabilities/get_dns_record"
+      "name": "dns_records_get",
+      "description": "Retrieve details of a specific DNS record by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_get",
+      "resource_group": "dns_records"
     },
     {
-      "name": "create_dns_record",
+      "name": "dns_records_create",
       "description": "Create a new DNS record in a zone.",
-      "detail_url": "/capabilities/create_dns_record"
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_create",
+      "resource_group": "dns_records"
     },
     {
-      "name": "import_export_records",
-      "description": "Import or export DNS records in BIND zone file format.",
-      "detail_url": "/capabilities/import_export_records"
+      "name": "dns_records_update",
+      "description": "Overwrite an existing DNS record entirely.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_update",
+      "resource_group": "dns_records"
     },
     {
-      "name": "manage_dnssec",
-      "description": "Enable, disable, and configure DNSSEC for a zone.",
-      "detail_url": "/capabilities/manage_dnssec"
+      "name": "dns_records_patch",
+      "description": "Partially update an existing DNS record.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_patch",
+      "resource_group": "dns_records"
     },
     {
-      "name": "get_dns_analytics",
-      "description": "Retrieve DNS query analytics and metrics for a zone.",
-      "detail_url": "/capabilities/get_dns_analytics"
+      "name": "dns_records_delete",
+      "description": "Delete a DNS record from a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_delete",
+      "resource_group": "dns_records"
+    },
+    {
+      "name": "dns_records_batch",
+      "description": "Execute batched create, update, and delete operations in a single call.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_batch",
+      "resource_group": "dns_records"
+    },
+    {
+      "name": "dns_records_export",
+      "description": "Export DNS records as a BIND zone file.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_export",
+      "resource_group": "dns_records"
+    },
+    {
+      "name": "dns_records_import",
+      "description": "Import DNS records from a BIND zone file.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_import",
+      "resource_group": "dns_records"
+    },
+    {
+      "name": "dns_records_scan",
+      "description": "Trigger asynchronous DNS record discovery for a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_records_scan",
+      "resource_group": "dns_records"
+    },
+    {
+      "name": "dns_analytics_report",
+      "description": "Retrieve summarized DNS query analytics and aggregate metrics.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_analytics_report",
+      "resource_group": "dns_analytics"
+    },
+    {
+      "name": "dns_analytics_report_bytime",
+      "description": "Retrieve DNS analytics grouped by time interval for trend analysis.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_analytics_report_bytime",
+      "resource_group": "dns_analytics"
+    },
+    {
+      "name": "dnssec_get",
+      "description": "Retrieve DNSSEC status and configuration for a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dnssec_get",
+      "resource_group": "dnssec"
+    },
+    {
+      "name": "dnssec_update",
+      "description": "Enable or disable DNSSEC for a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dnssec_update",
+      "resource_group": "dnssec"
+    },
+    {
+      "name": "dnssec_delete",
+      "description": "Delete DNSSEC configuration and signing keys for a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dnssec_delete",
+      "resource_group": "dnssec"
+    },
+    {
+      "name": "dns_settings_get",
+      "description": "Retrieve DNS settings for a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_settings_get",
+      "resource_group": "dns_settings"
+    },
+    {
+      "name": "dns_settings_update",
+      "description": "Modify DNS settings for a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.cloudflare.com_dns/capabilities/dns_settings_update",
+      "resource_group": "dns_settings"
     }
   ]
 }

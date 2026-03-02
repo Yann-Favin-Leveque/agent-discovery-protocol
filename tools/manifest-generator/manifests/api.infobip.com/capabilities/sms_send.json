@@ -1,0 +1,99 @@
+{
+  "name": "sms_send",
+  "description": "Send one or more SMS messages to single or multiple recipients. Supports message scheduling up to 180 days, URL shortening, transliteration, flash SMS, and delivery time windows.",
+  "endpoint": "/sms/3/messages",
+  "method": "POST",
+  "resource_group": "sms",
+  "parameters": [
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Array of message objects, each containing destinations, sender, and content."
+    },
+    {
+      "name": "messages[].destinations",
+      "type": "array",
+      "required": true,
+      "description": "Array of destination objects with 'to' (E.164 phone number) and optional 'messageId'."
+    },
+    {
+      "name": "messages[].from",
+      "type": "string",
+      "required": false,
+      "description": "Sender ID, alphanumeric (max 11 chars) or numeric (max 16 digits)."
+    },
+    {
+      "name": "messages[].text",
+      "type": "string",
+      "required": false,
+      "description": "The text content of the SMS message."
+    },
+    {
+      "name": "messages[].sendAt",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 datetime for scheduling the message. Up to 180 days in the future."
+    },
+    {
+      "name": "messages[].validityPeriod",
+      "type": "integer",
+      "required": false,
+      "description": "Validity period in minutes. Message delivery is attempted until this period expires."
+    },
+    {
+      "name": "messages[].notifyUrl",
+      "type": "string",
+      "required": false,
+      "description": "Webhook URL to receive delivery reports for this message."
+    },
+    {
+      "name": "messages[].callbackData",
+      "type": "string",
+      "required": false,
+      "description": "Custom data sent with the delivery report webhook callback."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/sms/3/messages",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "messages": [
+        {
+          "destinations": [
+            { "to": "14155550123" }
+          ],
+          "from": "ServiceSMS",
+          "text": "Your verification code is 482910. It expires in 10 minutes."
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "bulkId": "2034072219640523072",
+      "messages": [
+        {
+          "to": "14155550123",
+          "status": {
+            "groupId": 1,
+            "groupName": "PENDING",
+            "id": 26,
+            "name": "PENDING_ACCEPTED",
+            "description": "Message sent to next instance"
+          },
+          "messageId": "2250be2d4219-3af1-78856-aabe-1362af1edfd2"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

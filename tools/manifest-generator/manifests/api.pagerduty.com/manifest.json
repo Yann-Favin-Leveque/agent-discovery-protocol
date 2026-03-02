@@ -1,72 +1,182 @@
 {
   "spec_version": "1.0",
-  "name": "PagerDuty API",
-  "description": "This document describes the PagerDuty REST APIs.\n\nFor guides and examples please visit our [Documentation.](https://developer.pagerduty.com/docs/get-started/getting-started/)\n\nOur REST APIs are defined in OpenAPI v3.x. You can view the schema at [github.com/PagerDuty/api-schema](https://github.com/PagerDuty/api-schema).\n\nNote that properties in some schemas have fields not shown by default such as `readOnly`, `format`, and `default`.",
+  "name": "PagerDuty",
+  "description": "PagerDuty is an incident management platform for real-time operations. Manage incidents, services, escalation policies, schedules, on-call rotations, and change events through the REST API.",
   "base_url": "https://api.pagerduty.com",
   "auth": {
     "type": "api_key",
-    "header": "Authorization"
+    "header": "Authorization",
+    "prefix": "Token token=",
+    "setup_url": "https://support.pagerduty.com/docs/api-access-keys"
   },
   "capabilities": [
     {
-      "name": "tags",
-      "description": "Manage tags — create a tag, assign tags, list tags. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/tags"
+      "name": "incidents_list",
+      "description": "List incidents with filtering by status, urgency, and date range.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_list"
     },
     {
-      "name": "abilities",
-      "description": "Manage abilities — list abilities, test an ability. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/abilities"
+      "name": "incidents_get",
+      "description": "Get a specific incident by ID.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_get"
     },
     {
-      "name": "add_ons",
-      "description": "Manage add ons — install an add-on, update an add-on, list installed add-ons. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/add_ons"
+      "name": "incidents_create",
+      "description": "Create a new incident on a service.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_create"
     },
     {
-      "name": "alert_grouping_settings",
-      "description": "Manage alert grouping settings — create an alert grouping setting, update an alert grouping setting, list alert grouping settings. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/alert_grouping_settings"
+      "name": "incidents_update",
+      "description": "Update an existing incident (acknowledge, resolve, etc.).",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_update"
     },
     {
-      "name": "analytics",
-      "description": "Manage analytics — get aggregated incident data, get aggregated escalation policy data, get aggregated metrics for all escalation policies. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/analytics"
+      "name": "incidents_merge",
+      "description": "Merge multiple incidents into a single incident.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_merge"
     },
     {
-      "name": "audit",
-      "description": "Manage audit — list audit records. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/audit"
+      "name": "incidents_notes_list",
+      "description": "List notes on an incident.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_notes_list"
     },
     {
-      "name": "automation_actions",
-      "description": "Manage automation actions — create an automation action, create an automation action runner, create an invocation. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/automation_actions"
+      "name": "incidents_notes_create",
+      "description": "Add a note to an incident.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_notes_create"
     },
     {
-      "name": "business_services",
-      "description": "Manage business services — create a business service, create business service account subscription, create business service subscribers. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/business_services"
+      "name": "services_list",
+      "description": "List all services with their status and configuration.",
+      "resource_group": "services",
+      "detail_url": "/capabilities/services_list"
     },
     {
-      "name": "change_events",
-      "description": "Manage change events — create a change event, update a change event, list change events. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/change_events"
+      "name": "services_get",
+      "description": "Get a specific service by ID.",
+      "resource_group": "services",
+      "detail_url": "/capabilities/services_get"
     },
     {
-      "name": "escalation_policies",
-      "description": "Manage escalation policies — create an escalation policy, update an escalation policy, list escalation policies. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/escalation_policies"
+      "name": "services_create",
+      "description": "Create a new service with escalation policy.",
+      "resource_group": "services",
+      "detail_url": "/capabilities/services_create"
     },
     {
-      "name": "event_orchestrations",
-      "description": "Manage event orchestrations — create an orchestration, create an integration for an event orchestration, migrate an integration from one event orchestration to another. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/event_orchestrations"
+      "name": "services_update",
+      "description": "Update an existing service.",
+      "resource_group": "services",
+      "detail_url": "/capabilities/services_update"
     },
     {
-      "name": "extension_schemas",
-      "description": "Manage extension schemas — list extension schemas, get an extension vendor. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/extension_schemas"
+      "name": "services_delete",
+      "description": "Delete a service.",
+      "resource_group": "services",
+      "detail_url": "/capabilities/services_delete"
+    },
+    {
+      "name": "escalation_policies_list",
+      "description": "List all escalation policies.",
+      "resource_group": "escalation_policies",
+      "detail_url": "/capabilities/escalation_policies_list"
+    },
+    {
+      "name": "escalation_policies_get",
+      "description": "Get a specific escalation policy by ID.",
+      "resource_group": "escalation_policies",
+      "detail_url": "/capabilities/escalation_policies_get"
+    },
+    {
+      "name": "escalation_policies_create",
+      "description": "Create a new escalation policy with rules and targets.",
+      "resource_group": "escalation_policies",
+      "detail_url": "/capabilities/escalation_policies_create"
+    },
+    {
+      "name": "escalation_policies_update",
+      "description": "Update an existing escalation policy.",
+      "resource_group": "escalation_policies",
+      "detail_url": "/capabilities/escalation_policies_update"
+    },
+    {
+      "name": "escalation_policies_delete",
+      "description": "Delete an escalation policy.",
+      "resource_group": "escalation_policies",
+      "detail_url": "/capabilities/escalation_policies_delete"
+    },
+    {
+      "name": "users_list",
+      "description": "List all users in the account.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_list"
+    },
+    {
+      "name": "users_get",
+      "description": "Get a specific user by ID.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_get"
+    },
+    {
+      "name": "teams_list",
+      "description": "List all teams.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_list"
+    },
+    {
+      "name": "teams_get",
+      "description": "Get a specific team by ID.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_get"
+    },
+    {
+      "name": "schedules_list",
+      "description": "List all on-call schedules.",
+      "resource_group": "schedules",
+      "detail_url": "/capabilities/schedules_list"
+    },
+    {
+      "name": "schedules_get",
+      "description": "Get a specific schedule with on-call entries.",
+      "resource_group": "schedules",
+      "detail_url": "/capabilities/schedules_get"
+    },
+    {
+      "name": "oncalls_list",
+      "description": "List who is currently on call across all escalation policies.",
+      "resource_group": "oncalls",
+      "detail_url": "/capabilities/oncalls_list"
+    },
+    {
+      "name": "analytics_incidents_get",
+      "description": "Get aggregated incident analytics data.",
+      "resource_group": "analytics",
+      "detail_url": "/capabilities/analytics_incidents_get"
+    },
+    {
+      "name": "change_events_list",
+      "description": "List change events with filtering.",
+      "resource_group": "change_events",
+      "detail_url": "/capabilities/change_events_list"
+    },
+    {
+      "name": "change_events_create",
+      "description": "Create a change event to track deployments and changes.",
+      "resource_group": "change_events",
+      "detail_url": "/capabilities/change_events_create"
+    },
+    {
+      "name": "status_dashboards_list",
+      "description": "List all status dashboards.",
+      "resource_group": "status_dashboards",
+      "detail_url": "/capabilities/status_dashboards_list"
     }
   ]
 }

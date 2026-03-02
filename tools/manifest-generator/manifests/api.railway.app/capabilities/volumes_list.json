@@ -1,0 +1,43 @@
+{
+  "name": "volumes_list",
+  "description": "List persistent volumes in a project.",
+  "resource_group": "volumes",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "description": "Project ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "query($id: String!) { project(id: $id) { volumes { edges { node { id name mountPath sizeGB } } } } }",
+      "variables": {
+        "id": "proj-abc"
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "project": {
+        "volumes": {
+          "edges": [
+            {
+              "node": {
+                "id": "vol-abc",
+                "name": "data",
+                "mountPath": "/data",
+                "sizeGB": 10
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

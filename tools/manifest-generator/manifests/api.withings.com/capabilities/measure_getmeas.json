@@ -1,0 +1,89 @@
+{
+  "name": "measure_getmeas",
+  "description": "Retrieve body measurements from Withings scales and devices including weight, height, fat free mass, fat ratio, fat mass weight, diastolic/systolic blood pressure, heart pulse, temperature, SpO2, body temperature, skin temperature, muscle mass, hydration, bone mass, and VO2 max. All requests use POST with action=getmeas.",
+  "resource_group": "measure",
+  "endpoint": "/measure",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'getmeas'."
+    },
+    {
+      "name": "meastype",
+      "type": "integer",
+      "required": false,
+      "description": "Measurement type filter: 1=weight, 4=height, 5=fat free mass, 6=fat ratio, 8=fat mass, 9=diastolic BP, 10=systolic BP, 11=heart pulse, 54=SpO2, 71=body temp, 76=muscle mass, 77=hydration, 88=bone mass."
+    },
+    {
+      "name": "category",
+      "type": "integer",
+      "required": false,
+      "description": "Category: 1=real measures, 2=user objectives."
+    },
+    {
+      "name": "startdate",
+      "type": "integer",
+      "required": false,
+      "description": "Start date as Unix timestamp."
+    },
+    {
+      "name": "enddate",
+      "type": "integer",
+      "required": false,
+      "description": "End date as Unix timestamp."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset."
+    },
+    {
+      "name": "lastupdate",
+      "type": "integer",
+      "required": false,
+      "description": "Only return measures updated after this Unix timestamp."
+    }
+  ],
+  "auth_scopes": [
+    "user.metrics"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/measure",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "getmeas",
+      "meastype": 1,
+      "startdate": 1704067200,
+      "enddate": 1704153600
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "measuregrps": [
+          {
+            "grpid": 123456,
+            "date": 1704110400,
+            "measures": [
+              {
+                "value": 755,
+                "type": 1,
+                "unit": -1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

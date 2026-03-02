@@ -1,0 +1,19 @@
+{
+  "name": "contractor_payments_create",
+  "description": "Process a payment for a contractor with automatic tax handling.",
+  "endpoint": "/v1/companies/{company_id}/contractor_payments",
+  "method": "POST",
+  "resource_group": "contractor_payments",
+  "parameters": [
+    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
+    {"name": "contractor_uuid", "type": "string", "description": "The contractor UUID to pay.", "required": true, "example": "con_123"},
+    {"name": "date", "type": "string", "description": "Payment date (YYYY-MM-DD).", "required": true, "example": "2024-09-15"},
+    {"name": "wage", "type": "string", "description": "Payment amount.", "required": true, "example": "2500.00"},
+    {"name": "hours", "type": "string", "description": "Hours worked (for hourly contractors).", "required": false, "example": "40"},
+    {"name": "bonus", "type": "string", "description": "Bonus amount.", "required": false, "example": "0.00"}
+  ],
+  "request_example": {"method": "POST", "url": "https://api.gusto.com/v1/companies/7757616923531542/contractor_payments", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"contractor_uuid": "con_123", "date": "2024-09-15", "wage": "2500.00"}},
+  "response_example": {"status": 201, "body": {"uuid": "cpay_456", "contractor_uuid": "con_123", "date": "2024-09-15", "wage": "2500.00"}},
+  "auth_scopes": ["contractor_payments:write"],
+  "rate_limits": {"requests_per_minute": 60}
+}

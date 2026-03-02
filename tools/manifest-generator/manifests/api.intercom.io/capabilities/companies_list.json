@@ -1,0 +1,61 @@
+{
+  "name": "companies_list",
+  "description": "List all companies in your Intercom workspace with pagination.",
+  "resource_group": "companies",
+  "endpoint": "/companies",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number (1-based)."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page. Default 50."
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "description": "Sort order: asc or desc."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.intercom.io/companies?per_page=20",
+    "headers": {
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "list",
+      "data": [
+        {
+          "type": "company",
+          "id": "company-1",
+          "company_id": "acme-corp",
+          "name": "Acme Corp",
+          "plan": {
+            "type": "plan",
+            "name": "Enterprise"
+          },
+          "monthly_spend": 2500,
+          "user_count": 42
+        }
+      ],
+      "total_count": 15,
+      "pages": {
+        "type": "pages",
+        "page": 1,
+        "per_page": 20
+      }
+    }
+  }
+}

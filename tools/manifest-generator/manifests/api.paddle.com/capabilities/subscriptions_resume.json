@@ -1,0 +1,41 @@
+{
+  "name": "subscriptions_resume",
+  "description": "Resume a paused subscription.",
+  "resource_group": "subscriptions",
+  "endpoint": "/subscriptions/{subscription_id}/resume",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "subscription_id",
+      "type": "string",
+      "description": "The subscription ID.",
+      "required": true
+    },
+    {
+      "name": "effective_from",
+      "type": "string",
+      "description": "When to resume: immediately or next_billing_period.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/subscriptions/sub_01h1vjes1y163xfj1rh1tkfb65/resume",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "effective_from": "immediately"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "sub_01h1vjes1y163xfj1rh1tkfb65",
+        "status": "active"
+      }
+    }
+  }
+}

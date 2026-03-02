@@ -1,0 +1,46 @@
+{
+  "name": "auth_create",
+  "description": "Authenticate a private or presence channel subscription. Your server generates this auth response and returns it to the client.",
+  "resource_group": "auth",
+  "endpoint": "/pusher/auth",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "socket_id",
+      "type": "string",
+      "required": true,
+      "description": "The socket ID of the connecting client."
+    },
+    {
+      "name": "channel_name",
+      "type": "string",
+      "required": true,
+      "description": "The channel being subscribed to (private- or presence- prefix)."
+    },
+    {
+      "name": "channel_data",
+      "type": "string",
+      "required": false,
+      "description": "JSON string with user_id and user_info for presence channels."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-server.com/pusher/auth",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "socket_id": "1234.5678",
+      "channel_name": "presence-chat-room-1",
+      "channel_data": "{\"user_id\":\"user-1\",\"user_info\":{\"name\":\"Jane\"}}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "auth": "278d425bdf160c739803:signature-hash",
+      "channel_data": "{\"user_id\":\"user-1\",\"user_info\":{\"name\":\"Jane\"}}"
+    }
+  }
+}

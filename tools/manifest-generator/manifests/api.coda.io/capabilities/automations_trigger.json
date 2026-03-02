@@ -1,0 +1,53 @@
+{
+  "name": "automations_trigger",
+  "resource_group": "automations",
+  "description": "Trigger an automation rule to run immediately.",
+  "endpoint": "/docs/{docId}/automations/{ruleId}/trigger",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Document ID",
+      "example": "AbCDeFGH"
+    },
+    {
+      "name": "ruleId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Automation rule ID",
+      "example": "auto-abc"
+    },
+    {
+      "name": "payload",
+      "type": "object",
+      "required": false,
+      "description": "Optional payload for the automation",
+      "example": {
+        "message": "Triggered by API"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://coda.io/apis/v1/docs/AbCDeFGH/automations/auto-abc/trigger",
+    "headers": {
+      "Authorization": "Bearer CODA_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "payload": {
+        "message": "Triggered by API"
+      }
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "requestId": "req-xyz789"
+    }
+  }
+}

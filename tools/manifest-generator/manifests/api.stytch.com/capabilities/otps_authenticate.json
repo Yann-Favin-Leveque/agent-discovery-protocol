@@ -1,0 +1,64 @@
+{
+  "name": "otps_authenticate",
+  "resource_group": "otps",
+  "description": "Verify a one-time passcode (SMS, email, or WhatsApp). Returns session on success.",
+  "endpoint": "/v1/otps/authenticate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "method_id",
+      "type": "string",
+      "required": true,
+      "description": "The phone_id or email_id the OTP was sent to."
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "The OTP code."
+    },
+    {
+      "name": "session_token",
+      "type": "string",
+      "required": false,
+      "description": "Existing session to extend."
+    },
+    {
+      "name": "session_duration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Session lifetime."
+    },
+    {
+      "name": "session_custom_claims",
+      "type": "object",
+      "required": false,
+      "description": "Custom claims for the session."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/otps/authenticate",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "method_id": "phone-live-xyz",
+      "code": "123456",
+      "session_duration_minutes": 60
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "session_token": "sess-token-xyz",
+      "session_jwt": "eyJhbGciOi...",
+      "user": {
+        "user_id": "user-live-abc"
+      }
+    }
+  }
+}

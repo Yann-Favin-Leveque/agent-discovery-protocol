@@ -1,0 +1,56 @@
+{
+  "name": "message_batches_list",
+  "description": "List all message batches in your organization with their processing status.",
+  "resource_group": "message_batches",
+  "endpoint": "/v1/messages/batches",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of batches to return (default 20)."
+    },
+    {
+      "name": "before_id",
+      "type": "string",
+      "required": false,
+      "description": "Return batches before this ID for pagination."
+    },
+    {
+      "name": "after_id",
+      "type": "string",
+      "required": false,
+      "description": "Return batches after this ID for pagination."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.anthropic.com/v1/messages/batches",
+    "headers": {
+      "x-api-key": "sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "anthropic-version": "2023-06-01"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "batch_abc123",
+          "type": "message_batch",
+          "processing_status": "ended",
+          "request_counts": {
+            "processing": 0,
+            "succeeded": 10,
+            "errored": 0,
+            "canceled": 0,
+            "expired": 0
+          },
+          "created_at": "2026-03-01T10:00:00Z",
+          "ended_at": "2026-03-01T10:15:00Z"
+        }
+      ]
+    }
+  }
+}

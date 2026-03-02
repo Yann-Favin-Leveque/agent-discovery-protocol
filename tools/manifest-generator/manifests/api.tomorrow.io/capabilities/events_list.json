@@ -1,0 +1,71 @@
+{
+  "name": "events_list",
+  "description": "Get forecasted weather events for a location. Events are weather situations matching specific conditions like severe storms, extreme temperatures, or high winds.",
+  "resource_group": "events",
+  "endpoint": "/v4/events",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "description": "Location as lat,lon coordinates.",
+      "in": "query"
+    },
+    {
+      "name": "apikey",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "insights",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated insight categories to filter events.",
+      "in": "query"
+    },
+    {
+      "name": "buffer",
+      "type": "number",
+      "required": false,
+      "description": "Buffer radius in km around location.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tomorrow.io/v4/events?location=48.8566,2.3522&apikey=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "events": [
+          {
+            "eventValues": {
+              "origin": "tomorrow.io",
+              "insight": "wind",
+              "title": "Wind Advisory",
+              "severity": "moderate",
+              "startTime": "2025-01-16T06:00:00Z",
+              "endTime": "2025-01-16T18:00:00Z",
+              "location": {
+                "lat": 48.8566,
+                "lon": 2.3522
+              }
+            },
+            "eventData": {
+              "windSpeed": {
+                "max": 65,
+                "min": 45
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

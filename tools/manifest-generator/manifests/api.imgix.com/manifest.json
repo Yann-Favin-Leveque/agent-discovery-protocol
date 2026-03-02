@@ -1,55 +1,129 @@
 {
   "spec_version": "1.0",
   "name": "imgix",
-  "description": "imgix is a real-time image processing and CDN service. It transforms, optimizes, and delivers images via URL parameters -- you append query parameters to any image URL to resize, crop, add text, watermark, and apply effects on the fly.",
+  "description": "imgix provides a Management API for managing sources, assets, and purges, plus a Rendering API for real-time image processing via URL parameters. Transform, optimize, and deliver images by appending query parameters for resize, crop, format conversion, text overlays, and effects.",
   "base_url": "https://api.imgix.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
     "prefix": "Bearer",
     "setup_url": "https://dashboard.imgix.com/api-keys",
-    "note": "The Management API uses Bearer token auth. The Rendering API uses URL parameters on your imgix source domain (e.g., https://your-source.imgix.net/image.jpg?w=400)."
+    "note": "Management API uses Bearer token. Rendering API uses URL parameters on your imgix domain."
   },
   "capabilities": [
     {
-      "name": "resize_image",
-      "description": "Resize an image by specifying width, height, or both. Supports fit modes like clip, crop, fill, and scale to control aspect ratio behavior.",
-      "detail_url": "/capabilities/resize_image"
+      "name": "sources_list",
+      "resource_group": "sources",
+      "description": "List all imgix sources in your account.",
+      "detail_url": "/capabilities/sources_list"
     },
     {
-      "name": "crop_image",
-      "description": "Crop an image to a specific region. Supports focal point cropping, face detection cropping, and entropy-based smart cropping.",
-      "detail_url": "/capabilities/crop_image"
+      "name": "sources_create",
+      "resource_group": "sources",
+      "description": "Create and deploy a new imgix source.",
+      "detail_url": "/capabilities/sources_create"
     },
     {
-      "name": "convert_format",
-      "description": "Convert an image to a different output format like WebP, AVIF, PNG, or JPEG. Use auto format to let imgix choose the best format for the client.",
-      "detail_url": "/capabilities/convert_format"
+      "name": "sources_get",
+      "resource_group": "sources",
+      "description": "Retrieve details for a single source.",
+      "detail_url": "/capabilities/sources_get"
     },
     {
-      "name": "add_text_overlay",
-      "description": "Render text on top of an image with control over font, size, color, alignment, and position. Supports base64-encoded text for special characters.",
-      "detail_url": "/capabilities/add_text_overlay"
+      "name": "sources_update",
+      "resource_group": "sources",
+      "description": "Update a source configuration.",
+      "detail_url": "/capabilities/sources_update"
     },
     {
-      "name": "add_watermark",
-      "description": "Overlay a watermark image on top of a base image with control over position, size, opacity, and blending mode.",
-      "detail_url": "/capabilities/add_watermark"
+      "name": "assets_list",
+      "resource_group": "assets",
+      "description": "List assets from a source.",
+      "detail_url": "/capabilities/assets_list"
     },
     {
-      "name": "adjust_quality",
-      "description": "Control the compression quality and file size of the output image. Supports automatic quality optimization based on content analysis.",
-      "detail_url": "/capabilities/adjust_quality"
+      "name": "assets_get",
+      "resource_group": "assets",
+      "description": "Get details for a single asset.",
+      "detail_url": "/capabilities/assets_get"
     },
     {
-      "name": "apply_effects",
-      "description": "Apply visual effects to an image including blur, sharpen, sepia, grayscale, contrast adjustments, and background removal.",
-      "detail_url": "/capabilities/apply_effects"
+      "name": "assets_update",
+      "resource_group": "assets",
+      "description": "Update asset metadata (categories, description, custom fields).",
+      "detail_url": "/capabilities/assets_update"
     },
     {
-      "name": "list_sources",
-      "description": "List all imgix sources in your account via the Management API. Returns source names, domains, and configuration.",
-      "detail_url": "/capabilities/list_sources"
+      "name": "assets_upload",
+      "resource_group": "assets",
+      "description": "Upload a single asset to a source.",
+      "detail_url": "/capabilities/assets_upload"
+    },
+    {
+      "name": "assets_add",
+      "resource_group": "assets",
+      "description": "Queue a path from your origin to be added to imgix for processing.",
+      "detail_url": "/capabilities/assets_add"
+    },
+    {
+      "name": "assets_refresh",
+      "resource_group": "assets",
+      "description": "Refresh and reprocess an asset from the origin.",
+      "detail_url": "/capabilities/assets_refresh"
+    },
+    {
+      "name": "purge_create",
+      "resource_group": "purge",
+      "description": "Purge cached derivative copies of an asset from the CDN.",
+      "detail_url": "/capabilities/purge_create"
+    },
+    {
+      "name": "assets_unpublish",
+      "resource_group": "assets",
+      "description": "Remove an asset from CDN delivery temporarily.",
+      "detail_url": "/capabilities/assets_unpublish"
+    },
+    {
+      "name": "assets_publish",
+      "resource_group": "assets",
+      "description": "Restore a previously unpublished asset to CDN delivery.",
+      "detail_url": "/capabilities/assets_publish"
+    },
+    {
+      "name": "render_resize",
+      "resource_group": "rendering",
+      "description": "Resize an image by specifying width, height, and fit mode via URL parameters.",
+      "detail_url": "/capabilities/render_resize"
+    },
+    {
+      "name": "render_format",
+      "resource_group": "rendering",
+      "description": "Convert image format and optimize quality via URL parameters.",
+      "detail_url": "/capabilities/render_format"
+    },
+    {
+      "name": "render_crop",
+      "resource_group": "rendering",
+      "description": "Crop an image with focal point, face detection, or entropy-based smart cropping.",
+      "detail_url": "/capabilities/render_crop"
+    },
+    {
+      "name": "render_text_overlay",
+      "resource_group": "rendering",
+      "description": "Render text on top of an image with font, size, color control.",
+      "detail_url": "/capabilities/render_text_overlay"
+    },
+    {
+      "name": "render_watermark",
+      "resource_group": "rendering",
+      "description": "Overlay a watermark image on top of a base image.",
+      "detail_url": "/capabilities/render_watermark"
+    },
+    {
+      "name": "render_effects",
+      "resource_group": "rendering",
+      "description": "Apply visual effects: blur, sharpen, sepia, monochrome, contrast adjustments.",
+      "detail_url": "/capabilities/render_effects"
     }
   ]
 }

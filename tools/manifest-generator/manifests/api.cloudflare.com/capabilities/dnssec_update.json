@@ -1,0 +1,43 @@
+{
+  "name": "dnssec_update",
+  "resource_group": "dnssec",
+  "description": "Enable or disable DNSSEC for a zone.",
+  "endpoint": "/zones/{zone_id}/dnssec",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "DNSSEC status: active or disabled."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dnssec",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "active"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "status": "active"
+      }
+    }
+  }
+}

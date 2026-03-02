@@ -1,0 +1,59 @@
+{
+  "name": "invoices_create",
+  "description": "Create one or more invoices.",
+  "resource_group": "invoices",
+  "endpoint": "/Invoices",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "Invoices",
+      "type": "array",
+      "required": true,
+      "description": "Array of Invoice objects."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.transactions"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.xero.com/api.xro/2.0/Invoices",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Invoices": [
+        {
+          "Type": "ACCREC",
+          "Contact": {
+            "Name": "Acme Corp"
+          },
+          "Date": "2024-08-15",
+          "DueDate": "2024-09-15",
+          "LineItems": [
+            {
+              "Description": "Consulting",
+              "Quantity": 10,
+              "UnitAmount": 150.0,
+              "AccountCode": "200"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Invoices": [
+        {
+          "InvoiceID": "abc-123",
+          "Status": "DRAFT",
+          "Total": 1500.0
+        }
+      ]
+    }
+  }
+}

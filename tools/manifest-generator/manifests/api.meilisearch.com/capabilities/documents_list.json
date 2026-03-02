@@ -1,0 +1,72 @@
+{
+  "name": "documents_list",
+  "description": "List documents in an index with pagination, field selection, and optional filtering.",
+  "endpoint": "/indexes/{indexUid}/documents",
+  "method": "GET",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Number of documents to skip.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of documents to return (max 1000).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to display.",
+      "required": false,
+      "example": "id,title"
+    },
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "Filter expression to apply.",
+      "required": false,
+      "example": "genre = 'action'"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.meilisearch.com/indexes/movies/documents?offset=0&limit=20",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "id": 1,
+          "title": "The Matrix",
+          "genre": "action"
+        }
+      ],
+      "offset": 0,
+      "limit": 20,
+      "total": 100
+    }
+  },
+  "auth_scopes": [
+    "documents.get"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

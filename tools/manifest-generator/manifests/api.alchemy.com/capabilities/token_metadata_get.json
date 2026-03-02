@@ -1,0 +1,63 @@
+{
+  "name": "token_metadata_get",
+  "description": "Retrieve metadata (name, symbol, decimals, logo URL) for a specific ERC-20 token contract address.",
+  "endpoint": "/v2/{apiKey}",
+  "method": "POST",
+  "resource_group": "token",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "JSON-RPC request ID."
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'alchemy_getTokenMetadata'."
+    },
+    {
+      "name": "params",
+      "type": "array",
+      "required": true,
+      "description": "Array: [contractAddress (string)]."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://eth-mainnet.g.alchemy.com/v2/{apiKey}",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "method": "alchemy_getTokenMetadata",
+      "params": ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "name": "USD Coin",
+        "symbol": "USDC",
+        "decimals": 6,
+        "logo": "https://static.alchemyapi.io/images/assets/3408.png"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "incidents_create",
+  "description": "Create a new incident on a service.",
+  "resource_group": "incidents",
+  "endpoint": "/incidents",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "incident",
+      "type": "object",
+      "required": true,
+      "description": "Incident with type, title, service, urgency, body"
+    }
+  ],
+  "request_example": {
+    "incident": {
+      "type": "incident",
+      "title": "Database Connection Failure",
+      "service": {
+        "id": "PSVC",
+        "type": "service_reference"
+      },
+      "urgency": "high",
+      "body": {
+        "type": "incident_body",
+        "details": "Connection pool exhausted"
+      }
+    }
+  },
+  "response_example": {
+    "incident": {
+      "id": "P456",
+      "title": "Database Connection Failure"
+    }
+  },
+  "auth_scopes": []
+}

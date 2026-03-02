@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Snyk",
-  "description": "Snyk is a developer security platform that finds and fixes vulnerabilities in code, open-source dependencies, containers, and infrastructure as code. Use this API to monitor projects for security issues, test packages for known vulnerabilities, and manage your organization's security posture programmatically.",
+  "description": "Snyk is a developer security platform that finds and fixes vulnerabilities in code, open-source dependencies, containers, and infrastructure as code. Use this API to monitor projects, test packages for vulnerabilities, manage organizations, and track security issues.",
   "base_url": "https://api.snyk.io",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,106 @@
   },
   "capabilities": [
     {
-      "name": "list_projects",
-      "description": "List all monitored projects in a Snyk organization. Returns project names, types, origins, and last test dates. Use this to see what repositories and packages are being tracked for vulnerabilities.",
-      "detail_url": "/capabilities/list_projects"
+      "name": "orgs_list",
+      "description": "List all organizations the authenticated user belongs to.",
+      "resource_group": "organizations",
+      "detail_url": "/capabilities/orgs_list"
     },
     {
-      "name": "get_project_issues",
-      "description": "Get all known vulnerabilities and license issues for a specific monitored project. Returns severity, exploitability, fix availability, and affected package paths.",
-      "detail_url": "/capabilities/get_project_issues"
+      "name": "orgs_get",
+      "description": "Get details of a specific organization.",
+      "resource_group": "organizations",
+      "detail_url": "/capabilities/orgs_get"
     },
     {
-      "name": "test_package",
-      "description": "Test a specific package name and version for known vulnerabilities without importing it. Useful for checking a dependency before adding it to a project.",
-      "detail_url": "/capabilities/test_package"
+      "name": "projects_list",
+      "description": "List all monitored projects in an organization.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_list"
     },
     {
-      "name": "list_organizations",
-      "description": "List all Snyk organizations the authenticated user belongs to. Returns org IDs, names, and group info. Org IDs are required for most other API calls.",
-      "detail_url": "/capabilities/list_organizations"
+      "name": "projects_get",
+      "description": "Get details of a specific project by ID.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_get"
     },
     {
-      "name": "get_issue_details",
-      "description": "Get comprehensive details about a specific vulnerability by its Snyk issue ID. Returns CVE/CWE identifiers, detailed description, severity scores, affected versions, and remediation advice.",
-      "detail_url": "/capabilities/get_issue_details"
+      "name": "projects_update",
+      "description": "Update a project's settings and attributes.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_update"
+    },
+    {
+      "name": "projects_delete",
+      "description": "Delete a monitored project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_delete"
+    },
+    {
+      "name": "issues_list_by_org",
+      "description": "List all vulnerability issues across an organization.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_list_by_org"
+    },
+    {
+      "name": "issues_get",
+      "description": "Get detailed information about a specific issue.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_get"
+    },
+    {
+      "name": "issues_list_by_package",
+      "description": "List known vulnerabilities for a specific package version.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_list_by_package"
+    },
+    {
+      "name": "targets_list",
+      "description": "List all import targets in an organization.",
+      "resource_group": "targets",
+      "detail_url": "/capabilities/targets_list"
+    },
+    {
+      "name": "targets_get",
+      "description": "Get details of a specific target.",
+      "resource_group": "targets",
+      "detail_url": "/capabilities/targets_get"
+    },
+    {
+      "name": "targets_delete",
+      "description": "Delete a target and optionally its projects.",
+      "resource_group": "targets",
+      "detail_url": "/capabilities/targets_delete"
+    },
+    {
+      "name": "sbom_get",
+      "description": "Get SBOM (Software Bill of Materials) document for a project.",
+      "resource_group": "sbom",
+      "detail_url": "/capabilities/sbom_get"
+    },
+    {
+      "name": "audit_logs_search",
+      "description": "Search organization audit logs for security and compliance events.",
+      "resource_group": "audit_logs",
+      "detail_url": "/capabilities/audit_logs_search"
     },
     {
       "name": "import_project",
-      "description": "Import a repository or target for continuous vulnerability monitoring. Snyk will clone and analyze the project, then monitor it for new vulnerabilities over time.",
+      "description": "Import a repository or target for continuous vulnerability monitoring (v1 API).",
+      "resource_group": "integrations",
       "detail_url": "/capabilities/import_project"
+    },
+    {
+      "name": "test_dep_graph",
+      "description": "Test a dependency graph for known vulnerabilities without importing (v1 API).",
+      "resource_group": "test",
+      "detail_url": "/capabilities/test_dep_graph"
+    },
+    {
+      "name": "user_me",
+      "description": "Get details of the currently authenticated user.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/user_me"
     }
   ]
 }

@@ -1,0 +1,54 @@
+{
+  "name": "smart_invites_cancel",
+  "description": "Cancel a previously sent smart invite and notify all recipients of the cancellation.",
+  "endpoint": "/v1/smart_invites",
+  "method": "POST",
+  "resource_group": "smart_invites",
+  "parameters": [
+    {
+      "name": "smart_invite_id",
+      "type": "string",
+      "required": true,
+      "description": "The smart invite ID to cancel."
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'cancel' to cancel the invite."
+    },
+    {
+      "name": "recipients",
+      "type": "array",
+      "required": true,
+      "description": "Array of recipient objects with 'email' fields to notify."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cronofy.com/v1/smart_invites",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {api_key}"
+    },
+    "body": {
+      "smart_invite_id": "invite-001",
+      "method": "cancel",
+      "recipients": [
+        { "email": "alice@example.com" },
+        { "email": "bob@example.com" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "smart_invite_id": "invite-001",
+      "status": "cancelled"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

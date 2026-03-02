@@ -1,0 +1,21 @@
+{
+  "name": "employees_list",
+  "description": "Get the employee directory listing all active employees with basic info like name, department, and job title.",
+  "endpoint": "/api/gateway.php/{companyDomain}/v1/employees/directory",
+  "method": "GET",
+  "resource_group": "employees",
+  "parameters": [
+    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/directory",
+    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Accept": "application/json"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"fields": [{"id": "displayName", "type": "text", "name": "Display name"}], "employees": [{"id": "123", "displayName": "John Doe", "jobTitle": "Engineer", "department": "Engineering", "workEmail": "john@company.com"}]}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 60}
+}

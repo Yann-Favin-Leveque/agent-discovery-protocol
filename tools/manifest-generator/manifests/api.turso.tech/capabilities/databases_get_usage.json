@@ -1,0 +1,54 @@
+{
+  "name": "databases_get_usage",
+  "resource_group": "databases",
+  "description": "Retrieve database usage metrics.",
+  "endpoint": "/v1/organizations/{organizationSlug}/databases/{databaseName}/usage",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "databaseName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Start date (ISO 8601)."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "End date (ISO 8601)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.turso.tech/v1/organizations/my-org/databases/my-db/usage",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "database": {
+        "rows_read": 10000,
+        "rows_written": 500,
+        "storage_bytes": 2048576
+      }
+    }
+  }
+}

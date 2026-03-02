@@ -1,0 +1,46 @@
+{
+  "name": "pins_list",
+  "resource_group": "pins",
+  "description": "Get a paginated list of pins owned by the authenticated user.",
+  "endpoint": "/pins",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "bookmark",
+      "type": "string",
+      "description": "Cursor for pagination.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Items per page (1-250, default 25).",
+      "required": false,
+      "in": "query",
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pinterest.com/v5/pins?page_size=25",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "549755885177",
+          "title": "Beautiful Landscape"
+        }
+      ],
+      "bookmark": "Y2Jh..."
+    }
+  },
+  "auth_scopes": [
+    "pins:read"
+  ]
+}

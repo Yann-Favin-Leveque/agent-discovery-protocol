@@ -1,0 +1,40 @@
+{
+  "name": "otps_whatsapp_send",
+  "resource_group": "otps",
+  "description": "Send a one-time passcode via WhatsApp.",
+  "endpoint": "/v1/otps/whatsapp/send",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "phone_number",
+      "type": "string",
+      "required": true,
+      "description": "Phone number in E.164 format."
+    },
+    {
+      "name": "expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "OTP expiration."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/otps/whatsapp/send",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "phone_number": "+15551234567"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "phone_id": "phone-live-xyz"
+    }
+  }
+}

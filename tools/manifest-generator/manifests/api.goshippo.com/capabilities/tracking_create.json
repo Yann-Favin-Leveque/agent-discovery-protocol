@@ -1,0 +1,49 @@
+{
+  "name": "tracking_create",
+  "description": "Register a tracking webhook for a shipment.",
+  "endpoint": "/tracks",
+  "method": "POST",
+  "resource_group": "tracking",
+  "parameters": [
+    {
+      "name": "carrier",
+      "type": "string",
+      "description": "Carrier token.",
+      "required": true,
+      "example": "usps"
+    },
+    {
+      "name": "tracking_number",
+      "type": "string",
+      "description": "Tracking number.",
+      "required": true,
+      "example": "1Z999AA10123456784"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/tracks",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "carrier": "usps",
+      "tracking_number": "1Z999AA10123456784"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "tracking_number": "1Z999AA10123456784",
+      "carrier": "usps",
+      "tracking_status": {
+        "status": "UNKNOWN"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

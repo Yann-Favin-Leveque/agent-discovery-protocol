@@ -1,0 +1,83 @@
+{
+  "name": "orders_create",
+  "description": "Create a new payment order with one or more purchase units. The order must be approved by the buyer before capture.",
+  "endpoint": "/v2/checkout/orders",
+  "method": "POST",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "intent",
+      "type": "string",
+      "description": "Intent: CAPTURE or AUTHORIZE",
+      "required": true,
+      "example": "CAPTURE"
+    },
+    {
+      "name": "purchase_units",
+      "type": "array",
+      "description": "Array of purchase unit objects with amount and item details",
+      "required": true,
+      "example": [
+        {
+          "amount": {
+            "currency_code": "USD",
+            "value": "100.00"
+          }
+        }
+      ]
+    },
+    {
+      "name": "payment_source",
+      "type": "object",
+      "description": "Payment source (paypal, card, etc.)",
+      "required": false,
+      "example": {}
+    },
+    {
+      "name": "application_context",
+      "type": "object",
+      "description": "Application context with return/cancel URLs",
+      "required": false,
+      "example": {
+        "return_url": "https://example.com/return",
+        "cancel_url": "https://example.com/cancel"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v2/checkout/orders",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "intent": "CAPTURE",
+      "purchase_units": [
+        {
+          "amount": {
+            "currency_code": "USD",
+            "value": "100.00"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "ORDER_ID",
+      "status": "CREATED",
+      "links": [
+        {
+          "href": "https://www.paypal.com/checkoutnow?token=ORDER_ID",
+          "rel": "approve"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

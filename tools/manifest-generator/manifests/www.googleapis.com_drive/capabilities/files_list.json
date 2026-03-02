@@ -1,0 +1,76 @@
+{
+  "name": "files_list",
+  "description": "List files in the user's Drive.",
+  "resource_group": "files",
+  "endpoint": "/drive/v3/files",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Search query (Drive query syntax).",
+      "required": false,
+      "example": "mimeType='application/pdf'"
+    },
+    {
+      "name": "pageSize",
+      "type": "integer",
+      "description": "Max results per page (1-1000).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Token for next page.",
+      "required": false
+    },
+    {
+      "name": "orderBy",
+      "type": "string",
+      "description": "Sort order (e.g. modifiedTime desc).",
+      "required": false
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Fields to include in response.",
+      "required": false
+    },
+    {
+      "name": "spaces",
+      "type": "string",
+      "description": "Spaces to query: drive, appDataFolder.",
+      "required": false
+    },
+    {
+      "name": "corpora",
+      "type": "string",
+      "description": "Corpora to search: user, drive, allDrives.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://www.googleapis.com/drive/v3/files?pageSize=10&fields=files(id,name,mimeType)",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "files": [
+        {
+          "id": "1abc",
+          "name": "doc.pdf",
+          "mimeType": "application/pdf"
+        }
+      ],
+      "nextPageToken": "token123"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "projects_create",
+  "description": "Create a new Railway project.",
+  "resource_group": "projects",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Project name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Description."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($input: ProjectCreateInput!) { projectCreate(input: $input) { id name } }",
+      "variables": {
+        "input": {
+          "name": "my-project"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "projectCreate": {
+        "id": "proj-new",
+        "name": "my-project"
+      }
+    }
+  }
+}

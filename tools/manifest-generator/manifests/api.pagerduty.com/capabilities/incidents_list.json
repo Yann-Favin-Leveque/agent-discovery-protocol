@@ -1,0 +1,83 @@
+{
+  "name": "incidents_list",
+  "description": "List incidents with filtering by status, urgency, and date range.",
+  "resource_group": "incidents",
+  "endpoint": "/incidents",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "since",
+      "type": "string",
+      "required": false,
+      "description": "Start date ISO8601",
+      "location": "query"
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "required": false,
+      "description": "End date ISO8601",
+      "location": "query"
+    },
+    {
+      "name": "statuses[]",
+      "type": "string",
+      "required": false,
+      "description": "Filter by status: triggered, acknowledged, resolved",
+      "location": "query"
+    },
+    {
+      "name": "urgencies[]",
+      "type": "string",
+      "required": false,
+      "description": "Filter by urgency: high, low",
+      "location": "query"
+    },
+    {
+      "name": "service_ids[]",
+      "type": "string",
+      "required": false,
+      "description": "Filter by service IDs",
+      "location": "query"
+    },
+    {
+      "name": "sort_by",
+      "type": "string",
+      "required": false,
+      "description": "Sort field: incident_number, created_at, resolved_at",
+      "location": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results per page",
+      "location": "query"
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset",
+      "location": "query"
+    }
+  ],
+  "request_example": {},
+  "response_example": {
+    "incidents": [
+      {
+        "id": "P123",
+        "incident_number": 1,
+        "title": "Server Down",
+        "status": "triggered",
+        "urgency": "high",
+        "service": {
+          "id": "PSVC",
+          "summary": "Web Service"
+        }
+      }
+    ],
+    "total": 1
+  },
+  "auth_scopes": []
+}

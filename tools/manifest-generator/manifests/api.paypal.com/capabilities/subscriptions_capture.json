@@ -1,0 +1,50 @@
+{
+  "name": "subscriptions_capture",
+  "description": "Capture an authorized payment from a subscriber.",
+  "endpoint": "/v1/billing/subscriptions/{id}/capture",
+  "method": "POST",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Subscription ID",
+      "required": true,
+      "example": "SUB_ID"
+    },
+    {
+      "name": "note",
+      "type": "string",
+      "description": "Note about the charge",
+      "required": true,
+      "example": "Extra charge"
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Amount to capture",
+      "required": true,
+      "example": {
+        "currency_code": "USD",
+        "value": "10.00"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v1/billing/subscriptions/{id}/capture",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

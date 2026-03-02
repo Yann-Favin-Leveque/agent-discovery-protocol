@@ -1,0 +1,36 @@
+{
+  "name": "events_delete",
+  "description": "Delete an event from a specific calendar by its event ID. Only events managed by your application can be deleted.",
+  "endpoint": "/v1/calendars/{calendar_id}/events",
+  "method": "DELETE",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "calendar_id",
+      "type": "string",
+      "required": true,
+      "description": "The calendar ID containing the event (path parameter)."
+    },
+    {
+      "name": "event_id",
+      "type": "string",
+      "required": true,
+      "description": "The event ID to delete (query parameter)."
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.cronofy.com/v1/calendars/cal_n23kjnwrw2_abc123/events?event_id=my-app-event-001",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {}
+  },
+  "auth_scopes": ["delete_event"],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

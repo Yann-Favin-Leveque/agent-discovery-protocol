@@ -1,0 +1,59 @@
+{
+  "name": "nft_contracts_get_by_owner",
+  "description": "Return a list of all NFT contracts (collections) that a specific wallet address owns NFTs from.",
+  "endpoint": "/nft/v3/{apiKey}/getContractsForOwner",
+  "method": "GET",
+  "resource_group": "nft",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "description": "Wallet address to query."
+    },
+    {
+      "name": "pageKey",
+      "type": "string",
+      "required": false,
+      "description": "Pagination key."
+    },
+    {
+      "name": "pageSize",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://eth-mainnet.g.alchemy.com/nft/v3/{apiKey}/getContractsForOwner?owner=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "contracts": [
+        {
+          "address": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+          "name": "BoredApeYachtClub",
+          "symbol": "BAYC",
+          "tokenType": "ERC721",
+          "totalBalance": "2",
+          "numDistinctTokensOwned": "2"
+        }
+      ],
+      "totalCount": 5,
+      "pageKey": "next_key"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

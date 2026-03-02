@@ -1,0 +1,84 @@
+{
+  "name": "subscriptions_create",
+  "description": "Create a recurring subscription for a customer with a defined interval and amount.",
+  "resource_group": "subscriptions",
+  "endpoint": "/v2/customers/{customerId}/subscriptions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "The customer ID.",
+      "required": true
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Amount per interval.",
+      "required": true,
+      "example": {
+        "currency": "EUR",
+        "value": "25.00"
+      }
+    },
+    {
+      "name": "interval",
+      "type": "string",
+      "description": "Billing interval (e.g. 1 month).",
+      "required": true,
+      "example": "1 month"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Subscription description.",
+      "required": true
+    },
+    {
+      "name": "times",
+      "type": "integer",
+      "description": "Total charges. Omit for indefinite.",
+      "required": false
+    },
+    {
+      "name": "startDate",
+      "type": "string",
+      "description": "First charge date (YYYY-MM-DD).",
+      "required": false
+    },
+    {
+      "name": "webhookUrl",
+      "type": "string",
+      "description": "URL for updates.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/subscriptions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": {
+        "currency": "EUR",
+        "value": "25.00"
+      },
+      "interval": "1 month",
+      "description": "Monthly plan"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "subscription",
+      "id": "sub_rVKGtNd6s3",
+      "status": "active",
+      "amount": {
+        "currency": "EUR",
+        "value": "25.00"
+      }
+    }
+  }
+}

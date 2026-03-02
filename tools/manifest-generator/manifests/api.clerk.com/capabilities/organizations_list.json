@@ -1,0 +1,59 @@
+{
+  "name": "organizations_list",
+  "resource_group": "organizations",
+  "description": "List all organizations with pagination and optional filtering.",
+  "endpoint": "/v1/organizations",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results. Default 10, max 500."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Offset for pagination."
+    },
+    {
+      "name": "include_members_count",
+      "type": "boolean",
+      "required": false,
+      "description": "Include member count in response."
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": false,
+      "description": "Search by organization name."
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "required": false,
+      "description": "Sort by: name, created_at, members_count."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clerk.com/v1/organizations?limit=20",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "org_abc123",
+        "object": "organization",
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "members_count": 15,
+        "created_at": 1702656000000
+      }
+    ]
+  }
+}

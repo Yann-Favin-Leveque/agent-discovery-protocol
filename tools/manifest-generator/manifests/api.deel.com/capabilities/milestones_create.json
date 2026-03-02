@@ -1,0 +1,46 @@
+{
+  "name": "milestones_create",
+  "resource_group": "Milestones",
+  "endpoint": "/rest/v2/contracts/{contract_id}/milestones",
+  "method": "POST",
+  "description": "Add a milestone to a contract.",
+  "parameters": [
+    {
+      "name": "contract_id",
+      "type": "string",
+      "required": true,
+      "description": "Contract ID."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Milestone details: title, amount, description."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.letsdeel.com/rest/v2/contracts/ct-1/milestones",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "title": "Phase 1 Complete",
+        "amount": 5000,
+        "description": "First deliverable"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "ms-1",
+        "title": "Phase 1 Complete",
+        "amount": 5000
+      }
+    }
+  }
+}

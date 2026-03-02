@@ -1,0 +1,87 @@
+{
+  "name": "pull_zones_add_edge_rule",
+  "resource_group": "pull_zones",
+  "description": "Add a custom edge rule to a pull zone for URL rewrites, redirects, headers, etc.",
+  "endpoint": "/pullzone/{id}/edgerules/addOrUpdate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Pull zone ID.",
+      "in": "path"
+    },
+    {
+      "name": "ActionType",
+      "type": "integer",
+      "required": true,
+      "description": "Action type: 0=ForceSSL, 1=Redirect, 2=OriginUrl, 3=OverrideCacheTime, 4=BlockRequest, 5=SetResponseHeader, etc."
+    },
+    {
+      "name": "TriggerMatchingType",
+      "type": "integer",
+      "required": false,
+      "description": "0=MatchAny, 1=MatchAll, 2=MatchNone."
+    },
+    {
+      "name": "Triggers",
+      "type": "array",
+      "required": true,
+      "description": "Array of trigger objects with Type, PatternMatches, PatternMatchingType."
+    },
+    {
+      "name": "ActionParameter1",
+      "type": "string",
+      "required": false,
+      "description": "Action parameter."
+    },
+    {
+      "name": "ActionParameter2",
+      "type": "string",
+      "required": false,
+      "description": "Second action parameter."
+    },
+    {
+      "name": "Enabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable the rule."
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "required": false,
+      "description": "Rule description."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bunny.net/pullzone/12345/edgerules/addOrUpdate",
+    "headers": {
+      "AccessKey": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ActionType": 1,
+      "Triggers": [
+        {
+          "Type": 0,
+          "PatternMatches": [
+            "*/old-page"
+          ],
+          "PatternMatchingType": 0
+        }
+      ],
+      "ActionParameter1": "https://example.com/new-page",
+      "Description": "Redirect old page",
+      "Enabled": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "Guid": "rule-uuid"
+    }
+  }
+}

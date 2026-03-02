@@ -1,0 +1,68 @@
+{
+  "name": "workflows_create",
+  "description": "Create and launch a new contract workflow synchronously from a template.",
+  "resource_group": "workflows",
+  "endpoint": "/public/api/v1/workflows",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "template",
+      "type": "string",
+      "description": "Template ID.",
+      "required": true,
+      "example": "tmpl_001"
+    },
+    {
+      "name": "attributes",
+      "type": "object",
+      "description": "Workflow attributes.",
+      "required": true,
+      "example": {
+        "counterpartyName": "Acme Corp",
+        "contractValue": 50000
+      }
+    },
+    {
+      "name": "creator",
+      "type": "object",
+      "description": "Creator user.",
+      "required": false,
+      "example": {
+        "type": "email",
+        "email": "legal@company.com"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.ironclad.com/public/api/v1/workflows",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "template": "tmpl_001",
+      "attributes": {
+        "counterpartyName": "Acme Corp",
+        "contractValue": 50000
+      },
+      "creator": {
+        "type": "email",
+        "email": "legal@company.com"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "wf_001",
+      "template": "tmpl_001",
+      "status": "In Progress",
+      "step": "Internal Review",
+      "attributes": {
+        "counterpartyName": "Acme Corp",
+        "contractValue": 50000
+      }
+    }
+  }
+}

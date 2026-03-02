@@ -1,0 +1,62 @@
+{
+  "name": "locations_create",
+  "description": "Create a new business location.",
+  "endpoint": "/v2/locations",
+  "method": "POST",
+  "resource_group": "locations",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "object",
+      "description": "Location data",
+      "required": true,
+      "example": {
+        "name": "New Store",
+        "address": {
+          "address_line_1": "456 Oak Ave",
+          "locality": "Anytown",
+          "administrative_district_level_1": "CA",
+          "postal_code": "90210",
+          "country": "US"
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/locations",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "location": {
+        "name": "New Store"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "id": "LOC_NEW",
+        "name": "New Store"
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

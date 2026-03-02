@@ -1,0 +1,82 @@
+{
+  "name": "contact_create",
+  "description": "Create a new contact.",
+  "resource_group": "contact",
+  "endpoint": "/v3/grants/{grant_id}/contacts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "given_name",
+      "type": "string",
+      "description": "First name.",
+      "required": false,
+      "example": "Jane"
+    },
+    {
+      "name": "surname",
+      "type": "string",
+      "description": "Last name.",
+      "required": false,
+      "example": "Doe"
+    },
+    {
+      "name": "emails",
+      "type": "array",
+      "description": "Email addresses.",
+      "required": false,
+      "example": [
+        {
+          "email": "jane@example.com",
+          "type": "work"
+        }
+      ]
+    },
+    {
+      "name": "phone_numbers",
+      "type": "array",
+      "description": "Phone numbers.",
+      "required": false
+    },
+    {
+      "name": "company_name",
+      "type": "string",
+      "description": "Company.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.us.nylas.com/v3/grants/me/contacts",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "given_name": "Jane",
+      "surname": "Doe",
+      "emails": [
+        {
+          "email": "jane@example.com",
+          "type": "work"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "contact_abc",
+        "given_name": "Jane",
+        "surname": "Doe"
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "signature_request_get",
+  "description": "Retrieve the status and details of a specific signature request.",
+  "endpoint": "/v3/signature_request/{signature_request_id}",
+  "method": "GET",
+  "resource_group": "signature_request",
+  "parameters": [
+    {
+      "name": "signature_request_id",
+      "type": "string",
+      "description": "Unique ID of the signature request.",
+      "required": true,
+      "example": "fa5c8a0b0f492d768749333ad6fcc214c111e967"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hellosign.com/v3/signature_request/fa5c8a0b0f492d768749333ad6fcc214c111e967",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signature_request": {
+        "signature_request_id": "fa5c8a0b0f492d768749333ad6fcc214c111e967",
+        "title": "NDA Agreement",
+        "is_complete": false,
+        "signatures": [
+          {
+            "signature_id": "78caf2a1",
+            "signer_email_address": "signer@example.com",
+            "status_code": "awaiting_signature"
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

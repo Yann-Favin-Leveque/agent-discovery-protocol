@@ -1,0 +1,51 @@
+{
+  "name": "orders_get",
+  "description": "Retrieve a specific order by ID.",
+  "endpoint": "/v2/orders/{order_id}",
+  "method": "GET",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "order_id",
+      "type": "string",
+      "description": "Order ID",
+      "required": true,
+      "example": "order_abc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://connect.squareup.com/v2/orders/order_abc",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "order": {
+        "id": "order_abc",
+        "state": "OPEN",
+        "total_money": {
+          "amount": 500,
+          "currency": "USD"
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

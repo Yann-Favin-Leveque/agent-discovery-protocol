@@ -1,0 +1,66 @@
+{
+  "name": "users_delete",
+  "description": "Delete or disassociate a user from the Zoom account. Choose to transfer meetings, webinars, and recordings to another user.",
+  "endpoint": "/users/{userId}",
+  "method": "DELETE",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email.",
+      "required": true,
+      "example": "user123"
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "description": "Delete action: disassociate or delete.",
+      "required": false,
+      "example": "disassociate"
+    },
+    {
+      "name": "transfer_email",
+      "type": "string",
+      "description": "Email of user to transfer meetings, webinars, and recordings to.",
+      "required": false,
+      "example": "admin@example.com"
+    },
+    {
+      "name": "transfer_meetings",
+      "type": "boolean",
+      "description": "Transfer scheduled meetings to the specified user.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "transfer_webinars",
+      "type": "boolean",
+      "description": "Transfer webinars to the specified user.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "transfer_recordings",
+      "type": "boolean",
+      "description": "Transfer recordings to the specified user.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.zoom.us/v2/users/user123?action=disassociate&transfer_email=admin@example.com&transfer_meetings=true",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": ["user:write:admin"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

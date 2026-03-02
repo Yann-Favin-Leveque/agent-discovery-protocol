@@ -1,0 +1,47 @@
+{
+  "name": "asset_report_get",
+  "description": "Retrieve a completed Asset Report in JSON.",
+  "resource_group": "assets",
+  "endpoint": "/asset_report/get",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "asset_report_token",
+      "type": "string",
+      "required": true,
+      "description": "The asset report token."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/asset_report/get",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "asset_report_token": "assets-abc"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "report": {
+        "asset_report_id": "report_abc",
+        "items": [
+          {
+            "accounts": [
+              {
+                "balances": {
+                  "current": 1250.0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "request_id": "abc"
+    }
+  }
+}

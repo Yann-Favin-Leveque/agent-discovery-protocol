@@ -1,0 +1,46 @@
+{
+  "name": "channels_create",
+  "description": "Create a push notification channel to receive real-time webhooks when changes occur in the user's calendars (new events, updates, deletions).",
+  "endpoint": "/v1/channels",
+  "method": "POST",
+  "resource_group": "push_notifications",
+  "parameters": [
+    {
+      "name": "callback_url",
+      "type": "string",
+      "required": true,
+      "description": "Webhook URL to receive push notifications."
+    },
+    {
+      "name": "filters",
+      "type": "object",
+      "required": false,
+      "description": "Optional filters with 'calendar_ids' array to restrict notifications to specific calendars."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cronofy.com/v1/channels",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "callback_url": "https://example.com/webhooks/cronofy/changes"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "channel": {
+        "channel_id": "chn_abc123",
+        "callback_url": "https://example.com/webhooks/cronofy/changes",
+        "filters": {}
+      }
+    }
+  },
+  "auth_scopes": ["read_events"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

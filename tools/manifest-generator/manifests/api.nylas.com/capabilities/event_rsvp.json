@@ -1,0 +1,52 @@
+{
+  "name": "event_rsvp",
+  "description": "Send an RSVP response (yes, no, maybe) to a calendar event invitation.",
+  "resource_group": "event",
+  "endpoint": "/v3/grants/{grant_id}/events/{event_id}/send-rsvp",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "event_id",
+      "type": "string",
+      "description": "Event ID (path parameter).",
+      "required": true,
+      "example": "evt_abc"
+    },
+    {
+      "name": "calendar_id",
+      "type": "string",
+      "description": "Calendar ID (required query parameter).",
+      "required": true,
+      "example": "cal_abc"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "RSVP status: yes, no, or maybe.",
+      "required": true,
+      "example": "yes"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.us.nylas.com/v3/grants/me/events/evt_abc/send-rsvp?calendar_id=cal_abc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "yes"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  }
+}

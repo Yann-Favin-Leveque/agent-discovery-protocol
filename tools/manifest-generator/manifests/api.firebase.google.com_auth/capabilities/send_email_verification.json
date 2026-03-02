@@ -1,33 +1,34 @@
 {
   "name": "send_email_verification",
-  "description": "Send an email verification message to the currently signed-in user. Requires a valid ID token from a user whose email has not yet been verified. The email contains a link the user clicks to confirm their email address.",
+  "description": "Send an email verification message to the authenticated user. Requires a valid ID token from a signed-in user.",
   "endpoint": "/accounts:sendOobCode",
   "method": "POST",
+  "resource_group": "auth",
   "parameters": [
     {
       "name": "requestType",
       "type": "string",
-      "description": "The type of OOB code to send. Must be 'VERIFY_EMAIL'.",
+      "description": "The type of OOB code. Use 'VERIFY_EMAIL'.",
       "required": true,
       "example": "VERIFY_EMAIL"
     },
     {
       "name": "idToken",
       "type": "string",
-      "description": "The ID token of the currently signed-in user.",
+      "description": "The ID token of the user to verify.",
       "required": true,
-      "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+      "example": "eyJhbGciOiJSUzI1NiIs..."
     }
   ],
   "request_example": {
     "method": "POST",
-    "url": "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=YOUR_API_KEY",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSy...",
     "headers": {
       "Content-Type": "application/json"
     },
     "body": {
       "requestType": "VERIFY_EMAIL",
-      "idToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+      "idToken": "eyJhbGciOiJSUzI1NiIs..."
     }
   },
   "response_example": {
@@ -36,5 +37,9 @@
       "kind": "identitytoolkit#GetOobConfirmationCodeResponse",
       "email": "user@example.com"
     }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
   }
 }

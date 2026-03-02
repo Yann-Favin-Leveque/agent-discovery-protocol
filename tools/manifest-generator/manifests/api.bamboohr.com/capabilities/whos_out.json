@@ -1,0 +1,23 @@
+{
+  "name": "whos_out",
+  "description": "View who is currently out of office or will be out within a date range.",
+  "endpoint": "/api/gateway.php/{companyDomain}/v1/time_off/whos_out/",
+  "method": "GET",
+  "resource_group": "time_off",
+  "parameters": [
+    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
+    {"name": "start", "type": "string", "description": "Start date (YYYY-MM-DD).", "required": false, "example": "2024-07-01"},
+    {"name": "end", "type": "string", "description": "End date (YYYY-MM-DD).", "required": false, "example": "2024-07-31"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/time_off/whos_out/?start=2024-07-01&end=2024-07-31",
+    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Accept": "application/json"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{"employeeId": 123, "name": "John Doe", "start": "2024-07-15", "end": "2024-07-19", "type": "Vacation"}]
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 60}
+}

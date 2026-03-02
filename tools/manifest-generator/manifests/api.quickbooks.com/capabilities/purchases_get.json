@@ -1,0 +1,47 @@
+{
+  "name": "purchases_get",
+  "description": "Retrieve a specific purchase (expense) by its ID.",
+  "endpoint": "/v3/company/{realmId}/purchase/{purchaseId}",
+  "method": "GET",
+  "resource_group": "purchases",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "purchaseId",
+      "type": "string",
+      "description": "Purchase ID",
+      "required": true,
+      "example": "178"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/purchase/178?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Purchase": {
+        "Id": "178",
+        "TotalAmt": 50.0,
+        "PaymentType": "Cash"
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

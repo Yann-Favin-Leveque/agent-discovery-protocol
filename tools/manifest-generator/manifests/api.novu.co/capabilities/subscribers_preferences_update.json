@@ -1,0 +1,55 @@
+{
+  "name": "subscribers_preferences_update",
+  "description": "Update notification preferences for a subscriber.",
+  "resource_group": "subscribers",
+  "endpoint": "/v1/subscribers/{subscriberId}/preferences",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "subscriberId",
+      "type": "string",
+      "required": true,
+      "description": "Subscriber ID."
+    },
+    {
+      "name": "channel",
+      "type": "object",
+      "required": false,
+      "description": "Channel preferences to update."
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Global preference enabled/disabled."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.novu.co/v1/subscribers/user123/preferences",
+    "headers": {
+      "Authorization": "ApiKey <key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "channel": {
+        "type": "email",
+        "enabled": false
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "preference": {
+          "enabled": true,
+          "channels": {
+            "email": false,
+            "in_app": true
+          }
+        }
+      }
+    }
+  }
+}

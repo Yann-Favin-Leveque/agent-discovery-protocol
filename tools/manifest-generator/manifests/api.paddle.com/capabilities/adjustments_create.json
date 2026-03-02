@@ -1,0 +1,62 @@
+{
+  "name": "adjustments_create",
+  "description": "Create a credit, refund, or chargeback adjustment for a transaction.",
+  "resource_group": "adjustments",
+  "endpoint": "/adjustments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "transaction_id",
+      "type": "string",
+      "description": "Transaction to adjust.",
+      "required": true
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "description": "Adjustment action: refund, credit, or chargeback.",
+      "required": true,
+      "example": "refund"
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "description": "Reason for adjustment.",
+      "required": true
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Items to adjust with item_id and type.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/adjustments",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transaction_id": "txn_01h1vjes1y163xfj1rh1tkfb65",
+      "action": "refund",
+      "reason": "Customer request",
+      "items": [
+        {
+          "item_id": "txnitm_01h1vjes1y163xfj1rh1tkfb65",
+          "type": "full"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "adj_01h1vjes1y163xfj1rh1tkfb65",
+        "action": "refund"
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "domains_create",
+  "description": "Add a custom domain.",
+  "resource_group": "domains",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "Service ID."
+    },
+    {
+      "name": "environmentId",
+      "type": "string",
+      "required": true,
+      "description": "Environment ID."
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "required": true,
+      "description": "Domain name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($input: CustomDomainCreateInput!) { customDomainCreate(input: $input) { id domain } }",
+      "variables": {
+        "input": {
+          "serviceId": "srv-abc",
+          "environmentId": "env-abc",
+          "domain": "api.example.com"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "customDomainCreate": {
+        "id": "dom-new",
+        "domain": "api.example.com"
+      }
+    }
+  }
+}

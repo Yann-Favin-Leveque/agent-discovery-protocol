@@ -1,0 +1,57 @@
+{
+  "name": "tweets_create",
+  "description": "Post a new tweet. Supports text, replies, quote tweets, and polls.",
+  "resource_group": "tweets",
+  "endpoint": "/2/tweets",
+  "method": "POST",
+  "auth_scopes": [
+    "tweet.write"
+  ],
+  "parameters": [
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "description": "Tweet text content (max 280 chars).",
+      "example": "Hello world!"
+    },
+    {
+      "name": "reply",
+      "type": "object",
+      "required": false,
+      "description": "Reply settings with in_reply_to_tweet_id."
+    },
+    {
+      "name": "quote_tweet_id",
+      "type": "string",
+      "required": false,
+      "description": "Tweet ID to quote."
+    },
+    {
+      "name": "poll",
+      "type": "object",
+      "required": false,
+      "description": "Poll options and duration_minutes."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.twitter.com/2/tweets",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "text": "Hello world!"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "1234567890123456789",
+        "text": "Hello world!"
+      }
+    }
+  }
+}

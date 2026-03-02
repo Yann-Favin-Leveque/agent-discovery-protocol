@@ -1,0 +1,94 @@
+{
+  "name": "pull_requests_create",
+  "description": "Create a pull request.",
+  "resource_group": "pull_requests",
+  "endpoint": "/{organization}/{project}/_apis/git/repositories/{repositoryId}/pullrequests",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project."
+    },
+    {
+      "name": "repositoryId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository."
+    },
+    {
+      "name": "sourceRefName",
+      "type": "string",
+      "required": true,
+      "description": "Source branch (refs/heads/...)."
+    },
+    {
+      "name": "targetRefName",
+      "type": "string",
+      "required": true,
+      "description": "Target branch."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "PR title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "PR description."
+    },
+    {
+      "name": "reviewers",
+      "type": "array",
+      "required": false,
+      "description": "Reviewer objects: [{id: 'user-guid'}]."
+    },
+    {
+      "name": "isDraft",
+      "type": "boolean",
+      "required": false,
+      "description": "Create as draft."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://dev.azure.com/myorg/MyProject/_apis/git/repositories/MyProject/pullrequests?api-version=7.1",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic base64(user:pat)"
+    },
+    "body": {
+      "sourceRefName": "refs/heads/feature/dark-mode",
+      "targetRefName": "refs/heads/main",
+      "title": "Add dark mode",
+      "description": "Implements dark mode"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "pullRequestId": 102,
+      "title": "Add dark mode",
+      "status": "active"
+    }
+  }
+}

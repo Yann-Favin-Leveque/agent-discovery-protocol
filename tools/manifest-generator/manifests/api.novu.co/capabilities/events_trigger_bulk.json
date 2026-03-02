@@ -1,0 +1,52 @@
+{
+  "name": "events_trigger_bulk",
+  "description": "Trigger multiple notification events simultaneously (up to 100 per request).",
+  "resource_group": "events",
+  "endpoint": "/v1/events/trigger/bulk",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "events",
+      "type": "array",
+      "required": true,
+      "description": "Array of event objects, each with name, to, and payload."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.novu.co/v1/events/trigger/bulk",
+    "headers": {
+      "Authorization": "ApiKey <key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "events": [
+        {
+          "name": "welcome-flow",
+          "to": "user1",
+          "payload": {}
+        },
+        {
+          "name": "welcome-flow",
+          "to": "user2",
+          "payload": {}
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": [
+        {
+          "acknowledged": true,
+          "transactionId": "tx1"
+        },
+        {
+          "acknowledged": true,
+          "transactionId": "tx2"
+        }
+      ]
+    }
+  }
+}

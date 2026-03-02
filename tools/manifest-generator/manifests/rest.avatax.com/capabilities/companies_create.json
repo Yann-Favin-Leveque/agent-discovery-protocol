@@ -1,0 +1,69 @@
+{
+  "name": "companies_create",
+  "description": "Create a new company.",
+  "endpoint": "/api/v2/companies",
+  "method": "POST",
+  "resource_group": "companies",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Company name.",
+      "required": true,
+      "example": "My Company"
+    },
+    {
+      "name": "companyCode",
+      "type": "string",
+      "description": "Unique company code.",
+      "required": true,
+      "example": "MYCO"
+    },
+    {
+      "name": "taxpayerIdNumber",
+      "type": "string",
+      "description": "Tax ID number.",
+      "required": false
+    },
+    {
+      "name": "line1",
+      "type": "string",
+      "description": "Company address.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.avatax.com/api/v2/companies",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "name": "My Company",
+        "companyCode": "MYCO",
+        "line1": "123 Main St",
+        "city": "Austin",
+        "region": "TX",
+        "postalCode": "78756",
+        "country": "US"
+      }
+    ]
+  },
+  "response_example": {
+    "status": 201,
+    "body": [
+      {
+        "id": 67890,
+        "companyCode": "MYCO",
+        "name": "My Company",
+        "isActive": true
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

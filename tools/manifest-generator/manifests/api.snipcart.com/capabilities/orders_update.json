@@ -1,0 +1,58 @@
+{
+  "name": "orders_update",
+  "description": "Update order status, tracking information, or metadata.",
+  "resource_group": "orders",
+  "endpoint": "/orders/{token}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "The unique order token."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "description": "New status: InProgress, Processed, Shipped, Delivered, etc."
+    },
+    {
+      "name": "trackingNumber",
+      "type": "string",
+      "required": false,
+      "description": "Shipment tracking number."
+    },
+    {
+      "name": "trackingUrl",
+      "type": "string",
+      "required": false,
+      "description": "Tracking URL for customer."
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "description": "Custom metadata JSON object."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://app.snipcart.com/api/orders/d16e2f60-39f1-4a4c-b1c3-8a2e166d3f70",
+    "headers": {
+      "Authorization": "Basic {api_key_base64}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "Shipped",
+      "trackingNumber": "1Z999AA10123456784"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "token": "d16e2f60-39f1-4a4c-b1c3-8a2e166d3f70",
+      "status": "Shipped"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "visitors_delete",
+  "description": "Bulk-delete visitor records and all associated data from Pendo.",
+  "endpoint": "/v1/visitor",
+  "method": "DELETE",
+  "resource_group": "visitors",
+  "parameters": [
+    {
+      "name": "visitorIds",
+      "type": "array",
+      "description": "Array of visitor IDs to delete.",
+      "required": true,
+      "example": ["user_123", "user_456"]
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://app.pendo.io/api/v1/visitor",
+    "headers": {
+      "x-pendo-integration-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "visitorIds": ["user_123", "user_456"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "deleted": 2 }
+  },
+  "auth_scopes": ["visitor"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

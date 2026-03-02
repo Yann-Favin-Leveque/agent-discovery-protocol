@@ -1,0 +1,50 @@
+{
+  "name": "sleep_time_list",
+  "description": "Retrieve recommended optimal sleep time windows based on the user's chronotype and recent sleep patterns.",
+  "resource_group": "sleep",
+  "endpoint": "/v2/usercollection/sleep_time",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "sleep"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/sleep_time?start_date=2025-01-15&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "day": "2025-01-15",
+          "optimal_bedtime": {
+            "day_tz": 0,
+            "end_offset": 25200,
+            "start_offset": 82800
+          },
+          "recommendation": "EARLIER_BEDTIME",
+          "status": "FOUND_OPTIMAL"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "documents_revoke",
+  "description": "Revoke a pending document to prevent any further signing activity. Notifies all signers that the document has been revoked.",
+  "endpoint": "/v1/document/revoke",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "description": "The document ID to revoke (query parameter)."
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Optional message explaining the reason for revocation."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.boldsign.com/v1/document/revoke?documentId=doc_abc123def456",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-KEY": "{api_key}"
+    },
+    "body": {
+      "message": "Document revoked due to updated terms."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

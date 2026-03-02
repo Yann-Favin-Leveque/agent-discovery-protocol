@@ -1,0 +1,44 @@
+{
+  "name": "pipelines_get",
+  "description": "Get a specific pipeline by ID.",
+  "resource_group": "pipelines",
+  "endpoint": "/projects/{id}/pipelines/{pipeline_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "pipeline_id",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "Pipeline ID."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/123/pipelines/1001",
+    "headers": {
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1001,
+      "iid": 50,
+      "status": "failed",
+      "ref": "main",
+      "sha": "abc123",
+      "duration": 245,
+      "queued_duration": 12,
+      "coverage": "85.5",
+      "web_url": "https://gitlab.com/octocat/my-project/-/pipelines/1001"
+    }
+  }
+}

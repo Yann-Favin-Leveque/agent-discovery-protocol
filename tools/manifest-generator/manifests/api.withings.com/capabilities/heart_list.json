@@ -1,0 +1,67 @@
+{
+  "name": "heart_list",
+  "description": "List available ECG recordings with classification results and metadata.",
+  "resource_group": "heart",
+  "endpoint": "/v2/heart",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'list'."
+    },
+    {
+      "name": "startdate",
+      "type": "integer",
+      "required": false,
+      "description": "Start Unix timestamp."
+    },
+    {
+      "name": "enddate",
+      "type": "integer",
+      "required": false,
+      "description": "End Unix timestamp."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset."
+    }
+  ],
+  "auth_scopes": [
+    "user.metrics"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/heart",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "list",
+      "startdate": 1704067200,
+      "enddate": 1704153600
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "series": [
+          {
+            "signalid": 12345,
+            "ecg": {
+              "afib": 0
+            },
+            "heart_rate": 72,
+            "timestamp": 1704110400
+          }
+        ]
+      }
+    }
+  }
+}

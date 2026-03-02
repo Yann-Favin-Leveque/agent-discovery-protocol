@@ -1,0 +1,49 @@
+{
+  "name": "organization_memberships_list",
+  "resource_group": "organization_memberships",
+  "description": "List all memberships for a given organization.",
+  "endpoint": "/v1/organizations/{organization_id}/memberships",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization ID.",
+      "in": "path"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Offset."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clerk.com/v1/organizations/org_abc123/memberships",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "orgmem_xyz",
+        "object": "organization_membership",
+        "role": "admin",
+        "public_user_data": {
+          "user_id": "user_2abc123",
+          "first_name": "Alice"
+        }
+      }
+    ]
+  }
+}

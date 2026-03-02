@@ -1,0 +1,76 @@
+{
+  "name": "resources_get",
+  "resource_group": "resources",
+  "description": "Get detailed metadata for a specific asset by public ID.",
+  "endpoint": "/v1_1/{cloud_name}/resources/{resource_type}/{type}/{public_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "resource_type",
+      "type": "string",
+      "required": true,
+      "description": "Resource type: image, raw, video.",
+      "in": "path"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Delivery type: upload, private, etc.",
+      "in": "path"
+    },
+    {
+      "name": "public_id",
+      "type": "string",
+      "required": true,
+      "description": "Asset public ID.",
+      "in": "path"
+    },
+    {
+      "name": "colors",
+      "type": "boolean",
+      "required": false,
+      "description": "Include color analysis."
+    },
+    {
+      "name": "faces",
+      "type": "boolean",
+      "required": false,
+      "description": "Include face coordinates."
+    },
+    {
+      "name": "image_metadata",
+      "type": "boolean",
+      "required": false,
+      "description": "Include EXIF metadata."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/resources/image/upload/products/my-photo",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "public_id": "products/my-photo",
+      "format": "jpg",
+      "version": 1702656000,
+      "resource_type": "image",
+      "width": 1200,
+      "height": 800,
+      "bytes": 245000,
+      "created_at": "2024-01-15T10:30:00Z",
+      "derived": [
+        {
+          "transformation": "w_200,h_200,c_fill",
+          "format": "jpg",
+          "bytes": 15000,
+          "url": "https://res.cloudinary.com/mycloud/image/upload/w_200,h_200,c_fill/products/my-photo.jpg"
+        }
+      ]
+    }
+  }
+}

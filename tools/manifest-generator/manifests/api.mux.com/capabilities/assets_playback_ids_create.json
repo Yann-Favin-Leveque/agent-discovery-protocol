@@ -1,0 +1,42 @@
+{
+  "name": "assets_playback_ids_create",
+  "resource_group": "assets",
+  "description": "Create a playback ID for an asset. Can be public or signed.",
+  "endpoint": "/video/v1/assets/{asset_id}/playback-ids",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "asset_id",
+      "type": "string",
+      "required": true,
+      "description": "Asset ID.",
+      "in": "path"
+    },
+    {
+      "name": "policy",
+      "type": "string",
+      "required": true,
+      "description": "Playback policy: public or signed."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mux.com/video/v1/assets/asset_abc123/playback-ids",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "policy": "public"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "playback_xyz",
+        "policy": "public"
+      }
+    }
+  }
+}

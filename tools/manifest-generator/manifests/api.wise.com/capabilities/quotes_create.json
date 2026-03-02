@@ -1,0 +1,73 @@
+{
+  "name": "quotes_create",
+  "description": "Create a quote for an international money transfer, locking the exchange rate for a limited time.",
+  "resource_group": "quotes",
+  "endpoint": "/v3/profiles/{profileId}/quotes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "profileId",
+      "type": "integer",
+      "description": "Profile ID.",
+      "required": true
+    },
+    {
+      "name": "sourceCurrency",
+      "type": "string",
+      "description": "Source currency code.",
+      "required": true,
+      "example": "USD"
+    },
+    {
+      "name": "targetCurrency",
+      "type": "string",
+      "description": "Target currency code.",
+      "required": true,
+      "example": "EUR"
+    },
+    {
+      "name": "sourceAmount",
+      "type": "number",
+      "description": "Amount in source currency (use either this or targetAmount).",
+      "required": false,
+      "example": 1000
+    },
+    {
+      "name": "targetAmount",
+      "type": "number",
+      "description": "Amount in target currency.",
+      "required": false
+    },
+    {
+      "name": "payOut",
+      "type": "string",
+      "description": "Payout method: BANK_TRANSFER, SWIFT, etc.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.wise.com/v3/profiles/12345/quotes",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sourceCurrency": "USD",
+      "targetCurrency": "EUR",
+      "sourceAmount": 1000,
+      "payOut": "BANK_TRANSFER"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "q-abc123",
+      "sourceCurrency": "USD",
+      "targetCurrency": "EUR",
+      "sourceAmount": 1000,
+      "rate": 0.85,
+      "fee": 7.5
+    }
+  }
+}

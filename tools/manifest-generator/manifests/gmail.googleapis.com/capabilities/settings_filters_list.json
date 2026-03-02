@@ -1,0 +1,44 @@
+{
+  "name": "settings_filters_list",
+  "description": "Lists the message filters of the specified account.",
+  "resource_group": "settings",
+  "endpoint": "/gmail/v1/users/{userId}/settings/filters",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/settings/filters",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "filter": [
+        {
+          "id": "abc123",
+          "criteria": {
+            "from": "user@example.com"
+          },
+          "action": {
+            "addLabelIds": [
+              "Label_1"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.settings.basic"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "name": "messages_modify",
+  "description": "Modifies the labels on the specified message by adding or removing label IDs.",
+  "resource_group": "messages",
+  "endpoint": "/gmail/v1/users/{userId}/messages/{id}/modify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID of the message to modify.",
+      "required": true,
+      "example": "18e2abc123"
+    },
+    {
+      "name": "addLabelIds",
+      "type": "array",
+      "description": "Label IDs to add.",
+      "required": false,
+      "example": [
+        "STARRED"
+      ]
+    },
+    {
+      "name": "removeLabelIds",
+      "type": "array",
+      "description": "Label IDs to remove.",
+      "required": false,
+      "example": [
+        "UNREAD"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages/18e2abc123/modify",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "addLabelIds": [
+        "STARRED"
+      ],
+      "removeLabelIds": [
+        "UNREAD"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "18e2abc123",
+      "threadId": "18e2abc123",
+      "labelIds": [
+        "INBOX",
+        "STARRED"
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.modify"
+  ]
+}

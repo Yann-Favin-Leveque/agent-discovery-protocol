@@ -1,0 +1,49 @@
+{
+  "name": "auth_signup",
+  "resource_group": "auth",
+  "description": "Create a new user with email and password. Returns ID token, refresh token, and user info.",
+  "endpoint": "/v1/accounts:signUp",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "description": "Email address for the new account."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "description": "Password for the new account."
+    },
+    {
+      "name": "returnSecureToken",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to return ID and refresh tokens. Default true."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyXXXXXX",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "alice@example.com",
+      "password": "securePass123!",
+      "returnSecureToken": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "idToken": "eyJhbGciOi...",
+      "email": "alice@example.com",
+      "refreshToken": "AMf-vBx...",
+      "expiresIn": "3600",
+      "localId": "uid123"
+    }
+  }
+}

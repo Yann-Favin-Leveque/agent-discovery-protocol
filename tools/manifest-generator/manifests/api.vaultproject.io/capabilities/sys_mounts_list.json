@@ -1,0 +1,37 @@
+{
+  "name": "sys_mounts_list",
+  "description": "List all mounted secrets engines.",
+  "resource_group": "system",
+  "endpoint": "/v1/sys/mounts",
+  "method": "GET",
+  "parameters": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://vault.example.com/v1/sys/mounts",
+    "headers": {
+      "X-Vault-Token": "<token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "secret/": {
+        "accessor": "kv_abc",
+        "config": {
+          "default_lease_ttl": 0,
+          "max_lease_ttl": 0
+        },
+        "description": "key/value secret storage",
+        "type": "kv",
+        "options": {
+          "version": "2"
+        }
+      },
+      "transit/": {
+        "accessor": "transit_abc",
+        "type": "transit",
+        "description": "Transit secrets engine"
+      }
+    }
+  }
+}

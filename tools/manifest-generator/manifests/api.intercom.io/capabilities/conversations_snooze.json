@@ -1,0 +1,64 @@
+{
+  "name": "conversations_snooze",
+  "description": "Snooze a conversation until a specified time. The conversation will reopen automatically.",
+  "resource_group": "conversations",
+  "endpoint": "/conversations/{id}/parts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The conversation ID."
+    },
+    {
+      "name": "message_type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'snoozed'."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'admin'."
+    },
+    {
+      "name": "admin_id",
+      "type": "string",
+      "required": true,
+      "description": "The admin snoozing the conversation."
+    },
+    {
+      "name": "snoozed_until",
+      "type": "integer",
+      "required": true,
+      "description": "Unix timestamp of when to reopen the conversation."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/conversations/123456/parts",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "message_type": "snoozed",
+      "type": "admin",
+      "admin_id": "admin-1",
+      "snoozed_until": 1741046400
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "conversation",
+      "id": "123456",
+      "state": "snoozed",
+      "snoozed_until": 1741046400
+    }
+  }
+}

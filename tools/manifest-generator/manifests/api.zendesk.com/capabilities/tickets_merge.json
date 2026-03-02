@@ -1,0 +1,53 @@
+{
+  "name": "tickets_merge",
+  "description": "Merge tickets into a target ticket.",
+  "endpoint": "/api/v2/tickets/{ticket_id}/merge",
+  "method": "PUT",
+  "resource_group": "tickets",
+  "parameters": [
+    {
+      "name": "ticket_id",
+      "type": "integer",
+      "description": "Target ticket ID",
+      "required": true,
+      "example": "1"
+    },
+    {
+      "name": "ids",
+      "type": "array",
+      "description": "Source ticket IDs",
+      "required": true,
+      "example": [
+        2,
+        3
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{subdomain}.zendesk.com/api/v2/tickets/{ticket_id}/merge",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ids": [
+        2,
+        3
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "job_status": {
+        "id": "job_merge",
+        "status": "queued"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

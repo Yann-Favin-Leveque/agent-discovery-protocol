@@ -1,0 +1,22 @@
+{
+  "name": "custom_domains_list",
+  "description": "List custom domains attached to a service with filtering by name, type, and verification status.",
+  "resource_group": "custom_domains",
+  "endpoint": "/v1/services/{serviceId}/custom-domains",
+  "method": "GET",
+  "parameters": [
+    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID."},
+    {"name": "name", "type": "string", "required": false, "description": "Filter by domain name."},
+    {"name": "domainType", "type": "string", "required": false, "description": "Filter by domain type."},
+    {"name": "verificationStatus", "type": "string", "required": false, "description": "Filter by verification status."},
+    {"name": "cursor", "type": "string", "required": false, "description": "Cursor for pagination."},
+    {"name": "limit", "type": "integer", "required": false, "description": "Max results to return."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5/custom-domains"
+  },
+  "response_example": [
+    {"customDomain": {"id": "cdm-abc123", "name": "api.example.com", "domainType": "apex", "verificationStatus": "verified"}, "cursor": "cdm-cursor-1"}
+  ]
+}

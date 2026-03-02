@@ -1,0 +1,47 @@
+{
+  "name": "estimates_get",
+  "description": "Retrieve a specific estimate by its ID.",
+  "endpoint": "/v3/company/{realmId}/estimate/{estimateId}",
+  "method": "GET",
+  "resource_group": "estimates",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "estimateId",
+      "type": "string",
+      "description": "Estimate ID",
+      "required": true,
+      "example": "95"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/estimate/95?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Estimate": {
+        "Id": "95",
+        "TotalAmt": 500.0,
+        "TxnStatus": "Pending"
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

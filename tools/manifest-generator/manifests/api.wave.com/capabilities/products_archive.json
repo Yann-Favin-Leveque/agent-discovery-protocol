@@ -1,0 +1,44 @@
+{
+  "name": "products_archive",
+  "description": "Archive a product or service.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "products",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Product ID to archive",
+      "required": true,
+      "example": "UHJvZHVjdDo6..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: ProductArchiveInput!) { productArchive(input: $input) { product { id } didSucceed } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "productArchive": {
+          "product": {
+            "id": "UHJvZHVjdDo6..."
+          },
+          "didSucceed": true
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

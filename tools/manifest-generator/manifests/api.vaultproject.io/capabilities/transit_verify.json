@@ -1,0 +1,53 @@
+{
+  "name": "transit_verify",
+  "description": "Verify a signature against data using a named key.",
+  "resource_group": "transit",
+  "endpoint": "/v1/transit/verify/{name}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Signing key name."
+    },
+    {
+      "name": "input",
+      "type": "string",
+      "required": true,
+      "description": "Base64-encoded input data."
+    },
+    {
+      "name": "signature",
+      "type": "string",
+      "required": true,
+      "description": "Signature to verify."
+    },
+    {
+      "name": "hash_algorithm",
+      "type": "string",
+      "required": false,
+      "description": "Hash algorithm used."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com/v1/transit/verify/my-key",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "input": "bXkgZGF0YQ==",
+      "signature": "vault:v1:MEUCIQDx..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "valid": true
+      }
+    }
+  }
+}

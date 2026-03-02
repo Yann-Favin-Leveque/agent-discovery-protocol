@@ -1,0 +1,50 @@
+{
+  "name": "task_trigger",
+  "description": "Trigger a specific task by its identifier with a JSON payload.",
+  "resource_group": "task",
+  "endpoint": "/api/v3/tasks/{taskId}/trigger",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "taskId",
+      "type": "string",
+      "description": "Task identifier (path parameter).",
+      "required": true,
+      "example": "my-task"
+    },
+    {
+      "name": "payload",
+      "type": "object",
+      "description": "Task payload data.",
+      "required": false,
+      "example": {
+        "userId": "usr_123"
+      }
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "description": "Trigger options (delay, ttl, queue, concurrencyKey, idempotencyKey).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trigger.dev/api/v3/tasks/my-task/trigger",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "payload": {
+        "userId": "usr_123"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "run_abc123"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "name": "notifications_create",
+  "description": "Send push notifications, emails, SMS, or Live Activities to users, segments, or specific devices.",
+  "resource_group": "notifications",
+  "endpoint": "/api/v1/notifications",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "required": true,
+      "description": "OneSignal App ID."
+    },
+    {
+      "name": "included_segments",
+      "type": "array",
+      "required": false,
+      "description": "Target segments (e.g., ['All'])."
+    },
+    {
+      "name": "include_aliases",
+      "type": "object",
+      "required": false,
+      "description": "Target by aliases."
+    },
+    {
+      "name": "contents",
+      "type": "object",
+      "required": false,
+      "description": "Notification content by language (e.g., {\"en\": \"Hello\"})."
+    },
+    {
+      "name": "headings",
+      "type": "object",
+      "required": false,
+      "description": "Notification title by language."
+    },
+    {
+      "name": "email_subject",
+      "type": "string",
+      "required": false,
+      "description": "Email subject line."
+    },
+    {
+      "name": "email_body",
+      "type": "string",
+      "required": false,
+      "description": "Email HTML body."
+    },
+    {
+      "name": "target_channel",
+      "type": "string",
+      "required": false,
+      "description": "Channel: push, email, sms."
+    },
+    {
+      "name": "send_after",
+      "type": "string",
+      "required": false,
+      "description": "Schedule delivery (ISO 8601)."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": false,
+      "description": "Custom data payload."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.onesignal.com/api/v1/notifications",
+    "headers": {
+      "Authorization": "Basic <rest_api_key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "app_id": "app-uuid",
+      "included_segments": [
+        "All"
+      ],
+      "contents": {
+        "en": "Hello World!"
+      },
+      "headings": {
+        "en": "Welcome"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "notif-uuid",
+      "recipients": 1000,
+      "external_id": null
+    }
+  }
+}

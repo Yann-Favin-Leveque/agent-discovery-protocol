@@ -1,0 +1,41 @@
+{
+  "name": "users_unfollow",
+  "description": "Unfollow a user.",
+  "resource_group": "users",
+  "endpoint": "/2/users/{source_user_id}/following/{target_user_id}",
+  "method": "DELETE",
+  "auth_scopes": [
+    "users.read",
+    "tweet.read",
+    "follows.write"
+  ],
+  "parameters": [
+    {
+      "name": "source_user_id",
+      "type": "string",
+      "required": true,
+      "description": "Authenticated user ID."
+    },
+    {
+      "name": "target_user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID to unfollow."
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.twitter.com/2/users/123456/following/789012",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "following": false
+      }
+    }
+  }
+}

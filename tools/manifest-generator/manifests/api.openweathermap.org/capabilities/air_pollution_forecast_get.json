@@ -1,0 +1,55 @@
+{
+  "name": "air_pollution_forecast_get",
+  "description": "Get air pollution forecast for the next 4 days with hourly AQI and pollutant data.",
+  "resource_group": "air_pollution",
+  "endpoint": "/data/2.5/air_pollution/forecast",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": true,
+      "description": "Latitude.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": true,
+      "description": "Longitude.",
+      "in": "query"
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=48.8566&lon=2.3522&appid=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "list": [
+        {
+          "dt": 1705315800,
+          "main": {
+            "aqi": 2
+          },
+          "components": {
+            "co": 230.31,
+            "no2": 15.84,
+            "o3": 68.78,
+            "pm2_5": 8.92,
+            "pm10": 12.46
+          }
+        }
+      ]
+    }
+  }
+}

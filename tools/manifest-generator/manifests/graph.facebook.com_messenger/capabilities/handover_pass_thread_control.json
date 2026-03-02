@@ -1,0 +1,51 @@
+{
+  "name": "handover_pass_thread_control",
+  "description": "Pass thread control to another app in the Handover Protocol, enabling seamless bot-to-human handoff.",
+  "endpoint": "/me/pass_thread_control",
+  "method": "POST",
+  "resource_group": "handover",
+  "parameters": [
+    {
+      "name": "recipient_id",
+      "type": "string",
+      "description": "The PSID of the user whose thread control to pass.",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "target_app_id",
+      "type": "string",
+      "description": "The app ID to pass control to. Use 263902037430900 for Page Inbox.",
+      "required": true,
+      "example": "263902037430900"
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "description": "Optional metadata string to pass to the target app.",
+      "required": false,
+      "example": "Passing to human agent for billing issue"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v18.0/me/pass_thread_control",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipient": { "id": "1234567890" },
+      "target_app_id": "263902037430900",
+      "metadata": "Passing to human agent for billing issue"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "success": true }
+  },
+  "auth_scopes": ["pages_messaging"],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

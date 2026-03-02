@@ -1,0 +1,80 @@
+{
+  "name": "invoice_predict",
+  "description": "Parse an invoice document to extract structured data including line items, totals, dates, and supplier information.",
+  "endpoint": "/v1/products/mindee/invoices/v4/predict",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "document",
+      "type": "file",
+      "description": "Invoice file (PDF, JPG, PNG, TIFF, WEBP).",
+      "required": true
+    },
+    {
+      "name": "include_mvision",
+      "type": "boolean",
+      "description": "Include full OCR text output.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mindee.com/v1/products/mindee/invoices/v4/predict",
+    "headers": {
+      "Authorization": "Token {api_key}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "document": "(binary file data)"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "api_request": {
+        "status": "success"
+      },
+      "document": {
+        "inference": {
+          "prediction": {
+            "invoice_number": {
+              "value": "INV-001"
+            },
+            "date": {
+              "value": "2024-01-15"
+            },
+            "due_date": {
+              "value": "2024-02-15"
+            },
+            "supplier_name": {
+              "value": "Acme Corp"
+            },
+            "total_amount": {
+              "value": 1250.0
+            },
+            "total_net": {
+              "value": 1041.67
+            },
+            "total_tax": {
+              "value": 208.33
+            },
+            "line_items": [
+              {
+                "description": "Consulting services",
+                "quantity": 10,
+                "unit_price": 104.17,
+                "total_amount": 1041.67
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

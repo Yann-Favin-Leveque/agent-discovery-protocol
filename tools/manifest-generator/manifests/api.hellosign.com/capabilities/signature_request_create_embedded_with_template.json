@@ -1,0 +1,71 @@
+{
+  "name": "signature_request_create_embedded_with_template",
+  "description": "Create an embedded signature request using a template for in-app signing.",
+  "endpoint": "/v3/signature_request/create_embedded_with_template",
+  "method": "POST",
+  "resource_group": "signature_request",
+  "parameters": [
+    {
+      "name": "client_id",
+      "type": "string",
+      "description": "API app client ID.",
+      "required": true,
+      "example": "b6b8e7de"
+    },
+    {
+      "name": "template_ids",
+      "type": "array",
+      "description": "Template IDs.",
+      "required": true,
+      "example": [
+        "c26b8a16"
+      ]
+    },
+    {
+      "name": "signers",
+      "type": "array",
+      "description": "Signer objects with role.",
+      "required": true,
+      "example": [
+        {
+          "role": "Client",
+          "email_address": "s@example.com",
+          "name": "Jane"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/signature_request/create_embedded_with_template",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "client_id": "b6b8e7de",
+      "template_ids": [
+        "c26b8a16"
+      ],
+      "signers": [
+        {
+          "role": "Client",
+          "email_address": "s@example.com",
+          "name": "Jane"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signature_request": {
+        "signature_request_id": "fa5c8a0b"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

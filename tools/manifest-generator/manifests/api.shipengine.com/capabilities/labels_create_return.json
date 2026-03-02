@@ -1,0 +1,46 @@
+{
+  "name": "labels_create_return",
+  "description": "Generate a return label with optional RMA number.",
+  "endpoint": "/v1/labels/{label_id}/return",
+  "method": "POST",
+  "resource_group": "labels",
+  "parameters": [
+    {
+      "name": "label_id",
+      "type": "string",
+      "description": "The original label ID.",
+      "required": true,
+      "example": "se-label-123"
+    },
+    {
+      "name": "rma_number",
+      "type": "string",
+      "description": "Return merchandise authorization number.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/labels/se-label-123/return",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "rma_number": "RMA-001"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "label_id": "se-label-ret-123",
+      "status": "completed",
+      "tracking_number": "1Z999AA10123456999",
+      "is_return_label": true
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

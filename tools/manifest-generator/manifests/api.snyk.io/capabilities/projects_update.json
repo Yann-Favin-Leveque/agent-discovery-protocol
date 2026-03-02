@@ -1,0 +1,59 @@
+{
+  "name": "projects_update",
+  "description": "Update a project's settings and attributes.",
+  "resource_group": "projects",
+  "endpoint": "/rest/orgs/{org_id}/projects/{project_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization UUID."
+    },
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "description": "Project UUID."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "API version date."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.snyk.io/rest/orgs/org-uuid/projects/proj-uuid?version=2024-06-21",
+    "headers": {
+      "Authorization": "token <api_token>",
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "attributes": {
+          "environment": [
+            {
+              "value": "production"
+            }
+          ]
+        },
+        "type": "project"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "proj-uuid",
+        "type": "project",
+        "attributes": {
+          "name": "my-app"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "labels_create_from_shipment",
+  "description": "Create a label from an existing shipment.",
+  "endpoint": "/v1/labels/shipment/{shipment_id}",
+  "method": "POST",
+  "resource_group": "labels",
+  "parameters": [
+    {
+      "name": "shipment_id",
+      "type": "string",
+      "description": "The shipment ID.",
+      "required": true,
+      "example": "se-1234567"
+    },
+    {
+      "name": "label_format",
+      "type": "string",
+      "description": "Label format.",
+      "required": false,
+      "example": "pdf"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/labels/shipment/se-1234567",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "label_format": "pdf"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "label_id": "se-label-789",
+      "status": "completed",
+      "tracking_number": "1Z999AA10123456784"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

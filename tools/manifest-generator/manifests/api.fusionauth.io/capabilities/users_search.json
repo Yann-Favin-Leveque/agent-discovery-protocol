@@ -1,0 +1,49 @@
+{
+  "name": "users_search",
+  "resource_group": "users",
+  "description": "Search for users with complex query criteria, pagination and sorting.",
+  "endpoint": "/api/user/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "search",
+      "type": "object",
+      "required": true,
+      "description": "Search object with queryString, numberOfResults, startRow, sortFields."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/user/search",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "search": {
+        "queryString": "email:*@example.com",
+        "numberOfResults": 25,
+        "startRow": 0,
+        "sortFields": [
+          {
+            "name": "email",
+            "order": "asc"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total": 42,
+      "users": [
+        {
+          "id": "user-uuid",
+          "email": "alice@example.com",
+          "firstName": "Alice"
+        }
+      ]
+    }
+  }
+}

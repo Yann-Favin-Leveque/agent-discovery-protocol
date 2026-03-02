@@ -1,0 +1,39 @@
+{
+  "name": "transactions_list",
+  "description": "List transactions for a specific account with optional filtering by date range, status, and type.",
+  "endpoint": "/api/v1/account/{accountId}/transactions",
+  "method": "GET",
+  "resource_group": "transactions",
+  "parameters": [
+    { "name": "accountId", "type": "string", "description": "The account ID to retrieve transactions for", "required": true, "example": "acc_123abc" },
+    { "name": "start", "type": "string", "description": "Start date filter in ISO 8601 format", "required": false, "example": "2025-01-01" },
+    { "name": "end", "type": "string", "description": "End date filter in ISO 8601 format", "required": false, "example": "2025-01-31" },
+    { "name": "status", "type": "string", "description": "Filter by transaction status (pending, sent, cancelled, failed)", "required": false, "example": "sent" },
+    { "name": "limit", "type": "integer", "description": "Maximum number of transactions to return", "required": false, "example": 50 },
+    { "name": "offset", "type": "integer", "description": "Number of transactions to skip for pagination", "required": false, "example": 0 }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mercury.com/api/v1/account/acc_123abc/transactions?start=2025-01-01&end=2025-01-31&limit=50",
+    "headers": { "Authorization": "Bearer {token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total": 120,
+      "transactions": [
+        {
+          "id": "txn_abc123",
+          "amount": -1500.00,
+          "counterpartyName": "AWS",
+          "status": "sent",
+          "kind": "externalTransfer",
+          "postedAt": "2025-01-15T10:30:00Z",
+          "note": "Cloud hosting"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": { "requests_per_minute": 60 }
+}

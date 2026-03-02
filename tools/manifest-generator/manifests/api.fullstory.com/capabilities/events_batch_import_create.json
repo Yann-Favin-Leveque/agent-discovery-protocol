@@ -1,0 +1,47 @@
+{
+  "name": "events_batch_import_create",
+  "description": "Create a batch import job to asynchronously import up to 50,000 events.",
+  "endpoint": "/v2/events/batch",
+  "method": "POST",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "requests",
+      "type": "array",
+      "description": "Array of event objects to import (max 50,000 per batch).",
+      "required": true,
+      "example": [
+        { "user": { "uid": "user_1" }, "name": "Page View", "properties": { "page": "/pricing" } },
+        { "user": { "uid": "user_2" }, "name": "Sign Up" }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fullstory.com/v2/events/batch",
+    "headers": {
+      "Authorization": "Basic {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requests": [
+        { "user": { "uid": "user_1" }, "name": "Page View", "properties": { "page": "/pricing" } },
+        { "user": { "uid": "user_2" }, "name": "Sign Up" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "job": {
+        "id": "job_abc123",
+        "state": "PROCESSING",
+        "created": "2024-01-20T10:00:00Z"
+      }
+    }
+  },
+  "auth_scopes": ["server"],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

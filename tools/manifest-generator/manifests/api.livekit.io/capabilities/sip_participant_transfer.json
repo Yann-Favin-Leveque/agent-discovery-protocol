@@ -1,0 +1,48 @@
+{
+  "name": "sip_participant_transfer",
+  "description": "Transfer an active SIP call participant to another phone number or SIP endpoint.",
+  "endpoint": "/twirp/livekit.SIP/TransferSIPParticipant",
+  "method": "POST",
+  "resource_group": "sip",
+  "parameters": [
+    {
+      "name": "room_name",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room containing the SIP participant."
+    },
+    {
+      "name": "participant_identity",
+      "type": "string",
+      "required": true,
+      "description": "Identity of the SIP participant to transfer."
+    },
+    {
+      "name": "transfer_to",
+      "type": "string",
+      "required": true,
+      "description": "Phone number or SIP URI to transfer the call to."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.SIP/TransferSIPParticipant",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room_name": "support-room",
+      "participant_identity": "phone-user-300",
+      "transfer_to": "+14155550400"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": ["sipCall"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

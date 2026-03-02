@@ -1,0 +1,67 @@
+{
+  "name": "weather_future_get",
+  "description": "Get future weather data for a date between 14 and 300 days from today.",
+  "resource_group": "weather",
+  "endpoint": "/v1/future.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "Location query: city name, lat/lon, US/UK/Canada postal code, IP address, or 'auto:ip'.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "dt",
+      "type": "string",
+      "required": true,
+      "description": "Future date in YYYY-MM-DD format (14-300 days ahead).",
+      "in": "query"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "required": false,
+      "description": "Language code.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.weatherapi.com/v1/future.json?key=YOUR_API_KEY&q=Paris&dt=2025-06-15"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "name": "Paris",
+        "country": "France"
+      },
+      "forecast": {
+        "forecastday": [
+          {
+            "date": "2025-06-15",
+            "day": {
+              "maxtemp_c": 25.3,
+              "mintemp_c": 15.1,
+              "avgtemp_c": 20.2,
+              "condition": {
+                "text": "Partly cloudy"
+              }
+            },
+            "hour": []
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "users_get",
+  "description": "Retrieve detailed profile information for a specific user including name, email, type, timezone, department, and account settings.",
+  "endpoint": "/users/{userId}",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email. Use 'me' for authenticated user.",
+      "required": true,
+      "example": "me"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/users/me",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "user123",
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "jane@example.com",
+      "type": 2,
+      "status": "active",
+      "timezone": "America/New_York",
+      "dept": "Engineering",
+      "created_at": "2023-01-01T00:00:00Z",
+      "last_login_time": "2024-01-15T09:00:00Z",
+      "pic_url": "https://zoom.us/p/user123",
+      "pmi": 1234567890,
+      "personal_meeting_url": "https://zoom.us/j/1234567890"
+    }
+  },
+  "auth_scopes": ["user:read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

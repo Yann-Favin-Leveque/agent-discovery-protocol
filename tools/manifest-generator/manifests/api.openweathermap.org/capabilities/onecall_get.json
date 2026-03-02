@@ -1,0 +1,114 @@
+{
+  "name": "onecall_get",
+  "description": "Get comprehensive weather overview in one request: current conditions, minute-by-minute precipitation (1h), hourly forecast (48h), daily forecast (8 days), and government weather alerts. Requires One Call API 3.0 subscription.",
+  "resource_group": "onecall",
+  "endpoint": "/data/3.0/onecall",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": true,
+      "description": "Latitude.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": true,
+      "description": "Longitude.",
+      "in": "query"
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "exclude",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated parts to exclude: current, minutely, hourly, daily, alerts.",
+      "in": "query"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Units: standard, metric, or imperial.",
+      "in": "query"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "required": false,
+      "description": "Language code.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/3.0/onecall?lat=48.8566&lon=2.3522&appid=YOUR_API_KEY&units=metric"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "lat": 48.86,
+      "lon": 2.35,
+      "timezone": "Europe/Paris",
+      "current": {
+        "dt": 1705312200,
+        "temp": 18.5,
+        "feels_like": 17.2,
+        "pressure": 1015,
+        "humidity": 55,
+        "uvi": 3.2,
+        "wind_speed": 3.6,
+        "weather": [
+          {
+            "main": "Clear",
+            "description": "clear sky"
+          }
+        ]
+      },
+      "minutely": [
+        {
+          "dt": 1705312260,
+          "precipitation": 0
+        }
+      ],
+      "hourly": [
+        {
+          "dt": 1705312200,
+          "temp": 18.5,
+          "pop": 0.1,
+          "weather": [
+            {
+              "main": "Clear"
+            }
+          ]
+        }
+      ],
+      "daily": [
+        {
+          "dt": 1705312200,
+          "temp": {
+            "day": 18.5,
+            "min": 12.1,
+            "max": 20.3
+          },
+          "pop": 0.15,
+          "weather": [
+            {
+              "main": "Clear"
+            }
+          ]
+        }
+      ],
+      "alerts": []
+    }
+  }
+}

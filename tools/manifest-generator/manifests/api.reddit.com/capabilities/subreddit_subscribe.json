@@ -1,0 +1,43 @@
+{
+  "name": "subreddit_subscribe",
+  "resource_group": "subreddits",
+  "description": "Subscribe to or unsubscribe from a subreddit for the authenticated user.",
+  "endpoint": "/api/subscribe",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "sr_name",
+      "type": "string",
+      "description": "The name of the subreddit (without the r/ prefix).",
+      "required": true,
+      "in": "body",
+      "example": "technology"
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "description": "Action to perform. One of: sub (subscribe), unsub (unsubscribe).",
+      "required": true,
+      "in": "body",
+      "example": "sub"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://oauth.reddit.com/api/subscribe",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "User-Agent": "AgentDiscovery/1.0"
+    },
+    "body": {
+      "sr_name": "technology",
+      "action": "sub"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": ["subscribe"]
+}

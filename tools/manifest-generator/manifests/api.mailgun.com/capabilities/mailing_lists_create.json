@@ -1,0 +1,51 @@
+{
+  "name": "mailing_lists_create",
+  "description": "Create a new mailing list.",
+  "resource_group": "mailing_lists",
+  "endpoint": "/v3/lists",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "address",
+      "type": "string",
+      "description": "List email address.",
+      "required": true,
+      "example": "list@mg.example.com"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "List display name.",
+      "required": false,
+      "example": "Newsletter"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "List description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mailgun.com/v3/lists",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "address": "list@mg.example.com",
+      "name": "Newsletter"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "list": {
+        "address": "list@mg.example.com",
+        "name": "Newsletter"
+      },
+      "message": "Mailing list has been created"
+    }
+  }
+}

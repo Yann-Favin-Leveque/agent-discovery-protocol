@@ -1,0 +1,66 @@
+{
+  "name": "upload_presets_create",
+  "resource_group": "upload_presets",
+  "description": "Create a new upload preset with predefined settings.",
+  "endpoint": "/v1_1/{cloud_name}/upload_presets",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Preset name."
+    },
+    {
+      "name": "unsigned",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow unsigned uploads."
+    },
+    {
+      "name": "folder",
+      "type": "string",
+      "required": false,
+      "description": "Default folder."
+    },
+    {
+      "name": "tags",
+      "type": "string",
+      "required": false,
+      "description": "Default tags."
+    },
+    {
+      "name": "transformation",
+      "type": "string",
+      "required": false,
+      "description": "Default transformation."
+    },
+    {
+      "name": "allowed_formats",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated allowed formats."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/upload_presets",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "product_upload",
+      "folder": "products",
+      "tags": "product",
+      "transformation": "w_1200,q_auto"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "created",
+      "name": "product_upload"
+    }
+  }
+}

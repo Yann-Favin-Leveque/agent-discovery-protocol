@@ -1,0 +1,58 @@
+{
+  "name": "domains_update",
+  "description": "Update a custom domain's settings including redirect URLs and archive status.",
+  "endpoint": "/domains/{slug}",
+  "method": "PATCH",
+  "resource_group": "domains",
+  "parameters": [
+    {
+      "name": "slug",
+      "type": "string",
+      "description": "The domain slug to update.",
+      "required": true,
+      "example": "links.acme.com"
+    },
+    {
+      "name": "expiredUrl",
+      "type": "string",
+      "description": "Redirect URL for expired links.",
+      "required": false
+    },
+    {
+      "name": "notFoundUrl",
+      "type": "string",
+      "description": "Redirect URL for non-existent links.",
+      "required": false
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "description": "Archive or unarchive the domain.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.dub.co/domains/links.acme.com",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "expiredUrl": "https://acme.com/expired"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "dom_abc123",
+      "slug": "links.acme.com",
+      "verified": true,
+      "expiredUrl": "https://acme.com/expired"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

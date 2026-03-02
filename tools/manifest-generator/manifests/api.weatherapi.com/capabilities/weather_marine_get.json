@@ -1,0 +1,95 @@
+{
+  "name": "weather_marine_get",
+  "description": "Get marine/ocean weather data including tide information, swell height, water temperature, and sea conditions for coastal locations.",
+  "resource_group": "weather",
+  "endpoint": "/v1/marine.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "Location query: city name, lat/lon, US/UK/Canada postal code, IP address, or 'auto:ip'.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "days",
+      "type": "integer",
+      "required": false,
+      "description": "Number of forecast days (1-7).",
+      "in": "query"
+    },
+    {
+      "name": "dt",
+      "type": "string",
+      "required": false,
+      "description": "Specific date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "required": false,
+      "description": "Language code.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.weatherapi.com/v1/marine.json?key=YOUR_API_KEY&q=48.8,-3.0&days=1"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "name": "Roscoff",
+        "country": "France"
+      },
+      "forecast": {
+        "forecastday": [
+          {
+            "date": "2025-01-15",
+            "day": {
+              "maxtemp_c": 10.5,
+              "condition": {
+                "text": "Overcast"
+              }
+            },
+            "tides": [
+              {
+                "tide": [
+                  {
+                    "tide_time": "2025-01-15 03:30",
+                    "tide_height_mt": "7.2",
+                    "tide_type": "HIGH"
+                  },
+                  {
+                    "tide_time": "2025-01-15 09:45",
+                    "tide_height_mt": "1.8",
+                    "tide_type": "LOW"
+                  }
+                ]
+              }
+            ],
+            "hour": [
+              {
+                "time": "2025-01-15 12:00",
+                "water_temp_c": 11.2,
+                "swell_ht_mt": 1.5,
+                "swell_dir": "W"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

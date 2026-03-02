@@ -1,0 +1,43 @@
+{
+  "name": "handover_request_thread_control",
+  "description": "Request thread control from the primary receiver app in the Handover Protocol.",
+  "endpoint": "/me/request_thread_control",
+  "method": "POST",
+  "resource_group": "handover",
+  "parameters": [
+    {
+      "name": "recipient_id",
+      "type": "string",
+      "description": "The PSID of the user whose thread control to request.",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "description": "Optional metadata explaining why control is requested.",
+      "required": false,
+      "example": "Bot can handle this question automatically"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v18.0/me/request_thread_control",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipient": { "id": "1234567890" },
+      "metadata": "Bot can handle this question automatically"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "success": true }
+  },
+  "auth_scopes": ["pages_messaging"],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

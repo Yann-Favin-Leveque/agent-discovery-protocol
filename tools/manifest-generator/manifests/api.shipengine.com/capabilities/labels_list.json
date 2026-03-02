@@ -1,0 +1,60 @@
+{
+  "name": "labels_list",
+  "description": "Query shipping labels with filters for status, carrier, and date range.",
+  "endpoint": "/v1/labels",
+  "method": "GET",
+  "resource_group": "labels",
+  "parameters": [
+    {
+      "name": "label_status",
+      "type": "string",
+      "description": "Filter by status.",
+      "required": false
+    },
+    {
+      "name": "carrier_id",
+      "type": "string",
+      "description": "Filter by carrier.",
+      "required": false
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.shipengine.com/v1/labels?label_status=completed&page_size=25",
+    "headers": {
+      "API-Key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "labels": [
+        {
+          "label_id": "se-label-123",
+          "status": "completed",
+          "tracking_number": "1Z999AA10123456784"
+        }
+      ],
+      "total": 10,
+      "page": 1
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

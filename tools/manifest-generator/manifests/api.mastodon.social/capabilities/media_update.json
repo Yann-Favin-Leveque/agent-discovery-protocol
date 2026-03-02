@@ -1,0 +1,52 @@
+{
+  "name": "media_update",
+  "resource_group": "media",
+  "description": "Update media description or focus point before posting.",
+  "endpoint": "/api/v1/media/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Media attachment ID.",
+      "required": true,
+      "in": "path",
+      "example": "12345"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "New accessibility description.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "focus",
+      "type": "string",
+      "description": "New focal point.",
+      "required": false,
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://mastodon.social/api/v1/media/12345",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "description": "Updated description"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "12345",
+      "description": "Updated description"
+    }
+  },
+  "auth_scopes": [
+    "write:media"
+  ]
+}

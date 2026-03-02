@@ -1,0 +1,48 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook endpoint for event notifications.",
+  "endpoint": "/v2/webhooks",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Webhook destination URL (must be HTTPS).",
+      "required": true,
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "webhook_secret",
+      "type": "string",
+      "description": "HMAC validation secret.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/webhooks",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "webhook": {
+        "url": "https://example.com/webhook"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "hook_abc123",
+      "object": "Webhook",
+      "url": "https://example.com/webhook",
+      "mode": "test"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

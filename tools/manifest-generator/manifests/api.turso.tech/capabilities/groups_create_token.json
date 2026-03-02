@@ -1,0 +1,50 @@
+{
+  "name": "groups_create_token",
+  "resource_group": "groups",
+  "description": "Generate an auth token for all databases in a group.",
+  "endpoint": "/v1/organizations/{organizationSlug}/groups/{groupName}/auth/tokens",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "groupName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Group name."
+    },
+    {
+      "name": "expiration",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Token expiration."
+    },
+    {
+      "name": "authorization",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Permission level."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.turso.tech/v1/organizations/my-org/groups/default/auth/tokens",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "jwt": "eyJ..."
+    }
+  }
+}

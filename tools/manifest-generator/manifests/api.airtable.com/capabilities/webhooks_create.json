@@ -1,0 +1,49 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook for a base.",
+  "resource_group": "webhooks",
+  "endpoint": "/v0/bases/{baseId}/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "baseId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID of the Airtable base"
+    },
+    {
+      "name": "notificationUrl",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "URL to receive webhook notifications"
+    },
+    {
+      "name": "specification",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "Webhook specification including triggers"
+    }
+  ],
+  "auth_scopes": [
+    "data.records:read",
+    "data.records:write",
+    "schema.bases:read",
+    "schema.bases:write"
+  ],
+  "request_example": {
+    "notificationUrl": "https://example.com/webhook",
+    "specification": {
+      "options": {
+        "filters": {
+          "dataTypes": [
+            "tableData"
+          ],
+          "recordChangeScope": "tblABC"
+        }
+      }
+    }
+  }
+}

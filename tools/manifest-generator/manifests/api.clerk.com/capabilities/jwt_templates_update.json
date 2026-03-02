@@ -1,0 +1,52 @@
+{
+  "name": "jwt_templates_update",
+  "resource_group": "jwt_templates",
+  "description": "Update an existing JWT template.",
+  "endpoint": "/v1/jwt_templates/{template_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": true,
+      "description": "JWT template ID.",
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Updated name."
+    },
+    {
+      "name": "claims",
+      "type": "object",
+      "required": false,
+      "description": "Updated claims."
+    },
+    {
+      "name": "lifetime",
+      "type": "integer",
+      "required": false,
+      "description": "Updated lifetime."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.clerk.com/v1/jwt_templates/jtmpl_abc",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "lifetime": 7200
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "jtmpl_abc",
+      "lifetime": 7200
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "values_get",
+  "description": "Get values from a range in a spreadsheet.",
+  "resource_group": "values",
+  "endpoint": "/v4/spreadsheets/{spreadsheetId}/values/{range}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "spreadsheetId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID of the spreadsheet"
+    },
+    {
+      "name": "range",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The A1 notation range (e.g., Sheet1!A1:B10)"
+    },
+    {
+      "name": "majorDimension",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Major dimension (ROWS or COLUMNS)"
+    },
+    {
+      "name": "valueRenderOption",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "How values should be rendered (FORMATTED_VALUE, UNFORMATTED_VALUE, FORMULA)"
+    },
+    {
+      "name": "dateTimeRenderOption",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "How dates should be rendered"
+    }
+  ],
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/spreadsheets.readonly",
+    "https://www.googleapis.com/auth/drive.readonly",
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+  ],
+  "response_example": {
+    "range": "Sheet1!A1:B2",
+    "majorDimension": "ROWS",
+    "values": [
+      [
+        "Name",
+        "Age"
+      ],
+      [
+        "Alice",
+        "30"
+      ]
+    ]
+  }
+}

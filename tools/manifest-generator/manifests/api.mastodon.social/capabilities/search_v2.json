@@ -1,0 +1,81 @@
+{
+  "name": "search_v2",
+  "resource_group": "search",
+  "description": "Search for accounts, statuses, and hashtags.",
+  "endpoint": "/api/v2/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Search query.",
+      "required": true,
+      "in": "query",
+      "example": "mastodon"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter: accounts, hashtags, or statuses.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "resolve",
+      "type": "boolean",
+      "description": "Use WebFinger for remote lookup.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "following",
+      "type": "boolean",
+      "description": "Limit to followed accounts.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results per category (default 20, max 40).",
+      "required": false,
+      "in": "query",
+      "example": 20
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Skip first n results.",
+      "required": false,
+      "in": "query"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v2/search?q=mastodon&type=statuses&limit=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "accounts": [],
+      "statuses": [
+        {
+          "id": "109876543210",
+          "content": "<p>#mastodon</p>"
+        }
+      ],
+      "hashtags": [
+        {
+          "name": "mastodon",
+          "url": "https://mastodon.social/tags/mastodon"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read:search"
+  ]
+}

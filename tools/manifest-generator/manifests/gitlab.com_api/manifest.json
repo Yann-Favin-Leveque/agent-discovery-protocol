@@ -1,72 +1,194 @@
 {
   "spec_version": "1.0",
-  "name": "GitLab API",
-  "description": "An OpenAPI definition for the GitLab REST API.\nFew API resources or endpoints are currently included.\nThe intent is to expand this to match the entire Markdown documentation of the API:\n<https://docs.gitlab.com/api/>. Contributions are welcome.\n\nWhen viewing this on gitlab.com, you can test API calls directly from the browser\nagainst the `gitlab.com` instance, if you are logged in.\nThe feature uses the current [GitLab session cookie](https://docs.gitlab.",
-  "base_url": "https://www.gitlab.com/api/v4",
+  "name": "GitLab REST API",
+  "description": "GitLab provides a comprehensive REST API for managing projects, repositories, merge requests, issues, CI/CD pipelines, users, groups, and more. Use this API to automate development workflows, manage code repositories, track issues, review merge requests, trigger and monitor CI/CD pipelines, and manage GitLab resources programmatically.",
+  "base_url": "https://gitlab.com/api/v4",
   "auth": {
-    "type": "api_key",
-    "header": "Private-Token"
+    "type": "oauth2",
+    "header": "Authorization",
+    "prefix": "Bearer",
+    "setup_url": "https://gitlab.com/-/user_settings/personal_access_tokens",
+    "authorization_url": "https://gitlab.com/oauth/authorize",
+    "token_url": "https://gitlab.com/oauth/token",
+    "scopes": [
+      "api",
+      "read_api",
+      "read_user",
+      "read_repository",
+      "write_repository",
+      "read_registry",
+      "write_registry",
+      "sudo"
+    ]
   },
   "capabilities": [
     {
-      "name": "badges",
-      "description": "Manage badges — adds a badge to a group, adds a badge to a project, updates a badge of a group. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/badges"
+      "name": "projects_list",
+      "resource_group": "projects",
+      "description": "List projects accessible to the authenticated user with filtering and sorting options.",
+      "detail_url": "/capabilities/projects_list"
     },
     {
-      "name": "access_requests",
-      "description": "Manage access requests — requests access for the authenticated user to a group, requests access for the authenticated user to a project, approves an access request for the given user. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/access_requests"
+      "name": "projects_get",
+      "resource_group": "projects",
+      "description": "Get detailed information about a specific project by ID or URL-encoded path.",
+      "detail_url": "/capabilities/projects_get"
     },
     {
-      "name": "branches",
-      "description": "Manage branches — create branch, unprotect a single branch, protect a single branch. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/branches"
+      "name": "projects_create",
+      "resource_group": "projects",
+      "description": "Create a new project.",
+      "detail_url": "/capabilities/projects_create"
     },
     {
-      "name": "alert_management",
-      "description": "Manage alert management — upload a metric image for an alert, workhorse authorize metric image file upload, update a metric image for an alert. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/alert_management"
+      "name": "projects_update",
+      "resource_group": "projects",
+      "description": "Update a project's settings.",
+      "detail_url": "/capabilities/projects_update"
     },
     {
-      "name": "batched_background_migrations",
-      "description": "Manage batched background migrations — resume a batched background migration, pause a batched background migration, get the list of batched background migrations. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/batched_background_migrations"
+      "name": "projects_delete",
+      "resource_group": "projects",
+      "description": "Delete a project. Requires owner or admin access.",
+      "detail_url": "/capabilities/projects_delete"
     },
     {
-      "name": "pipeline_composition",
-      "description": "Manage pipeline composition — create a new instance-level variable, update an instance-level variable, list all instance-level variables. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/pipeline_composition"
+      "name": "merge_requests_list",
+      "resource_group": "merge_requests",
+      "description": "List merge requests for a project with optional filtering.",
+      "detail_url": "/capabilities/merge_requests_list"
     },
     {
-      "name": "admin",
-      "description": "Manage admin — retrieve dictionary details. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/admin"
+      "name": "merge_requests_get",
+      "resource_group": "merge_requests",
+      "description": "Get a specific merge request by its IID.",
+      "detail_url": "/capabilities/merge_requests_get"
     },
     {
-      "name": "clusters",
-      "description": "Manage clusters — add existing instance cluster, edit instance cluster, list instance clusters. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/clusters"
+      "name": "merge_requests_create",
+      "resource_group": "merge_requests",
+      "description": "Create a new merge request.",
+      "detail_url": "/capabilities/merge_requests_create"
     },
     {
-      "name": "migrations",
-      "description": "Manage migrations — mark the migration as successfully executed. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/migrations"
+      "name": "merge_requests_update",
+      "resource_group": "merge_requests",
+      "description": "Update a merge request's title, description, assignee, labels, or state.",
+      "detail_url": "/capabilities/merge_requests_update"
     },
     {
-      "name": "applications",
-      "description": "Manage applications — create a new application, get applications, delete an application. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/applications"
+      "name": "merge_requests_merge",
+      "resource_group": "merge_requests",
+      "description": "Accept and merge a merge request.",
+      "detail_url": "/capabilities/merge_requests_merge"
     },
     {
-      "name": "avatar",
-      "description": "Manage avatar — return avatar url for a user. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/avatar"
+      "name": "issues_list",
+      "resource_group": "issues",
+      "description": "List issues for a project with filtering by state, labels, assignee, and more.",
+      "detail_url": "/capabilities/issues_list"
     },
     {
-      "name": "broadcast_messages",
-      "description": "Manage broadcast messages — create a broadcast message, update a broadcast message, get all broadcast messages. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/broadcast_messages"
+      "name": "issues_get",
+      "resource_group": "issues",
+      "description": "Get a specific issue by its IID.",
+      "detail_url": "/capabilities/issues_get"
+    },
+    {
+      "name": "issues_create",
+      "resource_group": "issues",
+      "description": "Create a new issue in a project.",
+      "detail_url": "/capabilities/issues_create"
+    },
+    {
+      "name": "issues_update",
+      "resource_group": "issues",
+      "description": "Update an issue's attributes, state, or assignments.",
+      "detail_url": "/capabilities/issues_update"
+    },
+    {
+      "name": "issues_notes_create",
+      "resource_group": "issues",
+      "description": "Create a comment (note) on an issue.",
+      "detail_url": "/capabilities/issues_notes_create"
+    },
+    {
+      "name": "pipelines_list",
+      "resource_group": "pipelines",
+      "description": "List CI/CD pipelines for a project with optional filtering.",
+      "detail_url": "/capabilities/pipelines_list"
+    },
+    {
+      "name": "pipelines_get",
+      "resource_group": "pipelines",
+      "description": "Get a specific pipeline by ID.",
+      "detail_url": "/capabilities/pipelines_get"
+    },
+    {
+      "name": "pipelines_create",
+      "resource_group": "pipelines",
+      "description": "Trigger a new pipeline for a branch or tag.",
+      "detail_url": "/capabilities/pipelines_create"
+    },
+    {
+      "name": "pipelines_cancel",
+      "resource_group": "pipelines",
+      "description": "Cancel a running or pending pipeline.",
+      "detail_url": "/capabilities/pipelines_cancel"
+    },
+    {
+      "name": "pipelines_retry",
+      "resource_group": "pipelines",
+      "description": "Retry failed jobs in a pipeline.",
+      "detail_url": "/capabilities/pipelines_retry"
+    },
+    {
+      "name": "pipelines_jobs_list",
+      "resource_group": "pipelines",
+      "description": "List jobs in a pipeline.",
+      "detail_url": "/capabilities/pipelines_jobs_list"
+    },
+    {
+      "name": "groups_list",
+      "resource_group": "groups",
+      "description": "List groups accessible to the authenticated user.",
+      "detail_url": "/capabilities/groups_list"
+    },
+    {
+      "name": "groups_get",
+      "resource_group": "groups",
+      "description": "Get details of a specific group.",
+      "detail_url": "/capabilities/groups_get"
+    },
+    {
+      "name": "users_get_current",
+      "resource_group": "users",
+      "description": "Get the profile of the currently authenticated user.",
+      "detail_url": "/capabilities/users_get_current"
+    },
+    {
+      "name": "branches_list",
+      "resource_group": "branches",
+      "description": "List branches in a repository.",
+      "detail_url": "/capabilities/branches_list"
+    },
+    {
+      "name": "branches_create",
+      "resource_group": "branches",
+      "description": "Create a new branch.",
+      "detail_url": "/capabilities/branches_create"
+    },
+    {
+      "name": "releases_list",
+      "resource_group": "releases",
+      "description": "List releases for a project.",
+      "detail_url": "/capabilities/releases_list"
+    },
+    {
+      "name": "releases_create",
+      "resource_group": "releases",
+      "description": "Create a new release for a project.",
+      "detail_url": "/capabilities/releases_create"
     }
   ]
 }

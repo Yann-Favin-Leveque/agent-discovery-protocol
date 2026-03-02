@@ -1,19 +1,194 @@
 {
   "spec_version": "1.0",
   "name": "PostHog",
-  "description": "PostHog is an open-source product analytics platform. Track events, analyze user behavior, run experiments, manage feature flags, and view session recordings through a comprehensive API.",
+  "description": "PostHog is an open-source product analytics platform. Capture events, analyze user behavior with trends, funnels, and retention, manage feature flags, run experiments, and organize cohorts and dashboards through a comprehensive API.",
   "base_url": "https://app.posthog.com/api",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://app.posthog.com/project/settings"
   },
   "capabilities": [
-    {"name": "capture_event", "description": "Capture a custom analytics event with properties and user identification.", "detail_url": "/capabilities/capture_event"},
-    {"name": "query_insights", "description": "Query analytics insights with trends, funnels, and retention analysis.", "detail_url": "/capabilities/query_insights"},
-    {"name": "manage_feature_flags", "description": "Create, update, and evaluate feature flags for controlled rollouts.", "detail_url": "/capabilities/manage_feature_flags"},
-    {"name": "list_persons", "description": "List and search identified users with their properties and events.", "detail_url": "/capabilities/list_persons"},
-    {"name": "get_events", "description": "Retrieve recent events with filtering by event type and properties.", "detail_url": "/capabilities/get_events"},
-    {"name": "manage_experiments", "description": "Create and manage A/B test experiments with variant configuration.", "detail_url": "/capabilities/manage_experiments"}
+    {
+      "name": "events_capture",
+      "description": "Capture a custom analytics event with properties and user identification.",
+      "resource_group": "capture",
+      "detail_url": "/capabilities/events_capture"
+    },
+    {
+      "name": "events_batch",
+      "description": "Send multiple events in a single batch request.",
+      "resource_group": "capture",
+      "detail_url": "/capabilities/events_batch"
+    },
+    {
+      "name": "events_list",
+      "description": "Retrieve recent events with filtering by event type and properties.",
+      "resource_group": "events",
+      "detail_url": "/capabilities/events_list"
+    },
+    {
+      "name": "events_get",
+      "description": "Retrieve a specific event by ID.",
+      "resource_group": "events",
+      "detail_url": "/capabilities/events_get"
+    },
+    {
+      "name": "persons_list",
+      "description": "List identified users with their properties and event counts.",
+      "resource_group": "persons",
+      "detail_url": "/capabilities/persons_list"
+    },
+    {
+      "name": "persons_get",
+      "description": "Retrieve a specific person by ID.",
+      "resource_group": "persons",
+      "detail_url": "/capabilities/persons_get"
+    },
+    {
+      "name": "persons_delete",
+      "description": "Delete a person and all their events.",
+      "resource_group": "persons",
+      "detail_url": "/capabilities/persons_delete"
+    },
+    {
+      "name": "insights_list",
+      "description": "List saved insights in the project.",
+      "resource_group": "insights",
+      "detail_url": "/capabilities/insights_list"
+    },
+    {
+      "name": "insights_get",
+      "description": "Retrieve a specific insight by ID with its results.",
+      "resource_group": "insights",
+      "detail_url": "/capabilities/insights_get"
+    },
+    {
+      "name": "insights_create",
+      "description": "Create a new insight with filters for trends, funnels, retention, or paths.",
+      "resource_group": "insights",
+      "detail_url": "/capabilities/insights_create"
+    },
+    {
+      "name": "query_execute",
+      "description": "Execute a HogQL or other query against PostHog data.",
+      "resource_group": "query",
+      "detail_url": "/capabilities/query_execute"
+    },
+    {
+      "name": "feature_flags_list",
+      "description": "List all feature flags in the project.",
+      "resource_group": "feature_flags",
+      "detail_url": "/capabilities/feature_flags_list"
+    },
+    {
+      "name": "feature_flags_get",
+      "description": "Retrieve a specific feature flag by ID.",
+      "resource_group": "feature_flags",
+      "detail_url": "/capabilities/feature_flags_get"
+    },
+    {
+      "name": "feature_flags_create",
+      "description": "Create a new feature flag with rollout conditions.",
+      "resource_group": "feature_flags",
+      "detail_url": "/capabilities/feature_flags_create"
+    },
+    {
+      "name": "feature_flags_update",
+      "description": "Update an existing feature flag.",
+      "resource_group": "feature_flags",
+      "detail_url": "/capabilities/feature_flags_update"
+    },
+    {
+      "name": "feature_flags_delete",
+      "description": "Delete a feature flag.",
+      "resource_group": "feature_flags",
+      "detail_url": "/capabilities/feature_flags_delete"
+    },
+    {
+      "name": "feature_flags_evaluate",
+      "description": "Evaluate feature flags for a specific user via the decide endpoint.",
+      "resource_group": "feature_flags",
+      "detail_url": "/capabilities/feature_flags_evaluate"
+    },
+    {
+      "name": "cohorts_list",
+      "description": "List all cohorts in the project.",
+      "resource_group": "cohorts",
+      "detail_url": "/capabilities/cohorts_list"
+    },
+    {
+      "name": "cohorts_get",
+      "description": "Retrieve a specific cohort by ID.",
+      "resource_group": "cohorts",
+      "detail_url": "/capabilities/cohorts_get"
+    },
+    {
+      "name": "cohorts_create",
+      "description": "Create a new cohort with filter criteria.",
+      "resource_group": "cohorts",
+      "detail_url": "/capabilities/cohorts_create"
+    },
+    {
+      "name": "dashboards_list",
+      "description": "List all dashboards in the project.",
+      "resource_group": "dashboards",
+      "detail_url": "/capabilities/dashboards_list"
+    },
+    {
+      "name": "dashboards_get",
+      "description": "Retrieve a specific dashboard by ID.",
+      "resource_group": "dashboards",
+      "detail_url": "/capabilities/dashboards_get"
+    },
+    {
+      "name": "dashboards_create",
+      "description": "Create a new dashboard.",
+      "resource_group": "dashboards",
+      "detail_url": "/capabilities/dashboards_create"
+    },
+    {
+      "name": "annotations_list",
+      "description": "List all annotations in the project.",
+      "resource_group": "annotations",
+      "detail_url": "/capabilities/annotations_list"
+    },
+    {
+      "name": "annotations_create",
+      "description": "Create a new annotation to mark important dates on charts.",
+      "resource_group": "annotations",
+      "detail_url": "/capabilities/annotations_create"
+    },
+    {
+      "name": "actions_list",
+      "description": "List all actions (event definitions) in the project.",
+      "resource_group": "actions",
+      "detail_url": "/capabilities/actions_list"
+    },
+    {
+      "name": "actions_create",
+      "description": "Create a new action to group and name events.",
+      "resource_group": "actions",
+      "detail_url": "/capabilities/actions_create"
+    },
+    {
+      "name": "experiments_list",
+      "description": "List all experiments in the project.",
+      "resource_group": "experiments",
+      "detail_url": "/capabilities/experiments_list"
+    },
+    {
+      "name": "experiments_create",
+      "description": "Create a new A/B test experiment with variants.",
+      "resource_group": "experiments",
+      "detail_url": "/capabilities/experiments_create"
+    },
+    {
+      "name": "projects_list",
+      "description": "List all projects in the organization.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_list"
+    }
   ]
 }

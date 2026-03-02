@@ -1,0 +1,20 @@
+{
+  "name": "databases_update_settings",
+  "resource_group": "databases",
+  "description": "Update database settings such as default branch, automatic copy migrations, and insights.",
+  "endpoint": "/organizations/{organization}/databases/{database}/settings",
+  "method": "PATCH",
+  "parameters": [
+    {"name": "organization", "type": "string", "required": true, "in": "path", "description": "Organization name slug."},
+    {"name": "database", "type": "string", "required": true, "in": "path", "description": "Database name."},
+    {"name": "default_branch", "type": "string", "required": false, "in": "body", "description": "Default branch name."},
+    {"name": "automatic_migrations", "type": "boolean", "required": false, "in": "body", "description": "Enable automatic copy migrations."}
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-database/settings",
+    "headers": {"Authorization": "Bearer {access_token}", "Content-Type": "application/json"},
+    "body": {"default_branch": "main"}
+  },
+  "response_example": {"status": 200, "body": {"default_branch": "main"}}
+}

@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Basecamp",
-  "description": "Basecamp is a project management and team collaboration platform. Use this API to create and manage projects, todolists, todos, messages, and coordinate with team members in a centralized workspace.",
+  "description": "Basecamp is a project management and team collaboration platform. Use this API to manage projects, todolists, todos, messages, comments, campfires, schedule entries, uploads, webhooks, and people.",
   "base_url": "https://3.basecampapi.com",
   "auth": {
     "type": "oauth2",
@@ -13,34 +13,286 @@
   },
   "capabilities": [
     {
-      "name": "list_projects",
-      "description": "List all projects in a Basecamp account, including active and archived projects with their names, statuses, and metadata.",
-      "detail_url": "/capabilities/list_projects"
+      "name": "projects_list",
+      "description": "List all projects in the Basecamp account, including active and archived projects.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_list"
     },
     {
-      "name": "list_people",
-      "description": "List all people (team members) in a Basecamp account, including their names, email addresses, and roles.",
-      "detail_url": "/capabilities/list_people"
+      "name": "projects_get",
+      "description": "Retrieve a specific project by its ID.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_get"
     },
     {
-      "name": "create_todolist",
-      "description": "Create a new todolist within a project's todoset, organizing tasks into logical groups.",
-      "detail_url": "/capabilities/create_todolist"
+      "name": "projects_create",
+      "description": "Create a new project in the Basecamp account.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_create"
     },
     {
-      "name": "create_todo",
-      "description": "Create a new todo item in a todolist, assigning it to team members and setting due dates.",
-      "detail_url": "/capabilities/create_todo"
+      "name": "projects_update",
+      "description": "Update a project's name or description.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_update"
     },
     {
-      "name": "create_message",
-      "description": "Post a new message to a project's message board, enabling team discussions and announcements.",
-      "detail_url": "/capabilities/create_message"
+      "name": "projects_delete",
+      "description": "Trash a project (deleted after 30 days).",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_delete"
     },
     {
-      "name": "list_campfires",
-      "description": "List all campfires (chat channels) in a Basecamp account for real-time team communication.",
-      "detail_url": "/capabilities/list_campfires"
+      "name": "people_list",
+      "description": "List all people (team members) in a Basecamp account.",
+      "resource_group": "people",
+      "detail_url": "/capabilities/people_list"
+    },
+    {
+      "name": "people_get",
+      "description": "Retrieve a specific person by their ID.",
+      "resource_group": "people",
+      "detail_url": "/capabilities/people_get"
+    },
+    {
+      "name": "people_my_profile",
+      "description": "Retrieve the authenticated user's profile.",
+      "resource_group": "people",
+      "detail_url": "/capabilities/people_my_profile"
+    },
+    {
+      "name": "people_list_project",
+      "description": "List all people on a specific project.",
+      "resource_group": "people",
+      "detail_url": "/capabilities/people_list_project"
+    },
+    {
+      "name": "people_update_access",
+      "description": "Grant or revoke project access for people.",
+      "resource_group": "people",
+      "detail_url": "/capabilities/people_update_access"
+    },
+    {
+      "name": "todolists_list",
+      "description": "List all todolists in a todoset.",
+      "resource_group": "todolists",
+      "detail_url": "/capabilities/todolists_list"
+    },
+    {
+      "name": "todolists_get",
+      "description": "Retrieve a specific todolist by ID.",
+      "resource_group": "todolists",
+      "detail_url": "/capabilities/todolists_get"
+    },
+    {
+      "name": "todolists_create",
+      "description": "Create a new todolist in a todoset.",
+      "resource_group": "todolists",
+      "detail_url": "/capabilities/todolists_create"
+    },
+    {
+      "name": "todolists_update",
+      "description": "Update a todolist's name or description.",
+      "resource_group": "todolists",
+      "detail_url": "/capabilities/todolists_update"
+    },
+    {
+      "name": "todos_list",
+      "description": "List all todos in a todolist.",
+      "resource_group": "todos",
+      "detail_url": "/capabilities/todos_list"
+    },
+    {
+      "name": "todos_get",
+      "description": "Retrieve a specific todo by ID.",
+      "resource_group": "todos",
+      "detail_url": "/capabilities/todos_get"
+    },
+    {
+      "name": "todos_create",
+      "description": "Create a new todo in a todolist with optional assignees and due date.",
+      "resource_group": "todos",
+      "detail_url": "/capabilities/todos_create"
+    },
+    {
+      "name": "todos_update",
+      "description": "Update a todo's content, assignees, or due date.",
+      "resource_group": "todos",
+      "detail_url": "/capabilities/todos_update"
+    },
+    {
+      "name": "todos_complete",
+      "description": "Mark a todo as complete.",
+      "resource_group": "todos",
+      "detail_url": "/capabilities/todos_complete"
+    },
+    {
+      "name": "todos_uncomplete",
+      "description": "Mark a completed todo as incomplete.",
+      "resource_group": "todos",
+      "detail_url": "/capabilities/todos_uncomplete"
+    },
+    {
+      "name": "todos_reposition",
+      "description": "Change the position of a todo within its list.",
+      "resource_group": "todos",
+      "detail_url": "/capabilities/todos_reposition"
+    },
+    {
+      "name": "messages_list",
+      "description": "List all messages on a project's message board.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_list"
+    },
+    {
+      "name": "messages_get",
+      "description": "Retrieve a specific message by ID.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_get"
+    },
+    {
+      "name": "messages_create",
+      "description": "Post a new message to a project's message board.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_create"
+    },
+    {
+      "name": "messages_update",
+      "description": "Update a message's subject or content.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_update"
+    },
+    {
+      "name": "comments_list",
+      "description": "List all comments on a recording (message, todo, etc).",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_list"
+    },
+    {
+      "name": "comments_get",
+      "description": "Retrieve a specific comment by ID.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_get"
+    },
+    {
+      "name": "comments_create",
+      "description": "Add a comment to any recording (message, todo, etc).",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_create"
+    },
+    {
+      "name": "comments_update",
+      "description": "Update a comment's content.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_update"
+    },
+    {
+      "name": "campfires_list",
+      "description": "List all campfires (chat rooms) in the account.",
+      "resource_group": "campfires",
+      "detail_url": "/capabilities/campfires_list"
+    },
+    {
+      "name": "campfires_get",
+      "description": "Retrieve a specific campfire by ID.",
+      "resource_group": "campfires",
+      "detail_url": "/capabilities/campfires_get"
+    },
+    {
+      "name": "campfire_lines_list",
+      "description": "List all lines (messages) in a campfire.",
+      "resource_group": "campfires",
+      "detail_url": "/capabilities/campfire_lines_list"
+    },
+    {
+      "name": "campfire_lines_create",
+      "description": "Post a new message (line) to a campfire.",
+      "resource_group": "campfires",
+      "detail_url": "/capabilities/campfire_lines_create"
+    },
+    {
+      "name": "campfire_lines_delete",
+      "description": "Delete a campfire line (message).",
+      "resource_group": "campfires",
+      "detail_url": "/capabilities/campfire_lines_delete"
+    },
+    {
+      "name": "schedule_entries_list",
+      "description": "List all schedule entries in a project schedule.",
+      "resource_group": "schedule_entries",
+      "detail_url": "/capabilities/schedule_entries_list"
+    },
+    {
+      "name": "schedule_entries_get",
+      "description": "Retrieve a specific schedule entry.",
+      "resource_group": "schedule_entries",
+      "detail_url": "/capabilities/schedule_entries_get"
+    },
+    {
+      "name": "schedule_entries_create",
+      "description": "Create a new schedule entry in a project schedule.",
+      "resource_group": "schedule_entries",
+      "detail_url": "/capabilities/schedule_entries_create"
+    },
+    {
+      "name": "schedule_entries_update",
+      "description": "Update a schedule entry.",
+      "resource_group": "schedule_entries",
+      "detail_url": "/capabilities/schedule_entries_update"
+    },
+    {
+      "name": "uploads_list",
+      "description": "List all uploads in a project vault.",
+      "resource_group": "uploads",
+      "detail_url": "/capabilities/uploads_list"
+    },
+    {
+      "name": "uploads_get",
+      "description": "Retrieve a specific upload by ID.",
+      "resource_group": "uploads",
+      "detail_url": "/capabilities/uploads_get"
+    },
+    {
+      "name": "uploads_create",
+      "description": "Create a new upload in a vault.",
+      "resource_group": "uploads",
+      "detail_url": "/capabilities/uploads_create"
+    },
+    {
+      "name": "uploads_update",
+      "description": "Update an upload's description or filename.",
+      "resource_group": "uploads",
+      "detail_url": "/capabilities/uploads_update"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List all webhooks for a project.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Retrieve a specific webhook by ID.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_get"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook for a project to receive real-time event notifications.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook's URL, types, or active status.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
     }
   ]
 }

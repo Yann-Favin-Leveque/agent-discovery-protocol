@@ -1,0 +1,21 @@
+{
+  "name": "audio_transcription_create",
+  "description": "Convert audio to text using Mistral's speech recognition model. Supports streaming via SSE.",
+  "resource_group": "audio",
+  "endpoint": "/v1/audio/transcriptions",
+  "method": "POST",
+  "parameters": [
+    {"name": "file", "type": "file", "required": true, "description": "Audio file to transcribe."},
+    {"name": "model", "type": "string", "required": true, "description": "Transcription model ID."},
+    {"name": "language", "type": "string", "required": false, "description": "Language code."},
+    {"name": "response_format", "type": "string", "required": false, "description": "Output format."},
+    {"name": "temperature", "type": "number", "required": false, "description": "Sampling temperature."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/audio/transcriptions",
+    "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+    "body": "multipart/form-data: file=@audio.mp3&model=mistral-audio-latest"
+  },
+  "response_example": {"status": 200, "body": {"text": "Hello, this is a test recording."}}
+}

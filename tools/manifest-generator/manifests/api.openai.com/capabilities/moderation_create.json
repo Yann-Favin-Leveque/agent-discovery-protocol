@@ -1,0 +1,56 @@
+{
+  "name": "moderation_create",
+  "description": "Check text content against OpenAI's content policy to detect harmful or unsafe content across categories like hate, violence, self-harm, and sexual content.",
+  "resource_group": "moderations",
+  "endpoint": "/v1/moderations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "input",
+      "type": "string or array",
+      "required": true,
+      "description": "The input text to classify. Can be a string or array of strings."
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "description": "The moderation model to use (default 'omni-moderation-latest')."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/moderations",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "input": "I want to harm someone."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "modr-abc123",
+      "model": "omni-moderation-latest",
+      "results": [
+        {
+          "flagged": true,
+          "categories": {
+            "violence": true,
+            "hate": false,
+            "sexual": false,
+            "self-harm": false
+          },
+          "category_scores": {
+            "violence": 0.95,
+            "hate": 0.01,
+            "sexual": 0.001,
+            "self-harm": 0.02
+          }
+        }
+      ]
+    }
+  }
+}

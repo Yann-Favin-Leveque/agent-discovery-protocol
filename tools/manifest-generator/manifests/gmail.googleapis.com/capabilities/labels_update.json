@@ -1,0 +1,52 @@
+{
+  "name": "labels_update",
+  "description": "Updates the specified label.",
+  "resource_group": "labels",
+  "endpoint": "/gmail/v1/users/{userId}/labels/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID of the label.",
+      "required": true,
+      "example": "Label_1"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "New display name.",
+      "required": false,
+      "example": "Renamed Label"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/labels/Label_1",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Renamed Label"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "Label_1",
+      "name": "Renamed Label",
+      "type": "user"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.labels"
+  ]
+}

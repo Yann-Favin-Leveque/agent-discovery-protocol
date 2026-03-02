@@ -1,0 +1,40 @@
+{
+  "name": "records_get",
+  "description": "Retrieve one or more records by their objectIDs, optionally from different indices in a single call.",
+  "endpoint": "/1/indexes/*/objects",
+  "method": "POST",
+  "resource_group": "records",
+  "parameters": [
+    {
+      "name": "requests",
+      "type": "array",
+      "description": "Array of objects specifying indexName, objectID, and optional attributesToRetrieve.",
+      "required": true,
+      "example": [{ "indexName": "products", "objectID": "12345" }]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/*/objects",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requests": [
+        { "indexName": "products", "objectID": "12345", "attributesToRetrieve": ["name", "price"] }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [{ "objectID": "12345", "name": "MacBook Pro", "price": 1999 }]
+    }
+  },
+  "auth_scopes": ["search"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

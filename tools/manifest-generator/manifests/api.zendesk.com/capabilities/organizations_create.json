@@ -1,0 +1,54 @@
+{
+  "name": "organizations_create",
+  "description": "Create a new organization.",
+  "endpoint": "/api/v2/organizations",
+  "method": "POST",
+  "resource_group": "organizations",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Organization name",
+      "required": true,
+      "example": "Acme Corp"
+    },
+    {
+      "name": "domain_names",
+      "type": "array",
+      "description": "Associated domains",
+      "required": false,
+      "example": [
+        "acme.com"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{subdomain}.zendesk.com/api/v2/organizations",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "organization": {
+        "name": "Acme Corp",
+        "domain_names": [
+          "acme.com"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "organization": {
+        "id": 2,
+        "name": "Acme Corp"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

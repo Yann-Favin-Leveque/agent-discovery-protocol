@@ -1,0 +1,69 @@
+{
+  "name": "link_token_create",
+  "description": "Create a Link token to initialize Plaid Link for user authentication.",
+  "resource_group": "link",
+  "endpoint": "/link/token/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "client_name",
+      "type": "string",
+      "required": true,
+      "description": "Your app name."
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "required": true,
+      "description": "Language code e.g. 'en'."
+    },
+    {
+      "name": "country_codes",
+      "type": "array",
+      "required": true,
+      "description": "Array of country codes e.g. ['US']."
+    },
+    {
+      "name": "user",
+      "type": "object",
+      "required": true,
+      "description": "Object with client_user_id."
+    },
+    {
+      "name": "products",
+      "type": "array",
+      "required": true,
+      "description": "Products: 'transactions','auth','identity','assets','investments','liabilities'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/link/token/create",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "client_name": "My App",
+      "language": "en",
+      "country_codes": [
+        "US"
+      ],
+      "user": {
+        "client_user_id": "user-123"
+      },
+      "products": [
+        "transactions"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "link_token": "link-production-abc123",
+      "expiration": "2024-08-16T10:30:00Z",
+      "request_id": "abc"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "slots_list_available",
+  "resource_group": "slots",
+  "description": "Get available time slots for a specific event type within a date range.",
+  "endpoint": "/v2/slots",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "eventTypeId",
+      "type": "integer",
+      "required": true,
+      "description": "Event type ID",
+      "example": 789
+    },
+    {
+      "name": "startTime",
+      "type": "string",
+      "required": true,
+      "description": "Range start in ISO 8601",
+      "example": "2025-03-15T00:00:00Z"
+    },
+    {
+      "name": "endTime",
+      "type": "string",
+      "required": true,
+      "description": "Range end in ISO 8601",
+      "example": "2025-03-22T00:00:00Z"
+    },
+    {
+      "name": "timeZone",
+      "type": "string",
+      "required": false,
+      "description": "IANA timezone",
+      "example": "America/New_York"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cal.com/v2/slots?eventTypeId=789&startTime=2025-03-15T00:00:00Z&endTime=2025-03-22T00:00:00Z",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "cal-api-version": "2024-08-13"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": {
+        "slots": {
+          "2025-03-15": [
+            {
+              "time": "2025-03-15T09:00:00-05:00"
+            },
+            {
+              "time": "2025-03-15T09:30:00-05:00"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

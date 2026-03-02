@@ -1,0 +1,39 @@
+{
+  "name": "enrichment_bulk",
+  "description": "Batch enrich up to 500 entities.",
+  "resource_group": "enrichment",
+  "endpoint": "/api/enrich/bulk",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "entities",
+      "type": "array",
+      "description": "Array of entities to enrich (max 500).",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemlist.com/api/enrich/bulk",
+    "headers": {
+      "Authorization": "Basic {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "entities": [
+        {
+          "firstName": "John",
+          "lastName": "Doe",
+          "companyName": "Acme"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "requestId": "req_1",
+      "status": "processing"
+    }
+  }
+}

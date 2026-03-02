@@ -1,0 +1,61 @@
+{
+  "name": "conversations_create",
+  "description": "Create a new conversation by sending an initial message from an admin to a contact.",
+  "resource_group": "conversations",
+  "endpoint": "/conversations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "object",
+      "required": true,
+      "description": "Sender object: {type: 'admin', id: 'admin-id'}."
+    },
+    {
+      "name": "to",
+      "type": "object",
+      "required": true,
+      "description": "Recipient object: {type: 'user', id: 'contact-id'} or {type: 'user', email: 'email'}."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "description": "HTML message body."
+    },
+    {
+      "name": "message_type",
+      "type": "string",
+      "required": false,
+      "description": "Message type: 'inapp' (default) or 'email'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/conversations",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "from": {
+        "type": "admin",
+        "id": "admin-1"
+      },
+      "to": {
+        "type": "user",
+        "id": "contact-abc"
+      },
+      "body": "<p>Hi! How can we help you today?</p>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "conversation",
+      "id": "789012",
+      "state": "open"
+    }
+  }
+}

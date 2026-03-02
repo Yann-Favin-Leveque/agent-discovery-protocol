@@ -1,0 +1,55 @@
+{
+  "name": "manual_journals_create",
+  "description": "Create a manual journal entry.",
+  "resource_group": "manual_journals",
+  "endpoint": "/ManualJournals",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "ManualJournals",
+      "type": "array",
+      "required": true,
+      "description": "Array of ManualJournal objects."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.transactions"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.xero.com/api.xro/2.0/ManualJournals",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ManualJournals": [
+        {
+          "Narration": "Depreciation",
+          "JournalLines": [
+            {
+              "LineAmount": 500.0,
+              "AccountCode": "720"
+            },
+            {
+              "LineAmount": -500.0,
+              "AccountCode": "150"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ManualJournals": [
+        {
+          "ManualJournalID": "mj-new",
+          "Status": "DRAFT"
+        }
+      ]
+    }
+  }
+}

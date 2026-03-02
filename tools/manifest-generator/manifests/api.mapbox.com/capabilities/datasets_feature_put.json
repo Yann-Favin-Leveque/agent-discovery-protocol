@@ -1,0 +1,96 @@
+{
+  "name": "datasets_feature_put",
+  "description": "Insert or update a feature in a dataset.",
+  "endpoint": "/datasets/v1/{username}/{dataset_id}/features/{feature_id}",
+  "method": "PUT",
+  "resource_group": "datasets",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Username.",
+      "required": true,
+      "example": "myuser"
+    },
+    {
+      "name": "dataset_id",
+      "type": "string",
+      "description": "Dataset ID.",
+      "required": true,
+      "example": "ds_abc"
+    },
+    {
+      "name": "feature_id",
+      "type": "string",
+      "description": "Feature ID.",
+      "required": true,
+      "example": "store_1"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "sk.xxx"
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "GeoJSON Feature object.",
+      "required": true,
+      "example": {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.989,
+            40.733
+          ]
+        },
+        "properties": {
+          "name": "NYC Store"
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.mapbox.com/datasets/v1/myuser/ds_abc/features/store_1?access_token=sk.xxx",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.989,
+          40.733
+        ]
+      },
+      "properties": {
+        "name": "NYC Store"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "Feature",
+      "id": "store_1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.989,
+          40.733
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "datasets:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

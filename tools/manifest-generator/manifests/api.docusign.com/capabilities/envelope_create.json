@@ -1,0 +1,104 @@
+{
+  "name": "envelope_create",
+  "description": "Create and optionally send an envelope (signature request). Attach documents as base64, specify recipients with signing tabs, and set envelope options. Set status to 'sent' to send immediately or 'created' for a draft.",
+  "resource_group": "envelope",
+  "endpoint": "/v2.1/accounts/{accountId}/envelopes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "The DocuSign account ID.",
+      "in": "path"
+    },
+    {
+      "name": "emailSubject",
+      "type": "string",
+      "required": true,
+      "description": "Email subject line for the envelope.",
+      "in": "body"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "description": "Envelope status: 'sent' to send now, 'created' for draft.",
+      "in": "body"
+    },
+    {
+      "name": "documents",
+      "type": "array",
+      "required": true,
+      "description": "Array of document objects with documentBase64, name, fileExtension, documentId.",
+      "in": "body"
+    },
+    {
+      "name": "recipients",
+      "type": "object",
+      "required": true,
+      "description": "Object containing signer arrays with email, name, recipientId, routingOrder, tabs.",
+      "in": "body"
+    },
+    {
+      "name": "emailBlurb",
+      "type": "string",
+      "required": false,
+      "description": "Email body text.",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/envelopes",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "emailSubject": "Please sign this document",
+      "emailBlurb": "Please review and sign.",
+      "status": "sent",
+      "documents": [
+        {
+          "documentBase64": "base64data...",
+          "name": "Contract.pdf",
+          "fileExtension": "pdf",
+          "documentId": "1"
+        }
+      ],
+      "recipients": {
+        "signers": [
+          {
+            "email": "signer@example.com",
+            "name": "John Doe",
+            "recipientId": "1",
+            "routingOrder": "1",
+            "tabs": {
+              "signHereTabs": [
+                {
+                  "documentId": "1",
+                  "pageNumber": "1",
+                  "xPosition": "200",
+                  "yPosition": "600"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "envelopeId": "env-abc-123",
+      "uri": "/envelopes/env-abc-123",
+      "statusDateTime": "2025-01-15T14:30:00.000Z",
+      "status": "sent"
+    }
+  }
+}

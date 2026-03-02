@@ -1,0 +1,42 @@
+{
+  "name": "alert_conditions_list",
+  "description": "List NRQL alert conditions for a specific policy.",
+  "resource_group": "alerts",
+  "endpoint": "/v2/alerts_nrql_conditions.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "policy_id",
+      "type": "integer",
+      "required": true,
+      "description": "Policy ID",
+      "location": "query"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number",
+      "location": "query"
+    }
+  ],
+  "request_example": {},
+  "response_example": {
+    "nrql_conditions": [
+      {
+        "id": 1,
+        "name": "High Error Rate",
+        "nrql": {
+          "query": "SELECT count(*) FROM TransactionError"
+        },
+        "terms": [
+          {
+            "threshold": "5",
+            "operator": "above"
+          }
+        ]
+      }
+    ]
+  },
+  "auth_scopes": []
+}

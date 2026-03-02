@@ -1,0 +1,91 @@
+{
+  "name": "weather_current_get",
+  "description": "Get current weather conditions for a location by geographic coordinates. Returns temperature, feels like, humidity, pressure, wind speed/direction, cloud coverage, visibility, and weather description.",
+  "resource_group": "weather",
+  "endpoint": "/data/2.5/weather",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": true,
+      "description": "Latitude coordinate.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": true,
+      "description": "Longitude coordinate.",
+      "in": "query"
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Units: standard, metric, or imperial.",
+      "in": "query"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "required": false,
+      "description": "Language code for descriptions.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/2.5/weather?lat=48.8566&lon=2.3522&appid=YOUR_API_KEY&units=metric"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "coord": {
+        "lon": 2.35,
+        "lat": 48.86
+      },
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+        }
+      ],
+      "main": {
+        "temp": 18.5,
+        "feels_like": 17.2,
+        "temp_min": 16.8,
+        "temp_max": 20.1,
+        "pressure": 1015,
+        "humidity": 55
+      },
+      "visibility": 10000,
+      "wind": {
+        "speed": 3.6,
+        "deg": 220,
+        "gust": 5.1
+      },
+      "clouds": {
+        "all": 5
+      },
+      "dt": 1705312200,
+      "sys": {
+        "country": "FR",
+        "sunrise": 1705300000,
+        "sunset": 1705331000
+      },
+      "timezone": 3600,
+      "name": "Paris"
+    }
+  }
+}

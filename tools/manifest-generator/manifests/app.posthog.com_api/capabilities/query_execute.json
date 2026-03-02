@@ -1,0 +1,39 @@
+{
+  "name": "query_execute",
+  "description": "Execute a HogQL or other query against PostHog data.",
+  "resource_group": "query",
+  "endpoint": "/projects/{project_id}/query",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "description": "Project ID",
+      "location": "path"
+    },
+    {
+      "name": "query",
+      "type": "object",
+      "required": true,
+      "description": "Query object with kind and query fields"
+    }
+  ],
+  "request_example": {
+    "query": {
+      "kind": "HogQLQuery",
+      "query": "SELECT count() FROM events WHERE timestamp > now() - interval 7 day"
+    }
+  },
+  "response_example": {
+    "results": [
+      [
+        42
+      ]
+    ],
+    "columns": [
+      "count()"
+    ]
+  },
+  "auth_scopes": []
+}

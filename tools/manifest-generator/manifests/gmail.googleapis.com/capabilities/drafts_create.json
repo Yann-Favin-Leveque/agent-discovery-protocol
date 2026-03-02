@@ -1,0 +1,50 @@
+{
+  "name": "drafts_create",
+  "description": "Creates a new draft with the DRAFT label.",
+  "resource_group": "drafts",
+  "endpoint": "/gmail/v1/users/{userId}/drafts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "message.raw",
+      "type": "string",
+      "description": "The email in base64url encoded RFC 2822 format.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/drafts",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "message": {
+        "raw": "base64url-encoded-email"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "r124",
+      "message": {
+        "id": "18e2abc456",
+        "labelIds": [
+          "DRAFT"
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.compose"
+  ]
+}

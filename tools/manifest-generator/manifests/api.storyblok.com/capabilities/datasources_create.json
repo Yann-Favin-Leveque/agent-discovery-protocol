@@ -1,0 +1,57 @@
+{
+  "name": "datasources_create",
+  "description": "Create a new datasource.",
+  "endpoint": "/v1/spaces/{space_id}/datasources",
+  "method": "POST",
+  "resource_group": "datasources",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "integer",
+      "description": "Space ID",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "datasource",
+      "type": "object",
+      "description": "Datasource object",
+      "required": true,
+      "example": {
+        "name": "Sizes",
+        "slug": "sizes"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mapi.storyblok.com/v1/spaces/12345/datasources",
+    "headers": {
+      "Authorization": "your-management-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "datasource": {
+        "name": "Sizes",
+        "slug": "sizes"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "datasource": {
+        "id": 2,
+        "name": "Sizes",
+        "slug": "sizes"
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

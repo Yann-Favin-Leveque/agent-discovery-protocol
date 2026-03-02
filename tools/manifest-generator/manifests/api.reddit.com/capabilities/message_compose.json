@@ -1,0 +1,56 @@
+{
+  "name": "message_compose",
+  "resource_group": "messages",
+  "description": "Send a private message to another Reddit user.",
+  "endpoint": "/api/compose",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "to",
+      "type": "string",
+      "description": "The username of the recipient.",
+      "required": true,
+      "in": "body",
+      "example": "otheruser"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "The subject line of the message.",
+      "required": true,
+      "in": "body",
+      "example": "Hello!"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "The body of the message in Reddit markdown format.",
+      "required": true,
+      "in": "body",
+      "example": "Hi there! I wanted to reach out about your recent post."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://oauth.reddit.com/api/compose",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "User-Agent": "AgentDiscovery/1.0"
+    },
+    "body": {
+      "to": "otheruser",
+      "subject": "Hello!",
+      "text": "Hi there! I wanted to reach out about your recent post."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "json": {
+        "errors": []
+      }
+    }
+  },
+  "auth_scopes": ["privatemessages"]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "media_publish",
+  "resource_group": "publishing",
+  "description": "Publish a previously created media container to the user's Instagram feed. This is step 2 of the two-step publishing process.",
+  "endpoint": "/{user_id}/media_publish",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID.",
+      "required": true,
+      "in": "path",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "creation_id",
+      "type": "string",
+      "description": "The ID of the media container created in step 1.",
+      "required": true,
+      "in": "body",
+      "example": "17854360000000006"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v21.0/17841400000000000/media_publish",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "creation_id": "17854360000000006"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "17854360000000007"
+    }
+  },
+  "auth_scopes": ["instagram_content_publish"]
+}

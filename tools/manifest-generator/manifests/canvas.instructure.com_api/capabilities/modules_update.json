@@ -1,0 +1,50 @@
+{
+  "name": "modules_update",
+  "description": "Update a module.",
+  "resource_group": "modules",
+  "endpoint": "/api/v1/courses/{course_id}/modules/{module_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "module_id",
+      "type": "integer",
+      "description": "Module ID.",
+      "required": true,
+      "example": 6001
+    },
+    {
+      "name": "module[name]",
+      "type": "string",
+      "description": "Updated name.",
+      "required": false,
+      "example": "Week 1 - Intro"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/modules/6001",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "module": {
+        "name": "Week 1 - Intro"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 6001,
+      "name": "Week 1 - Intro"
+    }
+  }
+}

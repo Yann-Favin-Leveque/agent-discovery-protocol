@@ -1,0 +1,52 @@
+{
+  "name": "releases_list",
+  "description": "List releases for a repository.",
+  "resource_group": "releases",
+  "endpoint": "/repos/{owner}/{repo}/releases",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/octocat/my-project/releases?per_page=5",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1,
+        "tag_name": "v2.0.0",
+        "name": "v2.0.0 - Dark Mode",
+        "body": "## What's New\\n- Dark mode support",
+        "draft": false,
+        "prerelease": false,
+        "created_at": "2026-02-28T10:00:00Z",
+        "html_url": "https://github.com/octocat/my-project/releases/tag/v2.0.0"
+      }
+    ]
+  }
+}

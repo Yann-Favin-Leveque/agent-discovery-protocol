@@ -1,0 +1,65 @@
+{
+  "name": "lemur_action_items",
+  "description": "Extract action items from one or more transcripts using LeMUR.",
+  "endpoint": "/v2/lemur/v3/generate/action-items",
+  "method": "POST",
+  "resource_group": "lemur",
+  "parameters": [
+    {
+      "name": "transcript_ids",
+      "type": "array",
+      "description": "Array of transcript IDs.",
+      "required": true,
+      "example": [
+        "abc123"
+      ]
+    },
+    {
+      "name": "context",
+      "type": "string",
+      "description": "Additional context.",
+      "required": false
+    },
+    {
+      "name": "answer_format",
+      "type": "string",
+      "description": "Format of the response.",
+      "required": false
+    },
+    {
+      "name": "final_model",
+      "type": "string",
+      "description": "LLM model to use.",
+      "required": false,
+      "example": "default"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.assemblyai.com/v2/lemur/v3/generate/action-items",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transcript_ids": [
+        "abc123"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req_abc123",
+      "response": "- John: Complete project proposal by Friday\n- Sarah: Schedule follow-up meeting\n- Mike: Send updated sales figures",
+      "usage": {
+        "input_tokens": 1500,
+        "output_tokens": 35
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

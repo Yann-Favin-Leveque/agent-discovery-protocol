@@ -1,0 +1,72 @@
+{
+  "name": "sessions_search",
+  "description": "Search and filter session recordings by date range, duration, country, and visitor attributes.",
+  "endpoint": "/api/v1/sessions",
+  "method": "POST",
+  "resource_group": "sessions",
+  "parameters": [
+    {
+      "name": "filters",
+      "type": "object",
+      "description": "Search filters including date range, duration, country, and custom properties.",
+      "required": false,
+      "example": {
+        "date_from": "2024-01-01T00:00:00Z",
+        "date_to": "2024-01-31T23:59:59Z",
+        "duration_min": 5000
+      }
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "description": "Maximum results to return.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "description": "Pagination offset.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.eu.smartlook.cloud/api/v1/sessions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "filters": {
+        "date_from": "2024-01-01T00:00:00Z",
+        "date_to": "2024-01-31T23:59:59Z"
+      },
+      "limit": 25,
+      "offset": 0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "rec_abc123",
+          "visitor_id": "vis_123",
+          "duration": 95000,
+          "pages_count": 4,
+          "country": "US",
+          "device_type": "desktop",
+          "browser": "Chrome",
+          "started_at": "2024-01-20T10:00:00Z"
+        }
+      ],
+      "total_count": 1500
+    }
+  },
+  "auth_scopes": ["read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "stats_get_index",
+  "description": "Get stats for a specific index including the number of documents and field distribution.",
+  "endpoint": "/indexes/{indexUid}/stats",
+  "method": "GET",
+  "resource_group": "stats",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.meilisearch.com/indexes/movies/stats",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "numberOfDocuments": 100,
+      "isIndexing": false,
+      "fieldDistribution": {
+        "id": 100,
+        "title": 100,
+        "genre": 100
+      }
+    }
+  },
+  "auth_scopes": [
+    "stats.get"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

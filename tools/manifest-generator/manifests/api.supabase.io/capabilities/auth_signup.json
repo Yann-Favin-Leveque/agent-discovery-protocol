@@ -1,0 +1,61 @@
+{
+  "name": "auth_signup",
+  "description": "Sign up a new user with email and password.",
+  "endpoint": "/auth/v1/signup",
+  "method": "POST",
+  "resource_group": "auth",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "User email address",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "User password (min 6 chars)",
+      "required": true,
+      "example": "securePassword123"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Additional user metadata",
+      "required": false,
+      "example": {
+        "name": "John Doe"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/auth/v1/signup",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "user@example.com",
+      "password": "securePassword123",
+      "data": {
+        "name": "John Doe"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-123",
+      "email": "user@example.com",
+      "role": "authenticated",
+      "access_token": "eyJ...",
+      "refresh_token": "abc..."
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

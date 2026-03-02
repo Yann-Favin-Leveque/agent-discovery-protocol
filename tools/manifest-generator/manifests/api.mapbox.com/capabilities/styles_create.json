@@ -1,0 +1,62 @@
+{
+  "name": "styles_create",
+  "description": "Create a new map style.",
+  "endpoint": "/styles/v1/{username}",
+  "method": "POST",
+  "resource_group": "styles",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Mapbox username.",
+      "required": true,
+      "example": "myuser"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "sk.xxx"
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "Mapbox Style Specification JSON.",
+      "required": true,
+      "example": {
+        "version": 8,
+        "name": "My Style",
+        "sources": {},
+        "layers": []
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mapbox.com/styles/v1/myuser?access_token=sk.xxx",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "version": 8,
+      "name": "My Style",
+      "sources": {},
+      "layers": []
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cjx123",
+      "name": "My Style",
+      "version": 8
+    }
+  },
+  "auth_scopes": [
+    "styles:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

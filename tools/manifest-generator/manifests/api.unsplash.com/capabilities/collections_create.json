@@ -1,0 +1,23 @@
+{
+  "name": "collections_create",
+  "description": "Create a new photo collection. Requires write_collections scope.",
+  "resource_group": "collections",
+  "endpoint": "/collections",
+  "method": "POST",
+  "parameters": [
+    { "name": "title", "type": "string", "required": true, "description": "The title of the collection." },
+    { "name": "description", "type": "string", "required": false, "description": "A description of the collection." },
+    { "name": "private", "type": "boolean", "required": false, "description": "Whether the collection is private. Default: false." }
+  ],
+  "auth_scopes": ["write_collections"],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.unsplash.com/collections",
+    "headers": { "Authorization": "Bearer USER_ACCESS_TOKEN", "Content-Type": "application/json" },
+    "body": { "title": "My Travel Photos", "description": "Collection of photos from my travels", "private": false }
+  },
+  "response_example": {
+    "status": 201,
+    "body": { "id": 500, "title": "My Travel Photos", "description": "Collection of photos from my travels", "total_photos": 0, "private": false }
+  }
+}

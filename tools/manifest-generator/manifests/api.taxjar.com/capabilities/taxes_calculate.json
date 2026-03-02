@@ -1,0 +1,162 @@
+{
+  "name": "taxes_calculate",
+  "description": "Calculate sales tax for an order based on origin/destination and line items.",
+  "endpoint": "/v2/taxes",
+  "method": "POST",
+  "resource_group": "taxes",
+  "parameters": [
+    {
+      "name": "from_country",
+      "type": "string",
+      "description": "Origin country code.",
+      "required": true,
+      "example": "US"
+    },
+    {
+      "name": "from_zip",
+      "type": "string",
+      "description": "Origin postal code.",
+      "required": true,
+      "example": "78756"
+    },
+    {
+      "name": "from_state",
+      "type": "string",
+      "description": "Origin state.",
+      "required": true,
+      "example": "TX"
+    },
+    {
+      "name": "from_city",
+      "type": "string",
+      "description": "Origin city.",
+      "required": false,
+      "example": "Austin"
+    },
+    {
+      "name": "from_street",
+      "type": "string",
+      "description": "Origin street.",
+      "required": false
+    },
+    {
+      "name": "to_country",
+      "type": "string",
+      "description": "Destination country.",
+      "required": true,
+      "example": "US"
+    },
+    {
+      "name": "to_zip",
+      "type": "string",
+      "description": "Destination postal code.",
+      "required": true,
+      "example": "90002"
+    },
+    {
+      "name": "to_state",
+      "type": "string",
+      "description": "Destination state.",
+      "required": true,
+      "example": "CA"
+    },
+    {
+      "name": "to_city",
+      "type": "string",
+      "description": "Destination city.",
+      "required": false,
+      "example": "Los Angeles"
+    },
+    {
+      "name": "to_street",
+      "type": "string",
+      "description": "Destination street.",
+      "required": false
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Total order amount (excluding shipping).",
+      "required": false,
+      "example": 15.0
+    },
+    {
+      "name": "shipping",
+      "type": "number",
+      "description": "Total shipping amount.",
+      "required": true,
+      "example": 1.5
+    },
+    {
+      "name": "line_items",
+      "type": "array",
+      "description": "Array of line items with id, quantity, product_tax_code, unit_price, discount.",
+      "required": false
+    },
+    {
+      "name": "nexus_addresses",
+      "type": "array",
+      "description": "Override nexus addresses for calculation.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.taxjar.com/v2/taxes",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "from_country": "US",
+      "from_zip": "78756",
+      "from_state": "TX",
+      "to_country": "US",
+      "to_zip": "90002",
+      "to_state": "CA",
+      "to_city": "Los Angeles",
+      "amount": 15.0,
+      "shipping": 1.5,
+      "line_items": [
+        {
+          "id": "1",
+          "quantity": 1,
+          "product_tax_code": "20010",
+          "unit_price": 15.0
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tax": {
+        "order_total_amount": 16.5,
+        "shipping": 1.5,
+        "taxable_amount": 16.5,
+        "amount_to_collect": 1.36,
+        "rate": 0.0825,
+        "has_nexus": true,
+        "freight_taxable": false,
+        "tax_source": "destination",
+        "jurisdictions": {
+          "country": "US",
+          "state": "CA",
+          "county": "LOS ANGELES",
+          "city": "LOS ANGELES"
+        },
+        "breakdown": {
+          "taxable_amount": 16.5,
+          "tax_collectable": 1.36,
+          "state_taxable_amount": 16.5,
+          "state_tax_rate": 0.0625,
+          "state_tax_collectable": 1.03
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

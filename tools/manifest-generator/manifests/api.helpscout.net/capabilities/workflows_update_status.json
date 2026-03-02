@@ -1,0 +1,58 @@
+{
+  "name": "workflows_update_status",
+  "description": "Activate or deactivate a workflow.",
+  "endpoint": "/v2/workflows/{id}",
+  "method": "PATCH",
+  "resource_group": "workflows",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Workflow ID.",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "op",
+      "type": "string",
+      "description": "Operation: replace.",
+      "required": true,
+      "example": "replace"
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "description": "Path: /status.",
+      "required": true,
+      "example": "/status"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "New status: active or inactive.",
+      "required": true,
+      "example": "inactive"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.helpscout.net/v2/workflows/1",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "op": "replace",
+      "path": "/status",
+      "value": "inactive"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

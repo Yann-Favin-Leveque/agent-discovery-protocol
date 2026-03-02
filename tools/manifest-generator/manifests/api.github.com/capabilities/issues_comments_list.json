@@ -1,0 +1,63 @@
+{
+  "name": "issues_comments_list",
+  "description": "List comments on an issue.",
+  "resource_group": "issues",
+  "endpoint": "/repos/{owner}/{repo}/issues/{issue_number}/comments",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "issue_number",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "The issue number."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/octocat/my-project/issues/42/comments",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1001,
+        "body": "I can reproduce this on iOS 17.",
+        "user": {
+          "login": "contributor1"
+        },
+        "created_at": "2026-02-28T11:00:00Z"
+      }
+    ]
+  }
+}

@@ -13,39 +13,382 @@
   },
   "capabilities": [
     {
-      "name": "create_invoice",
-      "description": "Create a new invoice for a customer with line items, tax, and due date. Supports custom fields, discounts, and multiple currencies.",
-      "detail_url": "/capabilities/create_invoice"
+      "name": "accounts_query",
+      "description": "Query the chart of accounts using SQL-like syntax. Filter by account type, name, or classification.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/accounts_query",
+      "resource_group": "accounts"
     },
     {
-      "name": "query_invoices",
-      "description": "Query invoices using SQL-like syntax. Filter by customer, date range, status, and amount. Returns paginated results.",
-      "detail_url": "/capabilities/query_invoices"
+      "name": "accounts_get",
+      "description": "Retrieve a specific account by its ID from the chart of accounts.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/accounts_get",
+      "resource_group": "accounts"
     },
     {
-      "name": "create_customer",
-      "description": "Create a new customer record with contact information, billing address, payment terms, and tax settings.",
-      "detail_url": "/capabilities/create_customer"
+      "name": "accounts_create",
+      "description": "Create a new account in the chart of accounts with type, name, and classification.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/accounts_create",
+      "resource_group": "accounts"
     },
     {
-      "name": "record_payment",
-      "description": "Record a payment received from a customer. Link it to one or more invoices to mark them as paid.",
-      "detail_url": "/capabilities/record_payment"
+      "name": "accounts_update",
+      "description": "Update an existing account. Requires full object with SyncToken for concurrency.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/accounts_update",
+      "resource_group": "accounts"
     },
     {
-      "name": "create_expense",
-      "description": "Record a business expense or purchase. Categorize it by account, attach receipts, and assign to a vendor.",
-      "detail_url": "/capabilities/create_expense"
+      "name": "invoices_create",
+      "description": "Create a new invoice for a customer with line items, tax, and due date.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/invoices_create",
+      "resource_group": "invoices"
     },
     {
-      "name": "get_profit_loss_report",
-      "description": "Generate a Profit and Loss (income statement) report for a given date range. Shows revenue, expenses, and net income.",
-      "detail_url": "/capabilities/get_profit_loss_report"
+      "name": "invoices_get",
+      "description": "Retrieve a specific invoice by its ID with all line items and payment details.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/invoices_get",
+      "resource_group": "invoices"
     },
     {
-      "name": "query_accounts",
-      "description": "Query the chart of accounts to list all financial accounts. Filter by account type, name, or classification.",
-      "detail_url": "/capabilities/query_accounts"
+      "name": "invoices_query",
+      "description": "Query invoices using SQL-like syntax. Filter by customer, date range, balance, and status.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/invoices_query",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_update",
+      "description": "Update an existing invoice. Requires full object with SyncToken.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/invoices_update",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_delete",
+      "description": "Delete (void) an invoice by ID and SyncToken.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/invoices_delete",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_send",
+      "description": "Send an existing invoice to the customer via email.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/invoices_send",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_get_pdf",
+      "description": "Download the PDF version of an invoice.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/invoices_get_pdf",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "customers_create",
+      "description": "Create a new customer record with contact info, billing address, and payment terms.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/customers_create",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_get",
+      "description": "Retrieve a specific customer by ID with full contact and billing details.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/customers_get",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_query",
+      "description": "Query customers using SQL-like syntax. Filter by name, email, or active status.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/customers_query",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_update",
+      "description": "Update an existing customer record. Requires SyncToken for concurrency.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/customers_update",
+      "resource_group": "customers"
+    },
+    {
+      "name": "payments_create",
+      "description": "Record a payment received from a customer. Link to invoices to mark them paid.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/payments_create",
+      "resource_group": "payments"
+    },
+    {
+      "name": "payments_get",
+      "description": "Retrieve a specific payment by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/payments_get",
+      "resource_group": "payments"
+    },
+    {
+      "name": "payments_query",
+      "description": "Query payments using SQL-like syntax. Filter by customer, date, or amount.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/payments_query",
+      "resource_group": "payments"
+    },
+    {
+      "name": "payments_delete",
+      "description": "Delete a payment by ID and SyncToken.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/payments_delete",
+      "resource_group": "payments"
+    },
+    {
+      "name": "items_create",
+      "description": "Create a new item (product or service) for use on invoices and sales receipts.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/items_create",
+      "resource_group": "items"
+    },
+    {
+      "name": "items_get",
+      "description": "Retrieve a specific item by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/items_get",
+      "resource_group": "items"
+    },
+    {
+      "name": "items_query",
+      "description": "Query items using SQL-like syntax. Filter by name, type, or active status.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/items_query",
+      "resource_group": "items"
+    },
+    {
+      "name": "items_update",
+      "description": "Update an existing item. Requires SyncToken for concurrency.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/items_update",
+      "resource_group": "items"
+    },
+    {
+      "name": "purchases_create",
+      "description": "Record a business expense or purchase categorized by account and vendor.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/purchases_create",
+      "resource_group": "purchases"
+    },
+    {
+      "name": "purchases_get",
+      "description": "Retrieve a specific purchase (expense) by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/purchases_get",
+      "resource_group": "purchases"
+    },
+    {
+      "name": "purchases_query",
+      "description": "Query purchases using SQL-like syntax. Filter by date, amount, or payment type.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/purchases_query",
+      "resource_group": "purchases"
+    },
+    {
+      "name": "bills_create",
+      "description": "Create a new bill (accounts payable) from a vendor with line items and due date.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/bills_create",
+      "resource_group": "bills"
+    },
+    {
+      "name": "bills_get",
+      "description": "Retrieve a specific bill by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/bills_get",
+      "resource_group": "bills"
+    },
+    {
+      "name": "bills_query",
+      "description": "Query bills using SQL-like syntax. Filter by vendor, date, or balance.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/bills_query",
+      "resource_group": "bills"
+    },
+    {
+      "name": "billpayments_create",
+      "description": "Record a payment made to a vendor against one or more bills.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/billpayments_create",
+      "resource_group": "billpayments"
+    },
+    {
+      "name": "vendors_create",
+      "description": "Create a new vendor record with contact and payment information.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/vendors_create",
+      "resource_group": "vendors"
+    },
+    {
+      "name": "vendors_get",
+      "description": "Retrieve a specific vendor by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/vendors_get",
+      "resource_group": "vendors"
+    },
+    {
+      "name": "vendors_query",
+      "description": "Query vendors using SQL-like syntax. Filter by name, balance, or active status.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/vendors_query",
+      "resource_group": "vendors"
+    },
+    {
+      "name": "vendors_update",
+      "description": "Update an existing vendor record. Requires SyncToken.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/vendors_update",
+      "resource_group": "vendors"
+    },
+    {
+      "name": "estimates_create",
+      "description": "Create a new estimate (quote) for a customer with line items.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/estimates_create",
+      "resource_group": "estimates"
+    },
+    {
+      "name": "estimates_get",
+      "description": "Retrieve a specific estimate by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/estimates_get",
+      "resource_group": "estimates"
+    },
+    {
+      "name": "estimates_query",
+      "description": "Query estimates using SQL-like syntax. Filter by customer, date, or status.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/estimates_query",
+      "resource_group": "estimates"
+    },
+    {
+      "name": "employees_create",
+      "description": "Create a new employee record with personal and contact information.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/employees_create",
+      "resource_group": "employees"
+    },
+    {
+      "name": "employees_get",
+      "description": "Retrieve a specific employee by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/employees_get",
+      "resource_group": "employees"
+    },
+    {
+      "name": "employees_query",
+      "description": "Query employees using SQL-like syntax.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/employees_query",
+      "resource_group": "employees"
+    },
+    {
+      "name": "salesreceipts_create",
+      "description": "Create a sales receipt for an immediate payment without an invoice.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/salesreceipts_create",
+      "resource_group": "salesreceipts"
+    },
+    {
+      "name": "salesreceipts_get",
+      "description": "Retrieve a specific sales receipt by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/salesreceipts_get",
+      "resource_group": "salesreceipts"
+    },
+    {
+      "name": "creditmemos_create",
+      "description": "Create a credit memo to refund or credit a customer.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/creditmemos_create",
+      "resource_group": "creditmemos"
+    },
+    {
+      "name": "creditmemos_get",
+      "description": "Retrieve a specific credit memo by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/creditmemos_get",
+      "resource_group": "creditmemos"
+    },
+    {
+      "name": "journalentries_create",
+      "description": "Create a journal entry with debit and credit lines for manual adjustments.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/journalentries_create",
+      "resource_group": "journalentries"
+    },
+    {
+      "name": "journalentries_get",
+      "description": "Retrieve a specific journal entry by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/journalentries_get",
+      "resource_group": "journalentries"
+    },
+    {
+      "name": "transfers_create",
+      "description": "Create a funds transfer between two bank accounts.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/transfers_create",
+      "resource_group": "transfers"
+    },
+    {
+      "name": "deposits_create",
+      "description": "Record a bank deposit for undeposited funds or direct deposits.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/deposits_create",
+      "resource_group": "deposits"
+    },
+    {
+      "name": "companyinfo_get",
+      "description": "Retrieve the company profile including name, address, and fiscal year settings.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/companyinfo_get",
+      "resource_group": "companyinfo"
+    },
+    {
+      "name": "reports_profit_and_loss",
+      "description": "Generate a Profit and Loss (income statement) report for a date range.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/reports_profit_and_loss",
+      "resource_group": "reports"
+    },
+    {
+      "name": "reports_balance_sheet",
+      "description": "Generate a Balance Sheet report showing assets, liabilities, and equity.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/reports_balance_sheet",
+      "resource_group": "reports"
+    },
+    {
+      "name": "reports_cashflow",
+      "description": "Generate a Cash Flow statement report for a date range.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/reports_cashflow",
+      "resource_group": "reports"
+    },
+    {
+      "name": "reports_trial_balance",
+      "description": "Generate a Trial Balance report showing all account balances.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/reports_trial_balance",
+      "resource_group": "reports"
+    },
+    {
+      "name": "taxcodes_query",
+      "description": "Query tax codes configured for the company.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/taxcodes_query",
+      "resource_group": "taxcodes"
+    },
+    {
+      "name": "preferences_get",
+      "description": "Retrieve the company preferences and feature settings.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/preferences_get",
+      "resource_group": "preferences"
+    },
+    {
+      "name": "refundreceipts_create",
+      "description": "Create a refund receipt to record a refund to a customer.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/refundreceipts_create",
+      "resource_group": "refundreceipts"
+    },
+    {
+      "name": "refundreceipts_get",
+      "description": "Retrieve a specific refund receipt by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/refundreceipts_get",
+      "resource_group": "refundreceipts"
+    },
+    {
+      "name": "purchaseorders_create",
+      "description": "Create a purchase order to a vendor for goods or services.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/purchaseorders_create",
+      "resource_group": "purchaseorders"
+    },
+    {
+      "name": "purchaseorders_get",
+      "description": "Retrieve a specific purchase order by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/purchaseorders_get",
+      "resource_group": "purchaseorders"
+    },
+    {
+      "name": "timeactivities_create",
+      "description": "Record a time activity for billable time tracking.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/timeactivities_create",
+      "resource_group": "timeactivities"
+    },
+    {
+      "name": "timeactivities_get",
+      "description": "Retrieve a specific time activity by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/timeactivities_get",
+      "resource_group": "timeactivities"
+    },
+    {
+      "name": "vendorcredits_create",
+      "description": "Create a vendor credit to record a credit from a vendor.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/vendorcredits_create",
+      "resource_group": "vendorcredits"
+    },
+    {
+      "name": "vendorcredits_get",
+      "description": "Retrieve a specific vendor credit by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.quickbooks.com/capabilities/vendorcredits_get",
+      "resource_group": "vendorcredits"
     }
   ]
 }

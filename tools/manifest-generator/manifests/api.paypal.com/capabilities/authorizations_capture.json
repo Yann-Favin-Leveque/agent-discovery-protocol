@@ -1,0 +1,50 @@
+{
+  "name": "authorizations_capture",
+  "description": "Capture an authorized payment. Moves funds from the buyer.",
+  "endpoint": "/v2/payments/authorizations/{authorization_id}/capture",
+  "method": "POST",
+  "resource_group": "payments",
+  "parameters": [
+    {
+      "name": "authorization_id",
+      "type": "string",
+      "description": "Authorization ID",
+      "required": true,
+      "example": "AUTH_ID"
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Amount to capture (optional for full capture)",
+      "required": false,
+      "example": {
+        "currency_code": "USD",
+        "value": "50.00"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v2/payments/authorizations/{authorization_id}/capture",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "CAPTURE_ID",
+      "status": "COMPLETED",
+      "amount": {
+        "currency_code": "USD",
+        "value": "50.00"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

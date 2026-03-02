@@ -1,0 +1,54 @@
+{
+  "name": "cohorts_create",
+  "description": "Create a new cohort with filter criteria.",
+  "resource_group": "cohorts",
+  "endpoint": "/projects/{project_id}/cohorts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "description": "Project ID",
+      "location": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Cohort name"
+    },
+    {
+      "name": "groups",
+      "type": "array",
+      "required": true,
+      "description": "Cohort filter groups"
+    },
+    {
+      "name": "is_static",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether cohort is static"
+    }
+  ],
+  "request_example": {
+    "name": "Active Users",
+    "groups": [
+      {
+        "properties": [
+          {
+            "key": "$pageview",
+            "type": "event",
+            "value": "1",
+            "operator": "gt"
+          }
+        ]
+      }
+    ]
+  },
+  "response_example": {
+    "id": 2,
+    "name": "Active Users"
+  },
+  "auth_scopes": []
+}

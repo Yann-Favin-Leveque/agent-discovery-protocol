@@ -1,0 +1,71 @@
+{
+  "name": "inventory_batch_retrieve_counts",
+  "description": "Retrieve current inventory counts for catalog items at locations.",
+  "endpoint": "/v2/inventory/counts/batch-retrieve",
+  "method": "POST",
+  "resource_group": "inventory",
+  "parameters": [
+    {
+      "name": "catalog_object_ids",
+      "type": "array",
+      "description": "Catalog object IDs",
+      "required": true,
+      "example": [
+        "item_var_123"
+      ]
+    },
+    {
+      "name": "location_ids",
+      "type": "array",
+      "description": "Location IDs",
+      "required": false,
+      "example": [
+        "LOCATION_ID"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/inventory/counts/batch-retrieve",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "catalog_object_ids": [
+        "item_var_123"
+      ],
+      "location_ids": [
+        "LOCATION_ID"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "counts": [
+        {
+          "catalog_object_id": "item_var_123",
+          "location_id": "LOCATION_ID",
+          "quantity": "10",
+          "state": "IN_STOCK"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

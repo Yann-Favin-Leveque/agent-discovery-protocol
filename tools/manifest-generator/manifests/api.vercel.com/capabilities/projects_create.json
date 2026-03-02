@@ -1,0 +1,64 @@
+{
+  "name": "projects_create",
+  "description": "Create a new Vercel project linked to a Git repository.",
+  "endpoint": "/v11/projects",
+  "method": "POST",
+  "resource_group": "projects",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Project name",
+      "required": true,
+      "example": "my-app"
+    },
+    {
+      "name": "framework",
+      "type": "string",
+      "description": "Framework preset (nextjs, create-react-app, svelte, etc.)",
+      "required": false,
+      "example": "nextjs"
+    },
+    {
+      "name": "gitRepository",
+      "type": "object",
+      "description": "Git repository to link",
+      "required": false,
+      "example": {
+        "type": "github",
+        "repo": "user/my-app"
+      }
+    },
+    {
+      "name": "teamId",
+      "type": "string",
+      "description": "Team ID",
+      "required": false,
+      "example": "team_123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vercel.com/v11/projects",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "my-app",
+      "framework": "nextjs"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "prj_123",
+      "name": "my-app",
+      "framework": "nextjs"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "tokens_list",
+  "description": "List all access tokens for a user.",
+  "endpoint": "/tokens/v2/{username}",
+  "method": "GET",
+  "resource_group": "tokens",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Username.",
+      "required": true,
+      "example": "myuser"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "sk.xxx"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/tokens/v2/myuser?access_token=sk.xxx",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "tok_abc",
+        "note": "Production",
+        "scopes": [
+          "styles:read"
+        ],
+        "created": "2024-01-01"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "tokens:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

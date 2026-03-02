@@ -1,0 +1,46 @@
+{
+  "name": "nft_rarity_compute",
+  "description": "Compute the rarity score of each attribute for a specific NFT within its collection based on trait prevalence.",
+  "endpoint": "/nft/v3/{apiKey}/computeRarity",
+  "method": "GET",
+  "resource_group": "nft",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "contractAddress",
+      "type": "string",
+      "required": true,
+      "description": "NFT contract address."
+    },
+    {
+      "name": "tokenId",
+      "type": "string",
+      "required": true,
+      "description": "Token ID to compute rarity for."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://eth-mainnet.g.alchemy.com/nft/v3/{apiKey}/computeRarity?contractAddress=0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D&tokenId=1234",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "rarities": [
+        { "traitType": "Background", "value": "Orange", "prevalence": 12.5 },
+        { "traitType": "Fur", "value": "Dark Brown", "prevalence": 14.2 },
+        { "traitType": "Eyes", "value": "Bored", "prevalence": 17.3 }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

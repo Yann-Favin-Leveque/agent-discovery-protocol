@@ -1,0 +1,39 @@
+{
+  "name": "indexes_delete",
+  "description": "Delete an index and all its documents. Returns an asynchronous task.",
+  "endpoint": "/indexes/{indexUid}",
+  "method": "DELETE",
+  "resource_group": "indexes",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index to delete.",
+      "required": true,
+      "example": "movies"
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.meilisearch.com/indexes/movies",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "taskUid": 2,
+      "indexUid": "movies",
+      "status": "enqueued",
+      "type": "indexDeletion",
+      "enqueuedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "indexes.delete"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

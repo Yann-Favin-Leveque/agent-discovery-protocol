@@ -1,0 +1,57 @@
+{
+  "name": "branches_list",
+  "description": "List branches in a repository.",
+  "resource_group": "branches",
+  "endpoint": "/projects/{id}/repository/branches",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "description": "Search by branch name."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/123/repository/branches",
+    "headers": {
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "name": "main",
+        "commit": {
+          "id": "abc123",
+          "message": "fix: resolve issue"
+        },
+        "protected": true,
+        "default": true
+      },
+      {
+        "name": "feature/dark-mode",
+        "commit": {
+          "id": "def456"
+        },
+        "protected": false,
+        "default": false
+      }
+    ]
+  }
+}

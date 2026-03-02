@@ -1,0 +1,57 @@
+{
+  "name": "feature_flags_create",
+  "description": "Create a new feature flag with rollout conditions.",
+  "resource_group": "feature_flags",
+  "endpoint": "/projects/{project_id}/feature_flags",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "description": "Project ID",
+      "location": "path"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "Flag key"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Flag display name"
+    },
+    {
+      "name": "filters",
+      "type": "object",
+      "required": true,
+      "description": "Rollout conditions"
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether flag is active"
+    }
+  ],
+  "request_example": {
+    "key": "new-dashboard",
+    "name": "New Dashboard",
+    "filters": {
+      "groups": [
+        {
+          "rollout_percentage": 50
+        }
+      ]
+    },
+    "active": true
+  },
+  "response_example": {
+    "id": 2,
+    "key": "new-dashboard"
+  },
+  "auth_scopes": []
+}

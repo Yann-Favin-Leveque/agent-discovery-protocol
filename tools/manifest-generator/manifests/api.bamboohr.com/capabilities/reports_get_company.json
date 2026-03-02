@@ -1,0 +1,24 @@
+{
+  "name": "reports_get_company",
+  "description": "Run a saved company report and retrieve the results in JSON or CSV format.",
+  "endpoint": "/api/gateway.php/{companyDomain}/v1/reports/{reportId}",
+  "method": "GET",
+  "resource_group": "reports",
+  "parameters": [
+    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
+    {"name": "reportId", "type": "integer", "description": "Report ID from BambooHR.", "required": true, "example": 42},
+    {"name": "format", "type": "string", "description": "Output format: JSON, CSV, XLS, XML, PDF.", "required": false, "example": "JSON"},
+    {"name": "fd", "type": "string", "description": "Filter by date (YYYY-MM-DD) if report supports it.", "required": false, "example": "yes"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/reports/42?format=JSON",
+    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Accept": "application/json"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"title": "Employee Directory", "fields": [{"id": "displayName", "type": "text", "name": "Name"}], "employees": [{"id": "123", "displayName": "John Doe"}]}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 60}
+}

@@ -1,0 +1,54 @@
+{
+  "name": "stream_videos_create",
+  "resource_group": "stream",
+  "description": "Create a new video entry in a library.",
+  "endpoint": "/library/{libraryId}/videos",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "libraryId",
+      "type": "integer",
+      "required": true,
+      "description": "Library ID.",
+      "in": "path"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Video title."
+    },
+    {
+      "name": "collectionId",
+      "type": "string",
+      "required": false,
+      "description": "Collection GUID."
+    },
+    {
+      "name": "thumbnailTime",
+      "type": "integer",
+      "required": false,
+      "description": "Thumbnail timestamp in ms."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bunny.net/library/222/videos",
+    "headers": {
+      "AccessKey": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "My New Video"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "videoLibraryId": 222,
+      "guid": "new-video-guid",
+      "title": "My New Video",
+      "status": 0
+    }
+  }
+}

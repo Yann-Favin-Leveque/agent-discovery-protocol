@@ -1,0 +1,35 @@
+{
+  "name": "search_users",
+  "description": "Search for Unsplash users by username or name. Returns matching user profiles with their photo counts and portfolio links.",
+  "resource_group": "search",
+  "endpoint": "/search/users",
+  "method": "GET",
+  "parameters": [
+    { "name": "query", "type": "string", "required": true, "description": "The search query keyword." },
+    { "name": "page", "type": "integer", "required": false, "description": "Page number for pagination. Default: 1." },
+    { "name": "per_page", "type": "integer", "required": false, "description": "Number of results per page. Default: 10. Max: 30." }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.unsplash.com/search/users?query=landscape%20photographer&per_page=5",
+    "headers": { "Authorization": "Client-ID YOUR_ACCESS_KEY" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total": 48,
+      "total_pages": 10,
+      "results": [
+        {
+          "id": "pXhwzz1JtQU",
+          "username": "danielmirlea",
+          "name": "Daniel Mirlea",
+          "bio": "Landscape photographer based in Switzerland",
+          "total_photos": 234,
+          "total_collections": 12,
+          "portfolio_url": "https://danielmirlea.com"
+        }
+      ]
+    }
+  }
+}

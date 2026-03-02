@@ -1,0 +1,55 @@
+{
+  "name": "player_get_recently_played",
+  "description": "Get the user's recently played tracks.",
+  "resource_group": "player",
+  "endpoint": "/v1/me/player/recently-played",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max items. Default: 20. Range: 1-50."
+    },
+    {
+      "name": "after",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp in ms. Returns items after this."
+    },
+    {
+      "name": "before",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp in ms. Returns items before this."
+    }
+  ],
+  "auth_scopes": [
+    "user-read-recently-played"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/me/player/recently-played?limit=10",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "track": {
+            "name": "Song",
+            "artists": [
+              {
+                "name": "Artist"
+              }
+            ]
+          },
+          "played_at": "2024-08-15T10:30:00Z"
+        }
+      ]
+    }
+  }
+}

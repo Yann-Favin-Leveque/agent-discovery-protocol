@@ -1,0 +1,55 @@
+{
+  "name": "live_streams_simulcast_create",
+  "resource_group": "live_streams",
+  "description": "Create a simulcast target to restream to another platform.",
+  "endpoint": "/video/v1/live-streams/{live_stream_id}/simulcast-targets",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "live_stream_id",
+      "type": "string",
+      "required": true,
+      "description": "Live stream ID.",
+      "in": "path"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "RTMP URL of the target platform."
+    },
+    {
+      "name": "stream_key",
+      "type": "string",
+      "required": true,
+      "description": "Stream key for the target."
+    },
+    {
+      "name": "passthrough",
+      "type": "string",
+      "required": false,
+      "description": "Custom metadata."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mux.com/video/v1/live-streams/stream_abc/simulcast-targets",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "rtmp://live.twitch.tv/app",
+      "stream_key": "live_xxx"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "simulcast_abc",
+        "url": "rtmp://live.twitch.tv/app"
+      }
+    }
+  }
+}

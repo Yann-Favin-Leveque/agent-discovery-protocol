@@ -1,0 +1,65 @@
+{
+  "name": "invoices_search",
+  "description": "Search invoices by location, customer, or date range.",
+  "endpoint": "/v2/invoices/search",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "object",
+      "description": "Search query with filters",
+      "required": true,
+      "example": {
+        "filter": {
+          "location_ids": [
+            "LOCATION_ID"
+          ]
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/invoices/search",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": {
+        "filter": {
+          "location_ids": [
+            "LOCATION_ID"
+          ]
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "invoices": [
+        {
+          "id": "inv_abc",
+          "status": "UNPAID"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

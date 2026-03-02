@@ -1,0 +1,62 @@
+{
+  "name": "routes_create",
+  "description": "Create a new route for incoming email processing.",
+  "resource_group": "routes",
+  "endpoint": "/v3/routes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "expression",
+      "type": "string",
+      "description": "Route matching expression.",
+      "required": true,
+      "example": "match_recipient('.*@mg.example.com')"
+    },
+    {
+      "name": "action",
+      "type": "array",
+      "description": "Actions to perform.",
+      "required": true,
+      "example": [
+        "forward('https://example.com/webhook')",
+        "stop()"
+      ]
+    },
+    {
+      "name": "priority",
+      "type": "number",
+      "description": "Route priority.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Route description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mailgun.com/v3/routes",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "expression": "match_recipient('.*@mg.example.com')",
+      "action": [
+        "forward('https://example.com/webhook')"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "route": {
+        "id": "route-123"
+      },
+      "message": "Route has been created"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "merge_requests_get",
+  "description": "Get a specific merge request by its IID.",
+  "resource_group": "merge_requests",
+  "endpoint": "/projects/{id}/merge_requests/{merge_request_iid}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "merge_request_iid",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "Merge request internal ID."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/123/merge_requests/42",
+    "headers": {
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1,
+      "iid": 42,
+      "title": "Add dark mode",
+      "description": "Implements dark mode theme",
+      "state": "opened",
+      "source_branch": "feature/dark-mode",
+      "target_branch": "main",
+      "merge_status": "can_be_merged",
+      "changes_count": "8",
+      "user_notes_count": 3
+    }
+  }
+}

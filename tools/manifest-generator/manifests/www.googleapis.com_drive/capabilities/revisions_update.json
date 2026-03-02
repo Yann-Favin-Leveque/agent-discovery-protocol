@@ -1,0 +1,54 @@
+{
+  "name": "revisions_update",
+  "description": "Update a revision.",
+  "resource_group": "revisions",
+  "endpoint": "/drive/v3/files/{fileId}/revisions/{revisionId}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "fileId",
+      "type": "string",
+      "description": "The file ID.",
+      "required": true
+    },
+    {
+      "name": "revisionId",
+      "type": "string",
+      "description": "The revision ID.",
+      "required": true
+    },
+    {
+      "name": "keepForever",
+      "type": "boolean",
+      "description": "Prevent auto-purge.",
+      "required": false
+    },
+    {
+      "name": "publishAuto",
+      "type": "boolean",
+      "description": "Auto-publish.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://www.googleapis.com/drive/v3/files/1abc/revisions/rev1",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "keepForever": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "rev1",
+      "keepForever": true
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive"
+  ]
+}

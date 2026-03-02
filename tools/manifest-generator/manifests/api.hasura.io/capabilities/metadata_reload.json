@@ -1,0 +1,34 @@
+{
+  "name": "metadata_reload",
+  "resource_group": "metadata",
+  "description": "Reload metadata from the database to pick up schema changes.",
+  "endpoint": "/v1/metadata",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Must be 'reload_metadata'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project}.hasura.app/v1/metadata",
+    "headers": {
+      "x-hasura-admin-secret": "{admin_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "reload_metadata",
+      "args": {}
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "success"
+    }
+  }
+}

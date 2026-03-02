@@ -1,0 +1,55 @@
+{
+  "name": "schedules_create",
+  "resource_group": "schedules",
+  "description": "Create a new availability schedule.",
+  "endpoint": "/v2/schedules",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Schedule name",
+      "example": "Working Hours"
+    },
+    {
+      "name": "timeZone",
+      "type": "string",
+      "required": true,
+      "description": "IANA timezone",
+      "example": "America/New_York"
+    },
+    {
+      "name": "isDefault",
+      "type": "boolean",
+      "required": false,
+      "description": "Set as default schedule",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cal.com/v2/schedules",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "Content-Type": "application/json",
+      "cal-api-version": "2024-08-13"
+    },
+    "body": {
+      "name": "Working Hours",
+      "timeZone": "America/New_York",
+      "isDefault": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": 2,
+        "name": "Working Hours",
+        "isDefault": true
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "name": "places_details_get",
+  "description": "Retrieve comprehensive details about a specific place including address, phone, website, hours, reviews, photos, and ratings.",
+  "endpoint": "/maps/api/place/details/json",
+  "method": "GET",
+  "resource_group": "places",
+  "parameters": [
+    {
+      "name": "place_id",
+      "type": "string",
+      "description": "Unique place identifier returned from a place search.",
+      "required": true,
+      "example": "ChIJN1t_tDeuEmsRUsoyG83frY4"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated fields: name, formatted_address, formatted_phone_number, website, rating, reviews, opening_hours, photos, geometry, etc.",
+      "required": false,
+      "example": "name,formatted_address,rating,reviews,opening_hours,website"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for results.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "Region bias as ccTLD code.",
+      "required": false,
+      "example": "us"
+    },
+    {
+      "name": "reviews_sort",
+      "type": "string",
+      "description": "Sort reviews by: most_relevant (default) or newest.",
+      "required": false,
+      "example": "most_relevant"
+    },
+    {
+      "name": "sessiontoken",
+      "type": "string",
+      "description": "Session token for billing optimization with Autocomplete.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,formatted_address,rating,reviews&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "result": {
+        "name": "Google Sydney",
+        "formatted_address": "48 Pirrama Rd, Pyrmont NSW 2009, Australia",
+        "rating": 4.3,
+        "user_ratings_total": 1500,
+        "website": "https://about.google/locations/sydney/",
+        "formatted_phone_number": "(02) 9374 4000",
+        "opening_hours": {
+          "open_now": true,
+          "weekday_text": ["Monday: 9:00 AM - 5:00 PM"]
+        },
+        "reviews": [
+          {
+            "author_name": "John Doe",
+            "rating": 5,
+            "text": "Amazing office space!",
+            "time": 1705420800
+          }
+        ]
+      },
+      "status": "OK"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

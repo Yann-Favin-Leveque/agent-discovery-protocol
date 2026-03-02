@@ -1,0 +1,64 @@
+{
+  "name": "resources_delete",
+  "resource_group": "resources",
+  "description": "Delete one or more assets by public IDs.",
+  "endpoint": "/v1_1/{cloud_name}/resources/{resource_type}/{type}",
+  "method": "DELETE",
+  "parameters": [
+    {
+      "name": "resource_type",
+      "type": "string",
+      "required": true,
+      "description": "Resource type.",
+      "in": "path"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Delivery type.",
+      "in": "path"
+    },
+    {
+      "name": "public_ids",
+      "type": "array",
+      "required": true,
+      "description": "Array of public IDs to delete."
+    },
+    {
+      "name": "keep_original",
+      "type": "boolean",
+      "required": false,
+      "description": "Keep original but delete derived."
+    },
+    {
+      "name": "invalidate",
+      "type": "boolean",
+      "required": false,
+      "description": "Invalidate CDN cache."
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/resources/image/upload",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "public_ids": [
+        "products/my-photo",
+        "products/old-photo"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "deleted": {
+        "products/my-photo": "deleted",
+        "products/old-photo": "deleted"
+      }
+    }
+  }
+}

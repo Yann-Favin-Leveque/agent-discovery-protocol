@@ -1,0 +1,58 @@
+{
+  "name": "sharing_add_file_member",
+  "description": "Share a file with another user.",
+  "resource_group": "sharing",
+  "endpoint": "/2/sharing/add_file_member",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "file",
+      "type": "string",
+      "description": "File ID or path.",
+      "required": true
+    },
+    {
+      "name": "members",
+      "type": "array",
+      "description": "Array of member selectors with email and access_level.",
+      "required": true
+    },
+    {
+      "name": "custom_message",
+      "type": "string",
+      "description": "Message to include in notification.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/sharing/add_file_member",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "file": "/test/file.txt",
+      "members": [
+        {
+          ".tag": "email",
+          "email": "jane@example.com"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "member": {
+          ".tag": "email",
+          "email": "jane@example.com"
+        },
+        "result": {
+          ".tag": "success"
+        }
+      }
+    ]
+  }
+}

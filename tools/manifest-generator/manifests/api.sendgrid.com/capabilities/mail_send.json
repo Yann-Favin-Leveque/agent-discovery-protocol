@@ -1,0 +1,89 @@
+{
+  "name": "mail_send",
+  "description": "Send an email to one or more recipients with personalization, templates, attachments, and scheduling.",
+  "resource_group": "mail",
+  "endpoint": "/v3/mail/send",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "personalizations",
+      "type": "array",
+      "description": "Array of personalization objects with recipients and dynamic data.",
+      "required": true
+    },
+    {
+      "name": "from",
+      "type": "object",
+      "description": "Sender email and name.",
+      "required": true,
+      "example": {
+        "email": "sender@example.com",
+        "name": "Sender"
+      }
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Global subject line.",
+      "required": true,
+      "example": "Hello World"
+    },
+    {
+      "name": "content",
+      "type": "array",
+      "description": "Array of content objects with type and value.",
+      "required": false
+    },
+    {
+      "name": "template_id",
+      "type": "string",
+      "description": "ID of a dynamic template to use.",
+      "required": false
+    },
+    {
+      "name": "attachments",
+      "type": "array",
+      "description": "File attachments as base64.",
+      "required": false
+    },
+    {
+      "name": "send_at",
+      "type": "number",
+      "description": "Unix timestamp for scheduled sending.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sendgrid.com/v3/mail/send",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "personalizations": [
+        {
+          "to": [
+            {
+              "email": "user@example.com"
+            }
+          ]
+        }
+      ],
+      "from": {
+        "email": "sender@example.com"
+      },
+      "subject": "Hello",
+      "content": [
+        {
+          "type": "text/plain",
+          "value": "Hello World"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {}
+  }
+}

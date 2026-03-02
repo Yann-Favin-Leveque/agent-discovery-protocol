@@ -1,0 +1,59 @@
+{
+  "name": "redirect_flows_create",
+  "description": "Create a redirect flow to set up mandates via a hosted payment page.",
+  "resource_group": "redirect_flows",
+  "endpoint": "/redirect_flows",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description shown to customer.",
+      "required": true
+    },
+    {
+      "name": "session_token",
+      "type": "string",
+      "description": "Unique session token.",
+      "required": true
+    },
+    {
+      "name": "success_redirect_url",
+      "type": "string",
+      "description": "URL to redirect on success.",
+      "required": true
+    },
+    {
+      "name": "scheme",
+      "type": "string",
+      "description": "Direct debit scheme.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/redirect_flows",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "redirect_flows": {
+        "description": "Monthly subscription",
+        "session_token": "abc123",
+        "success_redirect_url": "https://example.com/success",
+        "scheme": "bacs"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "redirect_flows": {
+        "id": "RE000123",
+        "redirect_url": "https://pay.gocardless.com/flow/..."
+      }
+    }
+  }
+}

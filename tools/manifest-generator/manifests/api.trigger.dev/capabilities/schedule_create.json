@@ -1,0 +1,64 @@
+{
+  "name": "schedule_create",
+  "description": "Create a new imperative cron schedule for a task.",
+  "resource_group": "schedule",
+  "endpoint": "/api/v3/schedules",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "taskIdentifier",
+      "type": "string",
+      "description": "Task to schedule.",
+      "required": true,
+      "example": "my-scheduled-task"
+    },
+    {
+      "name": "cron",
+      "type": "string",
+      "description": "Cron expression.",
+      "required": true,
+      "example": "0 9 * * 1-5"
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "description": "IANA timezone.",
+      "required": false,
+      "example": "America/New_York"
+    },
+    {
+      "name": "externalId",
+      "type": "string",
+      "description": "External ID for idempotency.",
+      "required": false
+    },
+    {
+      "name": "deduplicationKey",
+      "type": "string",
+      "description": "Deduplication key.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trigger.dev/api/v3/schedules",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "taskIdentifier": "my-scheduled-task",
+      "cron": "0 9 * * 1-5",
+      "timezone": "America/New_York"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sched_abc",
+      "taskIdentifier": "my-scheduled-task",
+      "cron": "0 9 * * 1-5",
+      "active": true
+    }
+  }
+}

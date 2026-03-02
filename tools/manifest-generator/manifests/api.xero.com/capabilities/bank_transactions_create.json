@@ -1,0 +1,59 @@
+{
+  "name": "bank_transactions_create",
+  "description": "Create bank transactions (record money spent or received).",
+  "resource_group": "bank_transactions",
+  "endpoint": "/BankTransactions",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "BankTransactions",
+      "type": "array",
+      "required": true,
+      "description": "Array of BankTransaction objects."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.transactions"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.xero.com/api.xro/2.0/BankTransactions",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "BankTransactions": [
+        {
+          "Type": "SPEND",
+          "Contact": {
+            "Name": "Office Supplies"
+          },
+          "BankAccount": {
+            "Code": "090"
+          },
+          "LineItems": [
+            {
+              "Description": "Paper",
+              "Quantity": 5,
+              "UnitAmount": 25.0,
+              "AccountCode": "429"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "BankTransactions": [
+        {
+          "BankTransactionID": "bt-new",
+          "Total": 125.0
+        }
+      ]
+    }
+  }
+}

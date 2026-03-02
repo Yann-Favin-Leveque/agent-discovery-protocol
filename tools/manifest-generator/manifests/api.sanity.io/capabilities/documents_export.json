@@ -1,0 +1,49 @@
+{
+  "name": "documents_export",
+  "description": "Export all documents from a dataset as newline-delimited JSON (NDJSON).",
+  "endpoint": "/v{apiVersion}/data/export/{dataset}",
+  "method": "GET",
+  "resource_group": "export",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name to export",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Comma-separated document types to export",
+      "required": false,
+      "example": "post,author"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/data/export/production?types=post,author",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Accept": "application/x-ndjson"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "(NDJSON stream of documents)"
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "users_update",
+  "description": "Update one or more existing user profiles in Moodle.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_user_update_users",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "users[0][id]", "type": "integer", "description": "User ID to update", "required": true, "example": 42 },
+    { "name": "users[0][firstname]", "type": "string", "description": "Updated first name", "required": false, "example": "Jonathan" },
+    { "name": "users[0][lastname]", "type": "string", "description": "Updated last name", "required": false, "example": "Doe" },
+    { "name": "users[0][email]", "type": "string", "description": "Updated email", "required": false, "example": "jonathan.doe@example.com" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_user_update_users&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "users[0][id]": 42, "users[0][firstname]": "Jonathan" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": null
+  },
+  "auth_scopes": ["core_user_update_users"],
+  "rate_limits": { "requests_per_minute": 60 }
+}

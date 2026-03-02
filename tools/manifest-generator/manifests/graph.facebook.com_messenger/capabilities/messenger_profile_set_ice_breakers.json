@@ -1,0 +1,41 @@
+{
+  "name": "messenger_profile_set_ice_breakers",
+  "description": "Configure ice breaker questions that appear as suggested conversation starters when a user first opens a chat.",
+  "endpoint": "/me/messenger_profile",
+  "method": "POST",
+  "resource_group": "messenger_profile",
+  "parameters": [
+    {
+      "name": "ice_breakers",
+      "type": "array",
+      "description": "Array of ice breaker objects with question and payload (max 4).",
+      "required": true,
+      "example": [
+        { "question": "What can you do?", "payload": "WHAT_CAN_YOU_DO" }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v18.0/me/messenger_profile",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ice_breakers": [
+        { "question": "What can you do?", "payload": "WHAT_CAN_YOU_DO" },
+        { "question": "Tell me a joke", "payload": "TELL_JOKE" },
+        { "question": "Get help", "payload": "GET_HELP" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "result": "success" }
+  },
+  "auth_scopes": ["pages_messaging"],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

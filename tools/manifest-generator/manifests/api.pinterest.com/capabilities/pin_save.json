@@ -1,0 +1,53 @@
+{
+  "name": "pin_save",
+  "resource_group": "pins",
+  "description": "Save a pin to a board or section.",
+  "endpoint": "/pins/{pin_id}/save",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "pin_id",
+      "type": "string",
+      "description": "Pin ID.",
+      "required": true,
+      "in": "path",
+      "example": "549755885177"
+    },
+    {
+      "name": "board_id",
+      "type": "string",
+      "description": "Board to save to.",
+      "required": true,
+      "in": "body",
+      "example": "549755885175"
+    },
+    {
+      "name": "board_section_id",
+      "type": "string",
+      "description": "Section.",
+      "required": false,
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pinterest.com/v5/pins/549755885177/save",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "board_id": "549755885175"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "549755885177",
+      "board_id": "549755885175"
+    }
+  },
+  "auth_scopes": [
+    "pins:write"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "subscriptions_update",
+  "description": "Update a subscription (change plan, add items, update billing).",
+  "endpoint": "/v1/subscriptions/{id}",
+  "method": "POST",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Subscription ID",
+      "required": true,
+      "example": "sub_abc123"
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Updated subscription items",
+      "required": false,
+      "example": [
+        {
+          "id": "si_abc",
+          "price": "price_new"
+        }
+      ]
+    },
+    {
+      "name": "cancel_at_period_end",
+      "type": "boolean",
+      "description": "Cancel at period end",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/subscriptions/sub_abc123",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "cancel_at_period_end=true"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sub_abc123",
+      "cancel_at_period_end": true
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

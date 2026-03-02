@@ -1,50 +1,135 @@
 {
   "spec_version": "1.0",
   "name": "Instagram",
-  "description": "Instagram is a photo and video sharing social network. The Graph API allows agents to read user profiles, fetch media posts, publish photos and videos, manage comments, and retrieve engagement insights for business and creator accounts.",
-  "base_url": "https://graph.facebook.com",
+  "description": "Instagram is a photo and video sharing social network. The Graph API allows agents to read user profiles, fetch media posts, publish photos and videos, manage comments, retrieve engagement insights, discover hashtags and mentions for business and creator accounts.",
+  "base_url": "https://graph.facebook.com/v21.0",
   "auth": {
     "type": "oauth2",
-    "authorization_url": "https://www.facebook.com/v18.0/dialog/oauth",
-    "token_url": "https://graph.facebook.com/v18.0/oauth/access_token",
-    "scopes": ["instagram_basic", "instagram_content_publish"],
+    "authorization_url": "https://www.facebook.com/v21.0/dialog/oauth",
+    "token_url": "https://graph.facebook.com/v21.0/oauth/access_token",
+    "scopes": ["instagram_basic", "instagram_content_publish", "instagram_manage_comments", "instagram_manage_insights", "pages_show_list", "pages_read_engagement"],
     "setup_url": "https://developers.facebook.com/apps/"
   },
   "capabilities": [
     {
-      "name": "get_user_profile",
+      "name": "user_profile_get",
+      "resource_group": "users",
       "description": "Retrieve the authenticated Instagram user's profile information including username, bio, follower count, and media count.",
-      "detail_url": "/capabilities/get_user_profile"
+      "detail_url": "/capabilities/user_profile_get"
     },
     {
-      "name": "list_user_media",
+      "name": "user_media_list",
+      "resource_group": "media",
       "description": "Fetch a paginated list of media posts (photos, videos, carousels) published by the authenticated user.",
-      "detail_url": "/capabilities/list_user_media"
+      "detail_url": "/capabilities/user_media_list"
     },
     {
-      "name": "get_media_details",
+      "name": "media_get",
+      "resource_group": "media",
       "description": "Retrieve detailed information about a specific media object including caption, media type, permalink, and timestamp.",
-      "detail_url": "/capabilities/get_media_details"
+      "detail_url": "/capabilities/media_get"
     },
     {
-      "name": "publish_photo",
+      "name": "media_children_get",
+      "resource_group": "media",
+      "description": "Retrieve the individual items within a carousel album media post.",
+      "detail_url": "/capabilities/media_children_get"
+    },
+    {
+      "name": "photo_publish",
+      "resource_group": "publishing",
       "description": "Publish a photo to the authenticated user's Instagram feed by providing an image URL and optional caption.",
-      "detail_url": "/capabilities/publish_photo"
+      "detail_url": "/capabilities/photo_publish"
     },
     {
-      "name": "get_media_comments",
+      "name": "reel_publish",
+      "resource_group": "publishing",
+      "description": "Publish a reel (short video) to the authenticated user's Instagram feed.",
+      "detail_url": "/capabilities/reel_publish"
+    },
+    {
+      "name": "carousel_publish",
+      "resource_group": "publishing",
+      "description": "Publish a carousel post (multiple images/videos) to the authenticated user's Instagram feed.",
+      "detail_url": "/capabilities/carousel_publish"
+    },
+    {
+      "name": "media_container_create",
+      "resource_group": "publishing",
+      "description": "Create a media container for content publishing. This is the first step in the two-step publishing process.",
+      "detail_url": "/capabilities/media_container_create"
+    },
+    {
+      "name": "media_publish",
+      "resource_group": "publishing",
+      "description": "Publish a previously created media container to the user's Instagram feed.",
+      "detail_url": "/capabilities/media_publish"
+    },
+    {
+      "name": "media_comments_list",
+      "resource_group": "comments",
       "description": "Retrieve comments on a specific media post, including commenter username and comment text.",
-      "detail_url": "/capabilities/get_media_comments"
+      "detail_url": "/capabilities/media_comments_list"
     },
     {
-      "name": "reply_to_comment",
+      "name": "comment_reply",
+      "resource_group": "comments",
       "description": "Post a reply to a specific comment on one of the authenticated user's media posts.",
-      "detail_url": "/capabilities/reply_to_comment"
+      "detail_url": "/capabilities/comment_reply"
     },
     {
-      "name": "get_media_insights",
-      "description": "Retrieve engagement metrics (impressions, reach, likes, comments, saves) for a specific media post on a business or creator account.",
-      "detail_url": "/capabilities/get_media_insights"
+      "name": "comment_hide",
+      "resource_group": "comments",
+      "description": "Hide or unhide a comment on one of the authenticated user's media posts.",
+      "detail_url": "/capabilities/comment_hide"
+    },
+    {
+      "name": "comment_delete",
+      "resource_group": "comments",
+      "description": "Delete a comment on one of the authenticated user's media posts.",
+      "detail_url": "/capabilities/comment_delete"
+    },
+    {
+      "name": "media_insights_get",
+      "resource_group": "insights",
+      "description": "Retrieve engagement metrics (impressions, reach, likes, comments, saves, shares) for a specific media post on a business or creator account.",
+      "detail_url": "/capabilities/media_insights_get"
+    },
+    {
+      "name": "user_insights_get",
+      "resource_group": "insights",
+      "description": "Retrieve account-level insights (impressions, reach, follower count, profile views) for a business or creator account over a time period.",
+      "detail_url": "/capabilities/user_insights_get"
+    },
+    {
+      "name": "hashtag_search",
+      "resource_group": "discovery",
+      "description": "Search for a hashtag by name and retrieve its ID for use in fetching recent or top media.",
+      "detail_url": "/capabilities/hashtag_search"
+    },
+    {
+      "name": "hashtag_recent_media_list",
+      "resource_group": "discovery",
+      "description": "Retrieve recent media posts tagged with a specific hashtag.",
+      "detail_url": "/capabilities/hashtag_recent_media_list"
+    },
+    {
+      "name": "hashtag_top_media_list",
+      "resource_group": "discovery",
+      "description": "Retrieve top-performing media posts tagged with a specific hashtag.",
+      "detail_url": "/capabilities/hashtag_top_media_list"
+    },
+    {
+      "name": "mentions_get",
+      "resource_group": "discovery",
+      "description": "Retrieve media posts that mention or tag the authenticated user.",
+      "detail_url": "/capabilities/mentions_get"
+    },
+    {
+      "name": "stories_list",
+      "resource_group": "media",
+      "description": "Retrieve a list of currently active stories published by the authenticated user.",
+      "detail_url": "/capabilities/stories_list"
     }
   ]
 }

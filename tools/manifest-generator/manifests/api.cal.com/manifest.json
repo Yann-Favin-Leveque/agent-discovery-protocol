@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Cal.com",
-  "description": "Cal.com is an open-source scheduling and calendar infrastructure API. It allows you to manage event types, bookings, availability, and schedules programmatically. Ideal for building scheduling flows, checking availability, and creating or canceling bookings on behalf of users.",
+  "description": "Cal.com is an open-source scheduling and calendar infrastructure API. Manage event types, bookings, availability schedules, slots, teams, calendars, and webhooks programmatically.",
   "base_url": "https://api.cal.com",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,208 @@
   },
   "capabilities": [
     {
-      "name": "list_event_types",
-      "description": "Retrieve all event types configured for the authenticated user, including duration, locations, and booking settings.",
-      "detail_url": "/capabilities/list_event_types"
+      "name": "bookings_list",
+      "description": "Retrieve all bookings with optional filtering by status, attendee, event type, and date range.",
+      "resource_group": "bookings",
+      "detail_url": "/capabilities/bookings_list"
     },
     {
-      "name": "create_booking",
+      "name": "bookings_get",
+      "description": "Retrieve a specific booking by its unique identifier.",
+      "resource_group": "bookings",
+      "detail_url": "/capabilities/bookings_get"
+    },
+    {
+      "name": "bookings_create",
       "description": "Create a new booking for a specific event type at a given date and time.",
-      "detail_url": "/capabilities/create_booking"
+      "resource_group": "bookings",
+      "detail_url": "/capabilities/bookings_create"
     },
     {
-      "name": "list_bookings",
-      "description": "List all bookings for the authenticated user with optional filtering by status and date range.",
-      "detail_url": "/capabilities/list_bookings"
+      "name": "bookings_reschedule",
+      "description": "Reschedule an existing booking to a new date and time.",
+      "resource_group": "bookings",
+      "detail_url": "/capabilities/bookings_reschedule"
     },
     {
-      "name": "get_availability",
-      "description": "Check available time slots for a user or event type on specific dates.",
-      "detail_url": "/capabilities/get_availability"
+      "name": "bookings_cancel",
+      "description": "Cancel an existing booking, optionally providing a cancellation reason.",
+      "resource_group": "bookings",
+      "detail_url": "/capabilities/bookings_cancel"
     },
     {
-      "name": "cancel_booking",
-      "description": "Cancel an existing booking by its ID, optionally providing a cancellation reason.",
-      "detail_url": "/capabilities/cancel_booking"
+      "name": "bookings_confirm",
+      "description": "Confirm a pending booking that requires manual confirmation.",
+      "resource_group": "bookings",
+      "detail_url": "/capabilities/bookings_confirm"
     },
     {
-      "name": "list_schedules",
-      "description": "Retrieve all availability schedules configured for the authenticated user.",
-      "detail_url": "/capabilities/list_schedules"
+      "name": "bookings_decline",
+      "description": "Decline a pending booking request.",
+      "resource_group": "bookings",
+      "detail_url": "/capabilities/bookings_decline"
+    },
+    {
+      "name": "event_types_list",
+      "description": "Retrieve all event types configured for the authenticated user.",
+      "resource_group": "event_types",
+      "detail_url": "/capabilities/event_types_list"
+    },
+    {
+      "name": "event_types_get",
+      "description": "Retrieve a specific event type by its ID.",
+      "resource_group": "event_types",
+      "detail_url": "/capabilities/event_types_get"
+    },
+    {
+      "name": "event_types_create",
+      "description": "Create a new event type with specified title, duration, and settings.",
+      "resource_group": "event_types",
+      "detail_url": "/capabilities/event_types_create"
+    },
+    {
+      "name": "event_types_update",
+      "description": "Update an existing event type's settings.",
+      "resource_group": "event_types",
+      "detail_url": "/capabilities/event_types_update"
+    },
+    {
+      "name": "event_types_delete",
+      "description": "Delete an event type by its ID.",
+      "resource_group": "event_types",
+      "detail_url": "/capabilities/event_types_delete"
+    },
+    {
+      "name": "schedules_list",
+      "description": "Retrieve all availability schedules for the authenticated user.",
+      "resource_group": "schedules",
+      "detail_url": "/capabilities/schedules_list"
+    },
+    {
+      "name": "schedules_get",
+      "description": "Retrieve a specific schedule by its ID.",
+      "resource_group": "schedules",
+      "detail_url": "/capabilities/schedules_get"
+    },
+    {
+      "name": "schedules_create",
+      "description": "Create a new availability schedule.",
+      "resource_group": "schedules",
+      "detail_url": "/capabilities/schedules_create"
+    },
+    {
+      "name": "schedules_update",
+      "description": "Update an existing schedule.",
+      "resource_group": "schedules",
+      "detail_url": "/capabilities/schedules_update"
+    },
+    {
+      "name": "schedules_delete",
+      "description": "Delete a schedule by its ID.",
+      "resource_group": "schedules",
+      "detail_url": "/capabilities/schedules_delete"
+    },
+    {
+      "name": "slots_list_available",
+      "description": "Get available time slots for a specific event type within a date range.",
+      "resource_group": "slots",
+      "detail_url": "/capabilities/slots_list_available"
+    },
+    {
+      "name": "slots_reserve",
+      "description": "Reserve a time slot temporarily before completing a booking.",
+      "resource_group": "slots",
+      "detail_url": "/capabilities/slots_reserve"
+    },
+    {
+      "name": "slots_delete_reserved",
+      "description": "Release a previously reserved time slot.",
+      "resource_group": "slots",
+      "detail_url": "/capabilities/slots_delete_reserved"
+    },
+    {
+      "name": "calendars_list",
+      "description": "Retrieve all connected calendars for the authenticated user.",
+      "resource_group": "calendars",
+      "detail_url": "/capabilities/calendars_list"
+    },
+    {
+      "name": "calendars_busy_times",
+      "description": "Get busy time ranges from connected calendars.",
+      "resource_group": "calendars",
+      "detail_url": "/capabilities/calendars_busy_times"
+    },
+    {
+      "name": "me_get",
+      "description": "Retrieve the authenticated user's profile information.",
+      "resource_group": "profile",
+      "detail_url": "/capabilities/me_get"
+    },
+    {
+      "name": "me_update",
+      "description": "Update the authenticated user's profile information.",
+      "resource_group": "profile",
+      "detail_url": "/capabilities/me_update"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "Retrieve all webhook subscriptions.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a new webhook subscription for real-time event notifications.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Retrieve a specific webhook by its ID.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_get"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook subscription.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook subscription.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "teams_list",
+      "description": "Retrieve all teams for the authenticated user.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_list"
+    },
+    {
+      "name": "teams_get",
+      "description": "Retrieve a specific team by its ID.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_get"
+    },
+    {
+      "name": "teams_create",
+      "description": "Create a new team.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_create"
+    },
+    {
+      "name": "teams_update",
+      "description": "Update a team's settings.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_update"
+    },
+    {
+      "name": "teams_delete",
+      "description": "Delete a team by its ID.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_delete"
     }
   ]
 }

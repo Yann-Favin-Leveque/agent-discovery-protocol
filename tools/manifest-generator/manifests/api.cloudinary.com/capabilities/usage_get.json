@@ -1,0 +1,45 @@
+{
+  "name": "usage_get",
+  "resource_group": "usage",
+  "description": "Get account usage statistics: storage, bandwidth, transformations, requests.",
+  "endpoint": "/v1_1/{cloud_name}/usage",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date",
+      "type": "string",
+      "required": false,
+      "description": "Specific date for usage (YYYY-MM-DD). Default today."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/usage",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "plan": "Advanced",
+      "last_updated": "2024-01-15",
+      "storage": {
+        "usage": 1073741824,
+        "limit": 5368709120,
+        "used_percent": 20.0
+      },
+      "bandwidth": {
+        "usage": 5368709120,
+        "limit": 26843545600,
+        "used_percent": 20.0
+      },
+      "requests": 1500,
+      "resources": 2500,
+      "transformations": {
+        "usage": 10000,
+        "limit": 50000
+      }
+    }
+  }
+}

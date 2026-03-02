@@ -1,0 +1,54 @@
+{
+  "name": "keywords_mutate",
+  "description": "Add, update, or remove keyword criteria.",
+  "resource_group": "keywords",
+  "endpoint": "/v18/customers/{customerId}/adGroupCriteria:mutate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer ID.",
+      "required": true
+    },
+    {
+      "name": "operations",
+      "type": "array",
+      "description": "Array of create/update/remove operations.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://googleads.googleapis.com/v18/customers/1234567890/adGroupCriteria:mutate",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "developer-token": "{developer_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "operations": [
+        {
+          "create": {
+            "adGroup": "customers/1234567890/adGroups/444",
+            "keyword": {
+              "text": "running shoes",
+              "matchType": "PHRASE"
+            },
+            "status": "ENABLED"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "resourceName": "customers/1234567890/adGroupCriteria/444~999"
+        }
+      ]
+    }
+  }
+}

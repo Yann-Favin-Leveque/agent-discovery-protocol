@@ -1,0 +1,44 @@
+{
+  "name": "accounts_archive",
+  "description": "Archive an account.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "accounts",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Account ID to archive",
+      "required": true,
+      "example": "QWNjb3VudDo6..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: AccountArchiveInput!) { accountArchive(input: $input) { account { id } didSucceed } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "accountArchive": {
+          "account": {
+            "id": "QWNjb3VudDo6..."
+          },
+          "didSucceed": true
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

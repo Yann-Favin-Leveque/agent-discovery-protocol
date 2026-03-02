@@ -1,0 +1,59 @@
+{
+  "name": "oauth_authenticate",
+  "resource_group": "oauth",
+  "description": "Authenticate an OAuth token returned after the user completes the OAuth flow.",
+  "endpoint": "/v1/oauth/authenticate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "The OAuth token from the redirect."
+    },
+    {
+      "name": "session_token",
+      "type": "string",
+      "required": false,
+      "description": "Existing session to extend."
+    },
+    {
+      "name": "session_duration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Session lifetime."
+    },
+    {
+      "name": "session_custom_claims",
+      "type": "object",
+      "required": false,
+      "description": "Custom claims."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/oauth/authenticate",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "token": "oauth-token-xyz",
+      "session_duration_minutes": 60
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "oauth_user_registration_id": "oauth-reg-abc",
+      "session_token": "sess-token-xyz",
+      "session_jwt": "eyJhbGciOi...",
+      "provider_type": "google",
+      "user": {
+        "user_id": "user-live-abc"
+      }
+    }
+  }
+}

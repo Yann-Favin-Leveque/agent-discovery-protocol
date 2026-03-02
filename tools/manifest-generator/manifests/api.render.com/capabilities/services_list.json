@@ -1,0 +1,35 @@
+{
+  "name": "services_list",
+  "description": "List all services in your Render account. Returns service names, IDs, types, current status, and service URLs. Supports filtering by type, name, region, environment, suspension status, and pagination via cursor.",
+  "resource_group": "services",
+  "endpoint": "/v1/services",
+  "method": "GET",
+  "parameters": [
+    {"name": "name", "type": "string", "required": false, "description": "Filter services by name (partial match)."},
+    {"name": "type", "type": "string", "required": false, "description": "Filter by service type: web_service, static_site, private_service, background_worker, cron_job."},
+    {"name": "env", "type": "string", "required": false, "description": "Filter by runtime: node, python, docker, go, rust, ruby, elixir."},
+    {"name": "region", "type": "string", "required": false, "description": "Filter by region: oregon, ohio, virginia, frankfurt, singapore."},
+    {"name": "suspended", "type": "string", "required": false, "description": "Filter by suspension status: suspended, not_suspended."},
+    {"name": "ownerId", "type": "string", "required": false, "description": "Filter by workspace/owner ID."},
+    {"name": "cursor", "type": "string", "required": false, "description": "Cursor for pagination."},
+    {"name": "limit", "type": "integer", "required": false, "description": "Max results to return. Default 20."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.render.com/v1/services?type=web_service&limit=10"
+  },
+  "response_example": [
+    {
+      "service": {
+        "id": "srv-a1b2c3d4e5",
+        "name": "my-api-server",
+        "type": "web_service",
+        "repo": "https://github.com/my-org/my-api",
+        "branch": "main",
+        "autoDeploy": "yes",
+        "serviceDetails": {"url": "https://my-api-server.onrender.com", "plan": "starter", "region": "oregon"}
+      },
+      "cursor": "abc123cursor"
+    }
+  ]
+}

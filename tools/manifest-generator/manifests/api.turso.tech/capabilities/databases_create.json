@@ -1,0 +1,59 @@
+{
+  "name": "databases_create",
+  "resource_group": "databases",
+  "description": "Create a new database in a group.",
+  "endpoint": "/v1/organizations/{organizationSlug}/databases",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Database name."
+    },
+    {
+      "name": "group",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Group to create the database in."
+    },
+    {
+      "name": "size_limit",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Size limit (e.g., '500mb')."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.turso.tech/v1/organizations/my-org/databases",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "my-db",
+      "group": "default"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "database": {
+        "DbId": "abc123",
+        "Hostname": "my-db-my-org.turso.io",
+        "Name": "my-db"
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "activity_list",
+  "description": "Retrieve a list of API requests that have been made to the Connect server for auditing purposes.",
+  "endpoint": "/v1/activity",
+  "method": "GET",
+  "resource_group": "activity",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of activity entries to return.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Number of entries to skip for pagination.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.1password.com/v1/activity?limit=50&offset=0",
+    "headers": { "Authorization": "Bearer {token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "requestId": "abc123",
+        "timestamp": "2024-06-15T10:00:00Z",
+        "action": "READ",
+        "objectType": "ITEM",
+        "objectUUID": "wepiqdxdzncjtnvmv5fegud4qy",
+        "actorUUID": "token-uuid",
+        "result": "SUCCESS"
+      }
+    ]
+  },
+  "auth_scopes": ["vaults"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "plans_list",
+  "description": "Retrieve a list of all plans.",
+  "endpoint": "/v1/plans",
+  "method": "GET",
+  "resource_group": "plans",
+  "parameters": [
+    {
+      "name": "data_source_uuid",
+      "type": "string",
+      "description": "Filter by data source.",
+      "required": false
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "description": "Filter by external ID.",
+      "required": false
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page (default 200).",
+      "required": false
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.chartmogul.com/v1/plans",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "plans": [
+        {
+          "uuid": "pl_93b06efd",
+          "name": "Pro Monthly",
+          "interval_count": 1,
+          "interval_unit": "month"
+        }
+      ],
+      "cursor": "next_cursor",
+      "has_more": false
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

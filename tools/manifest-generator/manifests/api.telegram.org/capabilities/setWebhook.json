@@ -1,0 +1,65 @@
+{
+  "name": "setWebhook",
+  "resource_group": "updates",
+  "description": "Set a webhook URL to receive updates via HTTPS POST.",
+  "endpoint": "/bot{token}/setWebhook",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Bot token",
+      "example": "123456:ABC-DEF"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "HTTPS webhook URL",
+      "example": "https://example.com/bot-webhook"
+    },
+    {
+      "name": "max_connections",
+      "type": "integer",
+      "required": false,
+      "description": "Max connections (1-100)",
+      "example": 40
+    },
+    {
+      "name": "allowed_updates",
+      "type": "array",
+      "required": false,
+      "description": "Update types",
+      "example": [
+        "message"
+      ]
+    },
+    {
+      "name": "secret_token",
+      "type": "string",
+      "required": false,
+      "description": "Secret for verification",
+      "example": "my-secret"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.telegram.org/bot123456:ABC-DEF/setWebhook",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/bot-webhook"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "result": true,
+      "description": "Webhook was set"
+    }
+  }
+}

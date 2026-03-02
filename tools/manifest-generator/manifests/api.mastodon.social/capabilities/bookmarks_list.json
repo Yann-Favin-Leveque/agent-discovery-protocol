@@ -1,0 +1,51 @@
+{
+  "name": "bookmarks_list",
+  "resource_group": "bookmarks",
+  "description": "Get a list of bookmarked statuses.",
+  "endpoint": "/api/v1/bookmarks",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "max_id",
+      "type": "string",
+      "description": "Upper bound.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "since_id",
+      "type": "string",
+      "description": "Lower bound.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (default 20, max 40).",
+      "required": false,
+      "in": "query",
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/bookmarks?limit=20",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "109876543210",
+        "content": "<p>Bookmarked status</p>",
+        "bookmarked": true
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:bookmarks"
+  ]
+}

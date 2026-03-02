@@ -1,0 +1,70 @@
+{
+  "name": "conversations_assign",
+  "description": "Assign a conversation to an admin or team.",
+  "resource_group": "conversations",
+  "endpoint": "/conversations/{id}/parts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The conversation ID."
+    },
+    {
+      "name": "message_type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'assignment'."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'admin'."
+    },
+    {
+      "name": "admin_id",
+      "type": "string",
+      "required": true,
+      "description": "The admin performing the assignment."
+    },
+    {
+      "name": "assignee_id",
+      "type": "string",
+      "required": true,
+      "description": "The admin or team ID to assign to."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Optional note with the assignment."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/conversations/123456/parts",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "message_type": "assignment",
+      "type": "admin",
+      "admin_id": "admin-1",
+      "assignee_id": "admin-2",
+      "body": "Please handle this billing question."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "conversation",
+      "id": "123456",
+      "admin_assignee_id": "admin-2"
+    }
+  }
+}

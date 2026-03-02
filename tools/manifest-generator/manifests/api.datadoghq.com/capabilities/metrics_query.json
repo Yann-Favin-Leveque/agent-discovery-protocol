@@ -1,0 +1,52 @@
+{
+  "name": "metrics_query",
+  "description": "Query timeseries metric data with aggregation and grouping.",
+  "resource_group": "metrics",
+  "endpoint": "/api/v2/query/timeseries",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Query definition with formulas, from/to timestamps"
+    }
+  ],
+  "request_example": {
+    "data": {
+      "type": "timeseries_request",
+      "attributes": {
+        "from": 1609459200000,
+        "to": 1609545600000,
+        "queries": [
+          {
+            "data_source": "metrics",
+            "query": "avg:system.cpu.user{*}",
+            "name": "a"
+          }
+        ],
+        "formulas": [
+          {
+            "formula": "a"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "type": "timeseries_response",
+      "attributes": {
+        "series": [
+          {
+            "group_tags": [],
+            "values": [
+              42.5
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": []
+}

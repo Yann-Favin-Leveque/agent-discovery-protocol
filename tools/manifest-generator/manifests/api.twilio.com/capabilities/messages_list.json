@@ -1,0 +1,68 @@
+{
+  "name": "messages_list",
+  "resource_group": "messages",
+  "description": "List sent and received messages with optional filtering.",
+  "endpoint": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "AccountSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Account SID",
+      "example": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "To",
+      "type": "string",
+      "required": false,
+      "description": "Filter by destination",
+      "example": "+15558675310"
+    },
+    {
+      "name": "From",
+      "type": "string",
+      "required": false,
+      "description": "Filter by sender",
+      "example": "+15017122661"
+    },
+    {
+      "name": "DateSent",
+      "type": "string",
+      "required": false,
+      "description": "Filter by date sent",
+      "example": "2025-03-15"
+    },
+    {
+      "name": "PageSize",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/ACXXX/Messages.json?PageSize=20",
+    "headers": {
+      "Authorization": "Basic BASE64(AccountSid:AuthToken)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "messages": [
+        {
+          "sid": "SMXXX",
+          "to": "+15558675310",
+          "from": "+15017122661",
+          "body": "Hello!",
+          "status": "delivered"
+        }
+      ],
+      "page": 0,
+      "page_size": 20
+    }
+  }
+}

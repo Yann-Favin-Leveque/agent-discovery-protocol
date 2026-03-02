@@ -1,0 +1,25 @@
+{
+  "name": "courses_update",
+  "description": "Update one or more existing courses in Moodle.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_course_update_courses",
+  "method": "POST",
+  "resource_group": "courses",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "courses[0][id]", "type": "integer", "description": "Course ID to update", "required": true, "example": 5 },
+    { "name": "courses[0][fullname]", "type": "string", "description": "Updated full name", "required": false, "example": "Advanced Physics" },
+    { "name": "courses[0][summary]", "type": "string", "description": "Updated course summary", "required": false, "example": "Advanced topics in physics" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_course_update_courses&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "courses[0][id]": 5, "courses[0][fullname]": "Advanced Physics" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "warnings": [] }
+  },
+  "auth_scopes": ["core_course_update_courses"],
+  "rate_limits": { "requests_per_minute": 30 }
+}

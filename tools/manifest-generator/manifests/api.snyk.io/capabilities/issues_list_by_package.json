@@ -1,0 +1,52 @@
+{
+  "name": "issues_list_by_package",
+  "description": "List known vulnerabilities for a specific package version.",
+  "resource_group": "issues",
+  "endpoint": "/rest/orgs/{org_id}/packages/{purl}/issues",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization UUID."
+    },
+    {
+      "name": "purl",
+      "type": "string",
+      "required": true,
+      "description": "Package URL (e.g., 'pkg:npm/lodash@4.17.20')."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "API version date."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.snyk.io/rest/orgs/org-uuid/packages/pkg%3Anpm%2Flodash%404.17.20/issues?version=2024-06-21",
+    "headers": {
+      "Authorization": "token <api_token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "SNYK-JS-LODASH-1234",
+          "type": "issue",
+          "attributes": {
+            "title": "Prototype Pollution",
+            "severity": "high",
+            "slots": {
+              "disclosure_time": "2021-02-01"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

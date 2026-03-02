@@ -1,0 +1,60 @@
+{
+  "name": "courses_get_by_slug",
+  "description": "Look up a specific course using its URL slug identifier.",
+  "endpoint": "/api/courses.v1",
+  "method": "GET",
+  "resource_group": "courses",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Must be set to 'slug' to look up by slug.",
+      "required": true,
+      "example": "slug"
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "description": "The URL slug of the course.",
+      "required": true,
+      "example": "machine-learning"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to include.",
+      "required": false,
+      "example": "name,slug,description,photoUrl,partnerIds"
+    },
+    {
+      "name": "includes",
+      "type": "string",
+      "description": "Linked resources to include.",
+      "required": false,
+      "example": "instructorIds,partnerIds"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/courses.v1?q=slug&slug=machine-learning&fields=name,slug,description,photoUrl",
+    "headers": {},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "v8qYJQagEeWmMRLT3bGEhg",
+          "slug": "machine-learning",
+          "name": "Machine Learning",
+          "description": "This course provides a broad introduction to machine learning..."
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

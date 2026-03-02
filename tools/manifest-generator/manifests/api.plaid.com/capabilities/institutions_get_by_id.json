@@ -1,0 +1,53 @@
+{
+  "name": "institutions_get_by_id",
+  "description": "Retrieve details about a financial institution by ID.",
+  "resource_group": "institutions",
+  "endpoint": "/institutions/get_by_id",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "institution_id",
+      "type": "string",
+      "required": true,
+      "description": "Plaid institution ID."
+    },
+    {
+      "name": "country_codes",
+      "type": "array",
+      "required": true,
+      "description": "Array of country codes."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/institutions/get_by_id",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "institution_id": "ins_109508",
+      "country_codes": [
+        "US"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "institution": {
+        "institution_id": "ins_109508",
+        "name": "Chase",
+        "products": [
+          "auth",
+          "transactions"
+        ],
+        "country_codes": [
+          "US"
+        ]
+      },
+      "request_id": "abc"
+    }
+  }
+}

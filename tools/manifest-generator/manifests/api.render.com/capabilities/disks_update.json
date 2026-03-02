@@ -1,0 +1,24 @@
+{
+  "name": "disks_update",
+  "description": "Update a disk's name, size, or mount path.",
+  "resource_group": "disks",
+  "endpoint": "/v1/disks/{diskId}",
+  "method": "PATCH",
+  "parameters": [
+    {"name": "diskId", "type": "string", "required": true, "description": "The disk ID."},
+    {"name": "name", "type": "string", "required": false, "description": "New disk name."},
+    {"name": "sizeGB", "type": "integer", "required": false, "description": "New size in GB (can only increase)."},
+    {"name": "mountPath", "type": "string", "required": false, "description": "New mount path."}
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.render.com/v1/disks/dsk-abc123",
+    "body": {"sizeGB": 20}
+  },
+  "response_example": {
+    "id": "dsk-abc123",
+    "name": "data-disk",
+    "sizeGB": 20,
+    "mountPath": "/data"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "name": "courses_list",
+  "description": "Search and browse the Udemy course catalog with filters for keyword, category, price, ratings, and more.",
+  "endpoint": "/api-2.0/courses/",
+  "method": "GET",
+  "resource_group": "courses",
+  "parameters": [
+    {
+      "name": "search",
+      "type": "string",
+      "description": "Search keyword to filter courses",
+      "required": false,
+      "example": "python"
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "description": "Filter by category name",
+      "required": false,
+      "example": "Development"
+    },
+    {
+      "name": "subcategory",
+      "type": "string",
+      "description": "Filter by subcategory name",
+      "required": false,
+      "example": "Web Development"
+    },
+    {
+      "name": "price",
+      "type": "string",
+      "description": "Filter by price (price-free, price-paid)",
+      "required": false,
+      "example": "price-paid"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Filter by language code",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "ratings",
+      "type": "number",
+      "description": "Minimum average rating",
+      "required": false,
+      "example": "4.0"
+    },
+    {
+      "name": "ordering",
+      "type": "string",
+      "description": "Sort order (relevance, most-reviewed, highest-rated, newest, price-low-to-high, price-high-to-low)",
+      "required": false,
+      "example": "relevance"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": "1"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of results per page (max 100)",
+      "required": false,
+      "example": "20"
+    },
+    {
+      "name": "fields[course]",
+      "type": "string",
+      "description": "Comma-separated list of course fields to return",
+      "required": false,
+      "example": "title,url,price,avg_rating,num_reviews"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://www.udemy.com/api-2.0/courses/?search=python&page_size=10",
+    "headers": {
+      "Authorization": "Basic {base64_client_id:client_secret}",
+      "Accept": "application/json, text/plain, */*"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 10000,
+      "next": "https://www.udemy.com/api-2.0/courses/?page=2",
+      "results": [
+        {
+          "id": 1234,
+          "title": "Complete Python Bootcamp",
+          "url": "/course/complete-python-bootcamp/",
+          "price": "$12.99",
+          "avg_rating": 4.6
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,49 +1,267 @@
 {
   "spec_version": "1.0",
   "name": "Mux",
-  "description": "Mux provides video infrastructure APIs for uploading, encoding, streaming, and delivering video content. It handles live streaming, on-demand video, and provides playback analytics out of the box.",
+  "description": "Mux provides video infrastructure APIs for uploading, encoding, streaming, and delivering video. It handles live streaming, on-demand video, direct uploads, playback IDs, signing keys, transcription vocabularies, playback restrictions, DRM, and comprehensive video analytics.",
   "base_url": "https://api.mux.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer",
-    "setup_url": "https://dashboard.mux.com/settings/api-keys"
+    "prefix": "Basic",
+    "setup_url": "https://dashboard.mux.com/settings/api-keys",
+    "note": "Use HTTP Basic auth with token_id:token_secret base64 encoded."
   },
   "capabilities": [
     {
-      "name": "create_asset",
-      "description": "Upload and create a new video asset from a URL or direct upload. Mux will automatically transcode it into multiple resolutions for adaptive streaming.",
-      "detail_url": "/capabilities/create_asset"
+      "name": "assets_create",
+      "resource_group": "assets",
+      "description": "Create a new video asset from a URL. Mux transcodes it into adaptive streaming formats.",
+      "detail_url": "/capabilities/assets_create"
     },
     {
-      "name": "list_assets",
-      "description": "Retrieve a paginated list of all video assets in your Mux environment. Useful for browsing your video library or finding specific assets.",
-      "detail_url": "/capabilities/list_assets"
+      "name": "assets_list",
+      "resource_group": "assets",
+      "description": "List all video assets with pagination.",
+      "detail_url": "/capabilities/assets_list"
     },
     {
-      "name": "get_asset",
-      "description": "Get detailed information about a specific video asset including its status, duration, resolution, and playback IDs.",
-      "detail_url": "/capabilities/get_asset"
+      "name": "assets_get",
+      "resource_group": "assets",
+      "description": "Get detailed information about a video asset.",
+      "detail_url": "/capabilities/assets_get"
     },
     {
-      "name": "delete_asset",
-      "description": "Permanently delete a video asset and all of its associated data including transcoded renditions and playback IDs.",
-      "detail_url": "/capabilities/delete_asset"
+      "name": "assets_update",
+      "resource_group": "assets",
+      "description": "Update an asset's metadata or passthrough string.",
+      "detail_url": "/capabilities/assets_update"
     },
     {
-      "name": "create_live_stream",
-      "description": "Create a new live stream with a stream key. Supports RTMP ingest, automatic recording, and low-latency playback.",
-      "detail_url": "/capabilities/create_live_stream"
+      "name": "assets_delete",
+      "resource_group": "assets",
+      "description": "Permanently delete a video asset and all associated data.",
+      "detail_url": "/capabilities/assets_delete"
     },
     {
-      "name": "create_playback_id",
-      "description": "Generate a new playback ID for an asset or live stream. Playback IDs can be public or signed for secure access.",
-      "detail_url": "/capabilities/create_playback_id"
+      "name": "assets_get_input_info",
+      "resource_group": "assets",
+      "description": "Retrieve input info for an asset including file details and tracks.",
+      "detail_url": "/capabilities/assets_get_input_info"
     },
     {
-      "name": "create_direct_upload",
-      "description": "Create a direct upload URL that allows clients to upload video files directly to Mux without proxying through your server.",
-      "detail_url": "/capabilities/create_direct_upload"
+      "name": "assets_playback_ids_create",
+      "resource_group": "assets",
+      "description": "Create a playback ID for an asset. Can be public or signed.",
+      "detail_url": "/capabilities/assets_playback_ids_create"
+    },
+    {
+      "name": "assets_playback_ids_delete",
+      "resource_group": "assets",
+      "description": "Delete a playback ID from an asset.",
+      "detail_url": "/capabilities/assets_playback_ids_delete"
+    },
+    {
+      "name": "assets_tracks_create",
+      "resource_group": "assets",
+      "description": "Add a text track (subtitles/captions) to an asset.",
+      "detail_url": "/capabilities/assets_tracks_create"
+    },
+    {
+      "name": "assets_tracks_delete",
+      "resource_group": "assets",
+      "description": "Delete a text track from an asset.",
+      "detail_url": "/capabilities/assets_tracks_delete"
+    },
+    {
+      "name": "live_streams_create",
+      "resource_group": "live_streams",
+      "description": "Create a new live stream with RTMP ingest support.",
+      "detail_url": "/capabilities/live_streams_create"
+    },
+    {
+      "name": "live_streams_list",
+      "resource_group": "live_streams",
+      "description": "List all live streams.",
+      "detail_url": "/capabilities/live_streams_list"
+    },
+    {
+      "name": "live_streams_get",
+      "resource_group": "live_streams",
+      "description": "Get details of a live stream.",
+      "detail_url": "/capabilities/live_streams_get"
+    },
+    {
+      "name": "live_streams_update",
+      "resource_group": "live_streams",
+      "description": "Update a live stream configuration.",
+      "detail_url": "/capabilities/live_streams_update"
+    },
+    {
+      "name": "live_streams_delete",
+      "resource_group": "live_streams",
+      "description": "Delete a live stream.",
+      "detail_url": "/capabilities/live_streams_delete"
+    },
+    {
+      "name": "live_streams_reset_key",
+      "resource_group": "live_streams",
+      "description": "Reset the stream key for a live stream.",
+      "detail_url": "/capabilities/live_streams_reset_key"
+    },
+    {
+      "name": "live_streams_complete",
+      "resource_group": "live_streams",
+      "description": "Signal that a live stream has ended.",
+      "detail_url": "/capabilities/live_streams_complete"
+    },
+    {
+      "name": "live_streams_disable",
+      "resource_group": "live_streams",
+      "description": "Disable a live stream, preventing new ingest.",
+      "detail_url": "/capabilities/live_streams_disable"
+    },
+    {
+      "name": "live_streams_enable",
+      "resource_group": "live_streams",
+      "description": "Re-enable a disabled live stream.",
+      "detail_url": "/capabilities/live_streams_enable"
+    },
+    {
+      "name": "live_streams_playback_ids_create",
+      "resource_group": "live_streams",
+      "description": "Create a playback ID for a live stream.",
+      "detail_url": "/capabilities/live_streams_playback_ids_create"
+    },
+    {
+      "name": "live_streams_playback_ids_delete",
+      "resource_group": "live_streams",
+      "description": "Delete a playback ID from a live stream.",
+      "detail_url": "/capabilities/live_streams_playback_ids_delete"
+    },
+    {
+      "name": "live_streams_simulcast_create",
+      "resource_group": "live_streams",
+      "description": "Create a simulcast target to restream to another platform.",
+      "detail_url": "/capabilities/live_streams_simulcast_create"
+    },
+    {
+      "name": "live_streams_simulcast_delete",
+      "resource_group": "live_streams",
+      "description": "Delete a simulcast target.",
+      "detail_url": "/capabilities/live_streams_simulcast_delete"
+    },
+    {
+      "name": "direct_uploads_create",
+      "resource_group": "direct_uploads",
+      "description": "Create a direct upload URL for client-side video uploads.",
+      "detail_url": "/capabilities/direct_uploads_create"
+    },
+    {
+      "name": "direct_uploads_list",
+      "resource_group": "direct_uploads",
+      "description": "List all direct uploads.",
+      "detail_url": "/capabilities/direct_uploads_list"
+    },
+    {
+      "name": "direct_uploads_get",
+      "resource_group": "direct_uploads",
+      "description": "Get details of a direct upload.",
+      "detail_url": "/capabilities/direct_uploads_get"
+    },
+    {
+      "name": "direct_uploads_cancel",
+      "resource_group": "direct_uploads",
+      "description": "Cancel a direct upload.",
+      "detail_url": "/capabilities/direct_uploads_cancel"
+    },
+    {
+      "name": "signing_keys_create",
+      "resource_group": "signing_keys",
+      "description": "Create a URL signing key for signed playback.",
+      "detail_url": "/capabilities/signing_keys_create"
+    },
+    {
+      "name": "signing_keys_list",
+      "resource_group": "signing_keys",
+      "description": "List all URL signing keys.",
+      "detail_url": "/capabilities/signing_keys_list"
+    },
+    {
+      "name": "signing_keys_get",
+      "resource_group": "signing_keys",
+      "description": "Retrieve a URL signing key (without private key).",
+      "detail_url": "/capabilities/signing_keys_get"
+    },
+    {
+      "name": "signing_keys_delete",
+      "resource_group": "signing_keys",
+      "description": "Delete a URL signing key.",
+      "detail_url": "/capabilities/signing_keys_delete"
+    },
+    {
+      "name": "playback_restrictions_create",
+      "resource_group": "playback_restrictions",
+      "description": "Create a playback restriction with referrer or user-agent rules.",
+      "detail_url": "/capabilities/playback_restrictions_create"
+    },
+    {
+      "name": "playback_restrictions_list",
+      "resource_group": "playback_restrictions",
+      "description": "List all playback restrictions.",
+      "detail_url": "/capabilities/playback_restrictions_list"
+    },
+    {
+      "name": "playback_restrictions_get",
+      "resource_group": "playback_restrictions",
+      "description": "Retrieve a playback restriction.",
+      "detail_url": "/capabilities/playback_restrictions_get"
+    },
+    {
+      "name": "playback_restrictions_delete",
+      "resource_group": "playback_restrictions",
+      "description": "Delete a playback restriction.",
+      "detail_url": "/capabilities/playback_restrictions_delete"
+    },
+    {
+      "name": "playback_ids_get",
+      "resource_group": "playback_ids",
+      "description": "Retrieve the asset or live stream ID associated with a playback ID.",
+      "detail_url": "/capabilities/playback_ids_get"
+    },
+    {
+      "name": "delivery_usage_list",
+      "resource_group": "delivery_usage",
+      "description": "List video delivery usage data.",
+      "detail_url": "/capabilities/delivery_usage_list"
+    },
+    {
+      "name": "data_video_views_list",
+      "resource_group": "data",
+      "description": "List video views with filtering and pagination.",
+      "detail_url": "/capabilities/data_video_views_list"
+    },
+    {
+      "name": "data_video_views_get",
+      "resource_group": "data",
+      "description": "Get detailed info about a specific video view.",
+      "detail_url": "/capabilities/data_video_views_get"
+    },
+    {
+      "name": "data_metrics_overall",
+      "resource_group": "data",
+      "description": "Get overall metric values across all video views.",
+      "detail_url": "/capabilities/data_metrics_overall"
+    },
+    {
+      "name": "data_metrics_breakdown",
+      "resource_group": "data",
+      "description": "Get metric breakdowns by dimension (browser, country, etc).",
+      "detail_url": "/capabilities/data_metrics_breakdown"
+    },
+    {
+      "name": "data_metrics_timeseries",
+      "resource_group": "data",
+      "description": "Get metric values over time.",
+      "detail_url": "/capabilities/data_metrics_timeseries"
     }
   ]
 }

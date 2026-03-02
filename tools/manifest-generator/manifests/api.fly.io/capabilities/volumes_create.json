@@ -1,0 +1,55 @@
+{
+  "name": "volumes_create",
+  "description": "Create a persistent volume.",
+  "resource_group": "volumes",
+  "endpoint": "/v1/apps/{app_name}/volumes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_name",
+      "type": "string",
+      "required": true,
+      "description": "App name."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Volume name."
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "required": true,
+      "description": "Region."
+    },
+    {
+      "name": "size_gb",
+      "type": "integer",
+      "required": true,
+      "description": "Size in GB."
+    },
+    {
+      "name": "encrypted",
+      "type": "boolean",
+      "required": false,
+      "description": "Encrypt volume."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.machines.dev/v1/apps/my-app/volumes",
+    "body": {
+      "name": "data",
+      "region": "iad",
+      "size_gb": 10
+    }
+  },
+  "response_example": {
+    "id": "vol-new",
+    "name": "data",
+    "region": "iad",
+    "size_gb": 10,
+    "state": "created"
+  }
+}

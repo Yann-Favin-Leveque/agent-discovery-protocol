@@ -1,0 +1,66 @@
+{
+  "name": "message_create_stream",
+  "description": "Send a conversation to Claude and receive the response as a stream of server-sent events for real-time token-by-token display. Uses the same endpoint as message_create with stream=true.",
+  "resource_group": "messages",
+  "endpoint": "/v1/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "The model to use (e.g. 'claude-opus-4-6', 'claude-sonnet-4-6')."
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Array of message objects with alternating user/assistant roles."
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "required": true,
+      "description": "Maximum number of tokens to generate."
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "required": true,
+      "description": "Must be set to true for streaming."
+    },
+    {
+      "name": "system",
+      "type": "string",
+      "required": false,
+      "description": "System prompt for context and instructions."
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "Randomness level between 0.0 and 1.0."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.anthropic.com/v1/messages",
+    "headers": {
+      "x-api-key": "sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "anthropic-version": "2023-06-01",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "claude-sonnet-4-6",
+      "max_tokens": 1024,
+      "stream": true,
+      "messages": [
+        {"role": "user", "content": "Write a haiku about programming."}
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "event: message_start\ndata: {\"type\": \"message_start\", \"message\": {\"id\": \"msg_01...\", \"type\": \"message\", \"role\": \"assistant\"}}\n\nevent: content_block_delta\ndata: {\"type\": \"content_block_delta\", \"delta\": {\"type\": \"text_delta\", \"text\": \"Lines of\"}}\n\nevent: message_stop\ndata: {\"type\": \"message_stop\"}"
+  }
+}

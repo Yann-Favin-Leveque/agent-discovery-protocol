@@ -1,0 +1,63 @@
+{
+  "name": "responses_list",
+  "resource_group": "responses",
+  "description": "List responses for a survey (metadata only).",
+  "endpoint": "/v3/surveys/{survey_id}/responses",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "survey_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Survey ID."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Page number."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Results per page."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Filter: completed, partial, overquota, disqualified."
+    },
+    {
+      "name": "sort_order",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "ASC or DESC."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.surveymonkey.com/v3/surveys/123456/responses",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "resp-1",
+          "date_modified": "2025-01-15T10:30:00Z",
+          "response_status": "completed"
+        }
+      ]
+    }
+  }
+}

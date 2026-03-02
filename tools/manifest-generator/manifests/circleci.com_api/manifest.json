@@ -1,72 +1,223 @@
 {
   "spec_version": "1.0",
-  "name": "CircleCI API",
-  "description": "This describes the resources that make up the CircleCI API v2.",
+  "name": "CircleCI",
+  "description": "CircleCI is a CI/CD platform. Trigger pipelines, monitor workflows and jobs, manage environment variables, get build insights, and configure schedules and webhooks.",
   "base_url": "https://circleci.com/api/v2",
   "auth": {
     "type": "api_key",
-    "header": "Circle-Token"
+    "header": "Circle-Token",
+    "setup_url": "https://app.circleci.com/settings/user/tokens"
   },
   "capabilities": [
     {
-      "name": "insights",
-      "description": "Manage insights — get summary metrics and trends for a project across it's workflows and branches, get summary metrics with trends for the entire org, and for each project, get all branches for a project. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/insights"
+      "name": "pipeline_trigger",
+      "resource_group": "pipelines",
+      "description": "Trigger a new pipeline for a project.",
+      "detail_url": "/capabilities/pipeline_trigger"
     },
     {
-      "name": "job",
-      "description": "Manage job — cancel job by job id, cancel job by job number, get job details. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/job"
+      "name": "pipeline_get",
+      "resource_group": "pipelines",
+      "description": "Get a pipeline by ID.",
+      "detail_url": "/capabilities/pipeline_get"
     },
     {
-      "name": "user",
-      "description": "Manage user — user information, collaborations, user information. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/user"
+      "name": "pipeline_list",
+      "resource_group": "pipelines",
+      "description": "List pipelines for a project.",
+      "detail_url": "/capabilities/pipeline_list"
     },
     {
-      "name": "organization",
-      "description": "Manage organization — create a new organization, create a new url orb allow-list entry, get an organization. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/organization"
+      "name": "pipeline_config_get",
+      "resource_group": "pipelines",
+      "description": "Get pipeline configuration.",
+      "detail_url": "/capabilities/pipeline_config_get"
     },
     {
-      "name": "project",
-      "description": "Manage project — create a new project, create a new checkout key, create an environment variable. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/project"
+      "name": "workflow_get",
+      "resource_group": "workflows",
+      "description": "Get a workflow by ID.",
+      "detail_url": "/capabilities/workflow_get"
     },
     {
-      "name": "pipeline",
-      "description": "Manage pipeline — continue a pipeline, trigger a new pipeline, [recommended] trigger a new pipeline. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/pipeline"
+      "name": "workflow_list",
+      "resource_group": "workflows",
+      "description": "List workflows for a pipeline.",
+      "detail_url": "/capabilities/workflow_list"
     },
     {
-      "name": "schedule",
-      "description": "Manage schedule — create a schedule, list schedule triggers, get a schedule by id. available only on schedules associated with github oauth or bitbucket cloud pipeline definitions. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/schedule"
+      "name": "workflow_cancel",
+      "resource_group": "workflows",
+      "description": "Cancel a running workflow.",
+      "detail_url": "/capabilities/workflow_cancel"
     },
     {
-      "name": "webhook",
-      "description": "Manage webhook — create an outbound webhook, update an outbound webhook, list webhooks. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/webhook"
+      "name": "workflow_rerun",
+      "resource_group": "workflows",
+      "description": "Rerun a workflow.",
+      "detail_url": "/capabilities/workflow_rerun"
     },
     {
-      "name": "workflow",
-      "description": "Manage workflow — cancel a workflow, rerun a workflow, approve a job. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/workflow"
+      "name": "workflow_approve_job",
+      "resource_group": "workflows",
+      "description": "Approve a pending approval job.",
+      "detail_url": "/capabilities/workflow_approve_job"
     },
     {
-      "name": "oidc_token_management",
-      "description": "Manage oidc token management — get org-level claims, get project-level claims, patch org-level claims. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/oidc_token_management"
+      "name": "workflow_jobs_list",
+      "resource_group": "workflows",
+      "description": "List jobs for a workflow.",
+      "detail_url": "/capabilities/workflow_jobs_list"
     },
     {
-      "name": "policy_management",
-      "description": "Manage policy management — makes a decision, creates policy bundle for the context, retrieves the owner's decision audit logs. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/policy_management"
+      "name": "job_get",
+      "resource_group": "jobs",
+      "description": "Get job details.",
+      "detail_url": "/capabilities/job_get"
     },
     {
-      "name": "context",
-      "description": "Manage context — create a new context, create context restriction, add or update an environment variable. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/context"
+      "name": "job_cancel",
+      "resource_group": "jobs",
+      "description": "Cancel a running job.",
+      "detail_url": "/capabilities/job_cancel"
+    },
+    {
+      "name": "job_artifacts_list",
+      "resource_group": "jobs",
+      "description": "List artifacts from a job.",
+      "detail_url": "/capabilities/job_artifacts_list"
+    },
+    {
+      "name": "job_tests_list",
+      "resource_group": "jobs",
+      "description": "List test results for a job.",
+      "detail_url": "/capabilities/job_tests_list"
+    },
+    {
+      "name": "project_get",
+      "resource_group": "projects",
+      "description": "Get project settings.",
+      "detail_url": "/capabilities/project_get"
+    },
+    {
+      "name": "project_envvar_list",
+      "resource_group": "projects",
+      "description": "List environment variables.",
+      "detail_url": "/capabilities/project_envvar_list"
+    },
+    {
+      "name": "project_envvar_create",
+      "resource_group": "projects",
+      "description": "Create an environment variable.",
+      "detail_url": "/capabilities/project_envvar_create"
+    },
+    {
+      "name": "project_envvar_delete",
+      "resource_group": "projects",
+      "description": "Delete an environment variable.",
+      "detail_url": "/capabilities/project_envvar_delete"
+    },
+    {
+      "name": "insights_project_summary",
+      "resource_group": "insights",
+      "description": "Get summary metrics for a project.",
+      "detail_url": "/capabilities/insights_project_summary"
+    },
+    {
+      "name": "insights_workflow_metrics",
+      "resource_group": "insights",
+      "description": "Get workflow metrics.",
+      "detail_url": "/capabilities/insights_workflow_metrics"
+    },
+    {
+      "name": "insights_flaky_tests",
+      "resource_group": "insights",
+      "description": "Get flaky tests for a project.",
+      "detail_url": "/capabilities/insights_flaky_tests"
+    },
+    {
+      "name": "context_list",
+      "resource_group": "contexts",
+      "description": "List contexts for an organization.",
+      "detail_url": "/capabilities/context_list"
+    },
+    {
+      "name": "context_create",
+      "resource_group": "contexts",
+      "description": "Create a context.",
+      "detail_url": "/capabilities/context_create"
+    },
+    {
+      "name": "context_delete",
+      "resource_group": "contexts",
+      "description": "Delete a context.",
+      "detail_url": "/capabilities/context_delete"
+    },
+    {
+      "name": "context_envvar_list",
+      "resource_group": "contexts",
+      "description": "List env vars in a context.",
+      "detail_url": "/capabilities/context_envvar_list"
+    },
+    {
+      "name": "context_envvar_upsert",
+      "resource_group": "contexts",
+      "description": "Add/update env var in context.",
+      "detail_url": "/capabilities/context_envvar_upsert"
+    },
+    {
+      "name": "context_envvar_delete",
+      "resource_group": "contexts",
+      "description": "Delete env var from context.",
+      "detail_url": "/capabilities/context_envvar_delete"
+    },
+    {
+      "name": "schedule_list",
+      "resource_group": "schedules",
+      "description": "List scheduled triggers.",
+      "detail_url": "/capabilities/schedule_list"
+    },
+    {
+      "name": "schedule_create",
+      "resource_group": "schedules",
+      "description": "Create a schedule trigger.",
+      "detail_url": "/capabilities/schedule_create"
+    },
+    {
+      "name": "schedule_delete",
+      "resource_group": "schedules",
+      "description": "Delete a schedule.",
+      "detail_url": "/capabilities/schedule_delete"
+    },
+    {
+      "name": "webhook_list",
+      "resource_group": "webhooks",
+      "description": "List webhooks.",
+      "detail_url": "/capabilities/webhook_list"
+    },
+    {
+      "name": "webhook_create",
+      "resource_group": "webhooks",
+      "description": "Create a webhook.",
+      "detail_url": "/capabilities/webhook_create"
+    },
+    {
+      "name": "webhook_delete",
+      "resource_group": "webhooks",
+      "description": "Delete a webhook.",
+      "detail_url": "/capabilities/webhook_delete"
+    },
+    {
+      "name": "user_get",
+      "resource_group": "user",
+      "description": "Get current authenticated user.",
+      "detail_url": "/capabilities/user_get"
+    },
+    {
+      "name": "user_collaborations",
+      "resource_group": "user",
+      "description": "List user's organizations.",
+      "detail_url": "/capabilities/user_collaborations"
     }
   ]
 }

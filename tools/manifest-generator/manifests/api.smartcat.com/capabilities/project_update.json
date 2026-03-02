@@ -1,0 +1,50 @@
+{
+  "name": "project_update",
+  "description": "Update an existing project's name, deadline, and other settings.",
+  "resource_group": "projects",
+  "endpoint": "/api/integration/v1/project/{project_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique project ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Updated project name."
+    },
+    {
+      "name": "deadline",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Updated deadline in ISO 8601 format."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://smartcat.com/api/integration/v1/project/project-uuid-123",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Website Localization Q1 - Updated",
+      "deadline": "2026-04-01T00:00:00.000Z"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "project-uuid-123",
+      "name": "Website Localization Q1 - Updated",
+      "deadline": "2026-04-01T00:00:00.000Z"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "tickets_search",
+  "description": "Search tickets using a query string with field-based filters (e.g. status, priority, agent).",
+  "endpoint": "/api/v2/search/tickets",
+  "method": "GET",
+  "resource_group": "tickets",
+  "parameters": [
+    {"name": "query", "type": "string", "description": "Search query string using Freshdesk query language (e.g. \"priority:3 AND status:2\").", "required": true, "example": "\"priority:3 AND status:2\""}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://yourdomain.freshdesk.com/api/v2/search/tickets?query=%22priority%3A3%20AND%20status%3A2%22",
+    "headers": {"Authorization": "Basic base64(api_key:X)"},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"total": 5, "results": [{"id": 3, "subject": "Network outage", "status": 2, "priority": 3}]}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 80}
+}

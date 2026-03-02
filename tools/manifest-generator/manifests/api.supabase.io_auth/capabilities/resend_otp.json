@@ -1,0 +1,50 @@
+{
+  "name": "resend_otp",
+  "description": "Resend an OTP or confirmation email/SMS to the user. Useful when the original message was not received.",
+  "endpoint": "/auth/v1/resend",
+  "method": "POST",
+  "resource_group": "auth",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Type of OTP to resend: signup, sms, email_change, phone_change.",
+      "required": true,
+      "example": "signup"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email address (for email-based resend).",
+      "required": false,
+      "example": "user@example.com"
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "description": "Phone number (for phone-based resend).",
+      "required": false,
+      "example": "+1234567890"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-project.supabase.co/auth/v1/resend",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "signup",
+      "email": "user@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

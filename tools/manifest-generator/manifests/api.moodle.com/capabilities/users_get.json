@@ -1,0 +1,24 @@
+{
+  "name": "users_get",
+  "description": "Retrieve user profiles by field criteria such as ID, username, or email.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_user_get_users_by_field",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "field", "type": "string", "description": "Field to search by (id, username, email, idnumber)", "required": true, "example": "email" },
+    { "name": "values[0]", "type": "string", "description": "Value to search for", "required": true, "example": "john.doe@example.com" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_user_get_users_by_field&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "field": "email", "values[0]": "john.doe@example.com" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{ "id": 42, "username": "jdoe", "firstname": "John", "lastname": "Doe", "email": "john.doe@example.com" }]
+  },
+  "auth_scopes": ["core_user_get_users_by_field"],
+  "rate_limits": { "requests_per_minute": 120 }
+}

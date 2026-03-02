@@ -1,0 +1,60 @@
+{
+  "name": "map_tile_get",
+  "description": "Get weather map tiles for visualization overlays. Compatible with Mapbox, Google Maps, Leaflet, and other mapping libraries. Layers include precipitation, temperature, wind, cloud cover, and more.",
+  "resource_group": "map",
+  "endpoint": "/v4/map/tile/{z}/{x}/{y}/{layer}/{timestamp}.png",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "z",
+      "type": "integer",
+      "required": true,
+      "description": "Zoom level (0-12).",
+      "in": "path"
+    },
+    {
+      "name": "x",
+      "type": "integer",
+      "required": true,
+      "description": "Tile X coordinate.",
+      "in": "path"
+    },
+    {
+      "name": "y",
+      "type": "integer",
+      "required": true,
+      "description": "Tile Y coordinate.",
+      "in": "path"
+    },
+    {
+      "name": "layer",
+      "type": "string",
+      "required": true,
+      "description": "Weather layer: 'precipitation', 'temperature', 'wind', 'cloudCover', 'humidity', 'dewPoint', 'pressureSurfaceLevel'.",
+      "in": "path"
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "required": true,
+      "description": "Timestamp in ISO 8601 format or 'now'.",
+      "in": "path"
+    },
+    {
+      "name": "apikey",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tomorrow.io/v4/map/tile/5/16/11/precipitation/now.png?apikey=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": "<PNG image binary data>"
+  }
+}

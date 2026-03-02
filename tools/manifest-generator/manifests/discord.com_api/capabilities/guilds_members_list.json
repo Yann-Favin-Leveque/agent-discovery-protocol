@@ -1,0 +1,55 @@
+{
+  "name": "guilds_members_list",
+  "resource_group": "guilds",
+  "description": "List members of a guild with pagination.",
+  "endpoint": "/v10/guilds/{guild_id}/members",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "guild_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Guild ID",
+      "example": "444444444444444444"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max members to return (1-1000)",
+      "example": 100
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "required": false,
+      "description": "Get members after this user ID",
+      "example": "0"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://discord.com/api/v10/guilds/444444444444444444/members?limit=100",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "user": {
+          "id": "333333333333333333",
+          "username": "User1",
+          "avatar": "abc123"
+        },
+        "nick": "Nickname",
+        "roles": [
+          "888888888888888888"
+        ],
+        "joined_at": "2025-01-15T10:00:00.000000+00:00"
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "accounts_get",
+  "description": "Retrieve a specific account by its ID from the chart of accounts.",
+  "endpoint": "/v3/company/{realmId}/account/{accountId}",
+  "method": "GET",
+  "resource_group": "accounts",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "The account ID",
+      "required": true,
+      "example": "35"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/account/35?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Account": {
+        "Id": "35",
+        "Name": "Checking",
+        "AccountType": "Bank",
+        "CurrentBalance": 1200.0,
+        "Active": true
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

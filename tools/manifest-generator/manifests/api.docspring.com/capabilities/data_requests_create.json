@@ -1,0 +1,81 @@
+{
+  "name": "data_requests_create",
+  "description": "Create a shareable form link to collect data from a person. When the person completes the form, the PDF template is automatically filled. Supports email-based authentication, field-level permissions, and signature collection.",
+  "resource_group": "data_requests",
+  "endpoint": "/api/v1/templates/{template_id}/submissions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The template ID for the data request."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "Pre-filled data for fields the requester already knows."
+    },
+    {
+      "name": "data_requests",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of request objects, each with: email (string), name (string), fields (array of field names), auth_type (string: password, oauth, email_link, phone_number)."
+    },
+    {
+      "name": "test",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "If true, generates a test submission."
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Optional metadata for webhook callbacks."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.docspring.com/api/v1/templates/tpl_abc123/submissions",
+    "headers": {
+      "Authorization": "Basic {base64(token_id:token_secret)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "company_name": "Acme Corp"
+      },
+      "data_requests": [
+        {
+          "email": "signer@example.com",
+          "name": "John Signer",
+          "fields": ["signature", "signature_date"],
+          "auth_type": "email_link"
+        }
+      ],
+      "test": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sub_dr789",
+      "state": "waiting_for_data_requests",
+      "data_requests": [
+        {
+          "id": "dr_001",
+          "email": "signer@example.com",
+          "state": "pending",
+          "fields": ["signature", "signature_date"]
+        }
+      ]
+    }
+  }
+}

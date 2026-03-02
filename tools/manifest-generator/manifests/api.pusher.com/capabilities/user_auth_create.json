@@ -1,0 +1,39 @@
+{
+  "name": "user_auth_create",
+  "description": "Authenticate a user connection for Channels user authentication. Required for user-based features like watchlist events and server-to-user events.",
+  "resource_group": "auth",
+  "endpoint": "/pusher/user-auth",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "socket_id",
+      "type": "string",
+      "required": true,
+      "description": "The socket ID of the connecting client."
+    },
+    {
+      "name": "user_data",
+      "type": "string",
+      "required": true,
+      "description": "JSON string with user data including 'id' (required) and optional custom properties."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-server.com/pusher/user-auth",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "socket_id": "1234.5678",
+      "user_data": "{\"id\":\"user-1\",\"name\":\"Jane\",\"email\":\"jane@example.com\"}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "auth": "278d425bdf160c739803:signature-hash",
+      "user_data": "{\"id\":\"user-1\",\"name\":\"Jane\"}"
+    }
+  }
+}

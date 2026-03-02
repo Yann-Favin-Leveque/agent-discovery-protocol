@@ -1,0 +1,41 @@
+{
+  "name": "queue_pause",
+  "description": "Pause or resume a queue to control task execution.",
+  "resource_group": "queue",
+  "endpoint": "/api/v3/queues/{queueId}/pause",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "queueId",
+      "type": "string",
+      "description": "Queue ID (path parameter).",
+      "required": true,
+      "example": "queue_abc"
+    },
+    {
+      "name": "paused",
+      "type": "boolean",
+      "description": "True to pause, false to resume.",
+      "required": true,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trigger.dev/api/v3/queues/queue_abc/pause",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "paused": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "queue_abc",
+      "paused": true
+    }
+  }
+}

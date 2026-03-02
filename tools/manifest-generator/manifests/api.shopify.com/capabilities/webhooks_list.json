@@ -1,0 +1,47 @@
+{
+  "name": "webhooks_list",
+  "description": "List all configured webhooks for the Shopify store.",
+  "resource_group": "webhooks",
+  "endpoint": "/admin/api/2024-10/webhooks.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page."
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "required": false,
+      "description": "Filter by webhook topic."
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "required": false,
+      "description": "Filter by callback URL."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store}.myshopify.com/admin/api/2024-10/webhooks.json",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "webhooks": [
+        {
+          "id": 901431826,
+          "address": "https://example.com/webhooks",
+          "topic": "orders/create",
+          "format": "json"
+        }
+      ]
+    }
+  }
+}

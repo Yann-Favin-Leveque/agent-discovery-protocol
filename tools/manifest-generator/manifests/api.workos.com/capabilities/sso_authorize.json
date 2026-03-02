@@ -1,0 +1,54 @@
+{
+  "name": "sso_authorize",
+  "resource_group": "sso",
+  "description": "Generate an SSO authorization URL to redirect the user to their identity provider.",
+  "endpoint": "/sso/authorize",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "client_id",
+      "type": "string",
+      "required": true,
+      "description": "WorkOS client ID."
+    },
+    {
+      "name": "redirect_uri",
+      "type": "string",
+      "required": true,
+      "description": "Redirect URI after SSO."
+    },
+    {
+      "name": "connection_id",
+      "type": "string",
+      "required": false,
+      "description": "Specific SSO connection."
+    },
+    {
+      "name": "organization_id",
+      "type": "string",
+      "required": false,
+      "description": "Organization to select SSO for."
+    },
+    {
+      "name": "provider",
+      "type": "string",
+      "required": false,
+      "description": "Social provider: GoogleOAuth, MicrosoftOAuth, GitHubOAuth, AppleOAuth."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "State parameter for CSRF protection."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.workos.com/sso/authorize?client_id=client_xxx&redirect_uri=https://app.example.com/callback&organization_id=org_xxx&state=random-state",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 302,
+    "body": null
+  }
+}

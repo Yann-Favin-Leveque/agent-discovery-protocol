@@ -1,0 +1,58 @@
+{
+  "name": "repos_list",
+  "description": "List repositories for a workspace.",
+  "resource_group": "repositories",
+  "endpoint": "/repositories/{workspace}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace slug."
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "required": false,
+      "description": "Query filter."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort field."
+    },
+    {
+      "name": "pagelen",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (max 100)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace?pagelen=10",
+    "headers": {
+      "Authorization": "Bearer oauth-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "pagelen": 10,
+      "values": [
+        {
+          "slug": "my-project",
+          "full_name": "myworkspace/my-project",
+          "is_private": true,
+          "language": "typescript",
+          "mainbranch": {
+            "name": "main"
+          }
+        }
+      ]
+    }
+  }
+}

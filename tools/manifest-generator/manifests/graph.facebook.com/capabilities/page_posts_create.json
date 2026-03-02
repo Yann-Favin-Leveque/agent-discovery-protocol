@@ -1,0 +1,62 @@
+{
+  "name": "page_posts_create",
+  "description": "Create a new post on a Facebook Page.",
+  "resource_group": "pages",
+  "endpoint": "/v21.0/{page_id}/feed",
+  "method": "POST",
+  "auth_scopes": [
+    "pages_manage_posts"
+  ],
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "required": true,
+      "description": "Page ID.",
+      "example": "111222333"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Post text content.",
+      "example": "Check out our new product!"
+    },
+    {
+      "name": "link",
+      "type": "string",
+      "required": false,
+      "description": "URL to share."
+    },
+    {
+      "name": "published",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to publish immediately (default true)."
+    },
+    {
+      "name": "scheduled_publish_time",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp for scheduled publishing."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v21.0/111222333/feed",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "message": "Check out our new product!",
+      "link": "https://example.com/product"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "111222333_444555666"
+    }
+  }
+}

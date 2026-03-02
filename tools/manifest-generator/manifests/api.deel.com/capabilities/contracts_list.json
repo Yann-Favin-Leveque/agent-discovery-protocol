@@ -1,0 +1,58 @@
+{
+  "name": "contracts_list",
+  "resource_group": "Contracts",
+  "endpoint": "/rest/v2/contracts",
+  "method": "GET",
+  "description": "List all contracts across the organization with filtering by type, status, and country.",
+  "parameters": [
+    {
+      "name": "types",
+      "type": "string",
+      "required": false,
+      "description": "Filter: employee, contractor."
+    },
+    {
+      "name": "statuses",
+      "type": "string",
+      "required": false,
+      "description": "Filter: in_progress, active, terminated."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.letsdeel.com/rest/v2/contracts?types=contractor&statuses=active&limit=25",
+    "headers": {
+      "Authorization": "Bearer <token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "ct-1",
+          "type": "contractor",
+          "status": "active",
+          "title": "Software Engineer",
+          "worker": {
+            "name": "John Doe"
+          },
+          "currency": "USD",
+          "amount": 8000
+        }
+      ]
+    }
+  }
+}

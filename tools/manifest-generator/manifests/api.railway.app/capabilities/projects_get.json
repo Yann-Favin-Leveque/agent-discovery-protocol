@@ -1,0 +1,43 @@
+{
+  "name": "projects_get",
+  "description": "Get project details by ID.",
+  "resource_group": "projects",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "description": "Project ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "query($id: String!) { project(id: $id) { id name description services { edges { node { id name } } } environments { edges { node { id name } } } } }",
+      "variables": {
+        "id": "proj-abc"
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "project": {
+        "id": "proj-abc",
+        "name": "my-app",
+        "services": {
+          "edges": [
+            {
+              "node": {
+                "id": "srv-abc",
+                "name": "backend"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "webinars_panelists_list",
+  "description": "List all panelists assigned to a webinar. Returns panelist names and emails.",
+  "endpoint": "/webinars/{webinarId}/panelists",
+  "method": "GET",
+  "resource_group": "webinars",
+  "parameters": [
+    {
+      "name": "webinarId",
+      "type": "integer",
+      "description": "The webinar ID.",
+      "required": true,
+      "example": 9876543210
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/webinars/9876543210/panelists",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total_records": 2,
+      "panelists": [
+        {
+          "id": "pan1",
+          "name": "John Smith",
+          "email": "john@example.com",
+          "join_url": "https://zoom.us/w/9876543210?tk=abc"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["webinar:read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

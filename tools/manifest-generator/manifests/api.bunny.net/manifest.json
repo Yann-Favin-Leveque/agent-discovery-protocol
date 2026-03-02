@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Bunny CDN",
-  "description": "Bunny CDN is a content delivery network that provides fast global content distribution, edge storage, DNS management, and cache purging. It offers a simple API for managing pull zones, storage zones, and cached content.",
+  "description": "Bunny CDN provides fast global content delivery with APIs for managing pull zones, storage zones, DNS zones, cache purging, edge rules, video libraries, stream management, and traffic statistics.",
   "base_url": "https://api.bunny.net",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,244 @@
   },
   "capabilities": [
     {
-      "name": "create_pull_zone",
-      "description": "Create a new CDN pull zone that caches and delivers content from your origin server. Configure caching rules, SSL, and edge locations.",
-      "detail_url": "/capabilities/create_pull_zone"
+      "name": "pull_zones_list",
+      "resource_group": "pull_zones",
+      "description": "List all CDN pull zones in your account.",
+      "detail_url": "/capabilities/pull_zones_list"
     },
     {
-      "name": "list_pull_zones",
-      "description": "Retrieve a list of all CDN pull zones in your account with their configuration, traffic stats, and status.",
-      "detail_url": "/capabilities/list_pull_zones"
+      "name": "pull_zones_create",
+      "resource_group": "pull_zones",
+      "description": "Create a new CDN pull zone.",
+      "detail_url": "/capabilities/pull_zones_create"
     },
     {
-      "name": "purge_cache",
-      "description": "Purge cached content from the CDN edge servers. You can purge an entire pull zone or specific URLs to force content refresh.",
-      "detail_url": "/capabilities/purge_cache"
+      "name": "pull_zones_get",
+      "resource_group": "pull_zones",
+      "description": "Get details of a specific pull zone.",
+      "detail_url": "/capabilities/pull_zones_get"
     },
     {
-      "name": "create_storage_zone",
-      "description": "Create a new edge storage zone for hosting files directly on Bunny's global network. Useful for static assets, media, and downloads.",
-      "detail_url": "/capabilities/create_storage_zone"
+      "name": "pull_zones_update",
+      "resource_group": "pull_zones",
+      "description": "Update pull zone configuration.",
+      "detail_url": "/capabilities/pull_zones_update"
     },
     {
-      "name": "get_statistics",
-      "description": "Retrieve bandwidth usage, request counts, cache hit ratios, and other traffic statistics for your CDN pull zones.",
-      "detail_url": "/capabilities/get_statistics"
+      "name": "pull_zones_delete",
+      "resource_group": "pull_zones",
+      "description": "Delete a pull zone.",
+      "detail_url": "/capabilities/pull_zones_delete"
     },
     {
-      "name": "add_custom_hostname",
-      "description": "Add a custom hostname (domain) to a pull zone and configure SSL. Bunny automatically provisions and renews free SSL certificates.",
-      "detail_url": "/capabilities/add_custom_hostname"
+      "name": "pull_zones_purge",
+      "resource_group": "pull_zones",
+      "description": "Purge all cached content from a pull zone.",
+      "detail_url": "/capabilities/pull_zones_purge"
+    },
+    {
+      "name": "pull_zones_add_hostname",
+      "resource_group": "pull_zones",
+      "description": "Add a custom hostname to a pull zone.",
+      "detail_url": "/capabilities/pull_zones_add_hostname"
+    },
+    {
+      "name": "pull_zones_remove_hostname",
+      "resource_group": "pull_zones",
+      "description": "Remove a custom hostname from a pull zone.",
+      "detail_url": "/capabilities/pull_zones_remove_hostname"
+    },
+    {
+      "name": "pull_zones_add_certificate",
+      "resource_group": "pull_zones",
+      "description": "Load a free Let's Encrypt SSL certificate for a hostname.",
+      "detail_url": "/capabilities/pull_zones_add_certificate"
+    },
+    {
+      "name": "pull_zones_add_edge_rule",
+      "resource_group": "pull_zones",
+      "description": "Add a custom edge rule to a pull zone for URL rewrites, redirects, headers, etc.",
+      "detail_url": "/capabilities/pull_zones_add_edge_rule"
+    },
+    {
+      "name": "storage_zones_list",
+      "resource_group": "storage_zones",
+      "description": "List all edge storage zones.",
+      "detail_url": "/capabilities/storage_zones_list"
+    },
+    {
+      "name": "storage_zones_create",
+      "resource_group": "storage_zones",
+      "description": "Create a new edge storage zone.",
+      "detail_url": "/capabilities/storage_zones_create"
+    },
+    {
+      "name": "storage_zones_get",
+      "resource_group": "storage_zones",
+      "description": "Get storage zone details.",
+      "detail_url": "/capabilities/storage_zones_get"
+    },
+    {
+      "name": "storage_zones_update",
+      "resource_group": "storage_zones",
+      "description": "Update storage zone configuration.",
+      "detail_url": "/capabilities/storage_zones_update"
+    },
+    {
+      "name": "storage_zones_delete",
+      "resource_group": "storage_zones",
+      "description": "Delete a storage zone.",
+      "detail_url": "/capabilities/storage_zones_delete"
+    },
+    {
+      "name": "storage_zones_reset_password",
+      "resource_group": "storage_zones",
+      "description": "Reset the primary access password for a storage zone.",
+      "detail_url": "/capabilities/storage_zones_reset_password"
+    },
+    {
+      "name": "dns_zones_list",
+      "resource_group": "dns",
+      "description": "List all DNS zones.",
+      "detail_url": "/capabilities/dns_zones_list"
+    },
+    {
+      "name": "dns_zones_create",
+      "resource_group": "dns",
+      "description": "Create a new DNS zone.",
+      "detail_url": "/capabilities/dns_zones_create"
+    },
+    {
+      "name": "dns_zones_get",
+      "resource_group": "dns",
+      "description": "Get a DNS zone with all records.",
+      "detail_url": "/capabilities/dns_zones_get"
+    },
+    {
+      "name": "dns_zones_delete",
+      "resource_group": "dns",
+      "description": "Delete a DNS zone.",
+      "detail_url": "/capabilities/dns_zones_delete"
+    },
+    {
+      "name": "dns_records_create",
+      "resource_group": "dns",
+      "description": "Add a DNS record to a zone.",
+      "detail_url": "/capabilities/dns_records_create"
+    },
+    {
+      "name": "dns_records_update",
+      "resource_group": "dns",
+      "description": "Update an existing DNS record.",
+      "detail_url": "/capabilities/dns_records_update"
+    },
+    {
+      "name": "dns_records_delete",
+      "resource_group": "dns",
+      "description": "Delete a DNS record.",
+      "detail_url": "/capabilities/dns_records_delete"
+    },
+    {
+      "name": "statistics_get",
+      "resource_group": "statistics",
+      "description": "Get account statistics: bandwidth, requests, cache hit ratio.",
+      "detail_url": "/capabilities/statistics_get"
+    },
+    {
+      "name": "purge_url",
+      "resource_group": "purge",
+      "description": "Purge a specific URL from the CDN cache.",
+      "detail_url": "/capabilities/purge_url"
+    },
+    {
+      "name": "video_libraries_list",
+      "resource_group": "video",
+      "description": "List all video libraries.",
+      "detail_url": "/capabilities/video_libraries_list"
+    },
+    {
+      "name": "video_libraries_create",
+      "resource_group": "video",
+      "description": "Create a new video library.",
+      "detail_url": "/capabilities/video_libraries_create"
+    },
+    {
+      "name": "video_libraries_get",
+      "resource_group": "video",
+      "description": "Get video library details.",
+      "detail_url": "/capabilities/video_libraries_get"
+    },
+    {
+      "name": "video_libraries_update",
+      "resource_group": "video",
+      "description": "Update video library settings.",
+      "detail_url": "/capabilities/video_libraries_update"
+    },
+    {
+      "name": "video_libraries_delete",
+      "resource_group": "video",
+      "description": "Delete a video library.",
+      "detail_url": "/capabilities/video_libraries_delete"
+    },
+    {
+      "name": "stream_videos_list",
+      "resource_group": "stream",
+      "description": "List videos in a video library.",
+      "detail_url": "/capabilities/stream_videos_list"
+    },
+    {
+      "name": "stream_videos_create",
+      "resource_group": "stream",
+      "description": "Create a new video entry in a library.",
+      "detail_url": "/capabilities/stream_videos_create"
+    },
+    {
+      "name": "stream_videos_get",
+      "resource_group": "stream",
+      "description": "Get video details.",
+      "detail_url": "/capabilities/stream_videos_get"
+    },
+    {
+      "name": "stream_videos_update",
+      "resource_group": "stream",
+      "description": "Update video metadata.",
+      "detail_url": "/capabilities/stream_videos_update"
+    },
+    {
+      "name": "stream_videos_delete",
+      "resource_group": "stream",
+      "description": "Delete a video from a library.",
+      "detail_url": "/capabilities/stream_videos_delete"
+    },
+    {
+      "name": "stream_videos_fetch",
+      "resource_group": "stream",
+      "description": "Import a video from an external URL.",
+      "detail_url": "/capabilities/stream_videos_fetch"
+    },
+    {
+      "name": "stream_videos_reencode",
+      "resource_group": "stream",
+      "description": "Trigger re-encoding of a video.",
+      "detail_url": "/capabilities/stream_videos_reencode"
+    },
+    {
+      "name": "stream_collections_list",
+      "resource_group": "stream",
+      "description": "List video collections in a library.",
+      "detail_url": "/capabilities/stream_collections_list"
+    },
+    {
+      "name": "stream_collections_create",
+      "resource_group": "stream",
+      "description": "Create a new video collection.",
+      "detail_url": "/capabilities/stream_collections_create"
+    },
+    {
+      "name": "stream_collections_delete",
+      "resource_group": "stream",
+      "description": "Delete a video collection.",
+      "detail_url": "/capabilities/stream_collections_delete"
     }
   ]
 }

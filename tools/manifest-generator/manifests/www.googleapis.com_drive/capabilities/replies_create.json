@@ -1,0 +1,48 @@
+{
+  "name": "replies_create",
+  "description": "Create a reply to a comment.",
+  "resource_group": "replies",
+  "endpoint": "/drive/v3/files/{fileId}/comments/{commentId}/replies",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "fileId",
+      "type": "string",
+      "description": "The file ID.",
+      "required": true
+    },
+    {
+      "name": "commentId",
+      "type": "string",
+      "description": "The comment ID.",
+      "required": true
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "Reply text.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.googleapis.com/drive/v3/files/1abc/comments/comment1/replies?fields=*",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "Thanks!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "reply1",
+      "content": "Thanks!"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive"
+  ]
+}

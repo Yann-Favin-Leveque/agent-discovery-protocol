@@ -1,0 +1,52 @@
+{
+  "name": "courses_create",
+  "description": "Create a new course in an account.",
+  "resource_group": "courses",
+  "endpoint": "/api/v1/accounts/{account_id}/courses",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "integer",
+      "description": "Account ID.",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "course[name]",
+      "type": "string",
+      "description": "Course name.",
+      "required": true,
+      "example": "Advanced Python"
+    },
+    {
+      "name": "course[course_code]",
+      "type": "string",
+      "description": "Course code.",
+      "required": false,
+      "example": "CS301"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/accounts/1/courses",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "course": {
+        "name": "Advanced Python",
+        "course_code": "CS301"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1235,
+      "name": "Advanced Python",
+      "course_code": "CS301"
+    }
+  }
+}

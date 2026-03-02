@@ -1,0 +1,80 @@
+{
+  "name": "elevation_line",
+  "description": "Get elevation data for a line geometry (sequence of points).",
+  "endpoint": "/elevation/line",
+  "method": "POST",
+  "resource_group": "elevation",
+  "parameters": [
+    {
+      "name": "format_in",
+      "type": "string",
+      "description": "Input format: geojson, polyline, or encodedpolyline",
+      "required": true,
+      "example": "geojson"
+    },
+    {
+      "name": "geometry",
+      "type": "object",
+      "description": "GeoJSON LineString geometry or encoded polyline",
+      "required": true,
+      "example": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.349,
+            38.116
+          ],
+          [
+            13.35,
+            38.117
+          ]
+        ]
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/elevation/line",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "format_in": "geojson",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.349,
+            38.116
+          ],
+          [
+            13.35,
+            38.117
+          ]
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "geometry": [
+        [
+          13.349,
+          38.116,
+          554.0
+        ],
+        [
+          13.35,
+          38.117,
+          556.0
+        ]
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

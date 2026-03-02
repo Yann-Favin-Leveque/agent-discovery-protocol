@@ -1,0 +1,46 @@
+{
+  "name": "bookings_cancel",
+  "resource_group": "bookings",
+  "description": "Cancel an existing booking, optionally providing a cancellation reason.",
+  "endpoint": "/v2/bookings/{bookingUid}/cancel",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bookingUid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Unique booking identifier",
+      "example": "bk_abc123"
+    },
+    {
+      "name": "cancellationReason",
+      "type": "string",
+      "required": false,
+      "description": "Reason for cancellation",
+      "example": "No longer needed"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cal.com/v2/bookings/bk_abc123/cancel",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "Content-Type": "application/json",
+      "cal-api-version": "2024-08-13"
+    },
+    "body": {
+      "cancellationReason": "No longer needed"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": {
+        "uid": "bk_abc123",
+        "status": "cancelled"
+      }
+    }
+  }
+}

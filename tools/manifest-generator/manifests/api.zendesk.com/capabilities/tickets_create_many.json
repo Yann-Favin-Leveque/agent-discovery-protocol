@@ -1,0 +1,53 @@
+{
+  "name": "tickets_create_many",
+  "description": "Create multiple tickets in batch.",
+  "endpoint": "/api/v2/tickets/create_many",
+  "method": "POST",
+  "resource_group": "tickets",
+  "parameters": [
+    {
+      "name": "tickets",
+      "type": "array",
+      "description": "Array of ticket objects",
+      "required": true,
+      "example": []
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{subdomain}.zendesk.com/api/v2/tickets/create_many",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tickets": [
+        {
+          "subject": "Ticket 1",
+          "comment": {
+            "body": "Body 1"
+          }
+        },
+        {
+          "subject": "Ticket 2",
+          "comment": {
+            "body": "Body 2"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "job_status": {
+        "id": "job_123",
+        "status": "queued"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

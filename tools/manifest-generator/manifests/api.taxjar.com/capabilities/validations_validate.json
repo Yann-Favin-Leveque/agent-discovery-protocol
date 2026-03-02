@@ -1,0 +1,45 @@
+{
+  "name": "validations_validate",
+  "description": "Validate a VAT identification number (EU/UK/AU/etc.).",
+  "endpoint": "/v2/validation",
+  "method": "GET",
+  "resource_group": "validations",
+  "parameters": [
+    {
+      "name": "vat",
+      "type": "string",
+      "description": "VAT number to validate.",
+      "required": true,
+      "example": "FR40303265045"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.taxjar.com/v2/validation?vat=FR40303265045",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "validation": {
+        "valid": true,
+        "exists": true,
+        "vies_available": true,
+        "vies_response": {
+          "country_code": "FR",
+          "vat_number": "40303265045",
+          "request_date": "2024-01-15",
+          "valid": true,
+          "name": "ACME SAS",
+          "address": "123 RUE EXAMPLE"
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

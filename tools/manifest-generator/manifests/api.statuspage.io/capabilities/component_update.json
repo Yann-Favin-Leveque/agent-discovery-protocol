@@ -1,0 +1,62 @@
+{
+  "name": "component_update",
+  "description": "Update the operational status of a specific component on a status page. Valid statuses include operational, degraded_performance, partial_outage, major_outage, and under_maintenance.",
+  "resource_group": "components",
+  "endpoint": "/v1/pages/{page_id}/components/{component_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the status page."
+    },
+    {
+      "name": "component_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the component to update."
+    },
+    {
+      "name": "component[status]",
+      "type": "string",
+      "required": false,
+      "description": "New status for the component: operational, degraded_performance, partial_outage, major_outage, under_maintenance."
+    },
+    {
+      "name": "component[name]",
+      "type": "string",
+      "required": false,
+      "description": "Updated display name for the component."
+    },
+    {
+      "name": "component[description]",
+      "type": "string",
+      "required": false,
+      "description": "Updated description for the component."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.statuspage.io/v1/pages/pg1a2b3c4d5e6/components/cmp1a2b3c4d5e6",
+    "headers": {
+      "Authorization": "OAuth your-api-key-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "component": {
+        "status": "degraded_performance"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cmp1a2b3c4d5e6",
+      "page_id": "pg1a2b3c4d5e6",
+      "name": "API Gateway",
+      "status": "degraded_performance",
+      "updated_at": "2026-03-01T12:00:00Z"
+    }
+  }
+}

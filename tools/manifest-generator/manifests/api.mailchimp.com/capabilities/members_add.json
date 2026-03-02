@@ -1,0 +1,77 @@
+{
+  "name": "members_add",
+  "description": "Add a new subscriber to an audience.",
+  "endpoint": "/3.0/lists/{list_id}/members",
+  "method": "POST",
+  "resource_group": "members",
+  "parameters": [
+    {
+      "name": "list_id",
+      "type": "string",
+      "description": "Audience ID.",
+      "required": true,
+      "example": "abc123"
+    },
+    {
+      "name": "email_address",
+      "type": "string",
+      "description": "Subscriber email.",
+      "required": true,
+      "example": "new@example.com"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Status: subscribed, pending, unsubscribed.",
+      "required": true,
+      "example": "subscribed"
+    },
+    {
+      "name": "merge_fields",
+      "type": "object",
+      "description": "Merge field values (FNAME, LNAME, etc).",
+      "required": false,
+      "example": {
+        "FNAME": "Jane",
+        "LNAME": "Smith"
+      }
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Tags to assign.",
+      "required": false,
+      "example": [
+        "vip",
+        "newsletter"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://us1.api.mailchimp.com/3.0/lists/abc123/members",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email_address": "new@example.com",
+      "status": "subscribed",
+      "merge_fields": {
+        "FNAME": "Jane"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "hash456",
+      "email_address": "new@example.com",
+      "status": "subscribed"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

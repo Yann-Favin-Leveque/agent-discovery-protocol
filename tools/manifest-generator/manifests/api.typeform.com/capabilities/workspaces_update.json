@@ -1,0 +1,45 @@
+{
+  "name": "workspaces_update",
+  "resource_group": "workspaces",
+  "description": "Update a workspace.",
+  "endpoint": "/workspaces/{workspace_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "workspace_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Workspace ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "New name."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.typeform.com/workspaces/ws-123",
+    "headers": {
+      "Authorization": "Bearer {personal_token}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "op": "replace",
+        "path": "/name",
+        "value": "Renamed"
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ws-123",
+      "name": "Renamed"
+    }
+  }
+}

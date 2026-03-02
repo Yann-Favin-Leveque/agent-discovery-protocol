@@ -1,0 +1,87 @@
+{
+  "name": "conversations_create",
+  "description": "Create a new conversation in a mailbox with an initial thread.",
+  "endpoint": "/v2/conversations",
+  "method": "POST",
+  "resource_group": "conversations",
+  "parameters": [
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Conversation subject.",
+      "required": true,
+      "example": "New support request"
+    },
+    {
+      "name": "customer",
+      "type": "object",
+      "description": "Customer info with email.",
+      "required": true,
+      "example": {
+        "email": "customer@example.com"
+      }
+    },
+    {
+      "name": "mailboxId",
+      "type": "integer",
+      "description": "Target mailbox ID.",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Type: email, phone, chat.",
+      "required": true,
+      "example": "email"
+    },
+    {
+      "name": "threads",
+      "type": "array",
+      "description": "Initial thread(s).",
+      "required": true,
+      "example": [
+        {
+          "type": "customer",
+          "text": "I need help with my account.",
+          "customer": {
+            "email": "customer@example.com"
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.helpscout.net/v2/conversations",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subject": "New support request",
+      "customer": {
+        "email": "customer@example.com"
+      },
+      "mailboxId": 12345,
+      "type": "email",
+      "threads": [
+        {
+          "type": "customer",
+          "text": "I need help.",
+          "customer": {
+            "email": "customer@example.com"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

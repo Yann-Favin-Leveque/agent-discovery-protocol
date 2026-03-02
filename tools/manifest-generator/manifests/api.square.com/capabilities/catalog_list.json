@@ -1,0 +1,60 @@
+{
+  "name": "catalog_list",
+  "description": "List catalog objects (items, variations, categories, taxes, discounts).",
+  "endpoint": "/v2/catalog/list",
+  "method": "GET",
+  "resource_group": "catalog",
+  "parameters": [
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Comma-separated object types to return",
+      "required": false,
+      "example": "ITEM,CATEGORY"
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://connect.squareup.com/v2/catalog/list?types=ITEM,CATEGORY",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "objects": [
+        {
+          "type": "ITEM",
+          "id": "item_123",
+          "item_data": {
+            "name": "Coffee",
+            "variations": []
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

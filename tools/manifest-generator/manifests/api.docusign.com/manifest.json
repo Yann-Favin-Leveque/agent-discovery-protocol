@@ -1,71 +1,124 @@
 {
   "spec_version": "1.0",
-  "name": "Docusign eSignature REST API",
-  "description": "The Docusign eSignature REST API provides you with a powerful, convenient, and simple Web services API for interacting with Docusign.",
+  "name": "DocuSign eSignature",
+  "description": "DocuSign eSignature is an electronic signature platform for sending, signing, and managing documents and agreements. The REST API provides programmatic access to create and send envelopes (signature requests), manage recipients, work with templates, track envelope status, download signed documents, and manage account settings.",
   "base_url": "https://www.docusign.net/restapi",
   "auth": {
-    "type": "none"
+    "type": "oauth2",
+    "header": "Authorization",
+    "prefix": "Bearer",
+    "setup_url": "https://developers.docusign.com/",
+    "authorization_url": "https://account.docusign.com/oauth/auth",
+    "token_url": "https://account.docusign.com/oauth/token"
   },
   "capabilities": [
     {
-      "name": "services",
-      "description": "Manage services — retrieves the available rest api versions. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/services"
+      "name": "envelope_create",
+      "description": "Create and optionally send an envelope (signature request) with documents and recipients.",
+      "resource_group": "envelope",
+      "detail_url": "/capabilities/envelope_create"
     },
     {
-      "name": "resources",
-      "description": "Manage resources — lists resources for rest version specified. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/resources"
+      "name": "envelope_get",
+      "description": "Retrieve the status and details of a specific envelope.",
+      "resource_group": "envelope",
+      "detail_url": "/capabilities/envelope_get"
     },
     {
-      "name": "accounts",
-      "description": "Manage accounts — creates new accounts, updates the account settings for an account, sets the envelope purge configuration for an account. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/accounts"
+      "name": "envelope_list",
+      "description": "List envelopes with filtering by status, date range, and search criteria.",
+      "resource_group": "envelope",
+      "detail_url": "/capabilities/envelope_list"
     },
     {
-      "name": "invoices",
-      "description": "Manage invoices — get a list of billing invoices, get a list of past due invoices, retrieves a billing invoice. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/invoices"
+      "name": "envelope_update",
+      "description": "Update an envelope's status (e.g., send a draft, void a sent envelope).",
+      "resource_group": "envelope",
+      "detail_url": "/capabilities/envelope_update"
     },
     {
-      "name": "payments",
-      "description": "Manage payments — posts a payment to a past due invoice, gets payment information for one or more payments, gets billing payment information for a specific payment. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/payments"
+      "name": "envelope_documents_get",
+      "description": "Download the documents from an envelope as PDF.",
+      "resource_group": "envelope",
+      "detail_url": "/capabilities/envelope_documents_get"
     },
     {
-      "name": "billing_plans",
-      "description": "Manage billing plans — updates an account billing plan, queues downgrade billing plan request for an account, reserved: purchase additional envelopes. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/billing_plans"
+      "name": "envelope_documents_list",
+      "description": "List all documents within an envelope.",
+      "resource_group": "envelope",
+      "detail_url": "/capabilities/envelope_documents_list"
     },
     {
-      "name": "account_brands",
-      "description": "Manage account brands — creates one or more brand profiles for an account, updates an existing brand, updates a brand logo. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/account_brands"
+      "name": "envelope_recipients_get",
+      "description": "Retrieve the recipients and their signing status for an envelope.",
+      "resource_group": "envelope",
+      "detail_url": "/capabilities/envelope_recipients_get"
     },
     {
-      "name": "bulk_send",
-      "description": "Manage bulk send — creates a bulk send list, creates a bulk send request, creates a bulk send test. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/bulk_send"
+      "name": "envelope_recipients_update",
+      "description": "Update recipients on an envelope (add, modify, or delete).",
+      "resource_group": "envelope",
+      "detail_url": "/capabilities/envelope_recipients_update"
     },
     {
-      "name": "chunked_uploads",
-      "description": "Manage chunked uploads — initiate a new chunked upload, commit a chunked upload, add a chunk to an existing chunked upload. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/chunked_uploads"
+      "name": "envelope_audit_events_get",
+      "description": "Retrieve the audit trail of events for an envelope.",
+      "resource_group": "envelope",
+      "detail_url": "/capabilities/envelope_audit_events_get"
     },
     {
-      "name": "connect_configurations",
-      "description": "Manage connect configurations — creates a connect configuration, set up connect oauth for the specified account, updates a specified connect configuration. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/connect_configurations"
+      "name": "template_list",
+      "description": "List available templates in the account.",
+      "resource_group": "template",
+      "detail_url": "/capabilities/template_list"
     },
     {
-      "name": "connect_events",
-      "description": "Manage connect events — republishes connect information for multiple envelopes, republishes connect information for the specified envelope, gets the connect failure log information. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/connect_events"
+      "name": "template_get",
+      "description": "Retrieve details of a specific template.",
+      "resource_group": "template",
+      "detail_url": "/capabilities/template_get"
     },
     {
-      "name": "envelope_publish",
-      "description": "Manage envelope publish — submits a batch of historical envelopes for republish to a webhook. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/envelope_publish"
+      "name": "template_create",
+      "description": "Create a new reusable template.",
+      "resource_group": "template",
+      "detail_url": "/capabilities/template_create"
+    },
+    {
+      "name": "envelope_create_from_template",
+      "description": "Create and send an envelope using a pre-defined template.",
+      "resource_group": "template",
+      "detail_url": "/capabilities/envelope_create_from_template"
+    },
+    {
+      "name": "account_get",
+      "description": "Retrieve account information and settings.",
+      "resource_group": "account",
+      "detail_url": "/capabilities/account_get"
+    },
+    {
+      "name": "user_list",
+      "description": "List users in the account.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/user_list"
+    },
+    {
+      "name": "user_get",
+      "description": "Retrieve a specific user's profile.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/user_get"
+    },
+    {
+      "name": "folder_list",
+      "description": "List folders in the account.",
+      "resource_group": "folder",
+      "detail_url": "/capabilities/folder_list"
+    },
+    {
+      "name": "folder_items_get",
+      "description": "List envelopes in a specific folder.",
+      "resource_group": "folder",
+      "detail_url": "/capabilities/folder_items_get"
     }
   ]
 }

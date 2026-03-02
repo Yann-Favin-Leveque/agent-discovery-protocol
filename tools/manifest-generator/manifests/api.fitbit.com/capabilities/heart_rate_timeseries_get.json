@@ -1,0 +1,36 @@
+{
+  "name": "heart_rate_timeseries_get",
+  "description": "Retrieve heart rate time series data including resting heart rate and heart rate zones (Out of Range, Fat Burn, Cardio, Peak) for a date or date range.",
+  "resource_group": "heart_rate",
+  "endpoint": "/1/user/-/activities/heart/date/{date}/{period}.json",
+  "method": "GET",
+  "parameters": [
+    { "name": "date", "type": "string", "required": true, "description": "The end date in YYYY-MM-DD format or 'today'.", "in": "path" },
+    { "name": "period", "type": "string", "required": true, "description": "The range: '1d', '7d', '30d', '1w', '1m', or a second date in YYYY-MM-DD format.", "in": "path" }
+  ],
+  "auth_scopes": ["heartrate"],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/activities/heart/date/2025-01-15/1d.json",
+    "headers": { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9..." }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "activities-heart": [
+        {
+          "dateTime": "2025-01-15",
+          "value": {
+            "restingHeartRate": 62,
+            "heartRateZones": [
+              { "name": "Out of Range", "min": 30, "max": 94, "minutes": 1200, "caloriesOut": 1450 },
+              { "name": "Fat Burn", "min": 94, "max": 132, "minutes": 35, "caloriesOut": 280 },
+              { "name": "Cardio", "min": 132, "max": 160, "minutes": 15, "caloriesOut": 185 },
+              { "name": "Peak", "min": 160, "max": 220, "minutes": 5, "caloriesOut": 72 }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

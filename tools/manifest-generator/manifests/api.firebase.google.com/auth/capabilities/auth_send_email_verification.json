@@ -1,0 +1,38 @@
+{
+  "name": "auth_send_email_verification",
+  "resource_group": "email_verification",
+  "description": "Send an email verification link to the current user.",
+  "endpoint": "/v1/accounts:sendOobCode",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "requestType",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'VERIFY_EMAIL'."
+    },
+    {
+      "name": "idToken",
+      "type": "string",
+      "required": true,
+      "description": "Firebase ID token."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyXXXXXX",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requestType": "VERIFY_EMAIL",
+      "idToken": "eyJhbGciOi..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "email": "alice@example.com"
+    }
+  }
+}

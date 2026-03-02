@@ -1,0 +1,76 @@
+{
+  "name": "pickups_create",
+  "description": "Schedule a carrier pickup.",
+  "endpoint": "/pickups",
+  "method": "POST",
+  "resource_group": "pickups",
+  "parameters": [
+    {
+      "name": "carrier_account",
+      "type": "string",
+      "description": "Carrier account ID.",
+      "required": true
+    },
+    {
+      "name": "location",
+      "type": "object",
+      "description": "Pickup address.",
+      "required": true
+    },
+    {
+      "name": "transactions",
+      "type": "array",
+      "description": "Transaction IDs for pickup.",
+      "required": true
+    },
+    {
+      "name": "requested_start_time",
+      "type": "string",
+      "description": "Pickup start time (ISO 8601).",
+      "required": true
+    },
+    {
+      "name": "requested_end_time",
+      "type": "string",
+      "description": "Pickup end time (ISO 8601).",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/pickups",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "carrier_account": "carrier_abc123",
+      "location": {
+        "address": {
+          "street1": "388 Townsend St",
+          "city": "San Francisco",
+          "state": "CA",
+          "zip": "94107",
+          "country": "US"
+        }
+      },
+      "transactions": [
+        "txn_abc123"
+      ],
+      "requested_start_time": "2024-01-16T08:00:00Z",
+      "requested_end_time": "2024-01-16T18:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "object_id": "pickup_abc123",
+      "status": "CONFIRMED",
+      "confirmation_code": "WTC123456"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

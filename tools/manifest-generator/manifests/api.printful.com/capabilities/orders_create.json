@@ -1,0 +1,69 @@
+{
+  "name": "orders_create",
+  "description": "Create a new print-on-demand order with recipient details and product variants.",
+  "resource_group": "orders",
+  "endpoint": "/orders",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "recipient",
+      "type": "object",
+      "required": true,
+      "description": "Recipient with name, address1, city, state_code, country_code, zip."
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "required": true,
+      "description": "Array of items with variant_id, quantity, and files."
+    },
+    {
+      "name": "retail_costs",
+      "type": "object",
+      "required": false,
+      "description": "Retail costs for customer invoice."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.printful.com/orders",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipient": {
+        "name": "John Doe",
+        "address1": "123 Main St",
+        "city": "Portland",
+        "state_code": "OR",
+        "country_code": "US",
+        "zip": "97201"
+      },
+      "items": [
+        {
+          "variant_id": 4011,
+          "quantity": 1,
+          "files": [
+            {
+              "url": "https://example.com/design.png"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "result": {
+        "id": 1235,
+        "status": "draft",
+        "recipient": {
+          "name": "John Doe"
+        }
+      }
+    }
+  }
+}

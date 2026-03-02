@@ -1,0 +1,33 @@
+{
+  "name": "email_validate",
+  "description": "Validate an email address for deliverability, syntax, and disposable status.",
+  "resource_group": "validation",
+  "endpoint": "/v4/address/validate",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "address",
+      "type": "string",
+      "description": "Email address to validate.",
+      "required": true,
+      "example": "user@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailgun.com/v4/address/validate?address=user@example.com",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "address": "user@example.com",
+      "is_disposable_address": false,
+      "is_role_address": false,
+      "result": "deliverable",
+      "risk": "low"
+    }
+  }
+}

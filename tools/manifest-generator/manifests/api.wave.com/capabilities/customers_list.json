@@ -1,0 +1,58 @@
+{
+  "name": "customers_list",
+  "description": "List all customers for a specific business.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": "1"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "query ($businessId: ID!, $page: Int) { business(id: $businessId) { customers(page: $page) { edges { node { id name email } } } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "business": {
+          "customers": {
+            "edges": [
+              {
+                "node": {
+                  "id": "Q3VzdG9tZXI6...",
+                  "name": "Jane Smith",
+                  "email": "jane@example.com"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

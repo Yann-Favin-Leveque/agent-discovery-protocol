@@ -1,0 +1,65 @@
+{
+  "name": "tags_list",
+  "description": "List tags for a repository.",
+  "resource_group": "tags",
+  "endpoint": "/repositories/{namespace}/{repository}/tags/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "namespace",
+      "type": "string",
+      "required": true,
+      "description": "Namespace."
+    },
+    {
+      "name": "repository",
+      "type": "string",
+      "required": true,
+      "description": "Repository."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "description": "Page size."
+    },
+    {
+      "name": "ordering",
+      "type": "string",
+      "required": false,
+      "description": "Sort: last_updated, name."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://hub.docker.com/v2/repositories/my-org/my-app/tags/?page_size=10"
+  },
+  "response_example": {
+    "count": 15,
+    "results": [
+      {
+        "name": "latest",
+        "full_size": 50000000,
+        "last_updated": "2026-01-20T14:00:00Z",
+        "images": [
+          {
+            "architecture": "amd64",
+            "os": "linux",
+            "size": 50000000
+          }
+        ]
+      },
+      {
+        "name": "v1.0.0",
+        "full_size": 48000000,
+        "last_updated": "2026-01-15T10:00:00Z"
+      }
+    ]
+  }
+}

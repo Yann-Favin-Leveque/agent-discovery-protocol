@@ -1,0 +1,53 @@
+{
+  "name": "content_types_get",
+  "description": "Retrieve a single content type definition by its ID. Returns field definitions, validations, and display settings.",
+  "endpoint": "/spaces/{space_id}/environments/{environment_id}/content_types/{content_type_id}",
+  "method": "GET",
+  "resource_group": "content_types",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "string",
+      "description": "The space ID.",
+      "required": true,
+      "example": "cfexampleapi"
+    },
+    {
+      "name": "environment_id",
+      "type": "string",
+      "description": "The environment ID.",
+      "required": true,
+      "example": "master"
+    },
+    {
+      "name": "content_type_id",
+      "type": "string",
+      "description": "The content type ID.",
+      "required": true,
+      "example": "blogPost"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/content_types/blogPost",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sys": {"id": "blogPost", "type": "ContentType"},
+      "name": "Blog Post",
+      "displayField": "title",
+      "fields": [
+        {"id": "title", "name": "Title", "type": "Symbol", "required": true},
+        {"id": "body", "name": "Body", "type": "Text", "required": true}
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 78
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "groups_create",
+  "resource_group": "groups",
+  "description": "Create a new group.",
+  "endpoint": "/v1/organizations/{organizationSlug}/groups",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Group name."
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Primary location."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.turso.tech/v1/organizations/my-org/groups",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "my-group",
+      "location": "us-east-1"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "group": {
+        "name": "my-group",
+        "primary": "us-east-1"
+      }
+    }
+  }
+}

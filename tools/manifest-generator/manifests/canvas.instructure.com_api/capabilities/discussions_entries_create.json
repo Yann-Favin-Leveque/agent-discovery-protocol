@@ -1,0 +1,48 @@
+{
+  "name": "discussions_entries_create",
+  "description": "Post an entry to a discussion.",
+  "resource_group": "discussions",
+  "endpoint": "/api/v1/courses/{course_id}/discussion_topics/{topic_id}/entries",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "topic_id",
+      "type": "integer",
+      "description": "Topic ID.",
+      "required": true,
+      "example": 8001
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "Entry text.",
+      "required": true,
+      "example": "Great topic!"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/discussion_topics/8001/entries",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "message": "Great topic!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 9002,
+      "message": "Great topic!"
+    }
+  }
+}

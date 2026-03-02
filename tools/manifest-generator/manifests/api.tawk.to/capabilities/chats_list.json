@@ -1,0 +1,69 @@
+{
+  "name": "chats_list",
+  "description": "Retrieve a paginated list of chat conversations for a property with optional date and status filters.",
+  "endpoint": "/v1/property/{propertyId}/chat",
+  "method": "GET",
+  "resource_group": "chats",
+  "parameters": [
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The property ID to list chats for",
+      "required": true,
+      "example": "property_id_123"
+    },
+    {
+      "name": "startDate",
+      "type": "string",
+      "description": "Filter chats starting from this date (ISO 8601)",
+      "required": false,
+      "example": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "endDate",
+      "type": "string",
+      "description": "Filter chats up to this date (ISO 8601)",
+      "required": false,
+      "example": "2024-12-31T23:59:59Z"
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "description": "Number of results per page",
+      "required": false,
+      "example": "20"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by chat status (open, closed)",
+      "required": false,
+      "example": "closed"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tawk.to/v1/property/property_id_123/chat?size=20",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "chat_123",
+          "status": "closed",
+          "visitorName": "John",
+          "startTime": "2024-01-15T10:30:00Z"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

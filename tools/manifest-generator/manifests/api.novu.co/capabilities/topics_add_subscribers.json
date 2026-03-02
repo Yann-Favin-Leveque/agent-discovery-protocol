@@ -1,0 +1,46 @@
+{
+  "name": "topics_add_subscribers",
+  "description": "Add subscribers to a topic.",
+  "resource_group": "topics",
+  "endpoint": "/v1/topics/{topicKey}/subscribers",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "topicKey",
+      "type": "string",
+      "required": true,
+      "description": "Topic key."
+    },
+    {
+      "name": "subscribers",
+      "type": "array",
+      "required": true,
+      "description": "Array of subscriber IDs to add."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.novu.co/v1/topics/product-updates/subscribers",
+    "headers": {
+      "Authorization": "ApiKey <key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subscribers": [
+        "user1",
+        "user2"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "succeeded": [
+          "user1",
+          "user2"
+        ]
+      }
+    }
+  }
+}

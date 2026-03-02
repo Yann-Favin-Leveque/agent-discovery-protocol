@@ -1,0 +1,24 @@
+{
+  "name": "recipients_update",
+  "description": "Edit an existing payment recipient's information.",
+  "endpoint": "/api/v1/recipient/{recipientId}",
+  "method": "POST",
+  "resource_group": "recipients",
+  "parameters": [
+    { "name": "recipientId", "type": "string", "description": "The recipient ID to update", "required": true, "example": "rcp_456def" },
+    { "name": "name", "type": "string", "description": "Updated recipient name", "required": false, "example": "Acme Corporation" },
+    { "name": "emails", "type": "array", "description": "Updated email addresses", "required": false, "example": ["finance@acme.com"] }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mercury.com/api/v1/recipient/rcp_456def",
+    "headers": { "Authorization": "Bearer {token}", "Content-Type": "application/json" },
+    "body": { "name": "Acme Corporation", "emails": ["finance@acme.com"] }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "id": "rcp_456def", "name": "Acme Corporation" }
+  },
+  "auth_scopes": [],
+  "rate_limits": { "requests_per_minute": 30 }
+}

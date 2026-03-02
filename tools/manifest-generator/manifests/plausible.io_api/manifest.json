@@ -1,19 +1,92 @@
 {
   "spec_version": "1.0",
   "name": "Plausible Analytics",
-  "description": "Plausible is a lightweight, privacy-friendly web analytics platform. Query visitor stats, pageviews, traffic sources, and goal conversions without cookies or personal data tracking.",
-  "base_url": "https://plausible.io/api/v1",
+  "description": "Plausible is a lightweight, privacy-friendly web analytics platform. Query visitor stats, pageviews, traffic sources, and goal conversions without cookies. Manage sites, goals, and shared links through the API.",
+  "base_url": "https://plausible.io/api",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://plausible.io/settings"
   },
   "capabilities": [
-    {"name": "get_realtime_visitors", "description": "Get the current number of visitors on a site in real-time.", "detail_url": "/capabilities/get_realtime_visitors"},
-    {"name": "get_aggregate_stats", "description": "Get aggregate statistics (visitors, pageviews, bounce rate) for a time period.", "detail_url": "/capabilities/get_aggregate_stats"},
-    {"name": "get_timeseries", "description": "Get time-series data for metrics over a date range.", "detail_url": "/capabilities/get_timeseries"},
-    {"name": "get_breakdown", "description": "Break down metrics by a property like page, source, country, or device.", "detail_url": "/capabilities/get_breakdown"},
-    {"name": "send_event", "description": "Send a custom pageview or event to Plausible.", "detail_url": "/capabilities/send_event"},
-    {"name": "manage_sites", "description": "Create, update, or delete sites from your Plausible account.", "detail_url": "/capabilities/manage_sites"}
+    {
+      "name": "stats_query",
+      "description": "Query analytics data with metrics, dimensions, filters, and date ranges using the Stats API v2.",
+      "resource_group": "stats",
+      "detail_url": "/capabilities/stats_query"
+    },
+    {
+      "name": "realtime_visitors_get",
+      "description": "Get the current number of visitors on a site in real-time.",
+      "resource_group": "stats",
+      "detail_url": "/capabilities/realtime_visitors_get"
+    },
+    {
+      "name": "events_send",
+      "description": "Send a pageview or custom event to Plausible for tracking.",
+      "resource_group": "events",
+      "detail_url": "/capabilities/events_send"
+    },
+    {
+      "name": "sites_list",
+      "description": "List all sites in the account with pagination.",
+      "resource_group": "sites",
+      "detail_url": "/capabilities/sites_list"
+    },
+    {
+      "name": "sites_get",
+      "description": "Retrieve details and configuration for a specific site.",
+      "resource_group": "sites",
+      "detail_url": "/capabilities/sites_get"
+    },
+    {
+      "name": "sites_create",
+      "description": "Create a new site in the Plausible account.",
+      "resource_group": "sites",
+      "detail_url": "/capabilities/sites_create"
+    },
+    {
+      "name": "sites_update",
+      "description": "Update a site domain name and tracker configuration.",
+      "resource_group": "sites",
+      "detail_url": "/capabilities/sites_update"
+    },
+    {
+      "name": "sites_delete",
+      "description": "Delete a site and all its associated analytics data.",
+      "resource_group": "sites",
+      "detail_url": "/capabilities/sites_delete"
+    },
+    {
+      "name": "goals_list",
+      "description": "List all goals configured for a site.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_list"
+    },
+    {
+      "name": "goals_create",
+      "description": "Find or create a goal for a site.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_create"
+    },
+    {
+      "name": "goals_delete",
+      "description": "Delete a goal by ID.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_delete"
+    },
+    {
+      "name": "shared_links_create",
+      "description": "Find or create a shared dashboard link.",
+      "resource_group": "sites",
+      "detail_url": "/capabilities/shared_links_create"
+    },
+    {
+      "name": "teams_list",
+      "description": "List accessible teams and their API availability status.",
+      "resource_group": "sites",
+      "detail_url": "/capabilities/teams_list"
+    }
   ]
 }

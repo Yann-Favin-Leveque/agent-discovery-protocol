@@ -1,0 +1,23 @@
+{
+  "name": "fills_list",
+  "description": "List recent fills (executed trades) with filtering by order ID or product.",
+  "endpoint": "/fills",
+  "method": "GET",
+  "resource_group": "fills",
+  "parameters": [
+    {"name": "order_id", "type": "string", "description": "Filter by order ID.", "required": false, "example": "d0c5340b-6d6c-49d9-b567-48c4bfca13d2"},
+    {"name": "product_id", "type": "string", "description": "Filter by product.", "required": false, "example": "BTC-USD"},
+    {"name": "limit", "type": "integer", "description": "Number of results.", "required": false, "example": 100}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.exchange.coinbase.com/fills?product_id=BTC-USD&limit=100",
+    "headers": {"CB-ACCESS-KEY": "{api_key}", "CB-ACCESS-SIGN": "{signature}", "CB-ACCESS-TIMESTAMP": "{timestamp}", "CB-ACCESS-PASSPHRASE": "{passphrase}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{"trade_id": 74, "product_id": "BTC-USD", "order_id": "d0c5340b-6d6c-49d9-b567-48c4bfca13d2", "price": "50000.00", "size": "0.01", "fee": "0.15", "side": "buy", "created_at": "2024-06-15T10:00:00.000Z", "liquidity": "T"}]
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 600}
+}

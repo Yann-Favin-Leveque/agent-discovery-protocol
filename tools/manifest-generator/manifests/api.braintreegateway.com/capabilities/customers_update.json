@@ -1,0 +1,24 @@
+{
+  "name": "customers_update",
+  "description": "Update a customer's information in the Braintree vault.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {"name": "customerId", "type": "string", "description": "ID of the customer to update.", "required": true, "example": "Y3VzdG9tZXJfMTIz"},
+    {"name": "firstName", "type": "string", "description": "Updated first name.", "required": false, "example": "Jonathan"},
+    {"name": "email", "type": "string", "description": "Updated email.", "required": false, "example": "jonathan@example.com"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://payments.braintree-api.com/graphql",
+    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
+    "body": {"query": "mutation UpdateCustomer($input: UpdateCustomerInput!) { updateCustomer(input: $input) { customer { id firstName email } } }", "variables": {"input": {"customerId": "Y3VzdG9tZXJfMTIz", "customer": {"firstName": "Jonathan"}}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"updateCustomer": {"customer": {"id": "Y3VzdG9tZXJfMTIz", "firstName": "Jonathan", "email": "john@example.com"}}}}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 300}
+}

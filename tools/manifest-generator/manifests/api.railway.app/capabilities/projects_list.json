@@ -1,0 +1,36 @@
+{
+  "name": "projects_list",
+  "description": "List all projects with pagination.",
+  "resource_group": "projects",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "first",
+      "type": "integer",
+      "required": false,
+      "description": "Number to return."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "query { projects(first: 10) { edges { node { id name description updatedAt } } pageInfo { hasNextPage endCursor } } }"
+    }
+  },
+  "response_example": {
+    "data": {
+      "projects": {
+        "edges": [
+          {
+            "node": {
+              "id": "proj-abc",
+              "name": "my-app"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

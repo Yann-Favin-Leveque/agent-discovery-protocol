@@ -1,0 +1,67 @@
+{
+  "name": "campaigns_create",
+  "description": "Create a new email campaign.",
+  "endpoint": "/3.0/campaigns",
+  "method": "POST",
+  "resource_group": "campaigns",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Campaign type: regular, plaintext, absplit, rss.",
+      "required": true,
+      "example": "regular"
+    },
+    {
+      "name": "recipients",
+      "type": "object",
+      "description": "Audience targeting.",
+      "required": true,
+      "example": {
+        "list_id": "abc123"
+      }
+    },
+    {
+      "name": "settings",
+      "type": "object",
+      "description": "Campaign settings.",
+      "required": true,
+      "example": {
+        "subject_line": "March Newsletter",
+        "from_name": "Acme",
+        "reply_to": "news@example.com"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://us1.api.mailchimp.com/3.0/campaigns",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "regular",
+      "recipients": {
+        "list_id": "abc123"
+      },
+      "settings": {
+        "subject_line": "March Newsletter",
+        "from_name": "Acme",
+        "reply_to": "news@example.com"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "camp123",
+      "type": "regular",
+      "status": "save"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

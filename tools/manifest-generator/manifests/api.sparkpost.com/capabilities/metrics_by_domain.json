@@ -1,0 +1,55 @@
+{
+  "name": "metrics_by_domain",
+  "description": "Get deliverability metrics grouped by recipient domain.",
+  "endpoint": "/api/v1/metrics/deliverability/domain",
+  "method": "GET",
+  "resource_group": "metrics",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start datetime",
+      "required": true,
+      "example": "2026-03-01T00:00"
+    },
+    {
+      "name": "metrics",
+      "type": "string",
+      "description": "Metrics to return",
+      "required": true,
+      "example": "count_delivered,count_bounced"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (1-10000)",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/metrics/deliverability/domain?from=2026-03-01T00:00&metrics=count_delivered,count_bounced&limit=10",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "domain": "gmail.com",
+          "count_delivered": 800,
+          "count_bounced": 5
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

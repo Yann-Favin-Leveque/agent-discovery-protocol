@@ -1,0 +1,88 @@
+{
+  "name": "products_list",
+  "description": "Retrieve a paginated list of products from the BigCommerce store.",
+  "resource_group": "products",
+  "endpoint": "/catalog/products",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Filter by product name."
+    },
+    {
+      "name": "sku",
+      "type": "string",
+      "required": false,
+      "description": "Filter by SKU."
+    },
+    {
+      "name": "price",
+      "type": "number",
+      "required": false,
+      "description": "Filter by exact price."
+    },
+    {
+      "name": "category",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by category ID."
+    },
+    {
+      "name": "brand_id",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by brand ID."
+    },
+    {
+      "name": "availability",
+      "type": "string",
+      "required": false,
+      "description": "Filter: available, disabled, preorder."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Items per page (max 250)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bigcommerce.com/stores/{store_hash}/v3/catalog/products?limit=10",
+    "headers": {
+      "X-Auth-Token": "{api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 77,
+          "name": "Fog Linen Chambray Towel",
+          "type": "physical",
+          "price": 49.0,
+          "categories": [
+            18
+          ]
+        }
+      ],
+      "meta": {
+        "pagination": {
+          "total": 1,
+          "count": 1,
+          "per_page": 50,
+          "current_page": 1
+        }
+      }
+    }
+  }
+}

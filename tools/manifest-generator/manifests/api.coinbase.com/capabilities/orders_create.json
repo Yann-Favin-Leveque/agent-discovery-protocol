@@ -1,0 +1,31 @@
+{
+  "name": "orders_create",
+  "description": "Place a new order (limit, market, or stop) on a trading pair.",
+  "endpoint": "/orders",
+  "method": "POST",
+  "resource_group": "orders",
+  "parameters": [
+    {"name": "product_id", "type": "string", "description": "Trading pair (e.g., BTC-USD).", "required": true, "example": "BTC-USD"},
+    {"name": "side", "type": "string", "description": "Order side: buy or sell.", "required": true, "example": "buy"},
+    {"name": "type", "type": "string", "description": "Order type: limit, market, or stop.", "required": false, "example": "limit"},
+    {"name": "size", "type": "string", "description": "Amount of base currency to buy/sell.", "required": false, "example": "0.01"},
+    {"name": "price", "type": "string", "description": "Price per unit (required for limit orders).", "required": false, "example": "50000.00"},
+    {"name": "funds", "type": "string", "description": "Amount of quote currency to spend (market orders).", "required": false, "example": "1000.00"},
+    {"name": "time_in_force", "type": "string", "description": "GTC, GTT, IOC, or FOK.", "required": false, "example": "GTC"},
+    {"name": "stop", "type": "string", "description": "Stop order trigger: loss or entry.", "required": false, "example": "loss"},
+    {"name": "stop_price", "type": "string", "description": "Price at which stop order triggers.", "required": false, "example": "45000.00"},
+    {"name": "client_oid", "type": "string", "description": "Your custom order ID for idempotency.", "required": false, "example": "my-order-001"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.exchange.coinbase.com/orders",
+    "headers": {"CB-ACCESS-KEY": "{api_key}", "CB-ACCESS-SIGN": "{signature}", "CB-ACCESS-TIMESTAMP": "{timestamp}", "CB-ACCESS-PASSPHRASE": "{passphrase}", "Content-Type": "application/json"},
+    "body": {"product_id": "BTC-USD", "side": "buy", "type": "limit", "size": "0.01", "price": "50000.00", "time_in_force": "GTC"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": "d0c5340b-6d6c-49d9-b567-48c4bfca13d2", "product_id": "BTC-USD", "side": "buy", "type": "limit", "size": "0.01", "price": "50000.00", "status": "pending", "created_at": "2024-06-15T10:00:00.000Z"}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 600}
+}

@@ -1,0 +1,76 @@
+{
+  "name": "weather_forecast_get",
+  "description": "Get weather forecast with minutely (next hour), hourly (next 120 hours), and daily (next 15 days) timesteps. Choose which timesteps to include.",
+  "resource_group": "weather",
+  "endpoint": "/v4/weather/forecast",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "description": "Location as lat,lon, city name, or US zip code.",
+      "in": "query"
+    },
+    {
+      "name": "apikey",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "timesteps",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated timesteps: '1m', '1h', '1d'. Default includes all available.",
+      "in": "query"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Unit system: 'metric' or 'imperial'.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tomorrow.io/v4/weather/forecast?location=48.8566,2.3522&timesteps=1h,1d&apikey=YOUR_API_KEY&units=metric"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "timelines": {
+        "hourly": [
+          {
+            "time": "2025-01-15T15:00:00Z",
+            "values": {
+              "temperature": 18.2,
+              "humidity": 56,
+              "precipitationProbability": 10,
+              "windSpeed": 4.1,
+              "weatherCode": 1100
+            }
+          }
+        ],
+        "daily": [
+          {
+            "time": "2025-01-15T06:00:00Z",
+            "values": {
+              "temperatureMax": 20.3,
+              "temperatureMin": 12.1,
+              "precipitationProbabilityAvg": 15,
+              "weatherCodeMax": 1100
+            }
+          }
+        ]
+      },
+      "location": {
+        "lat": 48.8566,
+        "lon": 2.3522
+      }
+    }
+  }
+}

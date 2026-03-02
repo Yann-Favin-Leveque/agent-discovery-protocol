@@ -1,0 +1,31 @@
+{
+  "name": "embed_create",
+  "description": "Generate vector embeddings for text or image inputs, useful for semantic search, clustering, classification, and RAG pipelines.",
+  "resource_group": "embed",
+  "endpoint": "/v2/embed",
+  "method": "POST",
+  "parameters": [
+    {"name": "model", "type": "string", "required": true, "description": "Embedding model ID (e.g. 'embed-v4.0', 'embed-english-v3.0')."},
+    {"name": "input_type", "type": "string", "required": true, "description": "Type of input: search_document, search_query, classification, clustering, or image."},
+    {"name": "texts", "type": "array", "required": false, "description": "Array of text strings to embed (max 96 per call)."},
+    {"name": "images", "type": "array", "required": false, "description": "Array of data URI images to embed (max 1 per call, 5MB max)."},
+    {"name": "embedding_types", "type": "array", "required": false, "description": "Types requested: float, int8, uint8, binary, ubinary, base64."},
+    {"name": "truncate", "type": "string", "required": false, "description": "Truncation mode: NONE, START, or END (default END)."},
+    {"name": "output_dimension", "type": "integer", "required": false, "description": "Output dimensions: 256, 512, 1024, 1536 (embed-v4+ only)."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cohere.com/v2/embed",
+    "headers": {"Authorization": "Bearer co-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "body": {"model": "embed-v4.0", "input_type": "search_query", "texts": ["What is machine learning?"]}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "emb123",
+      "embeddings": {"float": [[0.0023, -0.0093, 0.0158]]},
+      "texts": ["What is machine learning?"],
+      "meta": {"api_version": {"version": "2"}, "billed_units": {"input_tokens": 5}}
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "settings_filters_create",
+  "description": "Creates a message filter.",
+  "resource_group": "settings",
+  "endpoint": "/gmail/v1/users/{userId}/settings/filters",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "criteria",
+      "type": "object",
+      "description": "Matching criteria (from, to, subject, query).",
+      "required": true,
+      "example": {
+        "from": "user@example.com"
+      }
+    },
+    {
+      "name": "action",
+      "type": "object",
+      "description": "Action to perform (addLabelIds, removeLabelIds, forward).",
+      "required": true,
+      "example": {
+        "addLabelIds": [
+          "Label_1"
+        ]
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/settings/filters",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "criteria": {
+        "from": "user@example.com"
+      },
+      "action": {
+        "addLabelIds": [
+          "Label_1"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "abc124",
+      "criteria": {
+        "from": "user@example.com"
+      },
+      "action": {
+        "addLabelIds": [
+          "Label_1"
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.settings.basic"
+  ]
+}

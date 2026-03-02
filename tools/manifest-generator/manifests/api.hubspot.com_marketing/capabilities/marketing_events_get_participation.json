@@ -1,0 +1,43 @@
+{
+  "name": "marketing_events_get_participation",
+  "description": "Retrieve participation breakdown for a marketing event showing contact states.",
+  "endpoint": "/marketing/v3/marketing-events/attendance/{externalEventId}/{externalAccountId}",
+  "method": "GET",
+  "resource_group": "marketing_events",
+  "parameters": [
+    {
+      "name": "externalEventId",
+      "type": "string",
+      "description": "The external event identifier.",
+      "required": true,
+      "example": "ext_event_001"
+    },
+    {
+      "name": "externalAccountId",
+      "type": "string",
+      "description": "The external account identifier.",
+      "required": true,
+      "example": "acct_001"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hubspot.com/marketing/v3/marketing-events/attendance/ext_event_001/acct_001",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        { "contactId": "501", "state": "ATTENDED", "interactionDateTime": "2024-03-15T14:05:00Z" },
+        { "contactId": "502", "state": "REGISTERED", "interactionDateTime": "2024-03-10T09:00:00Z" }
+      ]
+    }
+  },
+  "auth_scopes": ["marketing-events"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

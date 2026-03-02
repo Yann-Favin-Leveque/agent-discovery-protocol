@@ -1,0 +1,46 @@
+{
+  "name": "invoices_approve",
+  "description": "Approve a draft invoice, making it ready to send.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "invoiceId",
+      "type": "string",
+      "description": "Invoice ID to approve",
+      "required": true,
+      "example": "SW52b2ljZTo6..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: InvoiceApproveInput!) { invoiceApprove(input: $input) { invoice { id status } didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "invoiceApprove": {
+          "invoice": {
+            "id": "SW52b2ljZTo6...",
+            "status": "SAVED"
+          },
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "boards_create",
+  "description": "Create a new board.",
+  "resource_group": "boards",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "board_name",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Name of the new board"
+    },
+    {
+      "name": "board_kind",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Board kind: public, private, share"
+    },
+    {
+      "name": "workspace_id",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Workspace to create the board in"
+    },
+    {
+      "name": "template_id",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Template ID to use"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "mutation { create_board (board_name: \"New Board\", board_kind: public) { id name } }"
+  }
+}

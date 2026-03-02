@@ -1,44 +1,86 @@
 {
   "spec_version": "1.0",
   "name": "Facebook Graph API",
-  "description": "Facebook's primary API for reading and writing to the social graph. Manage pages, publish posts, upload photos, read user profiles, and access page insights and analytics.",
+  "description": "Facebook Graph API is the primary API for reading and writing to the Facebook social graph. Manage pages, publish posts, upload photos and videos, read user profiles, manage comments, and access page insights and analytics.",
   "base_url": "https://graph.facebook.com",
   "auth": {
     "type": "oauth2",
-    "authorization_url": "https://www.facebook.com/v18.0/dialog/oauth",
-    "token_url": "https://graph.facebook.com/v18.0/oauth/access_token",
-    "scopes": ["public_profile", "email", "pages_manage_posts"]
+    "authorization_url": "https://www.facebook.com/v21.0/dialog/oauth",
+    "token_url": "https://graph.facebook.com/v21.0/oauth/access_token",
+    "scopes": [
+      "public_profile",
+      "email",
+      "pages_manage_posts",
+      "pages_read_engagement",
+      "pages_read_user_content"
+    ]
   },
   "capabilities": [
     {
-      "name": "get_user_profile",
-      "description": "Retrieve the authenticated user's Facebook profile information including name, email, and profile picture.",
-      "detail_url": "/capabilities/get_user_profile"
+      "name": "user_profile_get",
+      "description": "Retrieve the authenticated user profile with name, email, and picture.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/user_profile_get"
     },
     {
-      "name": "publish_page_post",
-      "description": "Create a new post on a Facebook Page with text content, links, or calls to action. Requires page access token.",
-      "detail_url": "/capabilities/publish_page_post"
+      "name": "pages_list",
+      "description": "List all Facebook Pages managed by the authenticated user.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_list"
     },
     {
-      "name": "upload_photo",
-      "description": "Upload a photo to a Facebook Page or user album from a URL or binary data, with an optional caption.",
-      "detail_url": "/capabilities/upload_photo"
+      "name": "page_posts_create",
+      "description": "Create a new post on a Facebook Page.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/page_posts_create"
     },
     {
-      "name": "get_page_feed",
-      "description": "Retrieve recent posts from a Facebook Page's feed including post content, reactions count, and comment summaries.",
-      "detail_url": "/capabilities/get_page_feed"
+      "name": "page_feed_get",
+      "description": "Retrieve recent posts from a Page feed.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/page_feed_get"
     },
     {
-      "name": "get_page_insights",
-      "description": "Fetch analytics and performance metrics for a Facebook Page such as reach, impressions, engagement, and follower growth.",
-      "detail_url": "/capabilities/get_page_insights"
+      "name": "page_insights_get",
+      "description": "Fetch analytics metrics for a Facebook Page.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/page_insights_get"
     },
     {
-      "name": "manage_page_comments",
-      "description": "Read comments on a Page post and reply to them. Useful for community management and customer engagement.",
-      "detail_url": "/capabilities/manage_page_comments"
+      "name": "photos_upload",
+      "description": "Upload a photo to a Page or user album.",
+      "resource_group": "photos",
+      "detail_url": "/capabilities/photos_upload"
+    },
+    {
+      "name": "post_comments_list",
+      "description": "Retrieve comments on a specific post.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/post_comments_list"
+    },
+    {
+      "name": "post_comments_create",
+      "description": "Reply to a post with a comment.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/post_comments_create"
+    },
+    {
+      "name": "post_get",
+      "description": "Retrieve a specific post by ID.",
+      "resource_group": "posts",
+      "detail_url": "/capabilities/post_get"
+    },
+    {
+      "name": "post_delete",
+      "description": "Delete a specific post.",
+      "resource_group": "posts",
+      "detail_url": "/capabilities/post_delete"
+    },
+    {
+      "name": "videos_upload",
+      "description": "Upload a video to a Page.",
+      "resource_group": "videos",
+      "detail_url": "/capabilities/videos_upload"
     }
   ]
 }

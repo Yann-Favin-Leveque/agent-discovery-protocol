@@ -1,0 +1,74 @@
+{
+  "name": "items_update",
+  "description": "Replace an entire item in a vault with new data. All fields must be provided as this performs a full replacement.",
+  "endpoint": "/v1/vaults/{vaultUUID}/items/{itemUUID}",
+  "method": "PUT",
+  "resource_group": "items",
+  "parameters": [
+    {
+      "name": "vaultUUID",
+      "type": "string",
+      "description": "UUID of the vault containing the item.",
+      "required": true,
+      "example": "hfnjvi6aymbsnfc2xeeoheizda"
+    },
+    {
+      "name": "itemUUID",
+      "type": "string",
+      "description": "UUID of the item to replace.",
+      "required": true,
+      "example": "wepiqdxdzncjtnvmv5fegud4qy"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Updated title of the item.",
+      "required": true,
+      "example": "Database Credentials (Updated)"
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "description": "Item category.",
+      "required": true,
+      "example": "LOGIN"
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "description": "Complete array of field objects for the item.",
+      "required": true,
+      "example": [{ "id": "username", "type": "STRING", "label": "username", "value": "new_admin" }]
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.1password.com/v1/vaults/hfnjvi6aymbsnfc2xeeoheizda/items/wepiqdxdzncjtnvmv5fegud4qy",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Database Credentials (Updated)",
+      "category": "LOGIN",
+      "fields": [
+        { "id": "username", "type": "STRING", "label": "username", "value": "new_admin" },
+        { "id": "password", "type": "CONCEALED", "label": "password", "value": "newS3cur3P@ss!" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "wepiqdxdzncjtnvmv5fegud4qy",
+      "title": "Database Credentials (Updated)",
+      "category": "LOGIN",
+      "vault": { "id": "hfnjvi6aymbsnfc2xeeoheizda" },
+      "updatedAt": "2024-06-15T10:00:00Z"
+    }
+  },
+  "auth_scopes": ["vaults"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

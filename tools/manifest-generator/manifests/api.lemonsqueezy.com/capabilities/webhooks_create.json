@@ -1,0 +1,71 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook endpoint.",
+  "resource_group": "webhooks",
+  "endpoint": "/v1/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "data.attributes.url",
+      "type": "string",
+      "description": "Webhook endpoint URL.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.events",
+      "type": "array",
+      "description": "Events to subscribe to.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.secret",
+      "type": "string",
+      "description": "Signing secret.",
+      "required": true
+    },
+    {
+      "name": "data.relationships.store",
+      "type": "object",
+      "description": "Store relationship.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemonsqueezy.com/v1/webhooks",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "webhooks",
+        "attributes": {
+          "url": "https://example.com/webhook",
+          "events": [
+            "order_created"
+          ],
+          "secret": "mysecret"
+        },
+        "relationships": {
+          "store": {
+            "data": {
+              "type": "stores",
+              "id": "1"
+            }
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "type": "webhooks",
+        "id": "1"
+      }
+    }
+  }
+}

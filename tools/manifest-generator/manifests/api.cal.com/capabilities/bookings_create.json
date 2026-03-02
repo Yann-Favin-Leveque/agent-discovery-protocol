@@ -1,0 +1,73 @@
+{
+  "name": "bookings_create",
+  "resource_group": "bookings",
+  "description": "Create a new booking for a specific event type at a given date and time.",
+  "endpoint": "/v2/bookings",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "start",
+      "type": "string",
+      "required": true,
+      "description": "Booking start time in ISO 8601",
+      "example": "2025-03-15T10:00:00Z"
+    },
+    {
+      "name": "eventTypeId",
+      "type": "integer",
+      "required": true,
+      "description": "Event type ID to book",
+      "example": 789
+    },
+    {
+      "name": "attendee",
+      "type": "object",
+      "required": true,
+      "description": "Attendee details (name, email, timeZone)",
+      "example": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "timeZone": "America/New_York"
+      }
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "required": false,
+      "description": "Language for confirmation email",
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cal.com/v2/bookings",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "Content-Type": "application/json",
+      "cal-api-version": "2024-08-13"
+    },
+    "body": {
+      "start": "2025-03-15T10:00:00Z",
+      "eventTypeId": 789,
+      "attendee": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "timeZone": "America/New_York"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": 123457,
+        "uid": "bk_def456",
+        "title": "30 Minute Meeting",
+        "status": "accepted",
+        "start": "2025-03-15T10:00:00Z",
+        "end": "2025-03-15T10:30:00Z"
+      }
+    }
+  }
+}

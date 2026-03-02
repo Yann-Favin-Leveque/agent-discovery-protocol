@@ -1,0 +1,51 @@
+{
+  "name": "playlist_items_insert",
+  "description": "Add a video to a playlist.",
+  "endpoint": "/youtube/v3/playlistItems",
+  "method": "POST",
+  "resource_group": "playlist_items",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://youtube.googleapis.com/youtube/v3/playlistItems",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "snippet": {
+        "playlistId": "PL_playlist_id",
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "abc123"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "PLI_item_id",
+      "snippet": {
+        "playlistId": "PL_playlist_id",
+        "resourceId": {
+          "videoId": "abc123"
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

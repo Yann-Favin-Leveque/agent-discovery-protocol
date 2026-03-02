@@ -1,0 +1,51 @@
+{
+  "name": "upload_destroy",
+  "resource_group": "upload",
+  "description": "Delete an asset by public ID via the Upload API.",
+  "endpoint": "/v1_1/{cloud_name}/image/destroy",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "public_id",
+      "type": "string",
+      "required": true,
+      "description": "Public ID of the asset to delete."
+    },
+    {
+      "name": "resource_type",
+      "type": "string",
+      "required": false,
+      "description": "Resource type: image, raw, video."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Delivery type: upload, private, authenticated."
+    },
+    {
+      "name": "invalidate",
+      "type": "boolean",
+      "required": false,
+      "description": "Invalidate CDN cache. Default false."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/image/destroy",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "public_id": "products/my-photo",
+      "invalidate": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "result": "ok"
+    }
+  }
+}

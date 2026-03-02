@@ -1,0 +1,52 @@
+{
+  "name": "albums_get_saved",
+  "description": "Get the current user's saved albums.",
+  "resource_group": "albums",
+  "endpoint": "/v1/me/albums",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max items. Default: 20. Range: 1-50."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Index of first item. Default: 0."
+    },
+    {
+      "name": "market",
+      "type": "string",
+      "required": false,
+      "description": "ISO 3166-1 alpha-2 country code."
+    }
+  ],
+  "auth_scopes": [
+    "user-library-read"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/me/albums?limit=10",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "added_at": "2024-01-15T10:30:00Z",
+          "album": {
+            "id": "abc",
+            "name": "Album Name"
+          }
+        }
+      ],
+      "total": 45
+    }
+  }
+}

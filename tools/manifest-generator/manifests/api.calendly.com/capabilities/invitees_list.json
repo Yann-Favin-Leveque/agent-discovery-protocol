@@ -1,0 +1,83 @@
+{
+  "name": "invitees_list",
+  "resource_group": "invitees",
+  "description": "List all invitees for a scheduled event with optional status filtering.",
+  "endpoint": "/scheduled_events/{event_uuid}/invitees",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "event_uuid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Scheduled event UUID",
+      "example": "DDDD-EEEE-FFFF"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by invitee status (active or canceled)",
+      "example": "active"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Filter by email",
+      "example": "invitee@example.com"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    },
+    {
+      "name": "page_token",
+      "type": "string",
+      "required": false,
+      "description": "Next page token",
+      "example": "abc123"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort order",
+      "example": "created_at:asc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.calendly.com/scheduled_events/DDDD-EEEE-FFFF/invitees",
+    "headers": {
+      "Authorization": "Bearer CALENDLY_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "collection": [
+        {
+          "uri": "https://api.calendly.com/scheduled_events/DDDD-EEEE-FFFF/invitees/GGGG",
+          "name": "Jane Smith",
+          "email": "jane@example.com",
+          "status": "active",
+          "timezone": "America/Chicago",
+          "questions_and_answers": [
+            {
+              "question": "What would you like to discuss?",
+              "answer": "Project update"
+            }
+          ]
+        }
+      ],
+      "pagination": {
+        "count": 20,
+        "next_page_token": null
+      }
+    }
+  }
+}

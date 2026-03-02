@@ -1,41 +1,44 @@
 {
   "name": "refresh_token",
-  "description": "Exchange a refresh token for a new access token and refresh token pair. Refresh tokens are single-use and never expire, but each one can only be used once. Use this to maintain sessions without re-authentication.",
-  "endpoint": "/token?grant_type=refresh_token",
+  "description": "Exchange a refresh token for a new access token and refresh token pair. Use this to maintain user sessions without re-authentication.",
+  "endpoint": "/auth/v1/token?grant_type=refresh_token",
   "method": "POST",
+  "resource_group": "tokens",
   "parameters": [
     {
       "name": "refresh_token",
       "type": "string",
-      "description": "The refresh token from a previous sign-in or token refresh response.",
+      "description": "The refresh token to exchange.",
       "required": true,
-      "example": "v1.MjAyNi0wMy0wMVQxMjowMDowMC..."
+      "example": "abc123-refresh"
     }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://your-project.supabase.co/auth/v1/token?grant_type=refresh_token",
     "headers": {
-      "apikey": "YOUR_SUPABASE_ANON_KEY",
+      "apikey": "{anon_key}",
       "Content-Type": "application/json"
     },
     "body": {
-      "refresh_token": "v1.MjAyNi0wMy0wMVQxMjowMDowMC..."
+      "refresh_token": "abc123-refresh"
     }
   },
   "response_example": {
     "status": 200,
     "body": {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "access_token": "eyJhbGciOiJIUzI1NiIs...",
       "token_type": "bearer",
       "expires_in": 3600,
-      "expires_at": 1709322600,
-      "refresh_token": "v1.NjAyNi0wMy0wMVQxMzowMDowMC...",
+      "refresh_token": "def456-new-refresh",
       "user": {
-        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-        "email": "user@example.com",
-        "role": "authenticated"
+        "id": "uuid-1234",
+        "email": "user@example.com"
       }
     }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 150
   }
 }

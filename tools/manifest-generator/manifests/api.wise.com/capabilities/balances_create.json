@@ -1,0 +1,59 @@
+{
+  "name": "balances_create",
+  "description": "Create a new balance in a specific currency.",
+  "resource_group": "balances",
+  "endpoint": "/v4/profiles/{profileId}/balances",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "profileId",
+      "type": "integer",
+      "description": "Profile ID.",
+      "required": true
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Currency code for the new balance.",
+      "required": true,
+      "example": "GBP"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Balance type: STANDARD or SAVINGS.",
+      "required": true,
+      "example": "STANDARD"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Balance name (for SAVINGS type).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.wise.com/v4/profiles/12345/balances",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "currency": "GBP",
+      "type": "STANDARD"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 5678,
+      "currency": "GBP",
+      "amount": {
+        "value": 0,
+        "currency": "GBP"
+      },
+      "type": "STANDARD"
+    }
+  }
+}

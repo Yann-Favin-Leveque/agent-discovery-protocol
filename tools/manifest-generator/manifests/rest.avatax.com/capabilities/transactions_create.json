@@ -1,0 +1,120 @@
+{
+  "name": "transactions_create",
+  "description": "Create a new tax transaction and calculate tax for sales, purchases, or returns.",
+  "endpoint": "/api/v2/transactions/create",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "companyCode",
+      "type": "string",
+      "description": "Company code for this transaction.",
+      "required": true,
+      "example": "DEFAULT"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Transaction type: SalesInvoice, SalesOrder, PurchaseInvoice, ReturnInvoice.",
+      "required": true,
+      "example": "SalesInvoice"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "description": "Transaction date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-01-15"
+    },
+    {
+      "name": "customerCode",
+      "type": "string",
+      "description": "Customer identifier.",
+      "required": true,
+      "example": "CUST-001"
+    },
+    {
+      "name": "addresses",
+      "type": "object",
+      "description": "Ship from/to addresses.",
+      "required": true
+    },
+    {
+      "name": "lines",
+      "type": "array",
+      "description": "Array of line items with amount, taxCode, quantity.",
+      "required": true
+    },
+    {
+      "name": "commit",
+      "type": "boolean",
+      "description": "If true, commit the transaction immediately.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.avatax.com/api/v2/transactions/create",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "companyCode": "DEFAULT",
+      "type": "SalesInvoice",
+      "date": "2024-01-15",
+      "customerCode": "CUST-001",
+      "addresses": {
+        "shipFrom": {
+          "line1": "123 Main St",
+          "city": "Austin",
+          "region": "TX",
+          "postalCode": "78756",
+          "country": "US"
+        },
+        "shipTo": {
+          "line1": "456 Oak Ave",
+          "city": "San Jose",
+          "region": "CA",
+          "postalCode": "95128",
+          "country": "US"
+        }
+      },
+      "lines": [
+        {
+          "number": "1",
+          "quantity": 1,
+          "amount": 100.0,
+          "taxCode": "P0000000"
+        }
+      ],
+      "commit": false
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 12345,
+      "code": "txn-001",
+      "companyId": 67890,
+      "date": "2024-01-15",
+      "status": "Saved",
+      "type": "SalesInvoice",
+      "totalAmount": 100.0,
+      "totalTax": 8.75,
+      "totalTaxCalculated": 8.75,
+      "lines": [
+        {
+          "lineNumber": "1",
+          "tax": 8.75,
+          "taxableAmount": 100.0
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

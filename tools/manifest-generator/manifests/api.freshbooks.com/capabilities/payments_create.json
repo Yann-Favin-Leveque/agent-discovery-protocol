@@ -1,0 +1,26 @@
+{
+  "name": "payments_create",
+  "description": "Record a new payment against an invoice with amount, date, and payment type.",
+  "endpoint": "/accounting/account/{account_id}/payments/payments",
+  "method": "POST",
+  "resource_group": "payments",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
+    {"name": "invoiceid", "type": "integer", "description": "The invoice ID to apply payment to.", "required": true, "example": 67890},
+    {"name": "amount", "type": "object", "description": "Payment amount with currency.", "required": true, "example": {"amount": "250.00"}},
+    {"name": "date", "type": "string", "description": "Payment date (YYYY-MM-DD).", "required": true, "example": "2024-09-01"},
+    {"name": "type", "type": "string", "description": "Payment type (e.g. Check, Credit Card, Bank Transfer).", "required": false, "example": "Credit Card"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/payments/payments",
+    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha", "Content-Type": "application/json"},
+    "body": {"payment": {"invoiceid": 67890, "amount": {"amount": "250.00"}, "date": "2024-09-01", "type": "Credit Card"}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"response": {"result": {"payment": {"id": 223, "invoiceid": 67890, "amount": {"amount": "250.00", "code": "USD"}, "date": "2024-09-01"}}}}
+  },
+  "auth_scopes": ["user:payments:write"],
+  "rate_limits": {"requests_per_minute": 100}
+}

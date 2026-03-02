@@ -1,0 +1,46 @@
+{
+  "name": "otps_email_send",
+  "resource_group": "otps",
+  "description": "Send a one-time passcode via email.",
+  "endpoint": "/v1/otps/email/send",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "description": "Email address."
+    },
+    {
+      "name": "expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "OTP expiration."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": "Language."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/otps/email/send",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "alice@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "email_id": "email-live-xyz"
+    }
+  }
+}

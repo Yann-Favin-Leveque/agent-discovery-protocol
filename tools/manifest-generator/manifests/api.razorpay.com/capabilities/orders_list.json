@@ -1,0 +1,53 @@
+{
+  "name": "orders_list",
+  "description": "List all orders with optional filtering.",
+  "resource_group": "orders",
+  "endpoint": "/v1/orders",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "integer",
+      "description": "Unix timestamp to filter from.",
+      "required": false
+    },
+    {
+      "name": "to",
+      "type": "integer",
+      "description": "Unix timestamp to filter to.",
+      "required": false
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Number of orders to fetch.",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "skip",
+      "type": "integer",
+      "description": "Number of orders to skip.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.razorpay.com/v1/orders?count=10",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "entity": "collection",
+      "count": 1,
+      "items": [
+        {
+          "id": "order_DBJOWzybf0sJbb"
+        }
+      ]
+    }
+  }
+}

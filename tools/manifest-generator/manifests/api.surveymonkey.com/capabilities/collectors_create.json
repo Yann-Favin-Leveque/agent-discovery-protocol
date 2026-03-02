@@ -1,0 +1,58 @@
+{
+  "name": "collectors_create",
+  "resource_group": "collectors",
+  "description": "Create a collector (web link, email, SMS, popup).",
+  "endpoint": "/v3/surveys/{survey_id}/collectors",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "survey_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Survey ID."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Collector type: weblink, email, sms, popup."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Collector name."
+    },
+    {
+      "name": "redirect_url",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Redirect URL after completion."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.surveymonkey.com/v3/surveys/123456/collectors",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "weblink",
+      "name": "My Link"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "coll-456",
+      "name": "My Link",
+      "type": "weblink",
+      "url": "https://www.surveymonkey.com/r/ABC123"
+    }
+  }
+}

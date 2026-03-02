@@ -1,0 +1,76 @@
+{
+  "name": "contacts_search",
+  "description": "Search contacts using structured queries with field-based filters (=, !=, ~, IN, >, <) and AND/OR logic.",
+  "resource_group": "contacts",
+  "endpoint": "/contacts/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "object",
+      "required": true,
+      "description": "Search query object with field filters and AND/OR operators."
+    },
+    {
+      "name": "pagination",
+      "type": "object",
+      "required": false,
+      "description": "Pagination with per_page and starting_after cursor."
+    },
+    {
+      "name": "sort",
+      "type": "object",
+      "required": false,
+      "description": "Sort by field and order (ascending/descending)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/contacts/search",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "query": {
+        "operator": "AND",
+        "value": [
+          {
+            "field": "role",
+            "operator": "=",
+            "value": "user"
+          },
+          {
+            "field": "custom_attributes.plan",
+            "operator": "=",
+            "value": "pro"
+          }
+        ]
+      },
+      "pagination": {
+        "per_page": 25
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "list",
+      "data": [
+        {
+          "type": "contact",
+          "id": "abc123",
+          "email": "jane@example.com",
+          "role": "user"
+        }
+      ],
+      "total_count": 42,
+      "pages": {
+        "type": "pages",
+        "per_page": 25,
+        "total_pages": 2
+      }
+    }
+  }
+}

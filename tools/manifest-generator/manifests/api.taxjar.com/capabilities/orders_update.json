@@ -1,0 +1,63 @@
+{
+  "name": "orders_update",
+  "description": "Update an existing order transaction.",
+  "endpoint": "/v2/transactions/orders/{transaction_id}",
+  "method": "PUT",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "transaction_id",
+      "type": "string",
+      "description": "Order transaction ID.",
+      "required": true,
+      "example": "321"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Updated amount.",
+      "required": false
+    },
+    {
+      "name": "shipping",
+      "type": "number",
+      "description": "Updated shipping.",
+      "required": false
+    },
+    {
+      "name": "sales_tax",
+      "type": "number",
+      "description": "Updated sales tax.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.taxjar.com/v2/transactions/orders/321",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transaction_id": "321",
+      "amount": 20.0,
+      "shipping": 2.0,
+      "sales_tax": 1.82
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "order": {
+        "transaction_id": "321",
+        "amount": "20.00",
+        "shipping": "2.00",
+        "sales_tax": "1.82"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

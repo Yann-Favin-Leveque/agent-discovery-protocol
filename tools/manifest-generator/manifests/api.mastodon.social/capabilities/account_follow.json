@@ -1,0 +1,50 @@
+{
+  "name": "account_follow",
+  "resource_group": "accounts",
+  "description": "Follow a given account.",
+  "endpoint": "/api/v1/accounts/{id}/follow",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Account ID.",
+      "required": true,
+      "in": "path",
+      "example": "12345"
+    },
+    {
+      "name": "reblogs",
+      "type": "boolean",
+      "description": "Receive boosts in home timeline.",
+      "required": false,
+      "in": "body",
+      "example": true
+    },
+    {
+      "name": "notify",
+      "type": "boolean",
+      "description": "Receive notifications on posts.",
+      "required": false,
+      "in": "body",
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mastodon.social/api/v1/accounts/12345/follow",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "12345",
+      "following": true
+    }
+  },
+  "auth_scopes": [
+    "write:follows"
+  ]
+}

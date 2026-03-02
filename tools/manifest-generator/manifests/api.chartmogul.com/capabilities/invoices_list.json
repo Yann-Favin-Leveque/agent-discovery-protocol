@@ -1,0 +1,60 @@
+{
+  "name": "invoices_list",
+  "description": "Retrieve a list of invoices with optional filtering.",
+  "endpoint": "/v1/invoices",
+  "method": "GET",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "customer_uuid",
+      "type": "string",
+      "description": "Filter by customer UUID.",
+      "required": false
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "description": "Filter by invoice external ID.",
+      "required": false
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page (max 200).",
+      "required": false,
+      "example": 200
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.chartmogul.com/v1/invoices?per_page=50",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "invoices": [
+        {
+          "uuid": "inv_93b06efd",
+          "external_id": "inv_001",
+          "date": "2024-01-01",
+          "currency": "USD"
+        }
+      ],
+      "cursor": "next_cursor",
+      "has_more": false
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

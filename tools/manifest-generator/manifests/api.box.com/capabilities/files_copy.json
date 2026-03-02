@@ -1,0 +1,49 @@
+{
+  "name": "files_copy",
+  "description": "Create a copy of a file in a different folder.",
+  "resource_group": "files",
+  "endpoint": "/2.0/files/{file_id}/copy",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "file_id",
+      "type": "string",
+      "description": "The file ID.",
+      "required": true
+    },
+    {
+      "name": "parent",
+      "type": "object",
+      "description": "Destination folder with id.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name for the copy.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.box.com/2.0/files/12345/copy",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "parent": {
+        "id": "0"
+      },
+      "name": "copy.pdf"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "type": "file",
+      "id": "67890",
+      "name": "copy.pdf"
+    }
+  }
+}

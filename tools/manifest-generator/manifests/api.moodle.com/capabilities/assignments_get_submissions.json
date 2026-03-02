@@ -1,0 +1,23 @@
+{
+  "name": "assignments_get_submissions",
+  "description": "Retrieve all submissions for a specific assignment.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=mod_assign_get_submissions",
+  "method": "POST",
+  "resource_group": "assignments",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "assignmentids[0]", "type": "integer", "description": "Assignment ID", "required": true, "example": 1 }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=mod_assign_get_submissions&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "assignmentids[0]": 1 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "assignments": [{ "assignmentid": 1, "submissions": [{ "id": 10, "userid": 42, "status": "submitted", "timemodified": 1706745600 }] }] }
+  },
+  "auth_scopes": ["mod_assign_get_submissions"],
+  "rate_limits": { "requests_per_minute": 120 }
+}

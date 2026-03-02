@@ -1,0 +1,60 @@
+{
+  "name": "endpoint_patch",
+  "description": "Partially update an endpoint.",
+  "resource_group": "endpoint",
+  "endpoint": "/api/v1/app/{app_id}/endpoint/{endpoint_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "endpoint_id",
+      "type": "string",
+      "description": "Endpoint ID or UID (path parameter).",
+      "required": true,
+      "example": "ep_abc"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Endpoint URL.",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description.",
+      "required": false
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Disabled state.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.svix.com/api/v1/app/app_123/endpoint/ep_abc",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "disabled": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ep_abc",
+      "url": "https://example.com/webhook",
+      "disabled": true
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "files_upload_from_url",
+  "resource_group": "files",
+  "description": "Upload files by providing external URLs. UploadThing fetches and stores them.",
+  "endpoint": "/v6/uploadFromUrl",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "urls",
+      "type": "array",
+      "required": true,
+      "description": "Array of URLs or URL objects with overrides."
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "description": "Custom metadata."
+    },
+    {
+      "name": "contentDisposition",
+      "type": "string",
+      "required": false,
+      "description": "Content disposition."
+    },
+    {
+      "name": "acl",
+      "type": "string",
+      "required": false,
+      "description": "Access control."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uploadthing.com/v6/uploadFromUrl",
+    "headers": {
+      "x-uploadthing-api-key": "sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "urls": [
+        "https://example.com/photo.jpg"
+      ],
+      "acl": "public-read"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "key": "abc123-photo.jpg",
+          "url": "https://utfs.io/f/abc123-photo.jpg",
+          "name": "photo.jpg",
+          "size": 245000
+        }
+      ]
+    }
+  }
+}

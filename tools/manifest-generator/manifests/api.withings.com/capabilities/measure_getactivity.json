@@ -1,0 +1,81 @@
+{
+  "name": "measure_getactivity",
+  "description": "Retrieve daily activity data including steps, distance, soft/moderate/intense activity duration, calories, elevation, and heart rate.",
+  "resource_group": "measure",
+  "endpoint": "/v2/measure",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'getactivity'."
+    },
+    {
+      "name": "startdateymd",
+      "type": "string",
+      "required": false,
+      "description": "Start date in YYYY-MM-DD format."
+    },
+    {
+      "name": "enddateymd",
+      "type": "string",
+      "required": false,
+      "description": "End date in YYYY-MM-DD format."
+    },
+    {
+      "name": "lastupdate",
+      "type": "integer",
+      "required": false,
+      "description": "Only return data updated after this Unix timestamp."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset."
+    },
+    {
+      "name": "data_fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated list of fields: steps,distance,elevation,soft,moderate,intense,active,calories,totalcalories,hr_average,hr_min,hr_max,hr_zone_0,hr_zone_1,hr_zone_2,hr_zone_3."
+    }
+  ],
+  "auth_scopes": [
+    "user.activity"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/measure",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "getactivity",
+      "startdateymd": "2025-01-10",
+      "enddateymd": "2025-01-15"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "activities": [
+          {
+            "date": "2025-01-15",
+            "steps": 8432,
+            "distance": 6240,
+            "calories": 2156,
+            "elevation": 35,
+            "soft": 180,
+            "moderate": 45,
+            "intense": 15
+          }
+        ]
+      }
+    }
+  }
+}

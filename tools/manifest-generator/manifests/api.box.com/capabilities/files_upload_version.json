@@ -1,0 +1,46 @@
+{
+  "name": "files_upload_version",
+  "description": "Upload a new version of an existing file.",
+  "resource_group": "files",
+  "endpoint": "/2.0/files/{file_id}/content",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "file_id",
+      "type": "string",
+      "description": "The file ID.",
+      "required": true
+    },
+    {
+      "name": "attributes",
+      "type": "object",
+      "description": "File attributes.",
+      "required": false
+    },
+    {
+      "name": "file",
+      "type": "binary",
+      "description": "File binary content.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://upload.box.com/api/2.0/files/12345/content",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "multipart/form-data"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "entries": [
+        {
+          "type": "file",
+          "id": "12345"
+        }
+      ]
+    }
+  }
+}

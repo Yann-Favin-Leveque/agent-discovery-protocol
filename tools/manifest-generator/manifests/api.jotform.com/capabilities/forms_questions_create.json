@@ -1,0 +1,47 @@
+{
+  "name": "forms_questions_create",
+  "resource_group": "forms",
+  "description": "Add a question to a form.",
+  "endpoint": "/form/{formID}/questions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "formID",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Form ID."
+    },
+    {
+      "name": "question",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Question definition with type, text, order, name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.jotform.com/form/123456/questions",
+    "headers": {
+      "APIKEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "question": {
+        "type": "control_textbox",
+        "text": "Email",
+        "order": "2",
+        "name": "email"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "content": {
+        "id": "2"
+      }
+    }
+  }
+}

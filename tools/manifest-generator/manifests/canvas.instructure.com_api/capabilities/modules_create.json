@@ -1,0 +1,44 @@
+{
+  "name": "modules_create",
+  "description": "Create a module.",
+  "resource_group": "modules",
+  "endpoint": "/api/v1/courses/{course_id}/modules",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "module[name]",
+      "type": "string",
+      "description": "Module name.",
+      "required": true,
+      "example": "Week 2"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/modules",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "module": {
+        "name": "Week 2"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 6002,
+      "name": "Week 2",
+      "position": 2
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "name": "activity_log_list",
+  "description": "Retrieve a list of a user's activity log entries before or after a given date, sorted by date. Supports pagination with offset and limit parameters.",
+  "resource_group": "activity",
+  "endpoint": "/1/user/-/activities/list.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "beforeDate",
+      "type": "string",
+      "required": false,
+      "description": "Return entries before this date (YYYY-MM-DD). Mutually exclusive with afterDate.",
+      "in": "query"
+    },
+    {
+      "name": "afterDate",
+      "type": "string",
+      "required": false,
+      "description": "Return entries after this date (YYYY-MM-DD). Mutually exclusive with beforeDate.",
+      "in": "query"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": true,
+      "description": "Sort order: 'asc' or 'desc'.",
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": true,
+      "description": "Number of entries to return (max 100).",
+      "in": "query"
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Offset for pagination.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": ["activity"],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/activities/list.json?afterDate=2025-01-01&sort=asc&limit=20",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "activities": [
+        {
+          "logId": 67283945,
+          "activityName": "Run",
+          "calories": 385,
+          "distance": 5.2,
+          "distanceUnit": "Kilometer",
+          "duration": 1800000,
+          "startTime": "07:30",
+          "startDate": "2025-01-15",
+          "steps": 5840
+        }
+      ],
+      "pagination": {
+        "next": "https://api.fitbit.com/1/user/-/activities/list.json?afterDate=2025-01-15&sort=asc&limit=20&offset=20"
+      }
+    }
+  }
+}

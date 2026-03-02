@@ -1,0 +1,159 @@
+{
+  "name": "links_create",
+  "description": "Create a new short link with optional custom domain, tags, geo-targeting, UTM parameters, and A/B testing.",
+  "endpoint": "/links",
+  "method": "POST",
+  "resource_group": "links",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "description": "The destination URL of the short link.",
+      "required": true,
+      "example": "https://example.com/long-url"
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "The custom domain for the short link. Defaults to workspace primary domain.",
+      "required": false,
+      "example": "dub.sh"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "The short link slug. Auto-generated if omitted.",
+      "required": false,
+      "example": "my-link"
+    },
+    {
+      "name": "externalId",
+      "type": "string",
+      "description": "Unique identifier from your database.",
+      "required": false,
+      "example": "ext_123"
+    },
+    {
+      "name": "tagIds",
+      "type": "array",
+      "description": "Array of tag IDs to assign to the link.",
+      "required": false
+    },
+    {
+      "name": "tagNames",
+      "type": "array",
+      "description": "Array of tag names to assign (case insensitive).",
+      "required": false
+    },
+    {
+      "name": "folderId",
+      "type": "string",
+      "description": "Folder to assign the link to.",
+      "required": false
+    },
+    {
+      "name": "trackConversion",
+      "type": "boolean",
+      "description": "Enable conversion tracking.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "description": "Whether the link is archived.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "expiresAt",
+      "type": "string",
+      "description": "Expiration date in ISO-8601 format.",
+      "required": false
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "Password required to access the link.",
+      "required": false
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Custom OG title for the link preview.",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Custom OG description for the link preview.",
+      "required": false
+    },
+    {
+      "name": "ios",
+      "type": "string",
+      "description": "iOS-specific redirect URL.",
+      "required": false
+    },
+    {
+      "name": "android",
+      "type": "string",
+      "description": "Android-specific redirect URL.",
+      "required": false
+    },
+    {
+      "name": "geo",
+      "type": "object",
+      "description": "Geo-targeting by country code.",
+      "required": false
+    },
+    {
+      "name": "utm_source",
+      "type": "string",
+      "description": "UTM source parameter.",
+      "required": false
+    },
+    {
+      "name": "utm_medium",
+      "type": "string",
+      "description": "UTM medium parameter.",
+      "required": false
+    },
+    {
+      "name": "utm_campaign",
+      "type": "string",
+      "description": "UTM campaign parameter.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dub.co/links",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/long-url",
+      "domain": "dub.sh",
+      "key": "my-link"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "clux0rgak0001...",
+      "domain": "dub.sh",
+      "key": "my-link",
+      "url": "https://example.com/long-url",
+      "shortLink": "https://dub.sh/my-link",
+      "qrCode": "https://api.dub.co/qr?url=https://dub.sh/my-link",
+      "clicks": 0,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

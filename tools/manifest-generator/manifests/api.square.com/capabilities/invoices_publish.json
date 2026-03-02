@@ -1,0 +1,66 @@
+{
+  "name": "invoices_publish",
+  "description": "Publish a draft invoice and send it to the customer.",
+  "endpoint": "/v2/invoices/{invoice_id}/publish",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "invoice_id",
+      "type": "string",
+      "description": "Invoice ID to publish",
+      "required": true,
+      "example": "inv_abc"
+    },
+    {
+      "name": "version",
+      "type": "integer",
+      "description": "Invoice version for optimistic concurrency",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "idempotency_key",
+      "type": "string",
+      "description": "Unique key",
+      "required": true,
+      "example": "publish-key"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/invoices/inv_abc/publish",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "version": 1,
+      "idempotency_key": "publish-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "invoice": {
+        "id": "inv_abc",
+        "status": "UNPAID"
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

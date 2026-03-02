@@ -1,0 +1,42 @@
+{
+  "name": "user_profile_get",
+  "description": "Retrieve the authenticated user profile.",
+  "resource_group": "users",
+  "endpoint": "/v21.0/me",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated fields: id, name, email, picture.",
+      "example": "id,name,email,picture"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "User access token."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/me?fields=id,name,email,picture",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "123456789",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "picture": {
+        "data": {
+          "url": "https://platform-lookaside.fbsbx.com/..."
+        }
+      }
+    }
+  }
+}

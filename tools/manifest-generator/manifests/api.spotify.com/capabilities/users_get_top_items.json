@@ -1,0 +1,58 @@
+{
+  "name": "users_get_top_items",
+  "description": "Get the current user's top artists or tracks based on listening affinity.",
+  "resource_group": "users",
+  "endpoint": "/v1/me/top/{type}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "'artists' or 'tracks'."
+    },
+    {
+      "name": "time_range",
+      "type": "string",
+      "required": false,
+      "description": "'short_term' (4 weeks), 'medium_term' (6 months, default), 'long_term'."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max items. Default: 20. Range: 1-50."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Index of first item. Default: 0."
+    }
+  ],
+  "auth_scopes": [
+    "user-top-read"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "name": "Artist Name",
+          "genres": [
+            "rock"
+          ],
+          "popularity": 80
+        }
+      ],
+      "total": 50
+    }
+  }
+}

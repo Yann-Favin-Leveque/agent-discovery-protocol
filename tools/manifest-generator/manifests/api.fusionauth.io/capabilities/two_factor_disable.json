@@ -1,0 +1,39 @@
+{
+  "name": "two_factor_disable",
+  "resource_group": "two_factor",
+  "description": "Disable two-factor authentication for a user.",
+  "endpoint": "/api/user/two-factor/{userId}",
+  "method": "DELETE",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "required": true,
+      "description": "User UUID.",
+      "in": "path"
+    },
+    {
+      "name": "methodId",
+      "type": "string",
+      "required": false,
+      "description": "Specific MFA method ID to disable."
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "Current MFA code to confirm."
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://fusionauth.example.com/api/user/two-factor/user-uuid?code=123456",
+    "headers": {
+      "Authorization": "your-api-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  }
+}

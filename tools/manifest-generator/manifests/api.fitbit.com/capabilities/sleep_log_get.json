@@ -1,0 +1,43 @@
+{
+  "name": "sleep_log_get",
+  "description": "Retrieve a user's sleep log entries for a specific date. Returns sleep duration, efficiency, time in bed, and sleep stages (deep, light, REM, wake) for each sleep session.",
+  "resource_group": "sleep",
+  "endpoint": "/1.2/user/-/sleep/date/{date}.json",
+  "method": "GET",
+  "parameters": [
+    { "name": "date", "type": "string", "required": true, "description": "The date in YYYY-MM-DD format.", "in": "path" }
+  ],
+  "auth_scopes": ["sleep"],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1.2/user/-/sleep/date/2025-01-15.json",
+    "headers": { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9..." }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sleep": [
+        {
+          "logId": 41234567,
+          "dateOfSleep": "2025-01-15",
+          "startTime": "2025-01-14T23:15:00.000",
+          "endTime": "2025-01-15T07:02:00.000",
+          "duration": 28020000,
+          "minutesAsleep": 420,
+          "minutesAwake": 47,
+          "efficiency": 90,
+          "type": "stages",
+          "levels": {
+            "summary": {
+              "deep": { "count": 4, "minutes": 85 },
+              "light": { "count": 28, "minutes": 210 },
+              "rem": { "count": 6, "minutes": 95 },
+              "wake": { "count": 22, "minutes": 47 }
+            }
+          }
+        }
+      ],
+      "summary": { "totalMinutesAsleep": 420, "totalSleepRecords": 1, "totalTimeInBed": 467 }
+    }
+  }
+}

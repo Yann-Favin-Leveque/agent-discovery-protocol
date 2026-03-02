@@ -1,0 +1,41 @@
+{
+  "name": "payout_items_list",
+  "description": "List all items in a specific payout.",
+  "resource_group": "payouts",
+  "endpoint": "/payout_items",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "payout",
+      "type": "string",
+      "description": "Filter by payout ID.",
+      "required": true
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.gocardless.com/payout_items?payout=PO000123",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "GoCardless-Version": "2015-07-06"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "payout_items": [
+        {
+          "id": "PI000123",
+          "amount": 5000,
+          "type": "payment_paid_out"
+        }
+      ]
+    }
+  }
+}

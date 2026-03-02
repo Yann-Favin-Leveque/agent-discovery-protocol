@@ -1,0 +1,52 @@
+{
+  "name": "bulk_users_identify",
+  "description": "Identify (create or update) up to 1,000 users in a single request.",
+  "endpoint": "/v1/users/bulk/identify",
+  "method": "POST",
+  "resource_group": "bulk",
+  "parameters": [
+    {
+      "name": "users",
+      "type": "array",
+      "description": "Array of user objects to identify.",
+      "required": true,
+      "example": [
+        {
+          "id": "user_1",
+          "name": "Alice",
+          "email": "alice@example.com"
+        },
+        {
+          "id": "user_2",
+          "name": "Bob",
+          "email": "bob@example.com"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.knock.app/v1/users/bulk/identify",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "users": [
+        {
+          "id": "user_1",
+          "name": "Alice",
+          "email": "alice@example.com"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

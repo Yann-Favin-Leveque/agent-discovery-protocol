@@ -1,0 +1,63 @@
+{
+  "name": "certificates_letsencrypt_purchase",
+  "description": "Order a Let's Encrypt SSL certificate for a domain.",
+  "resource_group": "certificates",
+  "endpoint": "/{account}/domains/{domain}/certificates/letsencrypt",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "required": true,
+      "description": "Domain name."
+    },
+    {
+      "name": "auto_renew",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable auto-renewal."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Certificate name. Default: 'www'."
+    },
+    {
+      "name": "signature_algorithm",
+      "type": "string",
+      "required": false,
+      "description": "ECDSA or RSA."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dnsimple.com/v2/1010/domains/example.com/certificates/letsencrypt",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "auto_renew": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": 100,
+        "domain_id": 1,
+        "common_name": "www.example.com",
+        "years": 1,
+        "state": "new",
+        "auto_renew": true
+      }
+    }
+  }
+}

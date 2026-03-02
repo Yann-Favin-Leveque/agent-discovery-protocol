@@ -1,0 +1,56 @@
+{
+  "name": "resources_by_tag",
+  "resource_group": "resources",
+  "description": "List assets with a specific tag.",
+  "endpoint": "/v1_1/{cloud_name}/resources/{resource_type}/tags/{tag}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "resource_type",
+      "type": "string",
+      "required": true,
+      "description": "Resource type.",
+      "in": "path"
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "required": true,
+      "description": "Tag name.",
+      "in": "path"
+    },
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    },
+    {
+      "name": "next_cursor",
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/resources/image/tags/featured",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "resources": [
+        {
+          "public_id": "products/my-photo",
+          "format": "jpg",
+          "tags": [
+            "featured"
+          ]
+        }
+      ]
+    }
+  }
+}

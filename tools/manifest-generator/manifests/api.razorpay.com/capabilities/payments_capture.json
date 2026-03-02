@@ -1,0 +1,46 @@
+{
+  "name": "payments_capture",
+  "description": "Capture an authorized payment to complete the fund transfer.",
+  "resource_group": "payments",
+  "endpoint": "/v1/payments/{payment_id}/capture",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "payment_id",
+      "type": "string",
+      "description": "The payment ID.",
+      "required": true
+    },
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Amount to capture in smallest currency unit.",
+      "required": true
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO currency code.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/payments/pay_FgR9UMzgmKDvRH/capture",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": 50000,
+      "currency": "INR"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "pay_FgR9UMzgmKDvRH",
+      "status": "captured"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "name": "playlists_get_items",
+  "description": "Get the items (tracks and episodes) of a specific playlist.",
+  "resource_group": "playlists",
+  "endpoint": "/v1/playlists/{playlist_id}/tracks",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "playlist_id",
+      "type": "string",
+      "required": true,
+      "description": "The Spotify ID of the playlist."
+    },
+    {
+      "name": "market",
+      "type": "string",
+      "required": false,
+      "description": "ISO 3166-1 alpha-2 country code."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max items. Default: 20. Range: 1-100."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Index of first item. Default: 0."
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "required": false,
+      "description": "Filters for the response."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n/tracks?limit=10",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "added_at": "2024-01-15",
+          "track": {
+            "id": "abc",
+            "name": "Song",
+            "artists": [
+              {
+                "name": "Artist"
+              }
+            ]
+          }
+        }
+      ],
+      "total": 25
+    }
+  }
+}

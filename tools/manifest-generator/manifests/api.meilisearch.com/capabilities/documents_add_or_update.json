@@ -1,0 +1,65 @@
+{
+  "name": "documents_add_or_update",
+  "description": "Add new documents or update fields of existing ones (partial update, matched by primary key). Returns an asynchronous task.",
+  "endpoint": "/indexes/{indexUid}/documents",
+  "method": "PUT",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "primaryKey",
+      "type": "string",
+      "description": "Primary key for the documents.",
+      "required": false,
+      "example": "id"
+    },
+    {
+      "name": "documents",
+      "type": "array",
+      "description": "Array of document objects to add or update (partial fields allowed).",
+      "required": true,
+      "example": [
+        {
+          "id": 1,
+          "title": "The Matrix Reloaded"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.meilisearch.com/indexes/movies/documents",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "id": 1,
+        "title": "The Matrix Reloaded"
+      }
+    ]
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "taskUid": 5,
+      "indexUid": "movies",
+      "status": "enqueued",
+      "type": "documentAdditionOrUpdate",
+      "enqueuedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "documents.add"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

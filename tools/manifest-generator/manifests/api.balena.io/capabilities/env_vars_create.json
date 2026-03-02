@@ -1,0 +1,48 @@
+{
+  "name": "env_vars_create",
+  "description": "Create an environment variable.",
+  "resource_group": "environment_variables",
+  "endpoint": "/v7/device_environment_variable",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "device",
+      "type": "integer",
+      "description": "Device ID.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Variable name.",
+      "required": true
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Variable value.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.balena-cloud.com/v7/device_environment_variable",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "device": 1,
+      "name": "API_KEY",
+      "value": "my-secret"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "name": "API_KEY",
+      "value": "my-secret"
+    }
+  }
+}

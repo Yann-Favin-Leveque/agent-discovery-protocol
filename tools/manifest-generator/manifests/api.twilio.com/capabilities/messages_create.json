@@ -1,0 +1,81 @@
+{
+  "name": "messages_create",
+  "resource_group": "messages",
+  "description": "Send an SMS or MMS message to a phone number.",
+  "endpoint": "/2010-04-01/Accounts/{AccountSid}/Messages.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "AccountSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Twilio Account SID",
+      "example": "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "To",
+      "type": "string",
+      "required": true,
+      "description": "Destination phone number in E.164 format",
+      "example": "+15558675310"
+    },
+    {
+      "name": "From",
+      "type": "string",
+      "required": false,
+      "description": "Twilio phone number to send from",
+      "example": "+15017122661"
+    },
+    {
+      "name": "MessagingServiceSid",
+      "type": "string",
+      "required": false,
+      "description": "Messaging Service SID (alternative to From)",
+      "example": "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "Body",
+      "type": "string",
+      "required": false,
+      "description": "Message text (up to 1600 chars)",
+      "example": "Hello from Twilio!"
+    },
+    {
+      "name": "MediaUrl",
+      "type": "array",
+      "required": false,
+      "description": "Media URLs for MMS",
+      "example": [
+        "https://example.com/image.jpg"
+      ]
+    },
+    {
+      "name": "StatusCallback",
+      "type": "string",
+      "required": false,
+      "description": "Webhook URL for delivery status",
+      "example": "https://example.com/sms-status"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/ACXXX/Messages.json",
+    "headers": {
+      "Authorization": "Basic BASE64(AccountSid:AuthToken)",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "To=%2B15558675310&From=%2B15017122661&Body=Hello+from+Twilio!"
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "sid": "SMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "to": "+15558675310",
+      "from": "+15017122661",
+      "body": "Hello from Twilio!",
+      "status": "queued",
+      "direction": "outbound-api"
+    }
+  }
+}

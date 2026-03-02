@@ -1,0 +1,51 @@
+{
+  "name": "indexes_create",
+  "description": "Create a new index with an optional primary key. Returns an asynchronous task.",
+  "endpoint": "/indexes",
+  "method": "POST",
+  "resource_group": "indexes",
+  "parameters": [
+    {
+      "name": "uid",
+      "type": "string",
+      "description": "Unique identifier for the index.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "primaryKey",
+      "type": "string",
+      "description": "Primary key attribute for documents in this index.",
+      "required": false,
+      "example": "id"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.meilisearch.com/indexes",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "uid": "movies",
+      "primaryKey": "id"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "taskUid": 0,
+      "indexUid": "movies",
+      "status": "enqueued",
+      "type": "indexCreation",
+      "enqueuedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "indexes.create"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

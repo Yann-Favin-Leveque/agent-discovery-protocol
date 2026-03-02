@@ -1,0 +1,43 @@
+{
+  "name": "hashtag_search",
+  "resource_group": "discovery",
+  "description": "Search for a hashtag by name and retrieve its ID for use in fetching recent or top media tagged with it.",
+  "endpoint": "/ig_hashtag_search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "The hashtag name to search for (without the # symbol).",
+      "required": true,
+      "in": "query",
+      "example": "catlover"
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID performing the search.",
+      "required": true,
+      "in": "query",
+      "example": "17841400000000000"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/ig_hashtag_search?q=catlover&user_id=17841400000000000",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "17843853986012965"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["instagram_basic"]
+}

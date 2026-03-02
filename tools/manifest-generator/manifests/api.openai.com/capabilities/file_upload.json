@@ -1,0 +1,41 @@
+{
+  "name": "file_upload",
+  "description": "Upload a file for use with fine-tuning, batch processing, or assistants. Maximum file size is 512 MB.",
+  "resource_group": "files",
+  "endpoint": "/v1/files",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "file",
+      "type": "file",
+      "required": true,
+      "description": "The file to upload."
+    },
+    {
+      "name": "purpose",
+      "type": "string",
+      "required": true,
+      "description": "The intended purpose: 'fine-tune', 'assistants', 'batch', 'vision'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/files",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "body": "multipart/form-data with file and purpose fields"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "file-abc123",
+      "object": "file",
+      "bytes": 175234,
+      "created_at": 1709164800,
+      "filename": "training_data.jsonl",
+      "purpose": "fine-tune",
+      "status": "uploaded"
+    }
+  }
+}

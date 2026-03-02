@@ -1,0 +1,59 @@
+{
+  "name": "board_update",
+  "resource_group": "boards",
+  "description": "Update a board name, description, or privacy.",
+  "endpoint": "/boards/{board_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "board_id",
+      "type": "string",
+      "description": "Board ID.",
+      "required": true,
+      "in": "path",
+      "example": "549755885175"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "New name.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "New desc.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "privacy",
+      "type": "string",
+      "description": "PUBLIC or SECRET.",
+      "required": false,
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.pinterest.com/v5/boards/549755885175",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Updated"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "549755885175",
+      "name": "Updated"
+    }
+  },
+  "auth_scopes": [
+    "boards:write"
+  ]
+}

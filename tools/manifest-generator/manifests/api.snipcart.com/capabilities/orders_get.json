@@ -1,0 +1,46 @@
+{
+  "name": "orders_get",
+  "description": "Retrieve a single order by token with all details.",
+  "resource_group": "orders",
+  "endpoint": "/orders/{token}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "The unique order token (GUID)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.snipcart.com/api/orders/d16e2f60-39f1-4a4c-b1c3-8a2e166d3f70",
+    "headers": {
+      "Authorization": "Basic {api_key_base64}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "token": "d16e2f60-39f1-4a4c-b1c3-8a2e166d3f70",
+      "status": "Processed",
+      "invoiceNumber": "SNIP-0001",
+      "items": [
+        {
+          "id": "1",
+          "name": "Product A",
+          "price": 30.0,
+          "quantity": 1
+        }
+      ],
+      "taxes": [
+        {
+          "taxName": "GST",
+          "taxRate": 0.05,
+          "amount": 1.5
+        }
+      ]
+    }
+  }
+}

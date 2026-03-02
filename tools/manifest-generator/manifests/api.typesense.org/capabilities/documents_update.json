@@ -1,0 +1,52 @@
+{
+  "name": "documents_update",
+  "description": "Update a single document in a collection by its ID.",
+  "endpoint": "/collections/{collectionName}/documents/{documentId}",
+  "method": "PATCH",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "collectionName",
+      "type": "string",
+      "description": "Collection name",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "documentId",
+      "type": "string",
+      "description": "Document ID",
+      "required": true,
+      "example": "1"
+    },
+    {
+      "name": "dirty_values",
+      "type": "string",
+      "description": "How to handle dirty values",
+      "required": false,
+      "example": "coerce_or_reject"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.typesense.org/collections/products/documents/1",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "price": 899.99
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "1",
+      "price": 899.99
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

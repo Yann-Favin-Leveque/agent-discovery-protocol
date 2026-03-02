@@ -1,0 +1,44 @@
+{
+  "name": "admin_users_list",
+  "resource_group": "admin",
+  "description": "List all users in the project (admin/service_role only).",
+  "endpoint": "/admin/users",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number for pagination."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Users per page. Default 50."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://myproject.supabase.co/auth/v1/admin/users?page=1&per_page=50",
+    "headers": {
+      "apikey": "your-anon-key",
+      "Authorization": "Bearer your-service-role-key",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "users": [
+        {
+          "id": "uuid-here",
+          "email": "alice@example.com",
+          "created_at": "2024-01-15T10:30:00Z"
+        }
+      ],
+      "aud": "authenticated",
+      "total": 150
+    }
+  }
+}

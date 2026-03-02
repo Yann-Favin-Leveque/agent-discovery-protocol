@@ -1,0 +1,50 @@
+{
+  "name": "keywords_search",
+  "description": "Search and retrieve keyword criteria using GAQL.",
+  "resource_group": "keywords",
+  "endpoint": "/v18/customers/{customerId}/googleAds:searchStream",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer ID.",
+      "required": true
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "GAQL query for ad_group_criterion resource.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://googleads.googleapis.com/v18/customers/1234567890/googleAds:searchStream",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "developer-token": "{developer_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "SELECT ad_group_criterion.keyword.text, ad_group_criterion.keyword.match_type FROM ad_group_criterion WHERE ad_group_criterion.type = 'KEYWORD'"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "results": [
+          {
+            "adGroupCriterion": {
+              "keyword": {
+                "text": "running shoes",
+                "matchType": "BROAD"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

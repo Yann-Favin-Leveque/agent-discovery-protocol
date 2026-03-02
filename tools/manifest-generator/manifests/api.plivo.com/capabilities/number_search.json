@@ -1,0 +1,85 @@
+{
+  "name": "number_search",
+  "description": "Search for available phone numbers to rent in a given country.",
+  "resource_group": "number",
+  "endpoint": "/v1/Account/{auth_id}/PhoneNumber/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "country_iso",
+      "type": "string",
+      "description": "ISO 2-letter country code.",
+      "required": true,
+      "example": "US"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Number type: local, tollfree, mobile, national.",
+      "required": false,
+      "example": "local"
+    },
+    {
+      "name": "pattern",
+      "type": "string",
+      "description": "Search pattern for number matching.",
+      "required": false,
+      "example": "415"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "Region/state for number search.",
+      "required": false,
+      "example": "California"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results per page (max 20).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Pagination offset.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/PhoneNumber/?country_iso=US&type=local&pattern=415",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "meta": {
+        "limit": 10,
+        "offset": 0,
+        "total_count": 50
+      },
+      "objects": [
+        {
+          "number": "+14151230000",
+          "type": "local",
+          "country": "US",
+          "monthly_rental_rate": "0.80",
+          "sms_enabled": true
+        }
+      ]
+    }
+  }
+}

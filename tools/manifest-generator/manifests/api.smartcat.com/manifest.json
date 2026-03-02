@@ -1,44 +1,135 @@
 {
   "spec_version": "1.0",
   "name": "Smartcat",
-  "description": "Smartcat is a translation management platform that combines human translators, AI translation, and translation memories. Use this API to create translation projects, upload documents for translation, track progress, download completed translations, and manage translation memories.",
-  "base_url": "https://api.smartcat.com",
+  "description": "Smartcat is a translation management platform combining human translators, AI translation, and translation memories. Use this API to create and manage translation projects, upload documents for translation, track progress, download completed translations, manage translation memories and glossaries, configure machine translation engines, and manage team assignments.",
+  "base_url": "https://smartcat.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
     "prefix": "Basic",
+    "note": "Use HTTP Basic auth with your account ID as the username and API key as the password. The header value is 'Basic {base64(accountId:apiKey)}'. Obtain credentials from Settings > API in Smartcat.",
     "setup_url": "https://smartcat.com/account/api"
   },
   "capabilities": [
     {
-      "name": "create_project",
-      "description": "Create a new translation project with specified source and target languages, workflow, and settings.",
-      "detail_url": "/capabilities/create_project"
+      "name": "project_create",
+      "resource_group": "projects",
+      "description": "Create a new translation project with source and target languages, workflow, and settings.",
+      "detail_url": "/capabilities/project_create"
     },
     {
-      "name": "list_projects",
-      "description": "List all translation projects in the account with optional filtering by status and date.",
-      "detail_url": "/capabilities/list_projects"
+      "name": "project_get",
+      "resource_group": "projects",
+      "description": "Retrieve details of a specific translation project by its ID.",
+      "detail_url": "/capabilities/project_get"
     },
     {
-      "name": "upload_document",
-      "description": "Upload a document file to an existing project for translation.",
-      "detail_url": "/capabilities/upload_document"
+      "name": "project_list",
+      "resource_group": "projects",
+      "description": "List all translation projects in the account.",
+      "detail_url": "/capabilities/project_list"
     },
     {
-      "name": "get_document_status",
-      "description": "Check the translation progress and status of a specific document within a project.",
-      "detail_url": "/capabilities/get_document_status"
+      "name": "project_update",
+      "resource_group": "projects",
+      "description": "Update an existing project's name, deadline, and other settings.",
+      "detail_url": "/capabilities/project_update"
     },
     {
-      "name": "download_translation",
-      "description": "Download the translated version of a completed document.",
-      "detail_url": "/capabilities/download_translation"
+      "name": "project_delete",
+      "resource_group": "projects",
+      "description": "Delete a translation project and its associated data.",
+      "detail_url": "/capabilities/project_delete"
     },
     {
-      "name": "list_translation_memories",
-      "description": "List all translation memories (TMs) available in the account for reuse across projects.",
-      "detail_url": "/capabilities/list_translation_memories"
+      "name": "project_complete",
+      "resource_group": "projects",
+      "description": "Mark a translation project as complete.",
+      "detail_url": "/capabilities/project_complete"
+    },
+    {
+      "name": "project_statistics_get",
+      "resource_group": "projects",
+      "description": "Get word count and translation memory match statistics for a project.",
+      "detail_url": "/capabilities/project_statistics_get"
+    },
+    {
+      "name": "document_upload",
+      "resource_group": "documents",
+      "description": "Upload one or more documents to an existing translation project.",
+      "detail_url": "/capabilities/document_upload"
+    },
+    {
+      "name": "document_get",
+      "resource_group": "documents",
+      "description": "Retrieve details and status of a specific document in a project.",
+      "detail_url": "/capabilities/document_get"
+    },
+    {
+      "name": "document_update",
+      "resource_group": "documents",
+      "description": "Update/replace a document file in an existing project.",
+      "detail_url": "/capabilities/document_update"
+    },
+    {
+      "name": "document_delete",
+      "resource_group": "documents",
+      "description": "Delete one or more documents from a project.",
+      "detail_url": "/capabilities/document_delete"
+    },
+    {
+      "name": "document_export",
+      "resource_group": "documents",
+      "description": "Export (download) translated or source documents from a project.",
+      "detail_url": "/capabilities/document_export"
+    },
+    {
+      "name": "document_statistics_get",
+      "resource_group": "documents",
+      "description": "Get word count statistics for a specific document.",
+      "detail_url": "/capabilities/document_statistics_get"
+    },
+    {
+      "name": "translation_memories_list",
+      "resource_group": "translation_memories",
+      "description": "List all translation memories available in the account.",
+      "detail_url": "/capabilities/translation_memories_list"
+    },
+    {
+      "name": "project_translation_memories_get",
+      "resource_group": "translation_memories",
+      "description": "Get translation memories attached to a specific project.",
+      "detail_url": "/capabilities/project_translation_memories_get"
+    },
+    {
+      "name": "project_translation_memories_update",
+      "resource_group": "translation_memories",
+      "description": "Set or update translation memories for a project with match thresholds.",
+      "detail_url": "/capabilities/project_translation_memories_update"
+    },
+    {
+      "name": "glossaries_list",
+      "resource_group": "glossaries",
+      "description": "List all glossaries available in the account.",
+      "detail_url": "/capabilities/glossaries_list"
+    },
+    {
+      "name": "project_glossaries_update",
+      "resource_group": "glossaries",
+      "description": "Set or update glossaries assigned to a project.",
+      "detail_url": "/capabilities/project_glossaries_update"
+    },
+    {
+      "name": "formats_list",
+      "resource_group": "directory",
+      "description": "List all supported file formats for document translation.",
+      "detail_url": "/capabilities/formats_list"
+    },
+    {
+      "name": "team_search",
+      "resource_group": "account",
+      "description": "Search team members in the account for task assignment.",
+      "detail_url": "/capabilities/team_search"
     }
   ]
 }

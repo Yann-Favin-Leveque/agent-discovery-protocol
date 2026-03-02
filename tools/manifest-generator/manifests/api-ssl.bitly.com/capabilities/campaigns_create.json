@@ -1,0 +1,58 @@
+{
+  "name": "campaigns_create",
+  "description": "Create a new campaign.",
+  "endpoint": "/v4/campaigns",
+  "method": "POST",
+  "resource_group": "campaigns",
+  "parameters": [
+    {
+      "name": "group_guid",
+      "type": "string",
+      "description": "Group GUID to associate the campaign with.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Campaign name.",
+      "required": true,
+      "example": "Q1 Campaign"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Campaign description.",
+      "required": false
+    },
+    {
+      "name": "channel_guids",
+      "type": "array",
+      "description": "Channel GUIDs to include.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-ssl.bitly.com/v4/campaigns",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "group_guid": "Ba1bc2de3fg",
+      "name": "Q1 Campaign"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "guid": "Ca1bc2de3fg",
+      "name": "Q1 Campaign",
+      "group_guid": "Ba1bc2de3fg"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

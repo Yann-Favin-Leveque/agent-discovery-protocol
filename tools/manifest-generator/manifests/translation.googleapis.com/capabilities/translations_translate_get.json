@@ -1,0 +1,73 @@
+{
+  "name": "translations_translate_get",
+  "description": "Translate text to a target language via GET request with query parameters. Useful for simple single-text translations.",
+  "resource_group": "translations",
+  "endpoint": "/v2",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "location": "query",
+      "description": "Text string to translate. Can be repeated for multiple texts."
+    },
+    {
+      "name": "target",
+      "type": "string",
+      "required": true,
+      "location": "query",
+      "description": "Target language code (e.g., 'fr', 'de', 'es')."
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Source language code. Omit for auto-detection."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "'html' or 'text'. Default: 'text'."
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "'nmt' or 'base'."
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "API key (alternative to OAuth bearer token)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://translation.googleapis.com/language/translate/v2?q=Hello%20world&target=fr&source=en&key=YOUR_API_KEY",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "translations": [
+          {
+            "translatedText": "Bonjour le monde",
+            "detectedSourceLanguage": "en"
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/cloud-translation",
+    "https://www.googleapis.com/auth/cloud-platform"
+  ]
+}

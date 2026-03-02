@@ -1,0 +1,43 @@
+{
+  "name": "messages_opens_list",
+  "description": "Search email open events across messages.",
+  "resource_group": "messages",
+  "endpoint": "/messages/outbound/opens",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "count",
+      "type": "number",
+      "description": "Records per request.",
+      "required": true,
+      "example": 100
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "description": "Records to skip.",
+      "required": true,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.postmarkapp.com/messages/outbound/opens?count=100&offset=0",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TotalCount": 50,
+      "Opens": [
+        {
+          "MessageID": "abc-123",
+          "RecipientEmail": "user@example.com"
+        }
+      ]
+    }
+  }
+}

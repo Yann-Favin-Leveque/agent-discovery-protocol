@@ -1,0 +1,28 @@
+{
+  "name": "conversations_list",
+  "description": "List and filter conversations across all inboxes with pagination, status, and assignee filters.",
+  "endpoint": "/api/v1/accounts/{account_id}/conversations",
+  "method": "GET",
+  "resource_group": "conversations",
+  "parameters": [
+    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
+    {"name": "assignee_type", "type": "string", "description": "Filter: me, unassigned, all, assigned.", "required": false, "example": "all"},
+    {"name": "status", "type": "string", "description": "Filter: open, resolved, pending, snoozed, all.", "required": false, "example": "open"},
+    {"name": "q", "type": "string", "description": "Search term in messages.", "required": false, "example": "billing issue"},
+    {"name": "inbox_id", "type": "integer", "description": "Filter by inbox.", "required": false, "example": 1},
+    {"name": "team_id", "type": "integer", "description": "Filter by team.", "required": false, "example": 1},
+    {"name": "labels", "type": "array", "description": "Filter by labels.", "required": false, "example": ["vip"]},
+    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.chatwoot.com/api/v1/accounts/1/conversations?status=open&page=1",
+    "headers": {"api_access_token": "{token}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"meta": {"mine_count": 5, "unassigned_count": 3, "all_count": 25}, "payload": [{"id": 101, "inbox_id": 1, "status": "open", "messages": [], "meta": {"sender": {"name": "John Doe", "email": "john@example.com"}}}]}}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 250}
+}

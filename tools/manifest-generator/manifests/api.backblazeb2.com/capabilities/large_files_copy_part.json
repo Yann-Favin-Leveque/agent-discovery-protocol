@@ -1,0 +1,47 @@
+{
+  "name": "large_files_copy_part",
+  "description": "Copy a part from an existing file to a large file upload.",
+  "resource_group": "large_files",
+  "endpoint": "/b2api/v3/b2_copy_part",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "sourceFileId",
+      "type": "string",
+      "description": "Source file ID.",
+      "required": true
+    },
+    {
+      "name": "largeFileId",
+      "type": "string",
+      "description": "Target large file ID.",
+      "required": true
+    },
+    {
+      "name": "partNumber",
+      "type": "integer",
+      "description": "Part number.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_copy_part",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sourceFileId": "file123",
+      "largeFileId": "largefile123",
+      "partNumber": 1
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "fileId": "largefile123",
+      "partNumber": 1
+    }
+  }
+}

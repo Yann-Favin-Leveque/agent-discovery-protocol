@@ -1,0 +1,20 @@
+{
+  "name": "image_edit_erase",
+  "description": "Remove objects or content from an image using a mask to indicate the area to erase. The erased area is filled seamlessly.",
+  "resource_group": "edit",
+  "endpoint": "/v2beta/stable-image/edit/erase",
+  "method": "POST",
+  "parameters": [
+    {"name": "image", "type": "file", "required": true, "description": "The source image."},
+    {"name": "mask", "type": "file", "required": true, "description": "Mask image indicating areas to erase (white = erase)."},
+    {"name": "output_format", "type": "string", "required": false, "description": "Output format: 'png', 'jpeg', 'webp'."},
+    {"name": "seed", "type": "integer", "required": false, "description": "Random seed."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stability.ai/v2beta/stable-image/edit/erase",
+    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Accept": "image/*"},
+    "body": "multipart/form-data: image=@photo.jpg&mask=@mask.png"
+  },
+  "response_example": {"status": 200, "body": "Binary edited image content"}
+}

@@ -1,0 +1,66 @@
+{
+  "name": "postings_create",
+  "resource_group": "Postings",
+  "endpoint": "/v1/postings",
+  "method": "POST",
+  "description": "Create a new job posting.",
+  "parameters": [
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "description": "Posting title."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "State: published, internal, closed, draft."
+    },
+    {
+      "name": "categories",
+      "type": "object",
+      "required": false,
+      "description": "Object with team, location, commitment."
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "required": false,
+      "description": "Object with description, lists (requirements, etc)."
+    },
+    {
+      "name": "perform_as",
+      "type": "string",
+      "required": false,
+      "description": "User UUID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lever.co/v1/postings",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "text": "Data Scientist",
+      "state": "draft",
+      "categories": {
+        "team": "Data",
+        "location": "Remote",
+        "commitment": "Full-time"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "posting-new",
+        "text": "Data Scientist",
+        "state": "draft"
+      }
+    }
+  }
+}

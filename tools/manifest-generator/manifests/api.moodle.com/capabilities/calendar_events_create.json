@@ -1,0 +1,27 @@
+{
+  "name": "calendar_events_create",
+  "description": "Create one or more calendar events.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_calendar_create_calendar_events",
+  "method": "POST",
+  "resource_group": "calendar",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "events[0][name]", "type": "string", "description": "Event name", "required": true, "example": "Office Hours" },
+    { "name": "events[0][courseid]", "type": "integer", "description": "Course ID for course events", "required": false, "example": 5 },
+    { "name": "events[0][timestart]", "type": "integer", "description": "Event start time as Unix timestamp", "required": true, "example": 1706745600 },
+    { "name": "events[0][timeduration]", "type": "integer", "description": "Duration in seconds", "required": false, "example": 3600 },
+    { "name": "events[0][description]", "type": "string", "description": "Event description", "required": false, "example": "Weekly office hours for PHYS101" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_calendar_create_calendar_events&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "events[0][name]": "Office Hours", "events[0][courseid]": 5, "events[0][timestart]": 1706745600 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "events": [{ "id": 2, "name": "Office Hours" }] }
+  },
+  "auth_scopes": ["core_calendar_create_calendar_events"],
+  "rate_limits": { "requests_per_minute": 30 }
+}

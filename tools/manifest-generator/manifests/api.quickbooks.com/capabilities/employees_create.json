@@ -1,0 +1,59 @@
+{
+  "name": "employees_create",
+  "description": "Create a new employee record with personal and contact information.",
+  "endpoint": "/v3/company/{realmId}/employee",
+  "method": "POST",
+  "resource_group": "employees",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "GivenName",
+      "type": "string",
+      "description": "First name",
+      "required": true,
+      "example": "Jane"
+    },
+    {
+      "name": "FamilyName",
+      "type": "string",
+      "description": "Last name",
+      "required": true,
+      "example": "Smith"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/employee?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "GivenName": "Jane",
+      "FamilyName": "Smith"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Employee": {
+        "Id": "55",
+        "GivenName": "Jane",
+        "FamilyName": "Smith",
+        "Active": true
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

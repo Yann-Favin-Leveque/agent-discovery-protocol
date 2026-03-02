@@ -1,0 +1,40 @@
+{
+  "name": "subscriptions_pause",
+  "description": "Pause an active subscription.",
+  "resource_group": "subscriptions",
+  "endpoint": "/v1/subscriptions/{subscription_id}/pause",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "subscription_id",
+      "type": "string",
+      "description": "The subscription ID.",
+      "required": true
+    },
+    {
+      "name": "pause_at",
+      "type": "string",
+      "description": "When to pause: now or end of current cycle.",
+      "required": false,
+      "example": "now"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/subscriptions/sub_DBJOWzybf0sJbb/pause",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "pause_at": "now"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sub_DBJOWzybf0sJbb",
+      "status": "paused"
+    }
+  }
+}

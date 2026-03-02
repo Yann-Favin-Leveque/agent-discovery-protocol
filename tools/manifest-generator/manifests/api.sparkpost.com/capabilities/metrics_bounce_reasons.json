@@ -1,0 +1,48 @@
+{
+  "name": "metrics_bounce_reasons",
+  "description": "Get bounce reason analysis with classification details.",
+  "endpoint": "/api/v1/metrics/deliverability/bounce/reason",
+  "method": "GET",
+  "resource_group": "metrics",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start datetime",
+      "required": true,
+      "example": "2026-03-01T00:00"
+    },
+    {
+      "name": "metrics",
+      "type": "string",
+      "description": "Metrics to return",
+      "required": true,
+      "example": "count_bounce"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/metrics/deliverability/bounce/reason?from=2026-03-01T00:00&metrics=count_bounce",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "reason": "550 User unknown",
+          "bounce_class_name": "Undetermined",
+          "count_bounce": 5
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

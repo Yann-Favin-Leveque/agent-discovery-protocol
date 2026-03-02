@@ -1,0 +1,50 @@
+{
+  "name": "engagements_notes_create",
+  "description": "Create a note on a CRM record.",
+  "resource_group": "engagements",
+  "endpoint": "/crm/v3/objects/notes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "properties",
+      "type": "object",
+      "required": true,
+      "description": "Note properties: hs_note_body, hs_timestamp."
+    },
+    {
+      "name": "associations",
+      "type": "array",
+      "required": false,
+      "description": "Associations to contacts/deals/companies."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hubapi.com/crm/v3/objects/notes",
+    "body": {
+      "properties": {
+        "hs_note_body": "Call with client went well",
+        "hs_timestamp": "2026-01-20T14:00:00Z"
+      },
+      "associations": [
+        {
+          "to": {
+            "id": "101"
+          },
+          "types": [
+            {
+              "associationCategory": "HUBSPOT_DEFINED",
+              "associationTypeId": 202
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "id": "note-abc",
+    "properties": {
+      "hs_note_body": "Call with client went well"
+    }
+  }
+}

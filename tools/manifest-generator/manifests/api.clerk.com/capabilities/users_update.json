@@ -1,0 +1,89 @@
+{
+  "name": "users_update",
+  "resource_group": "users",
+  "description": "Update an existing user profile, metadata, or authentication settings.",
+  "endpoint": "/v1/users/{user_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "The Clerk user ID.",
+      "in": "path"
+    },
+    {
+      "name": "first_name",
+      "type": "string",
+      "required": false,
+      "description": "Updated first name."
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "required": false,
+      "description": "Updated last name."
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "required": false,
+      "description": "Updated username."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "description": "New password."
+    },
+    {
+      "name": "primary_email_address_id",
+      "type": "string",
+      "required": false,
+      "description": "ID of the email to set as primary."
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "required": false,
+      "description": "External ID."
+    },
+    {
+      "name": "public_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Public metadata (merged)."
+    },
+    {
+      "name": "private_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Private metadata (merged)."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.clerk.com/v1/users/user_2abc123",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "first_name": "Alice",
+      "public_metadata": {
+        "role": "admin"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "user_2abc123",
+      "object": "user",
+      "first_name": "Alice",
+      "public_metadata": {
+        "role": "admin"
+      }
+    }
+  }
+}

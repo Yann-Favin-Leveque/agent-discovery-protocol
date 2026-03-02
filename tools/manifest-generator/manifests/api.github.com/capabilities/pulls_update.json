@@ -1,0 +1,74 @@
+{
+  "name": "pulls_update",
+  "description": "Update a pull request's title, body, state, or base branch.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repos/{owner}/{repo}/pulls/{pull_number}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "pull_number",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "The PR number."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Updated title."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Updated description."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "State: open or closed."
+    },
+    {
+      "name": "base",
+      "type": "string",
+      "required": false,
+      "description": "Change target branch."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.github.com/repos/octocat/my-project/pulls/101",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "title": "Add dark mode support [v2]"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "number": 101,
+      "title": "Add dark mode support [v2]",
+      "state": "open"
+    }
+  }
+}

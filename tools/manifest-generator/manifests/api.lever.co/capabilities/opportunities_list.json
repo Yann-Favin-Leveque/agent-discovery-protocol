@@ -1,0 +1,94 @@
+{
+  "name": "opportunities_list",
+  "resource_group": "Opportunities",
+  "endpoint": "/v1/opportunities",
+  "method": "GET",
+  "description": "List all candidate opportunities (pipeline entries) with filtering by stage, source, tag, and date.",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results (max 100)."
+    },
+    {
+      "name": "offset",
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor."
+    },
+    {
+      "name": "stage_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by stage UUID."
+    },
+    {
+      "name": "posting_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by posting UUID."
+    },
+    {
+      "name": "archived_posting_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by archived posting."
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "required": false,
+      "description": "Filter by tag."
+    },
+    {
+      "name": "origin",
+      "type": "string",
+      "required": false,
+      "description": "Filter by origin: applied, referred, sourced, agency."
+    },
+    {
+      "name": "created_at_start",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp for created after."
+    },
+    {
+      "name": "created_at_end",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp for created before."
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "required": false,
+      "description": "Include archived opportunities."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.lever.co/v1/opportunities?limit=20&tag=engineering",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "abc-123",
+          "name": "John Doe",
+          "stage": {
+            "id": "stage-1",
+            "text": "Phone Screen"
+          },
+          "origin": "applied",
+          "createdAt": 1700000000000
+        }
+      ],
+      "hasNext": true
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "ipgeo_lookup",
+  "description": "Look up the geographic location of an IP address or domain. Returns country, city, lat/lng, ISP, ASN, and timezone.",
+  "endpoint": "/v3/ipgeo",
+  "method": "GET",
+  "resource_group": "geolocation",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "description": "Your API key.",
+      "required": true,
+      "example": "YOUR_API_KEY"
+    },
+    {
+      "name": "ip",
+      "type": "string",
+      "description": "IPv4/IPv6 address or domain. Omit to use caller IP.",
+      "required": false,
+      "example": "8.8.8.8"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "description": "Response language (en, de, ru, ja, fr, cn, es, cs, it).",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated fields to return.",
+      "required": false,
+      "example": "geo,isp"
+    },
+    {
+      "name": "include",
+      "type": "string",
+      "description": "Extra modules: security, user_agent, hostname, or *.",
+      "required": false,
+      "example": "security"
+    },
+    {
+      "name": "excludes",
+      "type": "string",
+      "description": "Fields to exclude from response.",
+      "required": false,
+      "example": "currency"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ipgeolocation.io/v3/ipgeo?apiKey=YOUR_API_KEY&ip=8.8.8.8",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ip": "8.8.8.8",
+      "continent_name": "North America",
+      "country_name": "United States",
+      "state_prov": "California",
+      "city": "Mountain View",
+      "latitude": "37.4056",
+      "longitude": "-122.0775",
+      "isp": "Google LLC",
+      "organization": "Google LLC",
+      "asn": "AS15169",
+      "timezone": {
+        "name": "America/Los_Angeles",
+        "offset": -8
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

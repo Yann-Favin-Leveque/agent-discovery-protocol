@@ -1,0 +1,73 @@
+{
+  "name": "weather_history_get",
+  "description": "Get historical weather data for any location going back to the year 2000. Specify start and end times for the desired period.",
+  "resource_group": "weather",
+  "endpoint": "/v4/weather/history/recent",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "description": "Location as lat,lon, city name, or US zip code.",
+      "in": "query"
+    },
+    {
+      "name": "apikey",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "timesteps",
+      "type": "string",
+      "required": false,
+      "description": "Timestep: '1h' or '1d'.",
+      "in": "query"
+    },
+    {
+      "name": "startTime",
+      "type": "string",
+      "required": false,
+      "description": "Start time in ISO 8601 format.",
+      "in": "query"
+    },
+    {
+      "name": "endTime",
+      "type": "string",
+      "required": false,
+      "description": "End time in ISO 8601 format.",
+      "in": "query"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Units: 'metric' or 'imperial'.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tomorrow.io/v4/weather/history/recent?location=48.8566,2.3522&timesteps=1d&apikey=YOUR_API_KEY&units=metric"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "timelines": {
+        "daily": [
+          {
+            "time": "2025-01-14T06:00:00Z",
+            "values": {
+              "temperatureMax": 15.2,
+              "temperatureMin": 8.1,
+              "precipitationProbabilityAvg": 35
+            }
+          }
+        ]
+      }
+    }
+  }
+}

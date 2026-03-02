@@ -1,0 +1,64 @@
+{
+  "name": "items_publish",
+  "description": "Publish a content record, making it visible via the Content Delivery API. Can selectively publish specific locales or all content.",
+  "resource_group": "items",
+  "endpoint": "/items/{item_id}/publish",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "item_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique record ID to publish."
+    },
+    {
+      "name": "recursive",
+      "type": "boolean",
+      "required": false,
+      "location": "query",
+      "description": "When true, auto-publishes unpublished parent records in tree collections."
+    },
+    {
+      "name": "content_in_locales",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Array of locale codes to selectively publish (e.g., ['en', 'it'])."
+    },
+    {
+      "name": "non_localized_content",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "Whether to publish non-localized fields."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://site-api.datocms.com/items/hWl-mnkWRYmMCSTq4z_piQ/publish",
+    "headers": {
+      "Authorization": "Bearer your-datocms-api-token",
+      "Content-Type": "application/vnd.api+json",
+      "Accept": "application/json",
+      "X-Api-Version": "3"
+    },
+    "body": {
+      "content_in_locales": ["en"],
+      "non_localized_content": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "item",
+        "id": "hWl-mnkWRYmMCSTq4z_piQ",
+        "meta": {
+          "status": "published",
+          "published_at": "2026-03-01T12:00:00.000Z"
+        }
+      }
+    }
+  }
+}

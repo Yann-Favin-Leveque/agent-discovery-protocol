@@ -1,0 +1,67 @@
+{
+  "name": "lemur_summary",
+  "description": "Generate an automatic summary of one or more transcripts using LeMUR.",
+  "endpoint": "/v2/lemur/v3/generate/summary",
+  "method": "POST",
+  "resource_group": "lemur",
+  "parameters": [
+    {
+      "name": "transcript_ids",
+      "type": "array",
+      "description": "Array of transcript IDs.",
+      "required": true,
+      "example": [
+        "abc123"
+      ]
+    },
+    {
+      "name": "context",
+      "type": "string",
+      "description": "Additional context for the summary.",
+      "required": false
+    },
+    {
+      "name": "answer_format",
+      "type": "string",
+      "description": "Format of the summary.",
+      "required": false,
+      "example": "bullet points"
+    },
+    {
+      "name": "final_model",
+      "type": "string",
+      "description": "LLM model to use.",
+      "required": false,
+      "example": "default"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.assemblyai.com/v2/lemur/v3/generate/summary",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transcript_ids": [
+        "abc123"
+      ],
+      "answer_format": "bullet points"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req_abc123",
+      "response": "- The meeting discussed Q4 targets\n- Sales increased 15% YoY\n- New product launch planned for March",
+      "usage": {
+        "input_tokens": 1500,
+        "output_tokens": 40
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "invoices_create",
+  "description": "Create a new invoice for a client with line items, payment terms, and due date.",
+  "endpoint": "/accounting/account/{account_id}/invoices/invoices",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
+    {"name": "customerid", "type": "integer", "description": "The client ID to invoice.", "required": true, "example": 12345},
+    {"name": "create_date", "type": "string", "description": "Invoice creation date (YYYY-MM-DD).", "required": true, "example": "2024-09-01"},
+    {"name": "lines", "type": "array", "description": "Array of line items with name, qty, unit_cost.", "required": true, "example": [{"name": "Web Development", "qty": 10, "unit_cost": {"amount": "50.00", "code": "USD"}}]},
+    {"name": "due_offset_days", "type": "integer", "description": "Number of days until payment is due.", "required": false, "example": 30},
+    {"name": "notes", "type": "string", "description": "Notes to include on the invoice.", "required": false, "example": "Thank you for your business!"},
+    {"name": "currency_code", "type": "string", "description": "Invoice currency code.", "required": false, "example": "USD"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/invoices/invoices",
+    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha", "Content-Type": "application/json"},
+    "body": {
+      "invoice": {
+        "customerid": 12345,
+        "create_date": "2024-09-01",
+        "due_offset_days": 30,
+        "lines": [{"name": "Web Development", "qty": 10, "unit_cost": {"amount": "50.00", "code": "USD"}}]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "response": {"result": {"invoice": {"id": 67890, "invoice_number": "0002", "customerid": 12345, "status": 1, "amount": {"amount": "500.00", "code": "USD"}}}}
+    }
+  },
+  "auth_scopes": ["user:invoices:write"],
+  "rate_limits": {"requests_per_minute": 100}
+}

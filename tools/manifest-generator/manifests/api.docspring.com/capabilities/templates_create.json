@@ -1,0 +1,40 @@
+{
+  "name": "templates_create",
+  "description": "Create a new PDF template by uploading a PDF file. Use the synchronous endpoint (sync.api.docspring.com) to wait for processing.",
+  "resource_group": "templates",
+  "endpoint": "/api/v1/templates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "template",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "Template configuration object including name and document."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://sync.api.docspring.com/api/v1/templates",
+    "headers": {
+      "Authorization": "Basic {base64(token_id:token_secret)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "template": {
+        "name": "Invoice Template",
+        "document_url": "https://example.com/invoice-template.pdf"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "tpl_abc123",
+      "name": "Invoice Template",
+      "status": "active",
+      "fields": [],
+      "created_at": "2026-03-01T12:00:00.000Z"
+    }
+  }
+}

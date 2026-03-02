@@ -1,0 +1,85 @@
+{
+  "name": "map_matching_get",
+  "description": "Snap GPS trace coordinates to the road network and return the matched route.",
+  "endpoint": "/matching/v5/{profile}/{coordinates}",
+  "method": "GET",
+  "resource_group": "navigation",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile.",
+      "required": true,
+      "example": "mapbox/driving"
+    },
+    {
+      "name": "coordinates",
+      "type": "string",
+      "description": "Semicolon-separated lng,lat pairs (2-100).",
+      "required": true,
+      "example": "-73.989,40.733;-73.988,40.732;-73.987,40.731"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "pk.xxx"
+    },
+    {
+      "name": "geometries",
+      "type": "string",
+      "description": "Geometry format.",
+      "required": false,
+      "example": "geojson"
+    },
+    {
+      "name": "steps",
+      "type": "boolean",
+      "description": "Include turn-by-turn steps.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "tidy",
+      "type": "boolean",
+      "description": "Remove clusters from input.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/matching/v5/mapbox/driving/-73.989,40.733;-73.988,40.732;-73.987,40.731?geometries=geojson&access_token=pk.xxx",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "matchings": [
+        {
+          "distance": 250,
+          "duration": 30,
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                -73.989,
+                40.733
+              ]
+            ]
+          }
+        }
+      ],
+      "tracepoints": [
+        {
+          "name": "Street Name"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

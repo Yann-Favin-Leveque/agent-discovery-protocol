@@ -1,0 +1,57 @@
+{
+  "name": "document_send",
+  "description": "Send a completed draft document to its recipients for review and electronic signature via email.",
+  "resource_group": "document",
+  "endpoint": "/public/v1/documents/{id}/send",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Document ID.",
+      "in": "path"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Custom message to include in the email.",
+      "in": "body"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "required": false,
+      "description": "Custom email subject line.",
+      "in": "body"
+    },
+    {
+      "name": "silent",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, send without email notification.",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pandadoc.com/public/v1/documents/doc-abc-123/send",
+    "headers": {
+      "Authorization": "API-Key YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "message": "Please review and sign the attached agreement.",
+      "subject": "Your Service Agreement is ready for signature"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "doc-abc-123",
+      "status": "document.sent"
+    }
+  }
+}

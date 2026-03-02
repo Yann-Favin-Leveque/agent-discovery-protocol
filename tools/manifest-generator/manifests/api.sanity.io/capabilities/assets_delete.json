@@ -1,0 +1,66 @@
+{
+  "name": "assets_delete",
+  "description": "Delete an asset by deleting its asset document via mutations.",
+  "endpoint": "/v{apiVersion}/data/mutate/{dataset}",
+  "method": "POST",
+  "resource_group": "assets",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "assetId",
+      "type": "string",
+      "description": "Asset document ID to delete",
+      "required": true,
+      "example": "image-abc123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/data/mutate/production",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "mutations": [
+        {
+          "delete": {
+            "id": "image-abc123"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transactionId": "xyz",
+      "results": [
+        {
+          "id": "image-abc123",
+          "operation": "delete"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

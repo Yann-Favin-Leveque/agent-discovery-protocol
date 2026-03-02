@@ -1,0 +1,61 @@
+{
+  "name": "recipient_lists_update",
+  "description": "Update an existing recipient list by replacing its recipients.",
+  "endpoint": "/api/v1/recipient-lists/{id}",
+  "method": "PUT",
+  "resource_group": "recipient_lists",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "List ID",
+      "required": true,
+      "example": "my-list"
+    },
+    {
+      "name": "recipients",
+      "type": "array",
+      "description": "New recipient array",
+      "required": true,
+      "example": [
+        {
+          "address": {
+            "email": "new@example.com"
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sparkpost.com/api/v1/recipient-lists/my-list",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipients": [
+        {
+          "address": {
+            "email": "new@example.com"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "total_rejected_recipients": 0,
+        "total_accepted_recipients": 1
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

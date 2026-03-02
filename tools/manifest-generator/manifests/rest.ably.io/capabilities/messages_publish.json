@@ -1,0 +1,28 @@
+{
+  "name": "messages_publish",
+  "description": "Publish a message to a specified channel. The message can contain a name (event type) and data payload.",
+  "resource_group": "messages",
+  "endpoint": "/channels/{channelId}/messages",
+  "method": "POST",
+  "parameters": [
+    {"name": "channelId", "type": "string", "description": "The channel name to publish to.", "required": true, "example": "my-channel"},
+    {"name": "name", "type": "string", "description": "Event name for the message.", "required": false, "example": "greeting"},
+    {"name": "data", "type": "string", "description": "The message payload (string or JSON).", "required": true, "example": "Hello from REST"},
+    {"name": "id", "type": "string", "description": "Unique message ID for idempotency.", "required": false},
+    {"name": "extras", "type": "object", "description": "Extra message metadata such as push notification config.", "required": false}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.ably.io/channels/my-channel/messages",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {"name": "greeting", "data": "Hello from REST"}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"channel": "my-channel", "messageId": "unique-msg-id-001"}
+  },
+  "rate_limits": {"requests_per_minute": 1500}
+}

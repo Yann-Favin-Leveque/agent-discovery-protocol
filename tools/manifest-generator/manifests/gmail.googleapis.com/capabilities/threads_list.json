@@ -1,0 +1,69 @@
+{
+  "name": "threads_list",
+  "description": "Lists the threads in the user's mailbox with optional search filtering.",
+  "resource_group": "threads",
+  "endpoint": "/gmail/v1/users/{userId}/threads",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "maxResults",
+      "type": "number",
+      "description": "Maximum threads to return (max 500).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Search query.",
+      "required": false,
+      "example": "from:user@example.com"
+    },
+    {
+      "name": "labelIds",
+      "type": "array",
+      "description": "Filter by label IDs.",
+      "required": false,
+      "example": [
+        "INBOX"
+      ]
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Page token for pagination.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/threads?maxResults=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "threads": [
+        {
+          "id": "18e2abc123",
+          "snippet": "Hello...",
+          "historyId": "12345"
+        }
+      ],
+      "nextPageToken": "token123",
+      "resultSizeEstimate": 42
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.readonly"
+  ]
+}

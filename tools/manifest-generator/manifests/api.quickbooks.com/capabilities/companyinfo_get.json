@@ -1,0 +1,47 @@
+{
+  "name": "companyinfo_get",
+  "description": "Retrieve the company profile including name, address, and fiscal year settings.",
+  "endpoint": "/v3/company/{realmId}/companyinfo/{companyId}",
+  "method": "GET",
+  "resource_group": "companyinfo",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "companyId",
+      "type": "string",
+      "description": "Same as realmId",
+      "required": true,
+      "example": "1234567890"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/companyinfo/1234567890?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "CompanyInfo": {
+        "Id": "1",
+        "CompanyName": "My Company",
+        "Country": "US"
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

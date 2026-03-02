@@ -1,0 +1,52 @@
+{
+  "name": "products_update",
+  "description": "Update product inventory and stock settings.",
+  "resource_group": "products",
+  "endpoint": "/products/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Product ID."
+    },
+    {
+      "name": "inventoryManagementMethod",
+      "type": "string",
+      "required": false,
+      "description": "Single or Variant."
+    },
+    {
+      "name": "stock",
+      "type": "integer",
+      "required": false,
+      "description": "Stock quantity."
+    },
+    {
+      "name": "allowOutOfStockPurchases",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow purchases when out of stock."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://app.snipcart.com/api/products/PROD-001",
+    "headers": {
+      "Authorization": "Basic {api_key_base64}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "stock": 50,
+      "allowOutOfStockPurchases": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "userDefinedId": "PROD-001",
+      "stock": 50
+    }
+  }
+}

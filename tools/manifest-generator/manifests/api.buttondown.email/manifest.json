@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Buttondown",
-  "description": "Buttondown is a simple, powerful email newsletter service. Use it to manage subscribers, send and schedule email newsletters, organize contacts with tags, and track analytics on your campaigns.",
+  "description": "Buttondown is a simple, powerful email newsletter service. Use it to manage subscribers, send and schedule newsletters, organize contacts with tags, configure automations, track analytics, and manage exports.",
   "base_url": "https://api.buttondown.email",
   "auth": {
     "type": "api_key",
@@ -11,29 +11,160 @@
   },
   "capabilities": [
     {
-      "name": "manage_subscribers",
-      "description": "List, create, update, or delete subscribers from your newsletter. Filter by status, tag, or email address.",
-      "detail_url": "/capabilities/manage_subscribers"
+      "name": "subscribers_list",
+      "resource_group": "subscribers",
+      "description": "Retrieve a paginated list of all subscribers with optional filtering by status, tag, or email.",
+      "detail_url": "/capabilities/subscribers_list"
     },
     {
-      "name": "send_email",
-      "description": "Create and send a new email or draft to your subscribers. Supports markdown body, subject lines, and scheduling.",
-      "detail_url": "/capabilities/send_email"
+      "name": "subscribers_get",
+      "resource_group": "subscribers",
+      "description": "Retrieve a single subscriber by ID or email address.",
+      "detail_url": "/capabilities/subscribers_get"
     },
     {
-      "name": "list_emails",
-      "description": "Retrieve your sent and drafted emails with metadata like open rates, click rates, and send dates.",
-      "detail_url": "/capabilities/list_emails"
+      "name": "subscribers_create",
+      "resource_group": "subscribers",
+      "description": "Create a new subscriber and optionally assign tags.",
+      "detail_url": "/capabilities/subscribers_create"
     },
     {
-      "name": "manage_tags",
-      "description": "Create, list, update, or delete tags used to organize and segment your subscribers.",
-      "detail_url": "/capabilities/manage_tags"
+      "name": "subscribers_update",
+      "resource_group": "subscribers",
+      "description": "Update an existing subscriber's information including metadata and tags.",
+      "detail_url": "/capabilities/subscribers_update"
     },
     {
-      "name": "get_newsletter_analytics",
-      "description": "Retrieve analytics and statistics for your newsletter including subscriber growth, open rates, and click-through rates.",
-      "detail_url": "/capabilities/get_newsletter_analytics"
+      "name": "subscribers_delete",
+      "resource_group": "subscribers",
+      "description": "Delete a subscriber by ID.",
+      "detail_url": "/capabilities/subscribers_delete"
+    },
+    {
+      "name": "subscribers_send_email",
+      "resource_group": "subscribers",
+      "description": "Send a specific email to an individual subscriber.",
+      "detail_url": "/capabilities/subscribers_send_email"
+    },
+    {
+      "name": "subscribers_send_reminder",
+      "resource_group": "subscribers",
+      "description": "Send a reminder email to a subscriber.",
+      "detail_url": "/capabilities/subscribers_send_reminder"
+    },
+    {
+      "name": "emails_list",
+      "resource_group": "emails",
+      "description": "Retrieve a paginated list of all emails (sent, drafts, and scheduled).",
+      "detail_url": "/capabilities/emails_list"
+    },
+    {
+      "name": "emails_get",
+      "resource_group": "emails",
+      "description": "Retrieve a single email by ID with analytics data.",
+      "detail_url": "/capabilities/emails_get"
+    },
+    {
+      "name": "emails_create",
+      "resource_group": "emails",
+      "description": "Create a new email draft or schedule it for future delivery.",
+      "detail_url": "/capabilities/emails_create"
+    },
+    {
+      "name": "emails_update",
+      "resource_group": "emails",
+      "description": "Update an existing draft or scheduled email.",
+      "detail_url": "/capabilities/emails_update"
+    },
+    {
+      "name": "emails_delete",
+      "resource_group": "emails",
+      "description": "Delete an email by ID.",
+      "detail_url": "/capabilities/emails_delete"
+    },
+    {
+      "name": "emails_send_draft",
+      "resource_group": "emails",
+      "description": "Send a draft email to subscribers or specific recipients.",
+      "detail_url": "/capabilities/emails_send_draft"
+    },
+    {
+      "name": "emails_get_analytics",
+      "resource_group": "emails",
+      "description": "Retrieve analytics data for a specific email including opens, clicks, and engagement.",
+      "detail_url": "/capabilities/emails_get_analytics"
+    },
+    {
+      "name": "tags_list",
+      "resource_group": "tags",
+      "description": "Retrieve all tags in your newsletter.",
+      "detail_url": "/capabilities/tags_list"
+    },
+    {
+      "name": "tags_get",
+      "resource_group": "tags",
+      "description": "Retrieve a specific tag by ID.",
+      "detail_url": "/capabilities/tags_get"
+    },
+    {
+      "name": "tags_create",
+      "resource_group": "tags",
+      "description": "Create a new tag.",
+      "detail_url": "/capabilities/tags_create"
+    },
+    {
+      "name": "tags_update",
+      "resource_group": "tags",
+      "description": "Update a tag's name or description.",
+      "detail_url": "/capabilities/tags_update"
+    },
+    {
+      "name": "tags_delete",
+      "resource_group": "tags",
+      "description": "Delete a tag by ID.",
+      "detail_url": "/capabilities/tags_delete"
+    },
+    {
+      "name": "automations_list",
+      "resource_group": "automations",
+      "description": "Retrieve all automations configured for your newsletter.",
+      "detail_url": "/capabilities/automations_list"
+    },
+    {
+      "name": "automations_get",
+      "resource_group": "automations",
+      "description": "Retrieve a specific automation by ID.",
+      "detail_url": "/capabilities/automations_get"
+    },
+    {
+      "name": "automations_create",
+      "resource_group": "automations",
+      "description": "Create a new automation triggered by RSS feeds or other events.",
+      "detail_url": "/capabilities/automations_create"
+    },
+    {
+      "name": "automations_delete",
+      "resource_group": "automations",
+      "description": "Delete an automation by ID.",
+      "detail_url": "/capabilities/automations_delete"
+    },
+    {
+      "name": "exports_list",
+      "resource_group": "exports",
+      "description": "Retrieve a list of data exports.",
+      "detail_url": "/capabilities/exports_list"
+    },
+    {
+      "name": "exports_create",
+      "resource_group": "exports",
+      "description": "Trigger a new data export of subscribers or emails.",
+      "detail_url": "/capabilities/exports_create"
+    },
+    {
+      "name": "newsletters_get",
+      "resource_group": "newsletters",
+      "description": "Retrieve newsletter settings and metadata including analytics summary.",
+      "detail_url": "/capabilities/newsletters_get"
     }
   ]
 }

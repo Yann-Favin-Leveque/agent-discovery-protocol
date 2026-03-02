@@ -1,0 +1,42 @@
+{
+  "name": "past_meetings_get",
+  "description": "Retrieve details of a past meeting instance including UUID, host, topic, start/end time, duration, and participant count.",
+  "endpoint": "/past_meetings/{meetingId}",
+  "method": "GET",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "string",
+      "description": "The past meeting ID or UUID. Double-encode UUIDs containing / or //.",
+      "required": true,
+      "example": "abc123def"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/past_meetings/abc123def",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uuid": "abc123def",
+      "id": 1234567890,
+      "host_id": "host1",
+      "type": 2,
+      "topic": "Weekly Team Sync",
+      "start_time": "2024-01-15T10:00:00Z",
+      "end_time": "2024-01-15T11:00:00Z",
+      "duration": 60,
+      "total_minutes": 240,
+      "participants_count": 5
+    }
+  },
+  "auth_scopes": ["meeting:read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

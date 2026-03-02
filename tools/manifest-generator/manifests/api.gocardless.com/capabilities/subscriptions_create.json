@@ -1,0 +1,89 @@
+{
+  "name": "subscriptions_create",
+  "description": "Create a recurring subscription that automatically creates payments at defined intervals.",
+  "resource_group": "subscriptions",
+  "endpoint": "/subscriptions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Amount in smallest currency unit.",
+      "required": true
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO currency code.",
+      "required": true
+    },
+    {
+      "name": "interval_unit",
+      "type": "string",
+      "description": "Interval: weekly, monthly, yearly.",
+      "required": true,
+      "example": "monthly"
+    },
+    {
+      "name": "interval",
+      "type": "integer",
+      "description": "Number of interval_units between payments.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Subscription name.",
+      "required": false
+    },
+    {
+      "name": "links[mandate]",
+      "type": "string",
+      "description": "Mandate ID.",
+      "required": true
+    },
+    {
+      "name": "day_of_month",
+      "type": "integer",
+      "description": "Day of month for collection (1-28 or -1 for last).",
+      "required": false
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Total number of payments. Omit for indefinite.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/subscriptions",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "subscriptions": {
+        "amount": 5000,
+        "currency": "GBP",
+        "interval_unit": "monthly",
+        "links": {
+          "mandate": "MD000123"
+        },
+        "name": "Monthly plan"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "subscriptions": {
+        "id": "SB000123",
+        "status": "active",
+        "amount": 5000
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "grades_list",
+  "description": "List enrollments with grades for a course.",
+  "resource_group": "grades",
+  "endpoint": "/api/v1/courses/{course_id}/enrollments",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "include[]",
+      "type": "string",
+      "description": "Include grades.",
+      "required": false,
+      "example": "current_grade"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/enrollments?include[]=current_grade",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "user_id": 5001,
+        "grades": {
+          "current_score": 95.5,
+          "current_grade": "A",
+          "final_score": 93.2,
+          "final_grade": "A"
+        }
+      }
+    ]
+  }
+}

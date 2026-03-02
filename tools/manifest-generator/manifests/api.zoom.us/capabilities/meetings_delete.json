@@ -1,0 +1,45 @@
+{
+  "name": "meetings_delete",
+  "description": "Delete a scheduled meeting. Optionally notify registrants and cancel a specific occurrence of a recurring meeting.",
+  "endpoint": "/meetings/{meetingId}",
+  "method": "DELETE",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "integer",
+      "description": "The meeting ID to delete.",
+      "required": true,
+      "example": 1234567890
+    },
+    {
+      "name": "occurrence_id",
+      "type": "string",
+      "description": "Occurrence ID to delete a specific recurring meeting instance.",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "cancel_meeting_reminder",
+      "type": "boolean",
+      "description": "Send a cancellation email to meeting registrants.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.zoom.us/v2/meetings/1234567890?cancel_meeting_reminder=true",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": ["meeting:write"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

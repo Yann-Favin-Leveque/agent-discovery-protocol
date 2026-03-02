@@ -1,0 +1,118 @@
+{
+  "name": "post_submit",
+  "resource_group": "links_and_comments",
+  "description": "Submit a new text post (self post) or link post to a subreddit on behalf of the authenticated user.",
+  "endpoint": "/api/submit",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "sr",
+      "type": "string",
+      "description": "The name of the subreddit to submit to (without the r/ prefix).",
+      "required": true,
+      "in": "body",
+      "example": "test"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The title of the post (max 300 characters).",
+      "required": true,
+      "in": "body",
+      "example": "Check out this interesting article"
+    },
+    {
+      "name": "kind",
+      "type": "string",
+      "description": "The type of post. One of: self (text post), link (URL post), image, video, videogif.",
+      "required": true,
+      "in": "body",
+      "example": "self"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "The body text of the post in markdown format. Required for self posts.",
+      "required": false,
+      "in": "body",
+      "example": "Here is the body of my text post with **markdown** support."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "The URL to submit. Required for link posts.",
+      "required": false,
+      "in": "body",
+      "example": "https://example.com/article"
+    },
+    {
+      "name": "nsfw",
+      "type": "boolean",
+      "description": "Whether the post should be marked as NSFW.",
+      "required": false,
+      "in": "body",
+      "example": false
+    },
+    {
+      "name": "spoiler",
+      "type": "boolean",
+      "description": "Whether the post should be marked as a spoiler.",
+      "required": false,
+      "in": "body",
+      "example": false
+    },
+    {
+      "name": "flair_id",
+      "type": "string",
+      "description": "The UUID of the flair template to apply to the post.",
+      "required": false,
+      "in": "body",
+      "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    {
+      "name": "flair_text",
+      "type": "string",
+      "description": "Custom flair text to set on the post (max 64 characters).",
+      "required": false,
+      "in": "body",
+      "example": "Discussion"
+    },
+    {
+      "name": "sendreplies",
+      "type": "boolean",
+      "description": "Whether to send reply notifications to the user's inbox.",
+      "required": false,
+      "in": "body",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://oauth.reddit.com/api/submit",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "User-Agent": "AgentDiscovery/1.0"
+    },
+    "body": {
+      "sr": "test",
+      "title": "Check out this interesting article",
+      "kind": "self",
+      "text": "Here is the body of my text post."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "json": {
+        "errors": [],
+        "data": {
+          "url": "https://www.reddit.com/r/test/comments/abc123/check_out_this_interesting_article/",
+          "id": "abc123",
+          "name": "t3_abc123"
+        }
+      }
+    }
+  },
+  "auth_scopes": ["submit"]
+}

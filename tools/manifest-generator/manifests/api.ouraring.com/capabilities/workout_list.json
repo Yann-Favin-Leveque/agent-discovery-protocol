@@ -1,0 +1,58 @@
+{
+  "name": "workout_list",
+  "description": "Retrieve workout sessions detected or logged by the user with activity type, duration, calories, distance, and intensity.",
+  "resource_group": "workout",
+  "endpoint": "/v2/usercollection/workout",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "workout"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/workout?start_date=2025-01-10&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "wk-123",
+          "activity": "running",
+          "day": "2025-01-15",
+          "start_datetime": "2025-01-15T07:30:00+00:00",
+          "end_datetime": "2025-01-15T08:00:00+00:00",
+          "calories": 385,
+          "distance": 5200,
+          "intensity": "moderate",
+          "source": "detected"
+        }
+      ]
+    }
+  }
+}

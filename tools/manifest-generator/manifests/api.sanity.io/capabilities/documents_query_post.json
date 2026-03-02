@@ -1,0 +1,74 @@
+{
+  "name": "documents_query_post",
+  "description": "Query documents using GROQ via POST request. Use for larger queries exceeding 11KB.",
+  "endpoint": "/v{apiVersion}/data/query/{dataset}",
+  "method": "POST",
+  "resource_group": "query",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name to query",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "GROQ query string in request body",
+      "required": true,
+      "example": "*[_type == 'post']{title, slug}"
+    },
+    {
+      "name": "params",
+      "type": "object",
+      "description": "Query parameters for parameterized queries",
+      "required": false,
+      "example": {
+        "type": "post"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/data/query/production",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "*[_type == $type]{title, slug}",
+      "params": {
+        "type": "post"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ms": 15,
+      "result": [
+        {
+          "title": "Hello World",
+          "slug": {
+            "current": "hello-world"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

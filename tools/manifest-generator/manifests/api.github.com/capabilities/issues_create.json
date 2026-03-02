@@ -1,0 +1,83 @@
+{
+  "name": "issues_create",
+  "description": "Create a new issue in a repository.",
+  "resource_group": "issues",
+  "endpoint": "/repos/{owner}/{repo}/issues",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Issue title."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Issue body (Markdown supported)."
+    },
+    {
+      "name": "labels",
+      "type": "array",
+      "required": false,
+      "description": "Array of label names."
+    },
+    {
+      "name": "assignees",
+      "type": "array",
+      "required": false,
+      "description": "Array of usernames to assign."
+    },
+    {
+      "name": "milestone",
+      "type": "integer",
+      "required": false,
+      "description": "Milestone number."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/octocat/my-project/issues",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "title": "Add dark mode support",
+      "body": "Users have requested dark mode for better accessibility.",
+      "labels": [
+        "enhancement",
+        "ui"
+      ],
+      "assignees": [
+        "octocat"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "number": 43,
+      "title": "Add dark mode support",
+      "state": "open",
+      "html_url": "https://github.com/octocat/my-project/issues/43"
+    }
+  }
+}

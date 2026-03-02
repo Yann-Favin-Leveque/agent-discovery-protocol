@@ -1,0 +1,93 @@
+{
+  "name": "signature_request_send",
+  "description": "Send a new signature request to one or more signers with file uploads and form fields.",
+  "endpoint": "/v3/signature_request/send",
+  "method": "POST",
+  "resource_group": "signature_request",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Title of the signature request.",
+      "required": false,
+      "example": "NDA Agreement"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Email subject line.",
+      "required": false,
+      "example": "Please sign this NDA"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "Custom message in the email body.",
+      "required": false,
+      "example": "Please review and sign."
+    },
+    {
+      "name": "signers",
+      "type": "array",
+      "description": "Array of signer objects with email_address and name.",
+      "required": true,
+      "example": [
+        {
+          "email_address": "signer@example.com",
+          "name": "Jane Doe"
+        }
+      ]
+    },
+    {
+      "name": "file_urls",
+      "type": "array",
+      "description": "URLs of documents to be signed.",
+      "required": false,
+      "example": [
+        "https://example.com/doc.pdf"
+      ]
+    },
+    {
+      "name": "test_mode",
+      "type": "boolean",
+      "description": "If true, request is free and not legally binding.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/signature_request/send",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "NDA Agreement",
+      "signers": [
+        {
+          "email_address": "signer@example.com",
+          "name": "Jane Doe"
+        }
+      ],
+      "file_urls": [
+        "https://example.com/nda.pdf"
+      ],
+      "test_mode": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signature_request": {
+        "signature_request_id": "fa5c8a0b0f492d768749333ad6fcc214c111e967",
+        "title": "NDA Agreement",
+        "is_complete": false
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

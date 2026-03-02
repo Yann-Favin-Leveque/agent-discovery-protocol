@@ -1,0 +1,55 @@
+{
+  "name": "assets_upload",
+  "resource_group": "assets",
+  "description": "Upload a single asset to a source.",
+  "endpoint": "/api/v1/sources/{source_id}/upload/{origin_path}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "source_id",
+      "type": "string",
+      "required": true,
+      "description": "Source ID.",
+      "in": "path"
+    },
+    {
+      "name": "origin_path",
+      "type": "string",
+      "required": true,
+      "description": "Destination path for the asset.",
+      "in": "path"
+    },
+    {
+      "name": "file",
+      "type": "binary",
+      "required": true,
+      "description": "The file to upload."
+    },
+    {
+      "name": "overwrite",
+      "type": "boolean",
+      "required": false,
+      "description": "Overwrite if exists."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.imgix.com/api/v1/sources/source-id/upload/images/new-photo.jpg",
+    "headers": {
+      "Authorization": "Bearer imgix-api-key",
+      "Content-Type": "application/octet-stream"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "images/new-photo.jpg",
+        "type": "assets",
+        "attributes": {
+          "origin_path": "images/new-photo.jpg"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "name": "posts_search",
+  "resource_group": "search",
+  "description": "Search Reddit for posts matching a query, optionally restricted to a specific subreddit. Supports sorting and time filtering.",
+  "endpoint": "/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "The search query string.",
+      "required": true,
+      "in": "query",
+      "example": "artificial intelligence"
+    },
+    {
+      "name": "restrict_sr",
+      "type": "boolean",
+      "description": "When true, restrict search to the specified subreddit (use with subreddit path).",
+      "required": false,
+      "in": "query",
+      "example": false
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort order. One of: relevance, hot, top, new, comments.",
+      "required": false,
+      "in": "query",
+      "example": "relevance"
+    },
+    {
+      "name": "t",
+      "type": "string",
+      "description": "Time period to filter results. One of: hour, day, week, month, year, all.",
+      "required": false,
+      "in": "query",
+      "example": "week"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results to return (1-100).",
+      "required": false,
+      "in": "query",
+      "example": 25
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Fullname of a post for forward pagination.",
+      "required": false,
+      "in": "query",
+      "example": "t3_abc123"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Type of results. One of: sr (subreddits), link (posts), user (users).",
+      "required": false,
+      "in": "query",
+      "example": "link"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/search?q=artificial+intelligence&sort=relevance&t=week&limit=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "Listing",
+      "data": {
+        "after": "t3_xyz789",
+        "children": [
+          {
+            "kind": "t3",
+            "data": {
+              "id": "def456",
+              "title": "Latest developments in AI research",
+              "author": "researcher99",
+              "subreddit": "MachineLearning",
+              "score": 892,
+              "num_comments": 145,
+              "url": "https://example.com/ai-paper",
+              "created_utc": 1709312400
+            }
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": ["read"]
+}

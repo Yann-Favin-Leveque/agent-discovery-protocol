@@ -1,0 +1,44 @@
+{
+  "name": "transactions_audit",
+  "description": "Retrieve audit information for a transaction.",
+  "endpoint": "/api/v2/companies/{companyCode}/transactions/{transactionCode}/audit",
+  "method": "GET",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "companyCode",
+      "type": "string",
+      "description": "Company code.",
+      "required": true,
+      "example": "DEFAULT"
+    },
+    {
+      "name": "transactionCode",
+      "type": "string",
+      "description": "Transaction code.",
+      "required": true,
+      "example": "txn-001"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.avatax.com/api/v2/companies/DEFAULT/transactions/txn-001/audit",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "reconstructed": {
+        "code": "txn-001",
+        "type": "SalesInvoice"
+      },
+      "serverTimestamp": "2024-01-15T12:00:00Z"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

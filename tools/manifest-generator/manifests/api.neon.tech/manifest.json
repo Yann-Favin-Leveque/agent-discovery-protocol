@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
-  "name": "Neon API",
-  "description": "The Neon API allows you to access and manage Neon programmatically. You can use the Neon API to manage API keys, projects, branches, compute endpoints, databases, roles, and operations. For information about these features, refer to the [Neon documentation](https://neon.tech/docs/manage/overview/).\n\nYou can run Neon API requests from this API reference using the **Try It** feature. Enter your API key as a **Bearer** token in the **Authorization** section of the page.",
+  "name": "Neon",
+  "description": "Neon is a serverless Postgres platform with branching, autoscaling, and bottomless storage. Use this API to manage projects, branches, compute endpoints, databases, roles, and API keys.",
   "base_url": "https://console.neon.tech/api/v2",
   "auth": {
     "type": "api_key",
@@ -10,64 +10,232 @@
   },
   "capabilities": [
     {
-      "name": "project",
-      "description": "Manage project — create project, recover a deleted project, grant project access. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/project"
+      "name": "projects_list",
+      "resource_group": "projects",
+      "description": "List projects with pagination and search.",
+      "detail_url": "/capabilities/projects_list"
     },
     {
-      "name": "api_key",
-      "description": "Manage api key — create api key, list api keys, revoke api key. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/api_key"
+      "name": "projects_create",
+      "resource_group": "projects",
+      "description": "Create a new Neon project.",
+      "detail_url": "/capabilities/projects_create"
     },
     {
-      "name": "operation",
-      "description": "Manage operation — list operations, retrieve operation details. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/operation"
+      "name": "projects_get",
+      "resource_group": "projects",
+      "description": "Retrieve project details.",
+      "detail_url": "/capabilities/projects_get"
     },
     {
-      "name": "data_api",
-      "description": "Manage data api — create neon data api, get neon data api, update neon data api. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/data_api"
+      "name": "projects_update",
+      "resource_group": "projects",
+      "description": "Update project settings.",
+      "detail_url": "/capabilities/projects_update"
     },
     {
-      "name": "auth",
-      "description": "Manage auth — enable neon auth for the branch, add domain to redirect_uri whitelist, create new auth user. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/auth"
+      "name": "projects_delete",
+      "resource_group": "projects",
+      "description": "Delete a project.",
+      "detail_url": "/capabilities/projects_delete"
     },
     {
-      "name": "auth_legacy",
-      "description": "Manage auth legacy — create auth provider sdk keys, transfer neon-managed auth project to your own account. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/auth_legacy"
+      "name": "projects_recover",
+      "resource_group": "projects",
+      "description": "Recover a deleted project.",
+      "detail_url": "/capabilities/projects_recover"
     },
     {
-      "name": "branch",
-      "description": "Manage branch — create branch, create anonymized branch, restore branch. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/branch"
+      "name": "permissions_list",
+      "resource_group": "permissions",
+      "description": "List users with project access.",
+      "detail_url": "/capabilities/permissions_list"
     },
     {
-      "name": "endpoint",
-      "description": "Manage endpoint — create compute endpoint, start compute endpoint, suspend compute endpoint. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/endpoint"
+      "name": "permissions_grant",
+      "resource_group": "permissions",
+      "description": "Grant project access by email.",
+      "detail_url": "/capabilities/permissions_grant"
     },
     {
-      "name": "consumption",
-      "description": "Manage consumption — retrieve account consumption metrics (legacy plans), retrieve project consumption metrics (legacy plans), retrieve project consumption metrics. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/consumption"
+      "name": "permissions_revoke",
+      "resource_group": "permissions",
+      "description": "Revoke project access.",
+      "detail_url": "/capabilities/permissions_revoke"
     },
     {
-      "name": "organizations",
-      "description": "Manage organizations — create organization api key, create organization invitations, transfer projects between organizations. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/organizations"
+      "name": "branches_list",
+      "resource_group": "branches",
+      "description": "List branches for a project.",
+      "detail_url": "/capabilities/branches_list"
     },
     {
-      "name": "region",
-      "description": "Manage region — list supported regions. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/region"
+      "name": "branches_create",
+      "resource_group": "branches",
+      "description": "Create a new branch.",
+      "detail_url": "/capabilities/branches_create"
     },
     {
-      "name": "users",
-      "description": "Manage users — transfer projects from personal account to organization, retrieve current user details, retrieve current user organizations list. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users"
+      "name": "branches_get",
+      "resource_group": "branches",
+      "description": "Retrieve branch details.",
+      "detail_url": "/capabilities/branches_get"
+    },
+    {
+      "name": "branches_update",
+      "resource_group": "branches",
+      "description": "Update branch settings.",
+      "detail_url": "/capabilities/branches_update"
+    },
+    {
+      "name": "branches_delete",
+      "resource_group": "branches",
+      "description": "Delete a branch.",
+      "detail_url": "/capabilities/branches_delete"
+    },
+    {
+      "name": "branches_restore",
+      "resource_group": "branches",
+      "description": "Restore branch to a point in time.",
+      "detail_url": "/capabilities/branches_restore"
+    },
+    {
+      "name": "endpoints_list",
+      "resource_group": "endpoints",
+      "description": "List compute endpoints.",
+      "detail_url": "/capabilities/endpoints_list"
+    },
+    {
+      "name": "endpoints_create",
+      "resource_group": "endpoints",
+      "description": "Create a compute endpoint.",
+      "detail_url": "/capabilities/endpoints_create"
+    },
+    {
+      "name": "endpoints_get",
+      "resource_group": "endpoints",
+      "description": "Retrieve endpoint details.",
+      "detail_url": "/capabilities/endpoints_get"
+    },
+    {
+      "name": "endpoints_update",
+      "resource_group": "endpoints",
+      "description": "Update endpoint settings.",
+      "detail_url": "/capabilities/endpoints_update"
+    },
+    {
+      "name": "endpoints_delete",
+      "resource_group": "endpoints",
+      "description": "Delete a compute endpoint.",
+      "detail_url": "/capabilities/endpoints_delete"
+    },
+    {
+      "name": "endpoints_start",
+      "resource_group": "endpoints",
+      "description": "Start a suspended endpoint.",
+      "detail_url": "/capabilities/endpoints_start"
+    },
+    {
+      "name": "endpoints_suspend",
+      "resource_group": "endpoints",
+      "description": "Suspend a running endpoint.",
+      "detail_url": "/capabilities/endpoints_suspend"
+    },
+    {
+      "name": "databases_list",
+      "resource_group": "databases",
+      "description": "List databases in a branch.",
+      "detail_url": "/capabilities/databases_list"
+    },
+    {
+      "name": "databases_create",
+      "resource_group": "databases",
+      "description": "Create a database in a branch.",
+      "detail_url": "/capabilities/databases_create"
+    },
+    {
+      "name": "databases_get",
+      "resource_group": "databases",
+      "description": "Retrieve database details.",
+      "detail_url": "/capabilities/databases_get"
+    },
+    {
+      "name": "databases_update",
+      "resource_group": "databases",
+      "description": "Update database settings.",
+      "detail_url": "/capabilities/databases_update"
+    },
+    {
+      "name": "databases_delete",
+      "resource_group": "databases",
+      "description": "Delete a database.",
+      "detail_url": "/capabilities/databases_delete"
+    },
+    {
+      "name": "roles_list",
+      "resource_group": "roles",
+      "description": "List roles in a branch.",
+      "detail_url": "/capabilities/roles_list"
+    },
+    {
+      "name": "roles_create",
+      "resource_group": "roles",
+      "description": "Create a new role.",
+      "detail_url": "/capabilities/roles_create"
+    },
+    {
+      "name": "roles_get",
+      "resource_group": "roles",
+      "description": "Retrieve a specific role.",
+      "detail_url": "/capabilities/roles_get"
+    },
+    {
+      "name": "roles_delete",
+      "resource_group": "roles",
+      "description": "Delete a role.",
+      "detail_url": "/capabilities/roles_delete"
+    },
+    {
+      "name": "roles_reset_password",
+      "resource_group": "roles",
+      "description": "Reset a role password.",
+      "detail_url": "/capabilities/roles_reset_password"
+    },
+    {
+      "name": "api_keys_list",
+      "resource_group": "api_keys",
+      "description": "List API keys.",
+      "detail_url": "/capabilities/api_keys_list"
+    },
+    {
+      "name": "api_keys_create",
+      "resource_group": "api_keys",
+      "description": "Create an API key.",
+      "detail_url": "/capabilities/api_keys_create"
+    },
+    {
+      "name": "api_keys_revoke",
+      "resource_group": "api_keys",
+      "description": "Revoke an API key.",
+      "detail_url": "/capabilities/api_keys_revoke"
+    },
+    {
+      "name": "operations_list",
+      "resource_group": "operations",
+      "description": "List project operations.",
+      "detail_url": "/capabilities/operations_list"
+    },
+    {
+      "name": "operations_get",
+      "resource_group": "operations",
+      "description": "Retrieve operation details.",
+      "detail_url": "/capabilities/operations_get"
+    },
+    {
+      "name": "consumption_get",
+      "resource_group": "consumption",
+      "description": "Retrieve consumption metrics.",
+      "detail_url": "/capabilities/consumption_get"
     }
   ]
 }

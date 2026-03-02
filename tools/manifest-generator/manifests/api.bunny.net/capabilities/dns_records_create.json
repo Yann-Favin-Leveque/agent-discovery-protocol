@@ -1,0 +1,72 @@
+{
+  "name": "dns_records_create",
+  "resource_group": "dns",
+  "description": "Add a DNS record to a zone.",
+  "endpoint": "/dnszone/{id}/records",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "DNS zone ID.",
+      "in": "path"
+    },
+    {
+      "name": "Type",
+      "type": "integer",
+      "required": true,
+      "description": "Record type: 0=A, 1=AAAA, 2=CNAME, 3=TXT, 4=MX, 5=Redirect, 6=Flatten, 7=PullZone, 8=SRV, 9=CAA, 10=PTR, 11=Script, 12=NS."
+    },
+    {
+      "name": "Name",
+      "type": "string",
+      "required": true,
+      "description": "Record name (subdomain or empty for root)."
+    },
+    {
+      "name": "Value",
+      "type": "string",
+      "required": true,
+      "description": "Record value."
+    },
+    {
+      "name": "Ttl",
+      "type": "integer",
+      "required": false,
+      "description": "TTL in seconds. Default 300."
+    },
+    {
+      "name": "Priority",
+      "type": "integer",
+      "required": false,
+      "description": "Priority (for MX records)."
+    },
+    {
+      "name": "Weight",
+      "type": "integer",
+      "required": false,
+      "description": "Weight (for SRV records)."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.bunny.net/dnszone/111/records",
+    "headers": {
+      "AccessKey": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Type": 0,
+      "Name": "www",
+      "Value": "1.2.3.4",
+      "Ttl": 300
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "Id": 2
+    }
+  }
+}

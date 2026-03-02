@@ -1,48 +1,392 @@
 {
   "spec_version": "1.0",
   "name": "Square",
-  "description": "Square API enables payment processing, customer management, catalog operations, and order management. Accept payments, manage inventory, track customers, and generate invoices programmatically.",
+  "description": "Square API enables payment processing, customer management, catalog operations, order management, invoicing, subscriptions, inventory tracking, loyalty programs, and gift cards.",
   "base_url": "https://connect.squareup.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://developer.squareup.com/apps"
   },
   "capabilities": [
     {
-      "name": "create_payment",
-      "description": "Process a payment using Square's payment gateway. Supports card payments, digital wallets, and other payment methods.",
-      "detail_url": "/capabilities/create_payment"
+      "name": "payments_create",
+      "description": "Process a payment using a payment source (card nonce, card on file, etc.).",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/payments_create",
+      "resource_group": "payments"
     },
     {
-      "name": "list_payments",
-      "description": "Retrieve a list of payments with filtering by date range, source, and other criteria.",
-      "detail_url": "/capabilities/list_payments"
+      "name": "payments_list",
+      "description": "List payments with optional filtering by date range, status, and location.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/payments_list",
+      "resource_group": "payments"
     },
     {
-      "name": "create_customer",
-      "description": "Create a new customer record with contact information, email, and phone number for future transactions.",
-      "detail_url": "/capabilities/create_customer"
+      "name": "payments_get",
+      "description": "Retrieve details of a specific payment by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/payments_get",
+      "resource_group": "payments"
     },
     {
-      "name": "search_customers",
-      "description": "Search and retrieve customers by name, email, phone number, or other criteria.",
-      "detail_url": "/capabilities/search_customers"
+      "name": "payments_update",
+      "description": "Update an APPROVED payment before completion.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/payments_update",
+      "resource_group": "payments"
     },
     {
-      "name": "list_catalog",
-      "description": "Retrieve items, variations, and pricing information from your Square catalog.",
-      "detail_url": "/capabilities/list_catalog"
+      "name": "payments_cancel",
+      "description": "Cancel (void) a specific payment.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/payments_cancel",
+      "resource_group": "payments"
     },
     {
-      "name": "create_invoice",
-      "description": "Generate and send invoices to customers with payment links, due dates, and itemized line items.",
-      "detail_url": "/capabilities/create_invoice"
+      "name": "payments_complete",
+      "description": "Complete (capture) a delayed-capture payment.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/payments_complete",
+      "resource_group": "payments"
     },
     {
-      "name": "list_orders",
-      "description": "Search and retrieve orders with detailed information including items, totals, fulfillment status, and customer details.",
-      "detail_url": "/capabilities/list_orders"
+      "name": "refunds_create",
+      "description": "Issue a refund for a completed payment.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/refunds_create",
+      "resource_group": "refunds"
+    },
+    {
+      "name": "refunds_list",
+      "description": "List refunds with optional date range filtering.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/refunds_list",
+      "resource_group": "refunds"
+    },
+    {
+      "name": "refunds_get",
+      "description": "Retrieve a specific refund by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/refunds_get",
+      "resource_group": "refunds"
+    },
+    {
+      "name": "customers_create",
+      "description": "Create a new customer profile with contact information.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/customers_create",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_list",
+      "description": "List all customer profiles.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/customers_list",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_get",
+      "description": "Retrieve a specific customer profile by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/customers_get",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_update",
+      "description": "Update a customer profile.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/customers_update",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_delete",
+      "description": "Delete a customer profile.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/customers_delete",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_search",
+      "description": "Search customer profiles by name, email, phone, or custom filters.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/customers_search",
+      "resource_group": "customers"
+    },
+    {
+      "name": "orders_create",
+      "description": "Create a new order with line items, taxes, and discounts.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/orders_create",
+      "resource_group": "orders"
+    },
+    {
+      "name": "orders_search",
+      "description": "Search orders with filters by location, date range, customer, and state.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/orders_search",
+      "resource_group": "orders"
+    },
+    {
+      "name": "orders_get",
+      "description": "Retrieve a specific order by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/orders_get",
+      "resource_group": "orders"
+    },
+    {
+      "name": "orders_update",
+      "description": "Update an open order (add/remove line items, apply discounts).",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/orders_update",
+      "resource_group": "orders"
+    },
+    {
+      "name": "orders_pay",
+      "description": "Pay for an order with one or more payment IDs.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/orders_pay",
+      "resource_group": "orders"
+    },
+    {
+      "name": "catalog_list",
+      "description": "List catalog objects (items, variations, categories, taxes, discounts).",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/catalog_list",
+      "resource_group": "catalog"
+    },
+    {
+      "name": "catalog_upsert_object",
+      "description": "Create or update a single catalog object (item, category, tax, discount).",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/catalog_upsert_object",
+      "resource_group": "catalog"
+    },
+    {
+      "name": "catalog_get_object",
+      "description": "Retrieve a specific catalog object by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/catalog_get_object",
+      "resource_group": "catalog"
+    },
+    {
+      "name": "catalog_delete_object",
+      "description": "Delete a catalog object by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/catalog_delete_object",
+      "resource_group": "catalog"
+    },
+    {
+      "name": "catalog_search",
+      "description": "Search catalog objects by name, attribute values, or custom queries.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/catalog_search",
+      "resource_group": "catalog"
+    },
+    {
+      "name": "catalog_batch_upsert",
+      "description": "Create or update up to 10,000 catalog objects in a single batch.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/catalog_batch_upsert",
+      "resource_group": "catalog"
+    },
+    {
+      "name": "catalog_batch_retrieve",
+      "description": "Retrieve multiple catalog objects by their IDs.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/catalog_batch_retrieve",
+      "resource_group": "catalog"
+    },
+    {
+      "name": "catalog_batch_delete",
+      "description": "Delete multiple catalog objects by their IDs.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/catalog_batch_delete",
+      "resource_group": "catalog"
+    },
+    {
+      "name": "invoices_create",
+      "description": "Create a draft invoice for an order with payment schedules and delivery method.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/invoices_create",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_list",
+      "description": "List invoices for a location.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/invoices_list",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_get",
+      "description": "Retrieve a specific invoice by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/invoices_get",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_update",
+      "description": "Update a draft invoice.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/invoices_update",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_delete",
+      "description": "Delete a draft invoice.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/invoices_delete",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_publish",
+      "description": "Publish a draft invoice and send it to the customer.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/invoices_publish",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_cancel",
+      "description": "Cancel a published invoice.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/invoices_cancel",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "invoices_search",
+      "description": "Search invoices by location, customer, or date range.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/invoices_search",
+      "resource_group": "invoices"
+    },
+    {
+      "name": "subscriptions_create",
+      "description": "Enroll a customer in a subscription plan.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/subscriptions_create",
+      "resource_group": "subscriptions"
+    },
+    {
+      "name": "subscriptions_get",
+      "description": "Retrieve a specific subscription by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/subscriptions_get",
+      "resource_group": "subscriptions"
+    },
+    {
+      "name": "subscriptions_update",
+      "description": "Update a subscription (change plan, modify fields).",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/subscriptions_update",
+      "resource_group": "subscriptions"
+    },
+    {
+      "name": "subscriptions_cancel",
+      "description": "Cancel an active subscription.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/subscriptions_cancel",
+      "resource_group": "subscriptions"
+    },
+    {
+      "name": "subscriptions_search",
+      "description": "Search subscriptions by customer, location, or plan.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/subscriptions_search",
+      "resource_group": "subscriptions"
+    },
+    {
+      "name": "subscriptions_resume",
+      "description": "Resume a paused or deactivated subscription.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/subscriptions_resume",
+      "resource_group": "subscriptions"
+    },
+    {
+      "name": "subscriptions_pause",
+      "description": "Pause an active subscription.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/subscriptions_pause",
+      "resource_group": "subscriptions"
+    },
+    {
+      "name": "locations_list",
+      "description": "List all business locations.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/locations_list",
+      "resource_group": "locations"
+    },
+    {
+      "name": "locations_create",
+      "description": "Create a new business location.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/locations_create",
+      "resource_group": "locations"
+    },
+    {
+      "name": "locations_get",
+      "description": "Retrieve a specific location by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/locations_get",
+      "resource_group": "locations"
+    },
+    {
+      "name": "locations_update",
+      "description": "Update a location.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/locations_update",
+      "resource_group": "locations"
+    },
+    {
+      "name": "inventory_batch_change",
+      "description": "Adjust or set inventory counts for catalog items across locations.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/inventory_batch_change",
+      "resource_group": "inventory"
+    },
+    {
+      "name": "inventory_batch_retrieve_counts",
+      "description": "Retrieve current inventory counts for catalog items at locations.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/inventory_batch_retrieve_counts",
+      "resource_group": "inventory"
+    },
+    {
+      "name": "inventory_get_count",
+      "description": "Retrieve current inventory count for a specific catalog object.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/inventory_get_count",
+      "resource_group": "inventory"
+    },
+    {
+      "name": "checkout_create_payment_link",
+      "description": "Create a Square-hosted checkout page (payment link).",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/checkout_create_payment_link",
+      "resource_group": "checkout"
+    },
+    {
+      "name": "checkout_list_payment_links",
+      "description": "List all payment links.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/checkout_list_payment_links",
+      "resource_group": "checkout"
+    },
+    {
+      "name": "checkout_get_payment_link",
+      "description": "Retrieve a specific payment link by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/checkout_get_payment_link",
+      "resource_group": "checkout"
+    },
+    {
+      "name": "checkout_delete_payment_link",
+      "description": "Delete a payment link.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/checkout_delete_payment_link",
+      "resource_group": "checkout"
+    },
+    {
+      "name": "loyalty_accounts_create",
+      "description": "Create a loyalty account for a customer.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/loyalty_accounts_create",
+      "resource_group": "loyalty"
+    },
+    {
+      "name": "loyalty_accounts_get",
+      "description": "Retrieve a specific loyalty account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/loyalty_accounts_get",
+      "resource_group": "loyalty"
+    },
+    {
+      "name": "loyalty_accounts_search",
+      "description": "Search loyalty accounts by phone number, customer ID, or other criteria.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/loyalty_accounts_search",
+      "resource_group": "loyalty"
+    },
+    {
+      "name": "loyalty_accounts_adjust",
+      "description": "Add or subtract loyalty points from an account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/loyalty_accounts_adjust",
+      "resource_group": "loyalty"
+    },
+    {
+      "name": "loyalty_program_get",
+      "description": "Retrieve the loyalty program configuration.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/loyalty_program_get",
+      "resource_group": "loyalty"
+    },
+    {
+      "name": "gift_cards_create",
+      "description": "Create a digital gift card or register a physical gift card.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/gift_cards_create",
+      "resource_group": "gift_cards"
+    },
+    {
+      "name": "gift_cards_list",
+      "description": "List all gift cards.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/gift_cards_list",
+      "resource_group": "gift_cards"
+    },
+    {
+      "name": "gift_cards_get",
+      "description": "Retrieve a specific gift card by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/gift_cards_get",
+      "resource_group": "gift_cards"
+    },
+    {
+      "name": "gift_cards_link_customer",
+      "description": "Link a customer to a gift card.",
+      "detail_url": "https://agent-dns.dev/api/services/api.square.com/capabilities/gift_cards_link_customer",
+      "resource_group": "gift_cards"
     }
   ]
 }

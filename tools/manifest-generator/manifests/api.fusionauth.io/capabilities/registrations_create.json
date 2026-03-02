@@ -1,0 +1,47 @@
+{
+  "name": "registrations_create",
+  "resource_group": "registrations",
+  "description": "Register an existing user to an application with roles.",
+  "endpoint": "/api/user/registration",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "registration",
+      "type": "object",
+      "required": true,
+      "description": "Registration object with userId, applicationId, roles."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/user/registration",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "registration": {
+        "userId": "user-uuid",
+        "applicationId": "app-uuid",
+        "roles": [
+          "user",
+          "editor"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "registration": {
+        "id": "reg-uuid",
+        "applicationId": "app-uuid",
+        "userId": "user-uuid",
+        "roles": [
+          "user",
+          "editor"
+        ]
+      }
+    }
+  }
+}

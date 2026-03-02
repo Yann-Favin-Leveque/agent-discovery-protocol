@@ -1,0 +1,22 @@
+{
+  "name": "tables_add_row",
+  "description": "Add a new row to an employee's tabular data (job change, compensation update, etc.).",
+  "endpoint": "/api/gateway.php/{companyDomain}/v1/employees/{employeeId}/tables/{tableName}",
+  "method": "POST",
+  "resource_group": "tables",
+  "parameters": [
+    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
+    {"name": "employeeId", "type": "integer", "description": "Employee ID.", "required": true, "example": 123},
+    {"name": "tableName", "type": "string", "description": "Table name.", "required": true, "example": "jobInfo"},
+    {"name": "body", "type": "object", "description": "Row data as key-value pairs.", "required": true, "example": {"date": "2024-07-01", "jobTitle": "Staff Engineer", "department": "Platform"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/123/tables/jobInfo",
+    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Content-Type": "application/json"},
+    "body": {"date": "2024-07-01", "jobTitle": "Staff Engineer", "department": "Platform"}
+  },
+  "response_example": {"status": 200, "body": {}},
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 60}
+}

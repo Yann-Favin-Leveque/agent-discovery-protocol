@@ -1,0 +1,45 @@
+{
+  "name": "beams_auth_create",
+  "description": "Generate a Beams authentication token for a user. The client uses this token to associate their device with their user ID.",
+  "resource_group": "beams",
+  "endpoint": "/customer_api/v1/instances/{instance_id}/tokens",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "instance_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Your Beams instance ID."
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "The user ID to generate a token for."
+    },
+    {
+      "name": "grant_type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'client_credentials'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pusherapp.com/customer_api/v1/instances/beams-instance-id/tokens",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer beams-secret-key"
+    },
+    "body": {
+      "grant_type": "client_credentials"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoidXNlci0xIn0.signature"
+    }
+  }
+}

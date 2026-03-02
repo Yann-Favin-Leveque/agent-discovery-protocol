@@ -1,0 +1,61 @@
+{
+  "name": "databases_query",
+  "description": "Query a database with filters and sorts.",
+  "resource_group": "databases",
+  "endpoint": "/v1/databases/{database_id}/query",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "database_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID of the database to query"
+    },
+    {
+      "name": "filter",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Filter conditions"
+    },
+    {
+      "name": "sorts",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Sort criteria"
+    },
+    {
+      "name": "start_cursor",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Pagination cursor"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Number of results (max 100)"
+    }
+  ],
+  "auth_scopes": [
+    "default"
+  ],
+  "request_example": {
+    "filter": {
+      "property": "Status",
+      "select": {
+        "equals": "Done"
+      }
+    },
+    "sorts": [
+      {
+        "property": "Created",
+        "direction": "descending"
+      }
+    ]
+  }
+}

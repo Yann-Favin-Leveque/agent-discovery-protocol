@@ -1,0 +1,54 @@
+{
+  "name": "products_create",
+  "description": "Create a new product for use with prices and subscriptions.",
+  "endpoint": "/v1/products",
+  "method": "POST",
+  "resource_group": "products",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Product name",
+      "required": true,
+      "example": "Pro Plan"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Product description",
+      "required": false,
+      "example": "Professional subscription plan"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata",
+      "required": false,
+      "example": {
+        "tier": "pro"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/products",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "name=Pro Plan&description=Professional subscription plan"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "prod_abc123",
+      "object": "product",
+      "name": "Pro Plan",
+      "active": true
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

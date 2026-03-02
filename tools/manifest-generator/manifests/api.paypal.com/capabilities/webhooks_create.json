@@ -1,0 +1,44 @@
+{
+  "name": "webhooks_create",
+  "description": "Subscribe a webhook listener to events.",
+  "endpoint": "/v1/notifications/webhooks",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Webhook listener URL",
+      "required": true,
+      "example": "https://myapp.com/webhooks/paypal"
+    },
+    {
+      "name": "event_types",
+      "type": "array",
+      "description": "Event types to subscribe to",
+      "required": true,
+      "example": [
+        {
+          "name": "PAYMENT.CAPTURE.COMPLETED"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v1/notifications/webhooks",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

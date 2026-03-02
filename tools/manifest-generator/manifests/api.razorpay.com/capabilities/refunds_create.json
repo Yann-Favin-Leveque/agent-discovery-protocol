@@ -1,0 +1,53 @@
+{
+  "name": "refunds_create",
+  "description": "Create a normal refund for a captured payment.",
+  "resource_group": "refunds",
+  "endpoint": "/v1/payments/{payment_id}/refund",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "payment_id",
+      "type": "string",
+      "description": "The payment ID.",
+      "required": true
+    },
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Refund amount in smallest currency unit.",
+      "required": true
+    },
+    {
+      "name": "speed",
+      "type": "string",
+      "description": "Refund speed: normal or optimum.",
+      "required": false,
+      "example": "normal"
+    },
+    {
+      "name": "notes",
+      "type": "object",
+      "description": "Key-value notes.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/payments/pay_FgR9UMzgmKDvRH/refund",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": 50000
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "rfnd_FgR9UMzgmKDvRH",
+      "amount": 50000,
+      "status": "processed"
+    }
+  }
+}

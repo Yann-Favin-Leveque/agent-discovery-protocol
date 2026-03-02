@@ -1,0 +1,76 @@
+{
+  "name": "tickets_update",
+  "description": "Update a ticket's properties or add a comment.",
+  "endpoint": "/api/v2/tickets/{ticket_id}",
+  "method": "PUT",
+  "resource_group": "tickets",
+  "parameters": [
+    {
+      "name": "ticket_id",
+      "type": "integer",
+      "description": "Ticket ID",
+      "required": true,
+      "example": "1"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Updated status",
+      "required": false,
+      "example": "pending"
+    },
+    {
+      "name": "priority",
+      "type": "string",
+      "description": "Updated priority",
+      "required": false,
+      "example": "high"
+    },
+    {
+      "name": "assignee_id",
+      "type": "integer",
+      "description": "New assignee",
+      "required": false,
+      "example": "789"
+    },
+    {
+      "name": "comment",
+      "type": "object",
+      "description": "New comment to add",
+      "required": false,
+      "example": {
+        "body": "Working on this."
+      }
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{subdomain}.zendesk.com/api/v2/tickets/{ticket_id}",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ticket": {
+        "status": "pending",
+        "comment": {
+          "body": "Working on this.",
+          "public": true
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ticket": {
+        "id": 1,
+        "status": "pending"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

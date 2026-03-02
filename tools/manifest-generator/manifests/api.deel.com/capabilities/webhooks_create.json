@@ -1,0 +1,44 @@
+{
+  "name": "webhooks_create",
+  "resource_group": "Webhooks",
+  "endpoint": "/rest/v2/webhooks",
+  "method": "POST",
+  "description": "Create a webhook subscription.",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "Webhook endpoint URL."
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "required": true,
+      "description": "Event types to subscribe to."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.letsdeel.com/rest/v2/webhooks",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "events": [
+        "contract.signed"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "wh-1",
+        "url": "https://example.com/webhook"
+      }
+    }
+  }
+}

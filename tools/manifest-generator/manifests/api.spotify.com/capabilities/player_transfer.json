@@ -1,0 +1,42 @@
+{
+  "name": "player_transfer",
+  "description": "Transfer playback to a different connected device.",
+  "resource_group": "player",
+  "endpoint": "/v1/me/player",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "device_ids",
+      "type": "array",
+      "required": true,
+      "description": "Array with a single device ID to transfer to."
+    },
+    {
+      "name": "play",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, ensure playback starts on the new device."
+    }
+  ],
+  "auth_scopes": [
+    "user-modify-playback-state"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.spotify.com/v1/me/player",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "device_ids": [
+        "74ASZWbe4lXaubB36ztrGX"
+      ],
+      "play": true
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

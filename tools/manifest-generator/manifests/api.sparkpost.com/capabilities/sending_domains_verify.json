@@ -1,0 +1,56 @@
+{
+  "name": "sending_domains_verify",
+  "description": "Initiate or complete verification of a sending domain via DKIM or CNAME.",
+  "endpoint": "/api/v1/sending-domains/{domain}/verify",
+  "method": "POST",
+  "resource_group": "sending_domains",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Domain to verify",
+      "required": true,
+      "example": "mail.example.com"
+    },
+    {
+      "name": "dkim_verify",
+      "type": "boolean",
+      "description": "Verify DKIM record",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "cname_verify",
+      "type": "boolean",
+      "description": "Verify CNAME record",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/sending-domains/mail.example.com/verify",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "dkim_verify": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "dkim_status": "valid",
+        "ownership_verified": true
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

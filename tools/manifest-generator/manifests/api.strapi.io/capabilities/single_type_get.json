@@ -1,0 +1,52 @@
+{
+  "name": "single_type_get",
+  "description": "Retrieve the document for a single type content type (e.g., homepage, site-settings). Single types have only one entry.",
+  "resource_group": "single_types",
+  "endpoint": "/api/{singularApiId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "singularApiId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The singular API ID of the single type (e.g., 'homepage', 'global-settings')."
+    },
+    {
+      "name": "populate",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Relations/components to populate."
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Select specific fields to return."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.strapi.io/api/homepage?populate=*",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 1,
+        "attributes": {
+          "heroTitle": "Welcome to our site",
+          "heroSubtitle": "Discover amazing content",
+          "createdAt": "2026-01-01T00:00:00.000Z",
+          "updatedAt": "2026-02-28T10:00:00.000Z"
+        }
+      },
+      "meta": {}
+    }
+  }
+}

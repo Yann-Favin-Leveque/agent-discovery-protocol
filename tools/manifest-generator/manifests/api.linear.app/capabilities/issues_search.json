@@ -1,0 +1,32 @@
+{
+  "name": "issues_search",
+  "description": "Search issues by text.",
+  "resource_group": "issues",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Search query text"
+    },
+    {
+      "name": "first",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Number of results"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "{ issueSearch(query: \"login bug\", first: 20) { nodes { id identifier title state { name } } } }"
+  }
+}

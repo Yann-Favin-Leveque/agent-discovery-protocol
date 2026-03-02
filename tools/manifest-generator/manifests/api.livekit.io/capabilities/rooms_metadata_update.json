@@ -1,0 +1,45 @@
+{
+  "name": "rooms_metadata_update",
+  "description": "Update the metadata of an active room and broadcast the change to all connected participants.",
+  "endpoint": "/twirp/livekit.RoomService/UpdateRoomMetadata",
+  "method": "POST",
+  "resource_group": "rooms",
+  "parameters": [
+    {
+      "name": "room",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room to update."
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "required": true,
+      "description": "New metadata string for the room."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/UpdateRoomMetadata",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room": "interview-room-42",
+      "metadata": "{\"status\":\"in_progress\",\"recording\":true}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sid": "RM_abc123",
+      "name": "interview-room-42",
+      "metadata": "{\"status\":\"in_progress\",\"recording\":true}"
+    }
+  },
+  "auth_scopes": ["roomAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

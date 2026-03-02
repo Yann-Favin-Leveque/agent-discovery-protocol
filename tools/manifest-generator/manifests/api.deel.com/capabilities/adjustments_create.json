@@ -1,0 +1,41 @@
+{
+  "name": "adjustments_create",
+  "resource_group": "Adjustments",
+  "endpoint": "/rest/v2/adjustments",
+  "method": "POST",
+  "description": "Create a payment adjustment (bonus, expense, deduction).",
+  "parameters": [
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Adjustment details: contract_id, amount, description, category."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.letsdeel.com/rest/v2/adjustments",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "contract_id": "ct-1",
+        "amount": 500,
+        "description": "Performance bonus",
+        "category": "bonus"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "adj-1",
+        "amount": 500,
+        "status": "pending"
+      }
+    }
+  }
+}

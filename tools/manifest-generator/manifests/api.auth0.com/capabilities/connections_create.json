@@ -1,0 +1,25 @@
+{
+  "name": "connections_create",
+  "description": "Create a new identity provider connection (database, social, enterprise SAML/OIDC).",
+  "endpoint": "/api/v2/connections",
+  "method": "POST",
+  "resource_group": "connections",
+  "parameters": [
+    {"name": "name", "type": "string", "description": "Connection name.", "required": true, "example": "my-database"},
+    {"name": "strategy", "type": "string", "description": "Connection strategy (auth0, google-oauth2, samlp, oidc, etc.).", "required": true, "example": "auth0"},
+    {"name": "enabled_clients", "type": "array", "description": "Client IDs that can use this connection.", "required": false, "example": ["client123"]},
+    {"name": "options", "type": "object", "description": "Strategy-specific configuration options.", "required": false, "example": {"passwordPolicy": "excellent"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://YOUR_DOMAIN.auth0.com/api/v2/connections",
+    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
+    "body": {"name": "my-database", "strategy": "auth0", "enabled_clients": ["client123"]}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": "con_xyz789", "name": "my-database", "strategy": "auth0"}
+  },
+  "auth_scopes": ["create:connections"],
+  "rate_limits": {"requests_per_minute": 50}
+}

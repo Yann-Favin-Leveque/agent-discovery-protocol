@@ -1,0 +1,23 @@
+{
+  "name": "time_off_balances_get",
+  "description": "Get current time-off balances for an employee across all leave types.",
+  "endpoint": "/api/gateway.php/{companyDomain}/v1/employees/{employeeId}/time_off/calculator",
+  "method": "GET",
+  "resource_group": "time_off",
+  "parameters": [
+    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
+    {"name": "employeeId", "type": "integer", "description": "Employee ID.", "required": true, "example": 123},
+    {"name": "end", "type": "string", "description": "Calculate balance as of this date (YYYY-MM-DD).", "required": false, "example": "2024-12-31"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/123/time_off/calculator?end=2024-12-31",
+    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Accept": "application/json"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{"timeOffType": "Vacation", "balance": 15.0, "unit": "days"}, {"timeOffType": "Sick Leave", "balance": 10.0, "unit": "days"}]
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 60}
+}

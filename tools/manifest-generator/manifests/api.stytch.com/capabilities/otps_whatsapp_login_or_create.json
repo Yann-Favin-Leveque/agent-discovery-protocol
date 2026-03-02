@@ -1,0 +1,40 @@
+{
+  "name": "otps_whatsapp_login_or_create",
+  "resource_group": "otps",
+  "description": "Send a WhatsApp OTP that either logs in or creates a new user.",
+  "endpoint": "/v1/otps/whatsapp/login_or_create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "phone_number",
+      "type": "string",
+      "required": true,
+      "description": "Phone number in E.164 format."
+    },
+    {
+      "name": "expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "OTP expiration."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/otps/whatsapp/login_or_create",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "phone_number": "+15551234567"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "user_created": false
+    }
+  }
+}

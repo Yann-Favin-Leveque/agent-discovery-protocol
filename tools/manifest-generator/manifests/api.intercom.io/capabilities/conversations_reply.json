@@ -1,0 +1,83 @@
+{
+  "name": "conversations_reply",
+  "description": "Reply to an existing conversation as an admin or on behalf of a contact. Supports text and attachments.",
+  "resource_group": "conversations",
+  "endpoint": "/conversations/{id}/reply",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The conversation ID."
+    },
+    {
+      "name": "message_type",
+      "type": "string",
+      "required": true,
+      "description": "Type: 'comment' (visible to user) or 'note' (internal)."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Who is replying: 'admin' or 'user'."
+    },
+    {
+      "name": "admin_id",
+      "type": "string",
+      "required": false,
+      "description": "Required when type is 'admin'. The admin ID."
+    },
+    {
+      "name": "intercom_user_id",
+      "type": "string",
+      "required": false,
+      "description": "Required when type is 'user'. The contact ID."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "description": "HTML message body."
+    },
+    {
+      "name": "attachment_urls",
+      "type": "array",
+      "required": false,
+      "description": "Array of attachment URLs."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/conversations/123456/reply",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "message_type": "comment",
+      "type": "admin",
+      "admin_id": "admin-1",
+      "body": "<p>I can help with that billing question.</p>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "conversation",
+      "id": "123456",
+      "conversation_parts": {
+        "conversation_parts": [
+          {
+            "type": "conversation_part",
+            "part_type": "comment",
+            "body": "<p>I can help with that billing question.</p>"
+          }
+        ]
+      }
+    }
+  }
+}

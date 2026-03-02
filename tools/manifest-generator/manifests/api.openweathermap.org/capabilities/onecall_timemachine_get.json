@@ -1,0 +1,73 @@
+{
+  "name": "onecall_timemachine_get",
+  "description": "Get historical weather data for a specific past date using the One Call API 3.0 time machine. Returns hourly data for the requested day.",
+  "resource_group": "onecall",
+  "endpoint": "/data/3.0/onecall/timemachine",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": true,
+      "description": "Latitude.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": true,
+      "description": "Longitude.",
+      "in": "query"
+    },
+    {
+      "name": "dt",
+      "type": "integer",
+      "required": true,
+      "description": "Unix timestamp for the requested date.",
+      "in": "query"
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Units: standard, metric, or imperial.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=48.8566&lon=2.3522&dt=1704067200&appid=YOUR_API_KEY&units=metric"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "lat": 48.86,
+      "lon": 2.35,
+      "timezone": "Europe/Paris",
+      "data": [
+        {
+          "dt": 1704067200,
+          "temp": 5.2,
+          "feels_like": 2.1,
+          "pressure": 1020,
+          "humidity": 82,
+          "wind_speed": 4.1,
+          "weather": [
+            {
+              "main": "Clouds",
+              "description": "overcast clouds"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

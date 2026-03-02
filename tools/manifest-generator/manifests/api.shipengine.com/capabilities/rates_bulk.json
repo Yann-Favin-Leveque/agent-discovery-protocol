@@ -1,0 +1,60 @@
+{
+  "name": "rates_bulk",
+  "description": "Get rates for multiple shipments in a single bulk request.",
+  "endpoint": "/v1/rates/bulk",
+  "method": "POST",
+  "resource_group": "rates",
+  "parameters": [
+    {
+      "name": "shipment_ids",
+      "type": "array",
+      "description": "Array of shipment IDs.",
+      "required": true,
+      "example": [
+        "se-1234567",
+        "se-7654321"
+      ]
+    },
+    {
+      "name": "rate_options",
+      "type": "object",
+      "description": "Rate options.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/rates/bulk",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "shipment_ids": [
+        "se-1234567",
+        "se-7654321"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "shipment_id": "se-1234567",
+        "rates": [
+          {
+            "rate_id": "se-rate-123",
+            "shipping_amount": {
+              "currency": "usd",
+              "amount": 7.99
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

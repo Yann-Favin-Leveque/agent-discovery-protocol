@@ -1,0 +1,100 @@
+{
+  "name": "matrix_get",
+  "description": "Compute travel time and distance matrices between multiple origins and destinations.",
+  "endpoint": "/directions-matrix/v1/{profile}/{coordinates}",
+  "method": "GET",
+  "resource_group": "navigation",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile.",
+      "required": true,
+      "example": "mapbox/driving"
+    },
+    {
+      "name": "coordinates",
+      "type": "string",
+      "description": "Semicolon-separated lng,lat pairs (2-25).",
+      "required": true,
+      "example": "-73.989,40.733;-74.006,40.714;-73.968,40.761"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "pk.xxx"
+    },
+    {
+      "name": "annotations",
+      "type": "string",
+      "description": "Return: duration, distance, or both.",
+      "required": false,
+      "example": "duration,distance"
+    },
+    {
+      "name": "sources",
+      "type": "string",
+      "description": "Indices of source coords (or 'all').",
+      "required": false,
+      "example": "0"
+    },
+    {
+      "name": "destinations",
+      "type": "string",
+      "description": "Indices of destination coords (or 'all').",
+      "required": false,
+      "example": "1;2"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/directions-matrix/v1/mapbox/driving/-73.989,40.733;-74.006,40.714;-73.968,40.761?annotations=duration,distance&access_token=pk.xxx",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": "Ok",
+      "durations": [
+        [
+          0,
+          600,
+          900
+        ],
+        [
+          600,
+          0,
+          450
+        ],
+        [
+          900,
+          450,
+          0
+        ]
+      ],
+      "distances": [
+        [
+          0,
+          3500,
+          5200
+        ],
+        [
+          3500,
+          0,
+          2800
+        ],
+        [
+          5200,
+          2800,
+          0
+        ]
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

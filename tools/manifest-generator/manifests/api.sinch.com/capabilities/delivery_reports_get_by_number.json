@@ -1,0 +1,50 @@
+{
+  "name": "delivery_reports_get_by_number",
+  "description": "Retrieve the delivery report for a specific recipient phone number within a batch.",
+  "endpoint": "/xms/v1/{service_plan_id}/batches/{batch_id}/delivery_report/{recipient_msisdn}",
+  "method": "GET",
+  "resource_group": "delivery_reports",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "batch_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique batch identifier (path parameter)."
+    },
+    {
+      "name": "recipient_msisdn",
+      "type": "string",
+      "required": true,
+      "description": "The recipient phone number in E.164 format (path parameter)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/batches/{batch_id}/delivery_report/14155550123",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "batch_id": "batch-id-01HXYZ",
+      "recipient": "14155550123",
+      "type": "recipient_delivery_report_sms",
+      "code": 0,
+      "status": "Delivered",
+      "at": "2024-01-15T12:00:05.000Z",
+      "operator_status_at": "2024-01-15T12:00:04.000Z"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

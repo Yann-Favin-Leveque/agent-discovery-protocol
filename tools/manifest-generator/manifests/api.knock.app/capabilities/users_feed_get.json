@@ -1,0 +1,67 @@
+{
+  "name": "users_feed_get",
+  "description": "List in-app feed items for a user on a specific feed channel.",
+  "endpoint": "/v1/users/{user_id}/feeds/{id}",
+  "method": "GET",
+  "resource_group": "feeds",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "User ID.",
+      "required": true,
+      "example": "user_123"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Feed channel ID.",
+      "required": true,
+      "example": "in-app-feed"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Items per page.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter: unread, unseen, all.",
+      "required": false,
+      "example": "unread"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.knock.app/v1/users/user_123/feeds/in-app-feed?status=unread",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "entries": [
+        {
+          "id": "entry_1",
+          "data": {
+            "comment_text": "Great!"
+          },
+          "read_at": null,
+          "seen_at": null
+        }
+      ],
+      "meta": {
+        "unread_count": 5,
+        "unseen_count": 2
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

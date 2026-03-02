@@ -1,0 +1,56 @@
+{
+  "name": "videos_insert",
+  "description": "Upload a new video to YouTube.",
+  "endpoint": "/youtube/v3/videos",
+  "method": "POST",
+  "resource_group": "videos",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts to set (snippet, status)",
+      "required": true,
+      "example": "snippet,status"
+    },
+    {
+      "name": "notifySubscribers",
+      "type": "boolean",
+      "description": "Notify subscribers",
+      "required": false,
+      "example": "true"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://youtube.googleapis.com/youtube/v3/videos",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "snippet": {
+        "title": "My Video",
+        "description": "Video description",
+        "categoryId": "22"
+      },
+      "status": {
+        "privacyStatus": "public"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "new_video_id",
+      "snippet": {
+        "title": "My Video"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.upload"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

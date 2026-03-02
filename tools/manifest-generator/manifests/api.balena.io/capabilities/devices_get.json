@@ -1,0 +1,42 @@
+{
+  "name": "devices_get",
+  "description": "Get device details.",
+  "resource_group": "devices",
+  "endpoint": "/v7/device({id})",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Device ID.",
+      "required": true
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Fields to return.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.balena-cloud.com/v7/device(1)?$select=id,uuid,device_name,is_online,os_version",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "d": [
+        {
+          "id": 1,
+          "uuid": "abc123",
+          "device_name": "my-device",
+          "is_online": true,
+          "os_version": "balenaOS 2.98.33"
+        }
+      ]
+    }
+  }
+}

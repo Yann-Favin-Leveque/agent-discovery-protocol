@@ -1,0 +1,47 @@
+{
+  "name": "account_update",
+  "description": "Update the authenticated account callback URL and locale settings.",
+  "endpoint": "/v3/account",
+  "method": "PUT",
+  "resource_group": "account",
+  "parameters": [
+    {
+      "name": "callback_url",
+      "type": "string",
+      "description": "URL to receive event callbacks.",
+      "required": false,
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "Account locale.",
+      "required": false,
+      "example": "en_US"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.hellosign.com/v3/account",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "callback_url": "https://example.com/webhook"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "account": {
+        "account_id": "abc123",
+        "callback_url": "https://example.com/webhook"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

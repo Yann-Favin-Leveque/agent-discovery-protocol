@@ -1,0 +1,91 @@
+{
+  "name": "labels_purchase",
+  "description": "Purchase and generate a shipping label.",
+  "endpoint": "/v1/labels",
+  "method": "POST",
+  "resource_group": "labels",
+  "parameters": [
+    {
+      "name": "shipment",
+      "type": "object",
+      "description": "Shipment with ship_to, ship_from, packages.",
+      "required": true
+    },
+    {
+      "name": "carrier_id",
+      "type": "string",
+      "description": "Carrier account ID.",
+      "required": true
+    },
+    {
+      "name": "service_code",
+      "type": "string",
+      "description": "Carrier service code.",
+      "required": true
+    },
+    {
+      "name": "label_format",
+      "type": "string",
+      "description": "Format: pdf, png, zpl.",
+      "required": false,
+      "example": "pdf"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/labels",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "shipment": {
+        "ship_to": {
+          "name": "John Smith",
+          "address_line1": "525 S Winchester Blvd",
+          "city_locality": "San Jose",
+          "state_province": "CA",
+          "postal_code": "95128",
+          "country_code": "US"
+        },
+        "ship_from": {
+          "name": "Warehouse",
+          "address_line1": "4009 Marathon Blvd",
+          "city_locality": "Austin",
+          "state_province": "TX",
+          "postal_code": "78756",
+          "country_code": "US"
+        },
+        "packages": [
+          {
+            "weight": {
+              "value": 1.5,
+              "unit": "pound"
+            }
+          }
+        ]
+      },
+      "carrier_id": "se-121861",
+      "service_code": "usps_priority_mail"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "label_id": "se-label-123",
+      "status": "completed",
+      "tracking_number": "1Z999AA10123456784",
+      "label_download": {
+        "pdf": "https://api.shipengine.com/v1/downloads/label.pdf"
+      },
+      "shipment_cost": {
+        "currency": "usd",
+        "amount": 7.99
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

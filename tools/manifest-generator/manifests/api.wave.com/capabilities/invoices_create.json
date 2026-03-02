@@ -1,0 +1,81 @@
+{
+  "name": "invoices_create",
+  "description": "Create a new invoice for a customer with line items.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    },
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer ID",
+      "required": true,
+      "example": "Q3VzdG9tZXI6..."
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Array of line items with productId, description, quantity, unitPrice",
+      "required": true,
+      "example": [
+        {
+          "productId": "abc",
+          "quantity": 1,
+          "unitPrice": "100.00"
+        }
+      ]
+    },
+    {
+      "name": "dueDate",
+      "type": "string",
+      "description": "Invoice due date (YYYY-MM-DD)",
+      "required": false,
+      "example": "2024-02-15"
+    },
+    {
+      "name": "memo",
+      "type": "string",
+      "description": "Invoice memo/notes",
+      "required": false,
+      "example": "Payment due in 30 days"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: InvoiceCreateInput!) { invoiceCreate(input: $input) { invoice { id title status } didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "invoiceCreate": {
+          "invoice": {
+            "id": "SW52b2ljZTo6...",
+            "title": "Invoice #002",
+            "status": "DRAFT"
+          },
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

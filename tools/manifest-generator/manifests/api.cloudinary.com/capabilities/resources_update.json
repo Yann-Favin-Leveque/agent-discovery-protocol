@@ -1,0 +1,81 @@
+{
+  "name": "resources_update",
+  "resource_group": "resources",
+  "description": "Update asset metadata, tags, context, or access mode.",
+  "endpoint": "/v1_1/{cloud_name}/resources/{resource_type}/{type}/{public_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "resource_type",
+      "type": "string",
+      "required": true,
+      "description": "Resource type.",
+      "in": "path"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Delivery type.",
+      "in": "path"
+    },
+    {
+      "name": "public_id",
+      "type": "string",
+      "required": true,
+      "description": "Public ID.",
+      "in": "path"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false,
+      "description": "New tags to set."
+    },
+    {
+      "name": "context",
+      "type": "object",
+      "required": false,
+      "description": "Context metadata to set."
+    },
+    {
+      "name": "moderation_status",
+      "type": "string",
+      "required": false,
+      "description": "Set moderation status: approved, rejected."
+    },
+    {
+      "name": "access_control",
+      "type": "array",
+      "required": false,
+      "description": "Access control rules."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/resources/image/upload/products/my-photo",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tags": [
+        "featured",
+        "new"
+      ],
+      "context": {
+        "caption": "Product photo"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "public_id": "products/my-photo",
+      "tags": [
+        "featured",
+        "new"
+      ]
+    }
+  }
+}

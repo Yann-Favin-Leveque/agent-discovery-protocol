@@ -1,0 +1,48 @@
+{
+  "name": "users_list",
+  "description": "List all users (agents, admins, end-users).",
+  "endpoint": "/api/v2/users",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "role",
+      "type": "string",
+      "description": "Filter by role (end-user, agent, admin)",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": "1"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{subdomain}.zendesk.com/api/v2/users",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "users": [
+        {
+          "id": 123,
+          "name": "John Doe",
+          "email": "john@example.com",
+          "role": "end-user"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

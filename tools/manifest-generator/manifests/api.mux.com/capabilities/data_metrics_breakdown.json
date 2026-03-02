@@ -1,0 +1,57 @@
+{
+  "name": "data_metrics_breakdown",
+  "resource_group": "data",
+  "description": "Get metric breakdowns by dimension (browser, country, etc).",
+  "endpoint": "/data/v1/metrics/breakdown",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "group_by",
+      "type": "string",
+      "required": true,
+      "description": "Dimension to group by: browser, country, os, player_name, video_id, etc."
+    },
+    {
+      "name": "timeframe[]",
+      "type": "string",
+      "required": false,
+      "description": "Time range."
+    },
+    {
+      "name": "filters[]",
+      "type": "string",
+      "required": false,
+      "description": "Filters."
+    },
+    {
+      "name": "measurement",
+      "type": "string",
+      "required": false,
+      "description": "Measurement type."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mux.com/data/v1/metrics/breakdown?group_by=country",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "field": "US",
+          "views": 5000,
+          "viewer_experience_score": 0.94
+        },
+        {
+          "field": "GB",
+          "views": 2000,
+          "viewer_experience_score": 0.91
+        }
+      ]
+    }
+  }
+}

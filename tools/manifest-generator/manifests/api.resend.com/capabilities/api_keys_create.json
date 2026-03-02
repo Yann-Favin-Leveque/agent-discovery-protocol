@@ -1,0 +1,48 @@
+{
+  "name": "api_keys_create",
+  "description": "Create a new API key.",
+  "resource_group": "api_keys",
+  "endpoint": "/api-keys",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name of the API key.",
+      "required": true,
+      "example": "Production Key"
+    },
+    {
+      "name": "permission",
+      "type": "string",
+      "description": "Permission level: full_access or sending_access.",
+      "required": false,
+      "example": "full_access"
+    },
+    {
+      "name": "domain_id",
+      "type": "string",
+      "description": "Restrict key to specific domain.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.resend.com/api-keys",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Production Key",
+      "permission": "full_access"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "key-123",
+      "token": "re_abc123xyz"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "playback_restrictions_create",
+  "resource_group": "playback_restrictions",
+  "description": "Create a playback restriction with referrer or user-agent rules.",
+  "endpoint": "/video/v1/playback-restrictions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "referrer",
+      "type": "object",
+      "required": false,
+      "description": "Referrer restriction with allowed_domains and allow_no_referrer."
+    },
+    {
+      "name": "user_agent",
+      "type": "object",
+      "required": false,
+      "description": "User agent restriction with allow_no_user_agent and allow_high_risk_user_agent."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mux.com/video/v1/playback-restrictions",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "referrer": {
+        "allowed_domains": [
+          "example.com",
+          "*.example.com"
+        ],
+        "allow_no_referrer": false
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "restriction_abc",
+        "referrer": {
+          "allowed_domains": [
+            "example.com",
+            "*.example.com"
+          ],
+          "allow_no_referrer": false
+        }
+      }
+    }
+  }
+}

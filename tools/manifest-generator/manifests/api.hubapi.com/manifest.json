@@ -1,19 +1,176 @@
 {
   "spec_version": "1.0",
   "name": "HubSpot",
-  "description": "HubSpot is an all-in-one CRM platform for marketing, sales, and customer service. Manage contacts, companies, deals, tickets, and automate workflows through a comprehensive REST API.",
+  "description": "HubSpot is an all-in-one CRM platform for marketing, sales, and customer service. Manage contacts, companies, deals, tickets, engagements, and pipelines through a comprehensive REST API.",
   "base_url": "https://api.hubapi.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://app.hubspot.com/private-apps/"
   },
   "capabilities": [
-    {"name": "search_contacts", "description": "Search for contacts by email, name, phone, or custom properties.", "detail_url": "/capabilities/search_contacts"},
-    {"name": "create_contact", "description": "Create a new contact with properties like email, name, and company.", "detail_url": "/capabilities/create_contact"},
-    {"name": "manage_deals", "description": "Create, update, or list deals in the sales pipeline.", "detail_url": "/capabilities/manage_deals"},
-    {"name": "list_companies", "description": "List and search companies with filtering and property selection.", "detail_url": "/capabilities/list_companies"},
-    {"name": "create_engagement", "description": "Log a note, email, call, or meeting as an engagement on a contact or deal.", "detail_url": "/capabilities/create_engagement"},
-    {"name": "manage_tickets", "description": "Create and manage support tickets in the service hub.", "detail_url": "/capabilities/manage_tickets"}
+    {
+      "name": "contacts_list",
+      "resource_group": "contacts",
+      "description": "List all contacts with pagination.",
+      "detail_url": "/capabilities/contacts_list"
+    },
+    {
+      "name": "contacts_get",
+      "resource_group": "contacts",
+      "description": "Get a contact by ID or email.",
+      "detail_url": "/capabilities/contacts_get"
+    },
+    {
+      "name": "contacts_create",
+      "resource_group": "contacts",
+      "description": "Create a new contact.",
+      "detail_url": "/capabilities/contacts_create"
+    },
+    {
+      "name": "contacts_update",
+      "resource_group": "contacts",
+      "description": "Update a contact.",
+      "detail_url": "/capabilities/contacts_update"
+    },
+    {
+      "name": "contacts_delete",
+      "resource_group": "contacts",
+      "description": "Delete a contact (moves to recycling bin).",
+      "detail_url": "/capabilities/contacts_delete"
+    },
+    {
+      "name": "contacts_search",
+      "resource_group": "contacts",
+      "description": "Search contacts using filters and query.",
+      "detail_url": "/capabilities/contacts_search"
+    },
+    {
+      "name": "contacts_batch_create",
+      "resource_group": "contacts",
+      "description": "Create multiple contacts.",
+      "detail_url": "/capabilities/contacts_batch_create"
+    },
+    {
+      "name": "companies_list",
+      "resource_group": "companies",
+      "description": "List all companies.",
+      "detail_url": "/capabilities/companies_list"
+    },
+    {
+      "name": "companies_create",
+      "resource_group": "companies",
+      "description": "Create a company.",
+      "detail_url": "/capabilities/companies_create"
+    },
+    {
+      "name": "companies_get",
+      "resource_group": "companies",
+      "description": "Get a company by ID.",
+      "detail_url": "/capabilities/companies_get"
+    },
+    {
+      "name": "companies_update",
+      "resource_group": "companies",
+      "description": "Update a company.",
+      "detail_url": "/capabilities/companies_update"
+    },
+    {
+      "name": "companies_delete",
+      "resource_group": "companies",
+      "description": "Delete a company.",
+      "detail_url": "/capabilities/companies_delete"
+    },
+    {
+      "name": "deals_list",
+      "resource_group": "deals",
+      "description": "List all deals.",
+      "detail_url": "/capabilities/deals_list"
+    },
+    {
+      "name": "deals_create",
+      "resource_group": "deals",
+      "description": "Create a deal.",
+      "detail_url": "/capabilities/deals_create"
+    },
+    {
+      "name": "deals_update",
+      "resource_group": "deals",
+      "description": "Update a deal.",
+      "detail_url": "/capabilities/deals_update"
+    },
+    {
+      "name": "deals_delete",
+      "resource_group": "deals",
+      "description": "Delete a deal.",
+      "detail_url": "/capabilities/deals_delete"
+    },
+    {
+      "name": "deals_search",
+      "resource_group": "deals",
+      "description": "Search deals with filters.",
+      "detail_url": "/capabilities/deals_search"
+    },
+    {
+      "name": "tickets_list",
+      "resource_group": "tickets",
+      "description": "List support tickets.",
+      "detail_url": "/capabilities/tickets_list"
+    },
+    {
+      "name": "tickets_create",
+      "resource_group": "tickets",
+      "description": "Create a ticket.",
+      "detail_url": "/capabilities/tickets_create"
+    },
+    {
+      "name": "tickets_update",
+      "resource_group": "tickets",
+      "description": "Update a ticket.",
+      "detail_url": "/capabilities/tickets_update"
+    },
+    {
+      "name": "engagements_notes_create",
+      "resource_group": "engagements",
+      "description": "Create a note on a CRM record.",
+      "detail_url": "/capabilities/engagements_notes_create"
+    },
+    {
+      "name": "engagements_emails_create",
+      "resource_group": "engagements",
+      "description": "Log an email activity.",
+      "detail_url": "/capabilities/engagements_emails_create"
+    },
+    {
+      "name": "engagements_calls_create",
+      "resource_group": "engagements",
+      "description": "Log a call activity.",
+      "detail_url": "/capabilities/engagements_calls_create"
+    },
+    {
+      "name": "pipelines_list",
+      "resource_group": "pipelines",
+      "description": "List deal or ticket pipelines.",
+      "detail_url": "/capabilities/pipelines_list"
+    },
+    {
+      "name": "owners_list",
+      "resource_group": "owners",
+      "description": "List all owners (users) in the account.",
+      "detail_url": "/capabilities/owners_list"
+    },
+    {
+      "name": "associations_create",
+      "resource_group": "associations",
+      "description": "Associate two CRM records.",
+      "detail_url": "/capabilities/associations_create"
+    },
+    {
+      "name": "associations_delete",
+      "resource_group": "associations",
+      "description": "Remove association between records.",
+      "detail_url": "/capabilities/associations_delete"
+    }
   ]
 }

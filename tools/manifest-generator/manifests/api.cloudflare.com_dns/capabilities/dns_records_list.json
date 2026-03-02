@@ -1,0 +1,109 @@
+{
+  "name": "dns_records_list",
+  "description": "List, search, sort, and filter DNS records for a zone. Supports filtering by type, name, content, and proxied status.",
+  "endpoint": "/zones/{zone_id}/dns_records",
+  "method": "GET",
+  "resource_group": "dns_records",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "DNS record type filter: A, AAAA, CNAME, MX, TXT, NS, SRV, CAA, etc.",
+      "required": false,
+      "example": "A"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "DNS record name filter (e.g., example.com).",
+      "required": false,
+      "example": "example.com"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "DNS record content filter (e.g., IP address).",
+      "required": false,
+      "example": "127.0.0.1"
+    },
+    {
+      "name": "proxied",
+      "type": "boolean",
+      "description": "Filter by Cloudflare proxy status.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number of results.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Number of records per page (default 100, max 5000).",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order field: type, name, content, ttl, proxied.",
+      "required": false,
+      "example": "type"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "description": "Sort direction: asc or desc.",
+      "required": false,
+      "example": "asc"
+    },
+    {
+      "name": "match",
+      "type": "string",
+      "description": "Match logic: any (OR) or all (AND) for filters.",
+      "required": false,
+      "example": "all"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_records?type=A&per_page=100",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": [
+        {
+          "id": "372e67954025e0ba6aaa6d586b9e0b59",
+          "type": "A",
+          "name": "example.com",
+          "content": "198.51.100.4",
+          "proxied": true,
+          "ttl": 1,
+          "created_on": "2024-01-01T00:00:00Z",
+          "modified_on": "2024-01-10T00:00:00Z"
+        }
+      ],
+      "result_info": {"page": 1, "per_page": 100, "total_count": 1}
+    }
+  },
+  "auth_scopes": ["dns_records:read"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

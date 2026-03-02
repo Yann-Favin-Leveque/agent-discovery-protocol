@@ -1,0 +1,23 @@
+{
+  "name": "voice_calls_talk_create",
+  "description": "Play text-to-speech into an active voice call using Vonage's TTS engine.",
+  "resource_group": "voice",
+  "endpoint": "/v1/calls/{uuid}/talk",
+  "method": "PUT",
+  "parameters": [
+    {"name": "uuid", "type": "string", "required": true, "location": "path", "description": "The UUID of the call."},
+    {"name": "text", "type": "string", "required": true, "description": "The text to speak into the call."},
+    {"name": "language", "type": "string", "required": false, "description": "BCP-47 language code (e.g., 'en-US', 'fr-FR'). Default 'en-US'."},
+    {"name": "style", "type": "integer", "required": false, "description": "Voice style index. Default 0."},
+    {"name": "premium", "type": "boolean", "required": false, "description": "Use premium TTS voice. Default false."},
+    {"name": "loop", "type": "integer", "required": false, "description": "Number of times to repeat. 0 for infinite. Default 1."},
+    {"name": "level", "type": "string", "required": false, "description": "Audio level from -1 to 1. Default 0."}
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.vonage.com/v1/calls/63f61863-4a51-4f6b-86e1-46edebcf9356/talk",
+    "headers": {"Content-Type": "application/json", "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."},
+    "body": {"text": "Please hold while we transfer you to an agent.", "language": "en-US", "style": 0}
+  },
+  "response_example": {"status": 200, "body": {"message": "Talk started", "uuid": "63f61863-4a51-4f6b-86e1-46edebcf9356"}}
+}

@@ -1,0 +1,83 @@
+{
+  "name": "document_list",
+  "description": "List all documents with optional filtering by status, template, folder, tag, or date range. Supports pagination and ordering.",
+  "resource_group": "document",
+  "endpoint": "/public/v1/documents",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "status",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by status: 0=draft, 1=sent, 2=completed, 3=uploaded, 4=error, 5=viewed, 6=waiting_approval, 7=approved, 8=rejected, 9=waiting_pay, 10=paid, 11=voided, 12=declined.",
+      "in": "query"
+    },
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by template UUID.",
+      "in": "query"
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "required": false,
+      "description": "Filter by tag.",
+      "in": "query"
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "required": false,
+      "description": "Search text.",
+      "in": "query"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (max 100).",
+      "in": "query"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number.",
+      "in": "query"
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "required": false,
+      "description": "Sort field: name, date_created, date_modified, date_completed.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pandadoc.com/public/v1/documents?status=2&count=25&page=1",
+    "headers": {
+      "Authorization": "API-Key YOUR_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 1,
+      "results": [
+        {
+          "id": "doc-abc-123",
+          "name": "Service Agreement - Acme Corp",
+          "status": "document.completed",
+          "date_created": "2025-01-15T14:30:00.000Z",
+          "date_completed": "2025-01-15T16:00:00.000Z",
+          "expiration_date": null,
+          "version": "1"
+        }
+      ]
+    }
+  }
+}

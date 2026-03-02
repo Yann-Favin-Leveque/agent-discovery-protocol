@@ -1,0 +1,55 @@
+{
+  "name": "users_update",
+  "description": "Update a user's properties and tags.",
+  "resource_group": "users",
+  "endpoint": "/api/v1/users/by/{alias_label}/{alias_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "alias_label",
+      "type": "string",
+      "required": true,
+      "description": "Alias type."
+    },
+    {
+      "name": "alias_id",
+      "type": "string",
+      "required": true,
+      "description": "Alias value."
+    },
+    {
+      "name": "properties",
+      "type": "object",
+      "required": false,
+      "description": "Updated user properties."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.onesignal.com/api/v1/users/by/external_id/user123",
+    "headers": {
+      "Authorization": "Basic <rest_api_key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "properties": {
+        "tags": {
+          "plan": "enterprise"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "identity": {
+        "external_id": "user123"
+      },
+      "properties": {
+        "tags": {
+          "plan": "enterprise"
+        }
+      }
+    }
+  }
+}

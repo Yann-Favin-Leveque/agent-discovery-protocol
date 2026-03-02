@@ -1,0 +1,66 @@
+{
+  "name": "task_batch_trigger",
+  "description": "Batch trigger the same task with up to 1000 different payloads.",
+  "resource_group": "task",
+  "endpoint": "/api/v3/tasks/{taskId}/batch",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "taskId",
+      "type": "string",
+      "description": "Task identifier (path parameter).",
+      "required": true,
+      "example": "my-task"
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Array of payload objects.",
+      "required": true,
+      "example": [
+        {
+          "payload": {
+            "userId": "usr_1"
+          }
+        },
+        {
+          "payload": {
+            "userId": "usr_2"
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trigger.dev/api/v3/tasks/my-task/batch",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "items": [
+        {
+          "payload": {
+            "userId": "usr_1"
+          }
+        },
+        {
+          "payload": {
+            "userId": "usr_2"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "batchId": "batch_abc",
+      "runs": [
+        "run_1",
+        "run_2"
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "operations_list",
+  "resource_group": "operations",
+  "description": "List operations for a project.",
+  "endpoint": "/projects/{project_id}/operations",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Pagination cursor."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Results per page (1-1000)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123/operations",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "operations": [
+        {
+          "id": "op-abc123",
+          "action": "create_branch",
+          "status": "finished"
+        }
+      ]
+    }
+  }
+}

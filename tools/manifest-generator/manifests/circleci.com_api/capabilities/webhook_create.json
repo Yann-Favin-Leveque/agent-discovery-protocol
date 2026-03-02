@@ -1,0 +1,52 @@
+{
+  "name": "webhook_create",
+  "description": "Create a webhook.",
+  "resource_group": "webhooks",
+  "endpoint": "/webhook",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Name."
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "required": true,
+      "description": "Events: workflow-completed, job-completed."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "Webhook URL."
+    },
+    {
+      "name": "scope",
+      "type": "object",
+      "required": true,
+      "description": "Scope: {id, type}."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://circleci.com/api/v2/webhook",
+    "body": {
+      "name": "deploy",
+      "events": [
+        "workflow-completed"
+      ],
+      "url": "https://example.com/hook",
+      "scope": {
+        "id": "proj-abc",
+        "type": "project"
+      }
+    }
+  },
+  "response_example": {
+    "id": "wh-new",
+    "name": "deploy"
+  }
+}

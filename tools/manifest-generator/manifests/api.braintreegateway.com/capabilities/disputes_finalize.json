@@ -1,0 +1,22 @@
+{
+  "name": "disputes_finalize",
+  "description": "Finalize a dispute after adding all evidence, submitting it to the processor for review.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "disputes",
+  "parameters": [
+    {"name": "disputeId", "type": "string", "description": "ID of the dispute to finalize.", "required": true, "example": "ZGlzcHV0ZV8xMjM0NQ"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://payments.braintree-api.com/graphql",
+    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
+    "body": {"query": "mutation FinalizeDispute($input: FinalizeDisputeInput!) { finalizeDispute(input: $input) { clientMutationId } }", "variables": {"input": {"disputeId": "ZGlzcHV0ZV8xMjM0NQ"}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"finalizeDispute": {"clientMutationId": null}}}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 300}
+}

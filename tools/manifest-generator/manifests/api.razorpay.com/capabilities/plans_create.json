@@ -1,0 +1,54 @@
+{
+  "name": "plans_create",
+  "description": "Create a subscription plan with a billing interval and amount.",
+  "resource_group": "plans",
+  "endpoint": "/v1/plans",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "period",
+      "type": "string",
+      "description": "Billing period: daily, weekly, monthly, yearly.",
+      "required": true,
+      "example": "monthly"
+    },
+    {
+      "name": "interval",
+      "type": "integer",
+      "description": "Number of periods between charges.",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "item",
+      "type": "object",
+      "description": "Plan item with name, amount, currency.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/plans",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "period": "monthly",
+      "interval": 1,
+      "item": {
+        "name": "Test plan",
+        "amount": 500,
+        "currency": "INR"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "plan_DBJOWzybf0sJbb",
+      "period": "monthly",
+      "interval": 1
+    }
+  }
+}

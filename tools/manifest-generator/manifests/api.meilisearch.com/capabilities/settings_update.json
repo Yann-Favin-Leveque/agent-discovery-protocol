@@ -1,0 +1,165 @@
+{
+  "name": "settings_update",
+  "description": "Update all settings of an index at once. Returns an asynchronous task.",
+  "endpoint": "/indexes/{indexUid}/settings",
+  "method": "PATCH",
+  "resource_group": "settings",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "rankingRules",
+      "type": "array",
+      "description": "Ordered list of ranking rules.",
+      "required": false,
+      "example": [
+        "words",
+        "typo",
+        "proximity",
+        "attribute",
+        "sort",
+        "exactness"
+      ]
+    },
+    {
+      "name": "searchableAttributes",
+      "type": "array",
+      "description": "Attributes used for searching.",
+      "required": false,
+      "example": [
+        "title",
+        "overview"
+      ]
+    },
+    {
+      "name": "displayedAttributes",
+      "type": "array",
+      "description": "Attributes returned in search results.",
+      "required": false,
+      "example": [
+        "title",
+        "genre",
+        "year"
+      ]
+    },
+    {
+      "name": "filterableAttributes",
+      "type": "array",
+      "description": "Attributes that can be used as filters.",
+      "required": false,
+      "example": [
+        "genre",
+        "year"
+      ]
+    },
+    {
+      "name": "sortableAttributes",
+      "type": "array",
+      "description": "Attributes that can be used for sorting.",
+      "required": false,
+      "example": [
+        "year",
+        "title"
+      ]
+    },
+    {
+      "name": "stopWords",
+      "type": "array",
+      "description": "Words ignored during search.",
+      "required": false,
+      "example": [
+        "the",
+        "a",
+        "an"
+      ]
+    },
+    {
+      "name": "synonyms",
+      "type": "object",
+      "description": "Synonym map.",
+      "required": false,
+      "example": {
+        "wolverine": [
+          "xmen",
+          "logan"
+        ]
+      }
+    },
+    {
+      "name": "distinctAttribute",
+      "type": "string",
+      "description": "Attribute used for deduplication.",
+      "required": false,
+      "example": "movie_id"
+    },
+    {
+      "name": "typoTolerance",
+      "type": "object",
+      "description": "Typo tolerance settings.",
+      "required": false,
+      "example": {
+        "enabled": true,
+        "minWordSizeForTypos": {
+          "oneTypo": 5,
+          "twoTypos": 9
+        }
+      }
+    },
+    {
+      "name": "pagination",
+      "type": "object",
+      "description": "Pagination settings.",
+      "required": false,
+      "example": {
+        "maxTotalHits": 1000
+      }
+    },
+    {
+      "name": "faceting",
+      "type": "object",
+      "description": "Faceting settings.",
+      "required": false,
+      "example": {
+        "maxValuesPerFacet": 100
+      }
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.meilisearch.com/indexes/movies/settings",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "filterableAttributes": [
+        "genre",
+        "year"
+      ],
+      "sortableAttributes": [
+        "year"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "taskUid": 10,
+      "indexUid": "movies",
+      "status": "enqueued",
+      "type": "settingsUpdate",
+      "enqueuedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "settings.update"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

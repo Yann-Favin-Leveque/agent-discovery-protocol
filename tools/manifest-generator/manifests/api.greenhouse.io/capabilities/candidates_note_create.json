@@ -1,0 +1,53 @@
+{
+  "name": "candidates_note_create",
+  "resource_group": "Candidates",
+  "endpoint": "/v1/candidates/{id}/notes",
+  "method": "POST",
+  "description": "Add a note to a candidate's record.",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Candidate ID."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "description": "Note text."
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "required": false,
+      "description": "public, private, or admin_only."
+    },
+    {
+      "name": "On-Behalf-Of",
+      "type": "integer",
+      "required": true,
+      "description": "User ID (header)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://harvest.greenhouse.io/v1/candidates/17681532/notes",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6",
+      "On-Behalf-Of": "4321",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "body": "Strong technical skills",
+      "visibility": "public"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 9876,
+      "body": "Strong technical skills"
+    }
+  }
+}

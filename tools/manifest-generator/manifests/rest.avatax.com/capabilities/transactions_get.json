@@ -1,0 +1,51 @@
+{
+  "name": "transactions_get",
+  "description": "Retrieve a single transaction by company code and transaction code.",
+  "endpoint": "/api/v2/companies/{companyCode}/transactions/{transactionCode}",
+  "method": "GET",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "companyCode",
+      "type": "string",
+      "description": "Company code.",
+      "required": true,
+      "example": "DEFAULT"
+    },
+    {
+      "name": "transactionCode",
+      "type": "string",
+      "description": "Transaction code.",
+      "required": true,
+      "example": "txn-001"
+    },
+    {
+      "name": "$include",
+      "type": "string",
+      "description": "Include additional details (Lines, Details, Summary).",
+      "required": false,
+      "example": "Lines"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.avatax.com/api/v2/companies/DEFAULT/transactions/txn-001?$include=Lines",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 12345,
+      "code": "txn-001",
+      "status": "Saved",
+      "totalAmount": 100.0,
+      "totalTax": 8.75
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

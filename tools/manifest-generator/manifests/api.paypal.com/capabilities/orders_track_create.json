@@ -1,0 +1,51 @@
+{
+  "name": "orders_track_create",
+  "description": "Add tracking information for a captured order.",
+  "endpoint": "/v2/checkout/orders/{id}/track",
+  "method": "POST",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Order ID",
+      "required": true,
+      "example": "ORDER_ID"
+    },
+    {
+      "name": "tracking_number",
+      "type": "string",
+      "description": "Shipping tracking number",
+      "required": true,
+      "example": "1Z999AA10123456784"
+    },
+    {
+      "name": "carrier",
+      "type": "string",
+      "description": "Carrier name",
+      "required": true,
+      "example": "UPS"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v2/checkout/orders/{id}/track",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tracking_number": "1Z999AA10123456784",
+      "carrier": "UPS",
+      "capture_id": "CAPTURE_ID"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

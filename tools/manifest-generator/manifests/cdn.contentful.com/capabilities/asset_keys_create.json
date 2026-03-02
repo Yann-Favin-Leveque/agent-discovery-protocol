@@ -1,0 +1,45 @@
+{
+  "name": "asset_keys_create",
+  "description": "Create an asset key for signing embargoed asset URLs. Required for accessing assets with embargo protection.",
+  "endpoint": "/spaces/{space_id}/asset_keys",
+  "method": "POST",
+  "resource_group": "assets",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "string",
+      "description": "The space ID.",
+      "required": true,
+      "example": "cfexampleapi"
+    },
+    {
+      "name": "expiresAt",
+      "type": "integer",
+      "description": "Unix timestamp when the key expires. Must be within 48 hours.",
+      "required": true,
+      "example": 1705420800
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://cdn.contentful.com/spaces/cfexampleapi/asset_keys",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "expiresAt": 1705420800
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "policy": "eyJhbGciOiJIUzI1NiJ9...",
+      "secret": "abc123secret"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 78
+  }
+}

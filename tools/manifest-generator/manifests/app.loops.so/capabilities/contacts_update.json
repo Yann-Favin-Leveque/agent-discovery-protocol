@@ -1,0 +1,63 @@
+{
+  "name": "contacts_update",
+  "description": "Update an existing contact's properties in Loops.",
+  "endpoint": "/api/v1/contacts",
+  "method": "PUT",
+  "resource_group": "contacts",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Contact email address to update.",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "firstName",
+      "type": "string",
+      "description": "Updated first name.",
+      "required": false
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "description": "Updated last name.",
+      "required": false
+    },
+    {
+      "name": "subscribed",
+      "type": "boolean",
+      "description": "Updated subscription status.",
+      "required": false
+    },
+    {
+      "name": "mailingLists",
+      "type": "object",
+      "description": "Updated mailing list subscriptions.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://app.loops.so/api/v1/contacts",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "user@example.com",
+      "firstName": "Jane"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "id": "contact_abc123"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

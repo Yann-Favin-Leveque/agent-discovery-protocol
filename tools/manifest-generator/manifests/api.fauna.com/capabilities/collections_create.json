@@ -1,0 +1,48 @@
+{
+  "name": "collections_create",
+  "description": "Create a new collection (table) in the database with optional schema constraints.",
+  "endpoint": "/query/1",
+  "method": "POST",
+  "resource_group": "collections",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "FQL query to create a collection. Use Collection.create({name: '...'}) syntax.",
+      "required": true,
+      "example": "Collection.create({ name: 'Product', fields: { name: { signature: 'String' }, price: { signature: 'Double' } } })"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://db.fauna.com/query/1",
+    "headers": {
+      "Authorization": "Bearer fn_your_secret_key",
+      "Content-Type": "application/json",
+      "X-Format": "simple"
+    },
+    "body": {
+      "query": "Collection.create({ name: 'Product' })"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "name": "Product",
+        "coll": "Collection",
+        "ts": "2024-09-01T10:00:00.000Z"
+      },
+      "txn_ts": 1693560000000000,
+      "stats": {
+        "compute_ops": 1,
+        "read_ops": 0,
+        "write_ops": 1
+      }
+    }
+  },
+  "auth_scopes": ["admin"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

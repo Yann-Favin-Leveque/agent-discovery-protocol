@@ -1,0 +1,39 @@
+{
+  "name": "jwt_refresh",
+  "resource_group": "jwt",
+  "description": "Exchange a refresh token for a new JWT access token.",
+  "endpoint": "/api/jwt/refresh",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "refreshToken",
+      "type": "string",
+      "required": true,
+      "description": "The refresh token."
+    },
+    {
+      "name": "token",
+      "type": "string",
+      "required": false,
+      "description": "Current access token for token rotation."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/jwt/refresh",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "refreshToken": "refresh-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "token": "eyJhbGciOi-new...",
+      "refreshToken": "new-refresh-token"
+    }
+  }
+}

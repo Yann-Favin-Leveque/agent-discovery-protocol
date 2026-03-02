@@ -1,0 +1,62 @@
+{
+  "name": "synonyms_items_upsert",
+  "description": "Create or update a synonym item in a set.",
+  "endpoint": "/synonym_sets/{synonymSetName}/items/{itemId}",
+  "method": "PUT",
+  "resource_group": "synonyms",
+  "parameters": [
+    {
+      "name": "synonymSetName",
+      "type": "string",
+      "description": "Synonym set name",
+      "required": true,
+      "example": "electronics_synonyms"
+    },
+    {
+      "name": "itemId",
+      "type": "string",
+      "description": "Synonym item ID",
+      "required": true,
+      "example": "laptop_syn"
+    },
+    {
+      "name": "synonyms",
+      "type": "array",
+      "description": "List of synonym words",
+      "required": true,
+      "example": [
+        "laptop",
+        "notebook",
+        "portable computer"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.typesense.org/synonym_sets/electronics_synonyms/items/laptop_syn",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "synonyms": [
+        "laptop",
+        "notebook"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "laptop_syn",
+      "synonyms": [
+        "laptop",
+        "notebook"
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

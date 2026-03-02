@@ -1,0 +1,44 @@
+{
+  "name": "message_media_list",
+  "description": "List all media files for a specific MMS message.",
+  "resource_group": "message",
+  "endpoint": "/v1/Account/{auth_id}/Message/{message_uuid}/Media/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "message_uuid",
+      "type": "string",
+      "description": "The MMS message UUID (path parameter).",
+      "required": true,
+      "example": "db3ce55a-7f1d-11e1-8ea7-1231380bc196"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Message/{message_uuid}/Media/",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "objects": [
+        {
+          "content_type": "image/jpeg",
+          "media_id": "media-id",
+          "media_url": "https://media.plivo.com/...",
+          "message_uuid": "db3ce55a-7f1d-11e1-8ea7-1231380bc196"
+        }
+      ]
+    }
+  }
+}

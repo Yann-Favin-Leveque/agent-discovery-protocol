@@ -1,0 +1,79 @@
+{
+  "name": "token_create",
+  "description": "Create a new authentication token with configurable policies and TTL.",
+  "resource_group": "auth_token",
+  "endpoint": "/v1/auth/token/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "policies",
+      "type": "array",
+      "required": false,
+      "description": "List of policy names to attach."
+    },
+    {
+      "name": "ttl",
+      "type": "string",
+      "required": false,
+      "description": "Token TTL (e.g., '1h', '24h')."
+    },
+    {
+      "name": "renewable",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether token is renewable."
+    },
+    {
+      "name": "display_name",
+      "type": "string",
+      "required": false,
+      "description": "Display name for the token."
+    },
+    {
+      "name": "num_uses",
+      "type": "integer",
+      "required": false,
+      "description": "Max number of uses (0 = unlimited)."
+    },
+    {
+      "name": "no_parent",
+      "type": "boolean",
+      "required": false,
+      "description": "Create orphan token."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com/v1/auth/token/create",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "policies": [
+        "my-policy"
+      ],
+      "ttl": "1h",
+      "renewable": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "auth": {
+        "client_token": "hvs.CAESIG...",
+        "accessor": "abc123",
+        "policies": [
+          "default",
+          "my-policy"
+        ],
+        "token_policies": [
+          "default",
+          "my-policy"
+        ],
+        "lease_duration": 3600,
+        "renewable": true
+      }
+    }
+  }
+}

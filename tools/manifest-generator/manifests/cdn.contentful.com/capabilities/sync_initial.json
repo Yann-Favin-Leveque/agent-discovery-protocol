@@ -1,0 +1,76 @@
+{
+  "name": "sync_initial",
+  "description": "Perform initial or delta content synchronization. Returns all entries and assets with a sync token for subsequent incremental syncs.",
+  "endpoint": "/spaces/{space_id}/environments/{environment_id}/sync",
+  "method": "GET",
+  "resource_group": "sync",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "string",
+      "description": "The space ID.",
+      "required": true,
+      "example": "cfexampleapi"
+    },
+    {
+      "name": "environment_id",
+      "type": "string",
+      "description": "The environment ID.",
+      "required": true,
+      "example": "master"
+    },
+    {
+      "name": "initial",
+      "type": "boolean",
+      "description": "Set to true for initial sync. Omit for delta sync with sync_token.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "sync_token",
+      "type": "string",
+      "description": "Token from a previous sync response for incremental sync.",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter by type: Entry, Asset, Deletion, DeletedEntry, DeletedAsset.",
+      "required": false,
+      "example": "Entry"
+    },
+    {
+      "name": "content_type",
+      "type": "string",
+      "description": "Filter by content type (only with type=Entry).",
+      "required": false,
+      "example": "blogPost"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/sync?initial=true",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sys": {"type": "Array"},
+      "items": [
+        {
+          "sys": {"id": "entry1", "type": "Entry"},
+          "fields": {"title": "Hello World"}
+        }
+      ],
+      "nextSyncUrl": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/sync?sync_token=abc123",
+      "nextPageUrl": null
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 78
+  }
+}

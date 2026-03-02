@@ -1,0 +1,74 @@
+{
+  "name": "signature_request_create_embedded",
+  "description": "Create an embedded signature request for in-app signing via iFrame.",
+  "endpoint": "/v3/signature_request/create_embedded",
+  "method": "POST",
+  "resource_group": "signature_request",
+  "parameters": [
+    {
+      "name": "client_id",
+      "type": "string",
+      "description": "Your API app client ID.",
+      "required": true,
+      "example": "b6b8e7de"
+    },
+    {
+      "name": "signers",
+      "type": "array",
+      "description": "Signer objects.",
+      "required": true,
+      "example": [
+        {
+          "email_address": "signer@example.com",
+          "name": "Jane Doe"
+        }
+      ]
+    },
+    {
+      "name": "file_urls",
+      "type": "array",
+      "description": "Document URLs.",
+      "required": false,
+      "example": [
+        "https://example.com/doc.pdf"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/signature_request/create_embedded",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "client_id": "b6b8e7de",
+      "signers": [
+        {
+          "email_address": "signer@example.com",
+          "name": "Jane Doe"
+        }
+      ],
+      "file_urls": [
+        "https://example.com/doc.pdf"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signature_request": {
+        "signature_request_id": "fa5c8a0b",
+        "signatures": [
+          {
+            "signature_id": "78caf2a1"
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "name": "places_text_search",
+  "description": "Search for places using a text query like 'pizza in New York' or 'museums near me'. Returns results with ratings, addresses, and place IDs.",
+  "endpoint": "/maps/api/place/textsearch/json",
+  "method": "GET",
+  "resource_group": "places",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "Text search query (e.g., 'restaurants in Sydney', '123 Main Street').",
+      "required": true,
+      "example": "restaurants in San Francisco"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Location bias as latitude,longitude.",
+      "required": false,
+      "example": "37.7749,-122.4194"
+    },
+    {
+      "name": "radius",
+      "type": "integer",
+      "description": "Search radius in meters (max 50000).",
+      "required": false,
+      "example": 5000
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Place type filter.",
+      "required": false,
+      "example": "restaurant"
+    },
+    {
+      "name": "opennow",
+      "type": "boolean",
+      "description": "Return only currently open places.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "minprice",
+      "type": "integer",
+      "description": "Minimum price level (0-4).",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "maxprice",
+      "type": "integer",
+      "description": "Maximum price level (0-4).",
+      "required": false,
+      "example": 3
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for results.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "Region bias as ccTLD code.",
+      "required": false,
+      "example": "us"
+    },
+    {
+      "name": "pagetoken",
+      "type": "string",
+      "description": "Token for the next page of results.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+San+Francisco&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "name": "Famous Restaurant",
+          "formatted_address": "456 Market St, San Francisco, CA 94105",
+          "place_id": "ChIJ9876543210",
+          "rating": 4.7,
+          "user_ratings_total": 1200,
+          "price_level": 3,
+          "opening_hours": {"open_now": true},
+          "geometry": {"location": {"lat": 37.789, "lng": -122.399}}
+        }
+      ],
+      "status": "OK"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

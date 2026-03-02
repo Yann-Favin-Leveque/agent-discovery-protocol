@@ -1,0 +1,44 @@
+{
+  "name": "settings_delegates_create",
+  "description": "Adds a delegate with verification status set to accepted.",
+  "resource_group": "settings",
+  "endpoint": "/gmail/v1/users/{userId}/settings/delegates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "delegateEmail",
+      "type": "string",
+      "description": "The delegate email.",
+      "required": true,
+      "example": "delegate@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/settings/delegates",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "delegateEmail": "delegate@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "delegateEmail": "delegate@example.com",
+      "verificationStatus": "accepted"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.settings.sharing"
+  ]
+}

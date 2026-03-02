@@ -1,0 +1,70 @@
+{
+  "name": "receipt_predict",
+  "description": "Parse a receipt to extract merchant name, date, totals, taxes, and line items.",
+  "endpoint": "/v1/products/mindee/expense_receipts/v5/predict",
+  "method": "POST",
+  "resource_group": "receipts",
+  "parameters": [
+    {
+      "name": "document",
+      "type": "file",
+      "description": "Receipt file (PDF, JPG, PNG, TIFF, WEBP).",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mindee.com/v1/products/mindee/expense_receipts/v5/predict",
+    "headers": {
+      "Authorization": "Token {api_key}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "document": "(binary file data)"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "api_request": {
+        "status": "success"
+      },
+      "document": {
+        "inference": {
+          "prediction": {
+            "supplier_name": {
+              "value": "Coffee Shop"
+            },
+            "date": {
+              "value": "2024-01-15"
+            },
+            "total_amount": {
+              "value": 12.5
+            },
+            "total_tax": {
+              "value": 1.04
+            },
+            "total_net": {
+              "value": 11.46
+            },
+            "locale": {
+              "currency": "USD",
+              "language": "en"
+            },
+            "line_items": [
+              {
+                "description": "Latte",
+                "quantity": 2,
+                "total_amount": 9.0
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

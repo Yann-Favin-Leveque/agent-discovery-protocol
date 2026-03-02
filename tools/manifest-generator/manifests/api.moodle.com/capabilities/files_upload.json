@@ -1,0 +1,24 @@
+{
+  "name": "files_upload",
+  "description": "Upload a file to the Moodle draft area for use in courses, assignments, or messages.",
+  "endpoint": "/webservice/upload.php",
+  "method": "POST",
+  "resource_group": "files",
+  "parameters": [
+    { "name": "token", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "file_1", "type": "file", "description": "The file to upload", "required": true, "example": "document.pdf" },
+    { "name": "itemid", "type": "integer", "description": "Draft item ID (0 for auto-generated)", "required": false, "example": 0 }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/upload.php?token={token}",
+    "headers": { "Content-Type": "multipart/form-data" },
+    "body": { "file_1": "<binary>", "itemid": 0 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{ "component": "user", "contextid": 5, "userid": 2, "filearea": "draft", "filename": "document.pdf", "itemid": 123456 }]
+  },
+  "auth_scopes": [],
+  "rate_limits": { "requests_per_minute": 30 }
+}

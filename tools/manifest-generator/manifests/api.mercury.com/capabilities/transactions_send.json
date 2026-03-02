@@ -1,0 +1,33 @@
+{
+  "name": "transactions_send",
+  "description": "Send money to a saved recipient via ACH or wire transfer.",
+  "endpoint": "/api/v1/transaction",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    { "name": "recipientId", "type": "string", "description": "The recipient ID to send funds to", "required": true, "example": "rcp_456def" },
+    { "name": "accountId", "type": "string", "description": "The source account ID", "required": true, "example": "acc_123abc" },
+    { "name": "amount", "type": "number", "description": "Amount to send in dollars", "required": true, "example": 2500.00 },
+    { "name": "paymentMethod", "type": "string", "description": "Payment method: ach or wire", "required": true, "example": "ach" },
+    { "name": "note", "type": "string", "description": "Memo for the payment", "required": false, "example": "Invoice #1234 payment" },
+    { "name": "idempotencyKey", "type": "string", "description": "Unique key to prevent duplicate transactions", "required": false, "example": "idem_key_001" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mercury.com/api/v1/transaction",
+    "headers": { "Authorization": "Bearer {token}", "Content-Type": "application/json" },
+    "body": {
+      "recipientId": "rcp_456def",
+      "accountId": "acc_123abc",
+      "amount": 2500.00,
+      "paymentMethod": "ach",
+      "note": "Invoice #1234 payment"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "id": "txn_new789", "status": "pending", "amount": 2500.00, "paymentMethod": "ach" }
+  },
+  "auth_scopes": [],
+  "rate_limits": { "requests_per_minute": 30 }
+}

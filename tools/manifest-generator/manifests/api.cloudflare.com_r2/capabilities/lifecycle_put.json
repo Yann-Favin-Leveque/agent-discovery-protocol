@@ -1,0 +1,40 @@
+{
+  "name": "lifecycle_put",
+  "description": "Set object lifecycle rules for a bucket.",
+  "resource_group": "lifecycle",
+  "endpoint": "/accounts/{account_id}/r2/buckets/{bucket_name}/lifecycle",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Cloudflare account identifier"
+    },
+    {
+      "name": "bucket_name",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Name of the R2 bucket"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "request_example": {
+    "rules": [
+      {
+        "id": "delete-old",
+        "condition": {
+          "age": 30
+        },
+        "action": {
+          "type": "Delete"
+        }
+      }
+    ]
+  }
+}

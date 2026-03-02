@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Google Drive API",
-  "description": "The Google Drive API allows clients to access resources from Google Drive.",
+  "description": "The Google Drive API allows clients to access resources from Google Drive. It enables file management, sharing, comments, revisions, and shared drive operations.",
   "base_url": "https://www.googleapis.com/drive/v3",
   "auth": {
     "type": "oauth2",
@@ -22,64 +22,234 @@
   },
   "capabilities": [
     {
-      "name": "operations",
-      "description": "Manage operations — gets the latest state of a long-running operation. clients can use this method to poll the operation result at intervals as recommended by the api service. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/operations"
+      "name": "about_get",
+      "description": "Get information about the user, the user's Drive, and system capabilities.",
+      "detail_url": "/capabilities/about_get"
     },
     {
-      "name": "about",
-      "description": "Manage about — gets information about the user, the user's drive, and system capabilities. for more information, see [return user info](https://developers.google.com/workspace/drive/api/guides/user-info). required: the `fields` parameter must be set. to return the exact fields you need, see [return specific fields](https://developers.google.com/workspace/drive/api/guides/fields-parameter). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/about"
+      "name": "files_list",
+      "description": "List files in the user's Drive.",
+      "detail_url": "/capabilities/files_list"
     },
     {
-      "name": "apps",
-      "description": "Manage apps — lists a user's installed apps. for more information, see [return user info](https://developers.google.com/workspace/drive/api/guides/user-info), gets a specific app. for more information, see [return user info](https://developers.google.com/workspace/drive/api/guides/user-info). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/apps"
+      "name": "files_get",
+      "description": "Get a file's metadata by ID.",
+      "detail_url": "/capabilities/files_get"
     },
     {
-      "name": "changes",
-      "description": "Manage changes — subscribes to changes for a user. for more information, see [notifications for resource changes](https://developers.google.com/workspace/drive/api/guides/push), gets the starting pagetoken for listing future changes. for more information, see [retrieve changes](https://developers.google.com/workspace/drive/api/guides/manage-changes), lists the changes for a user or shared drive. for more information, see [retrieve changes](https://developers.google.com/workspace/drive/api/guides/manage-changes). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/changes"
+      "name": "files_create",
+      "description": "Create a new file or folder in Drive (metadata only, no content upload).",
+      "detail_url": "/capabilities/files_create"
     },
     {
-      "name": "channels",
-      "description": "Manage channels — stops watching resources through this channel. for more information, see [notifications for resource changes](https://developers.google.com/workspace/drive/api/guides/push). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/channels"
+      "name": "files_update",
+      "description": "Update a file's metadata and/or content.",
+      "detail_url": "/capabilities/files_update"
     },
     {
-      "name": "comments",
-      "description": "Manage comments — creates a comment on a file. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments). required: the `fields` parameter must be set. to return the exact fields you need, see [return specific fields](https://developers.google.com/workspace/drive/api/guides/fields-parameter), lists a file's comments. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments). required: the `fields` parameter must be set. to return the exact fields you need, see [return specific fields](https://developers.google.com/workspace/drive/api/guides/fields-parameter), gets a comment by id. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments). required: the `fields` parameter must be set. to return the exact fields you need, see [return specific fields](https://developers.google.com/workspace/drive/api/guides/fields-parameter). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/comments"
+      "name": "files_delete",
+      "description": "Permanently delete a file (bypasses trash).",
+      "detail_url": "/capabilities/files_delete"
     },
     {
-      "name": "drives",
-      "description": "Manage drives — creates a shared drive. for more information, see [manage shared drives](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives), hides a shared drive from the default view. for more information, see [manage shared drives](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives), restores a shared drive to the default view. for more information, see [manage shared drives](https://developers.google.com/workspace/drive/api/guides/manage-shareddrives). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/drives"
+      "name": "files_copy",
+      "description": "Create a copy of a file.",
+      "detail_url": "/capabilities/files_copy"
     },
     {
-      "name": "files",
-      "description": "Manage files —  creates a file. for more information, see [create and manage files](/workspace/drive/api/guides/create-file). this method supports an */upload* uri and accepts uploaded media with the following characteristics: - *maximum file size:* 5,120 gb - *accepted media mime types:* `*/*` (specify a valid mime type, rather than the literal `*/*` value. the literal `*/*` is only used to indicate that any valid mime type can be uploaded. for more information, see [google workspace and google drive supported mime types](/workspace/drive/api/guides/mime-types).) for more information on uploading files, see [upload file data](/workspace/drive/api/guides/manage-uploads). apps creating shortcuts with the `create` method must specify the mime type `application/vnd.google-apps.shortcut`. apps should specify a file extension in the `name` property when inserting files with the api. for example, an operation to insert a jpeg file should specify something like `\"name\": \"cat.jpg\"` in the metadata. subsequent `get` requests include the read-only `fileextension` property populated with the extension originally specified in the `name` property. when a google drive user requests to download a file, or when the file is downloaded through the sync client, drive builds a full filename (with extension) based on the name. in cases where the extension is missing, drive attempts to determine the extension based on the file's mime type, creates a copy of a file and applies any requested updates with patch semantics. for more information, see [create and manage files](https://developers.google.com/workspace/drive/api/guides/create-file), modifies the set of labels applied to a file. for more information, see [set a label field on a file](https://developers.google.com/workspace/drive/api/guides/set-label). returns a list of the labels that were added or modified. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/files"
+      "name": "files_export",
+      "description": "Export a Google Workspace document to the requested MIME type.",
+      "detail_url": "/capabilities/files_export"
     },
     {
-      "name": "permissions",
-      "description": "Manage permissions — creates a permission for a file or shared drive. for more information, see [share files, folders, and drives](https://developers.google.com/workspace/drive/api/guides/manage-sharing). **warning:** concurrent permissions operations on the same file aren't supported; only the last update is applied, lists a file's or shared drive's permissions. for more information, see [share files, folders, and drives](https://developers.google.com/workspace/drive/api/guides/manage-sharing), gets a permission by id. for more information, see [share files, folders, and drives](https://developers.google.com/workspace/drive/api/guides/manage-sharing). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/permissions"
+      "name": "files_generate_ids",
+      "description": "Generate a set of file IDs for future uploads.",
+      "detail_url": "/capabilities/files_generate_ids"
     },
     {
-      "name": "replies",
-      "description": "Manage replies — creates a reply to a comment. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments), lists a comment's replies. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments), gets a reply by id. for more information, see [manage comments and replies](https://developers.google.com/workspace/drive/api/guides/manage-comments). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/replies"
+      "name": "files_empty_trash",
+      "description": "Permanently delete all trashed files.",
+      "detail_url": "/capabilities/files_empty_trash"
     },
     {
-      "name": "revisions",
-      "description": "Manage revisions — lists a file's revisions. for more information, see [manage file revisions](https://developers.google.com/workspace/drive/api/guides/manage-revisions). **important:** the list of revisions returned by this method might be incomplete for files with a large revision history, including frequently edited google docs, sheets, and slides. older revisions might be omitted from the response, meaning the first revision returned may not be the oldest existing revision. the revision history visible in the workspace editor user interface might be more complete than the list returned by the api, gets a revision's metadata or content by id. for more information, see [manage file revisions](https://developers.google.com/workspace/drive/api/guides/manage-revisions), updates a revision with patch semantics. for more information, see [manage file revisions](https://developers.google.com/workspace/drive/api/guides/manage-revisions). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/revisions"
+      "name": "files_watch",
+      "description": "Subscribe to push notifications for changes to a file.",
+      "detail_url": "/capabilities/files_watch"
     },
     {
-      "name": "teamdrives",
-      "description": "Manage teamdrives — deprecated: use `drives.create` instead, deprecated: use `drives.list` instead, deprecated: use `drives.get` instead. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/teamdrives"
+      "name": "files_list_labels",
+      "description": "List the labels on a file.",
+      "detail_url": "/capabilities/files_list_labels"
+    },
+    {
+      "name": "files_modify_labels",
+      "description": "Modify the set of labels applied to a file.",
+      "detail_url": "/capabilities/files_modify_labels"
+    },
+    {
+      "name": "permissions_create",
+      "description": "Create a permission for a file or shared drive (share with a user/group).",
+      "detail_url": "/capabilities/permissions_create"
+    },
+    {
+      "name": "permissions_list",
+      "description": "List all permissions for a file.",
+      "detail_url": "/capabilities/permissions_list"
+    },
+    {
+      "name": "permissions_get",
+      "description": "Get a specific permission for a file.",
+      "detail_url": "/capabilities/permissions_get"
+    },
+    {
+      "name": "permissions_update",
+      "description": "Update a permission for a file.",
+      "detail_url": "/capabilities/permissions_update"
+    },
+    {
+      "name": "permissions_delete",
+      "description": "Delete a permission from a file.",
+      "detail_url": "/capabilities/permissions_delete"
+    },
+    {
+      "name": "comments_create",
+      "description": "Create a comment on a file.",
+      "detail_url": "/capabilities/comments_create"
+    },
+    {
+      "name": "comments_list",
+      "description": "List all comments on a file.",
+      "detail_url": "/capabilities/comments_list"
+    },
+    {
+      "name": "comments_get",
+      "description": "Get a specific comment on a file.",
+      "detail_url": "/capabilities/comments_get"
+    },
+    {
+      "name": "comments_update",
+      "description": "Update a comment on a file.",
+      "detail_url": "/capabilities/comments_update"
+    },
+    {
+      "name": "comments_delete",
+      "description": "Delete a comment from a file.",
+      "detail_url": "/capabilities/comments_delete"
+    },
+    {
+      "name": "replies_create",
+      "description": "Create a reply to a comment.",
+      "detail_url": "/capabilities/replies_create"
+    },
+    {
+      "name": "replies_list",
+      "description": "List all replies to a comment.",
+      "detail_url": "/capabilities/replies_list"
+    },
+    {
+      "name": "replies_get",
+      "description": "Get a specific reply to a comment.",
+      "detail_url": "/capabilities/replies_get"
+    },
+    {
+      "name": "replies_update",
+      "description": "Update a reply to a comment.",
+      "detail_url": "/capabilities/replies_update"
+    },
+    {
+      "name": "replies_delete",
+      "description": "Delete a reply to a comment.",
+      "detail_url": "/capabilities/replies_delete"
+    },
+    {
+      "name": "drives_create",
+      "description": "Create a new shared drive.",
+      "detail_url": "/capabilities/drives_create"
+    },
+    {
+      "name": "drives_list",
+      "description": "List all shared drives.",
+      "detail_url": "/capabilities/drives_list"
+    },
+    {
+      "name": "drives_get",
+      "description": "Get a specific shared drive.",
+      "detail_url": "/capabilities/drives_get"
+    },
+    {
+      "name": "drives_update",
+      "description": "Update a shared drive's metadata.",
+      "detail_url": "/capabilities/drives_update"
+    },
+    {
+      "name": "drives_delete",
+      "description": "Permanently delete a shared drive (must be empty).",
+      "detail_url": "/capabilities/drives_delete"
+    },
+    {
+      "name": "drives_hide",
+      "description": "Hide a shared drive from the default view.",
+      "detail_url": "/capabilities/drives_hide"
+    },
+    {
+      "name": "drives_unhide",
+      "description": "Restore a shared drive to the default view.",
+      "detail_url": "/capabilities/drives_unhide"
+    },
+    {
+      "name": "changes_get_start_page_token",
+      "description": "Get the starting pageToken for listing future changes.",
+      "detail_url": "/capabilities/changes_get_start_page_token"
+    },
+    {
+      "name": "changes_list",
+      "description": "List changes to files and shared drives.",
+      "detail_url": "/capabilities/changes_list"
+    },
+    {
+      "name": "changes_watch",
+      "description": "Subscribe to push notifications for changes.",
+      "detail_url": "/capabilities/changes_watch"
+    },
+    {
+      "name": "channels_stop",
+      "description": "Stop watching resources through a channel.",
+      "detail_url": "/capabilities/channels_stop"
+    },
+    {
+      "name": "revisions_list",
+      "description": "List a file's revisions.",
+      "detail_url": "/capabilities/revisions_list"
+    },
+    {
+      "name": "revisions_get",
+      "description": "Get a specific revision's metadata or content.",
+      "detail_url": "/capabilities/revisions_get"
+    },
+    {
+      "name": "revisions_update",
+      "description": "Update a revision.",
+      "detail_url": "/capabilities/revisions_update"
+    },
+    {
+      "name": "revisions_delete",
+      "description": "Permanently delete a file revision.",
+      "detail_url": "/capabilities/revisions_delete"
+    },
+    {
+      "name": "apps_list",
+      "description": "List a user's installed apps.",
+      "detail_url": "/capabilities/apps_list"
+    },
+    {
+      "name": "apps_get",
+      "description": "Get a specific installed app.",
+      "detail_url": "/capabilities/apps_get"
+    },
+    {
+      "name": "operations_get",
+      "description": "Get the latest state of a long-running operation.",
+      "detail_url": "/capabilities/operations_get"
     }
   ]
 }

@@ -1,0 +1,72 @@
+{
+  "name": "tweets_search",
+  "description": "Search recent tweets (last 7 days) using query operators.",
+  "resource_group": "tweets",
+  "endpoint": "/2/tweets/search/recent",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "Search query with operators.",
+      "example": "from:elonmusk -is:retweet"
+    },
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (10-100)."
+    },
+    {
+      "name": "tweet.fields",
+      "type": "string",
+      "required": false,
+      "description": "Tweet fields to return."
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token."
+    },
+    {
+      "name": "start_time",
+      "type": "string",
+      "required": false,
+      "description": "Start time (ISO 8601)."
+    },
+    {
+      "name": "end_time",
+      "type": "string",
+      "required": false,
+      "description": "End time (ISO 8601)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twitter.com/2/tweets/search/recent?query=AI%20agents&max_results=10&tweet.fields=created_at,public_metrics,author_id",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "123",
+          "text": "AI agents are the future",
+          "author_id": "456",
+          "public_metrics": {
+            "like_count": 10
+          }
+        }
+      ],
+      "meta": {
+        "result_count": 10,
+        "next_token": "abc123"
+      }
+    }
+  }
+}

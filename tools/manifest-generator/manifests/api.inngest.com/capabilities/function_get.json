@@ -1,0 +1,39 @@
+{
+  "name": "function_get",
+  "description": "Retrieve details of a specific function by ID including triggers and configuration.",
+  "resource_group": "function",
+  "endpoint": "/v1/functions/{functionId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "functionId",
+      "type": "string",
+      "description": "Function ID (path parameter).",
+      "required": true,
+      "example": "my-app-my-function"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.inngest.com/v1/functions/my-app-my-function",
+    "headers": {
+      "Authorization": "Bearer {signing_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "my-app-my-function",
+      "name": "My Function",
+      "slug": "my-app-my-function",
+      "app_id": "my-app",
+      "triggers": [
+        {
+          "event": "app/user.created"
+        }
+      ],
+      "concurrency": []
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "WorkOS",
-  "description": "WorkOS provides enterprise-ready authentication and identity infrastructure. It handles Single Sign-On (SSO), Directory Sync, Audit Logs, user management, and organization management so you can sell to enterprise customers.",
+  "description": "WorkOS provides enterprise-ready authentication and identity infrastructure. It handles Single Sign-On (SSO), Directory Sync (SCIM), Audit Logs, Admin Portal, user management via AuthKit, and organization management for B2B SaaS applications.",
   "base_url": "https://api.workos.com",
   "auth": {
     "type": "api_key",
@@ -11,44 +11,208 @@
   },
   "capabilities": [
     {
-      "name": "list_organizations",
-      "description": "List all organizations in your WorkOS environment. Supports pagination and filtering by name or domain.",
-      "detail_url": "/capabilities/list_organizations"
+      "name": "sso_authorize",
+      "resource_group": "sso",
+      "description": "Generate an SSO authorization URL to redirect the user to their identity provider.",
+      "detail_url": "/capabilities/sso_authorize"
     },
     {
-      "name": "create_organization",
-      "description": "Create a new organization representing a customer company. Organizations group users and SSO connections together.",
-      "detail_url": "/capabilities/create_organization"
+      "name": "sso_profile_get",
+      "resource_group": "sso",
+      "description": "Exchange an authorization code for user profile and access token after SSO callback.",
+      "detail_url": "/capabilities/sso_profile_get"
     },
     {
-      "name": "get_sso_authorization_url",
-      "description": "Generate an SSO authorization URL to redirect a user to their identity provider for login.",
-      "detail_url": "/capabilities/get_sso_authorization_url"
+      "name": "connections_list",
+      "resource_group": "sso",
+      "description": "List all SSO connections. Filter by organization or connection type.",
+      "detail_url": "/capabilities/connections_list"
     },
     {
-      "name": "list_connections",
-      "description": "List all SSO connections in your environment. Filter by organization or connection type.",
-      "detail_url": "/capabilities/list_connections"
+      "name": "connections_get",
+      "resource_group": "sso",
+      "description": "Retrieve details of a single SSO connection.",
+      "detail_url": "/capabilities/connections_get"
     },
     {
-      "name": "list_directory_users",
-      "description": "List users from a directory sync connection. Returns provisioned user profiles from the identity provider.",
-      "detail_url": "/capabilities/list_directory_users"
+      "name": "connections_delete",
+      "resource_group": "sso",
+      "description": "Delete an SSO connection.",
+      "detail_url": "/capabilities/connections_delete"
     },
     {
-      "name": "list_directory_groups",
-      "description": "List groups from a directory sync connection. Returns group names and membership information.",
-      "detail_url": "/capabilities/list_directory_groups"
+      "name": "directories_list",
+      "resource_group": "directory_sync",
+      "description": "List all directory sync connections.",
+      "detail_url": "/capabilities/directories_list"
     },
     {
-      "name": "create_audit_log_event",
-      "description": "Create an audit log event to track user activity for compliance and security. Events are immutable once created.",
-      "detail_url": "/capabilities/create_audit_log_event"
+      "name": "directories_get",
+      "resource_group": "directory_sync",
+      "description": "Retrieve a single directory by ID.",
+      "detail_url": "/capabilities/directories_get"
     },
     {
-      "name": "authenticate_user",
-      "description": "Authenticate a user via AuthKit with email/password, magic auth, or social login. Returns a user object and session token.",
-      "detail_url": "/capabilities/authenticate_user"
+      "name": "directories_delete",
+      "resource_group": "directory_sync",
+      "description": "Delete a directory sync connection.",
+      "detail_url": "/capabilities/directories_delete"
+    },
+    {
+      "name": "directory_users_list",
+      "resource_group": "directory_sync",
+      "description": "List users from a directory sync connection.",
+      "detail_url": "/capabilities/directory_users_list"
+    },
+    {
+      "name": "directory_users_get",
+      "resource_group": "directory_sync",
+      "description": "Retrieve a single directory user.",
+      "detail_url": "/capabilities/directory_users_get"
+    },
+    {
+      "name": "directory_groups_list",
+      "resource_group": "directory_sync",
+      "description": "List groups from a directory sync connection.",
+      "detail_url": "/capabilities/directory_groups_list"
+    },
+    {
+      "name": "directory_groups_get",
+      "resource_group": "directory_sync",
+      "description": "Retrieve a single directory group.",
+      "detail_url": "/capabilities/directory_groups_get"
+    },
+    {
+      "name": "organizations_list",
+      "resource_group": "organizations",
+      "description": "List all organizations in your WorkOS environment.",
+      "detail_url": "/capabilities/organizations_list"
+    },
+    {
+      "name": "organizations_create",
+      "resource_group": "organizations",
+      "description": "Create a new organization representing a customer company.",
+      "detail_url": "/capabilities/organizations_create"
+    },
+    {
+      "name": "organizations_get",
+      "resource_group": "organizations",
+      "description": "Retrieve a single organization by ID.",
+      "detail_url": "/capabilities/organizations_get"
+    },
+    {
+      "name": "organizations_update",
+      "resource_group": "organizations",
+      "description": "Update an organization's name or domains.",
+      "detail_url": "/capabilities/organizations_update"
+    },
+    {
+      "name": "organizations_delete",
+      "resource_group": "organizations",
+      "description": "Delete an organization.",
+      "detail_url": "/capabilities/organizations_delete"
+    },
+    {
+      "name": "audit_log_events_create",
+      "resource_group": "audit_logs",
+      "description": "Create an audit log event to track user activity for compliance.",
+      "detail_url": "/capabilities/audit_log_events_create"
+    },
+    {
+      "name": "audit_log_exports_create",
+      "resource_group": "audit_logs",
+      "description": "Create an export of audit log events for a date range.",
+      "detail_url": "/capabilities/audit_log_exports_create"
+    },
+    {
+      "name": "audit_log_exports_get",
+      "resource_group": "audit_logs",
+      "description": "Retrieve the status and download URL of an audit log export.",
+      "detail_url": "/capabilities/audit_log_exports_get"
+    },
+    {
+      "name": "user_management_users_list",
+      "resource_group": "user_management",
+      "description": "List all users managed by AuthKit.",
+      "detail_url": "/capabilities/user_management_users_list"
+    },
+    {
+      "name": "user_management_users_create",
+      "resource_group": "user_management",
+      "description": "Create a new user in AuthKit.",
+      "detail_url": "/capabilities/user_management_users_create"
+    },
+    {
+      "name": "user_management_users_get",
+      "resource_group": "user_management",
+      "description": "Retrieve a single AuthKit user by ID.",
+      "detail_url": "/capabilities/user_management_users_get"
+    },
+    {
+      "name": "user_management_users_update",
+      "resource_group": "user_management",
+      "description": "Update an AuthKit user.",
+      "detail_url": "/capabilities/user_management_users_update"
+    },
+    {
+      "name": "user_management_users_delete",
+      "resource_group": "user_management",
+      "description": "Delete an AuthKit user.",
+      "detail_url": "/capabilities/user_management_users_delete"
+    },
+    {
+      "name": "user_management_authenticate",
+      "resource_group": "user_management",
+      "description": "Authenticate a user with password, magic auth, or OAuth code.",
+      "detail_url": "/capabilities/user_management_authenticate"
+    },
+    {
+      "name": "user_management_magic_auth_send",
+      "resource_group": "user_management",
+      "description": "Send a magic auth code to a user's email for passwordless login.",
+      "detail_url": "/capabilities/user_management_magic_auth_send"
+    },
+    {
+      "name": "user_management_email_verification_send",
+      "resource_group": "user_management",
+      "description": "Send an email verification code to a user.",
+      "detail_url": "/capabilities/user_management_email_verification_send"
+    },
+    {
+      "name": "user_management_email_verification_confirm",
+      "resource_group": "user_management",
+      "description": "Confirm email verification with the code sent to the user.",
+      "detail_url": "/capabilities/user_management_email_verification_confirm"
+    },
+    {
+      "name": "user_management_password_reset_send",
+      "resource_group": "user_management",
+      "description": "Send a password reset email to a user.",
+      "detail_url": "/capabilities/user_management_password_reset_send"
+    },
+    {
+      "name": "user_management_password_reset_confirm",
+      "resource_group": "user_management",
+      "description": "Reset a user's password using the reset token.",
+      "detail_url": "/capabilities/user_management_password_reset_confirm"
+    },
+    {
+      "name": "organization_memberships_list",
+      "resource_group": "organization_memberships",
+      "description": "List organization memberships for a user or organization.",
+      "detail_url": "/capabilities/organization_memberships_list"
+    },
+    {
+      "name": "organization_memberships_create",
+      "resource_group": "organization_memberships",
+      "description": "Add a user to an organization with a role.",
+      "detail_url": "/capabilities/organization_memberships_create"
+    },
+    {
+      "name": "organization_memberships_delete",
+      "resource_group": "organization_memberships",
+      "description": "Remove a user from an organization.",
+      "detail_url": "/capabilities/organization_memberships_delete"
     }
   ]
 }

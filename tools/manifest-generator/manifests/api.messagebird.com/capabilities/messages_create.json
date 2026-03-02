@@ -1,0 +1,38 @@
+{
+  "name": "messages_create",
+  "description": "Send an SMS message to one or more recipients. Returns a message object with delivery status per recipient.",
+  "resource_group": "messages",
+  "endpoint": "/messages",
+  "method": "POST",
+  "parameters": [
+    {"name": "originator", "type": "string", "required": true, "description": "Sender name (max 11 alphanumeric chars) or phone number in international format."},
+    {"name": "recipients", "type": "array", "required": true, "description": "Array of recipient phone numbers in international format (e.g., 31612345678)."},
+    {"name": "body", "type": "string", "required": true, "description": "The body of the SMS message. Max 1600 characters for concatenated SMS."},
+    {"name": "type", "type": "string", "required": false, "description": "Message type: 'sms' (default), 'binary', 'premium', or 'flash'."},
+    {"name": "reference", "type": "string", "required": false, "description": "A client reference for tracking (max 256 chars)."},
+    {"name": "reportUrl", "type": "string", "required": false, "description": "Webhook URL for delivery reports."},
+    {"name": "validity", "type": "integer", "required": false, "description": "Message validity period in seconds. Max 259200 (72 hours)."},
+    {"name": "datacoding", "type": "string", "required": false, "description": "Data coding scheme: 'plain' (GSM 03.38), 'unicode', or 'auto'. Default 'plain'."},
+    {"name": "scheduledDatetime", "type": "string", "required": false, "description": "Schedule message for later delivery (ISO 8601 format)."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.messagebird.com/messages",
+    "headers": {"Content-Type": "application/json", "Authorization": "AccessKey live_abc123xyz"},
+    "body": {"originator": "MyApp", "recipients": [31612345678], "body": "Your verification code is 123456. It expires in 10 minutes.", "reference": "verification-req-789"}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "e8077d803532c0b5937c639b60216938",
+      "href": "https://rest.messagebird.com/messages/e8077d803532c0b5937c639b60216938",
+      "direction": "mt",
+      "type": "sms",
+      "originator": "MyApp",
+      "body": "Your verification code is 123456. It expires in 10 minutes.",
+      "reference": "verification-req-789",
+      "createdDatetime": "2026-03-01T12:00:00+00:00",
+      "recipients": {"totalCount": 1, "totalSentCount": 1, "totalDeliveredCount": 0, "items": [{"recipient": 31612345678, "status": "sent", "statusDatetime": "2026-03-01T12:00:00+00:00"}]}
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "channels_list",
+  "description": "Retrieve channel information by ID, username, handle, or for the authenticated user.",
+  "endpoint": "/youtube/v3/channels",
+  "method": "GET",
+  "resource_group": "channels",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts (snippet, contentDetails, statistics, brandingSettings)",
+      "required": true,
+      "example": "snippet,statistics"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Comma-separated channel IDs",
+      "required": false,
+      "example": "UC_channel_id"
+    },
+    {
+      "name": "forUsername",
+      "type": "string",
+      "description": "YouTube username",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "forHandle",
+      "type": "string",
+      "description": "YouTube handle",
+      "required": false,
+      "example": "@channelhandle"
+    },
+    {
+      "name": "mine",
+      "type": "boolean",
+      "description": "Return authenticated user's channel",
+      "required": false,
+      "example": "true"
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": "5"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/channels",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "UC_channel_id",
+          "snippet": {
+            "title": "Channel Name"
+          },
+          "statistics": {
+            "subscriberCount": "1000000",
+            "videoCount": "500"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.readonly"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

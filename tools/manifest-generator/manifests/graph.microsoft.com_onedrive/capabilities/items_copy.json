@@ -1,0 +1,47 @@
+{
+  "name": "items_copy",
+  "description": "Create a copy of a DriveItem (including folder contents).",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/items/{item-id}/copy",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "item-id",
+      "type": "string",
+      "description": "The item ID.",
+      "required": true
+    },
+    {
+      "name": "parentReference",
+      "type": "object",
+      "description": "Destination parent folder with driveId and id.",
+      "required": false
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "New name for the copy.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/item123/copy",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "parentReference": {
+        "id": "root"
+      },
+      "name": "copy.pdf"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "location": "https://graph.microsoft.com/..."
+    }
+  }
+}

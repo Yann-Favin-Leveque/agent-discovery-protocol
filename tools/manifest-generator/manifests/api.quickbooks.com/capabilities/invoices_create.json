@@ -1,0 +1,86 @@
+{
+  "name": "invoices_create",
+  "description": "Create a new invoice for a customer with line items, tax, and due date.",
+  "endpoint": "/v3/company/{realmId}/invoice",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "CustomerRef",
+      "type": "object",
+      "description": "Reference to the customer",
+      "required": true,
+      "example": {
+        "value": "1"
+      }
+    },
+    {
+      "name": "Line",
+      "type": "array",
+      "description": "Array of line items",
+      "required": true,
+      "example": [
+        {
+          "Amount": 150.0,
+          "DetailType": "SalesItemLineDetail"
+        }
+      ]
+    },
+    {
+      "name": "DueDate",
+      "type": "string",
+      "description": "Due date (YYYY-MM-DD)",
+      "required": false,
+      "example": "2026-04-01"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/invoice?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "CustomerRef": {
+        "value": "1"
+      },
+      "Line": [
+        {
+          "Amount": 150.0,
+          "DetailType": "SalesItemLineDetail",
+          "SalesItemLineDetail": {
+            "ItemRef": {
+              "value": "1"
+            }
+          }
+        }
+      ],
+      "DueDate": "2026-04-01"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Invoice": {
+        "Id": "130",
+        "DocNumber": "1070",
+        "TotalAmt": 150.0,
+        "Balance": 150.0
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

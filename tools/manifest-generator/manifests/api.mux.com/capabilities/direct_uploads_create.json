@@ -1,0 +1,66 @@
+{
+  "name": "direct_uploads_create",
+  "resource_group": "direct_uploads",
+  "description": "Create a direct upload URL for client-side video uploads.",
+  "endpoint": "/video/v1/uploads",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "new_asset_settings",
+      "type": "object",
+      "required": true,
+      "description": "Settings for the asset: playback_policy, encoding_tier, etc."
+    },
+    {
+      "name": "cors_origin",
+      "type": "string",
+      "required": false,
+      "description": "CORS origin for browser uploads."
+    },
+    {
+      "name": "timeout",
+      "type": "integer",
+      "required": false,
+      "description": "Upload timeout in seconds. Default 3600."
+    },
+    {
+      "name": "test",
+      "type": "boolean",
+      "required": false,
+      "description": "Create as test upload."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mux.com/video/v1/uploads",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "new_asset_settings": {
+        "playback_policy": [
+          "public"
+        ],
+        "encoding_tier": "smart"
+      },
+      "cors_origin": "https://app.example.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "upload_abc",
+        "url": "https://storage.googleapis.com/mux-uploads/upload_abc",
+        "status": "waiting",
+        "new_asset_settings": {
+          "playback_policy": [
+            "public"
+          ]
+        },
+        "asset_id": null
+      }
+    }
+  }
+}

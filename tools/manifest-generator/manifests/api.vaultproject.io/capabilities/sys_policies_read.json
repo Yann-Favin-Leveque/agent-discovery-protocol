@@ -1,0 +1,31 @@
+{
+  "name": "sys_policies_read",
+  "description": "Read a specific ACL policy.",
+  "resource_group": "system",
+  "endpoint": "/v1/sys/policies/acl/{name}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Policy name."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://vault.example.com/v1/sys/policies/acl/my-policy",
+    "headers": {
+      "X-Vault-Token": "<token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "name": "my-policy",
+        "policy": "path \"secret/data/*\" {\n  capabilities = [\"read\"]\n}"
+      }
+    }
+  }
+}

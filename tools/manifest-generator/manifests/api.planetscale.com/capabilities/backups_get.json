@@ -1,0 +1,52 @@
+{
+  "name": "backups_get",
+  "resource_group": "backups",
+  "description": "Retrieve details of a specific backup.",
+  "endpoint": "/organizations/{organization}/databases/{database}/branches/{branch}/backups/{backup_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "branch",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Branch name."
+    },
+    {
+      "name": "backup_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Backup ID."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/branches/main/backups/bk-123",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "bk-123",
+      "state": "complete",
+      "size": 1048576
+    }
+  }
+}

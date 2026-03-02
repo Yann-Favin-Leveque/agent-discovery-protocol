@@ -1,0 +1,20 @@
+{
+  "name": "users_assign_roles",
+  "description": "Assign one or more roles to a user for controlling permissions and access.",
+  "endpoint": "/api/v2/users/{id}/roles",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    {"name": "id", "type": "string", "description": "The user_id.", "required": true, "example": "auth0|507f1f77bcf86cd799439011"},
+    {"name": "roles", "type": "array", "description": "Array of role IDs to assign.", "required": true, "example": ["rol_abc123"]}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://YOUR_DOMAIN.auth0.com/api/v2/users/auth0%7C507f1f77bcf86cd799439011/roles",
+    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
+    "body": {"roles": ["rol_abc123", "rol_def456"]}
+  },
+  "response_example": {"status": 204, "body": {}},
+  "auth_scopes": ["update:users"],
+  "rate_limits": {"requests_per_minute": 50}
+}

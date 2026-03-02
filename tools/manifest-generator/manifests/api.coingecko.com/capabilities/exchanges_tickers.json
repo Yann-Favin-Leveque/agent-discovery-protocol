@@ -1,0 +1,29 @@
+{
+  "name": "exchanges_tickers",
+  "description": "Get trading pair tickers for a specific exchange.",
+  "resource_group": "exchanges",
+  "endpoint": "/exchanges/{id}/tickers",
+  "method": "GET",
+  "parameters": [
+    {"name": "id", "type": "string", "description": "Exchange ID.", "required": true, "example": "binance"},
+    {"name": "coin_ids", "type": "string", "description": "Filter tickers by coin IDs.", "required": false, "example": "bitcoin"},
+    {"name": "include_exchange_logo", "type": "boolean", "description": "Include exchange logo.", "required": false},
+    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1},
+    {"name": "order", "type": "string", "description": "Sort: trust_score_desc (default), trust_score_asc, volume_desc.", "required": false}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coingecko.com/api/v3/exchanges/binance/tickers?coin_ids=bitcoin&page=1",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "Binance",
+      "tickers": [
+        {"base": "BTC", "target": "USDT", "last": 43250.50, "volume": 15000.5, "bid_ask_spread_percentage": 0.01, "trust_score": "green"}
+      ]
+    }
+  },
+  "rate_limits": {"requests_per_minute": 30}
+}

@@ -1,0 +1,51 @@
+{
+  "name": "taxcodes_query",
+  "description": "Query tax codes configured for the company.",
+  "endpoint": "/v3/company/{realmId}/query",
+  "method": "GET",
+  "resource_group": "taxcodes",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "SQL-like query",
+      "required": true,
+      "example": "SELECT * FROM TaxCode"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/query?query=SELECT * FROM TaxCode&minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "QueryResponse": {
+        "TaxCode": [
+          {
+            "Id": "2",
+            "Name": "TAX",
+            "Active": true
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

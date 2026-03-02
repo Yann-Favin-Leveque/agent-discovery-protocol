@@ -1,0 +1,26 @@
+{
+  "name": "users_list",
+  "description": "Search and list users in your Auth0 tenant with Lucene query syntax filtering, sorting, and pagination.",
+  "endpoint": "/api/v2/users",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {"name": "q", "type": "string", "description": "Lucene query string to search users.", "required": false, "example": "email:\"john@example.com\""},
+    {"name": "search_engine", "type": "string", "description": "Search engine version (v3 recommended).", "required": false, "example": "v3"},
+    {"name": "page", "type": "integer", "description": "Page number (0-indexed).", "required": false, "example": 0},
+    {"name": "per_page", "type": "integer", "description": "Results per page (max 50).", "required": false, "example": 50},
+    {"name": "sort", "type": "string", "description": "Field:direction to sort (e.g., created_at:-1).", "required": false, "example": "created_at:-1"},
+    {"name": "include_totals", "type": "boolean", "description": "Include total count in response.", "required": false, "example": true}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://YOUR_DOMAIN.auth0.com/api/v2/users?search_engine=v3&per_page=50&include_totals=true",
+    "headers": {"Authorization": "Bearer {token}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"users": [{"user_id": "auth0|507f1f77bcf86cd799439011", "email": "john@example.com", "name": "John Doe", "logins_count": 42}], "start": 0, "limit": 50, "length": 1, "total": 1}
+  },
+  "auth_scopes": ["read:users"],
+  "rate_limits": {"requests_per_minute": 50}
+}

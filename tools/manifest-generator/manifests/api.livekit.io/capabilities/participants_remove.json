@@ -1,0 +1,41 @@
+{
+  "name": "participants_remove",
+  "description": "Remove a participant from a room, disconnecting them immediately.",
+  "endpoint": "/twirp/livekit.RoomService/RemoveParticipant",
+  "method": "POST",
+  "resource_group": "participants",
+  "parameters": [
+    {
+      "name": "room",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room."
+    },
+    {
+      "name": "identity",
+      "type": "string",
+      "required": true,
+      "description": "Identity of the participant to remove."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/RemoveParticipant",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room": "interview-room-42",
+      "identity": "user-alice"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": ["roomAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "rates_list_for_shipment",
+  "description": "Get all rates for a shipment.",
+  "endpoint": "/shipments/{shipment_id}/rates",
+  "method": "GET",
+  "resource_group": "rates",
+  "parameters": [
+    {
+      "name": "shipment_id",
+      "type": "string",
+      "description": "Shipment object ID.",
+      "required": true,
+      "example": "shp_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.goshippo.com/shipments/shp_abc123/rates",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 5,
+      "results": [
+        {
+          "object_id": "rate_abc123",
+          "provider": "USPS",
+          "amount": "7.58",
+          "estimated_days": 3
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

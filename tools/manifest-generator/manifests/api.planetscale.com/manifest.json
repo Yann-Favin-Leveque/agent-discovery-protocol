@@ -1,39 +1,296 @@
 {
   "spec_version": "1.0",
   "name": "PlanetScale",
-  "description": "PlanetScale is a serverless MySQL-compatible database platform built on Vitess. Use this API to manage databases, branches, deploy requests, and connection credentials programmatically.",
-  "base_url": "https://api.planetscale.com",
+  "description": "PlanetScale is a serverless MySQL-compatible database platform built on Vitess. Use this API to manage databases, branches, deploy requests, passwords, backups, organizations, webhooks, and connection credentials programmatically.",
+  "base_url": "https://api.planetscale.com/v1",
   "auth": {
     "type": "oauth2",
     "authorization_url": "https://auth.planetscale.com/oauth/authorize",
     "token_url": "https://auth.planetscale.com/oauth/token",
-    "scopes": ["read_databases", "write_databases", "read_branches", "write_branches"]
+    "scopes": ["read_databases", "write_databases", "read_branches", "write_branches", "create_databases", "delete_databases", "create_branches", "delete_branches"]
   },
   "capabilities": [
     {
-      "name": "manage_databases",
-      "description": "Create, list, get, and delete databases in your PlanetScale organization.",
-      "detail_url": "/capabilities/manage_databases"
+      "name": "databases_list",
+      "resource_group": "databases",
+      "description": "List all databases in a PlanetScale organization with optional search and pagination.",
+      "detail_url": "/capabilities/databases_list"
     },
     {
-      "name": "manage_branches",
-      "description": "Create, list, and delete database branches for safe schema changes.",
-      "detail_url": "/capabilities/manage_branches"
+      "name": "databases_create",
+      "resource_group": "databases",
+      "description": "Create a new database in your PlanetScale organization.",
+      "detail_url": "/capabilities/databases_create"
     },
     {
-      "name": "manage_deploy_requests",
-      "description": "Create, review, and deploy schema change requests between branches.",
-      "detail_url": "/capabilities/manage_deploy_requests"
+      "name": "databases_get",
+      "resource_group": "databases",
+      "description": "Retrieve details of a specific database by name.",
+      "detail_url": "/capabilities/databases_get"
     },
     {
-      "name": "manage_passwords",
-      "description": "Create and manage connection passwords (credentials) for database branches.",
-      "detail_url": "/capabilities/manage_passwords"
+      "name": "databases_delete",
+      "resource_group": "databases",
+      "description": "Permanently delete a database and all its branches.",
+      "detail_url": "/capabilities/databases_delete"
     },
     {
-      "name": "get_database_schema",
+      "name": "databases_update_settings",
+      "resource_group": "databases",
+      "description": "Update database settings such as default branch and configuration.",
+      "detail_url": "/capabilities/databases_update_settings"
+    },
+    {
+      "name": "branches_list",
+      "resource_group": "branches",
+      "description": "List all branches for a specific database.",
+      "detail_url": "/capabilities/branches_list"
+    },
+    {
+      "name": "branches_create",
+      "resource_group": "branches",
+      "description": "Create a new branch for a database from a parent branch or backup.",
+      "detail_url": "/capabilities/branches_create"
+    },
+    {
+      "name": "branches_get",
+      "resource_group": "branches",
+      "description": "Retrieve details of a specific database branch.",
+      "detail_url": "/capabilities/branches_get"
+    },
+    {
+      "name": "branches_delete",
+      "resource_group": "branches",
+      "description": "Delete a database branch.",
+      "detail_url": "/capabilities/branches_delete"
+    },
+    {
+      "name": "branches_get_schema",
+      "resource_group": "branches",
       "description": "Retrieve the schema of a database branch including tables, columns, and indexes.",
-      "detail_url": "/capabilities/get_database_schema"
+      "detail_url": "/capabilities/branches_get_schema"
+    },
+    {
+      "name": "branches_promote",
+      "resource_group": "branches",
+      "description": "Promote a branch to production status.",
+      "detail_url": "/capabilities/branches_promote"
+    },
+    {
+      "name": "branches_demote",
+      "resource_group": "branches",
+      "description": "Demote a production branch to development status.",
+      "detail_url": "/capabilities/branches_demote"
+    },
+    {
+      "name": "branches_enable_safe_migrations",
+      "resource_group": "branches",
+      "description": "Enable safe migrations (DDL protection) on a branch.",
+      "detail_url": "/capabilities/branches_enable_safe_migrations"
+    },
+    {
+      "name": "branches_disable_safe_migrations",
+      "resource_group": "branches",
+      "description": "Disable safe migrations on a branch.",
+      "detail_url": "/capabilities/branches_disable_safe_migrations"
+    },
+    {
+      "name": "branches_lint_schema",
+      "resource_group": "branches",
+      "description": "Lint the schema of a branch for potential issues.",
+      "detail_url": "/capabilities/branches_lint_schema"
+    },
+    {
+      "name": "deploy_requests_list",
+      "resource_group": "deploy_requests",
+      "description": "List deploy requests for a database.",
+      "detail_url": "/capabilities/deploy_requests_list"
+    },
+    {
+      "name": "deploy_requests_create",
+      "resource_group": "deploy_requests",
+      "description": "Create a new deploy request to merge schema changes from one branch to another.",
+      "detail_url": "/capabilities/deploy_requests_create"
+    },
+    {
+      "name": "deploy_requests_get",
+      "resource_group": "deploy_requests",
+      "description": "Retrieve details of a specific deploy request.",
+      "detail_url": "/capabilities/deploy_requests_get"
+    },
+    {
+      "name": "deploy_requests_close",
+      "resource_group": "deploy_requests",
+      "description": "Close a deploy request without deploying.",
+      "detail_url": "/capabilities/deploy_requests_close"
+    },
+    {
+      "name": "deploy_requests_queue",
+      "resource_group": "deploy_requests",
+      "description": "Queue a deploy request for deployment.",
+      "detail_url": "/capabilities/deploy_requests_queue"
+    },
+    {
+      "name": "deploy_requests_review",
+      "resource_group": "deploy_requests",
+      "description": "Submit a review (approve or comment) on a deploy request.",
+      "detail_url": "/capabilities/deploy_requests_review"
+    },
+    {
+      "name": "deploy_requests_cancel",
+      "resource_group": "deploy_requests",
+      "description": "Cancel a queued deploy request.",
+      "detail_url": "/capabilities/deploy_requests_cancel"
+    },
+    {
+      "name": "deploy_operations_list",
+      "resource_group": "deploy_requests",
+      "description": "List deploy operations for a specific deploy request.",
+      "detail_url": "/capabilities/deploy_operations_list"
+    },
+    {
+      "name": "passwords_list",
+      "resource_group": "passwords",
+      "description": "List all connection passwords for a database branch.",
+      "detail_url": "/capabilities/passwords_list"
+    },
+    {
+      "name": "passwords_create",
+      "resource_group": "passwords",
+      "description": "Create a new connection password for a database branch.",
+      "detail_url": "/capabilities/passwords_create"
+    },
+    {
+      "name": "passwords_get",
+      "resource_group": "passwords",
+      "description": "Retrieve a specific connection password.",
+      "detail_url": "/capabilities/passwords_get"
+    },
+    {
+      "name": "passwords_delete",
+      "resource_group": "passwords",
+      "description": "Delete a connection password.",
+      "detail_url": "/capabilities/passwords_delete"
+    },
+    {
+      "name": "passwords_renew",
+      "resource_group": "passwords",
+      "description": "Renew an expiring connection password.",
+      "detail_url": "/capabilities/passwords_renew"
+    },
+    {
+      "name": "backups_list",
+      "resource_group": "backups",
+      "description": "List all backups for a database branch.",
+      "detail_url": "/capabilities/backups_list"
+    },
+    {
+      "name": "backups_create",
+      "resource_group": "backups",
+      "description": "Create a new backup of a database branch.",
+      "detail_url": "/capabilities/backups_create"
+    },
+    {
+      "name": "backups_get",
+      "resource_group": "backups",
+      "description": "Retrieve details of a specific backup.",
+      "detail_url": "/capabilities/backups_get"
+    },
+    {
+      "name": "backups_delete",
+      "resource_group": "backups",
+      "description": "Delete a database backup.",
+      "detail_url": "/capabilities/backups_delete"
+    },
+    {
+      "name": "organizations_list",
+      "resource_group": "organizations",
+      "description": "List all organizations the authenticated user belongs to.",
+      "detail_url": "/capabilities/organizations_list"
+    },
+    {
+      "name": "organizations_get",
+      "resource_group": "organizations",
+      "description": "Retrieve details of a specific organization.",
+      "detail_url": "/capabilities/organizations_get"
+    },
+    {
+      "name": "organizations_update",
+      "resource_group": "organizations",
+      "description": "Update organization settings.",
+      "detail_url": "/capabilities/organizations_update"
+    },
+    {
+      "name": "organizations_list_members",
+      "resource_group": "organizations",
+      "description": "List members of an organization.",
+      "detail_url": "/capabilities/organizations_list_members"
+    },
+    {
+      "name": "organizations_remove_member",
+      "resource_group": "organizations",
+      "description": "Remove a member from an organization.",
+      "detail_url": "/capabilities/organizations_remove_member"
+    },
+    {
+      "name": "webhooks_list",
+      "resource_group": "webhooks",
+      "description": "List all webhooks configured for a database.",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_create",
+      "resource_group": "webhooks",
+      "description": "Create a new webhook for a database.",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_get",
+      "resource_group": "webhooks",
+      "description": "Retrieve details of a specific webhook.",
+      "detail_url": "/capabilities/webhooks_get"
+    },
+    {
+      "name": "webhooks_update",
+      "resource_group": "webhooks",
+      "description": "Update an existing webhook configuration.",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "resource_group": "webhooks",
+      "description": "Delete a webhook.",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "webhooks_test",
+      "resource_group": "webhooks",
+      "description": "Send a test event to a webhook endpoint.",
+      "detail_url": "/capabilities/webhooks_test"
+    },
+    {
+      "name": "deploy_queue_get",
+      "resource_group": "deploy_requests",
+      "description": "Get the current deploy queue for a database.",
+      "detail_url": "/capabilities/deploy_queue_get"
+    },
+    {
+      "name": "users_get_current",
+      "resource_group": "users",
+      "description": "Get the currently authenticated user's details.",
+      "detail_url": "/capabilities/users_get_current"
+    },
+    {
+      "name": "audit_logs_list",
+      "resource_group": "organizations",
+      "description": "List audit log entries for an organization.",
+      "detail_url": "/capabilities/audit_logs_list"
+    },
+    {
+      "name": "regions_list",
+      "resource_group": "regions",
+      "description": "List available public regions for database deployment.",
+      "detail_url": "/capabilities/regions_list"
     }
   ]
 }

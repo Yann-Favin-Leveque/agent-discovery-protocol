@@ -1,0 +1,49 @@
+{
+  "name": "webhooks_create",
+  "resource_group": "Webhooks",
+  "endpoint": "/v1/webhooks",
+  "method": "POST",
+  "description": "Create a webhook subscription.",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "Webhook URL."
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "required": true,
+      "description": "Event type."
+    },
+    {
+      "name": "secret_token",
+      "type": "string",
+      "required": false,
+      "description": "Shared secret."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lever.co/v1/webhooks",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "event": "candidateHired"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "wh-1",
+        "url": "https://example.com/webhook",
+        "event": "candidateHired"
+      }
+    }
+  }
+}

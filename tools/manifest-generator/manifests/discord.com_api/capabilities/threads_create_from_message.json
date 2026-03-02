@@ -1,0 +1,60 @@
+{
+  "name": "threads_create_from_message",
+  "resource_group": "threads",
+  "description": "Create a thread from an existing message.",
+  "endpoint": "/v10/channels/{channel_id}/messages/{message_id}/threads",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Channel ID",
+      "example": "123456789012345678"
+    },
+    {
+      "name": "message_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Message ID to create thread from",
+      "example": "111111111111111111"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Thread name",
+      "example": "Discussion thread"
+    },
+    {
+      "name": "auto_archive_duration",
+      "type": "integer",
+      "required": false,
+      "description": "Auto-archive duration in minutes (60, 1440, 4320, 10080)",
+      "example": 1440
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://discord.com/api/v10/channels/123456789012345678/messages/111111111111111111/threads",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Discussion thread",
+      "auto_archive_duration": 1440
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "555555555555555555",
+      "type": 11,
+      "name": "Discussion thread",
+      "guild_id": "444444444444444444"
+    }
+  }
+}

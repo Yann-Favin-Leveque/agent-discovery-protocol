@@ -1,0 +1,61 @@
+{
+  "name": "gift_cards_list",
+  "description": "List all gift cards.",
+  "endpoint": "/v2/gift-cards",
+  "method": "GET",
+  "resource_group": "gift_cards",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter by DIGITAL or PHYSICAL",
+      "required": false,
+      "example": "DIGITAL"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "description": "Filter by state",
+      "required": false,
+      "example": "ACTIVE"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://connect.squareup.com/v2/gift-cards?type=DIGITAL",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "gift_cards": [
+        {
+          "id": "gc_abc",
+          "type": "DIGITAL",
+          "state": "ACTIVE",
+          "balance_money": {
+            "amount": 2500,
+            "currency": "USD"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

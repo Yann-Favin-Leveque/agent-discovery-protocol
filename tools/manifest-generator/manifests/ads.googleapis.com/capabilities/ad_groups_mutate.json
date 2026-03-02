@@ -1,0 +1,52 @@
+{
+  "name": "ad_groups_mutate",
+  "description": "Create, update, or remove ad groups.",
+  "resource_group": "ad_groups",
+  "endpoint": "/v18/customers/{customerId}/adGroups:mutate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer ID.",
+      "required": true
+    },
+    {
+      "name": "operations",
+      "type": "array",
+      "description": "Array of create/update/remove operations.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://googleads.googleapis.com/v18/customers/1234567890/adGroups:mutate",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "developer-token": "{developer_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "operations": [
+        {
+          "create": {
+            "name": "New Ad Group",
+            "campaign": "customers/1234567890/campaigns/111",
+            "status": "ENABLED",
+            "type": "SEARCH_STANDARD"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "resourceName": "customers/1234567890/adGroups/555"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "assignments_list",
+  "description": "List assignments for a course.",
+  "resource_group": "assignments",
+  "endpoint": "/api/v1/courses/{course_id}/assignments",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "description": "Sort order.",
+      "required": false,
+      "example": "due_at"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/assignments",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 2001,
+        "name": "Homework 1",
+        "due_at": "2026-02-01T23:59:00Z",
+        "points_possible": 100
+      }
+    ]
+  }
+}

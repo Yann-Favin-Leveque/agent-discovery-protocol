@@ -1,0 +1,45 @@
+{
+  "name": "workflows_create_async",
+  "description": "Create a workflow asynchronously.",
+  "resource_group": "workflows",
+  "endpoint": "/public/api/v1/workflows/async",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "template",
+      "type": "string",
+      "description": "Template ID.",
+      "required": true,
+      "example": "tmpl_001"
+    },
+    {
+      "name": "attributes",
+      "type": "object",
+      "description": "Workflow attributes.",
+      "required": true,
+      "example": {
+        "counterpartyName": "Acme Corp"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.ironclad.com/public/api/v1/workflows/async",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "template": "tmpl_001",
+      "attributes": {
+        "counterpartyName": "Acme Corp"
+      }
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "jobId": "job_abc123"
+    }
+  }
+}

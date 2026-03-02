@@ -1,0 +1,43 @@
+{
+  "name": "verify_request_get",
+  "description": "Retrieve the current status and details of a Verify v2 request by its request_id. Returns the workflow state, channel events, and completion status.",
+  "resource_group": "verify",
+  "endpoint": "/v2/verify/{request_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "request_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The request_id of the verification request to retrieve."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vonage.com/v2/verify/c11236f4-00bf-4b89-84ba-88b25df97315",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "c11236f4-00bf-4b89-84ba-88b25df97315",
+      "status": "in_progress",
+      "channel_timeout": 120,
+      "workflow": [
+        {
+          "channel": "sms",
+          "to": "14155550123",
+          "status": "user_rejected"
+        },
+        {
+          "channel": "voice",
+          "to": "14155550123",
+          "status": "pending"
+        }
+      ]
+    }
+  }
+}

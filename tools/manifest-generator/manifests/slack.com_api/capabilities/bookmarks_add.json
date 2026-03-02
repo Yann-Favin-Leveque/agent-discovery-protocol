@@ -1,0 +1,70 @@
+{
+  "name": "bookmarks_add",
+  "resource_group": "bookmarks",
+  "description": "Add a bookmark to a channel.",
+  "endpoint": "/bookmarks.add",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "required": true,
+      "description": "Channel ID",
+      "example": "C1234567890"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Bookmark title",
+      "example": "Project Wiki"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Bookmark type (link)",
+      "example": "link"
+    },
+    {
+      "name": "link",
+      "type": "string",
+      "required": false,
+      "description": "URL for the bookmark",
+      "example": "https://wiki.example.com"
+    },
+    {
+      "name": "emoji",
+      "type": "string",
+      "required": false,
+      "description": "Emoji for the bookmark",
+      "example": ":notebook:"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://slack.com/api/bookmarks.add",
+    "headers": {
+      "Authorization": "Bearer xoxb-xxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "channel_id": "C1234567890",
+      "title": "Project Wiki",
+      "type": "link",
+      "link": "https://wiki.example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "bookmark": {
+        "id": "Bk12345",
+        "channel_id": "C1234567890",
+        "title": "Project Wiki",
+        "link": "https://wiki.example.com"
+      }
+    }
+  }
+}

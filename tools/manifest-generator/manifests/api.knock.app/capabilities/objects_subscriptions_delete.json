@@ -1,0 +1,53 @@
+{
+  "name": "objects_subscriptions_delete",
+  "description": "Remove subscriptions from an object.",
+  "endpoint": "/v1/objects/{collection}/{object_id}/subscriptions",
+  "method": "DELETE",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "collection",
+      "type": "string",
+      "description": "Collection.",
+      "required": true,
+      "example": "projects"
+    },
+    {
+      "name": "object_id",
+      "type": "string",
+      "description": "Object ID.",
+      "required": true,
+      "example": "project_123"
+    },
+    {
+      "name": "recipients",
+      "type": "array",
+      "description": "User IDs to unsubscribe.",
+      "required": true,
+      "example": [
+        "user_123"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.knock.app/v1/objects/projects/project_123/subscriptions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipients": [
+        "user_123"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

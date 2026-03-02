@@ -1,0 +1,53 @@
+{
+  "name": "databases_create",
+  "resource_group": "databases",
+  "description": "Create a database in a branch.",
+  "endpoint": "/projects/{project_id}/branches/{branch_id}/databases",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "branch_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Branch ID."
+    },
+    {
+      "name": "database",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Database config: name, owner_name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123/branches/br-abc123/databases",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "database": {
+        "name": "mydb",
+        "owner_name": "neondb_owner"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "database": {
+        "id": 2,
+        "name": "mydb"
+      }
+    }
+  }
+}

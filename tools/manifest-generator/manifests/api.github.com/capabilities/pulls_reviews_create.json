@@ -1,0 +1,69 @@
+{
+  "name": "pulls_reviews_create",
+  "description": "Create a review on a pull request with approval, request changes, or comment.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "pull_number",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "The PR number."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Review comment body."
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "required": true,
+      "description": "Review action: APPROVE, REQUEST_CHANGES, or COMMENT."
+    },
+    {
+      "name": "comments",
+      "type": "array",
+      "required": false,
+      "description": "Array of line comments with path, position, and body."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/octocat/my-project/pulls/101/reviews",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "body": "Looks great! Ship it.",
+      "event": "APPROVE"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 5002,
+      "state": "APPROVED",
+      "body": "Looks great! Ship it."
+    }
+  }
+}

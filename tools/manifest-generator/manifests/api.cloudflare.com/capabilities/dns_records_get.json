@@ -1,0 +1,43 @@
+{
+  "name": "dns_records_get",
+  "resource_group": "dns_records",
+  "description": "Retrieve details for a specific DNS record.",
+  "endpoint": "/zones/{zone_id}/dns_records/{dns_record_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "dns_record_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "DNS record identifier."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dns_records/rec-123",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "id": "rec-123",
+        "type": "A",
+        "name": "example.com",
+        "content": "198.51.100.4",
+        "ttl": 3600
+      }
+    }
+  }
+}

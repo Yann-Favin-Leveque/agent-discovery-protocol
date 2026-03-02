@@ -1,0 +1,28 @@
+{
+  "name": "time_entries_create",
+  "description": "Log a time entry for a client or project with duration, description, and billable status.",
+  "endpoint": "/timetracking/business/{business_id}/time_entries",
+  "method": "POST",
+  "resource_group": "time_entries",
+  "parameters": [
+    {"name": "business_id", "type": "string", "description": "The FreshBooks business ID.", "required": true, "example": "xB2yw"},
+    {"name": "duration", "type": "integer", "description": "Duration in seconds.", "required": true, "example": 3600},
+    {"name": "note", "type": "string", "description": "Description of work performed.", "required": false, "example": "Frontend development"},
+    {"name": "started_at", "type": "string", "description": "When the time entry started (ISO 8601).", "required": true, "example": "2024-09-01T09:00:00Z"},
+    {"name": "client_id", "type": "integer", "description": "Client to associate the entry with.", "required": false, "example": 12345},
+    {"name": "project_id", "type": "integer", "description": "Project to associate the entry with.", "required": false, "example": 789},
+    {"name": "is_logged", "type": "boolean", "description": "Whether the entry is finalized.", "required": false, "example": true}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.freshbooks.com/timetracking/business/xB2yw/time_entries",
+    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
+    "body": {"time_entry": {"duration": 3600, "note": "Frontend development", "started_at": "2024-09-01T09:00:00Z", "client_id": 12345, "is_logged": true}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"time_entry": {"id": 334, "duration": 3600, "note": "Frontend development", "started_at": "2024-09-01T09:00:00Z", "client_id": 12345}}
+  },
+  "auth_scopes": ["user:time_entries:write"],
+  "rate_limits": {"requests_per_minute": 100}
+}

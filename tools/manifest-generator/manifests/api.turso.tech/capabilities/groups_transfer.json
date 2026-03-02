@@ -1,0 +1,49 @@
+{
+  "name": "groups_transfer",
+  "resource_group": "groups",
+  "description": "Transfer a group to another organization.",
+  "endpoint": "/v1/organizations/{organizationSlug}/groups/{groupName}/transfer",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "groupName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Group name."
+    },
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Target organization slug."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.turso.tech/v1/organizations/my-org/groups/my-group/transfer",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "organization": "other-org"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "group": {
+        "name": "my-group"
+      }
+    }
+  }
+}

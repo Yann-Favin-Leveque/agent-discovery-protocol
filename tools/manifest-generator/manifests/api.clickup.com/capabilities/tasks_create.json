@@ -1,0 +1,91 @@
+{
+  "name": "tasks_create",
+  "description": "Create a new task in a list.",
+  "resource_group": "tasks",
+  "endpoint": "/api/v2/list/{list_id}/task",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "list_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "List ID"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Task name"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Task description"
+    },
+    {
+      "name": "assignees",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Array of assignee user IDs"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Task status"
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Priority (1=urgent, 2=high, 3=normal, 4=low)"
+    },
+    {
+      "name": "due_date",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Due date in unix milliseconds"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Array of tag names"
+    },
+    {
+      "name": "parent",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Parent task ID for subtask"
+    },
+    {
+      "name": "custom_fields",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Custom field values"
+    }
+  ],
+  "auth_scopes": [
+    "default"
+  ],
+  "request_example": {
+    "name": "New Task",
+    "description": "Task description",
+    "assignees": [
+      123
+    ],
+    "priority": 2,
+    "status": "Open"
+  }
+}

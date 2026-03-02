@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Calendly",
-  "description": "Calendly is a scheduling automation platform that eliminates the back-and-forth of finding meeting times. Its REST API lets you manage event types, view scheduled events, check available times, and programmatically cancel or manage events. All resources are identified by URIs.",
+  "description": "Calendly is a scheduling automation platform. Its REST API lets you manage event types, scheduled events, invitees, availability, organization memberships, and webhook subscriptions. All resources are identified by URIs.",
   "base_url": "https://api.calendly.com",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,160 @@
   },
   "capabilities": [
     {
-      "name": "list_event_types",
-      "description": "Retrieve all event types for a user or organization, including active, inactive, and draft types.",
-      "detail_url": "/capabilities/list_event_types"
+      "name": "users_get_current",
+      "description": "Retrieve the authenticated user's profile including name, email, timezone, and scheduling URL.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_get_current"
     },
     {
-      "name": "list_scheduled_events",
-      "description": "List all scheduled events (past and upcoming) for a user with filtering by status and date range.",
-      "detail_url": "/capabilities/list_scheduled_events"
+      "name": "users_get",
+      "description": "Retrieve a specific user's profile by their URI.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_get"
     },
     {
-      "name": "get_invitee",
-      "description": "Get details about a specific invitee of a scheduled event, including their responses and tracking info.",
-      "detail_url": "/capabilities/get_invitee"
+      "name": "event_types_list",
+      "description": "List all event types for a user or organization, including active, inactive, and draft types.",
+      "resource_group": "event_types",
+      "detail_url": "/capabilities/event_types_list"
     },
     {
-      "name": "list_available_times",
+      "name": "event_types_get",
+      "description": "Retrieve a specific event type by its UUID.",
+      "resource_group": "event_types",
+      "detail_url": "/capabilities/event_types_get"
+    },
+    {
+      "name": "scheduled_events_list",
+      "description": "List scheduled events for a user or organization with optional filtering by status and date range.",
+      "resource_group": "scheduled_events",
+      "detail_url": "/capabilities/scheduled_events_list"
+    },
+    {
+      "name": "scheduled_events_get",
+      "description": "Retrieve details of a specific scheduled event by UUID.",
+      "resource_group": "scheduled_events",
+      "detail_url": "/capabilities/scheduled_events_get"
+    },
+    {
+      "name": "scheduled_events_cancel",
+      "description": "Cancel a scheduled event, optionally providing a cancellation reason.",
+      "resource_group": "scheduled_events",
+      "detail_url": "/capabilities/scheduled_events_cancel"
+    },
+    {
+      "name": "invitees_list",
+      "description": "List all invitees for a scheduled event with optional status filtering.",
+      "resource_group": "invitees",
+      "detail_url": "/capabilities/invitees_list"
+    },
+    {
+      "name": "invitees_get",
+      "description": "Get details about a specific invitee of a scheduled event.",
+      "resource_group": "invitees",
+      "detail_url": "/capabilities/invitees_get"
+    },
+    {
+      "name": "event_type_available_times_list",
       "description": "Retrieve available time slots for an event type within a date range.",
-      "detail_url": "/capabilities/list_available_times"
+      "resource_group": "availability",
+      "detail_url": "/capabilities/event_type_available_times_list"
     },
     {
-      "name": "cancel_event",
-      "description": "Cancel a scheduled event by its UUID, optionally providing a cancellation reason.",
-      "detail_url": "/capabilities/cancel_event"
+      "name": "organization_memberships_list",
+      "description": "List all memberships in an organization.",
+      "resource_group": "organization_memberships",
+      "detail_url": "/capabilities/organization_memberships_list"
     },
     {
-      "name": "get_user",
-      "description": "Retrieve the authenticated user's profile information including name, email, timezone, and scheduling URL.",
-      "detail_url": "/capabilities/get_user"
+      "name": "organization_memberships_get",
+      "description": "Retrieve a specific organization membership.",
+      "resource_group": "organization_memberships",
+      "detail_url": "/capabilities/organization_memberships_get"
+    },
+    {
+      "name": "organization_memberships_delete",
+      "description": "Remove a user from the organization.",
+      "resource_group": "organization_memberships",
+      "detail_url": "/capabilities/organization_memberships_delete"
+    },
+    {
+      "name": "organization_invitations_list",
+      "description": "List pending organization invitations.",
+      "resource_group": "organization_invitations",
+      "detail_url": "/capabilities/organization_invitations_list"
+    },
+    {
+      "name": "organization_invitations_create",
+      "description": "Invite a user to join the organization.",
+      "resource_group": "organization_invitations",
+      "detail_url": "/capabilities/organization_invitations_create"
+    },
+    {
+      "name": "organization_invitations_get",
+      "description": "Retrieve a specific organization invitation.",
+      "resource_group": "organization_invitations",
+      "detail_url": "/capabilities/organization_invitations_get"
+    },
+    {
+      "name": "organization_invitations_delete",
+      "description": "Revoke a pending organization invitation.",
+      "resource_group": "organization_invitations",
+      "detail_url": "/capabilities/organization_invitations_delete"
+    },
+    {
+      "name": "webhook_subscriptions_list",
+      "description": "List all webhook subscriptions for a user or organization.",
+      "resource_group": "webhook_subscriptions",
+      "detail_url": "/capabilities/webhook_subscriptions_list"
+    },
+    {
+      "name": "webhook_subscriptions_create",
+      "description": "Create a webhook subscription to receive real-time notifications when events are scheduled or canceled.",
+      "resource_group": "webhook_subscriptions",
+      "detail_url": "/capabilities/webhook_subscriptions_create"
+    },
+    {
+      "name": "webhook_subscriptions_get",
+      "description": "Retrieve a specific webhook subscription.",
+      "resource_group": "webhook_subscriptions",
+      "detail_url": "/capabilities/webhook_subscriptions_get"
+    },
+    {
+      "name": "webhook_subscriptions_delete",
+      "description": "Delete a webhook subscription.",
+      "resource_group": "webhook_subscriptions",
+      "detail_url": "/capabilities/webhook_subscriptions_delete"
+    },
+    {
+      "name": "routing_forms_list",
+      "description": "List all routing forms for an organization.",
+      "resource_group": "routing_forms",
+      "detail_url": "/capabilities/routing_forms_list"
+    },
+    {
+      "name": "routing_forms_get",
+      "description": "Retrieve a specific routing form by UUID.",
+      "resource_group": "routing_forms",
+      "detail_url": "/capabilities/routing_forms_get"
+    },
+    {
+      "name": "routing_form_submissions_list",
+      "description": "List all submissions for a routing form.",
+      "resource_group": "routing_forms",
+      "detail_url": "/capabilities/routing_form_submissions_list"
+    },
+    {
+      "name": "routing_form_submissions_get",
+      "description": "Retrieve a specific routing form submission.",
+      "resource_group": "routing_forms",
+      "detail_url": "/capabilities/routing_form_submissions_get"
+    },
+    {
+      "name": "data_compliance_delete_invitee",
+      "description": "Delete invitee data for GDPR/data compliance purposes.",
+      "resource_group": "data_compliance",
+      "detail_url": "/capabilities/data_compliance_delete_invitee"
     }
   ]
 }

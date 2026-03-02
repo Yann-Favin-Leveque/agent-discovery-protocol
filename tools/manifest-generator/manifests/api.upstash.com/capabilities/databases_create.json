@@ -1,0 +1,75 @@
+{
+  "name": "databases_create",
+  "resource_group": "databases",
+  "description": "Create a new serverless Redis database with specified name, region, and configuration.",
+  "endpoint": "/v2/redis/database",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "database_name",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Name for the database."
+    },
+    {
+      "name": "platform",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Cloud provider: aws or gcp."
+    },
+    {
+      "name": "primary_region",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Primary region (e.g., us-east-1)."
+    },
+    {
+      "name": "read_regions",
+      "type": "array",
+      "required": false,
+      "in": "body",
+      "description": "Additional read replica regions."
+    },
+    {
+      "name": "tls",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Enable TLS."
+    },
+    {
+      "name": "eviction",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Enable eviction."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.upstash.com/v2/redis/database",
+    "headers": {
+      "Authorization": "Basic base64(email:api_key)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "database_name": "my-redis",
+      "platform": "aws",
+      "primary_region": "us-east-1",
+      "tls": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "database_id": "db-abc123",
+      "database_name": "my-redis",
+      "endpoint": "us1-merry-cat-32748.upstash.io",
+      "port": 32748,
+      "state": "active"
+    }
+  }
+}

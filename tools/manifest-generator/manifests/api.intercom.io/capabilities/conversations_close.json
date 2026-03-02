@@ -1,0 +1,63 @@
+{
+  "name": "conversations_close",
+  "description": "Close an open conversation.",
+  "resource_group": "conversations",
+  "endpoint": "/conversations/{id}/parts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The conversation ID."
+    },
+    {
+      "name": "message_type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'close'."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'admin'."
+    },
+    {
+      "name": "admin_id",
+      "type": "string",
+      "required": true,
+      "description": "The admin closing the conversation."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Optional closing note."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/conversations/123456/parts",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "message_type": "close",
+      "type": "admin",
+      "admin_id": "admin-1",
+      "body": "Resolved the billing issue."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "conversation",
+      "id": "123456",
+      "state": "closed"
+    }
+  }
+}

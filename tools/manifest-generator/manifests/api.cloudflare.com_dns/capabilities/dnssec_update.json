@@ -1,0 +1,47 @@
+{
+  "name": "dnssec_update",
+  "description": "Enable or disable DNSSEC for a zone. When enabling, Cloudflare generates signing keys automatically.",
+  "endpoint": "/zones/{zone_id}/dnssec",
+  "method": "PATCH",
+  "resource_group": "dnssec",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "DNSSEC status: active (enable) or disabled (disable).",
+      "required": true,
+      "example": "active"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dnssec",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "active"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "status": "pending"
+      }
+    }
+  },
+  "auth_scopes": ["dns_records:edit"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

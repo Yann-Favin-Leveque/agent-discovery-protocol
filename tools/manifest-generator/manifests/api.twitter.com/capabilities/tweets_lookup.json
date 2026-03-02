@@ -1,0 +1,43 @@
+{
+  "name": "tweets_lookup",
+  "description": "Look up multiple tweets by their IDs.",
+  "resource_group": "tweets",
+  "endpoint": "/2/tweets",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "ids",
+      "type": "string",
+      "required": true,
+      "description": "Comma-separated tweet IDs (max 100)."
+    },
+    {
+      "name": "tweet.fields",
+      "type": "string",
+      "required": false,
+      "description": "Tweet fields to return."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twitter.com/2/tweets?ids=123,456&tweet.fields=created_at,public_metrics",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "123",
+          "text": "First tweet"
+        },
+        {
+          "id": "456",
+          "text": "Second tweet"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "weather_realtime_get",
+  "description": "Get current weather conditions for a location including temperature, humidity, wind, pressure, precipitation, cloud cover, visibility, UV index, weather code, air quality, pollen, and fire index.",
+  "resource_group": "weather",
+  "endpoint": "/v4/weather/realtime",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "description": "Location as lat,lon coordinates, city name, or US zip code.",
+      "in": "query"
+    },
+    {
+      "name": "apikey",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Unit system: 'metric' or 'imperial'.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tomorrow.io/v4/weather/realtime?location=48.8566,2.3522&apikey=YOUR_API_KEY&units=metric"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "time": "2025-01-15T14:30:00Z",
+        "values": {
+          "temperature": 18.5,
+          "temperatureApparent": 17.2,
+          "humidity": 55,
+          "windSpeed": 3.6,
+          "windDirection": 220,
+          "pressureSurfaceLevel": 1015,
+          "precipitationProbability": 5,
+          "cloudCover": 10,
+          "visibility": 16,
+          "uvIndex": 3,
+          "weatherCode": 1000
+        }
+      },
+      "location": {
+        "lat": 48.8566,
+        "lon": 2.3522
+      }
+    }
+  }
+}

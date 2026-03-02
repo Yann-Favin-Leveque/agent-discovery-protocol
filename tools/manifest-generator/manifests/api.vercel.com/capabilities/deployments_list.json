@@ -1,0 +1,69 @@
+{
+  "name": "deployments_list",
+  "description": "List deployments, optionally filtered by project.",
+  "endpoint": "/v6/deployments",
+  "method": "GET",
+  "resource_group": "deployments",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "description": "Filter by project ID",
+      "required": false,
+      "example": "prj_123"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of deployments to return",
+      "required": false,
+      "example": "20"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "description": "Filter by state (BUILDING, READY, ERROR)",
+      "required": false,
+      "example": "READY"
+    },
+    {
+      "name": "target",
+      "type": "string",
+      "description": "Filter by target (production, preview)",
+      "required": false,
+      "example": "production"
+    },
+    {
+      "name": "teamId",
+      "type": "string",
+      "description": "Team ID",
+      "required": false,
+      "example": "team_123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vercel.com/v6/deployments?projectId=prj_123",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "deployments": [
+        {
+          "uid": "dpl_123",
+          "name": "my-app",
+          "url": "my-app-abc.vercel.app",
+          "state": "READY"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

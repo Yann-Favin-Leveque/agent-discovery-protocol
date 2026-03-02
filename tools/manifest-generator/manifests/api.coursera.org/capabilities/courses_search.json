@@ -1,0 +1,79 @@
+{
+  "name": "courses_search",
+  "description": "Search the Coursera course catalog by keyword, topic, or skill.",
+  "endpoint": "/api/courses.v1",
+  "method": "GET",
+  "resource_group": "courses",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Must be set to 'search' to activate keyword search.",
+      "required": true,
+      "example": "search"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "The search query string.",
+      "required": true,
+      "example": "data science python"
+    },
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Pagination offset index.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results to return.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to include.",
+      "required": false,
+      "example": "name,slug,description,photoUrl,partnerIds"
+    },
+    {
+      "name": "includes",
+      "type": "string",
+      "description": "Linked resources to include (e.g. instructorIds,partnerIds).",
+      "required": false,
+      "example": "instructorIds,partnerIds"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/courses.v1?q=search&query=data+science+python&limit=10&fields=name,slug,description,photoUrl",
+    "headers": {},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "abc123",
+          "slug": "data-science-python",
+          "name": "Applied Data Science with Python",
+          "description": "Learn to apply data science methods using Python...",
+          "photoUrl": "https://coursera-course-photos.s3.amazonaws.com/ds/photo.jpg"
+        }
+      ],
+      "paging": {
+        "next": 10,
+        "total": 150
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

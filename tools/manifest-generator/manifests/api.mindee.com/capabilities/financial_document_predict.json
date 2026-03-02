@@ -1,0 +1,65 @@
+{
+  "name": "financial_document_predict",
+  "description": "Parse any financial document (invoice or receipt) with automatic type detection and field extraction.",
+  "endpoint": "/v1/products/mindee/financial_document/v1/predict",
+  "method": "POST",
+  "resource_group": "financial",
+  "parameters": [
+    {
+      "name": "document",
+      "type": "file",
+      "description": "Financial document file (PDF, JPG, PNG, TIFF, WEBP).",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mindee.com/v1/products/mindee/financial_document/v1/predict",
+    "headers": {
+      "Authorization": "Token {api_key}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "document": "(binary file data)"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "api_request": {
+        "status": "success"
+      },
+      "document": {
+        "inference": {
+          "prediction": {
+            "document_type": {
+              "value": "INVOICE"
+            },
+            "date": {
+              "value": "2024-01-15"
+            },
+            "total_amount": {
+              "value": 1250.0
+            },
+            "total_tax": {
+              "value": 208.33
+            },
+            "supplier_name": {
+              "value": "Acme Corp"
+            },
+            "line_items": [
+              {
+                "description": "Service",
+                "total_amount": 1041.67
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

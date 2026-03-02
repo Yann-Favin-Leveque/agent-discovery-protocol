@@ -1,0 +1,78 @@
+{
+  "name": "whatsapp_send_text",
+  "description": "Send a text message to a WhatsApp user from a registered WhatsApp Business sender number.",
+  "endpoint": "/whatsapp/1/message/text",
+  "method": "POST",
+  "resource_group": "whatsapp",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "Registered WhatsApp sender number in E.164 format."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": true,
+      "description": "Recipient WhatsApp phone number in E.164 format."
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "required": true,
+      "description": "Message content object with 'text' (string) field containing the message body."
+    },
+    {
+      "name": "messageId",
+      "type": "string",
+      "required": false,
+      "description": "Custom message ID for tracking. Auto-generated if not provided."
+    },
+    {
+      "name": "callbackData",
+      "type": "string",
+      "required": false,
+      "description": "Custom data to be included in delivery report webhook callbacks."
+    },
+    {
+      "name": "notifyUrl",
+      "type": "string",
+      "required": false,
+      "description": "Webhook URL to receive delivery reports for this message."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/whatsapp/1/message/text",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "from": "447860099299",
+      "to": "14155550123",
+      "content": {
+        "text": "Hello! Your order #12345 has been shipped and will arrive by Friday."
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "to": "14155550123",
+      "messageCount": 1,
+      "messageId": "abcdef-123456-ghijkl",
+      "status": {
+        "groupId": 1,
+        "groupName": "PENDING",
+        "id": 7,
+        "name": "PENDING_ENROUTE"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

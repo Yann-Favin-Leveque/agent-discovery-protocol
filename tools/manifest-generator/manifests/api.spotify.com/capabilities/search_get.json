@@ -1,0 +1,78 @@
+{
+  "name": "search_get",
+  "description": "Search Spotify's catalog for tracks, artists, albums, playlists, shows, and episodes by keyword. Supports field filters for year, genre, and market.",
+  "resource_group": "search",
+  "endpoint": "/v1/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "Search query keyword. Supports field filters like artist:, album:, track:, year:, genre:."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Comma-separated list of types to search: 'album','artist','playlist','track','show','episode'."
+    },
+    {
+      "name": "market",
+      "type": "string",
+      "required": false,
+      "description": "ISO 3166-1 alpha-2 country code to limit results."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results per type. Default: 20. Range: 1-50."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Index of first result. Default: 0. Max: 1000."
+    },
+    {
+      "name": "include_external",
+      "type": "string",
+      "required": false,
+      "description": "Set to 'audio' to include externally-hosted audio."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/search?q=remaster%20track:Doxy%20artist:Miles%20Davis&type=track&limit=5",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tracks": {
+        "items": [
+          {
+            "id": "4iV5W9uYEdYUVa79Axb7Rh",
+            "name": "Doxy - Remastered",
+            "artists": [
+              {
+                "name": "Miles Davis"
+              }
+            ],
+            "album": {
+              "name": "Relaxin With The Miles Davis Quintet"
+            },
+            "duration_ms": 323000,
+            "popularity": 52
+          }
+        ],
+        "total": 120,
+        "limit": 5,
+        "offset": 0
+      }
+    }
+  }
+}

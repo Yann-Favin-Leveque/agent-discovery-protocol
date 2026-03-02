@@ -1,0 +1,52 @@
+{
+  "name": "large_files_upload_part",
+  "description": "Upload a part of a large file.",
+  "resource_group": "large_files",
+  "endpoint": "/b2api/v3/b2_upload_part",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "Authorization",
+      "type": "string",
+      "description": "Part upload authorization token.",
+      "required": true
+    },
+    {
+      "name": "X-Bz-Part-Number",
+      "type": "integer",
+      "description": "Part number (1-10000).",
+      "required": true
+    },
+    {
+      "name": "Content-Length",
+      "type": "integer",
+      "description": "Part size in bytes.",
+      "required": true
+    },
+    {
+      "name": "X-Bz-Content-Sha1",
+      "type": "string",
+      "description": "SHA1 hash of part content.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{uploadUrl}",
+    "headers": {
+      "Authorization": "{partToken}",
+      "X-Bz-Part-Number": "1",
+      "Content-Length": "100000000",
+      "X-Bz-Content-Sha1": "sha1_hash"
+    },
+    "body": "<part content>"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "fileId": "largefile123",
+      "partNumber": 1,
+      "contentLength": 100000000
+    }
+  }
+}

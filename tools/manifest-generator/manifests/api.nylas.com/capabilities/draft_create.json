@@ -1,0 +1,78 @@
+{
+  "name": "draft_create",
+  "description": "Create a new email draft.",
+  "resource_group": "draft",
+  "endpoint": "/v3/grants/{grant_id}/drafts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "description": "Recipients.",
+      "required": false,
+      "example": [
+        {
+          "email": "jane@example.com"
+        }
+      ]
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Subject.",
+      "required": false,
+      "example": "Draft Subject"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "HTML body.",
+      "required": false,
+      "example": "<p>Draft</p>"
+    },
+    {
+      "name": "cc",
+      "type": "array",
+      "description": "CC recipients.",
+      "required": false
+    },
+    {
+      "name": "bcc",
+      "type": "array",
+      "description": "BCC recipients.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.us.nylas.com/v3/grants/me/drafts",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "to": [
+        {
+          "email": "jane@example.com"
+        }
+      ],
+      "subject": "Draft Subject",
+      "body": "<p>Draft</p>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "draft_new"
+      }
+    }
+  }
+}

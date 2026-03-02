@@ -1,0 +1,28 @@
+{
+  "name": "simple_price",
+  "description": "Get the current price of one or more coins in any supported fiat or crypto currencies. Optionally include market cap, 24h volume, 24h change, and last updated timestamp.",
+  "resource_group": "simple",
+  "endpoint": "/simple/price",
+  "method": "GET",
+  "parameters": [
+    {"name": "ids", "type": "string", "description": "Comma-separated coin IDs (e.g., bitcoin,ethereum).", "required": true, "example": "bitcoin,ethereum"},
+    {"name": "vs_currencies", "type": "string", "description": "Comma-separated target currencies (e.g., usd,eur).", "required": true, "example": "usd,eur"},
+    {"name": "include_market_cap", "type": "boolean", "description": "Include market cap data.", "required": false, "example": true},
+    {"name": "include_24hr_vol", "type": "boolean", "description": "Include 24-hour volume.", "required": false, "example": true},
+    {"name": "include_24hr_change", "type": "boolean", "description": "Include 24-hour price change percentage.", "required": false, "example": true},
+    {"name": "include_last_updated_at", "type": "boolean", "description": "Include last updated Unix timestamp.", "required": false, "example": true}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "bitcoin": {"usd": 43250.50, "usd_24h_change": 2.15},
+      "ethereum": {"usd": 2280.75, "usd_24h_change": 1.87}
+    }
+  },
+  "rate_limits": {"requests_per_minute": 30}
+}

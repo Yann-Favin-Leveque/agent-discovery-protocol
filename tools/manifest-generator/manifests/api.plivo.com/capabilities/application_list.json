@@ -1,0 +1,55 @@
+{
+  "name": "application_list",
+  "description": "List all applications on the account.",
+  "resource_group": "application",
+  "endpoint": "/v1/Account/{auth_id}/Application/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results per page (max 20).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Pagination offset.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Application/?limit=5",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "meta": {
+        "limit": 5,
+        "offset": 0,
+        "total_count": 3
+      },
+      "objects": [
+        {
+          "app_id": "123456789",
+          "app_name": "My App",
+          "answer_url": "https://example.com/answer/"
+        }
+      ]
+    }
+  }
+}

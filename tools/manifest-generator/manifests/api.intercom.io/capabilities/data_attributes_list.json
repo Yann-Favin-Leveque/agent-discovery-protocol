@@ -1,0 +1,46 @@
+{
+  "name": "data_attributes_list",
+  "description": "List all data attributes (built-in and custom) for contacts or companies.",
+  "resource_group": "data_attributes",
+  "endpoint": "/data_attributes",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "description": "Filter by model: 'contact' or 'company'."
+    },
+    {
+      "name": "include_archived",
+      "type": "boolean",
+      "required": false,
+      "description": "Include archived attributes. Default false."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.intercom.io/data_attributes?model=contact",
+    "headers": {
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "list",
+      "data": [
+        {
+          "type": "data_attribute",
+          "id": "attr-1",
+          "name": "plan",
+          "label": "Plan",
+          "data_type": "string",
+          "model": "contact",
+          "custom": true
+        }
+      ]
+    }
+  }
+}

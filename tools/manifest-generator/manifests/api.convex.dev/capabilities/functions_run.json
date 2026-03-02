@@ -1,0 +1,50 @@
+{
+  "name": "functions_run",
+  "resource_group": "functions",
+  "description": "Call any Convex function type with the function path in the URL.",
+  "endpoint": "/api/run/{functionIdentifier}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "functionIdentifier",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Function path with / replacing : (e.g., 'messages/list')."
+    },
+    {
+      "name": "args",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Named arguments."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Output format."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{deployment}.convex.cloud/api/run/messages/list",
+    "headers": {
+      "Authorization": "Convex {deploy_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "args": {},
+      "format": "json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "value": [],
+      "logLines": []
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "name": "stories_create",
+  "description": "Create a new story in the space with content matching the component schema.",
+  "endpoint": "/v1/spaces/{space_id}/stories",
+  "method": "POST",
+  "resource_group": "stories",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "integer",
+      "description": "Space ID",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "story",
+      "type": "object",
+      "description": "Story object with name, slug, and content",
+      "required": true,
+      "example": {
+        "name": "New Post",
+        "slug": "new-post",
+        "content": {
+          "component": "post",
+          "title": "New Post",
+          "body": "Content here"
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mapi.storyblok.com/v1/spaces/12345/stories",
+    "headers": {
+      "Authorization": "your-management-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "story": {
+        "name": "New Post",
+        "slug": "new-post",
+        "content": {
+          "component": "post",
+          "title": "New Post"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "story": {
+        "id": 456,
+        "name": "New Post",
+        "slug": "new-post",
+        "created_at": "2026-03-02T10:00:00Z"
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

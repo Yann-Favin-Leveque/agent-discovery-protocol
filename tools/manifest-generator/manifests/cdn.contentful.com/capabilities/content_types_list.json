@@ -1,0 +1,69 @@
+{
+  "name": "content_types_list",
+  "description": "Retrieve all content types (the content model) for a space environment. Returns field definitions, validations, and display settings.",
+  "endpoint": "/spaces/{space_id}/environments/{environment_id}/content_types",
+  "method": "GET",
+  "resource_group": "content_types",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "string",
+      "description": "The space ID.",
+      "required": true,
+      "example": "cfexampleapi"
+    },
+    {
+      "name": "environment_id",
+      "type": "string",
+      "description": "The environment ID. Use 'master' for the default environment.",
+      "required": true,
+      "example": "master"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results (default 100, max 1000).",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "skip",
+      "type": "integer",
+      "description": "Number of results to skip for pagination.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/content_types",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sys": {"type": "Array"},
+      "total": 5,
+      "skip": 0,
+      "limit": 100,
+      "items": [
+        {
+          "sys": {"id": "blogPost", "type": "ContentType"},
+          "name": "Blog Post",
+          "displayField": "title",
+          "fields": [
+            {"id": "title", "name": "Title", "type": "Symbol", "required": true},
+            {"id": "body", "name": "Body", "type": "Text", "required": true},
+            {"id": "author", "name": "Author", "type": "Link", "linkType": "Entry"}
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 78
+  }
+}

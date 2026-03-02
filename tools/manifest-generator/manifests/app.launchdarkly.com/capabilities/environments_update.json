@@ -1,0 +1,20 @@
+{
+  "name": "environments_update",
+  "description": "Update an environment's settings using a JSON Patch.",
+  "resource_group": "environments",
+  "endpoint": "/projects/{projectKey}/environments/{envKey}",
+  "method": "PATCH",
+  "parameters": [
+    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
+    {"name": "envKey", "type": "string", "description": "The environment key.", "required": true, "example": "staging"},
+    {"name": "patch", "type": "array", "description": "JSON Patch operations.", "required": true}
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://app.launchdarkly.com/api/v2/projects/my-project/environments/staging",
+    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
+    "body": [{"op": "replace", "path": "/name", "value": "Staging v2"}]
+  },
+  "response_example": {"status": 200, "body": {"key": "staging", "name": "Staging v2", "color": "f5a623"}},
+  "rate_limits": {"requests_per_minute": 120}
+}

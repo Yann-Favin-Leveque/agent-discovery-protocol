@@ -1,0 +1,26 @@
+{
+  "name": "subaccounts_list",
+  "description": "List all subaccounts belonging to your primary Vonage account.",
+  "resource_group": "subaccounts",
+  "endpoint": "/accounts/{api_key}/subaccounts",
+  "method": "GET",
+  "parameters": [
+    {"name": "api_key", "type": "string", "required": true, "location": "path", "description": "Your primary account API key."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vonage.com/accounts/abc123/subaccounts",
+    "headers": {"Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "_embedded": {
+        "primary_account": {"api_key": "abc123", "name": "Primary Account", "created_at": "2024-01-15T10:00:00Z"},
+        "subaccounts": [
+          {"api_key": "sub001", "name": "Marketing Team", "primary_account_api_key": "abc123", "use_primary_account_balance": true, "created_at": "2025-06-01T08:00:00Z", "suspended": false}
+        ]
+      }
+    }
+  }
+}

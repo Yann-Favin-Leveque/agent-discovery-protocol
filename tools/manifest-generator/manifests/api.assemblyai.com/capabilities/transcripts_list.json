@@ -1,0 +1,79 @@
+{
+  "name": "transcripts_list",
+  "description": "List all transcripts with pagination and status filters.",
+  "endpoint": "/v2/transcript",
+  "method": "GET",
+  "resource_group": "transcripts",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum transcripts to retrieve.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status: queued, processing, completed, error.",
+      "required": false,
+      "example": "completed"
+    },
+    {
+      "name": "created_on",
+      "type": "string",
+      "description": "Filter by creation date.",
+      "required": false
+    },
+    {
+      "name": "before_id",
+      "type": "string",
+      "description": "Get transcripts before this ID.",
+      "required": false
+    },
+    {
+      "name": "after_id",
+      "type": "string",
+      "description": "Get transcripts after this ID.",
+      "required": false
+    },
+    {
+      "name": "throttled_only",
+      "type": "boolean",
+      "description": "Only return throttled transcripts.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.assemblyai.com/v2/transcript?limit=20&status=completed",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page_details": {
+        "limit": 20,
+        "result_count": 5,
+        "current_url": "https://api.assemblyai.com/v2/transcript?limit=20",
+        "prev_url": null,
+        "next_url": null
+      },
+      "transcripts": [
+        {
+          "id": "abc123",
+          "resource_url": "https://api.assemblyai.com/v2/transcript/abc123",
+          "status": "completed",
+          "created": "2024-01-15T10:00:00Z",
+          "audio_url": "https://example.com/audio.mp3"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

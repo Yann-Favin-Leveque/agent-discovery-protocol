@@ -1,0 +1,83 @@
+{
+  "name": "addresses_create_and_verify",
+  "description": "Create and verify an address in a single request.",
+  "endpoint": "/v2/addresses/create_and_verify",
+  "method": "POST",
+  "resource_group": "addresses",
+  "parameters": [
+    {
+      "name": "street1",
+      "type": "string",
+      "description": "Primary street line.",
+      "required": true,
+      "example": "417 Montgomery St"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "City name.",
+      "required": true,
+      "example": "San Francisco"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "description": "State code.",
+      "required": true,
+      "example": "CA"
+    },
+    {
+      "name": "zip",
+      "type": "string",
+      "description": "Postal code.",
+      "required": true,
+      "example": "94104"
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "Country code.",
+      "required": true,
+      "example": "US"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/addresses/create_and_verify",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "address": {
+        "street1": "417 Montgomery St",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94104",
+        "country": "US"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "address": {
+        "id": "adr_abc123",
+        "street1": "417 MONTGOMERY ST",
+        "city": "SAN FRANCISCO",
+        "state": "CA",
+        "zip": "94104-1334",
+        "country": "US",
+        "verifications": {
+          "delivery": {
+            "success": true
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

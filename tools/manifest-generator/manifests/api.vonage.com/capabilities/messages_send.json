@@ -1,0 +1,79 @@
+{
+  "name": "messages_send",
+  "description": "Send a message via SMS, MMS, WhatsApp, Facebook Messenger, or Viber using the Vonage Messages API v1. Specify the channel, message type, recipient, sender, and message content. Returns a message UUID for tracking delivery status via webhooks.",
+  "resource_group": "messages",
+  "endpoint": "/v1/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "to",
+      "type": "string",
+      "required": true,
+      "description": "The recipient phone number in E.164 format (e.g., '14155550123') or channel-specific identifier."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "The sender phone number in E.164 format or an alphanumeric sender ID (max 11 characters)."
+    },
+    {
+      "name": "channel",
+      "type": "string",
+      "required": true,
+      "description": "The messaging channel to use: 'sms', 'mms', 'whatsapp', 'messenger', or 'viber_service'."
+    },
+    {
+      "name": "message_type",
+      "type": "string",
+      "required": true,
+      "description": "The type of message content: 'text', 'image', 'audio', 'video', 'file', 'template', 'sticker', 'custom'."
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "required": false,
+      "description": "The text body of the message. Required when message_type is 'text'."
+    },
+    {
+      "name": "image",
+      "type": "object",
+      "required": false,
+      "description": "Image object with 'url' and optional 'caption'. Required when message_type is 'image'."
+    },
+    {
+      "name": "client_ref",
+      "type": "string",
+      "required": false,
+      "description": "A client-defined reference string for tracking purposes. Maximum 100 characters."
+    },
+    {
+      "name": "webhook_url",
+      "type": "string",
+      "required": false,
+      "description": "Override the default status webhook URL for this message."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vonage.com/v1/messages",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."
+    },
+    "body": {
+      "to": "14155550123",
+      "from": "12015550145",
+      "channel": "sms",
+      "message_type": "text",
+      "text": "Your verification code is 482910. It expires in 10 minutes.",
+      "client_ref": "verification-request-12345"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "message_uuid": "aaaaaaaa-bbbb-cccc-dddd-0123456789ab"
+    }
+  }
+}

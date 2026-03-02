@@ -1,0 +1,63 @@
+{
+  "name": "items_create_sharing_link",
+  "description": "Create a sharing link for a file or folder.",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/items/{item-id}/createLink",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "item-id",
+      "type": "string",
+      "description": "The item ID.",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Link type: view, edit, embed.",
+      "required": true,
+      "example": "view"
+    },
+    {
+      "name": "scope",
+      "type": "string",
+      "description": "Link scope: anonymous, organization.",
+      "required": false
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "Password for the link.",
+      "required": false
+    },
+    {
+      "name": "expirationDateTime",
+      "type": "string",
+      "description": "Expiration date (ISO 8601).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/item123/createLink",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "view",
+      "scope": "anonymous"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "link123",
+      "link": {
+        "type": "view",
+        "webUrl": "https://1drv.ms/t/s!abc123",
+        "scope": "anonymous"
+      }
+    }
+  }
+}

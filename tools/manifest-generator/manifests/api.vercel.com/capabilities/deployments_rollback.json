@@ -1,0 +1,41 @@
+{
+  "name": "deployments_rollback",
+  "description": "Rollback all production domains to a previous deployment.",
+  "endpoint": "/v1/projects/{projectId}/rollback/{deploymentId}",
+  "method": "POST",
+  "resource_group": "deployments",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "description": "Project ID",
+      "required": true,
+      "example": "prj_123"
+    },
+    {
+      "name": "deploymentId",
+      "type": "string",
+      "description": "Target deployment ID",
+      "required": true,
+      "example": "dpl_old"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vercel.com/v1/projects/prj_123/rollback/dpl_old",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "ROLLBACK_COMPLETE"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

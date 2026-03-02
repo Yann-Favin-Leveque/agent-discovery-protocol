@@ -1,0 +1,58 @@
+{
+  "name": "documents_query_cdn",
+  "description": "Query documents via the CDN-cached endpoint for faster reads on published content.",
+  "endpoint": "/v{apiVersion}/data/query/{dataset}",
+  "method": "GET",
+  "resource_group": "query",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "GROQ query string",
+      "required": true,
+      "example": "*[_type == 'post']{title, slug}"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{projectId}.apicdn.sanity.io/v2024-01-01/data/query/production?query=*[_type == 'post']",
+    "headers": {
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ms": 3,
+      "result": [
+        {
+          "title": "Hello World",
+          "slug": {
+            "current": "hello-world"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

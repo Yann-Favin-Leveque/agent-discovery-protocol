@@ -1,0 +1,48 @@
+{
+  "name": "members_search",
+  "description": "Search for members across all audiences by email or other criteria.",
+  "endpoint": "/3.0/search-members",
+  "method": "GET",
+  "resource_group": "members",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "Search query (email address).",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "list_id",
+      "type": "string",
+      "description": "Limit to specific audience.",
+      "required": false,
+      "example": "abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us1.api.mailchimp.com/3.0/search-members?query=user@example.com",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "exact_matches": {
+        "members": [
+          {
+            "id": "hash123",
+            "email_address": "user@example.com",
+            "list_id": "abc123"
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

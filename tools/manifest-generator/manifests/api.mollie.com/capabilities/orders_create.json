@@ -1,0 +1,95 @@
+{
+  "name": "orders_create",
+  "description": "Create a new order with one or more order lines.",
+  "resource_group": "orders",
+  "endpoint": "/v2/orders",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Total amount.",
+      "required": true
+    },
+    {
+      "name": "orderNumber",
+      "type": "string",
+      "description": "Your order reference.",
+      "required": false
+    },
+    {
+      "name": "lines",
+      "type": "array",
+      "description": "Array of order lines.",
+      "required": true
+    },
+    {
+      "name": "billingAddress",
+      "type": "object",
+      "description": "Billing address.",
+      "required": true
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "Language.",
+      "required": true
+    },
+    {
+      "name": "redirectUrl",
+      "type": "string",
+      "description": "Redirect URL.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/orders",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": {
+        "currency": "EUR",
+        "value": "100.00"
+      },
+      "orderNumber": "ORD-001",
+      "locale": "en_US",
+      "lines": [
+        {
+          "name": "Product",
+          "quantity": 1,
+          "unitPrice": {
+            "currency": "EUR",
+            "value": "100.00"
+          },
+          "totalAmount": {
+            "currency": "EUR",
+            "value": "100.00"
+          },
+          "vatRate": "21.00",
+          "vatAmount": {
+            "currency": "EUR",
+            "value": "17.36"
+          }
+        }
+      ],
+      "billingAddress": {
+        "givenName": "John",
+        "familyName": "Doe",
+        "email": "john@example.com",
+        "country": "NL"
+      },
+      "redirectUrl": "https://example.com/redirect"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "order",
+      "id": "ord_pbjz8x",
+      "status": "created"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "stories_list",
+  "resource_group": "media",
+  "description": "Retrieve a list of currently active stories published by the authenticated user. Stories are available for 24 hours after publication.",
+  "endpoint": "/{user_id}/stories",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID.",
+      "required": true,
+      "in": "path",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated fields to return for each story.",
+      "required": false,
+      "in": "query",
+      "example": "id,media_type,media_url,timestamp,caption"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17841400000000000/stories?fields=id,media_type,media_url,timestamp",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "17854360000000015",
+          "media_type": "IMAGE",
+          "media_url": "https://scontent.cdninstagram.com/story1.jpg",
+          "timestamp": "2024-03-01T20:00:00+0000"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["instagram_basic"]
+}

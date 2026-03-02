@@ -1,0 +1,58 @@
+{
+  "name": "egress_track_start",
+  "description": "Start recording an individual track directly to a file or forwarding it to a WebSocket URL.",
+  "endpoint": "/twirp/livekit.Egress/StartTrackEgress",
+  "method": "POST",
+  "resource_group": "egress",
+  "parameters": [
+    {
+      "name": "room_name",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room."
+    },
+    {
+      "name": "track_id",
+      "type": "string",
+      "required": true,
+      "description": "SID of the track to record."
+    },
+    {
+      "name": "file",
+      "type": "object",
+      "required": false,
+      "description": "File output configuration with filepath."
+    },
+    {
+      "name": "websocket_url",
+      "type": "string",
+      "required": false,
+      "description": "WebSocket URL to forward track data to."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.Egress/StartTrackEgress",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room_name": "interview-room-42",
+      "track_id": "TR_audio_01",
+      "file": { "filepath": "recordings/audio-track.ogg" }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "egress_id": "EG_track_01",
+      "room_name": "interview-room-42",
+      "status": "EGRESS_STARTING"
+    }
+  },
+  "auth_scopes": ["roomRecord"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "artists_get_albums",
+  "description": "Get an artist's albums, including compilations and singles.",
+  "resource_group": "artists",
+  "endpoint": "/v1/artists/{id}/albums",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "The Spotify ID of the artist."
+    },
+    {
+      "name": "include_groups",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated: 'album','single','appears_on','compilation'."
+    },
+    {
+      "name": "market",
+      "type": "string",
+      "required": false,
+      "description": "ISO 3166-1 alpha-2 country code."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max items. Default: 20. Range: 1-50."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Index of first item. Default: 0."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/artists/0OdUWJ0sBjDrqHygGUXeCF/albums?include_groups=album&limit=5",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "abc",
+          "name": "Everything All the Time",
+          "release_date": "2006-03-21"
+        }
+      ],
+      "total": 5
+    }
+  }
+}

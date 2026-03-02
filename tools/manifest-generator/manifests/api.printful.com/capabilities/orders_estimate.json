@@ -1,0 +1,56 @@
+{
+  "name": "orders_estimate",
+  "description": "Estimate order costs including product, printing, and shipping.",
+  "resource_group": "orders",
+  "endpoint": "/orders/estimate-costs",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "recipient",
+      "type": "object",
+      "required": true,
+      "description": "Recipient address for shipping estimate."
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "required": true,
+      "description": "Items to estimate."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.printful.com/orders/estimate-costs",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipient": {
+        "country_code": "US",
+        "state_code": "CA"
+      },
+      "items": [
+        {
+          "variant_id": 4011,
+          "quantity": 1
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "result": {
+        "costs": {
+          "subtotal": 8.95,
+          "discount": 0,
+          "shipping": 4.49,
+          "tax": 0,
+          "total": 13.44
+        }
+      }
+    }
+  }
+}

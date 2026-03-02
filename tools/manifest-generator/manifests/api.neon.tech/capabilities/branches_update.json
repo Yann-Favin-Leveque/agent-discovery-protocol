@@ -1,0 +1,52 @@
+{
+  "name": "branches_update",
+  "resource_group": "branches",
+  "description": "Update branch settings.",
+  "endpoint": "/projects/{project_id}/branches/{branch_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "branch_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Branch ID."
+    },
+    {
+      "name": "branch",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Fields to update."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123/branches/br-abc123",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "branch": {
+        "name": "renamed"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "branch": {
+        "id": "br-abc123",
+        "name": "renamed"
+      }
+    }
+  }
+}

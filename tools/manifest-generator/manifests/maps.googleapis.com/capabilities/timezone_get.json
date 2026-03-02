@@ -1,0 +1,56 @@
+{
+  "name": "timezone_get",
+  "description": "Get the timezone for a specific location and timestamp. Returns timezone ID, name, and UTC offsets including DST.",
+  "endpoint": "/maps/api/timezone/json",
+  "method": "GET",
+  "resource_group": "timezone",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Latitude,longitude of the location.",
+      "required": true,
+      "example": "39.6034810,-119.6822510"
+    },
+    {
+      "name": "timestamp",
+      "type": "integer",
+      "description": "Unix timestamp to determine DST offset.",
+      "required": true,
+      "example": 1331161200
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for timezone name.",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/timezone/json?location=39.6034810,-119.6822510&timestamp=1331161200&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "dstOffset": 0,
+      "rawOffset": -28800,
+      "status": "OK",
+      "timeZoneId": "America/Los_Angeles",
+      "timeZoneName": "Pacific Standard Time"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

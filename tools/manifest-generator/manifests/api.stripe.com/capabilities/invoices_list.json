@@ -1,0 +1,54 @@
+{
+  "name": "invoices_list",
+  "description": "List invoices with optional customer or status filter.",
+  "endpoint": "/v1/invoices",
+  "method": "GET",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Filter by customer",
+      "required": false,
+      "example": "cus_abc123"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status: draft, open, paid, void, uncollectible",
+      "required": false,
+      "example": "open"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/invoices?customer=cus_abc123&status=open",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "in_abc123",
+          "status": "open",
+          "amount_due": 2000
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

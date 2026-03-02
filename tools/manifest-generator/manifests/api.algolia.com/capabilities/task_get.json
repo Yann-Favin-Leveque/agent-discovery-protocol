@@ -1,0 +1,42 @@
+{
+  "name": "task_get",
+  "description": "Check the status of an asynchronous indexing task by its taskID to determine if it has completed.",
+  "endpoint": "/1/indexes/{indexName}/task/{taskID}",
+  "method": "GET",
+  "resource_group": "tasks",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "taskID",
+      "type": "integer",
+      "description": "The task ID returned by a write operation.",
+      "required": true,
+      "example": 690
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/task/690",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "published",
+      "pendingTask": false
+    }
+  },
+  "auth_scopes": ["addObject"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

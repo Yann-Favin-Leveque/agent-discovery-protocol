@@ -1,0 +1,18 @@
+{
+  "name": "branches_demote",
+  "resource_group": "branches",
+  "description": "Demote a production branch to development status.",
+  "endpoint": "/organizations/{organization}/databases/{database}/branches/{branch}/demote",
+  "method": "POST",
+  "parameters": [
+    {"name": "organization", "type": "string", "required": true, "in": "path", "description": "Organization name slug."},
+    {"name": "database", "type": "string", "required": true, "in": "path", "description": "Database name."},
+    {"name": "branch", "type": "string", "required": true, "in": "path", "description": "Branch name to demote."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/branches/staging/demote",
+    "headers": {"Authorization": "Bearer {access_token}"}
+  },
+  "response_example": {"status": 200, "body": {"id": "br-456", "name": "staging", "production": false}}
+}

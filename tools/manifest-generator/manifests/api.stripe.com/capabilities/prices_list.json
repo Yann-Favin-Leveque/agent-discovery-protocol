@@ -1,0 +1,53 @@
+{
+  "name": "prices_list",
+  "description": "List prices with optional product or type filter.",
+  "endpoint": "/v1/prices",
+  "method": "GET",
+  "resource_group": "prices",
+  "parameters": [
+    {
+      "name": "product",
+      "type": "string",
+      "description": "Filter by product",
+      "required": false,
+      "example": "prod_abc123"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "one_time or recurring",
+      "required": false,
+      "example": "recurring"
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "description": "Filter by active",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/prices?product=prod_abc123&type=recurring",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "price_abc123",
+          "unit_amount": 2000
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

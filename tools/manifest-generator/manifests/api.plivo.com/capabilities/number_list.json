@@ -1,0 +1,71 @@
+{
+  "name": "number_list",
+  "description": "List all rented phone numbers on the account.",
+  "resource_group": "number",
+  "endpoint": "/v1/Account/{auth_id}/Number/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter: local, tollfree, mobile, national.",
+      "required": false,
+      "example": "local"
+    },
+    {
+      "name": "number_startswith",
+      "type": "string",
+      "description": "Filter by number prefix.",
+      "required": false,
+      "example": "1415"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results per page (max 20).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Pagination offset.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Number/?limit=5",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "meta": {
+        "limit": 5,
+        "offset": 0,
+        "total_count": 10
+      },
+      "objects": [
+        {
+          "number": "+14151234567",
+          "type": "local",
+          "country": "US",
+          "sms_enabled": true,
+          "voice_enabled": true
+        }
+      ]
+    }
+  }
+}

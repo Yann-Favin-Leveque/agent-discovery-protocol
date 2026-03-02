@@ -1,0 +1,60 @@
+{
+  "name": "assets_update",
+  "resource_group": "assets",
+  "description": "Update asset metadata (categories, description, custom fields).",
+  "endpoint": "/api/v1/sources/{source_id}/assets/{origin_path}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "source_id",
+      "type": "string",
+      "required": true,
+      "description": "Source ID.",
+      "in": "path"
+    },
+    {
+      "name": "origin_path",
+      "type": "string",
+      "required": true,
+      "description": "Asset origin path.",
+      "in": "path"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "JSON:API asset attributes to update."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.imgix.com/api/v1/sources/source-id/assets/images/photo.jpg",
+    "headers": {
+      "Authorization": "Bearer imgix-api-key",
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "assets",
+        "attributes": {
+          "description": "Product hero image",
+          "categories": [
+            "product"
+          ]
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "images/photo.jpg",
+        "type": "assets",
+        "attributes": {
+          "description": "Product hero image"
+        }
+      }
+    }
+  }
+}

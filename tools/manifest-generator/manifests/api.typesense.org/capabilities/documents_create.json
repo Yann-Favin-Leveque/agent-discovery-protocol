@@ -1,0 +1,55 @@
+{
+  "name": "documents_create",
+  "description": "Index a single document into a collection.",
+  "endpoint": "/collections/{collectionName}/documents",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "collectionName",
+      "type": "string",
+      "description": "Collection to index into",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "description": "Action: create, upsert, or update",
+      "required": false,
+      "example": "create"
+    },
+    {
+      "name": "dirty_values",
+      "type": "string",
+      "description": "How to handle dirty values (reject, drop, coerce_or_reject, coerce_or_drop)",
+      "required": false,
+      "example": "coerce_or_reject"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.typesense.org/collections/products/documents",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "1",
+      "title": "Gaming Laptop",
+      "price": 999.99
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "1",
+      "title": "Gaming Laptop",
+      "price": 999.99
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

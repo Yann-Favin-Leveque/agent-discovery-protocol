@@ -1,0 +1,24 @@
+{
+  "name": "disputes_add_evidence",
+  "description": "Add text or file evidence to a dispute to contest a chargeback.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "disputes",
+  "parameters": [
+    {"name": "disputeId", "type": "string", "description": "ID of the dispute.", "required": true, "example": "ZGlzcHV0ZV8xMjM0NQ"},
+    {"name": "content", "type": "string", "description": "Text evidence content.", "required": true, "example": "Customer received the product on 2024-06-10. Tracking: 1Z999AA10123456784"},
+    {"name": "category", "type": "string", "description": "Evidence category (GENERAL, TRACKING_NUMBER, etc.).", "required": false, "example": "GENERAL"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://payments.braintree-api.com/graphql",
+    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
+    "body": {"query": "mutation AddTextEvidence($input: CreateDisputeTextEvidenceInput!) { createDisputeTextEvidence(input: $input) { evidence { id } } }", "variables": {"input": {"disputeId": "ZGlzcHV0ZV8xMjM0NQ", "content": "Customer received the product on 2024-06-10."}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"createDisputeTextEvidence": {"evidence": {"id": "ZXZpZGVuY2VfMQ"}}}}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 300}
+}

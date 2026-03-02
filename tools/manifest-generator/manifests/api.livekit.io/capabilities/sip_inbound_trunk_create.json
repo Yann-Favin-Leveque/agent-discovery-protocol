@@ -1,0 +1,42 @@
+{
+  "name": "sip_inbound_trunk_create",
+  "description": "Create an inbound SIP trunk for receiving phone calls into LiveKit rooms. Configure phone numbers, IP allowlists, and authentication.",
+  "endpoint": "/twirp/livekit.SIP/CreateSIPInboundTrunk",
+  "method": "POST",
+  "resource_group": "sip",
+  "parameters": [
+    {
+      "name": "trunk",
+      "type": "object",
+      "required": true,
+      "description": "Trunk configuration with 'name', 'numbers' (array of phone numbers), 'allowed_addresses' (IP allowlist), and authentication credentials."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.SIP/CreateSIPInboundTrunk",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "trunk": {
+        "name": "Main Inbound",
+        "numbers": ["+14155550100"],
+        "allowed_addresses": ["203.0.113.0/24"]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sip_trunk_id": "ST_inbound_01",
+      "name": "Main Inbound",
+      "numbers": ["+14155550100"]
+    }
+  },
+  "auth_scopes": ["sipAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

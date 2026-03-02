@@ -1,0 +1,51 @@
+{
+  "name": "storage_objects_delete",
+  "description": "Delete one or more files from a storage bucket.",
+  "endpoint": "/storage/v1/object/{bucket_id}",
+  "method": "DELETE",
+  "resource_group": "storage",
+  "parameters": [
+    {
+      "name": "bucket_id",
+      "type": "string",
+      "description": "Bucket ID",
+      "required": true,
+      "example": "avatars"
+    },
+    {
+      "name": "prefixes",
+      "type": "array",
+      "description": "Array of file paths to delete",
+      "required": true,
+      "example": [
+        "user123/avatar.png"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://{project_ref}.supabase.co/storage/v1/object/avatars",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "prefixes": [
+        "user123/avatar.png"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "name": "user123/avatar.png"
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

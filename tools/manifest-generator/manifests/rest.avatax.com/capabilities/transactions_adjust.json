@@ -1,0 +1,77 @@
+{
+  "name": "transactions_adjust",
+  "description": "Replace a transaction with corrected data.",
+  "endpoint": "/api/v2/companies/{companyCode}/transactions/{transactionCode}/adjust",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "companyCode",
+      "type": "string",
+      "description": "Company code.",
+      "required": true,
+      "example": "DEFAULT"
+    },
+    {
+      "name": "transactionCode",
+      "type": "string",
+      "description": "Transaction code.",
+      "required": true,
+      "example": "txn-001"
+    },
+    {
+      "name": "adjustmentReason",
+      "type": "string",
+      "description": "Reason: NotAdjusted, SourcingIssue, ReconciledWithGeneralLedger, etc.",
+      "required": true
+    },
+    {
+      "name": "adjustmentDescription",
+      "type": "string",
+      "description": "Description of adjustment.",
+      "required": false
+    },
+    {
+      "name": "newTransaction",
+      "type": "object",
+      "description": "Full replacement transaction data.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.avatax.com/api/v2/companies/DEFAULT/transactions/txn-001/adjust",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "adjustmentReason": "SourcingIssue",
+      "adjustmentDescription": "Corrected shipping address",
+      "newTransaction": {
+        "type": "SalesInvoice",
+        "date": "2024-01-15",
+        "customerCode": "CUST-001",
+        "lines": [
+          {
+            "amount": 95.0
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 12346,
+      "code": "txn-001",
+      "status": "Saved",
+      "totalAmount": 95.0,
+      "totalTax": 8.31
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

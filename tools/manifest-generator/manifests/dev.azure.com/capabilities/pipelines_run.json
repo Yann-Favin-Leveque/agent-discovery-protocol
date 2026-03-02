@@ -1,0 +1,77 @@
+{
+  "name": "pipelines_run",
+  "description": "Trigger a pipeline run.",
+  "resource_group": "pipelines",
+  "endpoint": "/{organization}/{project}/_apis/pipelines/{pipelineId}/runs",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project."
+    },
+    {
+      "name": "pipelineId",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "Pipeline ID."
+    },
+    {
+      "name": "resources",
+      "type": "object",
+      "required": false,
+      "description": "Resources with repositories.self.refName for branch."
+    },
+    {
+      "name": "variables",
+      "type": "object",
+      "required": false,
+      "description": "Pipeline variables."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://dev.azure.com/myorg/MyProject/_apis/pipelines/1/runs?api-version=7.1",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic base64(user:pat)"
+    },
+    "body": {
+      "resources": {
+        "repositories": {
+          "self": {
+            "refName": "refs/heads/main"
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 100,
+      "name": "20260301.1",
+      "state": "inProgress",
+      "pipeline": {
+        "id": 1,
+        "name": "CI Pipeline"
+      }
+    }
+  }
+}

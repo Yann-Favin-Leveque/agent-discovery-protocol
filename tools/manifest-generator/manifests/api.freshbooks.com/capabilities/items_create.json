@@ -1,0 +1,25 @@
+{
+  "name": "items_create",
+  "description": "Create a new billable item/service with name, description, and unit cost.",
+  "endpoint": "/accounting/account/{account_id}/items/items",
+  "method": "POST",
+  "resource_group": "items",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
+    {"name": "name", "type": "string", "description": "Item name.", "required": true, "example": "Consulting"},
+    {"name": "description", "type": "string", "description": "Item description.", "required": false, "example": "Hourly consulting services"},
+    {"name": "unit_cost", "type": "object", "description": "Unit cost with currency.", "required": false, "example": {"amount": "150.00", "code": "USD"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/items/items",
+    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha", "Content-Type": "application/json"},
+    "body": {"item": {"name": "Consulting", "description": "Hourly consulting services", "unit_cost": {"amount": "150.00", "code": "USD"}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"response": {"result": {"item": {"id": 556, "name": "Consulting", "unit_cost": {"amount": "150.00", "code": "USD"}}}}}
+  },
+  "auth_scopes": ["user:billable_items:write"],
+  "rate_limits": {"requests_per_minute": 100}
+}

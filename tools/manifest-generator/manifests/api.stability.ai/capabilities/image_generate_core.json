@@ -1,0 +1,22 @@
+{
+  "name": "image_generate_core",
+  "description": "Generate images from text prompts using Stable Image Core for fast, efficient generation with style presets.",
+  "resource_group": "generate",
+  "endpoint": "/v2beta/stable-image/generate/core",
+  "method": "POST",
+  "parameters": [
+    {"name": "prompt", "type": "string", "required": true, "description": "Text description of the desired image."},
+    {"name": "negative_prompt", "type": "string", "required": false, "description": "Text describing what to exclude."},
+    {"name": "aspect_ratio", "type": "string", "required": false, "description": "Aspect ratio (default '1:1')."},
+    {"name": "output_format", "type": "string", "required": false, "description": "Output format: 'png', 'jpeg', 'webp'."},
+    {"name": "style_preset", "type": "string", "required": false, "description": "Style preset to guide generation."},
+    {"name": "seed", "type": "integer", "required": false, "description": "Random seed for reproducibility."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stability.ai/v2beta/stable-image/generate/core",
+    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Accept": "image/*"},
+    "body": "multipart/form-data: prompt='A futuristic cityscape'&aspect_ratio=16:9"
+  },
+  "response_example": {"status": 200, "body": "Binary image content"}
+}

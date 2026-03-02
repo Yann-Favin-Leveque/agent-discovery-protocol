@@ -1,0 +1,37 @@
+{
+  "name": "files_update_acl",
+  "resource_group": "files",
+  "description": "Change file access control between public-read and private.",
+  "endpoint": "/v6/updateACL",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "updates",
+      "type": "array",
+      "required": true,
+      "description": "Array of objects with fileKey (or customId) and acl."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uploadthing.com/v6/updateACL",
+    "headers": {
+      "x-uploadthing-api-key": "sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "updates": [
+        {
+          "fileKey": "abc123-photo.jpg",
+          "acl": "private"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true
+    }
+  }
+}

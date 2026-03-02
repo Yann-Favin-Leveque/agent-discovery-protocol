@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Lecto AI",
-  "description": "Lecto AI is a machine translation API that provides fast, high-quality text translation between 100+ languages. It supports single and batch translation, automatic language detection, and is optimized for low-latency production use cases.",
+  "description": "Lecto AI is a machine translation API providing fast, high-quality text and JSON translation across 90+ languages. Supports automatic language detection, batch text translation, JSON structure-preserving translation with protected keys, and account usage tracking.",
   "base_url": "https://api.lecto.ai",
   "auth": {
     "type": "api_key",
@@ -10,24 +10,34 @@
   },
   "capabilities": [
     {
-      "name": "translate_text",
-      "description": "Translate a single text string from one language to another. Supports 100+ language pairs with automatic source language detection.",
-      "detail_url": "/capabilities/translate_text"
+      "name": "text_translate",
+      "resource_group": "translate",
+      "description": "Translate one or more text strings to one or more target languages with optional source language specification.",
+      "detail_url": "/capabilities/text_translate"
     },
     {
-      "name": "detect_language",
-      "description": "Detect the language of a given text string. Returns the detected language code and confidence score.",
-      "detail_url": "/capabilities/detect_language"
+      "name": "json_translate",
+      "resource_group": "translate",
+      "description": "Translate a JSON payload preserving its structure, with support for protected keys that skip translation.",
+      "detail_url": "/capabilities/json_translate"
     },
     {
-      "name": "list_languages",
-      "description": "List all supported languages and their language codes for use with translation endpoints.",
-      "detail_url": "/capabilities/list_languages"
+      "name": "text_detect",
+      "resource_group": "detect",
+      "description": "Detect the language of one or more text strings.",
+      "detail_url": "/capabilities/text_detect"
     },
     {
-      "name": "translate_batch",
-      "description": "Translate multiple text strings in a single request. All texts are translated to the same target language. More efficient than multiple single translate calls.",
-      "detail_url": "/capabilities/translate_batch"
+      "name": "languages_list",
+      "resource_group": "languages",
+      "description": "List all supported languages with their codes, names, and source/target support flags.",
+      "detail_url": "/capabilities/languages_list"
+    },
+    {
+      "name": "account_info",
+      "resource_group": "account",
+      "description": "Retrieve account information including plan details, usage statistics, and subscription status.",
+      "detail_url": "/capabilities/account_info"
     }
   ]
 }

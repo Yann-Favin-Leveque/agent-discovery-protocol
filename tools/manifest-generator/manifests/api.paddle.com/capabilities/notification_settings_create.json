@@ -1,0 +1,58 @@
+{
+  "name": "notification_settings_create",
+  "description": "Create a notification destination for webhooks.",
+  "resource_group": "notification_settings",
+  "endpoint": "/notification-settings",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description of the endpoint.",
+      "required": true
+    },
+    {
+      "name": "destination",
+      "type": "string",
+      "description": "Webhook URL.",
+      "required": true
+    },
+    {
+      "name": "subscribed_events",
+      "type": "array",
+      "description": "Event types to subscribe to.",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Notification type: url or email.",
+      "required": true,
+      "example": "url"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/notification-settings",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "description": "My webhook",
+      "destination": "https://example.com/webhook",
+      "subscribed_events": [
+        "transaction.completed"
+      ],
+      "type": "url"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "ntfset_01h1vjes1y163xfj1rh1tkfb65"
+      }
+    }
+  }
+}

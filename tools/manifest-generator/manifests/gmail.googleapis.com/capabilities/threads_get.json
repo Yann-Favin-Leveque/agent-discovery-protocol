@@ -1,0 +1,53 @@
+{
+  "name": "threads_get",
+  "description": "Gets the specified thread including all messages in it.",
+  "resource_group": "threads",
+  "endpoint": "/gmail/v1/users/{userId}/threads/{id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID of the thread.",
+      "required": true,
+      "example": "18e2abc123"
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "description": "Format: full, metadata, minimal.",
+      "required": false,
+      "example": "full"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/threads/18e2abc123",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "18e2abc123",
+      "historyId": "12345",
+      "messages": [
+        {
+          "id": "18e2abc123",
+          "snippet": "Hello..."
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.readonly"
+  ]
+}

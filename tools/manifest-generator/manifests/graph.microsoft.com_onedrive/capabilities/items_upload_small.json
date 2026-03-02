@@ -1,0 +1,44 @@
+{
+  "name": "items_upload_small",
+  "description": "Upload a file up to 4 MB using simple upload.",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/items/{parent-id}:/{filename}:/content",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "parent-id",
+      "type": "string",
+      "description": "Parent folder ID.",
+      "required": true
+    },
+    {
+      "name": "filename",
+      "type": "string",
+      "description": "File name.",
+      "required": true
+    },
+    {
+      "name": "Content-Type",
+      "type": "string",
+      "description": "MIME type of the file.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/root:/Documents/file.txt:/content",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "text/plain"
+    },
+    "body": "<file content>"
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "item456",
+      "name": "file.txt",
+      "size": 1234
+    }
+  }
+}

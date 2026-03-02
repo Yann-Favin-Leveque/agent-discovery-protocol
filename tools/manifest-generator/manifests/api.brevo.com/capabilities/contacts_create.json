@@ -1,0 +1,65 @@
+{
+  "name": "contacts_create",
+  "description": "Create a new contact.",
+  "resource_group": "contacts",
+  "endpoint": "/contacts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Contact email.",
+      "required": true,
+      "example": "john@example.com"
+    },
+    {
+      "name": "attributes",
+      "type": "object",
+      "description": "Contact attributes.",
+      "required": false,
+      "example": {
+        "FNAME": "John",
+        "LNAME": "Doe"
+      }
+    },
+    {
+      "name": "listIds",
+      "type": "array",
+      "description": "List IDs to add to.",
+      "required": false,
+      "example": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "updateEnabled",
+      "type": "boolean",
+      "description": "Update if exists.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/contacts",
+    "headers": {
+      "api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "john@example.com",
+      "attributes": {
+        "FNAME": "John"
+      },
+      "listIds": [
+        1
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 12345
+    }
+  }
+}

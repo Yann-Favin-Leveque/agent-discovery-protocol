@@ -1,0 +1,56 @@
+{
+  "name": "mockup_tasks_create",
+  "description": "Create a mockup generation task for product visualization.",
+  "resource_group": "mockups",
+  "endpoint": "/mockup-tasks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "variant_ids",
+      "type": "array",
+      "required": true,
+      "description": "Array of variant IDs for mockup."
+    },
+    {
+      "name": "files",
+      "type": "array",
+      "required": true,
+      "description": "Design files with placement and URL."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "description": "Output format: jpg or png."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.printful.com/mockup-tasks",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "variant_ids": [
+        4011
+      ],
+      "files": [
+        {
+          "placement": "front",
+          "image_url": "https://example.com/design.png"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "result": {
+        "task_key": "task-uuid",
+        "status": "pending"
+      }
+    }
+  }
+}

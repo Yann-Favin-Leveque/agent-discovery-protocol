@@ -1,0 +1,44 @@
+{
+  "name": "contracts_terminate",
+  "resource_group": "Contracts",
+  "endpoint": "/rest/v2/contracts/{contract_id}/terminations",
+  "method": "POST",
+  "description": "Initiate contract termination with compliance handling.",
+  "parameters": [
+    {
+      "name": "contract_id",
+      "type": "string",
+      "required": true,
+      "description": "Contract ID."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Termination details including reason and effective date."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.letsdeel.com/rest/v2/contracts/ct-1/terminations",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "reason": "End of project",
+        "effective_date": "2025-03-31"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "ct-1",
+        "status": "terminated"
+      }
+    }
+  }
+}

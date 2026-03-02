@@ -1,0 +1,77 @@
+{
+  "name": "pull_zones_create",
+  "resource_group": "pull_zones",
+  "description": "Create a new CDN pull zone.",
+  "endpoint": "/pullzone",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "Name",
+      "type": "string",
+      "required": true,
+      "description": "Pull zone name."
+    },
+    {
+      "name": "OriginUrl",
+      "type": "string",
+      "required": true,
+      "description": "Origin server URL."
+    },
+    {
+      "name": "Type",
+      "type": "integer",
+      "required": false,
+      "description": "Zone type: 0=Premium, 1=Volume."
+    },
+    {
+      "name": "StorageZoneId",
+      "type": "integer",
+      "required": false,
+      "description": "Link to a storage zone."
+    },
+    {
+      "name": "EnableGeoZoneUS",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable US zone."
+    },
+    {
+      "name": "EnableGeoZoneEU",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable EU zone."
+    },
+    {
+      "name": "EnableGeoZoneASIA",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable Asia zone."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bunny.net/pullzone",
+    "headers": {
+      "AccessKey": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Name": "my-zone",
+      "OriginUrl": "https://origin.example.com",
+      "Type": 0
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "Id": 12345,
+      "Name": "my-zone",
+      "OriginUrl": "https://origin.example.com",
+      "Hostnames": [
+        {
+          "Value": "my-zone.b-cdn.net"
+        }
+      ]
+    }
+  }
+}

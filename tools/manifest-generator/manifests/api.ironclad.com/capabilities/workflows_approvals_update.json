@@ -1,0 +1,41 @@
+{
+  "name": "workflows_approvals_update",
+  "description": "Approve or reject a workflow.",
+  "resource_group": "workflows",
+  "endpoint": "/public/api/v1/workflows/{workflowId}/approvals",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "workflowId",
+      "type": "string",
+      "description": "Workflow ID.",
+      "required": true,
+      "example": "wf_001"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "approved or rejected.",
+      "required": true,
+      "example": "approved"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.ironclad.com/public/api/v1/workflows/wf_001/approvals",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "approved"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "appr_001",
+      "status": "approved"
+    }
+  }
+}

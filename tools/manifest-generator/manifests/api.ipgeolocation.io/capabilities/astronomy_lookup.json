@@ -1,0 +1,86 @@
+{
+  "name": "astronomy_lookup",
+  "description": "Get sunrise/sunset, moonrise/moonset, moon phase, and solar position for a location and date.",
+  "endpoint": "/v3/astronomy",
+  "method": "GET",
+  "resource_group": "astronomy",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "description": "Your API key.",
+      "required": true,
+      "example": "YOUR_API_KEY"
+    },
+    {
+      "name": "lat",
+      "type": "number",
+      "description": "Latitude.",
+      "required": false,
+      "example": 40.7128
+    },
+    {
+      "name": "long",
+      "type": "number",
+      "description": "Longitude.",
+      "required": false,
+      "example": -74.006
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "description": "City/address string.",
+      "required": false,
+      "example": "New York, US"
+    },
+    {
+      "name": "ip",
+      "type": "string",
+      "description": "IP address for location.",
+      "required": false,
+      "example": "8.8.8.8"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "description": "Date in YYYY-MM-DD format.",
+      "required": false,
+      "example": "2024-06-21"
+    },
+    {
+      "name": "elevation",
+      "type": "number",
+      "description": "Elevation in meters.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ipgeolocation.io/v3/astronomy?apiKey=YOUR_API_KEY&location=New York, US&date=2024-06-21",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "city": "New York",
+        "country": "United States",
+        "latitude": 40.7128,
+        "longitude": -74.006
+      },
+      "astronomy": {
+        "sunrise": "05:25",
+        "sunset": "20:31",
+        "moonrise": "15:42",
+        "moonset": "02:18",
+        "moon_phase": "Full Moon",
+        "sun_altitude": 72.5
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

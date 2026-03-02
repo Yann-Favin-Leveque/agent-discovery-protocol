@@ -1,0 +1,43 @@
+{
+  "name": "deploy_requests_close",
+  "resource_group": "deploy_requests",
+  "description": "Close a deploy request without deploying.",
+  "endpoint": "/organizations/{organization}/databases/{database}/deploy-requests/{number}/close",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "number",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Deploy request number."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/deploy-requests/1/close",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "state": "closed"
+    }
+  }
+}

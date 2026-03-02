@@ -1,0 +1,48 @@
+{
+  "name": "subscriptions_bulk_create",
+  "description": "Create multiple subscriptions in a single bulk request.",
+  "resource_group": "subscriptions",
+  "endpoint": "/v2/publications/{publicationId}/subscriptions/bulk",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "publicationId",
+      "type": "string",
+      "description": "Publication ID.",
+      "required": true
+    },
+    {
+      "name": "subscriptions",
+      "type": "array",
+      "description": "Array of subscription objects.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.beehiiv.com/v2/publications/pub_xxx/subscriptions/bulk",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subscriptions": [
+        {
+          "email": "a@example.com"
+        },
+        {
+          "email": "b@example.com"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "created": 2,
+        "errors": []
+      }
+    }
+  }
+}

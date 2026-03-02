@@ -1,0 +1,72 @@
+{
+  "name": "work_items_create",
+  "description": "Create a new work item using JSON Patch operations.",
+  "resource_group": "work_items",
+  "endpoint": "/{organization}/{project}/_apis/wit/workitems/${type}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Work item type: Bug, Task, User Story, Epic, Feature."
+    },
+    {
+      "name": "body",
+      "type": "array",
+      "required": true,
+      "description": "JSON Patch array."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://dev.azure.com/myorg/MyProject/_apis/wit/workitems/$Bug?api-version=7.1",
+    "headers": {
+      "Content-Type": "application/json-patch+json",
+      "Authorization": "Basic base64(user:pat)"
+    },
+    "body": [
+      {
+        "op": "add",
+        "path": "/fields/System.Title",
+        "value": "Login page crashes"
+      },
+      {
+        "op": "add",
+        "path": "/fields/Microsoft.VSTS.Common.Priority",
+        "value": 1
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 43,
+      "fields": {
+        "System.Title": "Login page crashes",
+        "System.State": "New"
+      }
+    }
+  }
+}

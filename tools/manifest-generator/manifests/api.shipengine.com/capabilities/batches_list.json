@@ -1,0 +1,54 @@
+{
+  "name": "batches_list",
+  "description": "List batches with filters for status and date range.",
+  "endpoint": "/v1/batches",
+  "method": "GET",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status.",
+      "required": false
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.shipengine.com/v1/batches?page_size=25",
+    "headers": {
+      "API-Key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "batches": [
+        {
+          "batch_id": "se-batch-123",
+          "status": "completed",
+          "count": 50
+        }
+      ],
+      "total": 5,
+      "page": 1
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

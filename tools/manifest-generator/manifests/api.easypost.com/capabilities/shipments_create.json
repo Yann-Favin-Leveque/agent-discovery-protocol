@@ -1,0 +1,102 @@
+{
+  "name": "shipments_create",
+  "description": "Create a shipment with addresses and parcel, automatically generating rates.",
+  "endpoint": "/v2/shipments",
+  "method": "POST",
+  "resource_group": "shipments",
+  "parameters": [
+    {
+      "name": "to_address",
+      "type": "object",
+      "description": "Destination address object.",
+      "required": true
+    },
+    {
+      "name": "from_address",
+      "type": "object",
+      "description": "Origin address object.",
+      "required": true
+    },
+    {
+      "name": "parcel",
+      "type": "object",
+      "description": "Parcel with dimensions and weight.",
+      "required": true
+    },
+    {
+      "name": "customs_info",
+      "type": "object",
+      "description": "Customs info for international shipments.",
+      "required": false
+    },
+    {
+      "name": "carrier_accounts",
+      "type": "array",
+      "description": "Carrier account IDs to rate against.",
+      "required": false
+    },
+    {
+      "name": "reference",
+      "type": "string",
+      "description": "External reference string.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/shipments",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "shipment": {
+        "to_address": {
+          "street1": "417 Montgomery St",
+          "city": "San Francisco",
+          "state": "CA",
+          "zip": "94104",
+          "country": "US"
+        },
+        "from_address": {
+          "street1": "388 Townsend St",
+          "city": "San Francisco",
+          "state": "CA",
+          "zip": "94107",
+          "country": "US"
+        },
+        "parcel": {
+          "length": 10,
+          "width": 8,
+          "height": 4,
+          "weight": 24
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "shp_abc123",
+      "object": "Shipment",
+      "to_address": {
+        "id": "adr_abc"
+      },
+      "from_address": {
+        "id": "adr_def"
+      },
+      "rates": [
+        {
+          "id": "rate_abc123",
+          "carrier": "USPS",
+          "service": "Priority",
+          "rate": "7.58"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "login_two_factor",
+  "resource_group": "login",
+  "description": "Complete a two-factor authentication login by providing the MFA code.",
+  "endpoint": "/api/two-factor/login",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "twoFactorId",
+      "type": "string",
+      "required": true,
+      "description": "Two-factor ID from initial login response."
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "MFA code from authenticator app or SMS."
+    },
+    {
+      "name": "trustComputer",
+      "type": "boolean",
+      "required": false,
+      "description": "Trust this device for future logins."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/two-factor/login",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "twoFactorId": "2fa-id",
+      "code": "123456",
+      "trustComputer": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "token": "eyJhbGciOi...",
+      "refreshToken": "refresh-token",
+      "user": {
+        "id": "user-uuid"
+      }
+    }
+  }
+}

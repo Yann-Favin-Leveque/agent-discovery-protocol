@@ -1,0 +1,49 @@
+{
+  "name": "instructors_get",
+  "description": "Retrieve detailed profile information for a specific instructor by their ID.",
+  "endpoint": "/api/instructors.v1/{id}",
+  "method": "GET",
+  "resource_group": "instructors",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The unique instructor identifier.",
+      "required": true,
+      "example": "andrewng"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to include.",
+      "required": false,
+      "example": "firstName,lastName,title,department,photo,bio"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/instructors.v1/andrewng?fields=firstName,lastName,title,department,photo,bio",
+    "headers": {},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "andrewng",
+          "firstName": "Andrew",
+          "lastName": "Ng",
+          "title": "Adjunct Professor",
+          "department": "Computer Science",
+          "photo": "https://coursera-instructor-photos.s3.amazonaws.com/andrewng.jpg",
+          "bio": "Andrew Ng is a globally recognized leader in AI..."
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

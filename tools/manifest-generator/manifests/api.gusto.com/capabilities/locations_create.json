@@ -1,0 +1,19 @@
+{
+  "name": "locations_create",
+  "description": "Add a new location (office/work site) to a company.",
+  "endpoint": "/v1/companies/{company_id}/locations",
+  "method": "POST",
+  "resource_group": "locations",
+  "parameters": [
+    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
+    {"name": "street_1", "type": "string", "description": "Street address.", "required": true, "example": "456 Oak Ave"},
+    {"name": "city", "type": "string", "description": "City.", "required": true, "example": "New York"},
+    {"name": "state", "type": "string", "description": "State code.", "required": true, "example": "NY"},
+    {"name": "zip", "type": "string", "description": "ZIP code.", "required": true, "example": "10001"},
+    {"name": "country", "type": "string", "description": "Country code.", "required": false, "example": "US"}
+  ],
+  "request_example": {"method": "POST", "url": "https://api.gusto.com/v1/companies/7757616923531542/locations", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"street_1": "456 Oak Ave", "city": "New York", "state": "NY", "zip": "10001"}},
+  "response_example": {"status": 201, "body": {"id": 2, "street_1": "456 Oak Ave", "city": "New York", "state": "NY"}},
+  "auth_scopes": ["companies:write"],
+  "rate_limits": {"requests_per_minute": 60}
+}

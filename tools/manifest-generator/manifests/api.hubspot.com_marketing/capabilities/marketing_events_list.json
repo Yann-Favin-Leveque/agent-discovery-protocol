@@ -1,0 +1,52 @@
+{
+  "name": "marketing_events_list",
+  "description": "Retrieve all marketing events in your HubSpot account with pagination.",
+  "endpoint": "/marketing/v3/marketing-events/events",
+  "method": "GET",
+  "resource_group": "marketing_events",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of events to return (default 10, max 100).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Cursor token for pagination.",
+      "required": false,
+      "example": "NTI1Cg%3D%3D"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hubspot.com/marketing/v3/marketing-events/events?limit=20",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "id": "12345",
+          "eventName": "Product Launch Webinar 2024",
+          "eventType": "WEBINAR",
+          "startDateTime": "2024-03-15T14:00:00Z",
+          "endDateTime": "2024-03-15T15:30:00Z",
+          "eventOrganizer": "Marketing Team"
+        }
+      ],
+      "paging": {
+        "next": { "after": "NTI1Cg%3D%3D" }
+      }
+    }
+  },
+  "auth_scopes": ["marketing-events"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

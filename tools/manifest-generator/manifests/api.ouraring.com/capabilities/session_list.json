@@ -1,0 +1,55 @@
+{
+  "name": "session_list",
+  "description": "Retrieve rest and relaxation sessions such as meditation, breathing exercises, and naps.",
+  "resource_group": "session",
+  "endpoint": "/v2/usercollection/session",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "session"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/session?start_date=2025-01-10&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "ses-123",
+          "day": "2025-01-15",
+          "start_datetime": "2025-01-15T12:00:00+00:00",
+          "end_datetime": "2025-01-15T12:15:00+00:00",
+          "type": "meditation",
+          "mood": "good"
+        }
+      ]
+    }
+  }
+}

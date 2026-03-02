@@ -1,0 +1,23 @@
+{
+  "name": "tickets_get",
+  "description": "Retrieve a specific ticket by ID with all its details including custom fields and conversations.",
+  "endpoint": "/api/v2/tickets/{id}",
+  "method": "GET",
+  "resource_group": "tickets",
+  "parameters": [
+    {"name": "id", "type": "integer", "description": "The ticket ID.", "required": true, "example": 1},
+    {"name": "include", "type": "string", "description": "Include related data (conversations, requester, company, stats).", "required": false, "example": "conversations"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://yourdomain.freshdesk.com/api/v2/tickets/1?include=conversations",
+    "headers": {"Authorization": "Basic base64(api_key:X)"},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": 1, "subject": "Login issue", "description_text": "Cannot log into my account", "status": 2, "priority": 2, "requester_id": 12345, "type": "Problem", "source": 1, "tags": ["login", "urgent"]}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 80}
+}

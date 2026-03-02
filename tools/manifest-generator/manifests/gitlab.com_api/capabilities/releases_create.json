@@ -1,0 +1,68 @@
+{
+  "name": "releases_create",
+  "description": "Create a new release for a project.",
+  "resource_group": "releases",
+  "endpoint": "/projects/{id}/releases",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "tag_name",
+      "type": "string",
+      "required": true,
+      "description": "Tag for the release."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Release title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Release notes (Markdown)."
+    },
+    {
+      "name": "ref",
+      "type": "string",
+      "required": false,
+      "description": "Branch or SHA to create tag from (if tag doesn't exist)."
+    },
+    {
+      "name": "released_at",
+      "type": "string",
+      "required": false,
+      "description": "Release date (ISO 8601)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/123/releases",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    },
+    "body": {
+      "tag_name": "v2.1.0",
+      "name": "v2.1.0",
+      "description": "## Bug Fixes\n- Fixed contrast issue",
+      "ref": "main"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "tag_name": "v2.1.0",
+      "name": "v2.1.0",
+      "description": "## Bug Fixes\n- Fixed contrast issue"
+    }
+  }
+}

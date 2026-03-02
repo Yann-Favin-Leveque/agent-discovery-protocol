@@ -1,0 +1,24 @@
+{
+  "name": "messages_send",
+  "description": "Send instant messages to one or more users within Moodle.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_message_send_instant_messages",
+  "method": "POST",
+  "resource_group": "messages",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "messages[0][touserid]", "type": "integer", "description": "Recipient user ID", "required": true, "example": 42 },
+    { "name": "messages[0][text]", "type": "string", "description": "Message text content", "required": true, "example": "Please submit your assignment by Friday." }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_message_send_instant_messages&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "messages[0][touserid]": 42, "messages[0][text]": "Please submit your assignment by Friday." }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{ "msgid": 100, "text": "Please submit your assignment by Friday.", "timecreated": 1706745600 }]
+  },
+  "auth_scopes": ["core_message_send_instant_messages"],
+  "rate_limits": { "requests_per_minute": 30 }
+}

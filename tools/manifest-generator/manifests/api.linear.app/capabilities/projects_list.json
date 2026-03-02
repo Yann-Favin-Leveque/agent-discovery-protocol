@@ -1,0 +1,32 @@
+{
+  "name": "projects_list",
+  "description": "List all projects.",
+  "resource_group": "projects",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "first",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Number of results"
+    },
+    {
+      "name": "filter",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Filter by state, team, etc."
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "{ projects(first: 50) { nodes { id name description state lead { name } teams { nodes { name } } startDate targetDate progress } } }"
+  }
+}

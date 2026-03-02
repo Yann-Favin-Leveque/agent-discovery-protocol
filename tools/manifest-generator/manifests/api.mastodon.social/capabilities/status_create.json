@@ -1,0 +1,112 @@
+{
+  "name": "status_create",
+  "resource_group": "statuses",
+  "description": "Publish a new status (toot) with text content, optional media attachments, content warnings, and visibility settings.",
+  "endpoint": "/api/v1/statuses",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Text content of the status.",
+      "required": false,
+      "in": "body",
+      "example": "Hello Mastodon!"
+    },
+    {
+      "name": "media_ids",
+      "type": "array",
+      "description": "Array of media attachment IDs.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "in_reply_to_id",
+      "type": "string",
+      "description": "ID of status being replied to.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "sensitive",
+      "type": "boolean",
+      "description": "Mark as sensitive content.",
+      "required": false,
+      "in": "body",
+      "example": false
+    },
+    {
+      "name": "spoiler_text",
+      "type": "string",
+      "description": "Content warning text.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "description": "public, unlisted, private, or direct.",
+      "required": false,
+      "in": "body",
+      "example": "public"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "ISO 639-1 language code.",
+      "required": false,
+      "in": "body",
+      "example": "en"
+    },
+    {
+      "name": "scheduled_at",
+      "type": "string",
+      "description": "Schedule publication time (ISO 8601).",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "poll[options][]",
+      "type": "array",
+      "description": "Poll answer options.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "poll[expires_in]",
+      "type": "integer",
+      "description": "Poll duration in seconds.",
+      "required": false,
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mastodon.social/api/v1/statuses",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "Hello Mastodon!",
+      "visibility": "public"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "109876543210",
+      "content": "<p>Hello Mastodon!</p>",
+      "account": {
+        "username": "myuser"
+      },
+      "created_at": "2024-03-01T15:30:00.000Z",
+      "visibility": "public",
+      "reblogs_count": 0,
+      "favourites_count": 0
+    }
+  },
+  "auth_scopes": [
+    "write:statuses"
+  ]
+}

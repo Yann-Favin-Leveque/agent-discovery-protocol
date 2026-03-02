@@ -1,0 +1,125 @@
+{
+  "name": "matrix_post",
+  "description": "Calculate a distance and/or duration matrix between multiple origin and destination points.",
+  "endpoint": "/v2/matrix/{profile}",
+  "method": "POST",
+  "resource_group": "matrix",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile",
+      "required": true,
+      "example": "driving-car"
+    },
+    {
+      "name": "locations",
+      "type": "array",
+      "description": "Array of [longitude, latitude] coordinate pairs",
+      "required": true,
+      "example": [
+        [
+          8.681495,
+          49.41461
+        ],
+        [
+          8.687872,
+          49.420318
+        ],
+        [
+          8.69,
+          49.415
+        ]
+      ]
+    },
+    {
+      "name": "sources",
+      "type": "array",
+      "description": "Indices of source locations (default: all)",
+      "required": false,
+      "example": [
+        0
+      ]
+    },
+    {
+      "name": "destinations",
+      "type": "array",
+      "description": "Indices of destination locations (default: all)",
+      "required": false,
+      "example": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "metrics",
+      "type": "array",
+      "description": "Metrics to compute: distance, duration",
+      "required": false,
+      "example": [
+        "distance",
+        "duration"
+      ]
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Distance units: m, km, mi",
+      "required": false,
+      "example": "km"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/v2/matrix/{profile}",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "locations": [
+        [
+          8.681495,
+          49.41461
+        ],
+        [
+          8.687872,
+          49.420318
+        ]
+      ],
+      "metrics": [
+        "distance",
+        "duration"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "durations": [
+        [
+          0,
+          274.1
+        ],
+        [
+          275.3,
+          0
+        ]
+      ],
+      "distances": [
+        [
+          0,
+          1.548
+        ],
+        [
+          1.552,
+          0
+        ]
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "leads_create",
+  "description": "Create a new lead.",
+  "resource_group": "leads",
+  "endpoint": "/lead/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Company/lead name."
+    },
+    {
+      "name": "contacts",
+      "type": "array",
+      "required": false,
+      "description": "Array of contact objects."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Lead status label."
+    },
+    {
+      "name": "custom",
+      "type": "object",
+      "required": false,
+      "description": "Custom fields (custom.field_id: value)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.close.com/api/v1/lead/",
+    "body": {
+      "name": "New Corp",
+      "contacts": [
+        {
+          "name": "John Smith",
+          "emails": [
+            {
+              "email": "john@newcorp.com",
+              "type": "office"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "id": "lead_new",
+    "display_name": "New Corp"
+  }
+}

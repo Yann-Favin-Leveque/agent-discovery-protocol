@@ -1,0 +1,62 @@
+{
+  "name": "sessions_authenticate",
+  "resource_group": "sessions",
+  "description": "Authenticate and optionally extend a session using a session token or JWT.",
+  "endpoint": "/v1/sessions/authenticate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "session_token",
+      "type": "string",
+      "required": false,
+      "description": "Session token."
+    },
+    {
+      "name": "session_jwt",
+      "type": "string",
+      "required": false,
+      "description": "Session JWT."
+    },
+    {
+      "name": "session_duration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Extend session by this duration."
+    },
+    {
+      "name": "session_custom_claims",
+      "type": "object",
+      "required": false,
+      "description": "Custom claims."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/sessions/authenticate",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "session_token": "sess-token-xyz",
+      "session_duration_minutes": 60
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "session": {
+        "session_id": "sess-abc",
+        "user_id": "user-live-abc",
+        "started_at": "2024-01-15T10:30:00Z",
+        "expires_at": "2024-01-15T11:30:00Z"
+      },
+      "session_token": "sess-token-xyz",
+      "session_jwt": "eyJhbGciOi...",
+      "user": {
+        "user_id": "user-live-abc"
+      }
+    }
+  }
+}

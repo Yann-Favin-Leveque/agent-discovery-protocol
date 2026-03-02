@@ -1,0 +1,73 @@
+{
+  "name": "pull_requests_list",
+  "description": "List pull requests in a repository.",
+  "resource_group": "pull_requests",
+  "endpoint": "/{organization}/{project}/_apis/git/repositories/{repositoryId}/pullrequests",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project."
+    },
+    {
+      "name": "repositoryId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository ID or name."
+    },
+    {
+      "name": "searchCriteria.status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: active, abandoned, completed, all."
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://dev.azure.com/myorg/MyProject/_apis/git/repositories/MyProject/pullrequests?searchCriteria.status=active&api-version=7.1",
+    "headers": {
+      "Authorization": "Basic base64(user:pat)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "pullRequestId": 101,
+          "title": "Add dark mode",
+          "status": "active",
+          "sourceRefName": "refs/heads/feature/dark-mode",
+          "targetRefName": "refs/heads/main",
+          "createdBy": {
+            "displayName": "Jane Doe"
+          }
+        }
+      ],
+      "count": 1
+    }
+  }
+}

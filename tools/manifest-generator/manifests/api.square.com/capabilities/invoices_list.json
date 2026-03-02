@@ -1,0 +1,56 @@
+{
+  "name": "invoices_list",
+  "description": "List invoices for a location.",
+  "endpoint": "/v2/invoices",
+  "method": "GET",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "location_id",
+      "type": "string",
+      "description": "Location ID (required)",
+      "required": true,
+      "example": "LOCATION_ID"
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://connect.squareup.com/v2/invoices?location_id=LOCATION_ID",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "invoices": [
+        {
+          "id": "inv_abc",
+          "status": "DRAFT"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

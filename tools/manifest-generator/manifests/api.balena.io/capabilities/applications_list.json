@@ -1,0 +1,40 @@
+{
+  "name": "applications_list",
+  "description": "List all applications (fleets).",
+  "resource_group": "applications",
+  "endpoint": "/v7/application",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter.",
+      "required": false
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Fields to return.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.balena-cloud.com/v7/application?$select=id,app_name,slug",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "d": [
+        {
+          "id": 1,
+          "app_name": "my-fleet",
+          "slug": "user/my-fleet"
+        }
+      ]
+    }
+  }
+}

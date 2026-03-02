@@ -1,0 +1,47 @@
+{
+  "name": "meetings_polls_list",
+  "description": "List all polls configured for a meeting. Returns poll titles, questions, and status.",
+  "endpoint": "/meetings/{meetingId}/polls",
+  "method": "GET",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "integer",
+      "description": "The meeting ID.",
+      "required": true,
+      "example": 1234567890
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/meetings/1234567890/polls",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total_records": 1,
+      "polls": [
+        {
+          "id": "poll123",
+          "title": "Team Preferences",
+          "status": "notstart",
+          "questions": [
+            {
+              "name": "Preferred meeting time?",
+              "type": "single",
+              "answers": ["Morning", "Afternoon"]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["meeting:read"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

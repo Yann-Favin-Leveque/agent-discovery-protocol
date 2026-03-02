@@ -1,0 +1,100 @@
+{
+  "name": "schedule_entries_create",
+  "resource_group": "schedule_entries",
+  "description": "Create a new schedule entry in a project schedule.",
+  "endpoint": "/{account_id}/buckets/{project_id}/schedules/{schedule_id}/entries.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Account ID",
+      "example": 9999999
+    },
+    {
+      "name": "project_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Project ID",
+      "example": 2085958499
+    },
+    {
+      "name": "schedule_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Schedule ID",
+      "example": 8888888
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "required": true,
+      "description": "Entry title",
+      "example": "Team retrospective"
+    },
+    {
+      "name": "starts_at",
+      "type": "string",
+      "required": true,
+      "description": "Start datetime",
+      "example": "2025-03-20T15:00:00Z"
+    },
+    {
+      "name": "ends_at",
+      "type": "string",
+      "required": true,
+      "description": "End datetime",
+      "example": "2025-03-20T16:00:00Z"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "HTML description",
+      "example": "<p>Monthly retro</p>"
+    },
+    {
+      "name": "participant_ids",
+      "type": "array",
+      "required": false,
+      "description": "Person IDs to invite",
+      "example": [
+        1049715914
+      ]
+    },
+    {
+      "name": "all_day",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether this is an all-day event",
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://3.basecampapi.com/9999999/buckets/2085958499/schedules/8888888/entries.json",
+    "headers": {
+      "Authorization": "Bearer BC3_TOKEN",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApp (user@example.com)"
+    },
+    "body": {
+      "summary": "Team retrospective",
+      "starts_at": "2025-03-20T15:00:00Z",
+      "ends_at": "2025-03-20T16:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1069479601,
+      "summary": "Team retrospective",
+      "starts_at": "2025-03-20T15:00:00Z",
+      "ends_at": "2025-03-20T16:00:00Z"
+    }
+  }
+}

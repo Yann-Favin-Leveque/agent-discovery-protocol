@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "OpenAI",
-  "description": "OpenAI provides large language models (GPT-4o, GPT-4, GPT-3.5), text embeddings, image generation (DALL-E 3), audio transcription and synthesis (Whisper, TTS), and content moderation. Build AI-powered applications with chat completions, semantic search, image creation, and speech processing.",
+  "description": "OpenAI provides large language models (GPT-4o, GPT-4, GPT-3.5), text embeddings, image generation (DALL-E 3), video generation (Sora), audio transcription, translation and speech synthesis (Whisper, TTS), content moderation, fine-tuning, batch processing, and file management through a comprehensive REST API.",
   "base_url": "https://api.openai.com",
   "auth": {
     "type": "api_key",
@@ -11,44 +11,142 @@
   },
   "capabilities": [
     {
-      "name": "create_chat_completion",
-      "description": "Generate a chat completion from a conversation of messages. Supports system, user, and assistant roles, tool use, JSON mode, and configurable sampling parameters.",
-      "detail_url": "/capabilities/create_chat_completion"
+      "name": "chat_completion_create",
+      "description": "Generate a chat completion from a conversation of messages. Supports system, user, and assistant roles, tool use, JSON mode, vision, and streaming.",
+      "resource_group": "chat",
+      "detail_url": "/capabilities/chat_completion_create"
     },
     {
-      "name": "create_embedding",
+      "name": "embedding_create",
       "description": "Generate vector embeddings for text input, useful for semantic search, clustering, and similarity comparisons.",
-      "detail_url": "/capabilities/create_embedding"
+      "resource_group": "embeddings",
+      "detail_url": "/capabilities/embedding_create"
     },
     {
-      "name": "generate_image",
+      "name": "image_generate",
       "description": "Generate images from text prompts using DALL-E 3. Supports multiple sizes, styles, and quality settings.",
-      "detail_url": "/capabilities/generate_image"
+      "resource_group": "images",
+      "detail_url": "/capabilities/image_generate"
     },
     {
-      "name": "create_transcription",
+      "name": "image_edit",
+      "description": "Edit an existing image by providing a prompt describing the desired changes, with optional mask for targeted editing.",
+      "resource_group": "images",
+      "detail_url": "/capabilities/image_edit"
+    },
+    {
+      "name": "audio_transcription_create",
       "description": "Transcribe audio files to text using the Whisper model. Supports multiple languages and output formats.",
-      "detail_url": "/capabilities/create_transcription"
+      "resource_group": "audio",
+      "detail_url": "/capabilities/audio_transcription_create"
     },
     {
-      "name": "list_models",
-      "description": "List all available models including their IDs, ownership, and permissions.",
-      "detail_url": "/capabilities/list_models"
+      "name": "audio_translation_create",
+      "description": "Translate audio from any supported language into English text using the Whisper model.",
+      "resource_group": "audio",
+      "detail_url": "/capabilities/audio_translation_create"
     },
     {
-      "name": "create_moderation",
-      "description": "Check text content against OpenAI's content policy to detect harmful or unsafe content across multiple categories.",
-      "detail_url": "/capabilities/create_moderation"
-    },
-    {
-      "name": "create_text_to_speech",
+      "name": "audio_speech_create",
       "description": "Convert text to natural-sounding speech audio using TTS models. Supports multiple voices and output formats.",
-      "detail_url": "/capabilities/create_text_to_speech"
+      "resource_group": "audio",
+      "detail_url": "/capabilities/audio_speech_create"
     },
     {
-      "name": "list_files",
+      "name": "moderation_create",
+      "description": "Check text content against OpenAI's content policy to detect harmful or unsafe content across multiple categories.",
+      "resource_group": "moderations",
+      "detail_url": "/capabilities/moderation_create"
+    },
+    {
+      "name": "models_list",
+      "description": "List all available models including their IDs, ownership, and permissions.",
+      "resource_group": "models",
+      "detail_url": "/capabilities/models_list"
+    },
+    {
+      "name": "model_get",
+      "description": "Retrieve details about a specific model by its ID.",
+      "resource_group": "models",
+      "detail_url": "/capabilities/model_get"
+    },
+    {
+      "name": "files_list",
       "description": "List all files uploaded to the OpenAI platform, including their purpose, size, and creation date.",
-      "detail_url": "/capabilities/list_files"
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_list"
+    },
+    {
+      "name": "file_upload",
+      "description": "Upload a file for use with fine-tuning, batch processing, or assistants.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/file_upload"
+    },
+    {
+      "name": "file_get",
+      "description": "Retrieve metadata about a specific uploaded file by its ID.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/file_get"
+    },
+    {
+      "name": "file_delete",
+      "description": "Delete an uploaded file by its ID.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/file_delete"
+    },
+    {
+      "name": "file_content_get",
+      "description": "Retrieve the contents of an uploaded file.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/file_content_get"
+    },
+    {
+      "name": "fine_tuning_job_create",
+      "description": "Create a fine-tuning job to customize a model with your training data.",
+      "resource_group": "fine_tuning",
+      "detail_url": "/capabilities/fine_tuning_job_create"
+    },
+    {
+      "name": "fine_tuning_jobs_list",
+      "description": "List all fine-tuning jobs in your organization.",
+      "resource_group": "fine_tuning",
+      "detail_url": "/capabilities/fine_tuning_jobs_list"
+    },
+    {
+      "name": "fine_tuning_job_get",
+      "description": "Retrieve the status and details of a specific fine-tuning job.",
+      "resource_group": "fine_tuning",
+      "detail_url": "/capabilities/fine_tuning_job_get"
+    },
+    {
+      "name": "fine_tuning_job_cancel",
+      "description": "Cancel an in-progress fine-tuning job.",
+      "resource_group": "fine_tuning",
+      "detail_url": "/capabilities/fine_tuning_job_cancel"
+    },
+    {
+      "name": "batch_create",
+      "description": "Create a batch job to process multiple API requests asynchronously at reduced cost.",
+      "resource_group": "batches",
+      "detail_url": "/capabilities/batch_create"
+    },
+    {
+      "name": "batches_list",
+      "description": "List all batch jobs in your organization.",
+      "resource_group": "batches",
+      "detail_url": "/capabilities/batches_list"
+    },
+    {
+      "name": "batch_get",
+      "description": "Retrieve the status and details of a specific batch job.",
+      "resource_group": "batches",
+      "detail_url": "/capabilities/batch_get"
+    },
+    {
+      "name": "batch_cancel",
+      "description": "Cancel an in-progress batch job.",
+      "resource_group": "batches",
+      "detail_url": "/capabilities/batch_cancel"
     }
   ]
 }

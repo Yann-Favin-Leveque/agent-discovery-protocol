@@ -1,0 +1,48 @@
+{
+  "name": "project_translation_memories_update",
+  "description": "Set or update translation memories for a project with match thresholds and write permissions.",
+  "resource_group": "translation_memories",
+  "endpoint": "/api/integration/v1/project/{project_id}/translationmemories",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique project ID."
+    },
+    {
+      "name": "translationMemories",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of TM objects with id, matchThreshold (integer), and isWritable (boolean)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://smartcat.com/api/integration/v1/project/project-uuid-123/translationmemories",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "id": "tm-uuid-123",
+        "matchThreshold": 75,
+        "isWritable": true
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "tm-uuid-123",
+        "matchThreshold": 75,
+        "isWritable": true
+      }
+    ]
+  }
+}

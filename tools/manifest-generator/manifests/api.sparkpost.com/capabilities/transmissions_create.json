@@ -1,0 +1,89 @@
+{
+  "name": "transmissions_create",
+  "description": "Send an email to one or more recipients using inline content or a stored template.",
+  "endpoint": "/api/v1/transmissions",
+  "method": "POST",
+  "resource_group": "transmissions",
+  "parameters": [
+    {
+      "name": "recipients",
+      "type": "array",
+      "description": "Array of recipient objects with address info",
+      "required": true,
+      "example": [
+        {
+          "address": {
+            "email": "recipient@example.com",
+            "name": "John"
+          }
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "description": "Email content (inline HTML/text or template reference)",
+      "required": true,
+      "example": {
+        "from": "sender@example.com",
+        "subject": "Hello",
+        "html": "<p>Hi!</p>"
+      }
+    },
+    {
+      "name": "substitution_data",
+      "type": "object",
+      "description": "Global substitution variables for personalization",
+      "required": false,
+      "example": {
+        "company": "Acme"
+      }
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "description": "Transmission options (open/click tracking, sandbox)",
+      "required": false,
+      "example": {
+        "open_tracking": true,
+        "click_tracking": true
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/transmissions",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipients": [
+        {
+          "address": "recipient@example.com"
+        }
+      ],
+      "content": {
+        "from": "sender@example.com",
+        "subject": "Hello",
+        "html": "<p>Hi!</p>"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "total_rejected_recipients": 0,
+        "total_accepted_recipients": 1,
+        "id": "11668787484950529"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

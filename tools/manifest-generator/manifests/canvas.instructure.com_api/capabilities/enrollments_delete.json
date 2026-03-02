@@ -1,0 +1,46 @@
+{
+  "name": "enrollments_delete",
+  "description": "Conclude, deactivate, or delete an enrollment.",
+  "resource_group": "enrollments",
+  "endpoint": "/api/v1/courses/{course_id}/enrollments/{enrollment_id}",
+  "method": "DELETE",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "enrollment_id",
+      "type": "integer",
+      "description": "Enrollment ID.",
+      "required": true,
+      "example": 4001
+    },
+    {
+      "name": "task",
+      "type": "string",
+      "description": "conclude, delete, or deactivate.",
+      "required": true,
+      "example": "conclude"
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/enrollments/4001?task=conclude",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "enrollment": {
+        "id": 4001,
+        "enrollment_state": "completed"
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "backups_list",
+  "resource_group": "backups",
+  "description": "List all backups for a database branch.",
+  "endpoint": "/organizations/{organization}/databases/{database}/branches/{branch}/backups",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "branch",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Branch name."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/branches/main/backups",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "bk-123",
+          "state": "complete",
+          "size": 1048576,
+          "created_at": "2024-01-15T00:00:00Z"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "billing_list_charges",
+  "description": "List billing charges for the account.",
+  "resource_group": "billing",
+  "endpoint": "/{account}/billing/charges",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date ISO 8601."
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date ISO 8601."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.dnsimple.com/v2/1010/billing/charges",
+    "headers": {
+      "Authorization": "Bearer <token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "invoiced_at": "2024-01-15T00:00:00Z",
+          "total_amount": "14.00",
+          "state": "collected",
+          "items": [
+            {
+              "description": "example.com registration",
+              "amount": "14.00"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

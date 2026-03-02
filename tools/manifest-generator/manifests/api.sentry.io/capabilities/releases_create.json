@@ -1,0 +1,48 @@
+{
+  "name": "releases_create",
+  "description": "Create a release.",
+  "resource_group": "releases",
+  "endpoint": "/organizations/{organization_slug}/releases/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization_slug",
+      "type": "string",
+      "required": true,
+      "description": "Org slug."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "Version."
+    },
+    {
+      "name": "projects",
+      "type": "array",
+      "required": true,
+      "description": "Project slugs."
+    },
+    {
+      "name": "ref",
+      "type": "string",
+      "required": false,
+      "description": "Git commit ref."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://sentry.io/api/0/organizations/my-org/releases/",
+    "body": {
+      "version": "1.1.0",
+      "projects": [
+        "my-project"
+      ],
+      "ref": "abc123"
+    }
+  },
+  "response_example": {
+    "version": "1.1.0",
+    "dateCreated": "2026-01-20T14:00:00Z"
+  }
+}

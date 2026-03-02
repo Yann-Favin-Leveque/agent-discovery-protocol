@@ -1,0 +1,43 @@
+{
+  "name": "calendar_events_update",
+  "description": "Update a calendar event.",
+  "resource_group": "calendar_events",
+  "endpoint": "/api/v1/calendar_events/{event_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "event_id",
+      "type": "integer",
+      "description": "Event ID.",
+      "required": true,
+      "example": 12001
+    },
+    {
+      "name": "calendar_event[title]",
+      "type": "string",
+      "description": "Updated title.",
+      "required": false,
+      "example": "Midterm Exam"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://canvas.instructure.com/api/v1/calendar_events/12001",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "calendar_event": {
+        "title": "Midterm Exam"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 12001,
+      "title": "Midterm Exam"
+    }
+  }
+}

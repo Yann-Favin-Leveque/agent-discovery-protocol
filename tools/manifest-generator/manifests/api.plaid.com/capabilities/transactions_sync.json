@@ -1,0 +1,63 @@
+{
+  "name": "transactions_sync",
+  "description": "Get incremental transaction updates using a cursor.",
+  "resource_group": "transactions",
+  "endpoint": "/transactions/sync",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token."
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "required": false,
+      "description": "Cursor from previous call. Empty for initial."
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Max transactions. Default: 100."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/transactions/sync",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc",
+      "cursor": "",
+      "count": 100
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "added": [
+        {
+          "transaction_id": "tx_abc",
+          "amount": 50.0,
+          "date": "2024-08-15",
+          "name": "Amazon",
+          "merchant_name": "Amazon",
+          "category": [
+            "Shopping"
+          ]
+        }
+      ],
+      "modified": [],
+      "removed": [],
+      "next_cursor": "cursor_abc",
+      "has_more": false,
+      "request_id": "abc"
+    }
+  }
+}

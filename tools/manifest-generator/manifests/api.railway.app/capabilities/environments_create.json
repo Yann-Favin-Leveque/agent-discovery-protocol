@@ -1,0 +1,42 @@
+{
+  "name": "environments_create",
+  "description": "Create a new environment.",
+  "resource_group": "environments",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "description": "Project ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($input: EnvironmentCreateInput!) { environmentCreate(input: $input) { id name } }",
+      "variables": {
+        "input": {
+          "projectId": "proj-abc",
+          "name": "staging"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "environmentCreate": {
+        "id": "env-new",
+        "name": "staging"
+      }
+    }
+  }
+}

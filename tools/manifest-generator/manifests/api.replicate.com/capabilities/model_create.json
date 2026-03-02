@@ -1,0 +1,24 @@
+{
+  "name": "model_create",
+  "description": "Create a new model on Replicate.",
+  "resource_group": "models",
+  "endpoint": "/models",
+  "method": "POST",
+  "parameters": [
+    {"name": "owner", "type": "string", "required": true, "description": "Owner username or org."},
+    {"name": "name", "type": "string", "required": true, "description": "Model name."},
+    {"name": "visibility", "type": "string", "required": true, "description": "Model visibility: 'public' or 'private'."},
+    {"name": "hardware", "type": "string", "required": true, "description": "Hardware SKU to run on (e.g. 'gpu-a40-large')."},
+    {"name": "description", "type": "string", "required": false, "description": "Model description."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.replicate.com/v1/models",
+    "headers": {"Authorization": "Bearer r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "body": {"owner": "my-org", "name": "my-model", "visibility": "private", "hardware": "gpu-a40-large"}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"url": "https://replicate.com/my-org/my-model", "owner": "my-org", "name": "my-model", "visibility": "private"}
+  }
+}

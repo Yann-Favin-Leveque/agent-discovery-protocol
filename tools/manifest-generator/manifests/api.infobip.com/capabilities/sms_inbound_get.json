@@ -1,0 +1,45 @@
+{
+  "name": "sms_inbound_get",
+  "description": "Retrieve inbound SMS messages received on your Infobip numbers or keywords with optional filtering by limit.",
+  "endpoint": "/sms/1/inbox/reports",
+  "method": "GET",
+  "resource_group": "sms",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of inbound messages to return. Default 50."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.infobip.com/sms/1/inbox/reports?limit=10",
+    "headers": {
+      "Authorization": "App {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "messageCount": 1,
+      "pendingMessageCount": 0,
+      "results": [
+        {
+          "messageId": "inbound-msg-12345",
+          "from": "14155550123",
+          "to": "12015550145",
+          "text": "STOP",
+          "cleanText": "STOP",
+          "keyword": "STOP",
+          "receivedAt": "2024-01-15T12:05:00.000+0000",
+          "smsCount": 1
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

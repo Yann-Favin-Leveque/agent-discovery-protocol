@@ -1,0 +1,49 @@
+{
+  "name": "items_move",
+  "description": "Move a DriveItem to a new parent folder.",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/items/{item-id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "item-id",
+      "type": "string",
+      "description": "The item ID.",
+      "required": true
+    },
+    {
+      "name": "parentReference",
+      "type": "object",
+      "description": "New parent folder.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Optionally rename while moving.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/item123",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "parentReference": {
+        "id": "folder456"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "item123",
+      "parentReference": {
+        "id": "folder456"
+      }
+    }
+  }
+}

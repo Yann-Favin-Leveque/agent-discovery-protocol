@@ -1,0 +1,24 @@
+{
+  "name": "webhooks_create",
+  "description": "Register a new webhook callback for a specific event type.",
+  "endpoint": "/events/account/{account_id}/events/callbacks",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
+    {"name": "event", "type": "string", "description": "Event type to subscribe to (e.g. invoice.create, payment.create).", "required": true, "example": "invoice.create"},
+    {"name": "uri", "type": "string", "description": "Callback URL to receive webhook events.", "required": true, "example": "https://example.com/webhooks/freshbooks"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.freshbooks.com/events/account/xB2yw/events/callbacks",
+    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
+    "body": {"callback": {"event": "invoice.create", "uri": "https://example.com/webhooks/freshbooks"}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"response": {"result": {"callback": {"callbackid": 777, "event": "invoice.create", "uri": "https://example.com/webhooks/freshbooks", "verified": false}}}}
+  },
+  "auth_scopes": ["user:webhooks:write"],
+  "rate_limits": {"requests_per_minute": 100}
+}

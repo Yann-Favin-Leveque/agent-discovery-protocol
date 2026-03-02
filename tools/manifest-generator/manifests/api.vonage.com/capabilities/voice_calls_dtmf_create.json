@@ -1,0 +1,18 @@
+{
+  "name": "voice_calls_dtmf_create",
+  "description": "Send DTMF tones into an active voice call. Useful for navigating IVR menus or entering codes.",
+  "resource_group": "voice",
+  "endpoint": "/v1/calls/{uuid}/dtmf",
+  "method": "PUT",
+  "parameters": [
+    {"name": "uuid", "type": "string", "required": true, "location": "path", "description": "The UUID of the call."},
+    {"name": "digits", "type": "string", "required": true, "description": "The DTMF digits to send. Valid characters: 0-9, *, #, p (500ms pause)."}
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.vonage.com/v1/calls/63f61863-4a51-4f6b-86e1-46edebcf9356/dtmf",
+    "headers": {"Content-Type": "application/json", "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."},
+    "body": {"digits": "1234p#"}
+  },
+  "response_example": {"status": 200, "body": {"message": "DTMF sent", "uuid": "63f61863-4a51-4f6b-86e1-46edebcf9356"}}
+}

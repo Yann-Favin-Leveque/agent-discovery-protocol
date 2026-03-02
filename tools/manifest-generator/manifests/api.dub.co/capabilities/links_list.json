@@ -1,0 +1,87 @@
+{
+  "name": "links_list",
+  "description": "Retrieve a paginated list of short links with optional filtering by domain, tags, folder, and search.",
+  "endpoint": "/links",
+  "method": "GET",
+  "resource_group": "links",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Filter links by domain.",
+      "required": false,
+      "example": "dub.sh"
+    },
+    {
+      "name": "tagIds",
+      "type": "string",
+      "description": "Filter by tag IDs (comma-separated).",
+      "required": false
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "description": "Search against slug and destination URL.",
+      "required": false
+    },
+    {
+      "name": "showArchived",
+      "type": "boolean",
+      "description": "Include archived links.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "sortBy",
+      "type": "string",
+      "description": "Sort field: createdAt, clicks, saleAmount, lastClicked.",
+      "required": false,
+      "example": "createdAt"
+    },
+    {
+      "name": "sortOrder",
+      "type": "string",
+      "description": "Sort direction: asc or desc.",
+      "required": false,
+      "example": "desc"
+    },
+    {
+      "name": "page",
+      "type": "number",
+      "description": "Page number (minimum 1).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "pageSize",
+      "type": "number",
+      "description": "Items per page (1-100).",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.dub.co/links?page=1&pageSize=100",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "clux0rgak0001...",
+        "domain": "dub.sh",
+        "key": "my-link",
+        "url": "https://example.com",
+        "shortLink": "https://dub.sh/my-link",
+        "clicks": 42
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

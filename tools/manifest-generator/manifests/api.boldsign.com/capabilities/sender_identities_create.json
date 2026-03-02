@@ -1,0 +1,45 @@
+{
+  "name": "sender_identities_create",
+  "description": "Create a new sender identity with a name and email address for sending signature requests. Requires email verification.",
+  "endpoint": "/v1/senderIdentities/create",
+  "method": "POST",
+  "resource_group": "sender_identities",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Display name for the sender identity."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "description": "Email address for the sender identity. Must be verified."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.boldsign.com/v1/senderIdentities/create",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-KEY": "{api_key}"
+    },
+    "body": {
+      "name": "HR Department",
+      "email": "hr@example.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "name": "HR Department",
+      "email": "hr@example.com",
+      "status": "Pending"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

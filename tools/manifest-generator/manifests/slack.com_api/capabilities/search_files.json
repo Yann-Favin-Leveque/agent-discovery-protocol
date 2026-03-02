@@ -1,0 +1,68 @@
+{
+  "name": "search_files",
+  "resource_group": "search",
+  "description": "Search for files across the workspace.",
+  "endpoint": "/search.files",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "Search query",
+      "example": "quarterly report"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort by",
+      "example": "timestamp"
+    },
+    {
+      "name": "sort_dir",
+      "type": "string",
+      "required": false,
+      "description": "Sort direction",
+      "example": "desc"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number",
+      "example": 1
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://slack.com/api/search.files?query=quarterly%20report",
+    "headers": {
+      "Authorization": "Bearer xoxp-xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "query": "quarterly report",
+      "files": {
+        "total": 5,
+        "matches": [
+          {
+            "id": "F1234567890",
+            "name": "Q1_Report.pdf",
+            "title": "Q1 Quarterly Report"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "documents_multi_search",
+  "description": "Send multiple search requests in a single HTTP request for efficiency.",
+  "endpoint": "/multi_search",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "searches",
+      "type": "array",
+      "description": "Array of search request objects with collection and query parameters",
+      "required": true,
+      "example": [
+        {
+          "collection": "products",
+          "q": "laptop",
+          "query_by": "title"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.typesense.org/multi_search",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "searches": [
+        {
+          "collection": "products",
+          "q": "laptop",
+          "query_by": "title"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "found": 10,
+          "hits": []
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

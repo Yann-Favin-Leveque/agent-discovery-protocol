@@ -1,0 +1,59 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook for store events.",
+  "resource_group": "webhooks",
+  "endpoint": "/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Webhook name.",
+      "example": "Order created"
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "required": true,
+      "description": "Webhook topic: order.created, product.updated, customer.created, etc.",
+      "example": "order.created"
+    },
+    {
+      "name": "delivery_url",
+      "type": "string",
+      "required": true,
+      "description": "Callback URL.",
+      "example": "https://example.com/webhooks"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Webhook status: active, paused, disabled."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}/wp-json/wc/v3/webhooks",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Order created",
+      "topic": "order.created",
+      "delivery_url": "https://example.com/webhooks"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 142,
+      "name": "Order created",
+      "topic": "order.created",
+      "delivery_url": "https://example.com/webhooks",
+      "status": "active"
+    }
+  }
+}

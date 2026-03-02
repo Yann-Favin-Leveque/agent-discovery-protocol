@@ -1,0 +1,51 @@
+{
+  "name": "post_report",
+  "resource_group": "links_and_comments",
+  "description": "Report a post or comment for violating subreddit or site-wide rules.",
+  "endpoint": "/api/report",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "thing_id",
+      "type": "string",
+      "description": "The fullname of the post (t3_id) or comment (t1_id) to report.",
+      "required": true,
+      "in": "body",
+      "example": "t3_abc123"
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "description": "The reason for the report (subreddit rule name or site rule).",
+      "required": true,
+      "in": "body",
+      "example": "spam"
+    },
+    {
+      "name": "other_reason",
+      "type": "string",
+      "description": "Custom reason text if 'reason' is set to 'other'.",
+      "required": false,
+      "in": "body",
+      "example": "This post is misleading."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://oauth.reddit.com/api/report",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/x-www-form-urlencoded",
+      "User-Agent": "AgentDiscovery/1.0"
+    },
+    "body": {
+      "thing_id": "t3_abc123",
+      "reason": "spam"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": ["report"]
+}

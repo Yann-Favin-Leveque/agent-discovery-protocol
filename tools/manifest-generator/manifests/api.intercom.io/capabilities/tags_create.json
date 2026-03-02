@@ -1,0 +1,52 @@
+{
+  "name": "tags_create",
+  "description": "Create a new tag or apply an existing tag to contacts, companies, or conversations.",
+  "resource_group": "tags",
+  "endpoint": "/tags",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Tag name. Creates new tag if it does not exist."
+    },
+    {
+      "name": "users",
+      "type": "array",
+      "required": false,
+      "description": "Array of user objects to tag: [{id: 'contact-id'}] or [{email: 'user@email.com'}]."
+    },
+    {
+      "name": "companies",
+      "type": "array",
+      "required": false,
+      "description": "Array of company objects to tag: [{id: 'company-id'}]."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/tags",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "name": "vip",
+      "users": [
+        {
+          "id": "contact-abc"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "tag",
+      "id": "tag-1",
+      "name": "vip"
+    }
+  }
+}

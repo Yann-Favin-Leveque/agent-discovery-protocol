@@ -1,0 +1,76 @@
+{
+  "name": "signature_request_bulk_send_with_template",
+  "description": "Bulk send signature requests to multiple signer sets using a template.",
+  "endpoint": "/v3/signature_request/bulk_send_with_template",
+  "method": "POST",
+  "resource_group": "signature_request",
+  "parameters": [
+    {
+      "name": "template_ids",
+      "type": "array",
+      "description": "Template IDs.",
+      "required": true,
+      "example": [
+        "c26b8a16"
+      ]
+    },
+    {
+      "name": "signer_list",
+      "type": "array",
+      "description": "Array of signer sets.",
+      "required": true,
+      "example": [
+        {
+          "signers": {
+            "Client": {
+              "email_address": "a@example.com",
+              "name": "Alice"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "test_mode",
+      "type": "boolean",
+      "description": "Test mode.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/signature_request/bulk_send_with_template",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "template_ids": [
+        "c26b8a16"
+      ],
+      "signer_list": [
+        {
+          "signers": {
+            "Client": {
+              "email_address": "a@example.com",
+              "name": "Alice"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "bulk_send_job": {
+        "bulk_send_job_id": "6e683bc0"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

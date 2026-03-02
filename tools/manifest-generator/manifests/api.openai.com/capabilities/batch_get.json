@@ -1,0 +1,39 @@
+{
+  "name": "batch_get",
+  "description": "Retrieve the status and details of a specific batch job.",
+  "resource_group": "batches",
+  "endpoint": "/v1/batches/{batch_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "batch_id",
+      "type": "string",
+      "required": true,
+      "description": "The ID of the batch to retrieve."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openai.com/v1/batches/batch-abc123",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "batch-abc123",
+      "object": "batch",
+      "endpoint": "/v1/chat/completions",
+      "status": "completed",
+      "created_at": 1709164800,
+      "completed_at": 1709251200,
+      "output_file_id": "file-xyz789",
+      "request_counts": {
+        "total": 100,
+        "completed": 100,
+        "failed": 0
+      }
+    }
+  }
+}

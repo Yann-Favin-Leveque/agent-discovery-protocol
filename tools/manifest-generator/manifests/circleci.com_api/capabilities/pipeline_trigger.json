@@ -1,0 +1,40 @@
+{
+  "name": "pipeline_trigger",
+  "description": "Trigger a new pipeline for a project.",
+  "resource_group": "pipelines",
+  "endpoint": "/project/{project-slug}/pipeline",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project-slug",
+      "type": "string",
+      "required": true,
+      "description": "Project slug: gh/org/repo."
+    },
+    {
+      "name": "branch",
+      "type": "string",
+      "required": false,
+      "description": "Branch."
+    },
+    {
+      "name": "parameters",
+      "type": "object",
+      "required": false,
+      "description": "Pipeline parameters."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://circleci.com/api/v2/project/gh/my-org/my-repo/pipeline",
+    "body": {
+      "branch": "main"
+    }
+  },
+  "response_example": {
+    "id": "pipeline-abc",
+    "number": 42,
+    "state": "pending",
+    "created_at": "2026-01-20T14:00:00Z"
+  }
+}

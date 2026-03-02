@@ -1,0 +1,43 @@
+{
+  "name": "sys_auth_enable",
+  "description": "Enable a new authentication method at a specified path.",
+  "resource_group": "system",
+  "endpoint": "/v1/sys/auth/{path}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "required": true,
+      "description": "Mount path for the auth method."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Auth type: approle, userpass, ldap, oidc, aws, github, etc."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Description of the auth method."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com/v1/sys/auth/my-approle",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "approle",
+      "description": "AppRole for CI/CD"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

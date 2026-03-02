@@ -1,0 +1,56 @@
+{
+  "name": "bounces_list",
+  "description": "Retrieve bounced email records with filtering.",
+  "resource_group": "bounces",
+  "endpoint": "/bounces",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "count",
+      "type": "number",
+      "description": "Records per request (max 500).",
+      "required": true,
+      "example": 100
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "description": "Records to skip.",
+      "required": true,
+      "example": 0
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Bounce type filter.",
+      "required": false
+    },
+    {
+      "name": "emailFilter",
+      "type": "string",
+      "description": "Filter by email address.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.postmarkapp.com/bounces?count=100&offset=0",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TotalCount": 5,
+      "Bounces": [
+        {
+          "ID": 123,
+          "Type": "HardBounce",
+          "Email": "bounce@example.com"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "assets_refresh",
+  "resource_group": "assets",
+  "description": "Refresh and reprocess an asset from the origin.",
+  "endpoint": "/api/v1/sources/{source_id}/assets/refresh/{origin_path}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "source_id",
+      "type": "string",
+      "required": true,
+      "description": "Source ID.",
+      "in": "path"
+    },
+    {
+      "name": "origin_path",
+      "type": "string",
+      "required": true,
+      "description": "Asset path to refresh.",
+      "in": "path"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.imgix.com/api/v1/sources/source-id/assets/refresh/images/photo.jpg",
+    "headers": {
+      "Authorization": "Bearer imgix-api-key",
+      "Content-Type": "application/vnd.api+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "images/photo.jpg",
+        "type": "assets"
+      }
+    }
+  }
+}

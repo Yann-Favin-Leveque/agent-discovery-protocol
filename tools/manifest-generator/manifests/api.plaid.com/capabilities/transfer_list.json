@@ -1,0 +1,58 @@
+{
+  "name": "transfer_list",
+  "description": "List transfers with optional date filtering.",
+  "resource_group": "transfer",
+  "endpoint": "/transfer/list",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date ISO 8601."
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date."
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Max results. Default: 25."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Offset."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/transfer/list",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "count": 10
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transfers": [
+        {
+          "id": "xfer_abc",
+          "amount": "100.00",
+          "status": "posted"
+        }
+      ],
+      "request_id": "abc"
+    }
+  }
+}

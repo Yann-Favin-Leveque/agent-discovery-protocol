@@ -1,0 +1,74 @@
+{
+  "name": "cryptocurrency_quotes_latest",
+  "description": "Return the latest market quote for one or more cryptocurrencies including current price, volume, and market cap.",
+  "resource_group": "cryptocurrency",
+  "endpoint": "/v1/cryptocurrency/quotes/latest",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "CoinMarketCap IDs (comma-separated).",
+      "required": false,
+      "example": "1,2"
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "description": "Slugs (comma-separated).",
+      "required": false,
+      "example": "bitcoin"
+    },
+    {
+      "name": "symbol",
+      "type": "string",
+      "description": "Symbols (comma-separated).",
+      "required": false,
+      "example": "BTC,ETH"
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Quote currencies (comma-separated).",
+      "required": false,
+      "example": "USD,EUR"
+    },
+    {
+      "name": "aux",
+      "type": "string",
+      "description": "Supplemental fields.",
+      "required": false,
+      "example": "num_market_pairs,cmc_rank"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC&convert=USD",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": {
+        "BTC": {
+          "id": 1,
+          "name": "Bitcoin",
+          "symbol": "BTC",
+          "quote": {
+            "USD": {
+              "price": 65000.0,
+              "volume_24h": 25000000000,
+              "market_cap": 1270000000000
+            }
+          }
+        }
+      }
+    }
+  }
+}

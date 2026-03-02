@@ -1,0 +1,27 @@
+{
+  "name": "users_create",
+  "description": "Create one or more new users in the Moodle database.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_user_create_users",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "users[0][username]", "type": "string", "description": "Username for the new user", "required": true, "example": "jdoe" },
+    { "name": "users[0][password]", "type": "string", "description": "Password for the new user", "required": true, "example": "SecurePass123!" },
+    { "name": "users[0][firstname]", "type": "string", "description": "First name", "required": true, "example": "John" },
+    { "name": "users[0][lastname]", "type": "string", "description": "Last name", "required": true, "example": "Doe" },
+    { "name": "users[0][email]", "type": "string", "description": "Email address", "required": true, "example": "john.doe@example.com" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_user_create_users&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "users[0][username]": "jdoe", "users[0][password]": "SecurePass123!", "users[0][firstname]": "John", "users[0][lastname]": "Doe", "users[0][email]": "john.doe@example.com" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{ "id": 42, "username": "jdoe" }]
+  },
+  "auth_scopes": ["core_user_create_users"],
+  "rate_limits": { "requests_per_minute": 60 }
+}

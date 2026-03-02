@@ -1,0 +1,47 @@
+{
+  "name": "balance_conversions_create",
+  "description": "Convert money between two currency balances using a quote.",
+  "resource_group": "balance_conversions",
+  "endpoint": "/v2/profiles/{profileId}/balance-movements",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "profileId",
+      "type": "integer",
+      "description": "Profile ID.",
+      "required": true
+    },
+    {
+      "name": "quoteId",
+      "type": "string",
+      "description": "Quote ID for the conversion.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.wise.com/v2/profiles/12345/balance-movements",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "quoteId": "q-abc123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "bm-abc123",
+      "state": "COMPLETED",
+      "sourceAmount": {
+        "value": 100,
+        "currency": "EUR"
+      },
+      "targetAmount": {
+        "value": 85,
+        "currency": "GBP"
+      }
+    }
+  }
+}

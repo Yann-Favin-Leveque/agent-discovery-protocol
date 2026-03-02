@@ -1,8 +1,8 @@
 {
   "spec_version": "1.0",
   "name": "Deel",
-  "description": "Deel is a global HR and payroll platform for hiring and paying remote workers in 150+ countries. The API lets you manage contracts, process payments, handle compliance, and run global payroll for both employees and independent contractors without setting up local entities.",
-  "base_url": "https://api.deel.com",
+  "description": "Deel is a global HR and payroll platform for hiring and paying remote workers in 150+ countries. The API provides programmatic access to contracts, people management, payments, invoices, timesheets, milestones, EOR (Employer of Record) services, and organizational data. Use it to automate the full contractor and employee lifecycle from onboarding through payroll.",
+  "base_url": "https://api.letsdeel.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
@@ -10,12 +10,299 @@
     "setup_url": "https://app.deel.com/developer/tokens"
   },
   "capabilities": [
-    { "name": "list_contracts", "description": "Retrieve all contracts across your organization, filterable by type (employee, contractor), status, and country.", "detail_url": "/capabilities/list_contracts" },
-    { "name": "create_contract", "description": "Create a new employment or contractor agreement. Specify compensation, currency, scope of work, and country-specific compliance details.", "detail_url": "/capabilities/create_contract" },
-    { "name": "list_people", "description": "Retrieve all workers (employees and contractors) in your Deel organization with their profile details and contract status.", "detail_url": "/capabilities/list_people" },
-    { "name": "create_invoice_adjustment", "description": "Add a bonus, expense reimbursement, or other payment adjustment to a contractor's next invoice cycle.", "detail_url": "/capabilities/create_invoice_adjustment" },
-    { "name": "list_payments", "description": "Retrieve payment history across all contracts, including amounts, currencies, payment dates, and statuses.", "detail_url": "/capabilities/list_payments" },
-    { "name": "submit_timesheet", "description": "Submit time tracking entries for a contractor or employee. Records hours worked for a given date range.", "detail_url": "/capabilities/submit_timesheet" },
-    { "name": "offboard_worker", "description": "Initiate the offboarding process for an employee or terminate a contractor agreement with proper compliance handling.", "detail_url": "/capabilities/offboard_worker" }
+    {
+      "name": "contracts_list",
+      "description": "List all contracts across the organization with filtering by type, status, and country.",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_list"
+    },
+    {
+      "name": "contracts_get",
+      "description": "Retrieve a specific contract with full details.",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_get"
+    },
+    {
+      "name": "contracts_update",
+      "description": "Add an external ID to a contract for integration purposes.",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_update"
+    },
+    {
+      "name": "contracts_gp_create",
+      "description": "Create a Global Payroll contract for a new employee.",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_gp_create"
+    },
+    {
+      "name": "contracts_amend",
+      "description": "Amend an existing contract (change compensation, title, etc.).",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_amend"
+    },
+    {
+      "name": "contracts_sign",
+      "description": "Sign a contract on behalf of the client.",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_sign"
+    },
+    {
+      "name": "contracts_terminate",
+      "description": "Initiate contract termination with compliance handling.",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_terminate"
+    },
+    {
+      "name": "contracts_preview",
+      "description": "Get an HTML preview of a contract document.",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_preview"
+    },
+    {
+      "name": "contracts_custom_fields_list",
+      "description": "List all custom fields defined for contracts.",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_custom_fields_list"
+    },
+    {
+      "name": "contracts_documents_create",
+      "description": "Attach a document to a contract.",
+      "resource_group": "Contracts",
+      "detail_url": "/capabilities/contracts_documents_create"
+    },
+    {
+      "name": "people_create",
+      "description": "Create a new worker (employee) in Deel.",
+      "resource_group": "People",
+      "detail_url": "/capabilities/people_create"
+    },
+    {
+      "name": "people_get",
+      "description": "Retrieve a single worker's profile and contract details.",
+      "resource_group": "People",
+      "detail_url": "/capabilities/people_get"
+    },
+    {
+      "name": "people_personal_update",
+      "description": "Update a worker's personal information.",
+      "resource_group": "People",
+      "detail_url": "/capabilities/people_personal_update"
+    },
+    {
+      "name": "people_department_update",
+      "description": "Update a worker's department assignment.",
+      "resource_group": "People",
+      "detail_url": "/capabilities/people_department_update"
+    },
+    {
+      "name": "people_custom_fields_list",
+      "description": "List all custom fields for people.",
+      "resource_group": "People",
+      "detail_url": "/capabilities/people_custom_fields_list"
+    },
+    {
+      "name": "payments_list",
+      "description": "List all payments across contracts.",
+      "resource_group": "Payments",
+      "detail_url": "/capabilities/payments_list"
+    },
+    {
+      "name": "payments_breakdown_get",
+      "description": "Get a detailed breakdown of a specific payment.",
+      "resource_group": "Payments",
+      "detail_url": "/capabilities/payments_breakdown_get"
+    },
+    {
+      "name": "invoices_list",
+      "description": "List paid invoices with date filtering.",
+      "resource_group": "Invoices",
+      "detail_url": "/capabilities/invoices_list"
+    },
+    {
+      "name": "invoices_deel_list",
+      "description": "List Deel platform fee invoices.",
+      "resource_group": "Invoices",
+      "detail_url": "/capabilities/invoices_deel_list"
+    },
+    {
+      "name": "adjustments_create",
+      "description": "Create a payment adjustment (bonus, expense, deduction).",
+      "resource_group": "Adjustments",
+      "detail_url": "/capabilities/adjustments_create"
+    },
+    {
+      "name": "adjustments_categories_list",
+      "description": "List all adjustment categories.",
+      "resource_group": "Adjustments",
+      "detail_url": "/capabilities/adjustments_categories_list"
+    },
+    {
+      "name": "adjustments_delete",
+      "description": "Delete a pending adjustment.",
+      "resource_group": "Adjustments",
+      "detail_url": "/capabilities/adjustments_delete"
+    },
+    {
+      "name": "invoice_adjustments_create",
+      "description": "Create an invoice line item adjustment.",
+      "resource_group": "Invoice Adjustments",
+      "detail_url": "/capabilities/invoice_adjustments_create"
+    },
+    {
+      "name": "timesheets_create",
+      "description": "Submit a timesheet entry for a contractor.",
+      "resource_group": "Timesheets",
+      "detail_url": "/capabilities/timesheets_create"
+    },
+    {
+      "name": "timesheets_list",
+      "description": "List timesheets for a specific contract.",
+      "resource_group": "Timesheets",
+      "detail_url": "/capabilities/timesheets_list"
+    },
+    {
+      "name": "timesheets_delete",
+      "description": "Delete a timesheet entry.",
+      "resource_group": "Timesheets",
+      "detail_url": "/capabilities/timesheets_delete"
+    },
+    {
+      "name": "timesheets_review_batch",
+      "description": "Approve or reject multiple timesheets in batch.",
+      "resource_group": "Timesheets",
+      "detail_url": "/capabilities/timesheets_review_batch"
+    },
+    {
+      "name": "milestones_create",
+      "description": "Add a milestone to a contract.",
+      "resource_group": "Milestones",
+      "detail_url": "/capabilities/milestones_create"
+    },
+    {
+      "name": "milestones_delete",
+      "description": "Delete a milestone.",
+      "resource_group": "Milestones",
+      "detail_url": "/capabilities/milestones_delete"
+    },
+    {
+      "name": "eor_create",
+      "description": "Create an Employer of Record contract quote.",
+      "resource_group": "EOR",
+      "detail_url": "/capabilities/eor_create"
+    },
+    {
+      "name": "eor_cost_calculate",
+      "description": "Calculate estimated employment costs for a country.",
+      "resource_group": "EOR",
+      "detail_url": "/capabilities/eor_cost_calculate"
+    },
+    {
+      "name": "eor_validations_get",
+      "description": "Get country-specific hiring requirements and validations.",
+      "resource_group": "EOR",
+      "detail_url": "/capabilities/eor_validations_get"
+    },
+    {
+      "name": "departments_list",
+      "description": "List all departments.",
+      "resource_group": "Departments",
+      "detail_url": "/capabilities/departments_list"
+    },
+    {
+      "name": "teams_list",
+      "description": "List all teams.",
+      "resource_group": "Teams",
+      "detail_url": "/capabilities/teams_list"
+    },
+    {
+      "name": "managers_list",
+      "description": "List all managers.",
+      "resource_group": "Managers",
+      "detail_url": "/capabilities/managers_list"
+    },
+    {
+      "name": "legal_entities_list",
+      "description": "List all legal entities in your organization.",
+      "resource_group": "Legal Entities",
+      "detail_url": "/capabilities/legal_entities_list"
+    },
+    {
+      "name": "organizations_get",
+      "description": "Retrieve organization details.",
+      "resource_group": "Organizations",
+      "detail_url": "/capabilities/organizations_get"
+    },
+    {
+      "name": "contract_templates_list",
+      "description": "List available contract templates.",
+      "resource_group": "Contract Templates",
+      "detail_url": "/capabilities/contract_templates_list"
+    },
+    {
+      "name": "lookups_countries",
+      "description": "List all supported countries for hiring.",
+      "resource_group": "Lookups",
+      "detail_url": "/capabilities/lookups_countries"
+    },
+    {
+      "name": "lookups_currencies",
+      "description": "List all supported currencies.",
+      "resource_group": "Lookups",
+      "detail_url": "/capabilities/lookups_currencies"
+    },
+    {
+      "name": "lookups_job_titles",
+      "description": "List available job titles.",
+      "resource_group": "Lookups",
+      "detail_url": "/capabilities/lookups_job_titles"
+    },
+    {
+      "name": "lookups_seniorities",
+      "description": "List seniority levels.",
+      "resource_group": "Lookups",
+      "detail_url": "/capabilities/lookups_seniorities"
+    },
+    {
+      "name": "lookups_time_off_types",
+      "description": "List available time-off types.",
+      "resource_group": "Lookups",
+      "detail_url": "/capabilities/lookups_time_off_types"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook subscription.",
+      "resource_group": "Webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_events_list",
+      "description": "List all available webhook event types.",
+      "resource_group": "Webhooks",
+      "detail_url": "/capabilities/webhooks_events_list"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook subscription.",
+      "resource_group": "Webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "candidates_create",
+      "description": "Add a candidate to Deel for potential hiring.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_create"
+    },
+    {
+      "name": "candidates_update",
+      "description": "Update candidate details.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_update"
+    },
+    {
+      "name": "workers_documents_list",
+      "description": "List all documents for a worker.",
+      "resource_group": "Workers",
+      "detail_url": "/capabilities/workers_documents_list"
+    }
   ]
 }

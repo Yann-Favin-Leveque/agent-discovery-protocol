@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "ConvertKit",
-  "description": "ConvertKit (now Kit) is an email marketing platform built for creators. Use it to manage subscribers, send broadcasts, build automations with sequences, and organize your audience with tags and forms.",
+  "description": "ConvertKit (now Kit) is an email marketing platform built for creators. Use it to manage subscribers, send broadcasts, build automations with sequences, organize your audience with tags and forms, track purchases, and manage custom fields and webhooks.",
   "base_url": "https://api.convertkit.com/v4",
   "auth": {
     "type": "api_key",
@@ -11,44 +11,274 @@
   },
   "capabilities": [
     {
-      "name": "list_subscribers",
-      "description": "Retrieve a paginated list of all subscribers in your account. Supports filtering by tag, status, and date range.",
-      "detail_url": "/capabilities/list_subscribers"
+      "name": "subscribers_list",
+      "resource_group": "subscribers",
+      "description": "Retrieve a paginated list of all subscribers with optional filtering by status, tag, and date range.",
+      "detail_url": "/capabilities/subscribers_list"
     },
     {
-      "name": "create_subscriber",
-      "description": "Add a new subscriber to your ConvertKit account. Acts as an upsert -- if the email already exists, it updates the existing record.",
-      "detail_url": "/capabilities/create_subscriber"
+      "name": "subscribers_get",
+      "resource_group": "subscribers",
+      "description": "Retrieve details for a specific subscriber by ID.",
+      "detail_url": "/capabilities/subscribers_get"
     },
     {
-      "name": "send_broadcast",
-      "description": "Create and optionally schedule a broadcast email to your subscribers. Supports HTML content, subject lines, and audience filtering.",
-      "detail_url": "/capabilities/send_broadcast"
+      "name": "subscribers_create",
+      "resource_group": "subscribers",
+      "description": "Create a new subscriber or update an existing one by email (upsert).",
+      "detail_url": "/capabilities/subscribers_create"
     },
     {
-      "name": "list_tags",
-      "description": "Retrieve all tags in your ConvertKit account. Tags are used to segment subscribers by interest, behavior, or source.",
-      "detail_url": "/capabilities/list_tags"
+      "name": "subscribers_bulk_create",
+      "resource_group": "subscribers",
+      "description": "Create multiple subscribers in a single batch request.",
+      "detail_url": "/capabilities/subscribers_bulk_create"
     },
     {
-      "name": "tag_subscriber",
-      "description": "Apply a tag to a specific subscriber. Tags help you segment your audience for targeted broadcasts and automations.",
-      "detail_url": "/capabilities/tag_subscriber"
+      "name": "subscribers_update",
+      "resource_group": "subscribers",
+      "description": "Update an existing subscriber's data by ID.",
+      "detail_url": "/capabilities/subscribers_update"
     },
     {
-      "name": "list_sequences",
-      "description": "Retrieve all email sequences (automated drip campaigns) in your account. Returns sequence name, status, and subscriber count.",
-      "detail_url": "/capabilities/list_sequences"
+      "name": "subscribers_unsubscribe",
+      "resource_group": "subscribers",
+      "description": "Unsubscribe a subscriber from your list.",
+      "detail_url": "/capabilities/subscribers_unsubscribe"
     },
     {
-      "name": "add_subscriber_to_sequence",
-      "description": "Enroll a subscriber into an automated email sequence. The subscriber will begin receiving the sequence emails from the start.",
-      "detail_url": "/capabilities/add_subscriber_to_sequence"
+      "name": "subscribers_list_tags",
+      "resource_group": "subscribers",
+      "description": "Retrieve all tags assigned to a specific subscriber.",
+      "detail_url": "/capabilities/subscribers_list_tags"
     },
     {
-      "name": "get_broadcast_stats",
-      "description": "Retrieve engagement statistics for a sent broadcast including open rate, click rate, unsubscribes, and total recipients.",
-      "detail_url": "/capabilities/get_broadcast_stats"
+      "name": "subscribers_get_stats",
+      "resource_group": "subscribers",
+      "description": "Retrieve email engagement statistics for a specific subscriber with date filtering.",
+      "detail_url": "/capabilities/subscribers_get_stats"
+    },
+    {
+      "name": "tags_list",
+      "resource_group": "tags",
+      "description": "Retrieve all tags in your account.",
+      "detail_url": "/capabilities/tags_list"
+    },
+    {
+      "name": "tags_create",
+      "resource_group": "tags",
+      "description": "Create a new tag.",
+      "detail_url": "/capabilities/tags_create"
+    },
+    {
+      "name": "tags_bulk_create",
+      "resource_group": "tags",
+      "description": "Create multiple tags in a single batch request.",
+      "detail_url": "/capabilities/tags_bulk_create"
+    },
+    {
+      "name": "tags_update",
+      "resource_group": "tags",
+      "description": "Rename an existing tag by ID.",
+      "detail_url": "/capabilities/tags_update"
+    },
+    {
+      "name": "tags_add_subscriber",
+      "resource_group": "tags",
+      "description": "Apply a tag to a subscriber by subscriber ID.",
+      "detail_url": "/capabilities/tags_add_subscriber"
+    },
+    {
+      "name": "tags_add_subscriber_by_email",
+      "resource_group": "tags",
+      "description": "Apply a tag to a subscriber by email address.",
+      "detail_url": "/capabilities/tags_add_subscriber_by_email"
+    },
+    {
+      "name": "tags_remove_subscriber",
+      "resource_group": "tags",
+      "description": "Remove a tag from a subscriber by IDs.",
+      "detail_url": "/capabilities/tags_remove_subscriber"
+    },
+    {
+      "name": "tags_bulk_add_subscribers",
+      "resource_group": "tags",
+      "description": "Apply a tag to multiple subscribers in a single batch request.",
+      "detail_url": "/capabilities/tags_bulk_add_subscribers"
+    },
+    {
+      "name": "tags_list_subscribers",
+      "resource_group": "tags",
+      "description": "Retrieve all subscribers that have a specific tag.",
+      "detail_url": "/capabilities/tags_list_subscribers"
+    },
+    {
+      "name": "forms_list",
+      "resource_group": "forms",
+      "description": "Retrieve all forms in your account.",
+      "detail_url": "/capabilities/forms_list"
+    },
+    {
+      "name": "forms_add_subscriber",
+      "resource_group": "forms",
+      "description": "Add a subscriber to a form by subscriber ID.",
+      "detail_url": "/capabilities/forms_add_subscriber"
+    },
+    {
+      "name": "forms_list_subscribers",
+      "resource_group": "forms",
+      "description": "Retrieve all subscribers who signed up through a specific form.",
+      "detail_url": "/capabilities/forms_list_subscribers"
+    },
+    {
+      "name": "sequences_list",
+      "resource_group": "sequences",
+      "description": "Retrieve all email sequences (automated drip campaigns).",
+      "detail_url": "/capabilities/sequences_list"
+    },
+    {
+      "name": "sequences_add_subscriber",
+      "resource_group": "sequences",
+      "description": "Enroll a subscriber into an automated email sequence by subscriber ID.",
+      "detail_url": "/capabilities/sequences_add_subscriber"
+    },
+    {
+      "name": "sequences_list_subscribers",
+      "resource_group": "sequences",
+      "description": "Retrieve all subscribers enrolled in a specific sequence.",
+      "detail_url": "/capabilities/sequences_list_subscribers"
+    },
+    {
+      "name": "broadcasts_list",
+      "resource_group": "broadcasts",
+      "description": "Retrieve a paginated list of all broadcasts.",
+      "detail_url": "/capabilities/broadcasts_list"
+    },
+    {
+      "name": "broadcasts_get",
+      "resource_group": "broadcasts",
+      "description": "Retrieve a single broadcast by ID.",
+      "detail_url": "/capabilities/broadcasts_get"
+    },
+    {
+      "name": "broadcasts_create",
+      "resource_group": "broadcasts",
+      "description": "Create a new broadcast email, optionally scheduling it for later delivery.",
+      "detail_url": "/capabilities/broadcasts_create"
+    },
+    {
+      "name": "broadcasts_update",
+      "resource_group": "broadcasts",
+      "description": "Update a draft or scheduled broadcast.",
+      "detail_url": "/capabilities/broadcasts_update"
+    },
+    {
+      "name": "broadcasts_delete",
+      "resource_group": "broadcasts",
+      "description": "Delete a broadcast by ID.",
+      "detail_url": "/capabilities/broadcasts_delete"
+    },
+    {
+      "name": "broadcasts_get_stats",
+      "resource_group": "broadcasts",
+      "description": "Retrieve performance metrics for a sent broadcast including opens, clicks, and unsubscribes.",
+      "detail_url": "/capabilities/broadcasts_get_stats"
+    },
+    {
+      "name": "broadcasts_get_link_clicks",
+      "resource_group": "broadcasts",
+      "description": "Retrieve click tracking data for links in a broadcast.",
+      "detail_url": "/capabilities/broadcasts_get_link_clicks"
+    },
+    {
+      "name": "custom_fields_list",
+      "resource_group": "custom_fields",
+      "description": "Retrieve all custom fields defined in your account.",
+      "detail_url": "/capabilities/custom_fields_list"
+    },
+    {
+      "name": "custom_fields_create",
+      "resource_group": "custom_fields",
+      "description": "Create a new custom field for subscriber profiles.",
+      "detail_url": "/capabilities/custom_fields_create"
+    },
+    {
+      "name": "custom_fields_update",
+      "resource_group": "custom_fields",
+      "description": "Update a custom field label.",
+      "detail_url": "/capabilities/custom_fields_update"
+    },
+    {
+      "name": "custom_fields_delete",
+      "resource_group": "custom_fields",
+      "description": "Delete a custom field and all associated data.",
+      "detail_url": "/capabilities/custom_fields_delete"
+    },
+    {
+      "name": "segments_list",
+      "resource_group": "segments",
+      "description": "Retrieve all subscriber segments.",
+      "detail_url": "/capabilities/segments_list"
+    },
+    {
+      "name": "purchases_list",
+      "resource_group": "purchases",
+      "description": "Retrieve a paginated list of recorded purchases.",
+      "detail_url": "/capabilities/purchases_list"
+    },
+    {
+      "name": "purchases_get",
+      "resource_group": "purchases",
+      "description": "Retrieve a single purchase by ID.",
+      "detail_url": "/capabilities/purchases_get"
+    },
+    {
+      "name": "purchases_create",
+      "resource_group": "purchases",
+      "description": "Record a purchase transaction for a subscriber.",
+      "detail_url": "/capabilities/purchases_create"
+    },
+    {
+      "name": "webhooks_list",
+      "resource_group": "webhooks",
+      "description": "Retrieve all webhooks in your account.",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_create",
+      "resource_group": "webhooks",
+      "description": "Create a new webhook for event-triggered notifications.",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_delete",
+      "resource_group": "webhooks",
+      "description": "Delete a webhook by ID.",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "account_get",
+      "resource_group": "account",
+      "description": "Retrieve authenticated account details and creator profile.",
+      "detail_url": "/capabilities/account_get"
+    },
+    {
+      "name": "account_get_email_stats",
+      "resource_group": "account",
+      "description": "Retrieve email sending statistics for your account.",
+      "detail_url": "/capabilities/account_get_email_stats"
+    },
+    {
+      "name": "account_get_growth_stats",
+      "resource_group": "account",
+      "description": "Retrieve subscriber growth metrics over a configurable date range.",
+      "detail_url": "/capabilities/account_get_growth_stats"
+    },
+    {
+      "name": "email_templates_list",
+      "resource_group": "email_templates",
+      "description": "Retrieve all available email templates.",
+      "detail_url": "/capabilities/email_templates_list"
     }
   ]
 }

@@ -1,0 +1,43 @@
+{
+  "name": "media_update",
+  "description": "Update the metadata (name, alternative text, caption) for an existing uploaded file.",
+  "resource_group": "media",
+  "endpoint": "/api/upload",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "location": "query",
+      "description": "The ID of the file to update."
+    },
+    {
+      "name": "fileInfo",
+      "type": "object",
+      "required": true,
+      "location": "formData",
+      "description": "JSON object with metadata to update: alternativeText, caption, name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.strapi.io/api/upload?id=1",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with 'fileInfo' field: {\"alternativeText\": \"Updated alt text\", \"caption\": \"Updated caption\"}"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1,
+      "name": "photo.jpg",
+      "alternativeText": "Updated alt text",
+      "caption": "Updated caption",
+      "url": "/uploads/photo.jpg",
+      "updatedAt": "2026-03-01T14:00:00.000Z"
+    }
+  }
+}

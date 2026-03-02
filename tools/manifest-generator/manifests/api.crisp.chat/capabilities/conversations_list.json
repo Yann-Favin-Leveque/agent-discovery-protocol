@@ -1,0 +1,70 @@
+{
+  "name": "conversations_list",
+  "description": "List conversations for a website with pagination. Supports filtering by search query and segments.",
+  "endpoint": "/v1/website/{website_id}/conversations/{page_number}",
+  "method": "GET",
+  "resource_group": "conversations",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    },
+    {
+      "name": "page_number",
+      "type": "integer",
+      "description": "Page number for pagination (starts at 1).",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "search_query",
+      "type": "string",
+      "description": "Full-text search query to filter conversations.",
+      "required": false,
+      "example": "billing issue"
+    },
+    {
+      "name": "search_type",
+      "type": "string",
+      "description": "Type of search filter (e.g. text, segment).",
+      "required": false,
+      "example": "text"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/conversations/1",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "session_id": "session_19e5240f-0a8d-461e-a661-a3123f3e",
+          "website_id": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc",
+          "state": "unresolved",
+          "status": 1,
+          "is_verified": false,
+          "created_at": "2024-09-01T10:00:00.000Z",
+          "updated_at": "2024-09-01T10:05:00.000Z",
+          "meta": {
+            "nickname": "John Doe",
+            "email": "john@example.com"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["website:conversation:sessions"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Snipcart",
-  "description": "Snipcart is a developer-first HTML/JS shopping cart platform that adds e-commerce to any website. Its REST API allows agents to manage orders, products, customers, discounts, and subscriptions without a traditional e-commerce backend.",
+  "description": "Snipcart is a developer-first HTML/JS shopping cart platform that adds e-commerce to any website. Its REST API allows agents to manage orders, products, customers, discounts, refunds, notifications, and abandoned carts without a traditional e-commerce backend.",
   "base_url": "https://app.snipcart.com/api",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,112 @@
   },
   "capabilities": [
     {
-      "name": "list_orders",
-      "description": "Retrieve a paginated list of orders placed through Snipcart. Supports filtering by status, date range, and invoice number with configurable pagination.",
-      "detail_url": "/capabilities/list_orders"
+      "name": "orders_list",
+      "description": "Retrieve all completed orders with filtering by status, date range, and invoice number.",
+      "resource_group": "orders",
+      "detail_url": "/capabilities/orders_list"
     },
     {
-      "name": "get_order",
-      "description": "Retrieve the full details of a specific order by its token including line items, customer info, shipping details, payment status, and custom fields.",
-      "detail_url": "/capabilities/get_order"
+      "name": "orders_get",
+      "description": "Retrieve a single order by token with all items, taxes, and payment details.",
+      "resource_group": "orders",
+      "detail_url": "/capabilities/orders_get"
     },
     {
-      "name": "list_products",
-      "description": "Retrieve a paginated list of products tracked by Snipcart. Returns product statistics including total sales, number of orders, and current price information.",
-      "detail_url": "/capabilities/list_products"
+      "name": "orders_update",
+      "description": "Update order status, tracking information, or metadata.",
+      "resource_group": "orders",
+      "detail_url": "/capabilities/orders_update"
     },
     {
-      "name": "list_customers",
-      "description": "Retrieve a paginated list of customers who have placed orders. Supports filtering by status, date range, and searching by name or email.",
-      "detail_url": "/capabilities/list_customers"
+      "name": "products_list",
+      "description": "Retrieve a list of products tracked by Snipcart with sales statistics.",
+      "resource_group": "products",
+      "detail_url": "/capabilities/products_list"
     },
     {
-      "name": "create_discount",
-      "description": "Create a discount code with a fixed amount or percentage off. Supports conditions like minimum order amount, product-specific restrictions, and expiry dates.",
-      "detail_url": "/capabilities/create_discount"
+      "name": "products_get",
+      "description": "Retrieve a specific product by ID.",
+      "resource_group": "products",
+      "detail_url": "/capabilities/products_get"
     },
     {
-      "name": "list_subscriptions",
-      "description": "Retrieve a paginated list of active subscriptions managed through Snipcart. Returns subscription details including plan, status, next billing date, and customer info.",
-      "detail_url": "/capabilities/list_subscriptions"
+      "name": "products_update",
+      "description": "Update product inventory and stock settings.",
+      "resource_group": "products",
+      "detail_url": "/capabilities/products_update"
+    },
+    {
+      "name": "customers_list",
+      "description": "Retrieve all customers who have placed orders.",
+      "resource_group": "customers",
+      "detail_url": "/capabilities/customers_list"
+    },
+    {
+      "name": "customers_get",
+      "description": "Retrieve a specific customer by ID.",
+      "resource_group": "customers",
+      "detail_url": "/capabilities/customers_get"
+    },
+    {
+      "name": "customers_orders_list",
+      "description": "Retrieve all orders for a specific customer.",
+      "resource_group": "customers",
+      "detail_url": "/capabilities/customers_orders_list"
+    },
+    {
+      "name": "discounts_list",
+      "description": "Retrieve all discounts for your account.",
+      "resource_group": "discounts",
+      "detail_url": "/capabilities/discounts_list"
+    },
+    {
+      "name": "discounts_create",
+      "description": "Create a new discount code or rule.",
+      "resource_group": "discounts",
+      "detail_url": "/capabilities/discounts_create"
+    },
+    {
+      "name": "discounts_update",
+      "description": "Update an existing discount.",
+      "resource_group": "discounts",
+      "detail_url": "/capabilities/discounts_update"
+    },
+    {
+      "name": "discounts_delete",
+      "description": "Delete a discount.",
+      "resource_group": "discounts",
+      "detail_url": "/capabilities/discounts_delete"
+    },
+    {
+      "name": "refunds_list",
+      "description": "Retrieve all refunds for an order.",
+      "resource_group": "refunds",
+      "detail_url": "/capabilities/refunds_list"
+    },
+    {
+      "name": "refunds_create",
+      "description": "Create a refund for an order.",
+      "resource_group": "refunds",
+      "detail_url": "/capabilities/refunds_create"
+    },
+    {
+      "name": "notifications_create",
+      "description": "Send a notification to an order customer.",
+      "resource_group": "notifications",
+      "detail_url": "/capabilities/notifications_create"
+    },
+    {
+      "name": "abandoned_carts_list",
+      "description": "Retrieve abandoned carts with filtering by time range and value.",
+      "resource_group": "carts",
+      "detail_url": "/capabilities/abandoned_carts_list"
+    },
+    {
+      "name": "abandoned_carts_get",
+      "description": "Retrieve a specific abandoned cart by token.",
+      "resource_group": "carts",
+      "detail_url": "/capabilities/abandoned_carts_get"
     }
   ]
 }

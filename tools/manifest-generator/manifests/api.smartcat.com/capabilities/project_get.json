@@ -1,0 +1,43 @@
+{
+  "name": "project_get",
+  "description": "Retrieve details of a specific translation project including its documents, progress, and configuration.",
+  "resource_group": "projects",
+  "endpoint": "/api/integration/v1/project/{project_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique project ID."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://smartcat.com/api/integration/v1/project/project-uuid-123",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "project-uuid-123",
+      "name": "Website Localization Q1",
+      "sourceLanguage": "en",
+      "targetLanguages": ["fr", "de", "es"],
+      "status": "inProgress",
+      "documents": [
+        {
+          "id": "doc-uuid-456_fr",
+          "name": "homepage.json",
+          "targetLanguage": "fr",
+          "status": "inProgress",
+          "wordsCount": 1500
+        }
+      ],
+      "createdAt": "2026-03-01T12:00:00.000Z"
+    }
+  }
+}

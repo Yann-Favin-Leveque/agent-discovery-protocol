@@ -1,0 +1,54 @@
+{
+  "name": "bitlinks_shorten",
+  "description": "Convert a long URL to a Bitlink (shortened URL).",
+  "endpoint": "/v4/shorten",
+  "method": "POST",
+  "resource_group": "bitlinks",
+  "parameters": [
+    {
+      "name": "long_url",
+      "type": "string",
+      "description": "The long URL to shorten.",
+      "required": true,
+      "example": "https://example.com/very/long/url"
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Custom domain for the short link.",
+      "required": false,
+      "example": "bit.ly"
+    },
+    {
+      "name": "group_guid",
+      "type": "string",
+      "description": "Group GUID to associate the link with.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-ssl.bitly.com/v4/shorten",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "long_url": "https://example.com/very/long/url",
+      "domain": "bit.ly"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "link": "https://bit.ly/abc123",
+      "id": "bit.ly/abc123",
+      "long_url": "https://example.com/very/long/url",
+      "created_at": "2024-01-01T00:00:00+0000"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

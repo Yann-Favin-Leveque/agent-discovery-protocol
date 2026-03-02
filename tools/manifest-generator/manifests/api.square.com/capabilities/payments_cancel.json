@@ -1,0 +1,47 @@
+{
+  "name": "payments_cancel",
+  "description": "Cancel (void) a specific payment.",
+  "endpoint": "/v2/payments/{payment_id}/cancel",
+  "method": "POST",
+  "resource_group": "payments",
+  "parameters": [
+    {
+      "name": "payment_id",
+      "type": "string",
+      "description": "Payment ID to cancel",
+      "required": true,
+      "example": "pay_123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/payments/pay_123/cancel",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "payment": {
+        "id": "pay_123",
+        "status": "CANCELED"
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

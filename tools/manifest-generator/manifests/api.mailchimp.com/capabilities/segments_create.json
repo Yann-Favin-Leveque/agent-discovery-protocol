@@ -1,0 +1,72 @@
+{
+  "name": "segments_create",
+  "description": "Create a new segment for an audience.",
+  "endpoint": "/3.0/lists/{list_id}/segments",
+  "method": "POST",
+  "resource_group": "segments",
+  "parameters": [
+    {
+      "name": "list_id",
+      "type": "string",
+      "description": "Audience ID.",
+      "required": true,
+      "example": "abc123"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Segment name.",
+      "required": true,
+      "example": "Active Buyers"
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "description": "Segment conditions.",
+      "required": true,
+      "example": {
+        "match": "all",
+        "conditions": [
+          {
+            "field": "MEMBER_RATING",
+            "op": "greater",
+            "value": "3"
+          }
+        ]
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://us1.api.mailchimp.com/3.0/lists/abc123/segments",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Active Buyers",
+      "options": {
+        "match": "all",
+        "conditions": [
+          {
+            "field": "MEMBER_RATING",
+            "op": "greater",
+            "value": "3"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 2,
+      "name": "Active Buyers",
+      "member_count": 0
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

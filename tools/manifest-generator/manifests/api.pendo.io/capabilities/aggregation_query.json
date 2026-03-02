@@ -1,0 +1,62 @@
+{
+  "name": "aggregation_query",
+  "description": "Run aggregation queries on Pendo event data for custom analytics, reporting, and data export.",
+  "endpoint": "/v1/aggregation",
+  "method": "POST",
+  "resource_group": "aggregation",
+  "parameters": [
+    {
+      "name": "response",
+      "type": "object",
+      "description": "Response format specification.",
+      "required": true,
+      "example": { "mimeType": "application/json" }
+    },
+    {
+      "name": "request",
+      "type": "object",
+      "description": "Aggregation pipeline with source, filters, groups, and date ranges.",
+      "required": true,
+      "example": {
+        "pipeline": [
+          { "source": { "events": null } },
+          { "identified": "visitorId" },
+          { "dateRange": { "from": "2024-01-01", "to": "2024-01-31" } },
+          { "group": { "field": "visitorId", "count": "count" } }
+        ]
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.pendo.io/api/v1/aggregation",
+    "headers": {
+      "x-pendo-integration-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "response": { "mimeType": "application/json" },
+      "request": {
+        "pipeline": [
+          { "source": { "events": null } },
+          { "identified": "visitorId" },
+          { "dateRange": { "from": "2024-01-01", "to": "2024-01-31" } },
+          { "group": { "field": "visitorId", "count": "count" } }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        { "visitorId": "user_123", "count": 250 },
+        { "visitorId": "user_456", "count": 180 }
+      ]
+    }
+  },
+  "auth_scopes": ["aggregation"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

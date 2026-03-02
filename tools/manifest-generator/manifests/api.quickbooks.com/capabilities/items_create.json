@@ -1,0 +1,72 @@
+{
+  "name": "items_create",
+  "description": "Create a new item (product or service) for use on invoices and sales receipts.",
+  "endpoint": "/v3/company/{realmId}/item",
+  "method": "POST",
+  "resource_group": "items",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "Name",
+      "type": "string",
+      "description": "Item name",
+      "required": true,
+      "example": "Consulting Service"
+    },
+    {
+      "name": "Type",
+      "type": "string",
+      "description": "Item type: Inventory, Service, or NonInventory",
+      "required": true,
+      "example": "Service"
+    },
+    {
+      "name": "IncomeAccountRef",
+      "type": "object",
+      "description": "Income account",
+      "required": true,
+      "example": {
+        "value": "1"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/item?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Name": "Consulting Service",
+      "Type": "Service",
+      "IncomeAccountRef": {
+        "value": "1"
+      },
+      "UnitPrice": 100.0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Item": {
+        "Id": "21",
+        "Name": "Consulting Service",
+        "Type": "Service",
+        "UnitPrice": 100.0
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

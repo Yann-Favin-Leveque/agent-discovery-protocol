@@ -1,0 +1,49 @@
+{
+  "name": "templates_create",
+  "description": "Create a new email template.",
+  "resource_group": "templates",
+  "endpoint": "/templates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Template name.",
+      "required": true,
+      "example": "Welcome Email"
+    },
+    {
+      "name": "html",
+      "type": "string",
+      "description": "HTML content.",
+      "required": true,
+      "example": "<p>Welcome {{name}}</p>"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Default subject line.",
+      "required": false,
+      "example": "Welcome!"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.resend.com/templates",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Welcome Email",
+      "html": "<p>Welcome</p>",
+      "subject": "Welcome!"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "tmpl-123"
+    }
+  }
+}

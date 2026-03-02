@@ -1,0 +1,74 @@
+{
+  "name": "messages_send",
+  "description": "Send a message via the unified Messages API across any supported channel (SMS, WhatsApp, Viber, RCS, etc.) with a single endpoint. Automatically selects the appropriate channel based on the message configuration.",
+  "endpoint": "/messages/1/send",
+  "method": "POST",
+  "resource_group": "messages",
+  "parameters": [
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Array of message objects to send."
+    },
+    {
+      "name": "messages[].channel",
+      "type": "string",
+      "required": true,
+      "description": "Channel to send on: 'SMS', 'WHATSAPP', 'VIBER', 'RCS', 'MMS'."
+    },
+    {
+      "name": "messages[].sender",
+      "type": "string",
+      "required": true,
+      "description": "Sender ID or phone number for the message."
+    },
+    {
+      "name": "messages[].destinations",
+      "type": "array",
+      "required": true,
+      "description": "Array of destination objects with 'to' field containing recipient identifiers."
+    },
+    {
+      "name": "messages[].content",
+      "type": "object",
+      "required": true,
+      "description": "Message content object. Structure depends on channel and message type."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/messages/1/send",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "messages": [
+        {
+          "channel": "SMS",
+          "sender": "ServiceSMS",
+          "destinations": [{ "to": "14155550123" }],
+          "content": { "body": { "text": "Your verification code is 482910." } }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "bulkId": "msg-api-bulk-12345",
+      "messages": [
+        {
+          "messageId": "msg-api-12345",
+          "status": { "groupName": "PENDING", "name": "PENDING_ACCEPTED" },
+          "destination": "14155550123"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

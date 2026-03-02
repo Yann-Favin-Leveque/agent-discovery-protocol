@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Together AI",
-  "description": "Together AI provides a fast inference platform for running open-source large language models, embedding models, and image generation models. It offers an OpenAI-compatible API for chat completions, text completions, embeddings, image generation, fine-tuning, and model management at competitive pricing.",
+  "description": "Together AI provides a fast inference platform for running open-source large language models, embedding models, image generation models, and reranking models. It offers an OpenAI-compatible API for chat completions, text completions, embeddings, image generation, reranking, fine-tuning, file management, and model listing at competitive pricing.",
   "base_url": "https://api.together.xyz",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,100 @@
   },
   "capabilities": [
     {
-      "name": "create_chat_completion",
-      "description": "Generate a chat completion response given a conversation history. Supports all open-source chat models hosted on Together AI with streaming, tool calling, and JSON mode.",
-      "detail_url": "/capabilities/create_chat_completion"
+      "name": "chat_completions_create",
+      "description": "Generate a chat completion response given a conversation history of messages. Supports all open-source chat models with streaming, tool calling, JSON mode, and reasoning.",
+      "resource_group": "chat",
+      "detail_url": "/capabilities/chat_completions_create"
     },
     {
-      "name": "create_completion",
-      "description": "Generate a text completion given a prompt string. Supports language models for raw text generation tasks like code completion, creative writing, and text continuation.",
-      "detail_url": "/capabilities/create_completion"
+      "name": "completions_create",
+      "description": "Generate text completions for a given prompt string using language, code, or image models.",
+      "resource_group": "completions",
+      "detail_url": "/capabilities/completions_create"
     },
     {
-      "name": "create_embeddings",
-      "description": "Generate vector embeddings for input text. Useful for semantic search, clustering, and retrieval-augmented generation (RAG) workflows.",
-      "detail_url": "/capabilities/create_embeddings"
+      "name": "embeddings_create",
+      "description": "Generate vector embeddings for one or more text inputs. Useful for semantic search, clustering, and RAG workflows.",
+      "resource_group": "embeddings",
+      "detail_url": "/capabilities/embeddings_create"
     },
     {
-      "name": "create_image",
-      "description": "Generate images from text prompts using open-source diffusion models like Stable Diffusion XL and FLUX. Supports configurable resolution, steps, and seed for reproducibility.",
-      "detail_url": "/capabilities/create_image"
+      "name": "images_create",
+      "description": "Generate images from text prompts using open-source diffusion models like FLUX and Stable Diffusion.",
+      "resource_group": "images",
+      "detail_url": "/capabilities/images_create"
     },
     {
-      "name": "create_fine_tune_job",
-      "description": "Create a fine-tuning job to train a custom model on your dataset. Supports LoRA and full fine-tuning on supported open-source base models.",
-      "detail_url": "/capabilities/create_fine_tune_job"
+      "name": "rerank_create",
+      "description": "Rerank a list of documents by relevance to a query. Returns relevance scores and ordering for each document.",
+      "resource_group": "rerank",
+      "detail_url": "/capabilities/rerank_create"
     },
     {
-      "name": "list_models",
-      "description": "List all available models on the Together AI platform. Returns model IDs, types (chat, language, code, image, embedding), and context length information.",
-      "detail_url": "/capabilities/list_models"
+      "name": "models_list",
+      "description": "List all available open-source models on the Together AI platform with type, context length, and pricing information.",
+      "resource_group": "models",
+      "detail_url": "/capabilities/models_list"
+    },
+    {
+      "name": "fine_tunes_create",
+      "description": "Create a fine-tuning job to train a custom model on your dataset. Supports LoRA and full fine-tuning.",
+      "resource_group": "fine_tunes",
+      "detail_url": "/capabilities/fine_tunes_create"
+    },
+    {
+      "name": "fine_tunes_list",
+      "description": "List the metadata for all fine-tuning jobs associated with your account.",
+      "resource_group": "fine_tunes",
+      "detail_url": "/capabilities/fine_tunes_list"
+    },
+    {
+      "name": "fine_tunes_get",
+      "description": "Retrieve the metadata for a single fine-tuning job by its ID.",
+      "resource_group": "fine_tunes",
+      "detail_url": "/capabilities/fine_tunes_get"
+    },
+    {
+      "name": "fine_tunes_events_list",
+      "description": "List the training events and progress for a specific fine-tuning job.",
+      "resource_group": "fine_tunes",
+      "detail_url": "/capabilities/fine_tunes_events_list"
+    },
+    {
+      "name": "fine_tunes_cancel",
+      "description": "Cancel a currently running fine-tuning job.",
+      "resource_group": "fine_tunes",
+      "detail_url": "/capabilities/fine_tunes_cancel"
+    },
+    {
+      "name": "fine_tunes_download",
+      "description": "Download a compressed fine-tuned model or checkpoint as a binary file.",
+      "resource_group": "fine_tunes",
+      "detail_url": "/capabilities/fine_tunes_download"
+    },
+    {
+      "name": "files_upload",
+      "description": "Upload a file for fine-tuning, evaluation, or batch processing.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_upload"
+    },
+    {
+      "name": "files_list",
+      "description": "List the metadata for all uploaded data files.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_list"
+    },
+    {
+      "name": "files_get",
+      "description": "Retrieve the metadata for a single uploaded data file by its ID.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_get"
+    },
+    {
+      "name": "files_delete",
+      "description": "Delete a previously uploaded data file.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_delete"
     }
   ]
 }

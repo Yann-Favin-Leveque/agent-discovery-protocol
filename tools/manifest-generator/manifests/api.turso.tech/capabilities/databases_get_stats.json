@@ -1,0 +1,41 @@
+{
+  "name": "databases_get_stats",
+  "resource_group": "databases",
+  "description": "Retrieve top queries statistics.",
+  "endpoint": "/v1/organizations/{organizationSlug}/databases/{databaseName}/stats",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "databaseName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.turso.tech/v1/organizations/my-org/databases/my-db/stats",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "top_queries": [
+        {
+          "query": "SELECT * FROM users",
+          "rows_read": 5000
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "name": "dns_records_create",
+  "description": "Create a DNS record for a domain.",
+  "endpoint": "/v2/domains/{domain}/records",
+  "method": "POST",
+  "resource_group": "dns",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Domain name",
+      "required": true,
+      "example": "example.com"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Record type (A, AAAA, CNAME, MX, TXT, etc.)",
+      "required": true,
+      "example": "A"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Record name (subdomain)",
+      "required": true,
+      "example": "www"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Record value",
+      "required": true,
+      "example": "76.76.21.21"
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "description": "TTL in seconds",
+      "required": false,
+      "example": "300"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vercel.com/v2/domains/example.com/records",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "A",
+      "name": "www",
+      "value": "76.76.21.21"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uid": "rec_456"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

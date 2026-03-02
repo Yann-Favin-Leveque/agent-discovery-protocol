@@ -1,0 +1,69 @@
+{
+  "name": "keys_create",
+  "description": "Create a new application key.",
+  "resource_group": "keys",
+  "endpoint": "/b2api/v3/b2_create_key",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "Account ID.",
+      "required": true
+    },
+    {
+      "name": "capabilities",
+      "type": "array",
+      "description": "List of capabilities for the key.",
+      "required": true
+    },
+    {
+      "name": "keyName",
+      "type": "string",
+      "description": "Key name.",
+      "required": true
+    },
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "Restrict to specific bucket.",
+      "required": false
+    },
+    {
+      "name": "namePrefix",
+      "type": "string",
+      "description": "Restrict to file name prefix.",
+      "required": false
+    },
+    {
+      "name": "validDurationInSeconds",
+      "type": "integer",
+      "description": "Key expiration duration.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_create_key",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "accountId": "abc123",
+      "capabilities": [
+        "readFiles",
+        "writeFiles"
+      ],
+      "keyName": "my-app-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "keyId": "key123",
+      "applicationKey": "secret-key",
+      "keyName": "my-app-key"
+    }
+  }
+}

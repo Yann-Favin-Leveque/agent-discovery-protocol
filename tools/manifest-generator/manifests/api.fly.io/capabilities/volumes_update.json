@@ -1,0 +1,46 @@
+{
+  "name": "volumes_update",
+  "description": "Update volume snapshot/backup settings.",
+  "resource_group": "volumes",
+  "endpoint": "/v1/apps/{app_name}/volumes/{volume_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "app_name",
+      "type": "string",
+      "required": true,
+      "description": "App name."
+    },
+    {
+      "name": "volume_id",
+      "type": "string",
+      "required": true,
+      "description": "Volume ID."
+    },
+    {
+      "name": "snapshot_retention",
+      "type": "integer",
+      "required": false,
+      "description": "Snapshots to retain."
+    },
+    {
+      "name": "auto_backup_enabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable backups."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.machines.dev/v1/apps/my-app/volumes/vol-abc",
+    "body": {
+      "auto_backup_enabled": true,
+      "snapshot_retention": 5
+    }
+  },
+  "response_example": {
+    "id": "vol-abc",
+    "auto_backup_enabled": true,
+    "snapshot_retention": 5
+  }
+}

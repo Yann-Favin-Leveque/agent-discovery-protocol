@@ -1,0 +1,69 @@
+{
+  "name": "bitlinks_update",
+  "description": "Update a Bitlink's title, tags, long URL, or archive status.",
+  "endpoint": "/v4/bitlinks/{bitlink}",
+  "method": "PATCH",
+  "resource_group": "bitlinks",
+  "parameters": [
+    {
+      "name": "bitlink",
+      "type": "string",
+      "description": "The Bitlink ID.",
+      "required": true,
+      "example": "bit.ly/abc123"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "New title.",
+      "required": false
+    },
+    {
+      "name": "long_url",
+      "type": "string",
+      "description": "New destination URL.",
+      "required": false
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "description": "Archive status.",
+      "required": false
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Updated tags.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api-ssl.bitly.com/v4/bitlinks/bit.ly/abc123",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Updated Title",
+      "tags": [
+        "updated"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "link": "https://bit.ly/abc123",
+      "id": "bit.ly/abc123",
+      "title": "Updated Title",
+      "tags": [
+        "updated"
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook.",
+  "resource_group": "webhooks",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Webhook URL"
+    },
+    {
+      "name": "resourceTypes",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Resource types to watch (Issue, Comment, Project, etc.)"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Webhook label"
+    },
+    {
+      "name": "teamId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Team ID to scope"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "mutation { webhookCreate(input: { url: \"https://example.com/webhook\", resourceTypes: [\"Issue\"] }) { success webhook { id url } } }"
+  }
+}

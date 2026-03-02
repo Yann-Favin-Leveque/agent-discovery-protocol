@@ -1,0 +1,56 @@
+{
+  "name": "tag_list",
+  "description": "Retrieve user-created tags and annotations for tracking habits, symptoms, or events.",
+  "resource_group": "tag",
+  "endpoint": "/v2/usercollection/tag",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "tag"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/tag?start_date=2025-01-10&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "tag-123",
+          "day": "2025-01-15",
+          "text": "caffeine",
+          "timestamp": "2025-01-15T09:00:00+00:00",
+          "tags": [
+            "Caffeine"
+          ]
+        }
+      ]
+    }
+  }
+}

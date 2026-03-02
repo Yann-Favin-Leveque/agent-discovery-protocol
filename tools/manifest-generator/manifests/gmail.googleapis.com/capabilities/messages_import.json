@@ -1,0 +1,53 @@
+{
+  "name": "messages_import",
+  "description": "Imports a message into the mailbox with standard email classification, similar to SMTP receiving.",
+  "resource_group": "messages",
+  "endpoint": "/gmail/v1/users/{userId}/messages/import",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "raw",
+      "type": "string",
+      "description": "The email in base64url encoded RFC 2822 format.",
+      "required": true
+    },
+    {
+      "name": "neverMarkSpam",
+      "type": "boolean",
+      "description": "Never mark this message as SPAM.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages/import",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "raw": "base64url-encoded-email"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "18e2abc999",
+      "threadId": "18e2abc999",
+      "labelIds": [
+        "INBOX"
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.insert"
+  ]
+}

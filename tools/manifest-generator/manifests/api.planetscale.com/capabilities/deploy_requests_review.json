@@ -1,0 +1,63 @@
+{
+  "name": "deploy_requests_review",
+  "resource_group": "deploy_requests",
+  "description": "Submit a review (approve or comment) on a deploy request.",
+  "endpoint": "/organizations/{organization}/databases/{database}/deploy-requests/{number}/reviews",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "number",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Deploy request number."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Review state: approved or commented."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Review comment."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/deploy-requests/1/reviews",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "state": "approved",
+      "body": "LGTM"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "rev-123",
+      "state": "approved"
+    }
+  }
+}

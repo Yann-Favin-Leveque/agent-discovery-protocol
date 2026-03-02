@@ -1,0 +1,57 @@
+{
+  "name": "service_points_list",
+  "description": "Find carrier service points near a location.",
+  "endpoint": "/v1/service_points/list",
+  "method": "POST",
+  "resource_group": "service_points",
+  "parameters": [
+    {
+      "name": "address",
+      "type": "object",
+      "description": "Address to search near.",
+      "required": true
+    },
+    {
+      "name": "carrier_codes",
+      "type": "array",
+      "description": "Carrier codes to search.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/service_points/list",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "address": {
+        "postal_code": "95128",
+        "country_code": "US"
+      },
+      "carrier_codes": [
+        "ups"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "service_points": [
+        {
+          "service_point_id": "sp-123",
+          "carrier_code": "ups",
+          "name": "UPS Store",
+          "address": {
+            "address_line1": "123 Main St"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "users_settings_update",
+  "description": "Update a user's settings for meetings, recordings, email notifications, and features.",
+  "endpoint": "/users/{userId}/settings",
+  "method": "PATCH",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email.",
+      "required": true,
+      "example": "user123"
+    },
+    {
+      "name": "schedule_meeting",
+      "type": "object",
+      "description": "Schedule meeting settings to update.",
+      "required": false,
+      "example": {"host_video": true, "participants_video": false}
+    },
+    {
+      "name": "recording",
+      "type": "object",
+      "description": "Recording settings to update.",
+      "required": false,
+      "example": {"auto_recording": "cloud"}
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.zoom.us/v2/users/user123/settings",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "schedule_meeting": {
+        "host_video": true
+      },
+      "recording": {
+        "auto_recording": "cloud"
+      }
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": ["user:write"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

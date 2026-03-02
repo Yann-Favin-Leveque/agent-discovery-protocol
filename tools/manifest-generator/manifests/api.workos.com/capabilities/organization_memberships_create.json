@@ -1,0 +1,51 @@
+{
+  "name": "organization_memberships_create",
+  "resource_group": "organization_memberships",
+  "description": "Add a user to an organization with a role.",
+  "endpoint": "/user_management/organization_memberships",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID."
+    },
+    {
+      "name": "organization_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization ID."
+    },
+    {
+      "name": "role_slug",
+      "type": "string",
+      "required": false,
+      "description": "Role slug. Default: member."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.workos.com/user_management/organization_memberships",
+    "headers": {
+      "Authorization": "Bearer sk_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user_id": "user_abc",
+      "organization_id": "org_abc",
+      "role_slug": "admin"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "om_abc",
+      "user_id": "user_abc",
+      "organization_id": "org_abc",
+      "role": {
+        "slug": "admin"
+      }
+    }
+  }
+}

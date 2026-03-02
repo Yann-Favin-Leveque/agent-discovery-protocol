@@ -1,0 +1,18 @@
+{
+  "name": "audio_transcribe",
+  "description": "Convert speech audio files to text using automatic speech recognition models like Whisper.",
+  "resource_group": "audio",
+  "endpoint": "/models/{model_id}",
+  "method": "POST",
+  "parameters": [
+    {"name": "model_id", "type": "string", "required": true, "description": "Model ID (e.g. 'openai/whisper-large-v3')."},
+    {"name": "data", "type": "file", "required": true, "description": "Audio file to transcribe (sent as binary in request body)."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://router.huggingface.co/models/openai/whisper-large-v3",
+    "headers": {"Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "audio/flac"},
+    "body": "Binary audio content"
+  },
+  "response_example": {"status": 200, "body": {"text": "Hello, how are you doing today?"}}
+}

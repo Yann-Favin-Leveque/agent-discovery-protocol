@@ -1,0 +1,62 @@
+{
+  "name": "subreddits_mine_list",
+  "resource_group": "subreddits",
+  "description": "List subreddits the authenticated user is subscribed to, moderates, or contributes to.",
+  "endpoint": "/subreddits/mine/{where}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "where",
+      "type": "string",
+      "description": "Filter type. One of: subscriber (subscribed), contributor, moderator.",
+      "required": true,
+      "in": "path",
+      "example": "subscriber"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results (1-100).",
+      "required": false,
+      "in": "query",
+      "example": 25
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Fullname for forward pagination.",
+      "required": false,
+      "in": "query",
+      "example": "t5_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/subreddits/mine/subscriber?limit=25",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "Listing",
+      "data": {
+        "after": "t5_xyz789",
+        "children": [
+          {
+            "kind": "t5",
+            "data": {
+              "display_name": "technology",
+              "subscribers": 15200000,
+              "title": "Technology",
+              "public_description": "News and discussion about technology."
+            }
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": ["mysubreddits"]
+}

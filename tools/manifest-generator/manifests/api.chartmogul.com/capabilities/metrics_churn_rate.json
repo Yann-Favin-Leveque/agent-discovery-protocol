@@ -1,0 +1,52 @@
+{
+  "name": "metrics_churn_rate",
+  "description": "Retrieve customer churn rate metrics.",
+  "endpoint": "/v1/metrics/customer-churn-rate",
+  "method": "GET",
+  "resource_group": "metrics",
+  "parameters": [
+    {
+      "name": "start-date",
+      "type": "string",
+      "description": "Start date (ISO-8601).",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "end-date",
+      "type": "string",
+      "description": "End date (ISO-8601).",
+      "required": true,
+      "example": "2024-12-31"
+    },
+    {
+      "name": "interval",
+      "type": "string",
+      "description": "Grouping interval.",
+      "required": false,
+      "example": "month"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.chartmogul.com/v1/metrics/customer-churn-rate?start-date=2024-01-01&end-date=2024-12-31",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "entries": [
+        {
+          "date": "2024-01-31",
+          "customer-churn-rate": 2.5
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

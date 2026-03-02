@@ -1,0 +1,67 @@
+{
+  "name": "addresses_create",
+  "description": "Create a billing address for a customer.",
+  "resource_group": "addresses",
+  "endpoint": "/customers/{customer_id}/addresses",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customer_id",
+      "type": "string",
+      "description": "The customer ID.",
+      "required": true
+    },
+    {
+      "name": "country_code",
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code.",
+      "required": true,
+      "example": "US"
+    },
+    {
+      "name": "postal_code",
+      "type": "string",
+      "description": "ZIP or postal code.",
+      "required": false
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "City name.",
+      "required": false
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "State or region.",
+      "required": false
+    },
+    {
+      "name": "first_line",
+      "type": "string",
+      "description": "First address line.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/customers/ctm_01h1vjes1y163xfj1rh1tkfb65/addresses",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "country_code": "US",
+      "postal_code": "10001"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "add_01h1vjes1y163xfj1rh1tkfb65",
+        "country_code": "US"
+      }
+    }
+  }
+}

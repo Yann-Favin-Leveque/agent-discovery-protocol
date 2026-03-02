@@ -1,0 +1,109 @@
+{
+  "name": "message_send",
+  "description": "Send an SMS, MMS, or WhatsApp message to one or more destination numbers.",
+  "resource_group": "message",
+  "endpoint": "/v1/Account/{auth_id}/Message/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "src",
+      "type": "string",
+      "description": "Sender phone number, short code, or alphanumeric ID. Either src or powerpack_uuid required.",
+      "required": false,
+      "example": "+14151234567"
+    },
+    {
+      "name": "powerpack_uuid",
+      "type": "string",
+      "description": "Powerpack UUID to use for sending. Either src or powerpack_uuid required.",
+      "required": false
+    },
+    {
+      "name": "dst",
+      "type": "string",
+      "description": "Destination number(s) in E.164 format. Multiple numbers separated by <.",
+      "required": true,
+      "example": "+14157654321"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Message content. Max 1600 GSM or 737 Unicode characters.",
+      "required": true,
+      "example": "Hello from Plivo!"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Message type: sms, mms, or whatsapp.",
+      "required": false,
+      "example": "sms"
+    },
+    {
+      "name": "media_urls",
+      "type": "array",
+      "description": "Media URLs for MMS messages.",
+      "required": false
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Callback URL for delivery status.",
+      "required": false
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "description": "HTTP method for callback: GET or POST.",
+      "required": false,
+      "example": "POST"
+    },
+    {
+      "name": "log",
+      "type": "string",
+      "description": "Logging: true, false, content_only, number_only.",
+      "required": false,
+      "example": "true"
+    },
+    {
+      "name": "trackable",
+      "type": "boolean",
+      "description": "Set true for trackable messages (e.g. 2FA).",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Message/",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "src": "+14151234567",
+      "dst": "+14157654321",
+      "text": "Hello from Plivo!"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "message": "message(s) queued",
+      "message_uuid": [
+        "db3ce55a-7f1d-11e1-8ea7-1231380bc196"
+      ],
+      "api_id": "db342550-7f1d-11e1-8ea7-1231380bc196"
+    }
+  },
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

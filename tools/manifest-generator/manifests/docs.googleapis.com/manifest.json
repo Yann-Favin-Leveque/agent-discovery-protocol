@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Google Docs API",
-  "description": "Google Docs API provides a REST API for programmatic access to its features. Use it to integrate with Google services.",
+  "description": "Google Docs API lets you create, read, and update Google Docs documents programmatically. Apply batch updates to insert, delete, and format text, tables, images, and other document elements.",
   "base_url": "https://docs.googleapis.com",
   "auth": {
     "type": "oauth2",
@@ -17,9 +17,22 @@
   },
   "capabilities": [
     {
-      "name": "documents",
-      "description": "Manage documents — creates a blank document using the title given in the request. other fields in the request, including any provided content, are ignored. returns the created document, applies one or more updates to the document. each request is validated before being applied. if any request is not valid, then the entire request will fail and nothing will be applied. some requests have replies to give you some information about how they are applied. other requests do not need to return information; these each return an empty reply. the order of replies matches that of the requests. for example, suppose you call batchupdate with four updates, and only the third one returns information. the response would have two empty replies, the reply to the third request, and another empty reply, in that order. because other users may be editing the document, the document might not exactly reflect your changes: your changes may be altered with respect to collaborator changes. if there are no collaborators, the document should reflect your changes. in any case, the updates in your request are guaranteed to be applied together atomically, gets the latest version of the specified document. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/documents"
+      "name": "documents_create",
+      "description": "Create a new blank Google Docs document with the specified title.",
+      "resource_group": "documents",
+      "detail_url": "/capabilities/documents_create"
+    },
+    {
+      "name": "documents_get",
+      "description": "Retrieve the latest version of a Google Docs document including all content, styling, and structure.",
+      "resource_group": "documents",
+      "detail_url": "/capabilities/documents_get"
+    },
+    {
+      "name": "documents_batchUpdate",
+      "description": "Apply one or more updates to a document atomically. Supports inserting text, deleting content, formatting, creating tables, adding images, and more.",
+      "resource_group": "documents",
+      "detail_url": "/capabilities/documents_batchUpdate"
     }
   ]
 }

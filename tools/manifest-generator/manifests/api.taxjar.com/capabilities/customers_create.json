@@ -1,0 +1,69 @@
+{
+  "name": "customers_create",
+  "description": "Create a new customer with exemption details.",
+  "endpoint": "/v2/customers",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "customer_id",
+      "type": "string",
+      "description": "Unique customer ID.",
+      "required": true,
+      "example": "CUST-001"
+    },
+    {
+      "name": "exemption_type",
+      "type": "string",
+      "description": "Exemption type: wholesale, government, other.",
+      "required": true,
+      "example": "wholesale"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Customer name.",
+      "required": true,
+      "example": "John Smith"
+    },
+    {
+      "name": "exempt_regions",
+      "type": "array",
+      "description": "Array of exempt region objects with country and state.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.taxjar.com/v2/customers",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "customer_id": "CUST-001",
+      "exemption_type": "wholesale",
+      "name": "John Smith",
+      "exempt_regions": [
+        {
+          "country": "US",
+          "state": "CA"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "customer": {
+        "customer_id": "CUST-001",
+        "exemption_type": "wholesale",
+        "name": "John Smith"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "name": "refunds_create",
+  "description": "Create a refund transaction for reporting.",
+  "endpoint": "/v2/transactions/refunds",
+  "method": "POST",
+  "resource_group": "refunds",
+  "parameters": [
+    {
+      "name": "transaction_id",
+      "type": "string",
+      "description": "Unique refund transaction ID.",
+      "required": true,
+      "example": "321-refund"
+    },
+    {
+      "name": "transaction_reference_id",
+      "type": "string",
+      "description": "Original order transaction ID.",
+      "required": true,
+      "example": "321"
+    },
+    {
+      "name": "transaction_date",
+      "type": "string",
+      "description": "Refund date.",
+      "required": true,
+      "example": "2024/01/20"
+    },
+    {
+      "name": "to_country",
+      "type": "string",
+      "description": "Destination country.",
+      "required": true,
+      "example": "US"
+    },
+    {
+      "name": "to_zip",
+      "type": "string",
+      "description": "Destination zip.",
+      "required": true,
+      "example": "90002"
+    },
+    {
+      "name": "to_state",
+      "type": "string",
+      "description": "Destination state.",
+      "required": true,
+      "example": "CA"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Refund amount (negative).",
+      "required": true,
+      "example": -15.0
+    },
+    {
+      "name": "shipping",
+      "type": "number",
+      "description": "Shipping refund (negative).",
+      "required": true,
+      "example": -1.5
+    },
+    {
+      "name": "sales_tax",
+      "type": "number",
+      "description": "Tax refund (negative).",
+      "required": true,
+      "example": -1.36
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.taxjar.com/v2/transactions/refunds",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transaction_id": "321-refund",
+      "transaction_reference_id": "321",
+      "transaction_date": "2024/01/20",
+      "to_country": "US",
+      "to_zip": "90002",
+      "to_state": "CA",
+      "amount": -15.0,
+      "shipping": -1.5,
+      "sales_tax": -1.36
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "refund": {
+        "transaction_id": "321-refund",
+        "amount": "-15.00",
+        "sales_tax": "-1.36"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

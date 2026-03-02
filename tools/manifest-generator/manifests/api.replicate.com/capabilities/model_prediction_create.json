@@ -1,0 +1,22 @@
+{
+  "name": "model_prediction_create",
+  "description": "Create a prediction using an official model's latest version directly, without specifying a version ID.",
+  "resource_group": "models",
+  "endpoint": "/models/{model_owner}/{model_name}/predictions",
+  "method": "POST",
+  "parameters": [
+    {"name": "model_owner", "type": "string", "required": true, "description": "The model owner."},
+    {"name": "model_name", "type": "string", "required": true, "description": "The model name."},
+    {"name": "input", "type": "object", "required": true, "description": "Model-specific input parameters."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.replicate.com/v1/models/meta/meta-llama-3-70b-instruct/predictions",
+    "headers": {"Authorization": "Bearer r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json", "Prefer": "wait"},
+    "body": {"input": {"prompt": "What is machine learning?"}}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": "pred123", "status": "succeeded", "output": ["Machine learning is..."]}
+  }
+}

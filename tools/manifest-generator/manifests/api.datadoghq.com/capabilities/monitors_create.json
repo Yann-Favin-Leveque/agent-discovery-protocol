@@ -1,0 +1,56 @@
+{
+  "name": "monitors_create",
+  "description": "Create a new monitor with query and alert conditions.",
+  "resource_group": "monitors",
+  "endpoint": "/api/v1/monitor",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Monitor name"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Monitor type (metric alert, service check, etc.)"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "Monitor query"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Notification message"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false,
+      "description": "Monitor tags"
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "required": false,
+      "description": "Monitor options (thresholds, notify, etc.)"
+    }
+  ],
+  "request_example": {
+    "name": "High CPU",
+    "type": "metric alert",
+    "query": "avg(last_5m):avg:system.cpu.user{*} > 90",
+    "message": "CPU usage is high @ops-team"
+  },
+  "response_example": {
+    "id": 2,
+    "name": "High CPU"
+  },
+  "auth_scopes": []
+}

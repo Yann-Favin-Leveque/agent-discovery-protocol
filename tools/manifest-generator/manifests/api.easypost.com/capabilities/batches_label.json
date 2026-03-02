@@ -1,0 +1,45 @@
+{
+  "name": "batches_label",
+  "description": "Generate a consolidated label file for all batch shipments.",
+  "endpoint": "/v2/batches/{id}/label",
+  "method": "POST",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Batch ID.",
+      "required": true,
+      "example": "batch_abc123"
+    },
+    {
+      "name": "file_format",
+      "type": "string",
+      "description": "Label format: PDF, ZPL, or EPL2.",
+      "required": true,
+      "example": "PDF"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/batches/batch_abc123/label",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "file_format": "PDF"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "batch_abc123",
+      "label_url": "https://easypost-files.s3.amazonaws.com/batch_label.pdf"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

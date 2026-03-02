@@ -1,0 +1,59 @@
+{
+  "name": "tasks_cancel",
+  "description": "Cancel enqueued or processing tasks matching the given filters. Returns an asynchronous task.",
+  "endpoint": "/tasks/cancel",
+  "method": "POST",
+  "resource_group": "tasks",
+  "parameters": [
+    {
+      "name": "uids",
+      "type": "string",
+      "description": "Comma-separated task UIDs to cancel.",
+      "required": false,
+      "example": "1,2"
+    },
+    {
+      "name": "statuses",
+      "type": "string",
+      "description": "Cancel tasks with these statuses.",
+      "required": false,
+      "example": "enqueued"
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Cancel tasks of these types.",
+      "required": false,
+      "example": "documentAdditionOrUpdate"
+    },
+    {
+      "name": "indexUids",
+      "type": "string",
+      "description": "Cancel tasks for these indexes.",
+      "required": false,
+      "example": "movies"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.meilisearch.com/tasks/cancel?statuses=enqueued",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "taskUid": 12,
+      "status": "enqueued",
+      "type": "taskCancelation",
+      "enqueuedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "tasks.cancel"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

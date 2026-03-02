@@ -1,0 +1,22 @@
+{
+  "name": "inquiries_decline",
+  "description": "Decline an inquiry, marking the identity verification as failed or rejected.",
+  "resource_group": "inquiries",
+  "endpoint": "/inquiries/{inquiry_id}/decline",
+  "method": "POST",
+  "parameters": [
+    {"name": "inquiry_id", "type": "string", "description": "The inquiry ID to decline.", "required": true, "example": "inq_abc123"},
+    {"name": "comment", "type": "string", "description": "Optional comment explaining the decline.", "required": false}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://withpersona.com/api/v1/inquiries/inq_abc123/decline",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json", "Persona-Version": "2023-01-05"},
+    "body": {"meta": {"comment": "Document appears fraudulent"}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"type": "inquiry", "id": "inq_abc123", "attributes": {"status": "declined"}}}
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

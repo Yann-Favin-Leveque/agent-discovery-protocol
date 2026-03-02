@@ -1,0 +1,28 @@
+{
+  "name": "pin_create",
+  "resource_group": "pins",
+  "description": "Create a new pin on a specified board with an image URL, title, description, and optional destination link.",
+  "endpoint": "/pins",
+  "method": "POST",
+  "parameters": [
+    {"name": "board_id", "type": "string", "description": "The ID of the board to save the pin to.", "required": true, "in": "body", "example": "549755885175"},
+    {"name": "media_source", "type": "object", "description": "Media source object with source_type and url for the pin image.", "required": true, "in": "body", "example": {"source_type": "image_url", "url": "https://example.com/image.jpg"}},
+    {"name": "title", "type": "string", "description": "Title of the pin (max 100 characters).", "required": false, "in": "body", "example": "Beautiful Landscape"},
+    {"name": "description", "type": "string", "description": "Description of the pin (max 800 characters).", "required": false, "in": "body", "example": "A beautiful mountain landscape at sunset"},
+    {"name": "link", "type": "string", "description": "Destination URL when the pin is clicked.", "required": false, "in": "body", "example": "https://example.com/landscape"},
+    {"name": "alt_text", "type": "string", "description": "Alt text for the pin image (max 500 characters).", "required": false, "in": "body", "example": "Mountain landscape with sunset"},
+    {"name": "board_section_id", "type": "string", "description": "The ID of the board section to save the pin to.", "required": false, "in": "body", "example": "549755885176"},
+    {"name": "dominant_color", "type": "string", "description": "Hex color code for the pin's dominant color.", "required": false, "in": "body", "example": "#FF5733"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pinterest.com/v5/pins",
+    "headers": {"Authorization": "Bearer {access_token}", "Content-Type": "application/json"},
+    "body": {"board_id": "549755885175", "title": "Beautiful Landscape", "description": "A beautiful mountain landscape", "link": "https://example.com/landscape", "media_source": {"source_type": "image_url", "url": "https://example.com/image.jpg"}}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": "549755885177", "title": "Beautiful Landscape", "description": "A beautiful mountain landscape", "link": "https://example.com/landscape", "board_id": "549755885175", "media": {"media_type": "image", "images": {"150x150": {"url": "https://i.pinimg.com/150x150/..."}}}}
+  },
+  "auth_scopes": ["pins:write"]
+}

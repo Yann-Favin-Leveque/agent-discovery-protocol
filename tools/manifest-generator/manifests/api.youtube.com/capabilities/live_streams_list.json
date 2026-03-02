@@ -1,0 +1,67 @@
+{
+  "name": "live_streams_list",
+  "description": "List live streams for the authenticated user.",
+  "endpoint": "/youtube/v3/liveStreams",
+  "method": "GET",
+  "resource_group": "live_streams",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,cdn,status"
+    },
+    {
+      "name": "mine",
+      "type": "boolean",
+      "description": "Return user's streams",
+      "required": false,
+      "example": "true"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Stream IDs",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": "10"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/liveStreams",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "stream_123",
+          "snippet": {
+            "title": "My Stream"
+          },
+          "status": {
+            "streamStatus": "ready"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

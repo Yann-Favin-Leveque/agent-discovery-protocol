@@ -1,0 +1,78 @@
+{
+  "name": "image_generate",
+  "description": "Generate images from text prompts using DALL-E 3 or DALL-E 2. Supports multiple sizes, styles, and quality settings.",
+  "resource_group": "images",
+  "endpoint": "/v1/images/generations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": true,
+      "description": "A text description of the desired image(s). Maximum 4000 characters for DALL-E 3."
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "description": "The model to use: 'dall-e-3' (default) or 'dall-e-2'."
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "required": false,
+      "description": "Number of images to generate (1 for DALL-E 3, 1-10 for DALL-E 2)."
+    },
+    {
+      "name": "quality",
+      "type": "string",
+      "required": false,
+      "description": "Image quality: 'standard' (default) or 'hd' (DALL-E 3 only)."
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "required": false,
+      "description": "Image size: '1024x1024' (default), '1792x1024', '1024x1792' for DALL-E 3."
+    },
+    {
+      "name": "style",
+      "type": "string",
+      "required": false,
+      "description": "Image style: 'vivid' (default) or 'natural' (DALL-E 3 only)."
+    },
+    {
+      "name": "response_format",
+      "type": "string",
+      "required": false,
+      "description": "Format of the response: 'url' (default) or 'b64_json'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/images/generations",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "dall-e-3",
+      "prompt": "A serene mountain landscape at sunset with a lake in the foreground",
+      "size": "1024x1024",
+      "quality": "hd",
+      "n": 1
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "created": 1709164800,
+      "data": [
+        {
+          "url": "https://oaidalleapiprodscus.blob.core.windows.net/...",
+          "revised_prompt": "A serene mountain landscape bathed in golden sunset light..."
+        }
+      ]
+    }
+  }
+}

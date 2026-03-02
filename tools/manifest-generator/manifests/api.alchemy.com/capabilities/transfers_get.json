@@ -1,0 +1,77 @@
+{
+  "name": "transfers_get",
+  "description": "Fetch historical asset transfers (ETH, ERC-20, ERC-721, ERC-1155) for any address with filtering by block range, category, and contract. Supports Ethereum, Base, Polygon, Arbitrum, and Optimism.",
+  "endpoint": "/v2/{apiKey}",
+  "method": "POST",
+  "resource_group": "transfers",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "JSON-RPC request ID."
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'alchemy_getAssetTransfers'."
+    },
+    {
+      "name": "params",
+      "type": "array",
+      "required": true,
+      "description": "Array with transfer params object: fromBlock, toBlock, fromAddress, toAddress, category[], contractAddresses[], withMetadata, maxCount, pageKey."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://eth-mainnet.g.alchemy.com/v2/{apiKey}",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "method": "alchemy_getAssetTransfers",
+      "params": [{
+        "fromAddress": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+        "category": ["external", "erc20", "erc721"],
+        "withMetadata": true,
+        "maxCount": "0x14"
+      }]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        "transfers": [
+          {
+            "blockNum": "0x11a8f00",
+            "hash": "0x123...",
+            "from": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+            "to": "0xabc...",
+            "value": 1.5,
+            "asset": "ETH",
+            "category": "external",
+            "metadata": { "blockTimestamp": "2024-01-15T12:00:00.000Z" }
+          }
+        ],
+        "pageKey": "next_transfers_key"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

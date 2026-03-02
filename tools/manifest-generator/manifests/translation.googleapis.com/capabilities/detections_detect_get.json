@@ -1,0 +1,48 @@
+{
+  "name": "detections_detect_get",
+  "description": "Detect the language of text via GET request with query parameters.",
+  "resource_group": "detections",
+  "endpoint": "/v2/detect",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "location": "query",
+      "description": "Text string to detect the language of. Can be repeated for multiple texts."
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "API key (alternative to OAuth bearer token)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://translation.googleapis.com/language/translate/v2/detect?q=Bonjour%20le%20monde&key=YOUR_API_KEY",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "detections": [
+          [
+            {
+              "language": "fr",
+              "confidence": 0.98,
+              "isReliable": true
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/cloud-translation",
+    "https://www.googleapis.com/auth/cloud-platform"
+  ]
+}

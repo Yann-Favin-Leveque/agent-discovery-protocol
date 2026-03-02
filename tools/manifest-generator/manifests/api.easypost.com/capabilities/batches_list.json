@@ -1,0 +1,52 @@
+{
+  "name": "batches_list",
+  "description": "Retrieve all batches with pagination.",
+  "endpoint": "/v2/batches",
+  "method": "GET",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Records per page.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "before_id",
+      "type": "string",
+      "description": "Cursor for previous page.",
+      "required": false
+    },
+    {
+      "name": "after_id",
+      "type": "string",
+      "description": "Cursor for next page.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.easypost.com/v2/batches?page_size=20",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "batches": [
+        {
+          "id": "batch_abc123",
+          "state": "created",
+          "num_shipments": 50
+        }
+      ],
+      "has_more": false
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "nutrition_food_log_get",
+  "description": "Retrieve food log entries for a date with calories and macronutrients.",
+  "resource_group": "nutrition",
+  "endpoint": "/1/user/-/foods/log/date/{date}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "Date YYYY-MM-DD.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "nutrition"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/foods/log/date/2025-01-15.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "foods": [
+        {
+          "logId": 9001,
+          "loggedFood": {
+            "name": "Banana",
+            "calories": 105
+          }
+        }
+      ],
+      "summary": {
+        "calories": 1850,
+        "carbs": 230,
+        "fat": 65,
+        "protein": 95
+      }
+    }
+  }
+}

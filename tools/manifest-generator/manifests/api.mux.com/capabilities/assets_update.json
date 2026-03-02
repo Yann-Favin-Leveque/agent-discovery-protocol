@@ -1,0 +1,42 @@
+{
+  "name": "assets_update",
+  "resource_group": "assets",
+  "description": "Update an asset's metadata or passthrough string.",
+  "endpoint": "/video/v1/assets/{asset_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "asset_id",
+      "type": "string",
+      "required": true,
+      "description": "Asset ID.",
+      "in": "path"
+    },
+    {
+      "name": "passthrough",
+      "type": "string",
+      "required": false,
+      "description": "Custom metadata string."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.mux.com/video/v1/assets/asset_abc123",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "passthrough": "product-video-123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "asset_abc123",
+        "passthrough": "product-video-123"
+      }
+    }
+  }
+}

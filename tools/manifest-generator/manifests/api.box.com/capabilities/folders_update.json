@@ -1,0 +1,52 @@
+{
+  "name": "folders_update",
+  "description": "Update a folder (rename or move).",
+  "resource_group": "folders",
+  "endpoint": "/2.0/folders/{folder_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "folder_id",
+      "type": "string",
+      "description": "The folder ID.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "New name.",
+      "required": false
+    },
+    {
+      "name": "parent",
+      "type": "object",
+      "description": "New parent folder.",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "New description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.box.com/2.0/folders/67890",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Renamed Folder"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "folder",
+      "id": "67890",
+      "name": "Renamed Folder"
+    }
+  }
+}

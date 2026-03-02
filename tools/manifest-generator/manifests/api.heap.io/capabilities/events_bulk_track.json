@@ -1,0 +1,55 @@
+{
+  "name": "events_bulk_track",
+  "description": "Send multiple events in a single batch request (max 1,000 events per request).",
+  "endpoint": "/api/track",
+  "method": "POST",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Your Heap environment ID.",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "Array of event objects (max 1,000). Each has identity, event, and optional properties.",
+      "required": true,
+      "example": [
+        { "identity": "user1@example.com", "event": "page_view", "properties": { "page": "/pricing" } },
+        { "identity": "user2@example.com", "event": "sign_up" }
+      ]
+    },
+    {
+      "name": "idempotency_key",
+      "type": "string",
+      "description": "Optional key to prevent duplicate batch submissions.",
+      "required": false,
+      "example": "batch_unique_123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://heapanalytics.com/api/track",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "app_id": "123456789",
+      "events": [
+        { "identity": "user1@example.com", "event": "page_view", "properties": { "page": "/pricing" }, "timestamp": "2024-01-20T10:00:00Z" },
+        { "identity": "user2@example.com", "event": "sign_up" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 15000
+  }
+}

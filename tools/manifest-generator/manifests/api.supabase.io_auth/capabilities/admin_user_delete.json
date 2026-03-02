@@ -1,0 +1,42 @@
+{
+  "name": "admin_user_delete",
+  "description": "Delete a user account as admin. Permanently removes the user and their data. Requires service_role key.",
+  "endpoint": "/auth/v1/admin/users/{user_id}",
+  "method": "DELETE",
+  "resource_group": "admin",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The user's UUID to delete.",
+      "required": true,
+      "example": "uuid-1234"
+    },
+    {
+      "name": "Authorization",
+      "type": "string",
+      "description": "Bearer token with service_role key.",
+      "required": true,
+      "example": "Bearer {service_role_key}"
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://your-project.supabase.co/auth/v1/admin/users/uuid-1234",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {service_role_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-1234",
+      "email": "user@example.com"
+    }
+  },
+  "auth_scopes": ["service_role"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "job_openings_create",
+  "resource_group": "Job Openings",
+  "endpoint": "/v1/jobs/{job_id}/openings",
+  "method": "POST",
+  "description": "Create new openings for a job.",
+  "parameters": [
+    {
+      "name": "job_id",
+      "type": "integer",
+      "required": true,
+      "description": "Job ID."
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Number of openings."
+    },
+    {
+      "name": "On-Behalf-Of",
+      "type": "integer",
+      "required": true,
+      "description": "User ID (header)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://harvest.greenhouse.io/v1/jobs/45021/openings",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6",
+      "On-Behalf-Of": "4321",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "count": 2
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 101
+      },
+      {
+        "id": 102
+      }
+    ]
+  }
+}

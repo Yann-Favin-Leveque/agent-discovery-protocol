@@ -1,0 +1,59 @@
+{
+  "name": "sites_create",
+  "description": "Create a new Netlify site. Optionally link to a Git repository.",
+  "endpoint": "/api/v1/sites",
+  "method": "POST",
+  "resource_group": "sites",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Site name (used in subdomain)",
+      "required": false,
+      "example": "my-new-site"
+    },
+    {
+      "name": "custom_domain",
+      "type": "string",
+      "description": "Custom domain for the site",
+      "required": false,
+      "example": "www.example.com"
+    },
+    {
+      "name": "repo.provider",
+      "type": "string",
+      "description": "Git provider (github, gitlab, bitbucket)",
+      "required": false,
+      "example": "github"
+    },
+    {
+      "name": "repo.repo_path",
+      "type": "string",
+      "description": "Repository path",
+      "required": false,
+      "example": "user/repo"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.netlify.com/api/v1/sites",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "my-new-site"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "new_site_123",
+      "name": "my-new-site"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

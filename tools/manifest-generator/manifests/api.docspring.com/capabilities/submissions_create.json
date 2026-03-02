@@ -1,0 +1,102 @@
+{
+  "name": "submissions_create",
+  "description": "Generate a filled PDF by merging data into a template. The data object must match the template's field schema. Supports synchronous mode (via sync.api.docspring.com) and asynchronous mode. Test PDFs are free but watermarked.",
+  "resource_group": "submissions",
+  "endpoint": "/api/v1/templates/{template_id}/submissions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID of the template to generate from."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "Field values matching the template schema. Keys are field names, values are the data to fill."
+    },
+    {
+      "name": "test",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "If true, generates a watermarked test PDF (free). Default: false."
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Optional metadata returned in webhooks (e.g., { pdf_filename: 'invoice.pdf' })."
+    },
+    {
+      "name": "wait",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "If true, waits for processing to complete (synchronous). Default depends on base URL."
+    },
+    {
+      "name": "editable",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "If true, generates an editable PDF with fillable form fields."
+    },
+    {
+      "name": "expires_in",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "TTL in seconds for the download link."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Template version: 'draft', 'latest', or specific version like '1.2.3'."
+    },
+    {
+      "name": "field_overrides",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Temporarily override field requirements or defaults."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.docspring.com/api/v1/templates/tpl_abc123/submissions",
+    "headers": {
+      "Authorization": "Basic {base64(token_id:token_secret)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "invoice_number": "INV-2026-001",
+        "customer_name": "Jane Smith",
+        "amount": "250.00",
+        "date": "2026-03-01"
+      },
+      "test": false,
+      "metadata": {
+        "pdf_filename": "invoice-001.pdf"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sub_xyz789",
+      "state": "processed",
+      "download_url": "https://api.docspring.com/submissions/sub_xyz789/download",
+      "permanent_download_url": "https://api.docspring.com/submissions/sub_xyz789/permanent_download",
+      "expires_at": "2026-03-08T12:00:00.000Z"
+    }
+  }
+}

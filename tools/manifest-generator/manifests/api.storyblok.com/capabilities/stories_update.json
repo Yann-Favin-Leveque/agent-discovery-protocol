@@ -1,0 +1,69 @@
+{
+  "name": "stories_update",
+  "description": "Update an existing story's content, name, slug, or metadata.",
+  "endpoint": "/v1/spaces/{space_id}/stories/{story_id}",
+  "method": "PUT",
+  "resource_group": "stories",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "integer",
+      "description": "Space ID",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "story_id",
+      "type": "integer",
+      "description": "Story ID",
+      "required": true,
+      "example": 456
+    },
+    {
+      "name": "story",
+      "type": "object",
+      "description": "Updated story fields",
+      "required": true,
+      "example": {
+        "name": "Updated Post",
+        "content": {
+          "component": "post",
+          "title": "Updated"
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://mapi.storyblok.com/v1/spaces/12345/stories/456",
+    "headers": {
+      "Authorization": "your-management-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "story": {
+        "name": "Updated Post",
+        "content": {
+          "component": "post",
+          "title": "Updated"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "story": {
+        "id": 456,
+        "name": "Updated Post"
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

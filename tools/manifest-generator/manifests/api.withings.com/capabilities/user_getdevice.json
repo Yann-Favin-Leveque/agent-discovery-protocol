@@ -1,0 +1,46 @@
+{
+  "name": "user_getdevice",
+  "description": "List all Withings devices associated with the user account including type, model, battery, firmware, and last sync.",
+  "resource_group": "user",
+  "endpoint": "/v2/user",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'getdevice'."
+    }
+  ],
+  "auth_scopes": [
+    "user.info"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/user",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "getdevice"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "devices": [
+          {
+            "type": "Scale",
+            "model": "Body+",
+            "battery": "high",
+            "deviceid": "abc123",
+            "last_session_date": 1705315800
+          }
+        ]
+      }
+    }
+  }
+}

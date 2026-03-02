@@ -1,0 +1,90 @@
+{
+  "name": "activities_list",
+  "description": "List channel activity events (uploads, likes, comments, etc.).",
+  "endpoint": "/youtube/v3/activities",
+  "method": "GET",
+  "resource_group": "activities",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,contentDetails"
+    },
+    {
+      "name": "channelId",
+      "type": "string",
+      "description": "Channel ID",
+      "required": false,
+      "example": "UC_channel_id"
+    },
+    {
+      "name": "mine",
+      "type": "boolean",
+      "description": "Return authenticated user's activity",
+      "required": false,
+      "example": "true"
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": "10"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "publishedAfter",
+      "type": "string",
+      "description": "Filter after date (RFC 3339)",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "publishedBefore",
+      "type": "string",
+      "description": "Filter before date",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/activities",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "snippet": {
+            "type": "upload",
+            "title": "New Video"
+          },
+          "contentDetails": {
+            "upload": {
+              "videoId": "abc123"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.readonly"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

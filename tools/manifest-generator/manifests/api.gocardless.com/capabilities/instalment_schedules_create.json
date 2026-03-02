@@ -1,0 +1,77 @@
+{
+  "name": "instalment_schedules_create",
+  "description": "Create an instalment schedule to collect payments in instalments.",
+  "resource_group": "instalment_schedules",
+  "endpoint": "/instalment_schedules",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "total_amount",
+      "type": "integer",
+      "description": "Total amount across all instalments.",
+      "required": true
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO currency code.",
+      "required": true
+    },
+    {
+      "name": "instalments",
+      "type": "array",
+      "description": "Array of instalment amounts and charge dates.",
+      "required": true
+    },
+    {
+      "name": "links[mandate]",
+      "type": "string",
+      "description": "Mandate ID.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Schedule name.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/instalment_schedules",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "instalment_schedules": {
+        "total_amount": 10000,
+        "currency": "GBP",
+        "instalments": [
+          {
+            "amount": 5000,
+            "charge_date": "2024-02-01"
+          },
+          {
+            "amount": 5000,
+            "charge_date": "2024-03-01"
+          }
+        ],
+        "links": {
+          "mandate": "MD000123"
+        },
+        "name": "Payment plan"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "instalment_schedules": {
+        "id": "IS000123",
+        "status": "active"
+      }
+    }
+  }
+}

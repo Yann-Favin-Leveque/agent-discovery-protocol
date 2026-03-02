@@ -1,0 +1,48 @@
+{
+  "name": "playlists_insert",
+  "description": "Create a new playlist.",
+  "endpoint": "/youtube/v3/playlists",
+  "method": "POST",
+  "resource_group": "playlists",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts (snippet, status)",
+      "required": true,
+      "example": "snippet,status"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://youtube.googleapis.com/youtube/v3/playlists",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "snippet": {
+        "title": "New Playlist",
+        "description": "My playlist"
+      },
+      "status": {
+        "privacyStatus": "public"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "PL_new_id",
+      "snippet": {
+        "title": "New Playlist"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

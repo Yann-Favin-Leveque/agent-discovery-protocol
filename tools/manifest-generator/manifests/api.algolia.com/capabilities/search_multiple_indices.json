@@ -1,0 +1,54 @@
+{
+  "name": "search_multiple_indices",
+  "description": "Execute multiple search queries across one or more indices in a single API call. Useful for federated search and autocomplete.",
+  "endpoint": "/1/indexes/*/queries",
+  "method": "POST",
+  "resource_group": "search",
+  "parameters": [
+    {
+      "name": "requests",
+      "type": "array",
+      "description": "Array of search request objects, each specifying an indexName and query parameters.",
+      "required": true,
+      "example": [
+        { "indexName": "products", "query": "laptop" },
+        { "indexName": "categories", "query": "laptop" }
+      ]
+    },
+    {
+      "name": "strategy",
+      "type": "string",
+      "description": "Multi-query strategy: 'none' (default) or 'stopIfEnoughMatches'.",
+      "required": false,
+      "example": "none"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}-dsn.algolia.net/1/indexes/*/queries",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requests": [
+        { "indexName": "products", "query": "laptop", "hitsPerPage": 5 },
+        { "indexName": "categories", "query": "laptop", "hitsPerPage": 3 }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        { "hits": [], "nbHits": 150, "index": "products" },
+        { "hits": [], "nbHits": 3, "index": "categories" }
+      ]
+    }
+  },
+  "auth_scopes": ["search"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

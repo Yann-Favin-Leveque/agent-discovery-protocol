@@ -1,0 +1,47 @@
+{
+  "name": "investments_holdings_get",
+  "description": "Retrieve investment holdings including securities and values.",
+  "resource_group": "investments",
+  "endpoint": "/investments/holdings/get",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/investments/holdings/get",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "holdings": [
+        {
+          "security_id": "sec_abc",
+          "quantity": 100,
+          "institution_price": 150.25
+        }
+      ],
+      "securities": [
+        {
+          "security_id": "sec_abc",
+          "name": "Apple Inc",
+          "ticker_symbol": "AAPL"
+        }
+      ],
+      "request_id": "abc"
+    }
+  }
+}

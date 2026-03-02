@@ -1,0 +1,53 @@
+{
+  "name": "templates_update",
+  "description": "Update the name or HTML content of an existing template by its slug.",
+  "resource_group": "templates",
+  "endpoint": "/templates/{slug}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique template slug identifier."
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Updated HTML content for the template."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Updated name for the template."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.pdfshift.io/v3/templates/invoice-template",
+    "headers": {
+      "X-API-Key": "your-pdfshift-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "<html><body><h1>Invoice #{{invoice_number}}</h1><p>Amount: ${{amount}}</p><p>Due: {{due_date}}</p></body></html>",
+      "name": "Invoice Template v2"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "template": {
+        "slug": "invoice-template",
+        "name": "Invoice Template v2",
+        "created": 1709290800000
+      }
+    }
+  }
+}

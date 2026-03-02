@@ -1,0 +1,92 @@
+{
+  "name": "assets_list",
+  "description": "Retrieve all media assets (images, videos, files) from a space with filtering, ordering, and pagination support.",
+  "endpoint": "/spaces/{space_id}/environments/{environment_id}/assets",
+  "method": "GET",
+  "resource_group": "assets",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "string",
+      "description": "The space ID.",
+      "required": true,
+      "example": "cfexampleapi"
+    },
+    {
+      "name": "environment_id",
+      "type": "string",
+      "description": "The environment ID.",
+      "required": true,
+      "example": "master"
+    },
+    {
+      "name": "mimetype_group",
+      "type": "string",
+      "description": "Filter by MIME type group: image, video, audio, richtext, presentation, spreadsheet, plaintext, archive, code.",
+      "required": false,
+      "example": "image"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results (default 100, max 1000).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "skip",
+      "type": "integer",
+      "description": "Number of results to skip.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Order results by field.",
+      "required": false,
+      "example": "-sys.createdAt"
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "Locale code. Use * for all locales.",
+      "required": false,
+      "example": "en-US"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/assets?mimetype_group=image&limit=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sys": {"type": "Array"},
+      "total": 15,
+      "skip": 0,
+      "limit": 10,
+      "items": [
+        {
+          "sys": {"id": "asset1", "type": "Asset"},
+          "fields": {
+            "title": "Hero Image",
+            "file": {
+              "url": "//images.ctfassets.net/cfexampleapi/asset1/hero.jpg",
+              "fileName": "hero.jpg",
+              "contentType": "image/jpeg",
+              "details": {"size": 204800, "image": {"width": 1920, "height": 1080}}
+            }
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 78
+  }
+}

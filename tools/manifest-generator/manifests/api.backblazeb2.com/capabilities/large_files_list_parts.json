@@ -1,0 +1,49 @@
+{
+  "name": "large_files_list_parts",
+  "description": "List parts that have been uploaded for a large file.",
+  "resource_group": "large_files",
+  "endpoint": "/b2api/v3/b2_list_parts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "fileId",
+      "type": "string",
+      "description": "Large file ID.",
+      "required": true
+    },
+    {
+      "name": "startPartNumber",
+      "type": "integer",
+      "description": "Start from this part number.",
+      "required": false
+    },
+    {
+      "name": "maxPartCount",
+      "type": "integer",
+      "description": "Max parts to return.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_list_parts",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fileId": "largefile123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "parts": [
+        {
+          "partNumber": 1,
+          "contentLength": 100000000
+        }
+      ]
+    }
+  }
+}

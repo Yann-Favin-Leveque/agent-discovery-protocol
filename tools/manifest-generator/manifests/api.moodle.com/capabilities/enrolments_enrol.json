@@ -1,0 +1,25 @@
+{
+  "name": "enrolments_enrol",
+  "description": "Enrol one or more users into a course with a specified role (student, teacher, etc.).",
+  "endpoint": "/webservice/rest/server.php?wsfunction=enrol_manual_enrol_users",
+  "method": "POST",
+  "resource_group": "enrolments",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "enrolments[0][roleid]", "type": "integer", "description": "Role ID (5=student, 3=teacher, 1=manager)", "required": true, "example": 5 },
+    { "name": "enrolments[0][userid]", "type": "integer", "description": "User ID to enrol", "required": true, "example": 42 },
+    { "name": "enrolments[0][courseid]", "type": "integer", "description": "Course ID to enrol into", "required": true, "example": 5 }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=enrol_manual_enrol_users&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "enrolments[0][roleid]": 5, "enrolments[0][userid]": 42, "enrolments[0][courseid]": 5 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": null
+  },
+  "auth_scopes": ["enrol_manual_enrol_users"],
+  "rate_limits": { "requests_per_minute": 60 }
+}

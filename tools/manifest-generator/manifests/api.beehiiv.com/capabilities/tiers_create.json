@@ -1,0 +1,50 @@
+{
+  "name": "tiers_create",
+  "description": "Create a new subscription tier.",
+  "resource_group": "tiers",
+  "endpoint": "/v2/publications/{publicationId}/tiers",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "publicationId",
+      "type": "string",
+      "description": "Publication ID.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Tier name.",
+      "required": true
+    },
+    {
+      "name": "price",
+      "type": "integer",
+      "description": "Price in cents.",
+      "required": true,
+      "example": 999
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.beehiiv.com/v2/publications/pub_xxx/tiers",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Pro",
+      "price": 999
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "tier_zzz",
+        "name": "Pro",
+        "price": 999
+      }
+    }
+  }
+}

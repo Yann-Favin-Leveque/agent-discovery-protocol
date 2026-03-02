@@ -1,0 +1,57 @@
+{
+  "name": "auth_user_update",
+  "resource_group": "auth",
+  "description": "Update the currently authenticated user's profile, email, phone, or password.",
+  "endpoint": "/user",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "New email (triggers confirmation)."
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "required": false,
+      "description": "New phone number."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "description": "New password."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": false,
+      "description": "User metadata to update."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://myproject.supabase.co/auth/v1/user",
+    "headers": {
+      "apikey": "your-anon-key",
+      "Authorization": "Bearer eyJhbGciOi...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "display_name": "Alice Johnson"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-here",
+      "email": "alice@example.com",
+      "user_metadata": {
+        "display_name": "Alice Johnson"
+      }
+    }
+  }
+}

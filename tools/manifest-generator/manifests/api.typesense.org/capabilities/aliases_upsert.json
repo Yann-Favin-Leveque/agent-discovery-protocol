@@ -1,0 +1,45 @@
+{
+  "name": "aliases_upsert",
+  "description": "Create or update a collection alias to point to a specific collection.",
+  "endpoint": "/aliases/{aliasName}",
+  "method": "PUT",
+  "resource_group": "aliases",
+  "parameters": [
+    {
+      "name": "aliasName",
+      "type": "string",
+      "description": "Alias name",
+      "required": true,
+      "example": "products_alias"
+    },
+    {
+      "name": "collection_name",
+      "type": "string",
+      "description": "Target collection name",
+      "required": true,
+      "example": "products_v2"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.typesense.org/aliases/products_alias",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "collection_name": "products_v2"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "products_alias",
+      "collection_name": "products_v2"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

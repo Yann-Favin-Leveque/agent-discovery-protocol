@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Todoist",
-  "description": "Todoist is a task and project management API that enables agents to create, update, and organize tasks and projects. Use this API to manage your to-do lists, set priorities, and track project progress programmatically.",
+  "description": "Todoist is a task and project management tool. The REST API v2 provides full CRUD for projects, sections, tasks, comments, and labels. Supports natural language due dates, priorities, assignees, and shared labels.",
   "base_url": "https://api.todoist.com",
   "auth": {
     "type": "api_key",
@@ -11,39 +11,202 @@
   },
   "capabilities": [
     {
-      "name": "list_tasks",
-      "description": "Retrieve all tasks or filter by project, label, or status.",
-      "detail_url": "/capabilities/list_tasks"
+      "name": "projects_list",
+      "description": "Get all projects.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_list"
     },
     {
-      "name": "create_task",
-      "description": "Create a new task with optional description, due date, priority, and project assignment.",
-      "detail_url": "/capabilities/create_task"
+      "name": "projects_create",
+      "description": "Create a new project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_create"
     },
     {
-      "name": "update_task",
-      "description": "Update an existing task's content, description, due date, priority, or labels.",
-      "detail_url": "/capabilities/update_task"
+      "name": "projects_get",
+      "description": "Get a project by ID.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_get"
     },
     {
-      "name": "close_task",
+      "name": "projects_update",
+      "description": "Update a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_update"
+    },
+    {
+      "name": "projects_delete",
+      "description": "Delete a project and its contents.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_delete"
+    },
+    {
+      "name": "projects_archive",
+      "description": "Archive a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_archive"
+    },
+    {
+      "name": "projects_unarchive",
+      "description": "Unarchive a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_unarchive"
+    },
+    {
+      "name": "projects_collaborators_list",
+      "description": "List collaborators of a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_collaborators_list"
+    },
+    {
+      "name": "sections_list",
+      "description": "Get sections in a project.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_list"
+    },
+    {
+      "name": "sections_create",
+      "description": "Create a new section.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_create"
+    },
+    {
+      "name": "sections_get",
+      "description": "Get a section by ID.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_get"
+    },
+    {
+      "name": "sections_update",
+      "description": "Update a section.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_update"
+    },
+    {
+      "name": "sections_delete",
+      "description": "Delete a section and its tasks.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_delete"
+    },
+    {
+      "name": "tasks_list",
+      "description": "Get active tasks with optional filters.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_list"
+    },
+    {
+      "name": "tasks_create",
+      "description": "Create a new task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_create"
+    },
+    {
+      "name": "tasks_get",
+      "description": "Get a task by ID.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_get"
+    },
+    {
+      "name": "tasks_update",
+      "description": "Update a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_update"
+    },
+    {
+      "name": "tasks_close",
       "description": "Mark a task as complete.",
-      "detail_url": "/capabilities/close_task"
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_close"
     },
     {
-      "name": "list_projects",
-      "description": "Retrieve all projects in your workspace.",
-      "detail_url": "/capabilities/list_projects"
+      "name": "tasks_reopen",
+      "description": "Reopen a completed task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_reopen"
     },
     {
-      "name": "create_project",
-      "description": "Create a new project with optional description and shared members.",
-      "detail_url": "/capabilities/create_project"
+      "name": "tasks_delete",
+      "description": "Delete a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_delete"
     },
     {
-      "name": "list_labels",
-      "description": "Retrieve all labels available in your workspace for organizing tasks.",
-      "detail_url": "/capabilities/list_labels"
+      "name": "comments_list",
+      "description": "Get comments on a task or project.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_list"
+    },
+    {
+      "name": "comments_create",
+      "description": "Create a comment on a task or project.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_create"
+    },
+    {
+      "name": "comments_get",
+      "description": "Get a comment by ID.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_get"
+    },
+    {
+      "name": "comments_update",
+      "description": "Update a comment.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_update"
+    },
+    {
+      "name": "comments_delete",
+      "description": "Delete a comment.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_delete"
+    },
+    {
+      "name": "labels_list",
+      "description": "Get all personal labels.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_list"
+    },
+    {
+      "name": "labels_create",
+      "description": "Create a personal label.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_create"
+    },
+    {
+      "name": "labels_get",
+      "description": "Get a label by ID.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_get"
+    },
+    {
+      "name": "labels_update",
+      "description": "Update a label.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_update"
+    },
+    {
+      "name": "labels_delete",
+      "description": "Delete a label.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_delete"
+    },
+    {
+      "name": "shared_labels_list",
+      "description": "Get shared labels.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/shared_labels_list"
+    },
+    {
+      "name": "shared_labels_rename",
+      "description": "Rename shared labels.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/shared_labels_rename"
+    },
+    {
+      "name": "shared_labels_remove",
+      "description": "Remove shared labels.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/shared_labels_remove"
     }
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "name": "activity_timeseries_get",
+  "description": "Retrieve activity time series data for a specific resource (steps, calories, distance, floors, active minutes, etc.) over a date range or period. Returns one data point per day.",
+  "resource_group": "activity",
+  "endpoint": "/1/user/-/activities/{resource-path}/date/{date}/{period}.json",
+  "method": "GET",
+  "parameters": [
+    { "name": "resource-path", "type": "string", "required": true, "description": "The activity resource: 'steps', 'calories', 'distance', 'floors', 'minutesSedentary', 'minutesLightlyActive', 'minutesFairlyActive', 'minutesVeryActive', 'activityCalories'.", "in": "path" },
+    { "name": "date", "type": "string", "required": true, "description": "The end date in YYYY-MM-DD format or 'today'.", "in": "path" },
+    { "name": "period", "type": "string", "required": true, "description": "The range period: '1d', '7d', '30d', '1w', '1m', '3m', '6m', '1y', or a second date in YYYY-MM-DD format.", "in": "path" }
+  ],
+  "auth_scopes": ["activity"],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/activities/steps/date/2025-01-15/7d.json",
+    "headers": { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9..." }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "activities-steps": [
+        { "dateTime": "2025-01-09", "value": "7542" },
+        { "dateTime": "2025-01-10", "value": "9831" },
+        { "dateTime": "2025-01-11", "value": "6214" },
+        { "dateTime": "2025-01-12", "value": "11234" },
+        { "dateTime": "2025-01-13", "value": "8432" },
+        { "dateTime": "2025-01-14", "value": "5671" },
+        { "dateTime": "2025-01-15", "value": "8920" }
+      ]
+    }
+  }
+}

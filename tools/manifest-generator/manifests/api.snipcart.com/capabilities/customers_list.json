@@ -1,0 +1,61 @@
+{
+  "name": "customers_list",
+  "description": "Retrieve all customers who have placed orders.",
+  "resource_group": "customers",
+  "endpoint": "/customers",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Results to skip."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results to fetch."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: Confirmed or Unconfirmed."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Filter by email."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Filter by name."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.snipcart.com/api/customers?limit=10",
+    "headers": {
+      "Authorization": "Basic {api_key_base64}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "totalItems": 50,
+      "items": [
+        {
+          "id": "cust-uuid",
+          "email": "customer@example.com",
+          "billingAddressName": "John Doe",
+          "status": "Confirmed"
+        }
+      ]
+    }
+  }
+}

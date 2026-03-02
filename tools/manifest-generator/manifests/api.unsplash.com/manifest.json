@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Unsplash API",
-  "description": "Unsplash provides free, high-resolution stock photos contributed by a global community of photographers. Use the API to search for photos by keyword, retrieve photo details with download URLs, browse curated collections, and access user portfolios. All photos are free to use under the Unsplash License.",
+  "description": "Unsplash provides free, high-resolution stock photos contributed by a global community of photographers. Use the API to search for photos by keyword, retrieve photo details with download URLs, browse curated collections and topics, manage collections, and access user portfolios. All photos are free to use under the Unsplash License.",
   "base_url": "https://api.unsplash.com",
   "auth": {
     "type": "api_key",
@@ -10,40 +10,35 @@
     "setup_url": "https://unsplash.com/developers"
   },
   "capabilities": [
-    {
-      "name": "search_photos",
-      "description": "Search for photos by keyword query. Returns paginated results with URLs for different image sizes (raw, full, regular, small, thumb). Supports filtering by orientation and dominant color.",
-      "detail_url": "/capabilities/search_photos"
-    },
-    {
-      "name": "get_photo",
-      "description": "Retrieve full details for a specific photo by its ID, including EXIF data, location, download links at multiple resolutions, and photographer information.",
-      "detail_url": "/capabilities/get_photo"
-    },
-    {
-      "name": "get_random_photo",
-      "description": "Get one or more random photos, optionally filtered by search query, collection, orientation, or topic. Useful for generating varied visual content.",
-      "detail_url": "/capabilities/get_random_photo"
-    },
-    {
-      "name": "list_collections",
-      "description": "List featured photo collections curated by Unsplash editors. Each collection contains a set of thematically related photos.",
-      "detail_url": "/capabilities/list_collections"
-    },
-    {
-      "name": "search_collections",
-      "description": "Search for photo collections by keyword query. Returns matching collections with their titles, descriptions, cover photos, and total photo counts.",
-      "detail_url": "/capabilities/search_collections"
-    },
-    {
-      "name": "get_user_photos",
-      "description": "Retrieve photos uploaded by a specific Unsplash user, identified by username. Returns paginated results ordered by most recent.",
-      "detail_url": "/capabilities/get_user_photos"
-    },
-    {
-      "name": "track_download",
-      "description": "Track a photo download event. Required by the Unsplash API Terms to be called when a photo is downloaded or used. Returns the actual download URL.",
-      "detail_url": "/capabilities/track_download"
-    }
+    { "name": "photos_list", "description": "Fetch a paginated list of editorial photos curated by Unsplash.", "resource_group": "photos", "detail_url": "/capabilities/photos_list" },
+    { "name": "photos_get", "description": "Retrieve detailed information about a specific photo by its ID, including EXIF data, location, and download links.", "resource_group": "photos", "detail_url": "/capabilities/photos_get" },
+    { "name": "photos_get_random", "description": "Get one or more random photos, optionally filtered by query, collection, topic, or orientation.", "resource_group": "photos", "detail_url": "/capabilities/photos_get_random" },
+    { "name": "photos_get_statistics", "description": "Retrieve download, view, and like statistics for a specific photo.", "resource_group": "photos", "detail_url": "/capabilities/photos_get_statistics" },
+    { "name": "photos_track_download", "description": "Track a photo download event as required by the Unsplash API Terms. Returns the actual download URL.", "resource_group": "photos", "detail_url": "/capabilities/photos_track_download" },
+    { "name": "photos_update", "description": "Update a photo's metadata including description, tags, location, and EXIF data. Requires write_photos scope.", "resource_group": "photos", "detail_url": "/capabilities/photos_update" },
+    { "name": "search_photos", "description": "Search for photos by keyword query with filtering by orientation, color, and content filter.", "resource_group": "search", "detail_url": "/capabilities/search_photos" },
+    { "name": "search_collections", "description": "Search for photo collections by keyword query.", "resource_group": "search", "detail_url": "/capabilities/search_collections" },
+    { "name": "search_users", "description": "Search for Unsplash users by username or name.", "resource_group": "search", "detail_url": "/capabilities/search_users" },
+    { "name": "collections_list", "description": "Retrieve a paginated list of all public photo collections.", "resource_group": "collections", "detail_url": "/capabilities/collections_list" },
+    { "name": "collections_get", "description": "Fetch detailed information about a specific collection by ID.", "resource_group": "collections", "detail_url": "/capabilities/collections_get" },
+    { "name": "collections_get_photos", "description": "Retrieve photos contained in a specific collection.", "resource_group": "collections", "detail_url": "/capabilities/collections_get_photos" },
+    { "name": "collections_get_related", "description": "Retrieve collections related to a specific collection.", "resource_group": "collections", "detail_url": "/capabilities/collections_get_related" },
+    { "name": "collections_create", "description": "Create a new photo collection. Requires write_collections scope.", "resource_group": "collections", "detail_url": "/capabilities/collections_create" },
+    { "name": "collections_update", "description": "Update a collection's title, description, or privacy setting. Requires write_collections scope.", "resource_group": "collections", "detail_url": "/capabilities/collections_update" },
+    { "name": "collections_delete", "description": "Delete a collection. Requires write_collections scope.", "resource_group": "collections", "detail_url": "/capabilities/collections_delete" },
+    { "name": "collections_add_photo", "description": "Add a photo to a collection. Requires write_collections scope.", "resource_group": "collections", "detail_url": "/capabilities/collections_add_photo" },
+    { "name": "collections_remove_photo", "description": "Remove a photo from a collection. Requires write_collections scope.", "resource_group": "collections", "detail_url": "/capabilities/collections_remove_photo" },
+    { "name": "topics_list", "description": "Retrieve available editorial topics.", "resource_group": "topics", "detail_url": "/capabilities/topics_list" },
+    { "name": "topics_get", "description": "Fetch specific topic details by ID or slug.", "resource_group": "topics", "detail_url": "/capabilities/topics_get" },
+    { "name": "topics_get_photos", "description": "Retrieve photos associated with a topic.", "resource_group": "topics", "detail_url": "/capabilities/topics_get_photos" },
+    { "name": "users_get_profile", "description": "Fetch public profile information for a specific user by username.", "resource_group": "users", "detail_url": "/capabilities/users_get_profile" },
+    { "name": "users_get_photos", "description": "Retrieve photos uploaded by a specific user.", "resource_group": "users", "detail_url": "/capabilities/users_get_photos" },
+    { "name": "users_get_likes", "description": "Retrieve photos a user has liked.", "resource_group": "users", "detail_url": "/capabilities/users_get_likes" },
+    { "name": "users_get_collections", "description": "Retrieve collections created by a user.", "resource_group": "users", "detail_url": "/capabilities/users_get_collections" },
+    { "name": "users_get_statistics", "description": "Retrieve consolidated download, view, and like statistics for a user.", "resource_group": "users", "detail_url": "/capabilities/users_get_statistics" },
+    { "name": "me_get", "description": "Retrieve the authenticated user's profile information.", "resource_group": "current_user", "detail_url": "/capabilities/me_get" },
+    { "name": "me_update", "description": "Update the authenticated user's profile details.", "resource_group": "current_user", "detail_url": "/capabilities/me_update" },
+    { "name": "stats_get_total", "description": "Retrieve platform-wide aggregate statistics for Unsplash.", "resource_group": "stats", "detail_url": "/capabilities/stats_get_total" },
+    { "name": "stats_get_month", "description": "Retrieve platform-wide statistics for the current month.", "resource_group": "stats", "detail_url": "/capabilities/stats_get_month" }
   ]
 }

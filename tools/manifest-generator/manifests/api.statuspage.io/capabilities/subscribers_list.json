@@ -1,0 +1,35 @@
+{
+  "name": "subscribers_list",
+  "description": "List all subscribers to a status page who receive notifications about incidents and maintenance events via email, SMS, Slack, Microsoft Teams, or webhook.",
+  "resource_group": "subscribers",
+  "endpoint": "/v1/pages/{page_id}/subscribers",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the status page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.statuspage.io/v1/pages/pg1a2b3c4d5e6/subscribers",
+    "headers": {
+      "Authorization": "OAuth your-api-key-here"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "sub1a2b3c4d5e6",
+        "email": "user@example.com",
+        "mode": "email",
+        "created_at": "2025-06-15T10:00:00Z",
+        "purge_at": null,
+        "skip_confirmation_notification": false
+      }
+    ]
+  }
+}

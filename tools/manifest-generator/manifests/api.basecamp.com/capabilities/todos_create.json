@@ -1,0 +1,103 @@
+{
+  "name": "todos_create",
+  "resource_group": "todos",
+  "description": "Create a new todo in a todolist with optional assignees and due date.",
+  "endpoint": "/{account_id}/buckets/{project_id}/todolists/{todolist_id}/todos.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Account ID",
+      "example": 9999999
+    },
+    {
+      "name": "project_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Project ID",
+      "example": 2085958499
+    },
+    {
+      "name": "todolist_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Todolist ID",
+      "example": 1069479338
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "description": "Todo text",
+      "example": "Write integration tests"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "HTML description",
+      "example": "<p>Cover all edge cases</p>"
+    },
+    {
+      "name": "assignee_ids",
+      "type": "array",
+      "required": false,
+      "description": "Person IDs to assign",
+      "example": [
+        1049715914
+      ]
+    },
+    {
+      "name": "due_on",
+      "type": "string",
+      "required": false,
+      "description": "Due date (YYYY-MM-DD)",
+      "example": "2025-03-25"
+    },
+    {
+      "name": "starts_on",
+      "type": "string",
+      "required": false,
+      "description": "Start date",
+      "example": "2025-03-20"
+    },
+    {
+      "name": "notify",
+      "type": "boolean",
+      "required": false,
+      "description": "Notify assignees",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://3.basecampapi.com/9999999/buckets/2085958499/todolists/1069479338/todos.json",
+    "headers": {
+      "Authorization": "Bearer BC3_TOKEN",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApp (user@example.com)"
+    },
+    "body": {
+      "content": "Write integration tests",
+      "assignee_ids": [
+        1049715914
+      ],
+      "due_on": "2025-03-25",
+      "notify": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1069479100,
+      "content": "Write integration tests",
+      "completed": false,
+      "due_on": "2025-03-25"
+    }
+  }
+}

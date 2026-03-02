@@ -1,0 +1,56 @@
+{
+  "name": "search_code",
+  "description": "Search for code across all public repositories or within a specific repository.",
+  "resource_group": "search",
+  "endpoint": "/search/code",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "Search query (e.g., 'addClass in:file language:js repo:jquery/jquery')."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort by: indexed. Default: best match."
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "description": "asc or desc."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (max 100)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/search/code?q=fetch+timeout+language:typescript+repo:octocat/my-project",
+    "headers": {
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total_count": 5,
+      "items": [
+        {
+          "name": "api.ts",
+          "path": "src/utils/api.ts",
+          "repository": {
+            "full_name": "octocat/my-project"
+          },
+          "html_url": "https://github.com/octocat/my-project/blob/main/src/utils/api.ts"
+        }
+      ]
+    }
+  }
+}

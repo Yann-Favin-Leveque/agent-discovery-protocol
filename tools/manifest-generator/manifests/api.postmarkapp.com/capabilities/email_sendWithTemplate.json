@@ -1,0 +1,72 @@
+{
+  "name": "email_sendWithTemplate",
+  "description": "Send an email using a pre-defined template.",
+  "resource_group": "email",
+  "endpoint": "/email/withTemplate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "TemplateId",
+      "type": "number",
+      "description": "Template ID (or use TemplateAlias).",
+      "required": false,
+      "example": 12345
+    },
+    {
+      "name": "TemplateAlias",
+      "type": "string",
+      "description": "Template alias.",
+      "required": false,
+      "example": "welcome"
+    },
+    {
+      "name": "TemplateModel",
+      "type": "object",
+      "description": "Data for template variables.",
+      "required": true,
+      "example": {
+        "name": "John"
+      }
+    },
+    {
+      "name": "From",
+      "type": "string",
+      "description": "Sender email.",
+      "required": true,
+      "example": "sender@example.com"
+    },
+    {
+      "name": "To",
+      "type": "string",
+      "description": "Recipient email.",
+      "required": true,
+      "example": "user@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/email/withTemplate",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "TemplateAlias": "welcome",
+      "TemplateModel": {
+        "name": "John"
+      },
+      "From": "sender@example.com",
+      "To": "user@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "To": "user@example.com",
+      "MessageID": "abc-123",
+      "ErrorCode": 0,
+      "Message": "OK"
+    }
+  }
+}

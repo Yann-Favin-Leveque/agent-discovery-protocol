@@ -1,0 +1,21 @@
+{
+  "name": "push_device_register",
+  "description": "Register a device for push notifications.",
+  "resource_group": "push",
+  "endpoint": "/push/deviceRegistrations",
+  "method": "POST",
+  "parameters": [
+    {"name": "id", "type": "string", "description": "Unique device ID.", "required": true, "example": "device_001"},
+    {"name": "platform", "type": "string", "description": "Device platform (ios, android, browser).", "required": true, "example": "android"},
+    {"name": "formFactor", "type": "string", "description": "Device form factor (phone, tablet, desktop, tv, watch, car, embedded).", "required": false, "example": "phone"},
+    {"name": "push.recipient", "type": "object", "description": "Push transport details (FCM token, APNs token, etc.).", "required": true}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.ably.io/push/deviceRegistrations",
+    "headers": {"Authorization": "Basic {base64_api_key}", "Content-Type": "application/json"},
+    "body": {"id": "device_001", "platform": "android", "formFactor": "phone", "push": {"recipient": {"transportType": "fcm", "registrationToken": "fcm_token_here"}}}
+  },
+  "response_example": {"status": 200, "body": {"id": "device_001", "platform": "android", "formFactor": "phone"}},
+  "rate_limits": {"requests_per_minute": 1500}
+}

@@ -1,0 +1,43 @@
+{
+  "name": "prices_update",
+  "description": "Update a price's metadata or active status.",
+  "endpoint": "/v1/prices/{id}",
+  "method": "POST",
+  "resource_group": "prices",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Price ID",
+      "required": true,
+      "example": "price_abc123"
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "description": "Set active/inactive",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/prices/price_abc123",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "active=false"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "price_abc123",
+      "active": false
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

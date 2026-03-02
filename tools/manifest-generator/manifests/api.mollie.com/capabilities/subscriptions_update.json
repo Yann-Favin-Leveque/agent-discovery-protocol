@@ -1,0 +1,58 @@
+{
+  "name": "subscriptions_update",
+  "description": "Update an existing subscription.",
+  "resource_group": "subscriptions",
+  "endpoint": "/v2/customers/{customerId}/subscriptions/{id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "The customer ID.",
+      "required": true
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The subscription ID.",
+      "required": true
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Updated amount.",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Updated description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.mollie.com/v2/customers/cst_8wmqcHMN4U/subscriptions/sub_rVKGtNd6s3",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": {
+        "currency": "EUR",
+        "value": "30.00"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "resource": "subscription",
+      "id": "sub_rVKGtNd6s3",
+      "amount": {
+        "currency": "EUR",
+        "value": "30.00"
+      }
+    }
+  }
+}

@@ -1,72 +1,164 @@
 {
   "spec_version": "1.0",
-  "name": "Novu API",
-  "description": "Novu REST API. Please see https://docs.novu.co/api-reference for more details.",
+  "name": "Novu",
+  "description": "Novu is a notification infrastructure platform for managing multi-channel notifications. Use this API to trigger notification workflows, manage subscribers and their preferences, organize topics, configure integrations, and track message delivery.",
   "base_url": "https://api.novu.co",
   "auth": {
     "type": "api_key",
-    "header": "Authorization"
+    "header": "Authorization",
+    "prefix": "ApiKey",
+    "setup_url": "https://dashboard.novu.co/api-keys"
   },
   "capabilities": [
     {
-      "name": "environments",
-      "description": "Manage environments — create an environment, update an environment, list all environments. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/environments"
+      "name": "events_trigger",
+      "description": "Trigger a notification workflow for one or more recipients. Matches the trigger identifier to a configured workflow.",
+      "resource_group": "events",
+      "detail_url": "/capabilities/events_trigger"
     },
     {
-      "name": "events",
-      "description": "Manage events — trigger event, bulk trigger event, broadcast event to all. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/events"
+      "name": "events_trigger_bulk",
+      "description": "Trigger multiple notification events simultaneously (up to 100 per request).",
+      "resource_group": "events",
+      "detail_url": "/capabilities/events_trigger_bulk"
     },
     {
-      "name": "notifications",
-      "description": "Manage notifications — list all events, retrieve an event. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/notifications"
+      "name": "events_broadcast",
+      "description": "Broadcast a notification event to all existing subscribers.",
+      "resource_group": "events",
+      "detail_url": "/capabilities/events_broadcast"
     },
     {
-      "name": "integrations",
-      "description": "Manage integrations — create an integration, generate chat oauth url, auto-configure an integration for inbound webhooks. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/integrations"
+      "name": "events_cancel",
+      "description": "Cancel an active or pending workflow using a previously generated transactionId.",
+      "resource_group": "events",
+      "detail_url": "/capabilities/events_cancel"
     },
     {
-      "name": "contexts",
-      "description": "Manage contexts — create a context, list all contexts, retrieve a context. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/contexts"
+      "name": "subscribers_create",
+      "description": "Create a new subscriber with identification and channel data.",
+      "resource_group": "subscribers",
+      "detail_url": "/capabilities/subscribers_create"
     },
     {
-      "name": "subscribers",
-      "description": "Manage subscribers — bulk create subscribers, create a subscriber, update notifications state. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/subscribers"
+      "name": "subscribers_get",
+      "description": "Retrieve a subscriber by their unique ID.",
+      "resource_group": "subscribers",
+      "detail_url": "/capabilities/subscribers_get"
     },
     {
-      "name": "layouts",
-      "description": "Manage layouts — create a layout, duplicate a layout, generate layout preview. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/layouts"
+      "name": "subscribers_update",
+      "description": "Update an existing subscriber's properties.",
+      "resource_group": "subscribers",
+      "detail_url": "/capabilities/subscribers_update"
     },
     {
-      "name": "messages",
-      "description": "Manage messages — list all messages, delete a message, delete messages by transactionid. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/messages"
+      "name": "subscribers_delete",
+      "description": "Delete a subscriber and all their data.",
+      "resource_group": "subscribers",
+      "detail_url": "/capabilities/subscribers_delete"
     },
     {
-      "name": "topics",
-      "description": "Manage topics — create a topic, create topic subscriptions, list all topics. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/topics"
+      "name": "subscribers_preferences_get",
+      "description": "Retrieve notification preferences for a subscriber.",
+      "resource_group": "subscribers",
+      "detail_url": "/capabilities/subscribers_preferences_get"
     },
     {
-      "name": "workflows",
-      "description": "Manage workflows — create a workflow, sync a workflow, update a workflow. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/workflows"
+      "name": "subscribers_preferences_update",
+      "description": "Update notification preferences for a subscriber.",
+      "resource_group": "subscribers",
+      "detail_url": "/capabilities/subscribers_preferences_update"
     },
     {
-      "name": "channel_connections",
-      "description": "Manage channel connections — create a channel connection, list all channel connections, retrieve a channel connection. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/channel_connections"
+      "name": "topics_create",
+      "description": "Create a new topic for grouping subscribers.",
+      "resource_group": "topics",
+      "detail_url": "/capabilities/topics_create"
     },
     {
-      "name": "channel_endpoints",
-      "description": "Manage channel endpoints — create a channel endpoint, list all channel endpoints, retrieve a channel endpoint. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/channel_endpoints"
+      "name": "topics_list",
+      "description": "List all topics with pagination.",
+      "resource_group": "topics",
+      "detail_url": "/capabilities/topics_list"
+    },
+    {
+      "name": "topics_add_subscribers",
+      "description": "Add subscribers to a topic.",
+      "resource_group": "topics",
+      "detail_url": "/capabilities/topics_add_subscribers"
+    },
+    {
+      "name": "topics_remove_subscribers",
+      "description": "Remove subscribers from a topic.",
+      "resource_group": "topics",
+      "detail_url": "/capabilities/topics_remove_subscribers"
+    },
+    {
+      "name": "workflows_list",
+      "description": "List all notification workflows.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_list"
+    },
+    {
+      "name": "workflows_get",
+      "description": "Retrieve a specific workflow by ID.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_get"
+    },
+    {
+      "name": "workflows_create",
+      "description": "Create a new notification workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_create"
+    },
+    {
+      "name": "workflows_update",
+      "description": "Update an existing workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_update"
+    },
+    {
+      "name": "workflows_delete",
+      "description": "Delete a workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_delete"
+    },
+    {
+      "name": "messages_list",
+      "description": "List all sent notification messages with filtering.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_list"
+    },
+    {
+      "name": "messages_delete",
+      "description": "Delete a specific message by ID.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_delete"
+    },
+    {
+      "name": "notifications_list",
+      "description": "List notification events with filtering by channels, templates, and date ranges.",
+      "resource_group": "notifications",
+      "detail_url": "/capabilities/notifications_list"
+    },
+    {
+      "name": "integrations_list",
+      "description": "List all channel integrations in the organization.",
+      "resource_group": "integrations",
+      "detail_url": "/capabilities/integrations_list"
+    },
+    {
+      "name": "integrations_create",
+      "description": "Create a new channel integration (email, SMS, push, chat provider).",
+      "resource_group": "integrations",
+      "detail_url": "/capabilities/integrations_create"
+    },
+    {
+      "name": "environments_list",
+      "description": "List all environments in the organization.",
+      "resource_group": "environments",
+      "detail_url": "/capabilities/environments_list"
     }
   ]
 }

@@ -1,0 +1,57 @@
+{
+  "name": "projects_list",
+  "resource_group": "projects",
+  "description": "Retrieve a list of projects with pagination and search.",
+  "endpoint": "/projects",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "cursor",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Pagination cursor."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Results per page (1-400, default 10)."
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Filter by name or ID."
+    },
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Filter by organization."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://console.neon.tech/api/v2/projects?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "projects": [
+        {
+          "id": "proj-abc123",
+          "name": "my-project",
+          "region_id": "aws-us-east-1",
+          "pg_version": 16
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "customers_update",
+  "description": "Update a customer's email, name, metadata, or default payment method.",
+  "endpoint": "/v1/customers/{id}",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Customer ID",
+      "required": true,
+      "example": "cus_abc123"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Updated email",
+      "required": false,
+      "example": "new@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/customers/cus_abc123",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "email=new@example.com"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cus_abc123",
+      "email": "new@example.com"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

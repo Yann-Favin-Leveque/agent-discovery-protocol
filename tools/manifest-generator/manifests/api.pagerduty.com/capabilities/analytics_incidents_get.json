@@ -1,0 +1,54 @@
+{
+  "name": "analytics_incidents_get",
+  "description": "Get aggregated incident analytics data.",
+  "resource_group": "analytics",
+  "endpoint": "/analytics/raw/incidents",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "filters",
+      "type": "object",
+      "required": false,
+      "description": "Filters with created_at_start, created_at_end, urgency, service_ids, team_ids"
+    },
+    {
+      "name": "starting_after",
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "description": "Sort order: asc or desc"
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "required": false,
+      "description": "Sort field"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results"
+    }
+  ],
+  "request_example": {
+    "filters": {
+      "created_at_start": "2025-01-01T00:00:00Z",
+      "created_at_end": "2025-02-01T00:00:00Z"
+    }
+  },
+  "response_example": {
+    "data": [
+      {
+        "mean_seconds_to_resolve": 3600,
+        "total_incident_count": 42
+      }
+    ]
+  },
+  "auth_scopes": []
+}

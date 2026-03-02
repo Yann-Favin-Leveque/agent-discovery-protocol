@@ -1,0 +1,52 @@
+{
+  "name": "payments_create",
+  "description": "Create a payment against an invoice or credit note.",
+  "resource_group": "payments",
+  "endpoint": "/Payments",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "Payments",
+      "type": "array",
+      "required": true,
+      "description": "Array of Payment objects."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.transactions"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.xero.com/api.xro/2.0/Payments",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Payments": [
+        {
+          "Invoice": {
+            "InvoiceID": "abc-123"
+          },
+          "Account": {
+            "Code": "090"
+          },
+          "Amount": 1500.0,
+          "Date": "2024-08-15"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Payments": [
+        {
+          "PaymentID": "pay-new",
+          "Amount": 1500.0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "settings_get",
+  "description": "Retrieve the current search configuration of an index including searchable attributes, ranking rules, and facets.",
+  "endpoint": "/1/indexes/{indexName}/settings",
+  "method": "GET",
+  "resource_group": "settings",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index.",
+      "required": true,
+      "example": "products"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/settings",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "searchableAttributes": ["name", "description", "brand"],
+      "attributesForFaceting": ["category", "brand", "filterOnly(price)"],
+      "ranking": ["typo", "geo", "words", "filters", "proximity", "attribute", "exact", "custom"],
+      "customRanking": ["desc(popularity)"],
+      "hitsPerPage": 20
+    }
+  },
+  "auth_scopes": ["settings"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

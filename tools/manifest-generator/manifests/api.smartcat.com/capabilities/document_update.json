@@ -1,0 +1,40 @@
+{
+  "name": "document_update",
+  "description": "Update/replace a document file in an existing project with a new version.",
+  "resource_group": "documents",
+  "endpoint": "/api/integration/v1/document/update",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "location": "query",
+      "description": "The document ID in format 'docId_languageId'."
+    },
+    {
+      "name": "file",
+      "type": "file",
+      "required": true,
+      "location": "formData",
+      "description": "The replacement document file."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://smartcat.com/api/integration/v1/document/update?documentId=doc-uuid-456_fr",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with replacement file and empty JSON object {}"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "doc-uuid-456_fr",
+      "name": "homepage.json",
+      "status": "updated"
+    }
+  }
+}

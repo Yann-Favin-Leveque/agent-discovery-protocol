@@ -1,0 +1,38 @@
+{
+  "name": "event_runs_list",
+  "description": "List all function runs that were triggered by a specific event.",
+  "resource_group": "event",
+  "endpoint": "/v1/events/{eventId}/runs",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "eventId",
+      "type": "string",
+      "description": "Event ID (path parameter).",
+      "required": true,
+      "example": "01HWAVEB858VPPX47Z65GR6P6R"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.inngest.com/v1/events/01HWAVEB858VPPX47Z65GR6P6R/runs",
+    "headers": {
+      "Authorization": "Bearer {signing_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "run_id": "run_abc",
+          "function_id": "my-app-my-function",
+          "status": "Completed",
+          "ended_at": "2024-01-01T00:01:00Z",
+          "output": "done"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "transfers_fund",
+  "description": "Fund a transfer from your Wise multi-currency balance.",
+  "resource_group": "transfers",
+  "endpoint": "/v3/profiles/{profileId}/transfers/{transferId}/payments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "profileId",
+      "type": "integer",
+      "description": "Profile ID.",
+      "required": true
+    },
+    {
+      "name": "transferId",
+      "type": "integer",
+      "description": "Transfer ID.",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Funding type: BALANCE.",
+      "required": true,
+      "example": "BALANCE"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.wise.com/v3/profiles/12345/transfers/468956/payments",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "BALANCE"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "type": "BALANCE",
+      "status": "COMPLETED"
+    }
+  }
+}

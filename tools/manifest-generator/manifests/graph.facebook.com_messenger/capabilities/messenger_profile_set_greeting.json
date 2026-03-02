@@ -1,0 +1,40 @@
+{
+  "name": "messenger_profile_set_greeting",
+  "description": "Set a greeting text that appears on the welcome screen before users tap Get Started.",
+  "endpoint": "/me/messenger_profile",
+  "method": "POST",
+  "resource_group": "messenger_profile",
+  "parameters": [
+    {
+      "name": "greeting",
+      "type": "array",
+      "description": "Array of locale-specific greeting objects with locale and text fields.",
+      "required": true,
+      "example": [
+        { "locale": "default", "text": "Welcome to our bot! Tap Get Started to begin." }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v18.0/me/messenger_profile",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "greeting": [
+        { "locale": "default", "text": "Welcome to our bot! Tap Get Started to begin." },
+        { "locale": "en_US", "text": "Hi {{user_first_name}}! Welcome to our bot." }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "result": "success" }
+  },
+  "auth_scopes": ["pages_messaging"],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

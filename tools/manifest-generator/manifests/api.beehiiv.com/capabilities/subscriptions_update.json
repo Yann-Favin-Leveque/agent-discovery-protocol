@@ -1,0 +1,53 @@
+{
+  "name": "subscriptions_update",
+  "description": "Update a subscription status, tier, or custom fields.",
+  "resource_group": "subscriptions",
+  "endpoint": "/v2/publications/{publicationId}/subscriptions/{subscriptionId}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "publicationId",
+      "type": "string",
+      "description": "Publication ID.",
+      "required": true
+    },
+    {
+      "name": "subscriptionId",
+      "type": "string",
+      "description": "Subscription ID.",
+      "required": true
+    },
+    {
+      "name": "tier",
+      "type": "string",
+      "description": "Updated tier.",
+      "required": false
+    },
+    {
+      "name": "custom_fields",
+      "type": "array",
+      "description": "Updated custom fields.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.beehiiv.com/v2/publications/pub_xxx/subscriptions/sub_xxx",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tier": "premium"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "sub_xxx",
+        "tier": "premium"
+      }
+    }
+  }
+}

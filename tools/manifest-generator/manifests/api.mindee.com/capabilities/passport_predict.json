@@ -1,0 +1,73 @@
+{
+  "name": "passport_predict",
+  "description": "Parse a passport document to extract personal information including name, nationality, and dates.",
+  "endpoint": "/v1/products/mindee/passport/v1/predict",
+  "method": "POST",
+  "resource_group": "identity",
+  "parameters": [
+    {
+      "name": "document",
+      "type": "file",
+      "description": "Passport image file (JPG, PNG, PDF).",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mindee.com/v1/products/mindee/passport/v1/predict",
+    "headers": {
+      "Authorization": "Token {api_key}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "document": "(binary file data)"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "api_request": {
+        "status": "success"
+      },
+      "document": {
+        "inference": {
+          "prediction": {
+            "given_names": [
+              {
+                "value": "JOHN"
+              }
+            ],
+            "surname": {
+              "value": "DOE"
+            },
+            "birth_date": {
+              "value": "1990-01-15"
+            },
+            "gender": {
+              "value": "M"
+            },
+            "nationality": {
+              "value": "USA"
+            },
+            "id_number": {
+              "value": "123456789"
+            },
+            "expiry_date": {
+              "value": "2030-01-15"
+            },
+            "mrz1": {
+              "value": "P<USADOE<<JOHN<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+            },
+            "mrz2": {
+              "value": "1234567890USA9001150M3001151<<<<<<<<<<<<<<06"
+            }
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

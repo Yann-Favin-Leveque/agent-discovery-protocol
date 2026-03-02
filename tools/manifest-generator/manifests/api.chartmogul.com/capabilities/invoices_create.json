@@ -1,0 +1,64 @@
+{
+  "name": "invoices_create",
+  "description": "Import invoices into ChartMogul for a customer.",
+  "endpoint": "/v1/invoices",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "customer_uuid",
+      "type": "string",
+      "description": "Customer UUID to attach invoices to.",
+      "required": true
+    },
+    {
+      "name": "invoices",
+      "type": "array",
+      "description": "Array of invoice objects with line_items and transactions.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chartmogul.com/v1/invoices",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "customer_uuid": "cus_93b06efd",
+      "invoices": [
+        {
+          "external_id": "inv_001",
+          "date": "2024-01-01",
+          "currency": "USD",
+          "line_items": [
+            {
+              "type": "subscription",
+              "subscription_external_id": "sub_001",
+              "plan_uuid": "pl_93b06efd",
+              "amount_in_cents": 9900
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "invoices": [
+        {
+          "uuid": "inv_93b06efd",
+          "external_id": "inv_001",
+          "date": "2024-01-01",
+          "currency": "USD"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

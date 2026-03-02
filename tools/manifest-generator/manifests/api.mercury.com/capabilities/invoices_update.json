@@ -1,0 +1,24 @@
+{
+  "name": "invoices_update",
+  "description": "Update an existing invoice's details.",
+  "endpoint": "/api/v1/ar/invoices/{invoiceId}",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    { "name": "invoiceId", "type": "string", "description": "The invoice identifier", "required": true, "example": "inv_001" },
+    { "name": "amount", "type": "number", "description": "Updated amount", "required": false, "example": 5500.00 },
+    { "name": "dueDate", "type": "string", "description": "Updated due date", "required": false, "example": "2025-03-01" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mercury.com/api/v1/ar/invoices/inv_001",
+    "headers": { "Authorization": "Bearer {token}", "Content-Type": "application/json" },
+    "body": { "amount": 5500.00, "dueDate": "2025-03-01" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "id": "inv_001", "amount": 5500.00, "dueDate": "2025-03-01" }
+  },
+  "auth_scopes": [],
+  "rate_limits": { "requests_per_minute": 30 }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "redis_transaction",
+  "resource_group": "redis",
+  "description": "Execute multiple Redis commands atomically as a MULTI/EXEC transaction.",
+  "endpoint": "/multi-exec",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "commands",
+      "type": "array",
+      "required": true,
+      "in": "body",
+      "description": "2D JSON array of commands."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{endpoint}.upstash.io/multi-exec",
+    "headers": {
+      "Authorization": "Bearer {rest_token}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      [
+        "SET",
+        "counter",
+        "0"
+      ],
+      [
+        "INCR",
+        "counter"
+      ]
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "result": "OK"
+      },
+      {
+        "result": 1
+      }
+    ]
+  }
+}

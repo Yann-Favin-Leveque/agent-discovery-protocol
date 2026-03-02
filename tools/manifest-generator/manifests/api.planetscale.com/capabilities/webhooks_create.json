@@ -1,0 +1,58 @@
+{
+  "name": "webhooks_create",
+  "resource_group": "webhooks",
+  "description": "Create a new webhook for a database.",
+  "endpoint": "/organizations/{organization}/databases/{database}/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Webhook URL."
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "required": true,
+      "in": "body",
+      "description": "Event types to subscribe to."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/webhooks",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "events": [
+        "branch.ready"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "wh-456",
+      "url": "https://example.com/webhook"
+    }
+  }
+}

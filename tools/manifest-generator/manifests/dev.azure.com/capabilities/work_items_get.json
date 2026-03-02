@@ -1,0 +1,61 @@
+{
+  "name": "work_items_get",
+  "description": "Get a work item by ID.",
+  "resource_group": "work_items",
+  "endpoint": "/{organization}/{project}/_apis/wit/workitems/{id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project."
+    },
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "Work item ID."
+    },
+    {
+      "name": "$expand",
+      "type": "string",
+      "required": false,
+      "description": "Expand: none, relations, fields, links, all."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://dev.azure.com/myorg/MyProject/_apis/wit/workitems/42?$expand=all&api-version=7.1",
+    "headers": {
+      "Authorization": "Basic base64(user:pat)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 42,
+      "rev": 3,
+      "fields": {
+        "System.Title": "Fix login bug",
+        "System.State": "Active",
+        "System.WorkItemType": "Bug"
+      }
+    }
+  }
+}

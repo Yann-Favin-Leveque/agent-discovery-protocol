@@ -1,0 +1,63 @@
+{
+  "name": "batches_dry_run",
+  "description": "Simulate sending a batch without actually delivering messages. Returns the number of recipients and estimated message parts for cost estimation.",
+  "endpoint": "/xms/v1/{service_plan_id}/batches/dry_run",
+  "method": "POST",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "required": true,
+      "description": "Array of recipient phone numbers."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "Sender phone number."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "description": "The message body text to simulate."
+    },
+    {
+      "name": "per_recipient",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, returns per-recipient message breakdown."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/batches/dry_run",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {api_token}"
+    },
+    "body": {
+      "from": "12015550145",
+      "to": ["14155550123", "14155550124"],
+      "body": "Hello, this is a test message for cost estimation."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "number_of_recipients": 2,
+      "number_of_messages": 2
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

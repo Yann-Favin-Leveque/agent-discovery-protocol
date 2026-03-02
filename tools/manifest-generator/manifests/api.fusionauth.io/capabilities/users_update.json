@@ -1,0 +1,49 @@
+{
+  "name": "users_update",
+  "resource_group": "users",
+  "description": "Update an existing user's profile data.",
+  "endpoint": "/api/user/{userId}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "required": true,
+      "description": "User UUID.",
+      "in": "path"
+    },
+    {
+      "name": "user",
+      "type": "object",
+      "required": true,
+      "description": "Updated user fields (firstName, lastName, email, etc)."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://fusionauth.example.com/api/user/user-uuid",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user": {
+        "firstName": "Alice",
+        "lastName": "Smith",
+        "data": {
+          "role": "admin"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": "user-uuid",
+        "firstName": "Alice",
+        "lastName": "Smith"
+      }
+    }
+  }
+}

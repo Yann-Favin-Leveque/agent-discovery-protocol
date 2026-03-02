@@ -1,0 +1,66 @@
+{
+  "name": "transfer_create",
+  "description": "Initiate a new ACH or RTP transfer after authorization.",
+  "resource_group": "transfer",
+  "endpoint": "/transfer/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token."
+    },
+    {
+      "name": "account_id",
+      "type": "string",
+      "required": true,
+      "description": "The account ID."
+    },
+    {
+      "name": "authorization_id",
+      "type": "string",
+      "required": true,
+      "description": "Authorization ID from transfer/authorization/create."
+    },
+    {
+      "name": "amount",
+      "type": "string",
+      "required": true,
+      "description": "Amount."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": true,
+      "description": "Transfer description."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/transfer/create",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc",
+      "account_id": "acc_abc",
+      "authorization_id": "auth_abc",
+      "amount": "100.00",
+      "description": "Payment"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transfer": {
+        "id": "xfer_abc",
+        "amount": "100.00",
+        "status": "pending"
+      },
+      "request_id": "abc"
+    }
+  }
+}

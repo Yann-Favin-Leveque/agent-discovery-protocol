@@ -1,0 +1,69 @@
+{
+  "name": "coupons_create",
+  "description": "Create a new discount coupon.",
+  "resource_group": "coupons",
+  "endpoint": "/coupons",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "Coupon code.",
+      "example": "SAVE20"
+    },
+    {
+      "name": "discount_type",
+      "type": "string",
+      "required": false,
+      "description": "Type: percent, fixed_cart, fixed_product."
+    },
+    {
+      "name": "amount",
+      "type": "string",
+      "required": false,
+      "description": "Discount amount.",
+      "example": "20.00"
+    },
+    {
+      "name": "date_expires",
+      "type": "string",
+      "required": false,
+      "description": "Expiry date (ISO 8601)."
+    },
+    {
+      "name": "usage_limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of times the coupon can be used."
+    },
+    {
+      "name": "product_ids",
+      "type": "array",
+      "required": false,
+      "description": "Product IDs the coupon applies to."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}/wp-json/wc/v3/coupons",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "code": "SAVE20",
+      "discount_type": "percent",
+      "amount": "20.00"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 720,
+      "code": "save20",
+      "discount_type": "percent",
+      "amount": "20.00"
+    }
+  }
+}

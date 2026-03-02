@@ -1,0 +1,60 @@
+{
+  "name": "enrichment_enrich",
+  "description": "Enrich data by finding emails, phones, or LinkedIn info.",
+  "resource_group": "enrichment",
+  "endpoint": "/api/enrich",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email to enrich.",
+      "required": false
+    },
+    {
+      "name": "firstName",
+      "type": "string",
+      "description": "First name.",
+      "required": false
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "description": "Last name.",
+      "required": false
+    },
+    {
+      "name": "companyName",
+      "type": "string",
+      "description": "Company name.",
+      "required": false
+    },
+    {
+      "name": "linkedinUrl",
+      "type": "string",
+      "description": "LinkedIn profile URL.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemlist.com/api/enrich",
+    "headers": {
+      "Authorization": "Basic {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "companyName": "Acme"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "email": "john.doe@acme.com",
+      "phone": "+1234567890",
+      "linkedinUrl": "https://linkedin.com/in/johndoe"
+    }
+  }
+}

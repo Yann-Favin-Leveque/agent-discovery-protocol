@@ -1,0 +1,82 @@
+{
+  "name": "rows_select",
+  "description": "Read rows from any table with filtering, sorting, pagination, and column selection using PostgREST syntax.",
+  "endpoint": "/rest/v1/{table}",
+  "method": "GET",
+  "resource_group": "database",
+  "parameters": [
+    {
+      "name": "table",
+      "type": "string",
+      "description": "Table name",
+      "required": true,
+      "example": "posts"
+    },
+    {
+      "name": "select",
+      "type": "string",
+      "description": "Column selection (supports nested relations)",
+      "required": false,
+      "example": "id,title,author(name)"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order (column.direction)",
+      "required": false,
+      "example": "created_at.desc"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max rows to return",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Number of rows to skip",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "column.operator",
+      "type": "string",
+      "description": "Filter operators: eq, neq, gt, gte, lt, lte, like, ilike, in, is",
+      "required": false,
+      "example": "status=eq.published"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{project_ref}.supabase.co/rest/v1/posts?select=id,title,author(name)&status=eq.published&order=created_at.desc&limit=10",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1,
+        "title": "Hello World",
+        "author": {
+          "name": "John"
+        }
+      },
+      {
+        "id": 2,
+        "title": "Second Post",
+        "author": {
+          "name": "Jane"
+        }
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

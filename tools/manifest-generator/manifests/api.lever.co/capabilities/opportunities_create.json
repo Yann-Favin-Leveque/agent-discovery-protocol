@@ -1,0 +1,99 @@
+{
+  "name": "opportunities_create",
+  "resource_group": "Opportunities",
+  "endpoint": "/v1/opportunities",
+  "method": "POST",
+  "description": "Create a new candidate opportunity. Can include contact info, tags, sources, and posting assignment.",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Candidate full name."
+    },
+    {
+      "name": "headline",
+      "type": "string",
+      "required": false,
+      "description": "Professional headline."
+    },
+    {
+      "name": "emails",
+      "type": "array",
+      "required": false,
+      "description": "Email addresses."
+    },
+    {
+      "name": "phones",
+      "type": "array",
+      "required": false,
+      "description": "Phone numbers."
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false,
+      "description": "Tags to apply."
+    },
+    {
+      "name": "sources",
+      "type": "array",
+      "required": false,
+      "description": "Source strings."
+    },
+    {
+      "name": "postings",
+      "type": "array",
+      "required": false,
+      "description": "Posting UUIDs to assign."
+    },
+    {
+      "name": "stage",
+      "type": "string",
+      "required": false,
+      "description": "Stage UUID."
+    },
+    {
+      "name": "origin",
+      "type": "string",
+      "required": false,
+      "description": "Origin: applied, referred, sourced, agency."
+    },
+    {
+      "name": "perform_as",
+      "type": "string",
+      "required": false,
+      "description": "User UUID to act as."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lever.co/v1/opportunities",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Jane Smith",
+      "emails": [
+        "jane@example.com"
+      ],
+      "tags": [
+        "engineering"
+      ],
+      "postings": [
+        "posting-1"
+      ],
+      "origin": "sourced"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "opp-new",
+        "name": "Jane Smith"
+      }
+    }
+  }
+}

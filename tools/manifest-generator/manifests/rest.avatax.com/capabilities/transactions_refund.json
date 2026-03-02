@@ -1,0 +1,69 @@
+{
+  "name": "transactions_refund",
+  "description": "Create a refund for an existing transaction.",
+  "endpoint": "/api/v2/companies/{companyCode}/transactions/{transactionCode}/refund",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "companyCode",
+      "type": "string",
+      "description": "Company code.",
+      "required": true,
+      "example": "DEFAULT"
+    },
+    {
+      "name": "transactionCode",
+      "type": "string",
+      "description": "Transaction code.",
+      "required": true,
+      "example": "txn-001"
+    },
+    {
+      "name": "refundType",
+      "type": "string",
+      "description": "Refund type: Full, Partial, TaxOnly, Percentage.",
+      "required": true,
+      "example": "Full"
+    },
+    {
+      "name": "refundDate",
+      "type": "string",
+      "description": "Refund date.",
+      "required": true,
+      "example": "2024-01-20"
+    },
+    {
+      "name": "refundPercentage",
+      "type": "number",
+      "description": "Percentage for partial refund.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.avatax.com/api/v2/companies/DEFAULT/transactions/txn-001/refund",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "refundType": "Full",
+      "refundDate": "2024-01-20"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 12347,
+      "code": "txn-001-refund",
+      "type": "ReturnInvoice",
+      "totalAmount": -100.0,
+      "totalTax": -8.75
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

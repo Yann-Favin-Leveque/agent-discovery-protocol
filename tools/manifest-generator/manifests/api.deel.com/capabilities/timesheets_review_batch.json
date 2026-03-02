@@ -1,0 +1,40 @@
+{
+  "name": "timesheets_review_batch",
+  "resource_group": "Timesheets",
+  "endpoint": "/rest/v2/timesheets/many/reviews",
+  "method": "POST",
+  "description": "Approve or reject multiple timesheets in batch.",
+  "parameters": [
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Batch review with timesheet IDs and action (approve/reject)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.letsdeel.com/rest/v2/timesheets/many/reviews",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "timesheet_ids": [
+          "ts-1",
+          "ts-2"
+        ],
+        "action": "approve"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "reviewed": 2
+      }
+    }
+  }
+}

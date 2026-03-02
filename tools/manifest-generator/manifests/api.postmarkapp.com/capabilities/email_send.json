@@ -1,0 +1,106 @@
+{
+  "name": "email_send",
+  "description": "Send a single transactional email.",
+  "resource_group": "email",
+  "endpoint": "/email",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "From",
+      "type": "string",
+      "description": "Sender email.",
+      "required": true,
+      "example": "sender@example.com"
+    },
+    {
+      "name": "To",
+      "type": "string",
+      "description": "Recipient email(s), comma-separated (max 50).",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "Subject",
+      "type": "string",
+      "description": "Email subject.",
+      "required": false,
+      "example": "Hello"
+    },
+    {
+      "name": "HtmlBody",
+      "type": "string",
+      "description": "HTML email body.",
+      "required": false,
+      "example": "<p>Hello</p>"
+    },
+    {
+      "name": "TextBody",
+      "type": "string",
+      "description": "Plain text body.",
+      "required": false
+    },
+    {
+      "name": "Cc",
+      "type": "string",
+      "description": "CC recipients.",
+      "required": false
+    },
+    {
+      "name": "Bcc",
+      "type": "string",
+      "description": "BCC recipients.",
+      "required": false
+    },
+    {
+      "name": "Tag",
+      "type": "string",
+      "description": "Categorization tag.",
+      "required": false
+    },
+    {
+      "name": "TrackOpens",
+      "type": "boolean",
+      "description": "Enable open tracking.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "TrackLinks",
+      "type": "string",
+      "description": "Link tracking: None, HtmlAndText, HtmlOnly, TextOnly.",
+      "required": false
+    },
+    {
+      "name": "MessageStream",
+      "type": "string",
+      "description": "Message stream ID.",
+      "required": false,
+      "example": "outbound"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/email",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "From": "sender@example.com",
+      "To": "user@example.com",
+      "Subject": "Hello",
+      "HtmlBody": "<p>Hello</p>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "To": "user@example.com",
+      "SubmittedAt": "2024-01-01T00:00:00Z",
+      "MessageID": "abc-123",
+      "ErrorCode": 0,
+      "Message": "OK"
+    }
+  }
+}

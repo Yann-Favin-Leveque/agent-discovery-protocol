@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Turso",
-  "description": "Turso is an edge-hosted distributed database built on libSQL (a SQLite fork). Use this API to manage databases, groups, organizations, and generate authentication tokens for your Turso databases.",
+  "description": "Turso is an edge-hosted distributed database built on libSQL (a SQLite fork). Use this API to manage databases, groups, organizations, locations, and authentication tokens.",
   "base_url": "https://api.turso.tech",
   "auth": {
     "type": "api_key",
@@ -11,29 +11,196 @@
   },
   "capabilities": [
     {
-      "name": "manage_databases",
-      "description": "Create, list, get details, and delete databases in your Turso organization.",
-      "detail_url": "/capabilities/manage_databases"
+      "name": "databases_list",
+      "resource_group": "databases",
+      "description": "List databases in an organization.",
+      "detail_url": "/capabilities/databases_list"
     },
     {
-      "name": "manage_groups",
-      "description": "Create and manage database groups that control replication regions.",
-      "detail_url": "/capabilities/manage_groups"
+      "name": "databases_create",
+      "resource_group": "databases",
+      "description": "Create a new database.",
+      "detail_url": "/capabilities/databases_create"
     },
     {
-      "name": "create_database_token",
-      "description": "Generate authentication tokens for connecting to a specific database.",
-      "detail_url": "/capabilities/create_database_token"
+      "name": "databases_get",
+      "resource_group": "databases",
+      "description": "Retrieve database details.",
+      "detail_url": "/capabilities/databases_get"
     },
     {
-      "name": "manage_organizations",
-      "description": "List and manage organizations, members, and invitations.",
-      "detail_url": "/capabilities/manage_organizations"
+      "name": "databases_delete",
+      "resource_group": "databases",
+      "description": "Delete a database.",
+      "detail_url": "/capabilities/databases_delete"
     },
     {
-      "name": "get_database_stats",
-      "description": "Retrieve usage statistics and metrics for your databases.",
-      "detail_url": "/capabilities/get_database_stats"
+      "name": "databases_get_config",
+      "resource_group": "databases",
+      "description": "Retrieve database configuration.",
+      "detail_url": "/capabilities/databases_get_config"
+    },
+    {
+      "name": "databases_update_config",
+      "resource_group": "databases",
+      "description": "Update database configuration.",
+      "detail_url": "/capabilities/databases_update_config"
+    },
+    {
+      "name": "databases_create_token",
+      "resource_group": "databases",
+      "description": "Generate a database auth token.",
+      "detail_url": "/capabilities/databases_create_token"
+    },
+    {
+      "name": "databases_invalidate_tokens",
+      "resource_group": "databases",
+      "description": "Invalidate all database auth tokens.",
+      "detail_url": "/capabilities/databases_invalidate_tokens"
+    },
+    {
+      "name": "databases_get_usage",
+      "resource_group": "databases",
+      "description": "Retrieve database usage metrics.",
+      "detail_url": "/capabilities/databases_get_usage"
+    },
+    {
+      "name": "databases_get_stats",
+      "resource_group": "databases",
+      "description": "Retrieve database query statistics.",
+      "detail_url": "/capabilities/databases_get_stats"
+    },
+    {
+      "name": "databases_list_instances",
+      "resource_group": "databases",
+      "description": "List database instances (replicas).",
+      "detail_url": "/capabilities/databases_list_instances"
+    },
+    {
+      "name": "groups_list",
+      "resource_group": "groups",
+      "description": "List groups in an organization.",
+      "detail_url": "/capabilities/groups_list"
+    },
+    {
+      "name": "groups_create",
+      "resource_group": "groups",
+      "description": "Create a new group.",
+      "detail_url": "/capabilities/groups_create"
+    },
+    {
+      "name": "groups_get",
+      "resource_group": "groups",
+      "description": "Retrieve group details.",
+      "detail_url": "/capabilities/groups_get"
+    },
+    {
+      "name": "groups_delete",
+      "resource_group": "groups",
+      "description": "Delete a group.",
+      "detail_url": "/capabilities/groups_delete"
+    },
+    {
+      "name": "groups_add_location",
+      "resource_group": "groups",
+      "description": "Add a location to a group.",
+      "detail_url": "/capabilities/groups_add_location"
+    },
+    {
+      "name": "groups_remove_location",
+      "resource_group": "groups",
+      "description": "Remove a location from a group.",
+      "detail_url": "/capabilities/groups_remove_location"
+    },
+    {
+      "name": "groups_create_token",
+      "resource_group": "groups",
+      "description": "Generate a group auth token.",
+      "detail_url": "/capabilities/groups_create_token"
+    },
+    {
+      "name": "groups_transfer",
+      "resource_group": "groups",
+      "description": "Transfer a group to another organization.",
+      "detail_url": "/capabilities/groups_transfer"
+    },
+    {
+      "name": "organizations_list",
+      "resource_group": "organizations",
+      "description": "List organizations.",
+      "detail_url": "/capabilities/organizations_list"
+    },
+    {
+      "name": "organizations_get",
+      "resource_group": "organizations",
+      "description": "Retrieve organization details.",
+      "detail_url": "/capabilities/organizations_get"
+    },
+    {
+      "name": "organizations_update",
+      "resource_group": "organizations",
+      "description": "Update organization settings.",
+      "detail_url": "/capabilities/organizations_update"
+    },
+    {
+      "name": "organizations_list_members",
+      "resource_group": "organizations",
+      "description": "List organization members.",
+      "detail_url": "/capabilities/organizations_list_members"
+    },
+    {
+      "name": "organizations_add_member",
+      "resource_group": "organizations",
+      "description": "Add a member to an organization.",
+      "detail_url": "/capabilities/organizations_add_member"
+    },
+    {
+      "name": "organizations_remove_member",
+      "resource_group": "organizations",
+      "description": "Remove a member.",
+      "detail_url": "/capabilities/organizations_remove_member"
+    },
+    {
+      "name": "organizations_get_usage",
+      "resource_group": "organizations",
+      "description": "Retrieve organization usage.",
+      "detail_url": "/capabilities/organizations_get_usage"
+    },
+    {
+      "name": "locations_list",
+      "resource_group": "locations",
+      "description": "List available locations.",
+      "detail_url": "/capabilities/locations_list"
+    },
+    {
+      "name": "tokens_create",
+      "resource_group": "tokens",
+      "description": "Create an API token.",
+      "detail_url": "/capabilities/tokens_create"
+    },
+    {
+      "name": "tokens_list",
+      "resource_group": "tokens",
+      "description": "List API tokens.",
+      "detail_url": "/capabilities/tokens_list"
+    },
+    {
+      "name": "tokens_revoke",
+      "resource_group": "tokens",
+      "description": "Revoke an API token.",
+      "detail_url": "/capabilities/tokens_revoke"
+    },
+    {
+      "name": "tokens_validate",
+      "resource_group": "tokens",
+      "description": "Validate an API token.",
+      "detail_url": "/capabilities/tokens_validate"
+    },
+    {
+      "name": "audit_logs_list",
+      "resource_group": "audit_logs",
+      "description": "List audit log entries.",
+      "detail_url": "/capabilities/audit_logs_list"
     }
   ]
 }

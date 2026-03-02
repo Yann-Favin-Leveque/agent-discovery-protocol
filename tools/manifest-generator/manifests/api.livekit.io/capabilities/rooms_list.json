@@ -1,0 +1,45 @@
+{
+  "name": "rooms_list",
+  "description": "List all active rooms, optionally filtered by room names. Returns room metadata, participant counts, and recording status.",
+  "endpoint": "/twirp/livekit.RoomService/ListRooms",
+  "method": "POST",
+  "resource_group": "rooms",
+  "parameters": [
+    {
+      "name": "names",
+      "type": "array",
+      "required": false,
+      "description": "Optional list of room names to filter by. Returns all rooms if empty."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/ListRooms",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "rooms": [
+        {
+          "sid": "RM_abc123",
+          "name": "interview-room-42",
+          "empty_timeout": 600,
+          "max_participants": 10,
+          "creation_time": 1705312800,
+          "num_participants": 2,
+          "num_publishers": 1,
+          "active_recording": false
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["roomList"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

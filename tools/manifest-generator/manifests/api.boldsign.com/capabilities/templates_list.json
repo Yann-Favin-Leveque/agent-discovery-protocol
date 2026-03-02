@@ -1,0 +1,52 @@
+{
+  "name": "templates_list",
+  "description": "List all document templates in your account with optional filtering and pagination.",
+  "endpoint": "/v1/template/list",
+  "method": "GET",
+  "resource_group": "templates",
+  "parameters": [
+    {
+      "name": "Page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number. Default 1."
+    },
+    {
+      "name": "PageSize",
+      "type": "integer",
+      "required": false,
+      "description": "Items per page. Default 10."
+    },
+    {
+      "name": "SearchKey",
+      "type": "string",
+      "required": false,
+      "description": "Search by template title."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.boldsign.com/v1/template/list?Page=1&PageSize=20",
+    "headers": {
+      "X-API-KEY": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "pageDetails": { "page": 1, "pageSize": 20, "totalRecordsCount": 3 },
+      "result": [
+        {
+          "templateId": "tmpl_abc123",
+          "title": "NDA Template",
+          "createdDate": "2024-01-10T10:00:00Z",
+          "roles": [{ "roleIndex": 1, "name": "Signer", "signerType": "Signer" }]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

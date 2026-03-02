@@ -1,0 +1,59 @@
+{
+  "name": "storage_zones_create",
+  "resource_group": "storage_zones",
+  "description": "Create a new edge storage zone.",
+  "endpoint": "/storagezone",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "Name",
+      "type": "string",
+      "required": true,
+      "description": "Storage zone name."
+    },
+    {
+      "name": "Region",
+      "type": "string",
+      "required": false,
+      "description": "Main region: DE, NY, LA, SG, SYD."
+    },
+    {
+      "name": "ReplicationRegions",
+      "type": "array",
+      "required": false,
+      "description": "Replication regions."
+    },
+    {
+      "name": "OriginUrl",
+      "type": "string",
+      "required": false,
+      "description": "Origin URL for pulling content."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bunny.net/storagezone",
+    "headers": {
+      "AccessKey": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Name": "my-storage",
+      "Region": "DE",
+      "ReplicationRegions": [
+        "NY",
+        "SG"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "Id": 67890,
+      "Name": "my-storage",
+      "Region": "DE",
+      "Password": "storage-password",
+      "ReadOnlyPassword": "readonly-password"
+    }
+  }
+}

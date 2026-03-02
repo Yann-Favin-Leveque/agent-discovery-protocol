@@ -1,0 +1,40 @@
+{
+  "name": "documents_void",
+  "description": "Void a completed document, invalidating the signatures and rendering it non-binding. All parties are notified.",
+  "endpoint": "/v1/document/void",
+  "method": "PATCH",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "description": "The document ID to void (query parameter)."
+    },
+    {
+      "name": "voidReason",
+      "type": "string",
+      "required": true,
+      "description": "Reason for voiding the document."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.boldsign.com/v1/document/void?documentId=doc_abc123def456",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-KEY": "{api_key}"
+    },
+    "body": {
+      "voidReason": "Terms have been superseded by a new agreement."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

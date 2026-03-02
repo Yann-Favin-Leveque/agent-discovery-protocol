@@ -1,0 +1,74 @@
+{
+  "name": "transfer_authorization_create",
+  "description": "Authorize a transfer to check if it can be initiated.",
+  "resource_group": "transfer",
+  "endpoint": "/transfer/authorization/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token."
+    },
+    {
+      "name": "account_id",
+      "type": "string",
+      "required": true,
+      "description": "The account ID."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "'debit' or 'credit'."
+    },
+    {
+      "name": "network",
+      "type": "string",
+      "required": true,
+      "description": "'ach','same-day-ach','rtp'."
+    },
+    {
+      "name": "amount",
+      "type": "string",
+      "required": true,
+      "description": "Amount as string."
+    },
+    {
+      "name": "user",
+      "type": "object",
+      "required": true,
+      "description": "Object with legal_name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/transfer/authorization/create",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc",
+      "account_id": "acc_abc",
+      "type": "debit",
+      "network": "ach",
+      "amount": "100.00",
+      "user": {
+        "legal_name": "John Doe"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "authorization": {
+        "id": "auth_abc",
+        "decision": "approved"
+      },
+      "request_id": "abc"
+    }
+  }
+}

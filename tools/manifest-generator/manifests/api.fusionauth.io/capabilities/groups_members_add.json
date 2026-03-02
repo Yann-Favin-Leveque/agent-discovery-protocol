@@ -1,0 +1,45 @@
+{
+  "name": "groups_members_add",
+  "resource_group": "groups",
+  "description": "Add users to a group.",
+  "endpoint": "/api/group/member",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "members",
+      "type": "object",
+      "required": true,
+      "description": "Map of groupId to array of member objects with userId."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/group/member",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "members": {
+        "group-uuid": [
+          {
+            "userId": "user-uuid"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "members": {
+        "group-uuid": [
+          {
+            "userId": "user-uuid",
+            "id": "member-uuid"
+          }
+        ]
+      }
+    }
+  }
+}

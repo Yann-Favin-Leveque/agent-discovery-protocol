@@ -1,0 +1,98 @@
+{
+  "name": "documents_search",
+  "description": "Search for documents in a collection using text queries, filters, facets, and sorting.",
+  "endpoint": "/collections/{collectionName}/documents/search",
+  "method": "GET",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "collectionName",
+      "type": "string",
+      "description": "Collection to search in",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Search query text",
+      "required": true,
+      "example": "laptop"
+    },
+    {
+      "name": "query_by",
+      "type": "string",
+      "description": "Comma-separated list of fields to search",
+      "required": true,
+      "example": "title,description"
+    },
+    {
+      "name": "filter_by",
+      "type": "string",
+      "description": "Filter expression (e.g., price:>100)",
+      "required": false,
+      "example": "price:>100"
+    },
+    {
+      "name": "sort_by",
+      "type": "string",
+      "description": "Sort expression",
+      "required": false,
+      "example": "price:asc"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page",
+      "required": false,
+      "example": "10"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": "1"
+    },
+    {
+      "name": "facet_by",
+      "type": "string",
+      "description": "Fields to facet on",
+      "required": false,
+      "example": "category"
+    },
+    {
+      "name": "group_by",
+      "type": "string",
+      "description": "Field to group results by",
+      "required": false,
+      "example": "brand"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.typesense.org/collections/products/documents/search?q=laptop&query_by=title",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "found": 42,
+      "hits": [
+        {
+          "document": {
+            "id": "1",
+            "title": "Gaming Laptop"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

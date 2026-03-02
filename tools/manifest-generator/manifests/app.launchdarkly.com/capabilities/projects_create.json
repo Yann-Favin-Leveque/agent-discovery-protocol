@@ -1,0 +1,23 @@
+{
+  "name": "projects_create",
+  "description": "Create a new project in LaunchDarkly.",
+  "resource_group": "projects",
+  "endpoint": "/projects",
+  "method": "POST",
+  "parameters": [
+    {"name": "key", "type": "string", "description": "Unique project key.", "required": true, "example": "my-new-project"},
+    {"name": "name", "type": "string", "description": "Project display name.", "required": true, "example": "My New Project"},
+    {"name": "tags", "type": "array", "description": "Tags for the project.", "required": false}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.launchdarkly.com/api/v2/projects",
+    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
+    "body": {"key": "my-new-project", "name": "My New Project"}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"key": "my-new-project", "name": "My New Project", "environments": {"production": {"key": "production"}, "test": {"key": "test"}}}
+  },
+  "rate_limits": {"requests_per_minute": 120}
+}

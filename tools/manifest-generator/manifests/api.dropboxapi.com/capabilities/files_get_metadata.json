@@ -1,0 +1,49 @@
+{
+  "name": "files_get_metadata",
+  "description": "Get metadata for a file or folder.",
+  "resource_group": "files",
+  "endpoint": "/2/files/get_metadata",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "description": "File or folder path.",
+      "required": true,
+      "example": "/test/file.txt"
+    },
+    {
+      "name": "include_media_info",
+      "type": "boolean",
+      "description": "Include media info.",
+      "required": false
+    },
+    {
+      "name": "include_deleted",
+      "type": "boolean",
+      "description": "Include deleted items.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/files/get_metadata",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "path": "/test/file.txt"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "file.txt",
+      "path_display": "/test/file.txt",
+      "id": "id:abc123",
+      ".tag": "file",
+      "size": 1234
+    }
+  }
+}

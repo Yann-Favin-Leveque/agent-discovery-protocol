@@ -1,0 +1,64 @@
+{
+  "name": "webhooks_update",
+  "description": "Update a webhook subscription.",
+  "endpoint": "/v2/webhooks/{id}",
+  "method": "PUT",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Webhook ID.",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Updated URL.",
+      "required": true,
+      "example": "https://example.com/new-webhook"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "Updated events.",
+      "required": true,
+      "example": [
+        "convo.created",
+        "convo.closed"
+      ]
+    },
+    {
+      "name": "secret",
+      "type": "string",
+      "description": "Updated secret.",
+      "required": true,
+      "example": "newsecret"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.helpscout.net/v2/webhooks/1",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/new-webhook",
+      "events": [
+        "convo.created",
+        "convo.closed"
+      ],
+      "secret": "newsecret"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

@@ -1,19 +1,146 @@
 {
   "spec_version": "1.0",
   "name": "Amplitude",
-  "description": "Amplitude is a digital analytics platform for understanding user behavior. Track events, analyze user journeys, build cohorts, and run experiments to drive product growth.",
+  "description": "Amplitude is a digital analytics platform for understanding user behavior. Track events, query segmentation, funnels, retention, and user activity data, manage taxonomy, and export raw events.",
   "base_url": "https://amplitude.com/api",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Basic"
+    "prefix": "Basic",
+    "setup_url": "https://analytics.amplitude.com/settings/projects"
   },
   "capabilities": [
-    {"name": "track_events", "description": "Send event data to Amplitude for user behavior tracking.", "detail_url": "/capabilities/track_events"},
-    {"name": "query_events", "description": "Query event segmentation data with filters and grouping.", "detail_url": "/capabilities/query_events"},
-    {"name": "get_user_activity", "description": "Get the event stream for a specific user.", "detail_url": "/capabilities/get_user_activity"},
-    {"name": "get_funnel", "description": "Analyze a conversion funnel between specified events.", "detail_url": "/capabilities/get_funnel"},
-    {"name": "get_retention", "description": "Get retention analysis data for user cohorts.", "detail_url": "/capabilities/get_retention"},
-    {"name": "export_events", "description": "Export raw event data for a date range.", "detail_url": "/capabilities/export_events"}
+    {
+      "name": "events_track",
+      "description": "Send event data to Amplitude via the HTTP V2 API for user behavior tracking.",
+      "resource_group": "ingestion",
+      "detail_url": "/capabilities/events_track"
+    },
+    {
+      "name": "events_batch",
+      "description": "Upload large amounts of event data in batches (up to 2000 events per request).",
+      "resource_group": "ingestion",
+      "detail_url": "/capabilities/events_batch"
+    },
+    {
+      "name": "users_identify",
+      "description": "Set user ID or update user properties via the Identify API.",
+      "resource_group": "ingestion",
+      "detail_url": "/capabilities/users_identify"
+    },
+    {
+      "name": "events_export",
+      "description": "Export raw event data for a date range as a zipped archive.",
+      "resource_group": "export",
+      "detail_url": "/capabilities/events_export"
+    },
+    {
+      "name": "dashboard_active_users",
+      "description": "Get active and new user counts for a date range.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_active_users"
+    },
+    {
+      "name": "dashboard_events_segmentation",
+      "description": "Query event segmentation data with filters and grouping.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_events_segmentation"
+    },
+    {
+      "name": "dashboard_funnels",
+      "description": "Analyze a conversion funnel between specified events.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_funnels"
+    },
+    {
+      "name": "dashboard_retention",
+      "description": "Get retention analysis data for user cohorts.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_retention"
+    },
+    {
+      "name": "dashboard_user_activity",
+      "description": "Get the event stream for a specific user.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_user_activity"
+    },
+    {
+      "name": "dashboard_user_search",
+      "description": "Search for users by user ID, device ID, or Amplitude ID.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_user_search"
+    },
+    {
+      "name": "dashboard_realtime",
+      "description": "Get real-time active user count.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_realtime"
+    },
+    {
+      "name": "dashboard_revenue_ltv",
+      "description": "Get revenue and lifetime value data for a date range.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_revenue_ltv"
+    },
+    {
+      "name": "dashboard_events_list",
+      "description": "List all event types tracked in the project.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_events_list"
+    },
+    {
+      "name": "dashboard_sessions_average",
+      "description": "Get average session length for a date range.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_sessions_average"
+    },
+    {
+      "name": "dashboard_chart_results",
+      "description": "Get data from a saved chart by chart ID.",
+      "resource_group": "dashboard",
+      "detail_url": "/capabilities/dashboard_chart_results"
+    },
+    {
+      "name": "taxonomy_event_types_list",
+      "description": "List all event types in the taxonomy.",
+      "resource_group": "taxonomy",
+      "detail_url": "/capabilities/taxonomy_event_types_list"
+    },
+    {
+      "name": "taxonomy_event_type_create",
+      "description": "Create a new event type in the taxonomy.",
+      "resource_group": "taxonomy",
+      "detail_url": "/capabilities/taxonomy_event_type_create"
+    },
+    {
+      "name": "taxonomy_event_type_update",
+      "description": "Update an existing event type in the taxonomy.",
+      "resource_group": "taxonomy",
+      "detail_url": "/capabilities/taxonomy_event_type_update"
+    },
+    {
+      "name": "taxonomy_event_type_delete",
+      "description": "Delete an event type from the taxonomy.",
+      "resource_group": "taxonomy",
+      "detail_url": "/capabilities/taxonomy_event_type_delete"
+    },
+    {
+      "name": "taxonomy_user_properties_list",
+      "description": "List all user properties in the taxonomy.",
+      "resource_group": "taxonomy",
+      "detail_url": "/capabilities/taxonomy_user_properties_list"
+    },
+    {
+      "name": "taxonomy_categories_list",
+      "description": "List all event categories in the taxonomy.",
+      "resource_group": "taxonomy",
+      "detail_url": "/capabilities/taxonomy_categories_list"
+    },
+    {
+      "name": "taxonomy_category_create",
+      "description": "Create a new event category.",
+      "resource_group": "taxonomy",
+      "detail_url": "/capabilities/taxonomy_category_create"
+    }
   ]
 }

@@ -1,0 +1,60 @@
+{
+  "name": "jwt_templates_create",
+  "resource_group": "jwt_templates",
+  "description": "Create a new custom JWT template with specific claims.",
+  "endpoint": "/v1/jwt_templates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Template name."
+    },
+    {
+      "name": "claims",
+      "type": "object",
+      "required": true,
+      "description": "Claims object with Clerk template syntax."
+    },
+    {
+      "name": "lifetime",
+      "type": "integer",
+      "required": false,
+      "description": "Token lifetime in seconds."
+    },
+    {
+      "name": "signing_algorithm",
+      "type": "string",
+      "required": false,
+      "description": "RS256 or HS256."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/jwt_templates",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "supabase",
+      "claims": {
+        "sub": "{{user.id}}",
+        "email": "{{user.primary_email_address}}"
+      },
+      "lifetime": 3600
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "jtmpl_abc",
+      "name": "supabase",
+      "claims": {
+        "sub": "{{user.id}}"
+      },
+      "lifetime": 3600
+    }
+  }
+}

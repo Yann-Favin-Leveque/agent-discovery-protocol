@@ -1,0 +1,25 @@
+{
+  "name": "image_edit_outpaint",
+  "description": "Extend an image beyond its original borders in any direction with AI-generated content guided by a prompt.",
+  "resource_group": "edit",
+  "endpoint": "/v2beta/stable-image/edit/outpaint",
+  "method": "POST",
+  "parameters": [
+    {"name": "image", "type": "file", "required": true, "description": "The source image to extend."},
+    {"name": "prompt", "type": "string", "required": false, "description": "Description of the desired output."},
+    {"name": "left", "type": "integer", "required": false, "description": "Pixels to extend left (0-2000)."},
+    {"name": "right", "type": "integer", "required": false, "description": "Pixels to extend right (0-2000)."},
+    {"name": "up", "type": "integer", "required": false, "description": "Pixels to extend upward (0-2000)."},
+    {"name": "down", "type": "integer", "required": false, "description": "Pixels to extend downward (0-2000)."},
+    {"name": "creativity", "type": "number", "required": false, "description": "Creativity level (0.1-1.0, default 0.5)."},
+    {"name": "output_format", "type": "string", "required": false, "description": "Output format."},
+    {"name": "seed", "type": "integer", "required": false, "description": "Random seed."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stability.ai/v2beta/stable-image/edit/outpaint",
+    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Accept": "image/*"},
+    "body": "multipart/form-data: image=@photo.jpg&left=200&right=200&prompt='Extended landscape scenery'"
+  },
+  "response_example": {"status": 200, "body": "Binary extended image content"}
+}

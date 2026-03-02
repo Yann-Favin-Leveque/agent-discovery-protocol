@@ -1,0 +1,56 @@
+{
+  "name": "envelope_recipients_get",
+  "description": "Retrieve the recipients and their current signing status for an envelope.",
+  "resource_group": "envelope",
+  "endpoint": "/v2.1/accounts/{accountId}/envelopes/{envelopeId}/recipients",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "envelopeId",
+      "type": "string",
+      "required": true,
+      "description": "Envelope ID.",
+      "in": "path"
+    },
+    {
+      "name": "include_tabs",
+      "type": "string",
+      "required": false,
+      "description": "Include tab data: 'true' or 'false'.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/envelopes/env-abc-123/recipients",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signers": [
+        {
+          "recipientId": "1",
+          "email": "signer@example.com",
+          "name": "John Doe",
+          "status": "completed",
+          "signedDateTime": "2025-01-15T15:45:00.000Z",
+          "routingOrder": "1"
+        }
+      ],
+      "carbonCopies": []
+    }
+  }
+}

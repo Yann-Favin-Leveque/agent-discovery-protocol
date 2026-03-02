@@ -1,0 +1,23 @@
+{
+  "name": "enrolments_get_users_courses",
+  "description": "Get all courses a specific user is enrolled in.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_enrol_get_users_courses",
+  "method": "POST",
+  "resource_group": "enrolments",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "userid", "type": "integer", "description": "The user ID", "required": true, "example": 42 }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_enrol_get_users_courses&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "userid": 42 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{ "id": 5, "fullname": "Introduction to Physics", "shortname": "PHYS101" }]
+  },
+  "auth_scopes": ["core_enrol_get_users_courses"],
+  "rate_limits": { "requests_per_minute": 120 }
+}

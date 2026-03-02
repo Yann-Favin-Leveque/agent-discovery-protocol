@@ -1,0 +1,24 @@
+{
+  "name": "accounts_get_ledger",
+  "description": "Get the ledger (transaction history) for a specific account including trades, fees, and transfers.",
+  "endpoint": "/accounts/{account_id}/ledger",
+  "method": "GET",
+  "resource_group": "accounts",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "Account UUID.", "required": true, "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"},
+    {"name": "before", "type": "string", "description": "Cursor for pagination (before).", "required": false, "example": ""},
+    {"name": "after", "type": "string", "description": "Cursor for pagination (after).", "required": false, "example": ""},
+    {"name": "limit", "type": "integer", "description": "Number of entries (max 100).", "required": false, "example": 100}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.exchange.coinbase.com/accounts/a1b2c3d4-e5f6-7890-abcd-ef1234567890/ledger?limit=100",
+    "headers": {"CB-ACCESS-KEY": "{api_key}", "CB-ACCESS-SIGN": "{signature}", "CB-ACCESS-TIMESTAMP": "{timestamp}", "CB-ACCESS-PASSPHRASE": "{passphrase}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{"id": "100", "created_at": "2024-06-15T10:00:00.000Z", "amount": "0.001", "balance": "1.501", "type": "match", "details": {"order_id": "d50ec984-77a8-460a-b958-66f114b0de9b", "trade_id": "74", "product_id": "BTC-USD"}}]
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 600}
+}

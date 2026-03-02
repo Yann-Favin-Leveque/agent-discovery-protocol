@@ -1,0 +1,55 @@
+{
+  "name": "sms_delivery_reports_get",
+  "description": "Retrieve delivery reports for previously sent SMS messages. Returns delivery status per recipient including delivered, rejected, or undeliverable with detailed status codes.",
+  "endpoint": "/sms/3/reports",
+  "method": "GET",
+  "resource_group": "sms",
+  "parameters": [
+    {
+      "name": "bulkId",
+      "type": "string",
+      "required": false,
+      "description": "Filter by the bulk ID returned when the messages were sent."
+    },
+    {
+      "name": "messageId",
+      "type": "string",
+      "required": false,
+      "description": "Filter by a specific message ID."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of delivery reports to return. Default is 50."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.infobip.com/sms/3/reports?bulkId=2034072219640523072&limit=10",
+    "headers": {
+      "Authorization": "App {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "bulkId": "2034072219640523072",
+          "messageId": "2250be2d4219-3af1-78856-aabe-1362af1edfd2",
+          "to": "14155550123",
+          "sentAt": "2024-01-15T12:00:00.000+0000",
+          "doneAt": "2024-01-15T12:00:02.000+0000",
+          "smsCount": 1,
+          "price": { "pricePerMessage": 0.01, "currency": "EUR" },
+          "status": { "groupId": 3, "groupName": "DELIVERED", "id": 5, "name": "DELIVERED_TO_HANDSET" }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

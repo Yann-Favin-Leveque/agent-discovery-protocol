@@ -1,0 +1,49 @@
+{
+  "name": "dns_analytics_report",
+  "resource_group": "dns_analytics",
+  "description": "Get summarized DNS analytics metrics for a zone.",
+  "endpoint": "/zones/{zone_id}/dns_analytics/report",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Start date (ISO 8601)."
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "End date (ISO 8601)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dns_analytics/report",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "data": [],
+        "totals": {
+          "queryCount": 50000
+        }
+      }
+    }
+  }
+}

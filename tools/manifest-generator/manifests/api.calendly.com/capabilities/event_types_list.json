@@ -1,0 +1,80 @@
+{
+  "name": "event_types_list",
+  "resource_group": "event_types",
+  "description": "List all event types for a user or organization, including active, inactive, and draft types.",
+  "endpoint": "/event_types",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user",
+      "type": "string",
+      "required": false,
+      "description": "User URI to filter by",
+      "example": "https://api.calendly.com/users/AAAA"
+    },
+    {
+      "name": "organization",
+      "type": "string",
+      "required": false,
+      "description": "Organization URI to filter by",
+      "example": "https://api.calendly.com/organizations/BBBB"
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "required": false,
+      "description": "Filter by active status",
+      "example": true
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort order (name:asc, name:desc)",
+      "example": "name:asc"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page",
+      "example": 20
+    },
+    {
+      "name": "page_token",
+      "type": "string",
+      "required": false,
+      "description": "Token for next page",
+      "example": "sNjq4TvMDY"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.calendly.com/event_types?user=https://api.calendly.com/users/AAAA&active=true",
+    "headers": {
+      "Authorization": "Bearer CALENDLY_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "collection": [
+        {
+          "uri": "https://api.calendly.com/event_types/CCCC",
+          "name": "30 Minute Meeting",
+          "active": true,
+          "slug": "30min",
+          "scheduling_url": "https://calendly.com/johndoe/30min",
+          "duration": 30,
+          "kind": "solo",
+          "type": "StandardEventType",
+          "color": "#8247f5"
+        }
+      ],
+      "pagination": {
+        "count": 20,
+        "next_page_token": null
+      }
+    }
+  }
+}

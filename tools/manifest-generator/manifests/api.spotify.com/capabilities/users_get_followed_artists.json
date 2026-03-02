@@ -1,0 +1,51 @@
+{
+  "name": "users_get_followed_artists",
+  "description": "Get the user's followed artists.",
+  "resource_group": "users",
+  "endpoint": "/v1/me/following",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'artist'."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max items. Default: 20. Range: 1-50."
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "required": false,
+      "description": "Last artist ID for cursor-based pagination."
+    }
+  ],
+  "auth_scopes": [
+    "user-follow-read"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/me/following?type=artist&limit=10",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "artists": {
+        "items": [
+          {
+            "id": "abc",
+            "name": "Artist"
+          }
+        ],
+        "total": 30
+      }
+    }
+  }
+}

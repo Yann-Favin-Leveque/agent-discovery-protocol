@@ -1,0 +1,90 @@
+{
+  "name": "activity_log_create",
+  "description": "Log a new exercise or physical activity for the authenticated user. Specify an activity ID or name, the start time, and the duration. Optionally include distance and calories. Common activity IDs: 90013 (Walking), 90009 (Running), 90001 (Biking), 15000 (Yoga), 2130 (Weightlifting), 90024 (Swimming).",
+  "resource_group": "activity",
+  "endpoint": "/1/user/-/activities.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "activityId",
+      "type": "integer",
+      "required": false,
+      "description": "The Fitbit activity type ID. Required if activityName is not provided."
+    },
+    {
+      "name": "activityName",
+      "type": "string",
+      "required": false,
+      "description": "Free-text name of the activity. Required if activityId is not provided."
+    },
+    {
+      "name": "startTime",
+      "type": "string",
+      "required": true,
+      "description": "The start time of the activity in HH:mm format (24-hour)."
+    },
+    {
+      "name": "durationMillis",
+      "type": "integer",
+      "required": true,
+      "description": "Duration of the activity in milliseconds."
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "The date the activity was performed, in YYYY-MM-DD format."
+    },
+    {
+      "name": "distance",
+      "type": "number",
+      "required": false,
+      "description": "Distance covered during the activity."
+    },
+    {
+      "name": "distanceUnit",
+      "type": "string",
+      "required": false,
+      "description": "Unit for distance: 'Kilometer' or 'Mile'."
+    },
+    {
+      "name": "manualCalories",
+      "type": "integer",
+      "required": false,
+      "description": "Manually specified calories burned."
+    }
+  ],
+  "auth_scopes": ["activity"],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fitbit.com/1/user/-/activities.json",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9...",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "activityId": 90009,
+      "startTime": "07:30",
+      "durationMillis": 1800000,
+      "date": "2025-01-15",
+      "distance": 5.2,
+      "distanceUnit": "Kilometer"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "activityLog": {
+        "logId": 67283945,
+        "activityId": 90009,
+        "activityName": "Run",
+        "calories": 385,
+        "distance": 5.2,
+        "duration": 1800000,
+        "startTime": "07:30",
+        "startDate": "2025-01-15",
+        "steps": 5840
+      }
+    }
+  }
+}

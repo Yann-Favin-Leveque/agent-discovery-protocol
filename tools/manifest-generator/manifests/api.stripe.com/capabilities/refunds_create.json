@@ -1,0 +1,59 @@
+{
+  "name": "refunds_create",
+  "description": "Create a refund for a charge or payment intent.",
+  "endpoint": "/v1/refunds",
+  "method": "POST",
+  "resource_group": "refunds",
+  "parameters": [
+    {
+      "name": "charge",
+      "type": "string",
+      "description": "Charge ID to refund",
+      "required": false,
+      "example": "ch_abc123"
+    },
+    {
+      "name": "payment_intent",
+      "type": "string",
+      "description": "PaymentIntent ID to refund",
+      "required": false,
+      "example": "pi_abc123"
+    },
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Partial refund amount (omit for full refund)",
+      "required": false,
+      "example": 1000
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "description": "Reason: duplicate, fraudulent, requested_by_customer",
+      "required": false,
+      "example": "requested_by_customer"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/refunds",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "payment_intent=pi_abc123&amount=1000"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "re_abc123",
+      "object": "refund",
+      "amount": 1000,
+      "status": "succeeded"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

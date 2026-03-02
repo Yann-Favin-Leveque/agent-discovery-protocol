@@ -1,0 +1,65 @@
+{
+  "name": "members_list",
+  "description": "List subscribers in an audience with filtering options.",
+  "endpoint": "/3.0/lists/{list_id}/members",
+  "method": "GET",
+  "resource_group": "members",
+  "parameters": [
+    {
+      "name": "list_id",
+      "type": "string",
+      "description": "Audience ID.",
+      "required": true,
+      "example": "abc123"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter: subscribed, unsubscribed, cleaned, pending.",
+      "required": false,
+      "example": "subscribed"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Results to skip.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us1.api.mailchimp.com/3.0/lists/abc123/members?status=subscribed&count=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "members": [
+        {
+          "id": "hash123",
+          "email_address": "user@example.com",
+          "status": "subscribed",
+          "merge_fields": {
+            "FNAME": "John",
+            "LNAME": "Doe"
+          }
+        }
+      ],
+      "total_items": 5000
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

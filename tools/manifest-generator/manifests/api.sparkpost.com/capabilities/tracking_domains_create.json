@@ -1,0 +1,49 @@
+{
+  "name": "tracking_domains_create",
+  "description": "Create a custom tracking domain for open/click tracking.",
+  "endpoint": "/api/v1/tracking-domains",
+  "method": "POST",
+  "resource_group": "tracking_domains",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Tracking domain name",
+      "required": true,
+      "example": "track.example.com"
+    },
+    {
+      "name": "secure",
+      "type": "boolean",
+      "description": "Enable HTTPS tracking",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/tracking-domains",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "domain": "track.example.com",
+      "secure": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "domain": "track.example.com"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

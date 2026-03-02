@@ -1,0 +1,47 @@
+{
+  "name": "batches_create",
+  "description": "Create a new batch for bulk label generation.",
+  "endpoint": "/v1/batches",
+  "method": "POST",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "shipment_ids",
+      "type": "array",
+      "description": "Shipment IDs to include.",
+      "required": false
+    },
+    {
+      "name": "rate_ids",
+      "type": "array",
+      "description": "Rate IDs to include.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/batches",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "shipment_ids": [
+        "se-1234567",
+        "se-7654321"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "batch_id": "se-batch-123",
+      "status": "open",
+      "count": 2
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

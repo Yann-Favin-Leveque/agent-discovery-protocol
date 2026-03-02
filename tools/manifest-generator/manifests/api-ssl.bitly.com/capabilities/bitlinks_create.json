@@ -1,0 +1,81 @@
+{
+  "name": "bitlinks_create",
+  "description": "Create a Bitlink with full metadata including title, tags, and deeplinks.",
+  "endpoint": "/v4/bitlinks",
+  "method": "POST",
+  "resource_group": "bitlinks",
+  "parameters": [
+    {
+      "name": "long_url",
+      "type": "string",
+      "description": "The long URL to shorten.",
+      "required": true,
+      "example": "https://example.com/page"
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Custom short domain.",
+      "required": false,
+      "example": "bit.ly"
+    },
+    {
+      "name": "group_guid",
+      "type": "string",
+      "description": "Group GUID.",
+      "required": false
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Title for the Bitlink.",
+      "required": false,
+      "example": "My Campaign Link"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Tags to categorize the link.",
+      "required": false
+    },
+    {
+      "name": "deeplinks",
+      "type": "array",
+      "description": "Deep link configurations for mobile.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-ssl.bitly.com/v4/bitlinks",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "long_url": "https://example.com/page",
+      "title": "My Campaign Link",
+      "tags": [
+        "campaign",
+        "q1"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "link": "https://bit.ly/xyz789",
+      "id": "bit.ly/xyz789",
+      "long_url": "https://example.com/page",
+      "title": "My Campaign Link",
+      "tags": [
+        "campaign",
+        "q1"
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

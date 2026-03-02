@@ -1,0 +1,54 @@
+{
+  "name": "charges_list",
+  "description": "List charges with optional customer or payment intent filter.",
+  "endpoint": "/v1/charges",
+  "method": "GET",
+  "resource_group": "charges",
+  "parameters": [
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Filter by customer",
+      "required": false,
+      "example": "cus_abc123"
+    },
+    {
+      "name": "payment_intent",
+      "type": "string",
+      "description": "Filter by payment intent",
+      "required": false,
+      "example": "pi_abc123"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/charges?customer=cus_abc123",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "ch_abc123",
+          "amount": 2000,
+          "status": "succeeded"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

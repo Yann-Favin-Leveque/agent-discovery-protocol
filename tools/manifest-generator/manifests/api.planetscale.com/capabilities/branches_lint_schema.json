@@ -1,0 +1,21 @@
+{
+  "name": "branches_lint_schema",
+  "resource_group": "branches",
+  "description": "Lint the schema of a branch for potential issues and recommendations.",
+  "endpoint": "/organizations/{organization}/databases/{database}/branches/{branch}/schema/lint",
+  "method": "GET",
+  "parameters": [
+    {"name": "organization", "type": "string", "required": true, "in": "path", "description": "Organization name slug."},
+    {"name": "database", "type": "string", "required": true, "in": "path", "description": "Database name."},
+    {"name": "branch", "type": "string", "required": true, "in": "path", "description": "Branch name."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/branches/main/schema/lint",
+    "headers": {"Authorization": "Bearer {access_token}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": [{"lint_error": "NO_UNIQUE_KEY", "table": "events", "subject_type": "table"}]}
+  }
+}

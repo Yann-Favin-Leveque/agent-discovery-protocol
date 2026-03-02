@@ -1,0 +1,77 @@
+{
+  "name": "issues_list",
+  "description": "List issues for a project with filtering by state, labels, assignee, and more.",
+  "resource_group": "issues",
+  "endpoint": "/projects/{id}/issues",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "Filter: opened, closed, all."
+    },
+    {
+      "name": "labels",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated label names."
+    },
+    {
+      "name": "assignee_id",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by assignee user ID."
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "description": "Search in title and description."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/123/issues?state=opened&labels=bug",
+    "headers": {
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1,
+        "iid": 10,
+        "title": "Login page crashes",
+        "state": "opened",
+        "labels": [
+          "bug"
+        ],
+        "assignee": {
+          "username": "octocat"
+        },
+        "web_url": "https://gitlab.com/octocat/my-project/-/issues/10"
+      }
+    ]
+  }
+}

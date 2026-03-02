@@ -1,0 +1,29 @@
+{
+  "name": "speech_speak",
+  "description": "Convert text to natural-sounding speech audio. Returns audio data in the specified format.",
+  "resource_group": "speech",
+  "endpoint": "/v1/speak",
+  "method": "POST",
+  "parameters": [
+    {"name": "text", "type": "string", "description": "Text to convert to speech.", "required": true, "example": "Hello, how are you today?"},
+    {"name": "model", "type": "string", "description": "Voice model to use (aura-asteria-en, aura-luna-en, etc.).", "required": false, "example": "aura-asteria-en"},
+    {"name": "encoding", "type": "string", "description": "Audio encoding format (linear16, mp3, opus, flac, alaw, mulaw).", "required": false, "example": "mp3"},
+    {"name": "sample_rate", "type": "integer", "description": "Audio sample rate in Hz.", "required": false, "example": 24000}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.deepgram.com/v1/speak?model=aura-asteria-en",
+    "headers": {
+      "Authorization": "Token {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "text": "Hello, how are you today?"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "(binary audio data returned with Content-Type: audio/mp3)"
+  },
+  "rate_limits": {"requests_per_minute": 100}
+}

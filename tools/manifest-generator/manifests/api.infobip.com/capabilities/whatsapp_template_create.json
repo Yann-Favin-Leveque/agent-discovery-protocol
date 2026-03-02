@@ -1,0 +1,71 @@
+{
+  "name": "whatsapp_template_create",
+  "description": "Register a new WhatsApp message template for approval by Meta. Templates are required for initiating conversations outside the 24-hour messaging window.",
+  "endpoint": "/whatsapp/2/senders/{sender}/templates",
+  "method": "POST",
+  "resource_group": "whatsapp",
+  "parameters": [
+    {
+      "name": "sender",
+      "type": "string",
+      "required": true,
+      "description": "The WhatsApp sender number to create the template for."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Template name. Must be lowercase alphanumeric with underscores."
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "required": true,
+      "description": "Language code for the template (e.g., 'en', 'es', 'fr')."
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "required": true,
+      "description": "Template category: 'MARKETING', 'UTILITY', or 'AUTHENTICATION'."
+    },
+    {
+      "name": "structure",
+      "type": "object",
+      "required": true,
+      "description": "Template structure with optional 'header', required 'body', and optional 'footer' and 'buttons'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/whatsapp/2/senders/447860099299/templates",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "name": "shipping_update",
+      "language": "en",
+      "category": "UTILITY",
+      "structure": {
+        "body": { "text": "Hi {{1}}, your order {{2}} has shipped. Track: {{3}}" },
+        "footer": { "text": "Thank you for your purchase" }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "template-new-12345",
+      "businessAccountId": 12345,
+      "name": "shipping_update",
+      "language": "en",
+      "status": "PENDING",
+      "category": "UTILITY"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

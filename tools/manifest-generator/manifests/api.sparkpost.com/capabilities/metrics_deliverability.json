@@ -1,0 +1,61 @@
+{
+  "name": "metrics_deliverability",
+  "description": "Get aggregate deliverability metrics (deliveries, bounces, opens, clicks).",
+  "endpoint": "/api/v1/metrics/deliverability",
+  "method": "GET",
+  "resource_group": "metrics",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start datetime (required)",
+      "required": true,
+      "example": "2026-03-01T00:00"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "End datetime",
+      "required": false,
+      "example": "2026-03-02T23:59"
+    },
+    {
+      "name": "metrics",
+      "type": "string",
+      "description": "Comma-separated metrics to return",
+      "required": true,
+      "example": "count_delivered,count_bounced,count_unique_opened"
+    },
+    {
+      "name": "precision",
+      "type": "string",
+      "description": "Time precision: 1min, 5min, 15min, hour, day",
+      "required": false,
+      "example": "day"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/metrics/deliverability?from=2026-03-01T00:00&metrics=count_delivered,count_bounced&precision=day",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "count_delivered": 1500,
+          "count_bounced": 25
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

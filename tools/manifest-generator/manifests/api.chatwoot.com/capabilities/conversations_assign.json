@@ -1,0 +1,25 @@
+{
+  "name": "conversations_assign",
+  "description": "Assign or reassign a conversation to a specific agent or team.",
+  "endpoint": "/api/v1/accounts/{account_id}/conversations/{conversation_id}/assignments",
+  "method": "POST",
+  "resource_group": "conversations",
+  "parameters": [
+    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
+    {"name": "conversation_id", "type": "integer", "description": "Conversation ID.", "required": true, "example": 101},
+    {"name": "assignee_id", "type": "integer", "description": "Agent ID to assign to.", "required": false, "example": 5},
+    {"name": "team_id", "type": "integer", "description": "Team ID to assign to.", "required": false, "example": 2}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chatwoot.com/api/v1/accounts/1/conversations/101/assignments",
+    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
+    "body": {"assignee_id": 5}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": 5, "name": "Agent Smith"}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 250}
+}

@@ -1,0 +1,36 @@
+{
+  "name": "incidents_merge",
+  "description": "Merge multiple incidents into a single incident.",
+  "resource_group": "incidents",
+  "endpoint": "/incidents/{incident_id}/merge",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "incident_id",
+      "type": "string",
+      "required": true,
+      "description": "Target incident ID",
+      "location": "path"
+    },
+    {
+      "name": "source_incidents",
+      "type": "array",
+      "required": true,
+      "description": "Array of source incident references to merge"
+    }
+  ],
+  "request_example": {
+    "source_incidents": [
+      {
+        "id": "P456",
+        "type": "incident_reference"
+      }
+    ]
+  },
+  "response_example": {
+    "incident": {
+      "id": "P123"
+    }
+  },
+  "auth_scopes": []
+}

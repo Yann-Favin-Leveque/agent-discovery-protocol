@@ -1,0 +1,54 @@
+{
+  "name": "live_broadcasts_transition",
+  "description": "Transition a broadcast to a different status.",
+  "endpoint": "/youtube/v3/liveBroadcasts/transition",
+  "method": "POST",
+  "resource_group": "live_broadcasts",
+  "parameters": [
+    {
+      "name": "broadcastStatus",
+      "type": "string",
+      "description": "Target status (testing, live, complete)",
+      "required": true,
+      "example": "live"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Broadcast ID",
+      "required": true,
+      "example": "broadcast_123"
+    },
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,status"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://youtube.googleapis.com/youtube/v3/liveBroadcasts/transition",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "broadcast_123",
+      "status": {
+        "lifeCycleStatus": "live"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

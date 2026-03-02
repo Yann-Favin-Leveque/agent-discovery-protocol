@@ -1,0 +1,27 @@
+{
+  "name": "coins_market_chart_range",
+  "description": "Get historical market chart data within a specific Unix timestamp range.",
+  "resource_group": "coins",
+  "endpoint": "/coins/{id}/market_chart/range",
+  "method": "GET",
+  "parameters": [
+    {"name": "id", "type": "string", "description": "Coin ID.", "required": true, "example": "bitcoin"},
+    {"name": "vs_currency", "type": "string", "description": "Target currency.", "required": true, "example": "usd"},
+    {"name": "from", "type": "integer", "description": "Start Unix timestamp.", "required": true, "example": 1704067200},
+    {"name": "to", "type": "integer", "description": "End Unix timestamp.", "required": true, "example": 1706745600}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=1704067200&to=1706745600",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "prices": [[1704067200000, 42500.00], [1704153600000, 43100.25]],
+      "market_caps": [[1704067200000, 835000000000], [1704153600000, 845000000000]],
+      "total_volumes": [[1704067200000, 20000000000], [1704153600000, 22000000000]]
+    }
+  },
+  "rate_limits": {"requests_per_minute": 30}
+}

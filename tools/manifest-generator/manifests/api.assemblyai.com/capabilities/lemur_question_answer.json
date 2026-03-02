@@ -1,0 +1,77 @@
+{
+  "name": "lemur_question_answer",
+  "description": "Ask questions about one or more transcripts using LeMUR.",
+  "endpoint": "/v2/lemur/v3/generate/question-answer",
+  "method": "POST",
+  "resource_group": "lemur",
+  "parameters": [
+    {
+      "name": "transcript_ids",
+      "type": "array",
+      "description": "Array of transcript IDs.",
+      "required": true,
+      "example": [
+        "abc123"
+      ]
+    },
+    {
+      "name": "questions",
+      "type": "array",
+      "description": "Array of question objects with question text and optional context/answer_format.",
+      "required": true
+    },
+    {
+      "name": "final_model",
+      "type": "string",
+      "description": "LLM model to use.",
+      "required": false,
+      "example": "default"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.assemblyai.com/v2/lemur/v3/generate/question-answer",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transcript_ids": [
+        "abc123"
+      ],
+      "questions": [
+        {
+          "question": "What were the main topics discussed?",
+          "answer_format": "short"
+        },
+        {
+          "question": "Who attended the meeting?"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req_abc123",
+      "response": [
+        {
+          "question": "What were the main topics discussed?",
+          "answer": "Q4 sales targets and new product launch."
+        },
+        {
+          "question": "Who attended the meeting?",
+          "answer": "John, Sarah, and Mike from the sales team."
+        }
+      ],
+      "usage": {
+        "input_tokens": 1500,
+        "output_tokens": 60
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

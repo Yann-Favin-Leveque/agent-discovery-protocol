@@ -1,0 +1,46 @@
+{
+  "name": "deploys_list",
+  "description": "List all deploys for a specific site.",
+  "endpoint": "/api/v1/sites/{site_id}/deploys",
+  "method": "GET",
+  "resource_group": "deploys",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "string",
+      "description": "Site ID",
+      "required": true,
+      "example": "site_abc"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": 1
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.netlify.com/api/v1/sites/{site_id}/deploys",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "deploy_123",
+        "state": "ready",
+        "created_at": "2025-01-15T10:00:00Z",
+        "deploy_url": "https://deploy-123--my-site.netlify.app"
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

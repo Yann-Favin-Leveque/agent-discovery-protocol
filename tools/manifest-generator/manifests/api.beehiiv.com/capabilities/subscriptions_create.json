@@ -1,0 +1,83 @@
+{
+  "name": "subscriptions_create",
+  "description": "Create a new subscription with optional UTM tracking, custom fields, and automation enrollment.",
+  "resource_group": "subscriptions",
+  "endpoint": "/v2/publications/{publicationId}/subscriptions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "publicationId",
+      "type": "string",
+      "description": "Publication ID.",
+      "required": true
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Subscriber email.",
+      "required": true,
+      "example": "jane@example.com"
+    },
+    {
+      "name": "reactivate_existing",
+      "type": "boolean",
+      "description": "Reactivate if already exists.",
+      "required": false
+    },
+    {
+      "name": "send_welcome_email",
+      "type": "boolean",
+      "description": "Send welcome email.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "utm_source",
+      "type": "string",
+      "description": "UTM source.",
+      "required": false
+    },
+    {
+      "name": "custom_fields",
+      "type": "array",
+      "description": "Array of {name, value} pairs.",
+      "required": false
+    },
+    {
+      "name": "tier",
+      "type": "string",
+      "description": "Tier: free or premium.",
+      "required": false,
+      "example": "free"
+    },
+    {
+      "name": "automation_ids",
+      "type": "array",
+      "description": "Automation IDs to enroll in.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.beehiiv.com/v2/publications/pub_xxx/subscriptions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "jane@example.com",
+      "send_welcome_email": true,
+      "tier": "free"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "sub_yyy",
+        "email": "jane@example.com",
+        "status": "active"
+      }
+    }
+  }
+}

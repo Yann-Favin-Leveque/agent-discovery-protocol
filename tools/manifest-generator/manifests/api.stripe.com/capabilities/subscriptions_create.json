@@ -1,0 +1,64 @@
+{
+  "name": "subscriptions_create",
+  "description": "Create a subscription for a customer with one or more price items.",
+  "endpoint": "/v1/subscriptions",
+  "method": "POST",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Customer ID",
+      "required": true,
+      "example": "cus_abc123"
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Array of subscription items with price IDs",
+      "required": true,
+      "example": [
+        {
+          "price": "price_abc123"
+        }
+      ]
+    },
+    {
+      "name": "trial_period_days",
+      "type": "integer",
+      "description": "Free trial days",
+      "required": false,
+      "example": 14
+    },
+    {
+      "name": "default_payment_method",
+      "type": "string",
+      "description": "Default payment method",
+      "required": false,
+      "example": "pm_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/subscriptions",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "customer=cus_abc123&items[0][price]=price_abc123"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sub_abc123",
+      "object": "subscription",
+      "status": "active",
+      "customer": "cus_abc123",
+      "current_period_end": 1711929600
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "projects_list",
+  "description": "List all monitored projects in an organization.",
+  "resource_group": "projects",
+  "endpoint": "/rest/orgs/{org_id}/projects",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization UUID."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "API version date."
+    },
+    {
+      "name": "target_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by target ID."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.snyk.io/rest/orgs/org-uuid/projects?version=2024-06-21",
+    "headers": {
+      "Authorization": "token <api_token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "proj-uuid",
+          "type": "project",
+          "attributes": {
+            "name": "my-app",
+            "type": "npm",
+            "origin": "github",
+            "status": "active",
+            "created": "2024-01-01T00:00:00Z"
+          }
+        }
+      ]
+    }
+  }
+}

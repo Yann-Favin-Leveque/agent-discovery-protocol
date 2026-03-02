@@ -1,0 +1,42 @@
+{
+  "name": "invoices_delete",
+  "description": "Delete an invoice.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "invoiceId",
+      "type": "string",
+      "description": "Invoice ID to delete",
+      "required": true,
+      "example": "SW52b2ljZTo6..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: InvoiceDeleteInput!) { invoiceDelete(input: $input) { didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "invoiceDelete": {
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "tracks_mute",
+  "description": "Mute or unmute a published audio or video track for a participant in a room.",
+  "endpoint": "/twirp/livekit.RoomService/MutePublishedTrack",
+  "method": "POST",
+  "resource_group": "tracks",
+  "parameters": [
+    {
+      "name": "room",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room."
+    },
+    {
+      "name": "identity",
+      "type": "string",
+      "required": true,
+      "description": "Identity of the participant who published the track."
+    },
+    {
+      "name": "track_sid",
+      "type": "string",
+      "required": true,
+      "description": "SID of the track to mute/unmute."
+    },
+    {
+      "name": "muted",
+      "type": "boolean",
+      "required": true,
+      "description": "Set to true to mute, false to unmute."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/MutePublishedTrack",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room": "interview-room-42",
+      "identity": "user-alice",
+      "track_sid": "TR_audio_01",
+      "muted": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "track": { "sid": "TR_audio_01", "type": "AUDIO", "muted": true }
+    }
+  },
+  "auth_scopes": ["roomAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "products_create",
+  "description": "Create a new product in your Paddle catalog.",
+  "resource_group": "products",
+  "endpoint": "/products",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name of the product.",
+      "required": true,
+      "example": "My SaaS Product"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Product description.",
+      "required": false
+    },
+    {
+      "name": "tax_category",
+      "type": "string",
+      "description": "Tax category for the product (e.g. standard, digital-goods).",
+      "required": true,
+      "example": "standard"
+    },
+    {
+      "name": "image_url",
+      "type": "string",
+      "description": "URL of the product image.",
+      "required": false
+    },
+    {
+      "name": "custom_data",
+      "type": "object",
+      "description": "Custom key-value metadata.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/products",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "My SaaS Product",
+      "tax_category": "standard"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "pro_01h1vjes1y163xfj1rh1tkfb65",
+        "name": "My SaaS Product",
+        "status": "active"
+      }
+    }
+  }
+}

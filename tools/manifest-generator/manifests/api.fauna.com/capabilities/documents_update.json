@@ -1,0 +1,58 @@
+{
+  "name": "documents_update",
+  "description": "Update an existing document by its ID. Supports partial updates that merge new fields with the existing document.",
+  "endpoint": "/query/1",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "FQL query to update a document. Use Collection.byId('id')!.update({...}) syntax.",
+      "required": true,
+      "example": "Product.byId('394508947012837376')!.update({ price: 12.99 })"
+    },
+    {
+      "name": "arguments",
+      "type": "object",
+      "description": "Named arguments for the query.",
+      "required": false,
+      "example": {}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://db.fauna.com/query/1",
+    "headers": {
+      "Authorization": "Bearer fn_your_secret_key",
+      "Content-Type": "application/json",
+      "X-Format": "simple"
+    },
+    "body": {
+      "query": "Product.byId('394508947012837376')!.update({ price: 12.99 })"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "394508947012837376",
+        "coll": "Product",
+        "ts": "2024-09-01T11:00:00.000Z",
+        "name": "Widget",
+        "price": 12.99,
+        "quantity": 100
+      },
+      "txn_ts": 1693563600000000,
+      "stats": {
+        "compute_ops": 1,
+        "read_ops": 1,
+        "write_ops": 1
+      }
+    }
+  },
+  "auth_scopes": ["server", "admin"],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

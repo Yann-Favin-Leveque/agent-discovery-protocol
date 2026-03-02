@@ -1,0 +1,50 @@
+{
+  "name": "files_list",
+  "resource_group": "files",
+  "description": "List all uploaded files with pagination.",
+  "endpoint": "/v6/listFiles",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results. Default 500."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Offset for pagination. Default 0."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uploadthing.com/v6/listFiles",
+    "headers": {
+      "x-uploadthing-api-key": "sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "limit": 20,
+      "offset": 0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "hasMore": true,
+      "files": [
+        {
+          "id": "file_abc",
+          "key": "abc123-photo.jpg",
+          "name": "photo.jpg",
+          "customId": null,
+          "status": "Uploaded",
+          "size": 245000,
+          "uploadedAt": "2024-01-15T10:30:00.000Z"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "document_link_create",
+  "description": "Generate a shareable link for a document so recipients can view and sign without needing an email invitation. Links can have an expiration time.",
+  "resource_group": "document",
+  "endpoint": "/public/v1/documents/{id}/session",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Document ID.",
+      "in": "path"
+    },
+    {
+      "name": "recipient",
+      "type": "string",
+      "required": true,
+      "description": "Email of the recipient to create the link for.",
+      "in": "body"
+    },
+    {
+      "name": "lifetime",
+      "type": "integer",
+      "required": false,
+      "description": "Link lifetime in seconds (default 3600).",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pandadoc.com/public/v1/documents/doc-abc-123/session",
+    "headers": {
+      "Authorization": "API-Key YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipient": "client@acme.com",
+      "lifetime": 86400
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "session-abc-123",
+      "expires_at": "2025-01-16T14:30:00.000Z"
+    }
+  }
+}

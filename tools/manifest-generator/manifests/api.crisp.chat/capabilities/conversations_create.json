@@ -1,0 +1,37 @@
+{
+  "name": "conversations_create",
+  "description": "Create a new conversation for a website. Returns the new session identifier.",
+  "endpoint": "/v1/website/{website_id}/conversation",
+  "method": "POST",
+  "resource_group": "conversations",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/conversation",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "session_id": "session_19e5240f-0a8d-461e-a661-a3123f3e"
+      }
+    }
+  },
+  "auth_scopes": ["website:conversation:sessions"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "manifests_create",
+  "description": "Create a manifest (SCAN form) for carrier pickup.",
+  "endpoint": "/manifests",
+  "method": "POST",
+  "resource_group": "manifests",
+  "parameters": [
+    {
+      "name": "carrier_account",
+      "type": "string",
+      "description": "Carrier account object ID.",
+      "required": true
+    },
+    {
+      "name": "shipment_date",
+      "type": "string",
+      "description": "Shipment date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-01-15"
+    },
+    {
+      "name": "address_from",
+      "type": "string",
+      "description": "Origin address object ID.",
+      "required": true
+    },
+    {
+      "name": "transactions",
+      "type": "array",
+      "description": "Array of transaction object IDs.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/manifests",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "carrier_account": "carrier_abc123",
+      "shipment_date": "2024-01-15",
+      "address_from": "adr_abc123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "object_id": "mnfst_abc123",
+      "status": "QUEUED"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

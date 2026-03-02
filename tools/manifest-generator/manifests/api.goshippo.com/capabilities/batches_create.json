@@ -1,0 +1,59 @@
+{
+  "name": "batches_create",
+  "description": "Create a batch for bulk label purchasing.",
+  "endpoint": "/batches",
+  "method": "POST",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "default_carrier_account",
+      "type": "string",
+      "description": "Default carrier account ID.",
+      "required": true
+    },
+    {
+      "name": "default_servicelevel_token",
+      "type": "string",
+      "description": "Default service level.",
+      "required": true,
+      "example": "usps_priority"
+    },
+    {
+      "name": "batch_shipments",
+      "type": "array",
+      "description": "Array of shipment data.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/batches",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "default_carrier_account": "carrier_abc123",
+      "default_servicelevel_token": "usps_priority",
+      "batch_shipments": [
+        {
+          "shipment": "shp_abc123"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "object_id": "batch_abc123",
+      "status": "VALIDATING",
+      "batch_shipments": {
+        "count": 1
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

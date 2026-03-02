@@ -1,0 +1,46 @@
+{
+  "name": "departments_create",
+  "resource_group": "Departments",
+  "endpoint": "/v1/departments",
+  "method": "POST",
+  "description": "Create a new department.",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Name."
+    },
+    {
+      "name": "parent_id",
+      "type": "integer",
+      "required": false,
+      "description": "Parent department."
+    },
+    {
+      "name": "On-Behalf-Of",
+      "type": "integer",
+      "required": true,
+      "description": "User ID (header)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://harvest.greenhouse.io/v1/departments",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6",
+      "On-Behalf-Of": "4321",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Data Science"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 12,
+      "name": "Data Science"
+    }
+  }
+}

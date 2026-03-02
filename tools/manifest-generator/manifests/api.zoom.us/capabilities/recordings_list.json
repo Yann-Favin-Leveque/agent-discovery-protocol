@@ -1,0 +1,90 @@
+{
+  "name": "recordings_list",
+  "description": "List all cloud recordings for a user within a date range. Returns recording IDs, topics, file types, sizes, and download URLs.",
+  "endpoint": "/users/{userId}/recordings",
+  "method": "GET",
+  "resource_group": "recordings",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email. Use 'me' for authenticated user.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start date in yyyy-MM-dd format. Max range is 1 month.",
+      "required": false,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "End date in yyyy-MM-dd format.",
+      "required": false,
+      "example": "2024-01-31"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of records per page (max 300).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "next_page_token",
+      "type": "string",
+      "description": "Token for the next page of results.",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "trash",
+      "type": "boolean",
+      "description": "List recordings from the trash.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/users/me/recordings?from=2024-01-01&to=2024-01-31",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "from": "2024-01-01",
+      "to": "2024-01-31",
+      "total_records": 2,
+      "meetings": [
+        {
+          "uuid": "abc123",
+          "id": 1234567890,
+          "topic": "Weekly Team Sync",
+          "start_time": "2024-01-15T10:00:00Z",
+          "duration": 60,
+          "total_size": 104857600,
+          "recording_count": 2,
+          "recording_files": [
+            {
+              "id": "file1",
+              "recording_type": "shared_screen_with_speaker_view",
+              "file_type": "MP4",
+              "file_size": 52428800,
+              "download_url": "https://zoom.us/rec/download/..."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["recording:read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

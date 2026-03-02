@@ -1,0 +1,46 @@
+{
+  "name": "cycles_create",
+  "description": "Create a new cycle.",
+  "resource_group": "cycles",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "teamId",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Team ID"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Cycle name"
+    },
+    {
+      "name": "startsAt",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Start date"
+    },
+    {
+      "name": "endsAt",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "End date"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "mutation { cycleCreate(input: { teamId: \"team-id\", startsAt: \"2024-01-01\", endsAt: \"2024-01-14\" }) { success cycle { id name } } }"
+  }
+}

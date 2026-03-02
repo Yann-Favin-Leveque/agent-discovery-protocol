@@ -1,0 +1,56 @@
+{
+  "name": "edge_config_items_update",
+  "description": "Batch update Edge Config items.",
+  "endpoint": "/v1/edge-config/{edgeConfigId}/items",
+  "method": "PATCH",
+  "resource_group": "edge_config",
+  "parameters": [
+    {
+      "name": "edgeConfigId",
+      "type": "string",
+      "description": "Edge Config ID",
+      "required": true,
+      "example": "ecfg_123"
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Item operations",
+      "required": true,
+      "example": [
+        {
+          "operation": "upsert",
+          "key": "feature_flag",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.vercel.com/v1/edge-config/ecfg_123/items",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "items": [
+        {
+          "operation": "upsert",
+          "key": "feature_flag",
+          "value": true
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "ok"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

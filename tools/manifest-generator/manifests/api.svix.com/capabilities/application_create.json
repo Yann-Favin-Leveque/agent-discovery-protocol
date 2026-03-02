@@ -1,0 +1,56 @@
+{
+  "name": "application_create",
+  "description": "Create a new webhook application to group endpoints and messages.",
+  "resource_group": "application",
+  "endpoint": "/api/v1/app",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Application name.",
+      "required": true,
+      "example": "My Webhook App"
+    },
+    {
+      "name": "uid",
+      "type": "string",
+      "description": "Optional unique identifier.",
+      "required": false,
+      "example": "app_123"
+    },
+    {
+      "name": "rateLimit",
+      "type": "integer",
+      "description": "Rate limit for the application.",
+      "required": false
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.svix.com/api/v1/app",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "My Webhook App",
+      "uid": "app_123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "app_abc123",
+      "uid": "app_123",
+      "name": "My Webhook App",
+      "createdAt": "2024-01-01T00:00:00Z"
+    }
+  }
+}

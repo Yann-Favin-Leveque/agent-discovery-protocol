@@ -1,0 +1,77 @@
+{
+  "name": "posts_create_image",
+  "description": "Publish a post with an image attachment. Requires uploading the image first via images_upload_init.",
+  "resource_group": "posts",
+  "endpoint": "/v2/posts",
+  "method": "POST",
+  "auth_scopes": [
+    "w_member_social"
+  ],
+  "parameters": [
+    {
+      "name": "author",
+      "type": "string",
+      "required": true,
+      "description": "Author URN."
+    },
+    {
+      "name": "commentary",
+      "type": "string",
+      "required": true,
+      "description": "Post text."
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "required": true,
+      "description": "Content with media.id (image URN from upload)."
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "required": true,
+      "description": "Visibility setting."
+    },
+    {
+      "name": "lifecycleState",
+      "type": "string",
+      "required": true,
+      "description": "Must be PUBLISHED."
+    },
+    {
+      "name": "distribution",
+      "type": "object",
+      "required": true,
+      "description": "Distribution settings."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.linkedin.com/v2/posts",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "X-Restli-Protocol-Version": "2.0.0"
+    },
+    "body": {
+      "author": "urn:li:person:abc123",
+      "commentary": "Check out this image!",
+      "content": {
+        "media": {
+          "id": "urn:li:image:abc123"
+        }
+      },
+      "visibility": "PUBLIC",
+      "lifecycleState": "PUBLISHED",
+      "distribution": {
+        "feedDistribution": "MAIN_FEED"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "urn:li:share:123456791"
+    }
+  }
+}

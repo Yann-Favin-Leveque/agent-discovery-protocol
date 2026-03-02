@@ -1,0 +1,62 @@
+{
+  "name": "projects_list",
+  "description": "List all projects in an Azure DevOps organization.",
+  "resource_group": "projects",
+  "endpoint": "/{organization}/_apis/projects",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization name."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version (e.g., 7.1)."
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    },
+    {
+      "name": "$skip",
+      "type": "integer",
+      "required": false,
+      "description": "Results to skip."
+    },
+    {
+      "name": "stateFilter",
+      "type": "string",
+      "required": false,
+      "description": "Filter: all, wellFormed, createPending, deleted."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://dev.azure.com/myorg/_apis/projects?api-version=7.1",
+    "headers": {
+      "Authorization": "Basic base64(user:pat)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 3,
+      "value": [
+        {
+          "id": "guid",
+          "name": "MyProject",
+          "description": "Main project",
+          "state": "wellFormed",
+          "visibility": "private"
+        }
+      ]
+    }
+  }
+}

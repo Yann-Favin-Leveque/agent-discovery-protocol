@@ -1,0 +1,69 @@
+{
+  "name": "phone_numbers_purchase",
+  "resource_group": "phone_numbers",
+  "description": "Purchase and provision a new phone number.",
+  "endpoint": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "AccountSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Account SID",
+      "example": "ACXXX"
+    },
+    {
+      "name": "PhoneNumber",
+      "type": "string",
+      "required": false,
+      "description": "Phone number to buy",
+      "example": "+15017122661"
+    },
+    {
+      "name": "AreaCode",
+      "type": "string",
+      "required": false,
+      "description": "Area code",
+      "example": "501"
+    },
+    {
+      "name": "FriendlyName",
+      "type": "string",
+      "required": false,
+      "description": "Friendly name",
+      "example": "Main Line"
+    },
+    {
+      "name": "SmsUrl",
+      "type": "string",
+      "required": false,
+      "description": "Incoming SMS webhook",
+      "example": "https://example.com/sms"
+    },
+    {
+      "name": "VoiceUrl",
+      "type": "string",
+      "required": false,
+      "description": "Incoming voice webhook",
+      "example": "https://example.com/voice"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/ACXXX/IncomingPhoneNumbers.json",
+    "headers": {
+      "Authorization": "Basic BASE64(AccountSid:AuthToken)",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "PhoneNumber=%2B15017122661&FriendlyName=Main+Line"
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "sid": "PNXXX",
+      "phone_number": "+15017122661",
+      "friendly_name": "Main Line"
+    }
+  }
+}

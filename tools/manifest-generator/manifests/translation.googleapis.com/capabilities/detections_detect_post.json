@@ -1,0 +1,54 @@
+{
+  "name": "detections_detect_post",
+  "description": "Detect the language of one or more text strings. Returns language codes and confidence scores for each input.",
+  "resource_group": "detections",
+  "endpoint": "/v2/detect",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of text strings to detect the language of."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://translation.googleapis.com/language/translate/v2/detect",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "q": ["Bonjour le monde", "Hola mundo"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "detections": [
+          [
+            {
+              "language": "fr",
+              "confidence": 0.98,
+              "isReliable": true
+            }
+          ],
+          [
+            {
+              "language": "es",
+              "confidence": 0.95,
+              "isReliable": true
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/cloud-translation",
+    "https://www.googleapis.com/auth/cloud-platform"
+  ]
+}

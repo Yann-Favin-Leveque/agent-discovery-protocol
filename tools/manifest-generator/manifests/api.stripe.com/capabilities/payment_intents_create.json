@@ -1,0 +1,79 @@
+{
+  "name": "payment_intents_create",
+  "description": "Create a PaymentIntent to initiate a payment flow. Supports various payment methods.",
+  "endpoint": "/v1/payment_intents",
+  "method": "POST",
+  "resource_group": "payment_intents",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Amount in smallest currency unit (cents)",
+      "required": true,
+      "example": 2000
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Three-letter ISO currency code",
+      "required": true,
+      "example": "usd"
+    },
+    {
+      "name": "payment_method_types",
+      "type": "array",
+      "description": "Accepted payment method types",
+      "required": false,
+      "example": [
+        "card"
+      ]
+    },
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Customer ID to attach payment to",
+      "required": false,
+      "example": "cus_abc123"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Payment description",
+      "required": false,
+      "example": "Order #1234"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata",
+      "required": false,
+      "example": {
+        "order_id": "1234"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/payment_intents",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "amount=2000&currency=usd&payment_method_types[]=card"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "pi_abc123",
+      "object": "payment_intent",
+      "amount": 2000,
+      "currency": "usd",
+      "status": "requires_payment_method",
+      "client_secret": "pi_abc123_secret_xyz"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

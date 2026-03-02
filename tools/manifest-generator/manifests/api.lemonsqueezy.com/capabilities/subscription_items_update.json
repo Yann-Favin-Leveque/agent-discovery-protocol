@@ -1,0 +1,48 @@
+{
+  "name": "subscription_items_update",
+  "description": "Update a subscription item (e.g. change quantity).",
+  "resource_group": "subscription_items",
+  "endpoint": "/v1/subscription-items/{id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The subscription item ID.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.quantity",
+      "type": "integer",
+      "description": "New quantity.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.lemonsqueezy.com/v1/subscription-items/1",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "subscription-items",
+        "id": "1",
+        "attributes": {
+          "quantity": 5
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "subscription-items",
+        "id": "1"
+      }
+    }
+  }
+}

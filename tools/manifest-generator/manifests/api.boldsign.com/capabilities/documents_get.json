@@ -1,0 +1,45 @@
+{
+  "name": "documents_get",
+  "description": "Retrieve the details and current status of a specific document by its document ID, including signer statuses and activity history.",
+  "endpoint": "/v1/document/properties",
+  "method": "GET",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "description": "The document ID to retrieve (query parameter)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.boldsign.com/v1/document/properties?documentId=doc_abc123def456",
+    "headers": {
+      "X-API-KEY": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "documentId": "doc_abc123def456",
+      "status": "InProgress",
+      "title": "Employment Agreement",
+      "createdDate": "2024-01-15T12:00:00Z",
+      "expiryDate": "2024-02-14T12:00:00Z",
+      "signerDetails": [
+        {
+          "signerName": "John Doe",
+          "signerEmail": "john@example.com",
+          "status": "NotSigned",
+          "signerType": "Signer"
+        }
+      ],
+      "ccDetails": []
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a new webhook subscription to receive real-time event notifications.",
+  "endpoint": "/v1/property/{propertyId}/webhooks",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The property ID",
+      "required": true,
+      "example": "property_id_123"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "The URL to receive webhook POST requests",
+      "required": true,
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "Events to subscribe to (chat:start, chat:end, ticket:create)",
+      "required": true,
+      "example": [
+        "chat:start",
+        "chat:end"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.tawk.to/v1/property/property_id_123/webhooks",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "events": [
+        "chat:start",
+        "chat:end"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "wh_002",
+      "url": "https://example.com/webhook",
+      "events": [
+        "chat:start",
+        "chat:end"
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

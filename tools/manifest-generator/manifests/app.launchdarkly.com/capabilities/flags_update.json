@@ -1,0 +1,24 @@
+{
+  "name": "flags_update",
+  "description": "Update a feature flag using a JSON Patch (RFC 6902). Use this to toggle flags, update targeting rules, or modify variations.",
+  "resource_group": "flags",
+  "endpoint": "/flags/{projectKey}/{flagKey}",
+  "method": "PATCH",
+  "parameters": [
+    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
+    {"name": "flagKey", "type": "string", "description": "The feature flag key.", "required": true, "example": "new-checkout"},
+    {"name": "patch", "type": "array", "description": "JSON Patch operations array.", "required": true, "example": [{"op": "replace", "path": "/environments/production/on", "value": true}]},
+    {"name": "comment", "type": "string", "description": "Comment for the audit log.", "required": false}
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://app.launchdarkly.com/api/v2/flags/my-project/new-checkout",
+    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
+    "body": {"patch": [{"op": "replace", "path": "/environments/production/on", "value": true}], "comment": "Enable for production"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"key": "new-checkout", "name": "New Checkout Flow", "environments": {"production": {"on": true, "version": 6}}}
+  },
+  "rate_limits": {"requests_per_minute": 120}
+}

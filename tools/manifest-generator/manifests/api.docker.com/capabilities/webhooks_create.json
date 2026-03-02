@@ -1,0 +1,47 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook for a repository.",
+  "resource_group": "webhooks",
+  "endpoint": "/repositories/{namespace}/{repository}/webhooks/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "namespace",
+      "type": "string",
+      "required": true,
+      "description": "Namespace."
+    },
+    {
+      "name": "repository",
+      "type": "string",
+      "required": true,
+      "description": "Repository."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Webhook name."
+    },
+    {
+      "name": "hook_url",
+      "type": "string",
+      "required": true,
+      "description": "Webhook URL."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://hub.docker.com/v2/repositories/my-org/my-app/webhooks/",
+    "body": {
+      "name": "deploy",
+      "hook_url": "https://example.com/hook"
+    }
+  },
+  "response_example": {
+    "id": "wh-new",
+    "name": "deploy",
+    "hook_url": "https://example.com/hook",
+    "active": true
+  }
+}

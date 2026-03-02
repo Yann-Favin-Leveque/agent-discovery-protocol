@@ -1,0 +1,50 @@
+{
+  "name": "dns_settings_zone_update",
+  "resource_group": "dns_settings",
+  "description": "Update DNS settings for a zone.",
+  "endpoint": "/zones/{zone_id}/dns_settings",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "flatten_all_cnames",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Flatten all CNAMEs."
+    },
+    {
+      "name": "foundation_dns",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Enable foundation DNS."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dns_settings",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "flatten_all_cnames": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "flatten_all_cnames": true
+      }
+    }
+  }
+}

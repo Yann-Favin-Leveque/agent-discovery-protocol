@@ -1,0 +1,65 @@
+{
+  "name": "subscriptions_search",
+  "description": "Search subscriptions by customer, location, or plan.",
+  "endpoint": "/v2/subscriptions/search",
+  "method": "POST",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "object",
+      "description": "Search query",
+      "required": false,
+      "example": {
+        "filter": {
+          "customer_ids": [
+            "cust_789"
+          ]
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/subscriptions/search",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": {
+        "filter": {
+          "customer_ids": [
+            "cust_789"
+          ]
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "subscriptions": [
+        {
+          "id": "sub_abc",
+          "status": "ACTIVE"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

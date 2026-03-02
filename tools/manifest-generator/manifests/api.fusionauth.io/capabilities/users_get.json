@@ -1,0 +1,53 @@
+{
+  "name": "users_get",
+  "resource_group": "users",
+  "description": "Retrieve a user by ID, email, or username. Returns full user data with registrations.",
+  "endpoint": "/api/user",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "required": false,
+      "description": "User UUID (query param or path: /api/user/{userId})."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "User email address."
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "required": false,
+      "description": "Username."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://fusionauth.example.com/api/user?email=alice@example.com",
+    "headers": {
+      "Authorization": "your-api-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": "user-uuid",
+        "email": "alice@example.com",
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "registrations": [
+          {
+            "applicationId": "app-uuid",
+            "roles": [
+              "user"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

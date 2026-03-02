@@ -1,0 +1,68 @@
+{
+  "name": "organizations_create",
+  "resource_group": "organizations",
+  "description": "Create a new organization.",
+  "endpoint": "/v1/organizations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Organization name."
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "required": false,
+      "description": "URL-friendly slug."
+    },
+    {
+      "name": "created_by",
+      "type": "string",
+      "required": false,
+      "description": "User ID of the creator."
+    },
+    {
+      "name": "max_allowed_memberships",
+      "type": "integer",
+      "required": false,
+      "description": "Max number of members."
+    },
+    {
+      "name": "public_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Public metadata."
+    },
+    {
+      "name": "private_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Private metadata."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/organizations",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Acme Corp",
+      "slug": "acme-corp",
+      "created_by": "user_2abc123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "org_abc123",
+      "object": "organization",
+      "name": "Acme Corp",
+      "slug": "acme-corp",
+      "created_at": 1702656000000
+    }
+  }
+}

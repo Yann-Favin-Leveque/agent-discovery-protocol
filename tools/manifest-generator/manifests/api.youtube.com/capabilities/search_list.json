@@ -1,0 +1,129 @@
+{
+  "name": "search_list",
+  "description": "Search for YouTube videos, channels, and playlists matching a query.",
+  "endpoint": "/youtube/v3/search",
+  "method": "GET",
+  "resource_group": "search",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts to include (snippet)",
+      "required": true,
+      "example": "snippet"
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Search query",
+      "required": false,
+      "example": "python tutorial"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter by resource type (video, channel, playlist)",
+      "required": false,
+      "example": "video"
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results (1-50)",
+      "required": false,
+      "example": "10"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order (date, rating, relevance, title, videoCount, viewCount)",
+      "required": false,
+      "example": "relevance"
+    },
+    {
+      "name": "channelId",
+      "type": "string",
+      "description": "Filter by channel ID",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "regionCode",
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code",
+      "required": false,
+      "example": "US"
+    },
+    {
+      "name": "publishedAfter",
+      "type": "string",
+      "description": "Filter videos published after (RFC 3339)",
+      "required": false,
+      "example": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "publishedBefore",
+      "type": "string",
+      "description": "Filter videos published before (RFC 3339)",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "videoDuration",
+      "type": "string",
+      "description": "Filter by duration (any, long, medium, short)",
+      "required": false,
+      "example": "medium"
+    },
+    {
+      "name": "videoDefinition",
+      "type": "string",
+      "description": "Filter by definition (any, high, standard)",
+      "required": false,
+      "example": "high"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/search",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "youtube#searchListResponse",
+      "pageInfo": {
+        "totalResults": 1000
+      },
+      "items": [
+        {
+          "kind": "youtube#searchResult",
+          "id": {
+            "kind": "youtube#video",
+            "videoId": "abc123"
+          },
+          "snippet": {
+            "title": "Python Tutorial",
+            "channelTitle": "Tech Channel"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.readonly"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

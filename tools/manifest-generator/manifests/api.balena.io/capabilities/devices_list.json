@@ -1,0 +1,56 @@
+{
+  "name": "devices_list",
+  "description": "List all devices.",
+  "resource_group": "devices",
+  "endpoint": "/v7/device",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter expression.",
+      "required": false,
+      "example": "is_online eq true"
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Fields to return.",
+      "required": false,
+      "example": "id,uuid,device_name,is_online"
+    },
+    {
+      "name": "$expand",
+      "type": "string",
+      "description": "Related resources to include.",
+      "required": false
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "description": "Max results.",
+      "required": false,
+      "example": 50
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.balena-cloud.com/v7/device?$select=id,uuid,device_name,is_online&$top=50",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "d": [
+        {
+          "id": 1,
+          "uuid": "abc123",
+          "device_name": "my-device",
+          "is_online": true
+        }
+      ]
+    }
+  }
+}

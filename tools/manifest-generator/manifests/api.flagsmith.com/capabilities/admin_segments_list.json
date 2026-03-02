@@ -1,0 +1,22 @@
+{
+  "name": "admin_segments_list",
+  "description": "List all segments in a project. Requires the Admin API token.",
+  "resource_group": "admin_segments",
+  "endpoint": "/projects/{project_id}/segments/",
+  "method": "GET",
+  "parameters": [
+    {"name": "project_id", "type": "integer", "description": "Project ID.", "required": true, "example": 1}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.flagsmith.com/api/v1/projects/1/segments/",
+    "headers": {"Authorization": "Token {admin_api_token}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {"id": 1, "name": "Beta Users", "description": "Users enrolled in beta", "rules": [{"type": "ALL", "conditions": [{"property": "plan", "operator": "EQUAL", "value": "premium"}]}]}
+    ]
+  },
+  "rate_limits": {"requests_per_minute": 500}
+}

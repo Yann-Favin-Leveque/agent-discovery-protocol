@@ -1,0 +1,90 @@
+{
+  "name": "bookings_list",
+  "resource_group": "bookings",
+  "description": "Retrieve all bookings with optional filtering by status, attendee, event type, and date range.",
+  "endpoint": "/v2/bookings",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by booking status (upcoming, past, cancelled)",
+      "example": "upcoming"
+    },
+    {
+      "name": "attendeeEmail",
+      "type": "string",
+      "required": false,
+      "description": "Filter by attendee email",
+      "example": "john@example.com"
+    },
+    {
+      "name": "eventTypeId",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by event type ID",
+      "example": 12345
+    },
+    {
+      "name": "afterStart",
+      "type": "string",
+      "required": false,
+      "description": "Bookings starting after this ISO date",
+      "example": "2025-01-01T00:00:00Z"
+    },
+    {
+      "name": "beforeEnd",
+      "type": "string",
+      "required": false,
+      "description": "Bookings ending before this ISO date",
+      "example": "2025-12-31T23:59:59Z"
+    },
+    {
+      "name": "take",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page",
+      "example": 10
+    },
+    {
+      "name": "skip",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results to skip",
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cal.com/v2/bookings?status=upcoming&take=10",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "cal-api-version": "2024-08-13"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": [
+        {
+          "id": 123456,
+          "uid": "bk_abc123",
+          "title": "30 Minute Meeting",
+          "status": "accepted",
+          "start": "2025-03-15T10:00:00Z",
+          "end": "2025-03-15T10:30:00Z",
+          "eventTypeId": 789,
+          "attendees": [
+            {
+              "name": "John Doe",
+              "email": "john@example.com",
+              "timeZone": "America/New_York"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

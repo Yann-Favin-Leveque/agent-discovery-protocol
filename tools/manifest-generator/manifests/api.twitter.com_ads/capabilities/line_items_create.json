@@ -1,0 +1,71 @@
+{
+  "name": "line_items_create",
+  "description": "Create a new line item.",
+  "resource_group": "line_items",
+  "endpoint": "/12/accounts/{account_id}/line_items",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "Ad account ID.",
+      "required": true
+    },
+    {
+      "name": "campaign_id",
+      "type": "string",
+      "description": "Campaign ID.",
+      "required": true
+    },
+    {
+      "name": "bid_amount_local_micro",
+      "type": "integer",
+      "description": "Bid amount in micros.",
+      "required": true
+    },
+    {
+      "name": "product_type",
+      "type": "string",
+      "description": "PROMOTED_TWEETS, etc.",
+      "required": true
+    },
+    {
+      "name": "placements",
+      "type": "array",
+      "description": "Ad placements.",
+      "required": true
+    },
+    {
+      "name": "objective",
+      "type": "string",
+      "description": "Optimization objective.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://ads-api.twitter.com/12/accounts/abc123/line_items",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "campaign_id": "camp_1",
+      "bid_amount_local_micro": 1500000,
+      "product_type": "PROMOTED_TWEETS",
+      "placements": [
+        "ALL_ON_TWITTER"
+      ],
+      "objective": "ENGAGEMENTS"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "li_2",
+        "campaign_id": "camp_1"
+      }
+    }
+  }
+}

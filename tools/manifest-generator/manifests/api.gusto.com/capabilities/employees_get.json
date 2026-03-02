@@ -1,0 +1,14 @@
+{
+  "name": "employees_get",
+  "description": "Retrieve a specific employee by ID with their full profile, jobs, and compensation.",
+  "endpoint": "/v1/employees/{employee_id}",
+  "method": "GET",
+  "resource_group": "employees",
+  "parameters": [
+    {"name": "employee_id", "type": "string", "description": "The employee UUID.", "required": true, "example": "emp_123"}
+  ],
+  "request_example": {"method": "GET", "url": "https://api.gusto.com/v1/employees/emp_123", "headers": {"Authorization": "Bearer {token}"}, "body": {}},
+  "response_example": {"status": 200, "body": {"uuid": "emp_123", "first_name": "John", "last_name": "Doe", "email": "john@acme.com", "date_of_birth": "1990-01-15", "jobs": [{"title": "Software Engineer"}]}},
+  "auth_scopes": ["employees:read"],
+  "rate_limits": {"requests_per_minute": 60}
+}

@@ -1,0 +1,41 @@
+{
+  "name": "permissions_grant",
+  "resource_group": "permissions",
+  "description": "Grant project access by email.",
+  "endpoint": "/projects/{project_id}/permissions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Email to grant access."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123/permissions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "user@example.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "perm-2",
+      "granted_to_email": "user@example.com"
+    }
+  }
+}

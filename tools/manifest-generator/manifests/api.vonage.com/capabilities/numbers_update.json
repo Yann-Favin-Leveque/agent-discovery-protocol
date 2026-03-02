@@ -1,0 +1,24 @@
+{
+  "name": "numbers_update",
+  "description": "Update the configuration of a phone number, such as linking it to an application or setting webhook URLs for SMS and voice.",
+  "resource_group": "numbers",
+  "endpoint": "/number/update",
+  "method": "POST",
+  "parameters": [
+    {"name": "country", "type": "string", "required": true, "description": "2-letter country code of the number."},
+    {"name": "msisdn", "type": "string", "required": true, "description": "The phone number to update."},
+    {"name": "app_id", "type": "string", "required": false, "description": "Application ID to link the number to."},
+    {"name": "moHttpUrl", "type": "string", "required": false, "description": "Webhook URL for inbound SMS."},
+    {"name": "moSmppSysType", "type": "string", "required": false, "description": "SMPP system type for inbound SMS."},
+    {"name": "voiceCallbackType", "type": "string", "required": false, "description": "Voice callback type: 'app', 'sip', 'tel', 'vxml'."},
+    {"name": "voiceCallbackValue", "type": "string", "required": false, "description": "Voice callback value (app ID, SIP URI, phone number, or VXML URL)."},
+    {"name": "voiceStatusCallback", "type": "string", "required": false, "description": "Webhook URL for voice call status events."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.nexmo.com/number/update",
+    "headers": {"Content-Type": "application/x-www-form-urlencoded"},
+    "body": "api_key=abc123&api_secret=xyz789&country=US&msisdn=12015550145&app_id=my-app-id-123"
+  },
+  "response_example": {"status": 200, "body": {"error-code": "200", "error-code-label": "success"}}
+}

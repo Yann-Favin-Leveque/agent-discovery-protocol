@@ -1,0 +1,64 @@
+{
+  "name": "prices_create",
+  "description": "Create a price for a product (one-time or recurring).",
+  "endpoint": "/v1/prices",
+  "method": "POST",
+  "resource_group": "prices",
+  "parameters": [
+    {
+      "name": "product",
+      "type": "string",
+      "description": "Product ID",
+      "required": true,
+      "example": "prod_abc123"
+    },
+    {
+      "name": "unit_amount",
+      "type": "integer",
+      "description": "Price in smallest currency unit",
+      "required": true,
+      "example": 2000
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Three-letter currency code",
+      "required": true,
+      "example": "usd"
+    },
+    {
+      "name": "recurring",
+      "type": "object",
+      "description": "Recurring pricing config",
+      "required": false,
+      "example": {
+        "interval": "month"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/prices",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "product=prod_abc123&unit_amount=2000&currency=usd&recurring[interval]=month"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "price_abc123",
+      "object": "price",
+      "unit_amount": 2000,
+      "currency": "usd",
+      "recurring": {
+        "interval": "month"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "name": "astronomy_time_series",
+  "description": "Get astronomy data for a date range (max 90 days) at a given location.",
+  "endpoint": "/v3/astronomy/timeSeries",
+  "method": "GET",
+  "resource_group": "astronomy",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "description": "Your API key.",
+      "required": true,
+      "example": "YOUR_API_KEY"
+    },
+    {
+      "name": "dateStart",
+      "type": "string",
+      "description": "Start date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-06-01"
+    },
+    {
+      "name": "dateEnd",
+      "type": "string",
+      "description": "End date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-06-30"
+    },
+    {
+      "name": "lat",
+      "type": "number",
+      "description": "Latitude.",
+      "required": false,
+      "example": 40.7128
+    },
+    {
+      "name": "long",
+      "type": "number",
+      "description": "Longitude.",
+      "required": false,
+      "example": -74.006
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "description": "City/address.",
+      "required": false,
+      "example": "New York, US"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ipgeolocation.io/v3/astronomy/timeSeries?apiKey=YOUR_API_KEY&dateStart=2024-06-01&dateEnd=2024-06-30&location=New York, US",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "city": "New York"
+      },
+      "time_series": [
+        {
+          "date": "2024-06-01",
+          "sunrise": "05:28",
+          "sunset": "20:21"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

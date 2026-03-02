@@ -1,0 +1,106 @@
+{
+  "name": "directions_post",
+  "description": "Calculate routes with advanced options using POST. Supports waypoints, avoid areas, route preferences, and alternative routes.",
+  "endpoint": "/v2/directions/{profile}",
+  "method": "POST",
+  "resource_group": "directions",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile",
+      "required": true,
+      "example": "driving-car"
+    },
+    {
+      "name": "coordinates",
+      "type": "array",
+      "description": "Array of [longitude, latitude] coordinate pairs",
+      "required": true,
+      "example": [
+        [
+          8.681495,
+          49.41461
+        ],
+        [
+          8.687872,
+          49.420318
+        ]
+      ]
+    },
+    {
+      "name": "preference",
+      "type": "string",
+      "description": "Route preference: fastest, shortest, recommended",
+      "required": false,
+      "example": "fastest"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Distance units: m, km, mi",
+      "required": false,
+      "example": "km"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for instructions",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "instructions",
+      "type": "boolean",
+      "description": "Include turn-by-turn instructions",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "alternative_routes.target_count",
+      "type": "integer",
+      "description": "Number of alternative routes",
+      "required": false,
+      "example": 2
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/v2/directions/{profile}",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "coordinates": [
+        [
+          8.681495,
+          49.41461
+        ],
+        [
+          8.687872,
+          49.420318
+        ]
+      ],
+      "preference": "fastest"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "routes": [
+        {
+          "summary": {
+            "distance": 1547.8,
+            "duration": 274.1
+          },
+          "segments": []
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

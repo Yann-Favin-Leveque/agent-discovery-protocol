@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "IPGeolocation",
-  "description": "IPGeolocation provides IP-based geolocation, timezone, and astronomy data. Look up any IP address or domain to get its geographic location, ISP, timezone, and security threat assessment. Also provides sun/moon rise and set times for any location.",
+  "description": "IPGeolocation provides IP-based geolocation, timezone, astronomy, and user-agent parsing APIs. Look up any IP address to get location, ISP, timezone, security threat assessment, and celestial data for any coordinates.",
   "base_url": "https://api.ipgeolocation.io",
   "auth": {
     "type": "api_key",
@@ -12,29 +12,58 @@
   },
   "capabilities": [
     {
-      "name": "geolocate_ip",
-      "description": "Look up the geographic location of an IP address or domain name. Returns country, city, latitude/longitude, ISP, ASN, and timezone information.",
-      "detail_url": "/capabilities/geolocate_ip"
+      "name": "ipgeo_lookup",
+      "description": "Look up the geographic location of an IP address or domain. Returns country, city, lat/lng, ISP, ASN, and timezone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.ipgeolocation.io/capabilities/ipgeo_lookup",
+      "resource_group": "geolocation"
     },
     {
-      "name": "bulk_geolocate_ips",
-      "description": "Look up geographic locations for up to 50,000 IP addresses in a single request. Returns an array of geolocation results for each IP.",
-      "detail_url": "/capabilities/bulk_geolocate_ips"
+      "name": "ipgeo_bulk_lookup",
+      "description": "Look up geographic locations for up to 50,000 IP addresses in a single POST request.",
+      "detail_url": "https://agent-dns.dev/api/services/api.ipgeolocation.io/capabilities/ipgeo_bulk_lookup",
+      "resource_group": "geolocation"
     },
     {
-      "name": "get_timezone",
-      "description": "Get current date, time, and timezone information for a location specified by timezone name, IP address, coordinates, or airport code.",
-      "detail_url": "/capabilities/get_timezone"
+      "name": "timezone_lookup",
+      "description": "Get current date, time, and timezone for a location by timezone name, IP, coordinates, or airport code.",
+      "detail_url": "https://agent-dns.dev/api/services/api.ipgeolocation.io/capabilities/timezone_lookup",
+      "resource_group": "timezone"
     },
     {
-      "name": "get_astronomy",
-      "description": "Get sun rise/set and moon rise/set times, moon phase, and solar position for a given location and date.",
-      "detail_url": "/capabilities/get_astronomy"
+      "name": "timezone_convert",
+      "description": "Convert time between two locations using timezone names, coordinates, or airport codes.",
+      "detail_url": "https://agent-dns.dev/api/services/api.ipgeolocation.io/capabilities/timezone_convert",
+      "resource_group": "timezone"
     },
     {
-      "name": "check_ip_security",
-      "description": "Check if an IP address is a proxy, VPN, TOR node, bot, or spam source. Returns a threat score and security classification.",
-      "detail_url": "/capabilities/check_ip_security"
+      "name": "astronomy_lookup",
+      "description": "Get sunrise/sunset, moonrise/moonset, moon phase, and solar position for a location and date.",
+      "detail_url": "https://agent-dns.dev/api/services/api.ipgeolocation.io/capabilities/astronomy_lookup",
+      "resource_group": "astronomy"
+    },
+    {
+      "name": "astronomy_time_series",
+      "description": "Get astronomy data for a date range (max 90 days) at a given location.",
+      "detail_url": "https://agent-dns.dev/api/services/api.ipgeolocation.io/capabilities/astronomy_time_series",
+      "resource_group": "astronomy"
+    },
+    {
+      "name": "useragent_parse",
+      "description": "Parse a user-agent string from the request header to extract browser, device, and OS details.",
+      "detail_url": "https://agent-dns.dev/api/services/api.ipgeolocation.io/capabilities/useragent_parse",
+      "resource_group": "user_agent"
+    },
+    {
+      "name": "useragent_parse_custom",
+      "description": "Parse a custom user-agent string sent in the request body.",
+      "detail_url": "https://agent-dns.dev/api/services/api.ipgeolocation.io/capabilities/useragent_parse_custom",
+      "resource_group": "user_agent"
+    },
+    {
+      "name": "useragent_bulk_parse",
+      "description": "Parse up to 50,000 user-agent strings in a single request.",
+      "detail_url": "https://agent-dns.dev/api/services/api.ipgeolocation.io/capabilities/useragent_bulk_parse",
+      "resource_group": "user_agent"
     }
   ]
 }

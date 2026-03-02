@@ -1,0 +1,43 @@
+{
+  "name": "document_export",
+  "description": "Export (download) translated or source documents from a project. Returns a task ID that can be used to retrieve the exported file.",
+  "resource_group": "documents",
+  "endpoint": "/api/integration/v1/document/export",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "documentIds",
+      "type": "string",
+      "required": true,
+      "location": "query",
+      "description": "Comma-separated document IDs to export."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Export type: 'source' or 'target'. Default: 'target'."
+    },
+    {
+      "name": "stageNumber",
+      "type": "integer",
+      "required": false,
+      "location": "query",
+      "description": "Workflow stage number to export from."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://smartcat.com/api/integration/v1/document/export?documentIds=doc-uuid-456_fr&type=target",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "taskId": "export-task-uuid-789"
+    }
+  }
+}

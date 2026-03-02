@@ -1,0 +1,76 @@
+{
+  "name": "issues_list_by_org",
+  "description": "List all vulnerability issues across an organization.",
+  "resource_group": "issues",
+  "endpoint": "/rest/orgs/{org_id}/issues",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization UUID."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "API version date."
+    },
+    {
+      "name": "scan_item.id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by project ID."
+    },
+    {
+      "name": "scan_item.type",
+      "type": "string",
+      "required": false,
+      "description": "Filter by scan type."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Issue type filter."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.snyk.io/rest/orgs/org-uuid/issues?version=2024-06-21",
+    "headers": {
+      "Authorization": "token <api_token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "issue-uuid",
+          "type": "issue",
+          "attributes": {
+            "title": "Cross-Site Scripting",
+            "severity": "high",
+            "status": "open",
+            "effective_severity_level": "high",
+            "ignored": false,
+            "problems": [
+              {
+                "id": "CWE-79",
+                "type": "cwe"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

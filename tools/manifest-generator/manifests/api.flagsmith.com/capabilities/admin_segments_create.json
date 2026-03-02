@@ -1,0 +1,24 @@
+{
+  "name": "admin_segments_create",
+  "description": "Create a new segment with targeting rules. Requires the Admin API token.",
+  "resource_group": "admin_segments",
+  "endpoint": "/projects/{project_id}/segments/",
+  "method": "POST",
+  "parameters": [
+    {"name": "project_id", "type": "integer", "description": "Project ID.", "required": true, "example": 1},
+    {"name": "name", "type": "string", "description": "Segment name.", "required": true, "example": "Premium Users"},
+    {"name": "description", "type": "string", "description": "Segment description.", "required": false},
+    {"name": "rules", "type": "array", "description": "Targeting rules based on traits.", "required": false}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.flagsmith.com/api/v1/projects/1/segments/",
+    "headers": {"Authorization": "Token {admin_api_token}", "Content-Type": "application/json"},
+    "body": {"name": "Premium Users", "description": "Users on premium plan", "rules": [{"type": "ALL", "conditions": [{"property": "plan", "operator": "EQUAL", "value": "premium"}]}]}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": 2, "name": "Premium Users", "description": "Users on premium plan", "rules": [{"type": "ALL", "conditions": [{"property": "plan", "operator": "EQUAL", "value": "premium"}]}]}
+  },
+  "rate_limits": {"requests_per_minute": 500}
+}

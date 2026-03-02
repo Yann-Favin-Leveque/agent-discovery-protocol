@@ -1,0 +1,55 @@
+{
+  "name": "phone_numbers_list",
+  "resource_group": "phone_numbers",
+  "description": "List all phone numbers owned by the account.",
+  "endpoint": "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "AccountSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Account SID",
+      "example": "ACXXX"
+    },
+    {
+      "name": "PhoneNumber",
+      "type": "string",
+      "required": false,
+      "description": "Filter by number",
+      "example": "+15017122661"
+    },
+    {
+      "name": "PageSize",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/ACXXX/IncomingPhoneNumbers.json",
+    "headers": {
+      "Authorization": "Basic BASE64(AccountSid:AuthToken)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "incoming_phone_numbers": [
+        {
+          "sid": "PNXXX",
+          "phone_number": "+15017122661",
+          "friendly_name": "Main",
+          "capabilities": {
+            "voice": true,
+            "sms": true,
+            "mms": true
+          }
+        }
+      ]
+    }
+  }
+}

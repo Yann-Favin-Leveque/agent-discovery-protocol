@@ -1,0 +1,21 @@
+{
+  "name": "disks_list",
+  "description": "List persistent disks with optional filtering by owner, name, or service.",
+  "resource_group": "disks",
+  "endpoint": "/v1/disks",
+  "method": "GET",
+  "parameters": [
+    {"name": "ownerId", "type": "string", "required": false, "description": "Filter by workspace/owner ID."},
+    {"name": "name", "type": "string", "required": false, "description": "Filter by disk name."},
+    {"name": "serviceIds", "type": "string", "required": false, "description": "Filter by service IDs (comma-separated)."},
+    {"name": "cursor", "type": "string", "required": false, "description": "Cursor for pagination."},
+    {"name": "limit", "type": "integer", "required": false, "description": "Max results to return."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.render.com/v1/disks?limit=10"
+  },
+  "response_example": [
+    {"disk": {"id": "dsk-abc123", "name": "data-disk", "sizeGB": 10, "mountPath": "/data", "serviceId": "srv-a1b2c3d4e5"}, "cursor": "dsk-cursor-1"}
+  ]
+}

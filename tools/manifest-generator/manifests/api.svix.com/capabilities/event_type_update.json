@@ -1,0 +1,47 @@
+{
+  "name": "event_type_update",
+  "description": "Update an existing event type.",
+  "resource_group": "event_type",
+  "endpoint": "/api/v1/event-type/{event_type_name}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "event_type_name",
+      "type": "string",
+      "description": "Event type name (path parameter).",
+      "required": true,
+      "example": "user.created"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Updated description.",
+      "required": true,
+      "example": "Triggered when a user registers"
+    },
+    {
+      "name": "schemas",
+      "type": "object",
+      "description": "Updated JSON Schema.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.svix.com/api/v1/event-type/user.created",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "description": "Triggered when a user registers"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "user.created",
+      "description": "Triggered when a user registers"
+    }
+  }
+}

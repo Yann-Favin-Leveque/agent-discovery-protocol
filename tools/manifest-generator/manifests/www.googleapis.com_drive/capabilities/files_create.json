@@ -1,0 +1,63 @@
+{
+  "name": "files_create",
+  "description": "Create a new file or folder in Drive (metadata only, no content upload).",
+  "resource_group": "files",
+  "endpoint": "/drive/v3/files",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "File name.",
+      "required": true,
+      "example": "New Document"
+    },
+    {
+      "name": "mimeType",
+      "type": "string",
+      "description": "MIME type. Use application/vnd.google-apps.folder for folders.",
+      "required": false
+    },
+    {
+      "name": "parents",
+      "type": "array",
+      "description": "Parent folder IDs.",
+      "required": false,
+      "example": [
+        "root"
+      ]
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "File description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.googleapis.com/drive/v3/files",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "New Folder",
+      "mimeType": "application/vnd.google-apps.folder",
+      "parents": [
+        "root"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "1def",
+      "name": "New Folder",
+      "mimeType": "application/vnd.google-apps.folder"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive"
+  ]
+}

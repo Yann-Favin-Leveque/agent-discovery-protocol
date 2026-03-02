@@ -1,0 +1,46 @@
+{
+  "name": "auth_lookup",
+  "resource_group": "users",
+  "description": "Get user account information by ID token.",
+  "endpoint": "/v1/accounts:lookup",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "idToken",
+      "type": "string",
+      "required": true,
+      "description": "A Firebase ID token for the user."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyXXXXXX",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "idToken": "eyJhbGciOi..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "users": [
+        {
+          "localId": "uid123",
+          "email": "alice@example.com",
+          "emailVerified": true,
+          "displayName": "Alice",
+          "photoUrl": "https://...",
+          "providerUserInfo": [
+            {
+              "providerId": "password"
+            }
+          ],
+          "createdAt": "1702656000000",
+          "lastLoginAt": "1702742000000"
+        }
+      ]
+    }
+  }
+}

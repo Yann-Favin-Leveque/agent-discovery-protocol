@@ -1,0 +1,76 @@
+{
+  "name": "available_numbers_search",
+  "resource_group": "phone_numbers",
+  "description": "Search for available phone numbers to purchase.",
+  "endpoint": "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "AccountSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Account SID",
+      "example": "ACXXX"
+    },
+    {
+      "name": "CountryCode",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "ISO country code",
+      "example": "US"
+    },
+    {
+      "name": "AreaCode",
+      "type": "string",
+      "required": false,
+      "description": "Area code filter",
+      "example": "501"
+    },
+    {
+      "name": "Contains",
+      "type": "string",
+      "required": false,
+      "description": "Number pattern (* wildcard)",
+      "example": "555****"
+    },
+    {
+      "name": "SmsEnabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Must support SMS",
+      "example": true
+    },
+    {
+      "name": "VoiceEnabled",
+      "type": "boolean",
+      "required": false,
+      "description": "Must support voice",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/ACXXX/AvailablePhoneNumbers/US/Local.json?AreaCode=501",
+    "headers": {
+      "Authorization": "Basic BASE64(AccountSid:AuthToken)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "available_phone_numbers": [
+        {
+          "phone_number": "+15017122661",
+          "friendly_name": "(501) 712-2661",
+          "capabilities": {
+            "voice": true,
+            "sms": true,
+            "mms": true
+          }
+        }
+      ]
+    }
+  }
+}

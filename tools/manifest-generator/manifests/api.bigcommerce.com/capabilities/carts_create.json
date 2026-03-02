@@ -1,0 +1,46 @@
+{
+  "name": "carts_create",
+  "description": "Create a new shopping cart with line items.",
+  "resource_group": "carts",
+  "endpoint": "/carts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customer_id",
+      "type": "integer",
+      "required": false,
+      "description": "Customer ID."
+    },
+    {
+      "name": "line_items",
+      "type": "array",
+      "required": true,
+      "description": "Array of line items with product_id and quantity."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bigcommerce.com/stores/{store_hash}/v3/carts",
+    "headers": {
+      "X-Auth-Token": "{api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "line_items": [
+        {
+          "product_id": 77,
+          "quantity": 1
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "cart-uuid-123",
+        "cart_amount": 49.0
+      }
+    }
+  }
+}

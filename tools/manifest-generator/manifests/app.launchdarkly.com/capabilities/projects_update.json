@@ -1,0 +1,19 @@
+{
+  "name": "projects_update",
+  "description": "Update a project's settings using a JSON Patch.",
+  "resource_group": "projects",
+  "endpoint": "/projects/{projectKey}",
+  "method": "PATCH",
+  "parameters": [
+    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
+    {"name": "patch", "type": "array", "description": "JSON Patch operations.", "required": true, "example": [{"op": "replace", "path": "/name", "value": "Updated Name"}]}
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://app.launchdarkly.com/api/v2/projects/my-project",
+    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
+    "body": [{"op": "replace", "path": "/name", "value": "Updated Project Name"}]
+  },
+  "response_example": {"status": 200, "body": {"key": "my-project", "name": "Updated Project Name"}},
+  "rate_limits": {"requests_per_minute": 120}
+}

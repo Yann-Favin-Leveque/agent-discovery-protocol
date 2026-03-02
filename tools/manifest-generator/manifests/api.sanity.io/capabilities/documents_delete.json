@@ -1,0 +1,73 @@
+{
+  "name": "documents_delete",
+  "description": "Delete one or more documents by ID or by a GROQ filter query (max 10,000 documents).",
+  "endpoint": "/v{apiVersion}/data/mutate/{dataset}",
+  "method": "POST",
+  "resource_group": "mutations",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Document ID to delete (or use query)",
+      "required": false,
+      "example": "post-123"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "GROQ query to select documents to delete",
+      "required": false,
+      "example": "*[_type == 'draft']"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/data/mutate/production",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "mutations": [
+        {
+          "delete": {
+            "id": "post-123"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transactionId": "mno345",
+      "results": [
+        {
+          "id": "post-123",
+          "operation": "delete"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

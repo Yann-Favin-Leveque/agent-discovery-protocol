@@ -1,0 +1,53 @@
+{
+  "name": "refunds_list",
+  "description": "List refunds.",
+  "endpoint": "/v1/refunds",
+  "method": "GET",
+  "resource_group": "refunds",
+  "parameters": [
+    {
+      "name": "charge",
+      "type": "string",
+      "description": "Filter by charge",
+      "required": false,
+      "example": "ch_abc123"
+    },
+    {
+      "name": "payment_intent",
+      "type": "string",
+      "description": "Filter by payment intent",
+      "required": false,
+      "example": "pi_abc123"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/refunds?payment_intent=pi_abc123",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "re_abc123",
+          "amount": 1000
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

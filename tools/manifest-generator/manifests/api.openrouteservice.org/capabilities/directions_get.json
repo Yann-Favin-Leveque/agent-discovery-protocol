@@ -1,0 +1,68 @@
+{
+  "name": "directions_get",
+  "description": "Calculate a route between waypoints using GET with coordinates in the URL. Returns turn-by-turn directions, distance, and duration.",
+  "endpoint": "/v2/directions/{profile}",
+  "method": "GET",
+  "resource_group": "directions",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile: driving-car, driving-hgv, foot-walking, foot-hiking, cycling-regular, cycling-road, cycling-mountain, cycling-electric",
+      "required": true,
+      "example": "driving-car"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "description": "Start coordinate as longitude,latitude",
+      "required": true,
+      "example": "8.681495,49.41461"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End coordinate as longitude,latitude",
+      "required": true,
+      "example": "8.687872,49.420318"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openrouteservice.org/v2/directions/{profile}",
+    "headers": {
+      "Authorization": "{api_key}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                8.681495,
+                49.41461
+              ]
+            ]
+          },
+          "properties": {
+            "summary": {
+              "distance": 1547.8,
+              "duration": 274.1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

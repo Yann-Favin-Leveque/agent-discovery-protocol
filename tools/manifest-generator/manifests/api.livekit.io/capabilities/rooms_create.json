@@ -1,0 +1,71 @@
+{
+  "name": "rooms_create",
+  "description": "Create a new room with configurable settings. Rooms can also be auto-created when the first participant joins. Requires roomCreate permission.",
+  "endpoint": "/twirp/livekit.RoomService/CreateRoom",
+  "method": "POST",
+  "resource_group": "rooms",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Unique room name identifier."
+    },
+    {
+      "name": "empty_timeout",
+      "type": "integer",
+      "required": false,
+      "description": "Seconds to keep the room open after the last participant leaves. Default 300."
+    },
+    {
+      "name": "departure_timeout",
+      "type": "integer",
+      "required": false,
+      "description": "Seconds to keep the room open after the last participant departs."
+    },
+    {
+      "name": "max_participants",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of participants allowed in the room. 0 means unlimited."
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "required": false,
+      "description": "Custom metadata string attached to the room."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/CreateRoom",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "name": "interview-room-42",
+      "empty_timeout": 600,
+      "max_participants": 10,
+      "metadata": "{\"type\":\"interview\",\"created_by\":\"agent\"}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sid": "RM_abc123",
+      "name": "interview-room-42",
+      "empty_timeout": 600,
+      "max_participants": 10,
+      "creation_time": 1705312800,
+      "metadata": "{\"type\":\"interview\",\"created_by\":\"agent\"}",
+      "num_participants": 0,
+      "num_publishers": 0,
+      "active_recording": false
+    }
+  },
+  "auth_scopes": ["roomCreate"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

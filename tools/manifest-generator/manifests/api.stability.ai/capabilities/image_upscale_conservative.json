@@ -1,0 +1,21 @@
+{
+  "name": "image_upscale_conservative",
+  "description": "Upscale a low-resolution image while preserving details using conservative upscaling.",
+  "resource_group": "upscale",
+  "endpoint": "/v2beta/stable-image/upscale/conservative",
+  "method": "POST",
+  "parameters": [
+    {"name": "image", "type": "file", "required": true, "description": "The image to upscale (JPEG, PNG, WebP)."},
+    {"name": "prompt", "type": "string", "required": true, "description": "Description of the image to guide upscaling."},
+    {"name": "output_format", "type": "string", "required": false, "description": "Output format: 'png', 'jpeg', 'webp'."},
+    {"name": "creativity", "type": "number", "required": false, "description": "Creativity level (0.0-0.35, default 0.2)."},
+    {"name": "seed", "type": "integer", "required": false, "description": "Random seed."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stability.ai/v2beta/stable-image/upscale/conservative",
+    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Accept": "image/*"},
+    "body": "multipart/form-data: image=@photo.jpg&prompt='A detailed landscape photograph'"
+  },
+  "response_example": {"status": 200, "body": "Binary upscaled image content"}
+}

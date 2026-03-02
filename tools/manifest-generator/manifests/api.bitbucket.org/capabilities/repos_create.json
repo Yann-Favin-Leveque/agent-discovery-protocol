@@ -1,0 +1,67 @@
+{
+  "name": "repos_create",
+  "description": "Create a new repository.",
+  "resource_group": "repositories",
+  "endpoint": "/repositories/{workspace}/{repo_slug}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace."
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repo slug."
+    },
+    {
+      "name": "scm",
+      "type": "string",
+      "required": false,
+      "description": "SCM type: git."
+    },
+    {
+      "name": "is_private",
+      "type": "boolean",
+      "required": false,
+      "description": "Private repo. Default true."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Description."
+    },
+    {
+      "name": "project",
+      "type": "object",
+      "required": false,
+      "description": "Project: {key: 'PROJ'}."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace/new-project",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer oauth-token"
+    },
+    "body": {
+      "scm": "git",
+      "is_private": true,
+      "description": "New project"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "slug": "new-project",
+      "full_name": "myworkspace/new-project"
+    }
+  }
+}

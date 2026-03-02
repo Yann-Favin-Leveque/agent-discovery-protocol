@@ -1,0 +1,98 @@
+{
+  "name": "entries_list",
+  "description": "List content entries for a specific collection type in Strapi. Supports filtering by field values, sorting, pagination, field selection, and population of relations and components. The content type is specified as a pluralized API ID in the URL path (e.g., 'articles', 'products'). Strapi 5 uses bracket notation for complex query parameters.",
+  "resource_group": "entries",
+  "endpoint": "/api/{pluralApiId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "pluralApiId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The pluralized API ID of the collection type (e.g., 'articles', 'products', 'categories')."
+    },
+    {
+      "name": "filters",
+      "type": "object",
+      "required": false,
+      "location": "query",
+      "description": "Filter entries using bracket notation: filters[field][$operator]=value. Operators: $eq, $ne, $lt, $gt, $lte, $gte, $in, $contains, $startsWith, $endsWith, $null, $notNull."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Sort by field and direction. Format: 'field:asc' or 'field:desc'. Multiple: 'sort[0]=field1:asc&sort[1]=field2:desc'."
+    },
+    {
+      "name": "pagination[page]",
+      "type": "integer",
+      "required": false,
+      "location": "query",
+      "description": "Page number (starts at 1). Defaults to 1."
+    },
+    {
+      "name": "pagination[pageSize]",
+      "type": "integer",
+      "required": false,
+      "location": "query",
+      "description": "Entries per page. Maximum 100. Defaults to 25."
+    },
+    {
+      "name": "populate",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Relations/components to populate. Use '*' for all first-level, or 'populate[0]=author&populate[1]=categories' for specific fields."
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Select specific fields: 'fields[0]=title&fields[1]=slug'."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Filter by publication status: 'draft' or 'published'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.strapi.io/api/articles?filters[category][$eq]=technology&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=10&populate=*",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 1,
+          "documentId": "a1b2c3d4e5",
+          "attributes": {
+            "title": "Introduction to AI Agents",
+            "slug": "introduction-to-ai-agents",
+            "publishedAt": "2026-02-28T10:00:00.000Z",
+            "createdAt": "2026-02-27T14:00:00.000Z",
+            "updatedAt": "2026-02-28T10:00:00.000Z"
+          }
+        }
+      ],
+      "meta": {
+        "pagination": {
+          "page": 1,
+          "pageSize": 10,
+          "pageCount": 3,
+          "total": 28
+        }
+      }
+    }
+  }
+}

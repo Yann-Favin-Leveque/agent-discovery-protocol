@@ -1,0 +1,44 @@
+{
+  "name": "users_merge",
+  "description": "Merge two user profiles into one, combining their data.",
+  "endpoint": "/v1/users/{user_id}/merge",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "User ID to merge into.",
+      "required": true,
+      "example": "user_123"
+    },
+    {
+      "name": "from_user_id",
+      "type": "string",
+      "description": "User ID to merge from (will be deleted).",
+      "required": true,
+      "example": "user_456"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.knock.app/v1/users/user_123/merge",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "from_user_id": "user_456"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "user_123"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

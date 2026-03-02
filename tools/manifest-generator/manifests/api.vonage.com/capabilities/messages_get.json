@@ -1,0 +1,39 @@
+{
+  "name": "messages_get",
+  "description": "Retrieve the status and details of a previously sent message by its UUID. Returns delivery status, timestamps, channel info, and pricing.",
+  "resource_group": "messages",
+  "endpoint": "/v1/messages/{message_uuid}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "message_uuid",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The UUID of the message to retrieve."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vonage.com/v1/messages/aaaaaaaa-bbbb-cccc-dddd-0123456789ab",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message_uuid": "aaaaaaaa-bbbb-cccc-dddd-0123456789ab",
+      "to": "14155550123",
+      "from": "12015550145",
+      "channel": "sms",
+      "message_type": "text",
+      "status": "delivered",
+      "timestamp": "2026-02-28T14:30:00Z",
+      "usage": {
+        "price": "0.0077",
+        "currency": "EUR"
+      }
+    }
+  }
+}

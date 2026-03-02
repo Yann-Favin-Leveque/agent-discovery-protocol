@@ -1,0 +1,50 @@
+{
+  "name": "plans_create",
+  "description": "Create a billing plan that defines pricing and billing cycle for subscriptions.",
+  "endpoint": "/v1/billing/plans",
+  "method": "POST",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "product_id",
+      "type": "string",
+      "description": "Product ID",
+      "required": true,
+      "example": "PROD_ID"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Plan name",
+      "required": true,
+      "example": "Monthly Premium"
+    },
+    {
+      "name": "billing_cycles",
+      "type": "array",
+      "description": "Billing cycle definitions",
+      "required": true,
+      "example": []
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v1/billing/plans",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "PLAN_ID",
+      "status": "ACTIVE"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

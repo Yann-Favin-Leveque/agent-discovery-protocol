@@ -1,0 +1,54 @@
+{
+  "name": "subscriptions_update",
+  "description": "Update a subscription (e.g. change plan or pause).",
+  "resource_group": "subscriptions",
+  "endpoint": "/v1/subscriptions/{id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The subscription ID.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.variant_id",
+      "type": "integer",
+      "description": "New variant to switch to.",
+      "required": false
+    },
+    {
+      "name": "data.attributes.pause",
+      "type": "object",
+      "description": "Pause configuration.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.lemonsqueezy.com/v1/subscriptions/1",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "subscriptions",
+        "id": "1",
+        "attributes": {
+          "variant_id": 2
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "subscriptions",
+        "id": "1"
+      }
+    }
+  }
+}

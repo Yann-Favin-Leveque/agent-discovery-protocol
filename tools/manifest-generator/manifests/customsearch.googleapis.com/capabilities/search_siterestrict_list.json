@@ -1,0 +1,108 @@
+{
+  "name": "search_siterestrict_list",
+  "description": "Execute a search query restricted to sites configured in the Programmable Search Engine. Uses a small set of URL patterns for faster, focused results.",
+  "endpoint": "/customsearch/v1/siterestrict",
+  "method": "GET",
+  "resource_group": "search",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "The search query string.",
+      "required": true,
+      "example": "product documentation"
+    },
+    {
+      "name": "cx",
+      "type": "string",
+      "description": "The Programmable Search Engine ID.",
+      "required": true,
+      "example": "017576662512468239146:omuauf_gy24"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "API key for authentication.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "num",
+      "type": "integer",
+      "description": "Number of results to return (1-10, default 10).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Index of the first result to return (1-based).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "lr",
+      "type": "string",
+      "description": "Restrict results to a specific language.",
+      "required": false,
+      "example": "lang_en"
+    },
+    {
+      "name": "dateRestrict",
+      "type": "string",
+      "description": "Restrict results by date (e.g., d5, w2, m1).",
+      "required": false,
+      "example": "m1"
+    },
+    {
+      "name": "safe",
+      "type": "string",
+      "description": "Safe search level: active or off.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "searchType",
+      "type": "string",
+      "description": "Search type: image or omit for web search.",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort expression.",
+      "required": false,
+      "example": "date"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://customsearch.googleapis.com/customsearch/v1/siterestrict?q=product+docs&cx=017576662512468239146:omuauf_gy24&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "customsearch#search",
+      "searchInformation": {
+        "searchTime": 0.32,
+        "totalResults": "450",
+        "formattedTotalResults": "450"
+      },
+      "items": [
+        {
+          "kind": "customsearch#result",
+          "title": "Product Documentation - Getting Started",
+          "link": "https://docs.example.com/getting-started",
+          "displayLink": "docs.example.com",
+          "snippet": "Learn how to get started with our product..."
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

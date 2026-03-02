@@ -1,0 +1,59 @@
+{
+  "name": "files_upload",
+  "description": "Upload a file to B2 using the URL from get_upload_url.",
+  "resource_group": "files",
+  "endpoint": "/b2api/v3/b2_upload_file/{bucketId}/{uploadToken}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "Authorization",
+      "type": "string",
+      "description": "Upload authorization token from get_upload_url.",
+      "required": true
+    },
+    {
+      "name": "X-Bz-File-Name",
+      "type": "string",
+      "description": "URL-encoded file name.",
+      "required": true
+    },
+    {
+      "name": "Content-Type",
+      "type": "string",
+      "description": "MIME type of the file.",
+      "required": true
+    },
+    {
+      "name": "Content-Length",
+      "type": "integer",
+      "description": "File size in bytes.",
+      "required": true
+    },
+    {
+      "name": "X-Bz-Content-Sha1",
+      "type": "string",
+      "description": "SHA1 hash of file content.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{uploadUrl}",
+    "headers": {
+      "Authorization": "{uploadToken}",
+      "X-Bz-File-Name": "test/file.txt",
+      "Content-Type": "text/plain",
+      "X-Bz-Content-Sha1": "sha1_hash"
+    },
+    "body": "<file content>"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "fileId": "file123",
+      "fileName": "test/file.txt",
+      "contentLength": 1234,
+      "contentSha1": "sha1_hash"
+    }
+  }
+}

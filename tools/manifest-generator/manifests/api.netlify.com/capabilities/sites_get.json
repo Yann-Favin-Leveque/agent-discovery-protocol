@@ -1,0 +1,39 @@
+{
+  "name": "sites_get",
+  "description": "Get detailed information about a specific site including deploy settings and SSL.",
+  "endpoint": "/api/v1/sites/{site_id}",
+  "method": "GET",
+  "resource_group": "sites",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "string",
+      "description": "Site ID or custom domain",
+      "required": true,
+      "example": "site_abc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.netlify.com/api/v1/sites/{site_id}",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "site_abc",
+      "name": "my-site",
+      "url": "https://my-site.netlify.app",
+      "build_settings": {
+        "repo_url": "https://github.com/user/repo"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

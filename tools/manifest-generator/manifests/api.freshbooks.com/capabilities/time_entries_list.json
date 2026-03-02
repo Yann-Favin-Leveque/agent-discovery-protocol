@@ -1,0 +1,27 @@
+{
+  "name": "time_entries_list",
+  "description": "List all time entries for a business with optional filtering by client, project, or date range.",
+  "endpoint": "/timetracking/business/{business_id}/time_entries",
+  "method": "GET",
+  "resource_group": "time_entries",
+  "parameters": [
+    {"name": "business_id", "type": "string", "description": "The FreshBooks business ID.", "required": true, "example": "xB2yw"},
+    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1},
+    {"name": "started_from", "type": "string", "description": "Filter entries starting from date.", "required": false, "example": "2024-01-01"},
+    {"name": "started_to", "type": "string", "description": "Filter entries starting before date.", "required": false, "example": "2024-12-31"},
+    {"name": "client_id", "type": "integer", "description": "Filter by client ID.", "required": false, "example": 12345},
+    {"name": "billable", "type": "boolean", "description": "Filter by billable status.", "required": false, "example": true}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/timetracking/business/xB2yw/time_entries?page=1",
+    "headers": {"Authorization": "Bearer {token}"},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"time_entries": [{"id": 333, "client_id": 12345, "duration": 3600, "note": "Frontend development", "started_at": "2024-09-01T09:00:00Z", "is_logged": true, "billable": true}], "meta": {"page": 1, "pages": 2, "total": 45}}
+  },
+  "auth_scopes": ["user:time_entries:read"],
+  "rate_limits": {"requests_per_minute": 100}
+}

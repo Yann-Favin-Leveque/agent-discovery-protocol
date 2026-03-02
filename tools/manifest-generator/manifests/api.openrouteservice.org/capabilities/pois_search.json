@@ -1,0 +1,106 @@
+{
+  "name": "pois_search",
+  "description": "Find points of interest near a location, filtered by category.",
+  "endpoint": "/pois",
+  "method": "POST",
+  "resource_group": "pois",
+  "parameters": [
+    {
+      "name": "request",
+      "type": "string",
+      "description": "Request type: pois, stats, or list",
+      "required": true,
+      "example": "pois"
+    },
+    {
+      "name": "geometry.geojson",
+      "type": "object",
+      "description": "GeoJSON geometry defining the search area",
+      "required": true,
+      "example": {
+        "type": "Point",
+        "coordinates": [
+          8.681495,
+          49.41461
+        ]
+      }
+    },
+    {
+      "name": "geometry.buffer",
+      "type": "integer",
+      "description": "Buffer radius in meters around the geometry",
+      "required": false,
+      "example": 500
+    },
+    {
+      "name": "filters.category_ids",
+      "type": "array",
+      "description": "Category IDs to filter (e.g., 560=restaurant, 570=cafe)",
+      "required": false,
+      "example": [
+        560,
+        570
+      ]
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results",
+      "required": false,
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/pois",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "request": "pois",
+      "geometry": {
+        "geojson": {
+          "type": "Point",
+          "coordinates": [
+            8.681495,
+            49.41461
+          ]
+        },
+        "buffer": 500
+      },
+      "filters": {
+        "category_ids": [
+          560
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              8.682,
+              49.415
+            ]
+          },
+          "properties": {
+            "osm_tags": {
+              "name": "Restaurant ABC"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

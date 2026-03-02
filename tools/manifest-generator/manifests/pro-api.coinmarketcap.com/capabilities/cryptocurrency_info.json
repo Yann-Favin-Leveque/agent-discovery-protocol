@@ -1,0 +1,66 @@
+{
+  "name": "cryptocurrency_info",
+  "description": "Return static metadata for one or more cryptocurrencies including name, logo, description, website URLs, and links.",
+  "resource_group": "cryptocurrency",
+  "endpoint": "/v1/cryptocurrency/info",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "CoinMarketCap IDs (comma-separated).",
+      "required": false,
+      "example": "1,2"
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "description": "Cryptocurrency slugs (comma-separated).",
+      "required": false,
+      "example": "bitcoin"
+    },
+    {
+      "name": "symbol",
+      "type": "string",
+      "description": "Symbols (comma-separated).",
+      "required": false,
+      "example": "BTC,ETH"
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "description": "Contract address.",
+      "required": false
+    },
+    {
+      "name": "aux",
+      "type": "string",
+      "description": "Supplemental fields.",
+      "required": false,
+      "example": "urls,logo,description"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=BTC",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": {
+        "1": {
+          "id": 1,
+          "name": "Bitcoin",
+          "symbol": "BTC"
+        }
+      }
+    }
+  }
+}

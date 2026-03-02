@@ -1,0 +1,44 @@
+{
+  "name": "api_keys_create",
+  "description": "Create a new API key.",
+  "resource_group": "api_keys",
+  "endpoint": "/v3/api_keys",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "API key name.",
+      "required": true,
+      "example": "Production Key"
+    },
+    {
+      "name": "scopes",
+      "type": "array",
+      "description": "Permission scopes.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sendgrid.com/v3/api_keys",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Production Key",
+      "scopes": [
+        "mail.send"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "api_key_id": "abc123",
+      "api_key": "SG.xxx",
+      "name": "Production Key"
+    }
+  }
+}

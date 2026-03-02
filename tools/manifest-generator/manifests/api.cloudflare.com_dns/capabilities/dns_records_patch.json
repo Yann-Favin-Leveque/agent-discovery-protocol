@@ -1,0 +1,81 @@
+{
+  "name": "dns_records_patch",
+  "description": "Partially update an existing DNS record. Only provided fields are updated, others remain unchanged.",
+  "endpoint": "/zones/{zone_id}/dns_records/{dns_record_id}",
+  "method": "PATCH",
+  "resource_group": "dns_records",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    },
+    {
+      "name": "dns_record_id",
+      "type": "string",
+      "description": "The DNS record ID.",
+      "required": true,
+      "example": "372e67954025e0ba6aaa6d586b9e0b59"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "Updated record content.",
+      "required": false,
+      "example": "198.51.100.6"
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "description": "Updated TTL.",
+      "required": false,
+      "example": 3600
+    },
+    {
+      "name": "proxied",
+      "type": "boolean",
+      "description": "Updated proxy status.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "comment",
+      "type": "string",
+      "description": "Updated comment.",
+      "required": false,
+      "example": "Updated IP"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_records/372e67954025e0ba6aaa6d586b9e0b59",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "198.51.100.6",
+      "proxied": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "id": "372e67954025e0ba6aaa6d586b9e0b59",
+        "type": "A",
+        "name": "www.example.com",
+        "content": "198.51.100.6",
+        "proxied": false,
+        "ttl": 3600
+      }
+    }
+  },
+  "auth_scopes": ["dns_records:edit"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

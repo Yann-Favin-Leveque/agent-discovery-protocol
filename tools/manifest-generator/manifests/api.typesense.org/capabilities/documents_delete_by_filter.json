@@ -1,0 +1,48 @@
+{
+  "name": "documents_delete_by_filter",
+  "description": "Delete multiple documents from a collection matching a filter condition.",
+  "endpoint": "/collections/{collectionName}/documents",
+  "method": "DELETE",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "collectionName",
+      "type": "string",
+      "description": "Collection name",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "filter_by",
+      "type": "string",
+      "description": "Filter expression to match documents",
+      "required": true,
+      "example": "price:<10"
+    },
+    {
+      "name": "batch_size",
+      "type": "integer",
+      "description": "Batch size for deletion",
+      "required": false,
+      "example": "100"
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.typesense.org/collections/products/documents?filter_by=price:<10",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "num_deleted": 5
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "consumption_get",
+  "resource_group": "consumption",
+  "description": "Retrieve consumption metrics for a project.",
+  "endpoint": "/projects/{project_id}/consumption",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Start date (ISO 8601)."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "End date (ISO 8601)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123/consumption",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "periods": [
+        {
+          "compute_time_seconds": 3600,
+          "data_storage_bytes_hour": 1073741824
+        }
+      ]
+    }
+  }
+}

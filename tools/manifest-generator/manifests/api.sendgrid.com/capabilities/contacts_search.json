@@ -1,0 +1,39 @@
+{
+  "name": "contacts_search",
+  "description": "Search contacts using SGQL query syntax.",
+  "resource_group": "contacts",
+  "endpoint": "/v3/marketing/contacts/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "SGQL query string.",
+      "required": true,
+      "example": "email LIKE 'user@%'"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sendgrid.com/v3/marketing/contacts/search",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "email LIKE 'user@%'"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "result": [
+        {
+          "id": "abc123",
+          "email": "user@example.com"
+        }
+      ],
+      "contact_count": 1
+    }
+  }
+}

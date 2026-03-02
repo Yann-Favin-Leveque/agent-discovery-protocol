@@ -1,0 +1,102 @@
+{
+  "name": "merge_requests_create",
+  "description": "Create a new merge request.",
+  "resource_group": "merge_requests",
+  "endpoint": "/projects/{id}/merge_requests",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "source_branch",
+      "type": "string",
+      "required": true,
+      "description": "Source branch name."
+    },
+    {
+      "name": "target_branch",
+      "type": "string",
+      "required": true,
+      "description": "Target branch name."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "MR title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "MR description (Markdown)."
+    },
+    {
+      "name": "assignee_id",
+      "type": "integer",
+      "required": false,
+      "description": "Assignee user ID."
+    },
+    {
+      "name": "reviewer_ids",
+      "type": "array",
+      "required": false,
+      "description": "Array of reviewer user IDs."
+    },
+    {
+      "name": "labels",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated label names."
+    },
+    {
+      "name": "milestone_id",
+      "type": "integer",
+      "required": false,
+      "description": "Milestone ID."
+    },
+    {
+      "name": "squash",
+      "type": "boolean",
+      "required": false,
+      "description": "Squash commits on merge."
+    },
+    {
+      "name": "remove_source_branch",
+      "type": "boolean",
+      "required": false,
+      "description": "Delete source branch after merge."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/123/merge_requests",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    },
+    "body": {
+      "source_branch": "feature/dark-mode",
+      "target_branch": "main",
+      "title": "Add dark mode support",
+      "description": "## Summary\nImplements dark mode theme.",
+      "squash": true,
+      "remove_source_branch": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "iid": 43,
+      "title": "Add dark mode support",
+      "state": "opened",
+      "web_url": "https://gitlab.com/octocat/my-project/-/merge_requests/43"
+    }
+  }
+}

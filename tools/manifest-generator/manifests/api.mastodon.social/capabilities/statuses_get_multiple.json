@@ -1,0 +1,43 @@
+{
+  "name": "statuses_get_multiple",
+  "resource_group": "statuses",
+  "description": "Retrieve multiple statuses by their IDs.",
+  "endpoint": "/api/v1/statuses",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id[]",
+      "type": "array",
+      "description": "Array of status IDs.",
+      "required": true,
+      "in": "query",
+      "example": [
+        "109876543210",
+        "109876543211"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/statuses?id[]=109876543210&id[]=109876543211",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "109876543210",
+        "content": "<p>Status 1</p>"
+      },
+      {
+        "id": "109876543211",
+        "content": "<p>Status 2</p>"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "name": "ecg_log_list",
+  "description": "Retrieve ECG readings list with classification results.",
+  "resource_group": "ecg",
+  "endpoint": "/1/user/-/ecg/list.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "afterDate",
+      "type": "string",
+      "required": false,
+      "description": "Return ECGs after this datetime.",
+      "in": "query"
+    },
+    {
+      "name": "beforeDate",
+      "type": "string",
+      "required": false,
+      "description": "Return ECGs before this datetime.",
+      "in": "query"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": true,
+      "description": "Sort: asc or desc.",
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": true,
+      "description": "Max entries (max 10).",
+      "in": "query"
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "electrocardiogram"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/ecg/list.json?afterDate=2025-01-01T00:00:00&sort=desc&limit=10",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ecgReadings": [
+        {
+          "startTime": "2025-01-15T10:30:00.000",
+          "averageHeartRate": 72,
+          "resultClassification": "NORMAL_SINUS_RHYTHM"
+        }
+      ]
+    }
+  }
+}

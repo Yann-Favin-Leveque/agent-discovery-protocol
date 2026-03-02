@@ -1,0 +1,55 @@
+{
+  "name": "tracks_subscriptions_update",
+  "description": "Subscribe or unsubscribe a participant from specific tracks in a room.",
+  "endpoint": "/twirp/livekit.RoomService/UpdateSubscriptions",
+  "method": "POST",
+  "resource_group": "tracks",
+  "parameters": [
+    {
+      "name": "room",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room."
+    },
+    {
+      "name": "identity",
+      "type": "string",
+      "required": true,
+      "description": "Identity of the participant to update subscriptions for."
+    },
+    {
+      "name": "track_sids",
+      "type": "array",
+      "required": true,
+      "description": "Array of track SIDs to subscribe to or unsubscribe from."
+    },
+    {
+      "name": "subscribe",
+      "type": "boolean",
+      "required": true,
+      "description": "Set to true to subscribe, false to unsubscribe."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/UpdateSubscriptions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room": "interview-room-42",
+      "identity": "user-bob",
+      "track_sids": ["TR_video_01", "TR_audio_01"],
+      "subscribe": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": ["roomAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

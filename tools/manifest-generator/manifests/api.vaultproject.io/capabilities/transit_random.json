@@ -1,0 +1,40 @@
+{
+  "name": "transit_random",
+  "description": "Generate cryptographically secure random bytes.",
+  "resource_group": "transit",
+  "endpoint": "/v1/transit/random/{bytes}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bytes",
+      "type": "integer",
+      "required": true,
+      "description": "Number of random bytes to generate."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "description": "Output format: base64 or hex. Default: base64."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com/v1/transit/random/32",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "format": "base64"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "random_bytes": "dGhpcyBpcyBhIHRlc3Qgb2YgcmFuZG9tIGJ5dGVz"
+      }
+    }
+  }
+}

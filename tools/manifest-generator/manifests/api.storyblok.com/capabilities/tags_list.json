@@ -1,0 +1,52 @@
+{
+  "name": "tags_list",
+  "description": "List all tags used across stories in the space.",
+  "endpoint": "/v2/cdn/tags",
+  "method": "GET",
+  "resource_group": "tags",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "description": "API token",
+      "required": true,
+      "example": "your-token"
+    },
+    {
+      "name": "starts_with",
+      "type": "string",
+      "description": "Filter by slug prefix",
+      "required": false,
+      "example": "blog/"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.storyblok.com/v2/cdn/tags?token=your-token",
+    "headers": {
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tags": [
+        {
+          "name": "featured",
+          "taggings_count": 5
+        },
+        {
+          "name": "news",
+          "taggings_count": 12
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

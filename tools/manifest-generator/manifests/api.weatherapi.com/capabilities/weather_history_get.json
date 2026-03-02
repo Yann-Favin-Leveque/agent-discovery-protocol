@@ -1,0 +1,80 @@
+{
+  "name": "weather_history_get",
+  "description": "Get historical weather data for a specific past date (since January 1, 2010) with hourly conditions throughout that day.",
+  "resource_group": "weather",
+  "endpoint": "/v1/history.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "Location query: city name, lat/lon, US/UK/Canada postal code, IP address, or 'auto:ip'.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "dt",
+      "type": "string",
+      "required": true,
+      "description": "Date in YYYY-MM-DD format.",
+      "in": "query"
+    },
+    {
+      "name": "hour",
+      "type": "integer",
+      "required": false,
+      "description": "Restrict to a specific hour (0-23).",
+      "in": "query"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "required": false,
+      "description": "Language code.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.weatherapi.com/v1/history.json?key=YOUR_API_KEY&q=Paris&dt=2024-12-25"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "name": "Paris",
+        "country": "France"
+      },
+      "forecast": {
+        "forecastday": [
+          {
+            "date": "2024-12-25",
+            "day": {
+              "maxtemp_c": 8.2,
+              "mintemp_c": 2.1,
+              "totalprecip_mm": 1.2
+            },
+            "hour": [
+              {
+                "time": "2024-12-25 12:00",
+                "temp_c": 7.5,
+                "condition": {
+                  "text": "Overcast"
+                },
+                "wind_kph": 12.3
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

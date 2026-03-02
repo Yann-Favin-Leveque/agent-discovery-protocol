@@ -1,0 +1,60 @@
+{
+  "name": "events_send",
+  "description": "Send an event to trigger automations for a contact.",
+  "endpoint": "/api/v1/events/send",
+  "method": "POST",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Contact email address.",
+      "required": false,
+      "example": "user@example.com"
+    },
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "Contact user ID.",
+      "required": false
+    },
+    {
+      "name": "eventName",
+      "type": "string",
+      "description": "Name of the event to trigger.",
+      "required": true,
+      "example": "signup_completed"
+    },
+    {
+      "name": "eventProperties",
+      "type": "object",
+      "description": "Custom properties to include with the event.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.loops.so/api/v1/events/send",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "user@example.com",
+      "eventName": "signup_completed",
+      "eventProperties": {
+        "plan": "pro"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

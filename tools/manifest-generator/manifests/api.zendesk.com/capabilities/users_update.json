@@ -1,0 +1,49 @@
+{
+  "name": "users_update",
+  "description": "Update a user's profile.",
+  "endpoint": "/api/v2/users/{user_id}",
+  "method": "PUT",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "integer",
+      "description": "User ID",
+      "required": true,
+      "example": "123"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated name",
+      "required": false,
+      "example": "John Smith"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{subdomain}.zendesk.com/api/v2/users/{user_id}",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user": {
+        "name": "John Smith"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": 123,
+        "name": "John Smith"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

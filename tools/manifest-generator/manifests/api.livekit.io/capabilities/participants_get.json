@@ -1,0 +1,51 @@
+{
+  "name": "participants_get",
+  "description": "Retrieve detailed information about a specific participant by their identity in a room, including tracks and permissions.",
+  "endpoint": "/twirp/livekit.RoomService/GetParticipant",
+  "method": "POST",
+  "resource_group": "participants",
+  "parameters": [
+    {
+      "name": "room",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room."
+    },
+    {
+      "name": "identity",
+      "type": "string",
+      "required": true,
+      "description": "Unique participant identity."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/GetParticipant",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room": "interview-room-42",
+      "identity": "user-alice"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sid": "PA_xyz789",
+      "identity": "user-alice",
+      "name": "Alice",
+      "state": "ACTIVE",
+      "joined_at": 1705313400,
+      "tracks": [
+        { "sid": "TR_audio_01", "type": "AUDIO", "name": "microphone", "muted": false }
+      ],
+      "permission": { "can_publish": true, "can_subscribe": true }
+    }
+  },
+  "auth_scopes": ["roomAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

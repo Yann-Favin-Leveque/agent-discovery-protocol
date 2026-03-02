@@ -1,0 +1,26 @@
+{
+  "name": "photos_get_statistics",
+  "description": "Retrieve download, view, and engagement statistics for a specific photo over a configurable time period.",
+  "resource_group": "photos",
+  "endpoint": "/photos/{id}/statistics",
+  "method": "GET",
+  "parameters": [
+    { "name": "id", "type": "string", "required": true, "description": "The photo's unique identifier." },
+    { "name": "resolution", "type": "string", "required": false, "description": "Frequency of statistics. Default: 'days'." },
+    { "name": "quantity", "type": "integer", "required": false, "description": "Number of data points. Default: 30. Range: 1-30." }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.unsplash.com/photos/eOLpJytrbsQ/statistics?resolution=days&quantity=7",
+    "headers": { "Authorization": "Client-ID YOUR_ACCESS_KEY" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "eOLpJytrbsQ",
+      "downloads": { "total": 12450, "historical": { "change": 245, "values": [{"date": "2024-08-14", "value": 35}] } },
+      "views": { "total": 89230, "historical": { "change": 1520, "values": [{"date": "2024-08-14", "value": 217}] } },
+      "likes": { "total": 342, "historical": { "change": 12, "values": [{"date": "2024-08-14", "value": 2}] } }
+    }
+  }
+}

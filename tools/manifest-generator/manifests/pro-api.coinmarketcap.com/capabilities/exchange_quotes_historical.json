@@ -1,0 +1,79 @@
+{
+  "name": "exchange_quotes_historical",
+  "description": "Return historical market data for an exchange over a time period at regular intervals.",
+  "resource_group": "exchange",
+  "endpoint": "/v1/exchange/quotes/historical",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Exchange ID.",
+      "required": false,
+      "example": "270"
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "description": "Exchange slug.",
+      "required": false,
+      "example": "binance"
+    },
+    {
+      "name": "time_start",
+      "type": "string",
+      "description": "Start time (ISO 8601).",
+      "required": false,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "time_end",
+      "type": "string",
+      "description": "End time (ISO 8601).",
+      "required": false,
+      "example": "2024-01-31"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Number of intervals.",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "interval",
+      "type": "string",
+      "description": "Interval: daily, weekly, monthly.",
+      "required": false,
+      "example": "daily"
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Quote currency.",
+      "required": false,
+      "example": "USD"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/exchange/quotes/historical?slug=binance&time_start=2024-01-01&time_end=2024-01-31",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": {
+        "id": 270,
+        "name": "Binance",
+        "quotes": []
+      }
+    }
+  }
+}

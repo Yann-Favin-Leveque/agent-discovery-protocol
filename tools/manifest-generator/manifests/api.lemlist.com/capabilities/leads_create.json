@@ -1,0 +1,60 @@
+{
+  "name": "leads_create",
+  "description": "Create a lead and add to a campaign.",
+  "resource_group": "leads",
+  "endpoint": "/api/campaigns/{campaignId}/leads",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "campaignId",
+      "type": "string",
+      "description": "Campaign ID.",
+      "required": true
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Lead email.",
+      "required": true,
+      "example": "lead@example.com"
+    },
+    {
+      "name": "firstName",
+      "type": "string",
+      "description": "First name.",
+      "required": false
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "description": "Last name.",
+      "required": false
+    },
+    {
+      "name": "companyName",
+      "type": "string",
+      "description": "Company name.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemlist.com/api/campaigns/camp_1/leads",
+    "headers": {
+      "Authorization": "Basic {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "lead@example.com",
+      "firstName": "John",
+      "companyName": "Acme"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "_id": "lead_1",
+      "email": "lead@example.com"
+    }
+  }
+}

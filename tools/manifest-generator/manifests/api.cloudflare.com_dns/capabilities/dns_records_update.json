@@ -1,0 +1,91 @@
+{
+  "name": "dns_records_update",
+  "description": "Overwrite an existing DNS record entirely. All fields must be provided as this replaces the entire record.",
+  "endpoint": "/zones/{zone_id}/dns_records/{dns_record_id}",
+  "method": "PUT",
+  "resource_group": "dns_records",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    },
+    {
+      "name": "dns_record_id",
+      "type": "string",
+      "description": "The DNS record ID.",
+      "required": true,
+      "example": "372e67954025e0ba6aaa6d586b9e0b59"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "DNS record type.",
+      "required": true,
+      "example": "A"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "DNS record name.",
+      "required": true,
+      "example": "www.example.com"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "Record content.",
+      "required": true,
+      "example": "198.51.100.5"
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "description": "TTL in seconds. 1 for automatic.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "proxied",
+      "type": "boolean",
+      "description": "Whether to proxy through Cloudflare.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_records/372e67954025e0ba6aaa6d586b9e0b59",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "A",
+      "name": "www.example.com",
+      "content": "198.51.100.5",
+      "ttl": 1,
+      "proxied": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "id": "372e67954025e0ba6aaa6d586b9e0b59",
+        "type": "A",
+        "name": "www.example.com",
+        "content": "198.51.100.5",
+        "proxied": true,
+        "ttl": 1
+      }
+    }
+  },
+  "auth_scopes": ["dns_records:edit"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

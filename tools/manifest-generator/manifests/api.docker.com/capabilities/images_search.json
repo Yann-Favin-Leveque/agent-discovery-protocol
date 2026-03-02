@@ -1,0 +1,43 @@
+{
+  "name": "images_search",
+  "description": "Search Docker Hub for container images.",
+  "resource_group": "images",
+  "endpoint": "/search/repositories/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "Search query."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://hub.docker.com/v2/search/repositories/?query=nginx&page_size=5"
+  },
+  "response_example": {
+    "count": 1000,
+    "results": [
+      {
+        "repo_name": "library/nginx",
+        "short_description": "Official NGINX image",
+        "star_count": 18000,
+        "pull_count": 1000000000,
+        "is_official": true
+      }
+    ]
+  }
+}

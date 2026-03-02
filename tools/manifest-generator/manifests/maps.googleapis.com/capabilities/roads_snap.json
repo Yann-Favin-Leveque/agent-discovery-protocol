@@ -1,0 +1,51 @@
+{
+  "name": "roads_snap",
+  "description": "Snap GPS coordinates to the nearest road segments. Returns road-snapped points with place IDs for accurate route visualization.",
+  "endpoint": "/v1/snapToRoads",
+  "method": "GET",
+  "resource_group": "roads",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "description": "Pipe-separated latitude,longitude pairs representing GPS trace points.",
+      "required": true,
+      "example": "60.170880,24.942795|60.170879,24.942796|60.170877,24.942796"
+    },
+    {
+      "name": "interpolate",
+      "type": "boolean",
+      "description": "Whether to interpolate additional points along the road geometry.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://roads.googleapis.com/v1/snapToRoads?path=60.170880,24.942795|60.170879,24.942796&interpolate=true&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "snappedPoints": [
+        {
+          "location": {"latitude": 60.170877918672588, "longitude": 24.942699821922421},
+          "originalIndex": 0,
+          "placeId": "ChIJNXKzPDALkkYRUjsStLiYS-Y"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

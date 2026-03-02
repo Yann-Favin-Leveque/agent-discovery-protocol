@@ -1,0 +1,77 @@
+{
+  "name": "articles_create",
+  "description": "Create a new help center article with title, body HTML, and parent collection.",
+  "resource_group": "articles",
+  "endpoint": "/articles",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Article title."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Article body in HTML."
+    },
+    {
+      "name": "author_id",
+      "type": "integer",
+      "required": true,
+      "description": "The admin ID of the author."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "State: published or draft. Default draft."
+    },
+    {
+      "name": "parent_id",
+      "type": "string",
+      "required": false,
+      "description": "Parent collection or section ID."
+    },
+    {
+      "name": "parent_type",
+      "type": "string",
+      "required": false,
+      "description": "Parent type: collection or section."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "SEO description."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/articles",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "title": "How to Reset Your Password",
+      "body": "<p>Follow these steps to reset your password...</p>",
+      "author_id": 1,
+      "state": "draft",
+      "parent_id": "collection-1",
+      "parent_type": "collection"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "article",
+      "id": "article-2",
+      "title": "How to Reset Your Password",
+      "state": "draft"
+    }
+  }
+}

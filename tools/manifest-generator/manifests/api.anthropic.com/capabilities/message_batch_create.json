@@ -1,0 +1,54 @@
+{
+  "name": "message_batch_create",
+  "description": "Create a batch of message requests for asynchronous processing at 50% reduced cost. Results are available within 24 hours.",
+  "resource_group": "message_batches",
+  "endpoint": "/v1/messages/batches",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "requests",
+      "type": "array",
+      "required": true,
+      "description": "Array of batch request objects, each with a custom_id and params (model, messages, max_tokens, etc.)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.anthropic.com/v1/messages/batches",
+    "headers": {
+      "x-api-key": "sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "anthropic-version": "2023-06-01",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requests": [
+        {
+          "custom_id": "req-001",
+          "params": {
+            "model": "claude-sonnet-4-6",
+            "max_tokens": 1024,
+            "messages": [
+              {"role": "user", "content": "Summarize quantum computing."}
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "batch_abc123",
+      "type": "message_batch",
+      "processing_status": "in_progress",
+      "request_counts": {
+        "processing": 1,
+        "succeeded": 0,
+        "errored": 0,
+        "canceled": 0,
+        "expired": 0
+      },
+      "created_at": "2026-03-01T10:00:00Z"
+    }
+  }
+}

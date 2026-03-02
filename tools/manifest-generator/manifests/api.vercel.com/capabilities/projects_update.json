@@ -1,0 +1,59 @@
+{
+  "name": "projects_update",
+  "description": "Update an existing project's settings.",
+  "endpoint": "/v9/projects/{idOrName}",
+  "method": "PATCH",
+  "resource_group": "projects",
+  "parameters": [
+    {
+      "name": "idOrName",
+      "type": "string",
+      "description": "Project ID or name",
+      "required": true,
+      "example": "my-app"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "New project name",
+      "required": false,
+      "example": "my-app-v2"
+    },
+    {
+      "name": "framework",
+      "type": "string",
+      "description": "Framework preset",
+      "required": false,
+      "example": "nextjs"
+    },
+    {
+      "name": "buildCommand",
+      "type": "string",
+      "description": "Custom build command",
+      "required": false,
+      "example": "npm run build"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.vercel.com/v9/projects/my-app",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "my-app-v2"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "prj_123",
+      "name": "my-app-v2"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "verifications_get",
+  "description": "Retrieve a specific verification by ID including check results, extracted data, and photos.",
+  "resource_group": "verifications",
+  "endpoint": "/verifications/{verification_id}",
+  "method": "GET",
+  "parameters": [
+    {"name": "verification_id", "type": "string", "description": "The verification ID.", "required": true, "example": "ver_abc123"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://withpersona.com/api/v1/verifications/ver_abc123",
+    "headers": {"Authorization": "Bearer {api_key}", "Persona-Version": "2023-01-05"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "verification/government-id",
+        "id": "ver_abc123",
+        "attributes": {
+          "status": "passed",
+          "name-first": "Jane",
+          "name-last": "Doe",
+          "birthdate": "1990-05-15",
+          "identification-number": "****5678",
+          "country-code": "US",
+          "checks": [
+            {"name": "id_aamva_database_lookup", "status": "passed"}
+          ]
+        }
+      }
+    }
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

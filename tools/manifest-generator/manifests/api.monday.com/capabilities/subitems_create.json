@@ -1,0 +1,39 @@
+{
+  "name": "subitems_create",
+  "description": "Create a subitem under an item.",
+  "resource_group": "subitems",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "parent_item_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Parent item ID"
+    },
+    {
+      "name": "item_name",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Subitem name"
+    },
+    {
+      "name": "column_values",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "JSON column values"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "mutation { create_subitem (parent_item_id: 456, item_name: \"Sub task\") { id name board { id } } }"
+  }
+}

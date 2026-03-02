@@ -1,0 +1,83 @@
+{
+  "name": "discounts_create",
+  "description": "Create a new discount code or rule.",
+  "resource_group": "discounts",
+  "endpoint": "/discounts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Discount name.",
+      "example": "Summer Sale"
+    },
+    {
+      "name": "trigger",
+      "type": "string",
+      "required": true,
+      "description": "Trigger type: Code, Total, or Product."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Discount type: FixedAmount, Rate, Shipping, etc."
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "required": false,
+      "description": "Discount code (required if trigger is Code)."
+    },
+    {
+      "name": "rate",
+      "type": "number",
+      "required": false,
+      "description": "Percentage for Rate-based discounts."
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "required": false,
+      "description": "Fixed amount for FixedAmount type."
+    },
+    {
+      "name": "maxNumberOfUsages",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of uses."
+    },
+    {
+      "name": "expires",
+      "type": "string",
+      "required": false,
+      "description": "Expiration date."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.snipcart.com/api/discounts",
+    "headers": {
+      "Authorization": "Basic {api_key_base64}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Summer Sale",
+      "trigger": "Code",
+      "code": "SUMMER20",
+      "type": "Rate",
+      "rate": 20
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "disc-uuid",
+      "name": "Summer Sale",
+      "code": "SUMMER20",
+      "type": "Rate",
+      "rate": 20
+    }
+  }
+}

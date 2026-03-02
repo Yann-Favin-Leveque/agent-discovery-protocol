@@ -1,0 +1,42 @@
+{
+  "name": "subreddit_about_get",
+  "resource_group": "subreddits",
+  "description": "Retrieve detailed information about a specific subreddit including description, rules, subscriber count, creation date, and moderation settings.",
+  "endpoint": "/r/{subreddit}/about",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "subreddit",
+      "type": "string",
+      "description": "The name of the subreddit (without the r/ prefix).",
+      "required": true,
+      "in": "path",
+      "example": "technology"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/r/technology/about",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "t5",
+      "data": {
+        "display_name": "technology",
+        "title": "Technology",
+        "public_description": "Subreddit dedicated to the news and discussions about the creation and use of technology.",
+        "subscribers": 15200000,
+        "active_user_count": 12500,
+        "created_utc": 1201242956,
+        "over18": false,
+        "subreddit_type": "public"
+      }
+    }
+  },
+  "auth_scopes": ["read"]
+}

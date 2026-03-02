@@ -1,0 +1,56 @@
+{
+  "name": "calendars_create",
+  "description": "Create a new application-managed calendar within a connected calendar profile. The calendar is owned by your application.",
+  "endpoint": "/v1/calendars",
+  "method": "POST",
+  "resource_group": "calendars",
+  "parameters": [
+    {
+      "name": "profile_id",
+      "type": "string",
+      "required": true,
+      "description": "The profile ID of the connected calendar account to create the calendar in."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Display name for the new calendar."
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "description": "Hex color code for the calendar (e.g., '#49BED8')."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cronofy.com/v1/calendars",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "profile_id": "pro_n23kjnwrw2",
+      "name": "App Appointments",
+      "color": "#49BED8"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "calendar": {
+        "calendar_id": "cal_n23kjnwrw2_newcal",
+        "calendar_name": "App Appointments",
+        "calendar_readonly": false,
+        "calendar_deleted": false,
+        "calendar_primary": false
+      }
+    }
+  },
+  "auth_scopes": ["create_calendar"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

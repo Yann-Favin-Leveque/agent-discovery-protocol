@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Render",
-  "description": "Render provides cloud hosting for web services, static sites, background workers, cron jobs, and managed databases. Use this API to create and manage services, trigger deployments, and configure environment variables for your hosted applications.",
+  "description": "Render provides cloud hosting for web services, static sites, background workers, cron jobs, and managed databases. Use this API to create and manage services, trigger deployments, configure environment variables, manage custom domains, disks, blueprints, and more.",
   "base_url": "https://api.render.com",
   "auth": {
     "type": "api_key",
@@ -10,40 +10,47 @@
     "setup_url": "https://dashboard.render.com/u/settings#api-keys"
   },
   "capabilities": [
-    {
-      "name": "list_services",
-      "description": "List all services in your Render account. Returns service names, IDs, types (web_service, static_site, worker, cron_job), and current status.",
-      "detail_url": "/capabilities/list_services"
-    },
-    {
-      "name": "get_service",
-      "description": "Get detailed information about a specific service including its type, repository, branch, build command, start command, and current deploy status.",
-      "detail_url": "/capabilities/get_service"
-    },
-    {
-      "name": "create_service",
-      "description": "Create a new service on Render. Specify the service type, name, Git repository, build and start commands, and environment configuration.",
-      "detail_url": "/capabilities/create_service"
-    },
-    {
-      "name": "trigger_deploy",
-      "description": "Trigger a new deploy for a service. Optionally clear the build cache to force a clean rebuild.",
-      "detail_url": "/capabilities/trigger_deploy"
-    },
-    {
-      "name": "list_deploys",
-      "description": "List all deploys for a specific service. Returns deploy IDs, statuses, commit information, and timestamps.",
-      "detail_url": "/capabilities/list_deploys"
-    },
-    {
-      "name": "get_environment_variables",
-      "description": "Get all environment variables configured for a service. Returns variable keys and values.",
-      "detail_url": "/capabilities/get_environment_variables"
-    },
-    {
-      "name": "update_environment_variable",
-      "description": "Update the value of an existing environment variable for a service. The service will automatically redeploy with the new value.",
-      "detail_url": "/capabilities/update_environment_variable"
-    }
+    {"name": "services_list", "resource_group": "services", "description": "List all services with filtering by name, type, region, environment, and suspension status.", "detail_url": "/capabilities/services_list"},
+    {"name": "services_create", "resource_group": "services", "description": "Create a new service (web service, static site, worker, cron job, or private service) from a Git repo or Docker image.", "detail_url": "/capabilities/services_create"},
+    {"name": "services_get", "resource_group": "services", "description": "Retrieve detailed information about a specific service by ID.", "detail_url": "/capabilities/services_get"},
+    {"name": "services_update", "resource_group": "services", "description": "Update a service's configuration including build command, start command, environment, plan, and scaling.", "detail_url": "/capabilities/services_update"},
+    {"name": "services_delete", "resource_group": "services", "description": "Delete a service and all its associated resources.", "detail_url": "/capabilities/services_delete"},
+    {"name": "services_suspend", "resource_group": "services", "description": "Suspend a running service to stop it temporarily.", "detail_url": "/capabilities/services_suspend"},
+    {"name": "services_resume", "resource_group": "services", "description": "Resume a suspended service.", "detail_url": "/capabilities/services_resume"},
+    {"name": "services_restart", "resource_group": "services", "description": "Restart a running service.", "detail_url": "/capabilities/services_restart"},
+    {"name": "services_scale", "resource_group": "services", "description": "Set the number of instances for a service.", "detail_url": "/capabilities/services_scale"},
+    {"name": "services_autoscale", "resource_group": "services", "description": "Configure autoscaling rules for a service.", "detail_url": "/capabilities/services_autoscale"},
+    {"name": "services_purge_cache", "resource_group": "services", "description": "Purge the build cache for a service.", "detail_url": "/capabilities/services_purge_cache"},
+    {"name": "deploys_list", "resource_group": "deploys", "description": "List all deploys for a service with filtering by status and timestamps.", "detail_url": "/capabilities/deploys_list"},
+    {"name": "deploys_create", "resource_group": "deploys", "description": "Trigger a new deployment for a service, optionally clearing the build cache.", "detail_url": "/capabilities/deploys_create"},
+    {"name": "deploys_get", "resource_group": "deploys", "description": "Retrieve details of a specific deploy by ID.", "detail_url": "/capabilities/deploys_get"},
+    {"name": "deploys_cancel", "resource_group": "deploys", "description": "Cancel an in-progress deployment.", "detail_url": "/capabilities/deploys_cancel"},
+    {"name": "deploys_rollback", "resource_group": "deploys", "description": "Rollback a service to a previous deploy.", "detail_url": "/capabilities/deploys_rollback"},
+    {"name": "envvars_list", "resource_group": "environment_variables", "description": "List all environment variables for a service.", "detail_url": "/capabilities/envvars_list"},
+    {"name": "envvars_update_all", "resource_group": "environment_variables", "description": "Replace all environment variables for a service.", "detail_url": "/capabilities/envvars_update_all"},
+    {"name": "envvars_get", "resource_group": "environment_variables", "description": "Retrieve a specific environment variable by key.", "detail_url": "/capabilities/envvars_get"},
+    {"name": "envvars_update", "resource_group": "environment_variables", "description": "Add or update a single environment variable.", "detail_url": "/capabilities/envvars_update"},
+    {"name": "envvars_delete", "resource_group": "environment_variables", "description": "Delete a single environment variable.", "detail_url": "/capabilities/envvars_delete"},
+    {"name": "custom_domains_list", "resource_group": "custom_domains", "description": "List custom domains attached to a service.", "detail_url": "/capabilities/custom_domains_list"},
+    {"name": "custom_domains_create", "resource_group": "custom_domains", "description": "Attach a custom domain to a service.", "detail_url": "/capabilities/custom_domains_create"},
+    {"name": "custom_domains_get", "resource_group": "custom_domains", "description": "Get details about a specific custom domain.", "detail_url": "/capabilities/custom_domains_get"},
+    {"name": "custom_domains_delete", "resource_group": "custom_domains", "description": "Remove a custom domain from a service.", "detail_url": "/capabilities/custom_domains_delete"},
+    {"name": "custom_domains_verify", "resource_group": "custom_domains", "description": "Verify DNS configuration for a custom domain.", "detail_url": "/capabilities/custom_domains_verify"},
+    {"name": "disks_list", "resource_group": "disks", "description": "List persistent disks with optional filtering.", "detail_url": "/capabilities/disks_list"},
+    {"name": "disks_create", "resource_group": "disks", "description": "Attach a new persistent disk to a service.", "detail_url": "/capabilities/disks_create"},
+    {"name": "disks_get", "resource_group": "disks", "description": "Retrieve details about a specific disk.", "detail_url": "/capabilities/disks_get"},
+    {"name": "disks_update", "resource_group": "disks", "description": "Update a disk's name, size, or mount path.", "detail_url": "/capabilities/disks_update"},
+    {"name": "disks_delete", "resource_group": "disks", "description": "Delete a persistent disk and all its data.", "detail_url": "/capabilities/disks_delete"},
+    {"name": "blueprints_list", "resource_group": "blueprints", "description": "List blueprints (render.yaml infrastructure-as-code configurations).", "detail_url": "/capabilities/blueprints_list"},
+    {"name": "blueprints_get", "resource_group": "blueprints", "description": "Retrieve a specific blueprint by ID.", "detail_url": "/capabilities/blueprints_get"},
+    {"name": "blueprints_update", "resource_group": "blueprints", "description": "Update a blueprint's name, auto-sync, or path.", "detail_url": "/capabilities/blueprints_update"},
+    {"name": "blueprints_delete", "resource_group": "blueprints", "description": "Disconnect and stop syncing a blueprint.", "detail_url": "/capabilities/blueprints_delete"},
+    {"name": "jobs_list", "resource_group": "jobs", "description": "List one-off jobs for a service.", "detail_url": "/capabilities/jobs_list"},
+    {"name": "jobs_create", "resource_group": "jobs", "description": "Create and run a one-off job for a service.", "detail_url": "/capabilities/jobs_create"},
+    {"name": "jobs_get", "resource_group": "jobs", "description": "Retrieve details of a specific one-off job.", "detail_url": "/capabilities/jobs_get"},
+    {"name": "jobs_cancel", "resource_group": "jobs", "description": "Cancel a running one-off job.", "detail_url": "/capabilities/jobs_cancel"},
+    {"name": "events_list", "resource_group": "events", "description": "List events for a service (deploys, scaling, restarts, etc.).", "detail_url": "/capabilities/events_list"},
+    {"name": "owners_list", "resource_group": "workspaces", "description": "List accessible workspaces (owners) with optional filtering.", "detail_url": "/capabilities/owners_list"},
+    {"name": "owners_get", "resource_group": "workspaces", "description": "Retrieve workspace details by ID.", "detail_url": "/capabilities/owners_get"}
   ]
 }

@@ -1,0 +1,45 @@
+{
+  "name": "payments_update",
+  "description": "Update metadata on an existing payment.",
+  "resource_group": "payments",
+  "endpoint": "/payments/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Payment ID.",
+      "required": true
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Updated metadata.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.gocardless.com/payments/PM000123",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "payments": {
+        "metadata": {
+          "key": "value"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "payments": {
+        "id": "PM000123"
+      }
+    }
+  }
+}

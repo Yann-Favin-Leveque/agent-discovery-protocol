@@ -1,0 +1,53 @@
+{
+  "name": "records_browse",
+  "description": "Iterate over all records in an index without relevance ranking. Useful for exporting data or processing all records.",
+  "endpoint": "/1/indexes/{indexName}/browse",
+  "method": "POST",
+  "resource_group": "records",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index to browse.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Cursor from a previous browse response for pagination.",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "params",
+      "type": "string",
+      "description": "URL-encoded query parameters to filter browse results.",
+      "required": false,
+      "example": "filters=category:electronics&hitsPerPage=1000"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/browse",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": { "params": "hitsPerPage=1000" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "hits": [{ "objectID": "12345", "name": "Product A" }],
+      "cursor": "AoE_dGVzdA==",
+      "nbHits": 5000,
+      "processingTimeMS": 5
+    }
+  },
+  "auth_scopes": ["browse"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

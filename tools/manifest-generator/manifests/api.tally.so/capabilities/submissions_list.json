@@ -1,0 +1,82 @@
+{
+  "name": "submissions_list",
+  "resource_group": "submissions",
+  "description": "List submissions for a form with filtering and pagination.",
+  "endpoint": "/forms/{formId}/submissions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "formId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Form ID."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Page number. Default: 1."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Results per page. Default: 50, max: 500."
+    },
+    {
+      "name": "filter",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Status: all, completed, or partial."
+    },
+    {
+      "name": "startDate",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Start date (ISO 8601)."
+    },
+    {
+      "name": "endDate",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "End date (ISO 8601)."
+    },
+    {
+      "name": "afterId",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Get submissions after this ID."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.tally.so/forms/form-123/submissions?page=1&limit=50",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page": 1,
+      "limit": 50,
+      "hasMore": false,
+      "submissions": [
+        {
+          "id": "sub-456",
+          "formId": "form-123",
+          "isCompleted": true,
+          "submittedAt": "2025-01-15T10:30:00Z",
+          "responses": []
+        }
+      ]
+    }
+  }
+}

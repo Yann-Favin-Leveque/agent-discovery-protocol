@@ -1,0 +1,54 @@
+{
+  "name": "abandoned_carts_list",
+  "description": "Retrieve abandoned carts with filtering by time range and minimum value.",
+  "resource_group": "carts",
+  "endpoint": "/carts/abandoned",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results. Default 20."
+    },
+    {
+      "name": "timeRange",
+      "type": "string",
+      "required": false,
+      "description": "Filter: Anytime, LessThan4Hours, LessThanADay, LessThanAWeek, LessThanAMonth."
+    },
+    {
+      "name": "minimalValue",
+      "type": "integer",
+      "required": false,
+      "description": "Minimum cart value."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Filter by email."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.snipcart.com/api/carts/abandoned?timeRange=LessThanAWeek",
+    "headers": {
+      "Authorization": "Basic {api_key_base64}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "hasMoreResults": false,
+      "items": [
+        {
+          "token": "cart-uuid",
+          "email": "customer@example.com",
+          "total": 45.0
+        }
+      ]
+    }
+  }
+}

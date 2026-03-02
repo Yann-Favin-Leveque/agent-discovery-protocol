@@ -1,0 +1,57 @@
+{
+  "name": "batch_create",
+  "description": "Create a batch job to process multiple API requests asynchronously at 50% reduced cost. Upload a JSONL file with requests.",
+  "resource_group": "batches",
+  "endpoint": "/v1/batches",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "input_file_id",
+      "type": "string",
+      "required": true,
+      "description": "The ID of an uploaded JSONL file containing batch requests."
+    },
+    {
+      "name": "endpoint",
+      "type": "string",
+      "required": true,
+      "description": "The API endpoint for requests: '/v1/chat/completions', '/v1/embeddings', '/v1/completions'."
+    },
+    {
+      "name": "completion_window",
+      "type": "string",
+      "required": true,
+      "description": "The time frame for completion: '24h'."
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "description": "Optional metadata key-value pairs for the batch."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/batches",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "input_file_id": "file-abc123",
+      "endpoint": "/v1/chat/completions",
+      "completion_window": "24h"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "batch-abc123",
+      "object": "batch",
+      "endpoint": "/v1/chat/completions",
+      "status": "validating",
+      "created_at": 1709164800,
+      "input_file_id": "file-abc123"
+    }
+  }
+}

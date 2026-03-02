@@ -1,0 +1,57 @@
+{
+  "name": "sms_campaigns_create",
+  "description": "Create a new SMS campaign.",
+  "resource_group": "sms",
+  "endpoint": "/smsCampaigns",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Campaign name.",
+      "required": true
+    },
+    {
+      "name": "sender",
+      "type": "string",
+      "description": "Sender name.",
+      "required": true
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "SMS content.",
+      "required": true
+    },
+    {
+      "name": "recipients",
+      "type": "object",
+      "description": "Recipients with listIds.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/smsCampaigns",
+    "headers": {
+      "api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "SMS Promo",
+      "sender": "MyApp",
+      "content": "Big sale today!",
+      "recipients": {
+        "listIds": [
+          1
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 2
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "shipments_list",
+  "description": "List shipments with filters for status, batch, tags, and dates.",
+  "endpoint": "/v1/shipments",
+  "method": "GET",
+  "resource_group": "shipments",
+  "parameters": [
+    {
+      "name": "shipment_status",
+      "type": "string",
+      "description": "Filter by status.",
+      "required": false,
+      "example": "pending"
+    },
+    {
+      "name": "batch_id",
+      "type": "string",
+      "description": "Filter by batch ID.",
+      "required": false
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.shipengine.com/v1/shipments?shipment_status=pending&page_size=25",
+    "headers": {
+      "API-Key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "shipments": [
+        {
+          "shipment_id": "se-1234567",
+          "shipment_status": "pending",
+          "ship_to": {
+            "name": "John Smith"
+          }
+        }
+      ],
+      "total": 50,
+      "page": 1,
+      "pages": 2
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

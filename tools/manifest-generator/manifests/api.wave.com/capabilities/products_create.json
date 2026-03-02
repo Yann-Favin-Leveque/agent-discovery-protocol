@@ -1,0 +1,68 @@
+{
+  "name": "products_create",
+  "description": "Create a new product or service for a business.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "products",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Product name",
+      "required": true,
+      "example": "Web Design"
+    },
+    {
+      "name": "unitPrice",
+      "type": "string",
+      "description": "Unit price",
+      "required": true,
+      "example": "500.00"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Product description",
+      "required": false,
+      "example": "Custom website design"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: ProductCreateInput!) { productCreate(input: $input) { product { id name unitPrice } didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "productCreate": {
+          "product": {
+            "id": "UHJvZHVjdDo6...",
+            "name": "Web Design",
+            "unitPrice": "500.00"
+          },
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

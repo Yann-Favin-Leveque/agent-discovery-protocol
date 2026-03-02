@@ -1,0 +1,41 @@
+{
+  "name": "sleep_get",
+  "description": "Retrieve a single sleep record by its ID.",
+  "resource_group": "sleep",
+  "endpoint": "/developer/v1/activity/sleep/{sleepId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "sleepId",
+      "type": "integer",
+      "required": true,
+      "description": "The sleep record ID.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "read:sleep"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.prod.whoop.com/developer/v1/activity/sleep/54321",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 54321,
+      "start": "2025-01-14T23:00:00.000Z",
+      "end": "2025-01-15T07:00:00.000Z",
+      "nap": false,
+      "score_state": "SCORED",
+      "score": {
+        "sleep_performance_percentage": 92,
+        "sleep_efficiency_percentage": 91,
+        "respiratory_rate": 15.2
+      }
+    }
+  }
+}

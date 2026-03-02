@@ -1,0 +1,76 @@
+{
+  "name": "guilds_members_modify",
+  "resource_group": "guilds",
+  "description": "Modify a guild member's attributes (nickname, roles, mute, deaf).",
+  "endpoint": "/v10/guilds/{guild_id}/members/{user_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "guild_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Guild ID",
+      "example": "444444444444444444"
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "User ID",
+      "example": "333333333333333333"
+    },
+    {
+      "name": "nick",
+      "type": "string",
+      "required": false,
+      "description": "New nickname",
+      "example": "New Nickname"
+    },
+    {
+      "name": "roles",
+      "type": "array",
+      "required": false,
+      "description": "Array of role IDs",
+      "example": [
+        "888888888888888888"
+      ]
+    },
+    {
+      "name": "mute",
+      "type": "boolean",
+      "required": false,
+      "description": "Server mute",
+      "example": false
+    },
+    {
+      "name": "deaf",
+      "type": "boolean",
+      "required": false,
+      "description": "Server deafen",
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://discord.com/api/v10/guilds/444444444444444444/members/333333333333333333",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "nick": "New Nickname"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": "333333333333333333",
+        "username": "User1"
+      },
+      "nick": "New Nickname"
+    }
+  }
+}

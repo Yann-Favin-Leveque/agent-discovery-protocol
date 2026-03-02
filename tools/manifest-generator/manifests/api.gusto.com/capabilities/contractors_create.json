@@ -1,0 +1,19 @@
+{
+  "name": "contractors_create",
+  "description": "Add a new 1099 contractor to a company.",
+  "endpoint": "/v1/companies/{company_id}/contractors",
+  "method": "POST",
+  "resource_group": "contractors",
+  "parameters": [
+    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
+    {"name": "first_name", "type": "string", "description": "Contractor first name.", "required": true, "example": "Bob"},
+    {"name": "last_name", "type": "string", "description": "Contractor last name.", "required": true, "example": "Builder"},
+    {"name": "email", "type": "string", "description": "Contractor email.", "required": false, "example": "bob@freelance.com"},
+    {"name": "type", "type": "string", "description": "Contractor type (Individual or Business).", "required": true, "example": "Individual"},
+    {"name": "wage_type", "type": "string", "description": "Pay type (Hourly or Fixed).", "required": true, "example": "Hourly"}
+  ],
+  "request_example": {"method": "POST", "url": "https://api.gusto.com/v1/companies/7757616923531542/contractors", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"first_name": "Bob", "last_name": "Builder", "type": "Individual", "wage_type": "Hourly"}},
+  "response_example": {"status": 201, "body": {"uuid": "con_456", "first_name": "Bob", "last_name": "Builder", "type": "Individual"}},
+  "auth_scopes": ["contractors:write"],
+  "rate_limits": {"requests_per_minute": 60}
+}

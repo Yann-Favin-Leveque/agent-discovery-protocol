@@ -1,0 +1,24 @@
+{
+  "name": "products_get_candles",
+  "description": "Get historical OHLCV candlestick data for a trading pair at various time granularities.",
+  "endpoint": "/products/{product_id}/candles",
+  "method": "GET",
+  "resource_group": "products",
+  "parameters": [
+    {"name": "product_id", "type": "string", "description": "Trading pair ID.", "required": true, "example": "BTC-USD"},
+    {"name": "granularity", "type": "integer", "description": "Candle period in seconds: 60, 300, 900, 3600, 21600, 86400.", "required": false, "example": 3600},
+    {"name": "start", "type": "string", "description": "Start time (ISO 8601).", "required": false, "example": "2024-06-14T00:00:00Z"},
+    {"name": "end", "type": "string", "description": "End time (ISO 8601).", "required": false, "example": "2024-06-15T00:00:00Z"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=3600&start=2024-06-14T00:00:00Z&end=2024-06-15T00:00:00Z",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [[1718323200, 49800.00, 50200.00, 49750.00, 50100.00, 123.45]]
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 600}
+}

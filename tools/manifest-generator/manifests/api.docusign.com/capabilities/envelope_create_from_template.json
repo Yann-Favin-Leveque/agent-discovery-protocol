@@ -1,0 +1,73 @@
+{
+  "name": "envelope_create_from_template",
+  "description": "Create and send an envelope using a pre-defined template. Map template roles to actual recipients and populate custom fields.",
+  "resource_group": "template",
+  "endpoint": "/v2.1/accounts/{accountId}/envelopes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "templateId",
+      "type": "string",
+      "required": true,
+      "description": "Template ID to use.",
+      "in": "body"
+    },
+    {
+      "name": "templateRoles",
+      "type": "array",
+      "required": true,
+      "description": "Array mapping template roles to actual recipients with email, name, roleName.",
+      "in": "body"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "description": "'sent' to send, 'created' for draft.",
+      "in": "body"
+    },
+    {
+      "name": "emailSubject",
+      "type": "string",
+      "required": false,
+      "description": "Override template email subject.",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/envelopes",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "templateId": "tmpl-abc-123",
+      "templateRoles": [
+        {
+          "email": "signer@example.com",
+          "name": "John Doe",
+          "roleName": "Signer"
+        }
+      ],
+      "status": "sent"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "envelopeId": "env-def-456",
+      "status": "sent"
+    }
+  }
+}

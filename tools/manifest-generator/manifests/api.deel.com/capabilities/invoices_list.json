@@ -1,0 +1,47 @@
+{
+  "name": "invoices_list",
+  "resource_group": "Invoices",
+  "endpoint": "/rest/v2/invoices",
+  "method": "GET",
+  "description": "List paid invoices with date filtering.",
+  "parameters": [
+    {
+      "name": "issued_from_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date filter."
+    },
+    {
+      "name": "issued_to_date",
+      "type": "string",
+      "required": false,
+      "description": "End date filter."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.letsdeel.com/rest/v2/invoices?limit=25",
+    "headers": {
+      "Authorization": "Bearer <token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "inv-1",
+          "amount": 8000,
+          "currency": "USD",
+          "status": "paid"
+        }
+      ]
+    }
+  }
+}

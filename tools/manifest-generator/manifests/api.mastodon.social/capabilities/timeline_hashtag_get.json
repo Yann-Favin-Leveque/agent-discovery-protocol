@@ -1,0 +1,65 @@
+{
+  "name": "timeline_hashtag_get",
+  "resource_group": "timelines",
+  "description": "Fetch public statuses containing a given hashtag.",
+  "endpoint": "/api/v1/timelines/tag/{hashtag}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "hashtag",
+      "type": "string",
+      "description": "Hashtag name without #.",
+      "required": true,
+      "in": "path",
+      "example": "mastodon"
+    },
+    {
+      "name": "local",
+      "type": "boolean",
+      "description": "Local only.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "only_media",
+      "type": "boolean",
+      "description": "Media only.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "max_id",
+      "type": "string",
+      "description": "Upper bound.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results.",
+      "required": false,
+      "in": "query",
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/timelines/tag/mastodon?limit=20",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "109876543210",
+        "content": "<p>#mastodon is great</p>"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "mandates_create",
+  "description": "Create a mandate authorizing direct debit collection from a customer bank account.",
+  "resource_group": "mandates",
+  "endpoint": "/mandates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "scheme",
+      "type": "string",
+      "description": "Direct debit scheme (bacs, sepa_core, ach, etc.).",
+      "required": true,
+      "example": "bacs"
+    },
+    {
+      "name": "links[customer_bank_account]",
+      "type": "string",
+      "description": "Customer bank account ID.",
+      "required": true
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/mandates",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "mandates": {
+        "scheme": "bacs",
+        "links": {
+          "customer_bank_account": "BA000123"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "mandates": {
+        "id": "MD000123",
+        "scheme": "bacs",
+        "status": "pending_submission"
+      }
+    }
+  }
+}

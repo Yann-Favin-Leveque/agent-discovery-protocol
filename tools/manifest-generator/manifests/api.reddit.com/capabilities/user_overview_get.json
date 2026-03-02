@@ -1,0 +1,80 @@
+{
+  "name": "user_overview_get",
+  "resource_group": "users",
+  "description": "Fetch a listing of a user's recent posts and comments, interleaved chronologically.",
+  "endpoint": "/user/{username}/overview",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "The Reddit username.",
+      "required": true,
+      "in": "path",
+      "example": "spez"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort order. One of: hot, new, top, controversial.",
+      "required": false,
+      "in": "query",
+      "example": "new"
+    },
+    {
+      "name": "t",
+      "type": "string",
+      "description": "Time period for 'top' and 'controversial'. One of: hour, day, week, month, year, all.",
+      "required": false,
+      "in": "query",
+      "example": "all"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of items to return (1-100).",
+      "required": false,
+      "in": "query",
+      "example": 25
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Fullname for forward pagination.",
+      "required": false,
+      "in": "query",
+      "example": "t1_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/user/spez/overview?sort=new&limit=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "Listing",
+      "data": {
+        "after": "t1_xyz789",
+        "children": [
+          {
+            "kind": "t1",
+            "data": {
+              "id": "abc123",
+              "author": "spez",
+              "body": "Comment text here",
+              "subreddit": "announcements",
+              "score": 250,
+              "created_utc": 1709312400
+            }
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": ["history"]
+}

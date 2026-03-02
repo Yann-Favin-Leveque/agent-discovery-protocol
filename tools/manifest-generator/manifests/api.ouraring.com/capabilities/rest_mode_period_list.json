@@ -1,0 +1,55 @@
+{
+  "name": "rest_mode_period_list",
+  "description": "Retrieve rest mode periods when user activated rest mode for a date range. Supports pagination with next_token.",
+  "resource_group": "daily",
+  "endpoint": "/v2/usercollection/rest_mode_period",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token from previous response.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "rest_mode_period"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/rest_mode_period?start_date=2025-01-10&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "abc-234",
+          "start_day": "2025-01-14",
+          "end_day": "2025-01-15",
+          "start_date": "2025-01-14T22:00:00+00:00",
+          "end_date": "2025-01-15T08:00:00+00:00"
+        }
+      ],
+      "next_token": null
+    }
+  }
+}

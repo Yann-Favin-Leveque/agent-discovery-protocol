@@ -1,0 +1,41 @@
+{
+  "name": "message_batch_get",
+  "description": "Retrieve the status and details of a specific message batch.",
+  "resource_group": "message_batches",
+  "endpoint": "/v1/messages/batches/{batch_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "batch_id",
+      "type": "string",
+      "required": true,
+      "description": "The ID of the message batch to retrieve."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.anthropic.com/v1/messages/batches/batch_abc123",
+    "headers": {
+      "x-api-key": "sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "anthropic-version": "2023-06-01"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "batch_abc123",
+      "type": "message_batch",
+      "processing_status": "ended",
+      "request_counts": {
+        "processing": 0,
+        "succeeded": 10,
+        "errored": 0,
+        "canceled": 0,
+        "expired": 0
+      },
+      "results_url": "https://api.anthropic.com/v1/messages/batches/batch_abc123/results",
+      "created_at": "2026-03-01T10:00:00Z",
+      "ended_at": "2026-03-01T10:15:00Z"
+    }
+  }
+}

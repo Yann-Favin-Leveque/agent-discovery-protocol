@@ -1,0 +1,37 @@
+{
+  "name": "workflow_rerun",
+  "description": "Rerun a workflow.",
+  "resource_group": "workflows",
+  "endpoint": "/workflow/{id}/rerun",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Workflow ID."
+    },
+    {
+      "name": "from_failed",
+      "type": "boolean",
+      "required": false,
+      "description": "Rerun only from failed."
+    },
+    {
+      "name": "sparse_tree",
+      "type": "boolean",
+      "required": false,
+      "description": "Rerun failed + dependents only."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://circleci.com/api/v2/workflow/wf-abc/rerun",
+    "body": {
+      "from_failed": true
+    }
+  },
+  "response_example": {
+    "workflow_id": "wf-rerun-abc"
+  }
+}

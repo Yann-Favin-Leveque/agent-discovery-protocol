@@ -1,35 +1,67 @@
 {
   "spec_version": "1.0",
   "name": "OpenCage Geocoder",
-  "description": "OpenCage provides a forward and reverse geocoding API that aggregates multiple open data sources. Convert addresses to coordinates and coordinates to addresses, with rich annotations including timezone, currency, and geographic context for over 200 countries.",
+  "description": "OpenCage provides forward and reverse geocoding that aggregates multiple open data sources. Convert addresses to coordinates and coordinates to addresses, with rich annotations including timezone, currency, and geographic context for over 200 countries.",
   "base_url": "https://api.opencagedata.com",
   "auth": {
     "type": "api_key",
     "query_param": "key",
-    "setup_url": "https://opencagedata.com/dashboard#api-keys",
-    "header": "Authorization",
-    "prefix": "Bearer"
+    "setup_url": "https://opencagedata.com/dashboard#api-keys"
   },
   "capabilities": [
     {
-      "name": "forward_geocode",
-      "description": "Convert an address or place name into geographic coordinates. Returns results ranked by relevance with confidence scores, address components, and optional annotations.",
-      "detail_url": "/capabilities/forward_geocode"
+      "name": "geocode_forward",
+      "description": "Convert an address or place name into geographic coordinates (latitude/longitude).",
+      "detail_url": "https://agent-dns.dev/api/services/api.opencagedata.com/capabilities/geocode_forward",
+      "resource_group": "geocoding"
     },
     {
-      "name": "reverse_geocode",
-      "description": "Convert geographic coordinates (latitude, longitude) into a human-readable address. Returns formatted address, components, timezone, and currency annotations.",
-      "detail_url": "/capabilities/reverse_geocode"
+      "name": "geocode_forward_abbreviated",
+      "description": "Forward geocode with abbreviated formatted output.",
+      "detail_url": "https://agent-dns.dev/api/services/api.opencagedata.com/capabilities/geocode_forward_abbreviated",
+      "resource_group": "geocoding"
     },
     {
-      "name": "geocode_with_bounds",
-      "description": "Forward geocode within a specific bounding box to restrict results to a geographic area. Useful for disambiguating place names that exist in multiple regions.",
-      "detail_url": "/capabilities/geocode_with_bounds"
+      "name": "geocode_forward_address_only",
+      "description": "Forward geocode excluding POI names from results, returning only addresses.",
+      "detail_url": "https://agent-dns.dev/api/services/api.opencagedata.com/capabilities/geocode_forward_address_only",
+      "resource_group": "geocoding"
     },
     {
-      "name": "geocode_with_proximity",
-      "description": "Forward geocode biased toward a specific location. Results closer to the proximity point are ranked higher, useful for location-aware search.",
-      "detail_url": "/capabilities/geocode_with_proximity"
+      "name": "geocode_forward_bounded",
+      "description": "Forward geocode within a specific bounding box to restrict results to a geographic area.",
+      "detail_url": "https://agent-dns.dev/api/services/api.opencagedata.com/capabilities/geocode_forward_bounded",
+      "resource_group": "geocoding"
+    },
+    {
+      "name": "geocode_forward_geojson",
+      "description": "Forward geocode returning results in GeoJSON format.",
+      "detail_url": "https://agent-dns.dev/api/services/api.opencagedata.com/capabilities/geocode_forward_geojson",
+      "resource_group": "geocoding"
+    },
+    {
+      "name": "geocode_forward_proximity",
+      "description": "Forward geocode biased toward a specific location for location-aware search.",
+      "detail_url": "https://agent-dns.dev/api/services/api.opencagedata.com/capabilities/geocode_forward_proximity",
+      "resource_group": "geocoding"
+    },
+    {
+      "name": "geocode_reverse",
+      "description": "Convert geographic coordinates (latitude, longitude) into a human-readable address.",
+      "detail_url": "https://agent-dns.dev/api/services/api.opencagedata.com/capabilities/geocode_reverse",
+      "resource_group": "geocoding"
+    },
+    {
+      "name": "geocode_reverse_roadinfo",
+      "description": "Reverse geocode with road information matching to the nearest road.",
+      "detail_url": "https://agent-dns.dev/api/services/api.opencagedata.com/capabilities/geocode_reverse_roadinfo",
+      "resource_group": "geocoding"
+    },
+    {
+      "name": "ping",
+      "description": "Test API connectivity. Returns 'pong' if the service is available.",
+      "detail_url": "https://agent-dns.dev/api/services/api.opencagedata.com/capabilities/ping",
+      "resource_group": "status"
     }
   ]
 }

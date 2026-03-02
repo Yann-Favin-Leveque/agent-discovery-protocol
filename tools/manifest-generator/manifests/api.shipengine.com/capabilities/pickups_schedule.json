@@ -1,0 +1,67 @@
+{
+  "name": "pickups_schedule",
+  "description": "Schedule a carrier pickup for packages.",
+  "endpoint": "/v1/pickups",
+  "method": "POST",
+  "resource_group": "pickups",
+  "parameters": [
+    {
+      "name": "carrier_id",
+      "type": "string",
+      "description": "Carrier ID.",
+      "required": true
+    },
+    {
+      "name": "pickup_date",
+      "type": "string",
+      "description": "Desired pickup date.",
+      "required": true,
+      "example": "2024-01-16"
+    },
+    {
+      "name": "label_ids",
+      "type": "array",
+      "description": "Label IDs to pick up.",
+      "required": true
+    },
+    {
+      "name": "pickup_address",
+      "type": "object",
+      "description": "Pickup location address.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/pickups",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "carrier_id": "se-121861",
+      "pickup_date": "2024-01-16",
+      "label_ids": [
+        "se-label-123"
+      ],
+      "pickup_address": {
+        "address_line1": "4009 Marathon Blvd",
+        "city_locality": "Austin",
+        "state_province": "TX",
+        "postal_code": "78756",
+        "country_code": "US"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "pickup_id": "se-pickup-123",
+      "confirmation_number": "WTC123456"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

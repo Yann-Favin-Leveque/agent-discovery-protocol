@@ -1,0 +1,25 @@
+{
+  "name": "agents_completion_create",
+  "description": "Generate responses for agentic workflows using Mistral's agent-optimized models with tool calling and structured outputs.",
+  "resource_group": "agents",
+  "endpoint": "/v1/agents/completions",
+  "method": "POST",
+  "parameters": [
+    {"name": "model", "type": "string", "required": true, "description": "Agent model ID."},
+    {"name": "messages", "type": "array", "required": true, "description": "Array of message objects."},
+    {"name": "tools", "type": "array", "required": false, "description": "Tool definitions."},
+    {"name": "max_tokens", "type": "integer", "required": false, "description": "Maximum tokens."},
+    {"name": "temperature", "type": "number", "required": false, "description": "Sampling temperature."},
+    {"name": "stream", "type": "boolean", "required": false, "description": "Enable streaming."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/agents/completions",
+    "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "body": {"model": "mistral-large-latest", "messages": [{"role": "user", "content": "Search for the latest news about AI."}], "tools": [{"type": "function", "function": {"name": "web_search", "description": "Search the web", "parameters": {"type": "object", "properties": {"query": {"type": "string"}}}}}]}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": "agent-abc123", "choices": [{"message": {"role": "assistant", "tool_calls": [{"id": "tc1", "type": "function", "function": {"name": "web_search", "arguments": "{\"query\": \"latest AI news\"}"}}]}}]}
+  }
+}

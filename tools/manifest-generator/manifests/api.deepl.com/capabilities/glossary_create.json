@@ -1,0 +1,21 @@
+{
+  "name": "glossary_create",
+  "description": "Create a custom glossary that enforces consistent translations of specific terms between a source and target language.",
+  "resource_group": "glossaries",
+  "endpoint": "/v2/glossaries",
+  "method": "POST",
+  "parameters": [
+    {"name": "name", "type": "string", "required": true, "description": "Glossary name."},
+    {"name": "source_lang", "type": "string", "required": true, "description": "Source language code."},
+    {"name": "target_lang", "type": "string", "required": true, "description": "Target language code."},
+    {"name": "entries", "type": "string", "required": true, "description": "Glossary entries content."},
+    {"name": "entries_format", "type": "string", "required": true, "description": "Format: 'tsv' or 'csv'."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.deepl.com/v2/glossaries",
+    "headers": {"Authorization": "DeepL-Auth-Key your-api-key-here", "Content-Type": "application/json"},
+    "body": {"name": "Tech Terms", "source_lang": "EN", "target_lang": "DE", "entries": "machine learning\tMaschinelles Lernen\nartificial intelligence\tKuenstliche Intelligenz", "entries_format": "tsv"}
+  },
+  "response_example": {"status": 201, "body": {"glossary_id": "gls123", "name": "Tech Terms", "ready": true, "source_lang": "EN", "target_lang": "DE", "entry_count": 2}}
+}

@@ -1,0 +1,58 @@
+{
+  "name": "courses_get",
+  "description": "Retrieve detailed information about a specific course by its ID or slug.",
+  "endpoint": "/api/courses.v1/{id}",
+  "method": "GET",
+  "resource_group": "courses",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The course ID or slug identifier.",
+      "required": true,
+      "example": "v8qYJQagEeWmMRLT3bGEhg"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to include in the response.",
+      "required": false,
+      "example": "name,slug,description,photoUrl,partnerIds,instructorIds,courseType,domainTypes"
+    },
+    {
+      "name": "includes",
+      "type": "string",
+      "description": "Comma-separated list of linked resources to include.",
+      "required": false,
+      "example": "instructorIds,partnerIds"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/courses.v1/v8qYJQagEeWmMRLT3bGEhg?fields=name,slug,description,photoUrl,partnerIds,instructorIds",
+    "headers": {},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "v8qYJQagEeWmMRLT3bGEhg",
+          "slug": "machine-learning",
+          "name": "Machine Learning",
+          "description": "This course provides a broad introduction to machine learning, datamining, and statistical pattern recognition.",
+          "photoUrl": "https://coursera-course-photos.s3.amazonaws.com/ml/machine-learning.jpg",
+          "partnerIds": ["stanford"],
+          "instructorIds": ["andrewng"],
+          "courseType": "v2.ondemand"
+        }
+      ],
+      "linked": {}
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

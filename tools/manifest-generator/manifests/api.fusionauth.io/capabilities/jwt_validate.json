@@ -1,0 +1,38 @@
+{
+  "name": "jwt_validate",
+  "resource_group": "jwt",
+  "description": "Validate a JWT access token and return its claims.",
+  "endpoint": "/api/jwt/validate",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "Authorization",
+      "type": "string",
+      "required": true,
+      "description": "Bearer token in Authorization header.",
+      "in": "header"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://fusionauth.example.com/api/jwt/validate",
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOi..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "jwt": {
+        "sub": "user-uuid",
+        "email": "alice@example.com",
+        "applicationId": "app-uuid",
+        "roles": [
+          "user"
+        ],
+        "iat": 1702656000,
+        "exp": 1702659600
+      }
+    }
+  }
+}

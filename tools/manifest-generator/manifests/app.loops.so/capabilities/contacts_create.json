@@ -1,0 +1,81 @@
+{
+  "name": "contacts_create",
+  "description": "Create a new contact in Loops with email and custom properties.",
+  "endpoint": "/api/v1/contacts",
+  "method": "POST",
+  "resource_group": "contacts",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Contact email address.",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "firstName",
+      "type": "string",
+      "description": "Contact first name.",
+      "required": false,
+      "example": "John"
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "description": "Contact last name.",
+      "required": false,
+      "example": "Doe"
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "description": "Source of the contact.",
+      "required": false,
+      "example": "api"
+    },
+    {
+      "name": "subscribed",
+      "type": "boolean",
+      "description": "Email subscription status.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "mailingLists",
+      "type": "object",
+      "description": "Mailing list subscriptions as key-value pairs.",
+      "required": false
+    },
+    {
+      "name": "userGroup",
+      "type": "string",
+      "description": "User group assignment.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.loops.so/api/v1/contacts",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "user@example.com",
+      "firstName": "John",
+      "lastName": "Doe",
+      "subscribed": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "id": "contact_abc123"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "entries_get",
+  "description": "Retrieve a single content entry by its ID with optional linked content resolution and locale selection.",
+  "endpoint": "/spaces/{space_id}/environments/{environment_id}/entries/{entry_id}",
+  "method": "GET",
+  "resource_group": "entries",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "string",
+      "description": "The space ID.",
+      "required": true,
+      "example": "cfexampleapi"
+    },
+    {
+      "name": "environment_id",
+      "type": "string",
+      "description": "The environment ID.",
+      "required": true,
+      "example": "master"
+    },
+    {
+      "name": "entry_id",
+      "type": "string",
+      "description": "The entry ID.",
+      "required": true,
+      "example": "entry1"
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "Locale code for content. Use * for all locales.",
+      "required": false,
+      "example": "en-US"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/entries/entry1",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sys": {
+        "id": "entry1",
+        "type": "Entry",
+        "contentType": {"sys": {"id": "blogPost"}},
+        "createdAt": "2024-01-10T10:00:00Z",
+        "updatedAt": "2024-01-12T15:00:00Z"
+      },
+      "fields": {
+        "title": "Hello World",
+        "body": "This is my first blog post."
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 78
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "environments_list",
+  "description": "List all environments in a project.",
+  "resource_group": "environments",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "description": "Project ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "query($id: String!) { project(id: $id) { environments { edges { node { id name } } } } }",
+      "variables": {
+        "id": "proj-abc"
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "project": {
+        "environments": {
+          "edges": [
+            {
+              "node": {
+                "id": "env-abc",
+                "name": "production"
+              }
+            },
+            {
+              "node": {
+                "id": "env-def",
+                "name": "staging"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

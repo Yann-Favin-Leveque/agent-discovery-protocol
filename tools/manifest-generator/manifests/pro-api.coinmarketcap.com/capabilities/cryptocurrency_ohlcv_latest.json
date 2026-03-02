@@ -1,0 +1,61 @@
+{
+  "name": "cryptocurrency_ohlcv_latest",
+  "description": "Return the latest OHLCV (Open, High, Low, Close, Volume) values for one or more cryptocurrencies.",
+  "resource_group": "cryptocurrency",
+  "endpoint": "/v1/cryptocurrency/ohlcv/latest",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "CoinMarketCap IDs (comma-separated).",
+      "required": false,
+      "example": "1,2"
+    },
+    {
+      "name": "symbol",
+      "type": "string",
+      "description": "Symbols (comma-separated).",
+      "required": false,
+      "example": "BTC,ETH"
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Quote currency.",
+      "required": false,
+      "example": "USD"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/ohlcv/latest?symbol=BTC",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": {
+        "BTC": {
+          "id": 1,
+          "name": "Bitcoin",
+          "quote": {
+            "USD": {
+              "open": 64000,
+              "high": 66000,
+              "low": 63500,
+              "close": 65000,
+              "volume": 25000000000
+            }
+          }
+        }
+      }
+    }
+  }
+}

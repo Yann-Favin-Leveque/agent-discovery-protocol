@@ -1,0 +1,60 @@
+{
+  "name": "templates_create",
+  "description": "Create a reusable message template for push, email, or SMS.",
+  "resource_group": "templates",
+  "endpoint": "/api/v1/apps/{app_id}/templates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "required": true,
+      "description": "App ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Template name."
+    },
+    {
+      "name": "contents",
+      "type": "object",
+      "required": false,
+      "description": "Push content by language."
+    },
+    {
+      "name": "email_subject",
+      "type": "string",
+      "required": false,
+      "description": "Email subject."
+    },
+    {
+      "name": "email_body",
+      "type": "string",
+      "required": false,
+      "description": "Email HTML body."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.onesignal.com/api/v1/apps/app-uuid/templates",
+    "headers": {
+      "Authorization": "Basic <rest_api_key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Welcome Template",
+      "contents": {
+        "en": "Welcome to our app!"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "tmpl-uuid",
+      "name": "Welcome Template"
+    }
+  }
+}

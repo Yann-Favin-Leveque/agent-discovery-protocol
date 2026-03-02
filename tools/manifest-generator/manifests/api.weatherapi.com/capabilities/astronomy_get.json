@@ -1,0 +1,54 @@
+{
+  "name": "astronomy_get",
+  "description": "Get astronomical data including sunrise, sunset, moonrise, moonset, moon phase, and moon illumination percentage.",
+  "resource_group": "astronomy",
+  "endpoint": "/v1/astronomy.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "Location query: city name, lat/lon, US/UK/Canada postal code, IP address, or 'auto:ip'.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "dt",
+      "type": "string",
+      "required": true,
+      "description": "Date in YYYY-MM-DD format.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.weatherapi.com/v1/astronomy.json?key=YOUR_API_KEY&q=Paris&dt=2025-01-15"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "name": "Paris",
+        "country": "France"
+      },
+      "astronomy": {
+        "astro": {
+          "sunrise": "08:33 AM",
+          "sunset": "05:14 PM",
+          "moonrise": "12:45 PM",
+          "moonset": "02:30 AM",
+          "moon_phase": "Waxing Gibbous",
+          "moon_illumination": 82
+        }
+      }
+    }
+  }
+}

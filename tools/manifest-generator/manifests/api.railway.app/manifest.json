@@ -1,19 +1,176 @@
 {
   "spec_version": "1.0",
   "name": "Railway",
-  "description": "Railway is a cloud platform for deploying applications and infrastructure. Deploy code from GitHub repos, manage services, databases, and environments with automatic scaling and zero-config deployments.",
-  "base_url": "https://backboard.railway.app",
+  "description": "Railway is a cloud platform for deploying applications and infrastructure. Deploy from GitHub repos, manage services, databases, volumes, and environments. Uses a GraphQL API.",
+  "base_url": "https://backboard.railway.app/graphql/v2",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://railway.com/account/tokens"
   },
   "capabilities": [
-    {"name": "list_projects", "description": "List all projects in the authenticated user's Railway account.", "detail_url": "/capabilities/list_projects"},
-    {"name": "create_project", "description": "Create a new Railway project with optional GitHub repo connection.", "detail_url": "/capabilities/create_project"},
-    {"name": "deploy_service", "description": "Trigger a deployment for a service within a project environment.", "detail_url": "/capabilities/deploy_service"},
-    {"name": "manage_variables", "description": "Get, set, or delete environment variables for a service.", "detail_url": "/capabilities/manage_variables"},
-    {"name": "list_deployments", "description": "List recent deployments for a service with status and logs.", "detail_url": "/capabilities/list_deployments"},
-    {"name": "manage_databases", "description": "Provision and manage databases (PostgreSQL, MySQL, Redis, MongoDB) within a project.", "detail_url": "/capabilities/manage_databases"}
+    {
+      "name": "user_get",
+      "resource_group": "user",
+      "description": "Get authenticated user profile.",
+      "detail_url": "/capabilities/user_get"
+    },
+    {
+      "name": "projects_list",
+      "resource_group": "projects",
+      "description": "List all projects with pagination.",
+      "detail_url": "/capabilities/projects_list"
+    },
+    {
+      "name": "projects_get",
+      "resource_group": "projects",
+      "description": "Get project details by ID.",
+      "detail_url": "/capabilities/projects_get"
+    },
+    {
+      "name": "projects_create",
+      "resource_group": "projects",
+      "description": "Create a new Railway project.",
+      "detail_url": "/capabilities/projects_create"
+    },
+    {
+      "name": "projects_delete",
+      "resource_group": "projects",
+      "description": "Delete a project and all resources.",
+      "detail_url": "/capabilities/projects_delete"
+    },
+    {
+      "name": "services_list",
+      "resource_group": "services",
+      "description": "List all services in a project.",
+      "detail_url": "/capabilities/services_list"
+    },
+    {
+      "name": "services_create",
+      "resource_group": "services",
+      "description": "Create a new service from GitHub repo or Docker image.",
+      "detail_url": "/capabilities/services_create"
+    },
+    {
+      "name": "services_delete",
+      "resource_group": "services",
+      "description": "Delete a service.",
+      "detail_url": "/capabilities/services_delete"
+    },
+    {
+      "name": "services_update",
+      "resource_group": "services",
+      "description": "Update service configuration.",
+      "detail_url": "/capabilities/services_update"
+    },
+    {
+      "name": "services_restart",
+      "resource_group": "services",
+      "description": "Restart a running service.",
+      "detail_url": "/capabilities/services_restart"
+    },
+    {
+      "name": "deployments_list",
+      "resource_group": "deployments",
+      "description": "List deployments for a service.",
+      "detail_url": "/capabilities/deployments_list"
+    },
+    {
+      "name": "deployments_trigger",
+      "resource_group": "deployments",
+      "description": "Trigger a new deployment.",
+      "detail_url": "/capabilities/deployments_trigger"
+    },
+    {
+      "name": "deployments_get",
+      "resource_group": "deployments",
+      "description": "Get deployment details.",
+      "detail_url": "/capabilities/deployments_get"
+    },
+    {
+      "name": "deployments_cancel",
+      "resource_group": "deployments",
+      "description": "Cancel an in-progress deployment.",
+      "detail_url": "/capabilities/deployments_cancel"
+    },
+    {
+      "name": "deployments_redeploy",
+      "resource_group": "deployments",
+      "description": "Redeploy a previous deployment.",
+      "detail_url": "/capabilities/deployments_redeploy"
+    },
+    {
+      "name": "variables_list",
+      "resource_group": "variables",
+      "description": "List environment variables for a service.",
+      "detail_url": "/capabilities/variables_list"
+    },
+    {
+      "name": "variables_upsert",
+      "resource_group": "variables",
+      "description": "Create or update an environment variable.",
+      "detail_url": "/capabilities/variables_upsert"
+    },
+    {
+      "name": "variables_delete",
+      "resource_group": "variables",
+      "description": "Delete an environment variable.",
+      "detail_url": "/capabilities/variables_delete"
+    },
+    {
+      "name": "environments_list",
+      "resource_group": "environments",
+      "description": "List all environments in a project.",
+      "detail_url": "/capabilities/environments_list"
+    },
+    {
+      "name": "environments_create",
+      "resource_group": "environments",
+      "description": "Create a new environment.",
+      "detail_url": "/capabilities/environments_create"
+    },
+    {
+      "name": "environments_delete",
+      "resource_group": "environments",
+      "description": "Delete an environment.",
+      "detail_url": "/capabilities/environments_delete"
+    },
+    {
+      "name": "domains_list",
+      "resource_group": "domains",
+      "description": "List custom domains for a service.",
+      "detail_url": "/capabilities/domains_list"
+    },
+    {
+      "name": "domains_create",
+      "resource_group": "domains",
+      "description": "Add a custom domain.",
+      "detail_url": "/capabilities/domains_create"
+    },
+    {
+      "name": "domains_delete",
+      "resource_group": "domains",
+      "description": "Remove a custom domain.",
+      "detail_url": "/capabilities/domains_delete"
+    },
+    {
+      "name": "volumes_list",
+      "resource_group": "volumes",
+      "description": "List persistent volumes in a project.",
+      "detail_url": "/capabilities/volumes_list"
+    },
+    {
+      "name": "volumes_create",
+      "resource_group": "volumes",
+      "description": "Create and attach a persistent volume.",
+      "detail_url": "/capabilities/volumes_create"
+    },
+    {
+      "name": "volumes_delete",
+      "resource_group": "volumes",
+      "description": "Delete a persistent volume.",
+      "detail_url": "/capabilities/volumes_delete"
+    }
   ]
 }

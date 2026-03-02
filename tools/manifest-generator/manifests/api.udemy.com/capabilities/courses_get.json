@@ -1,0 +1,49 @@
+{
+  "name": "courses_get",
+  "description": "Retrieve detailed information about a specific Udemy course including description, curriculum, instructor, and ratings.",
+  "endpoint": "/api-2.0/courses/{course_id}/",
+  "method": "GET",
+  "resource_group": "courses",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "The numeric course ID",
+      "required": true,
+      "example": "1234"
+    },
+    {
+      "name": "fields[course]",
+      "type": "string",
+      "description": "Comma-separated list of course fields to return",
+      "required": false,
+      "example": "title,headline,description,num_lectures,avg_rating,num_reviews,num_subscribers,content_info,visible_instructors"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://www.udemy.com/api-2.0/courses/1234/",
+    "headers": {
+      "Authorization": "Basic {base64_client_id:client_secret}",
+      "Accept": "application/json, text/plain, */*"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1234,
+      "title": "Complete Python Bootcamp",
+      "headline": "Learn Python like a Professional",
+      "description": "Full course description...",
+      "num_lectures": 185,
+      "avg_rating": 4.6,
+      "num_reviews": 450000,
+      "num_subscribers": 1500000
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

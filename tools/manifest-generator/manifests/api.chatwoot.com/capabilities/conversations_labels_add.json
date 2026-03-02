@@ -1,0 +1,24 @@
+{
+  "name": "conversations_labels_add",
+  "description": "Add labels to a conversation for categorization and filtering.",
+  "endpoint": "/api/v1/accounts/{account_id}/conversations/{conversation_id}/labels",
+  "method": "POST",
+  "resource_group": "conversations",
+  "parameters": [
+    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
+    {"name": "conversation_id", "type": "integer", "description": "Conversation ID.", "required": true, "example": 101},
+    {"name": "labels", "type": "array", "description": "Labels to set on the conversation.", "required": true, "example": ["vip", "billing"]}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chatwoot.com/api/v1/accounts/1/conversations/101/labels",
+    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
+    "body": {"labels": ["vip", "billing"]}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"payload": ["vip", "billing"]}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 250}
+}

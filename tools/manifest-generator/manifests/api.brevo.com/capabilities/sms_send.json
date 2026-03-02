@@ -1,0 +1,56 @@
+{
+  "name": "sms_send",
+  "description": "Send a transactional SMS.",
+  "resource_group": "sms",
+  "endpoint": "/transactionalSMS/sms",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "sender",
+      "type": "string",
+      "description": "Sender name (max 11 chars).",
+      "required": true,
+      "example": "MyApp"
+    },
+    {
+      "name": "recipient",
+      "type": "string",
+      "description": "Recipient phone number.",
+      "required": true,
+      "example": "+14155551234"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "SMS content.",
+      "required": true,
+      "example": "Your code is 123456"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "transactional or marketing.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/transactionalSMS/sms",
+    "headers": {
+      "api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sender": "MyApp",
+      "recipient": "+14155551234",
+      "content": "Your code is 123456"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "reference": "sms_123",
+      "messageId": 456
+    }
+  }
+}

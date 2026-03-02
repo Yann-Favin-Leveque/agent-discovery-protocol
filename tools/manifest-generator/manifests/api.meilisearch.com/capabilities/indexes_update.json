@@ -1,0 +1,50 @@
+{
+  "name": "indexes_update",
+  "description": "Update the primary key of an index. Returns an asynchronous task.",
+  "endpoint": "/indexes/{indexUid}",
+  "method": "PATCH",
+  "resource_group": "indexes",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "primaryKey",
+      "type": "string",
+      "description": "New primary key for the index.",
+      "required": true,
+      "example": "movie_id"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.meilisearch.com/indexes/movies",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "primaryKey": "movie_id"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "taskUid": 1,
+      "indexUid": "movies",
+      "status": "enqueued",
+      "type": "indexUpdate",
+      "enqueuedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "indexes.update"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

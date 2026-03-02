@@ -1,0 +1,75 @@
+{
+  "name": "messages_list",
+  "description": "Lists the messages in the user's mailbox. Returns message IDs and thread IDs with optional search filtering.",
+  "resource_group": "messages",
+  "endpoint": "/gmail/v1/users/{userId}/messages",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "maxResults",
+      "type": "number",
+      "description": "Maximum number of messages to return (max 500).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Search query, same format as Gmail search box.",
+      "required": false,
+      "example": "is:unread"
+    },
+    {
+      "name": "labelIds",
+      "type": "array",
+      "description": "Only return messages with these label IDs.",
+      "required": false,
+      "example": [
+        "INBOX"
+      ]
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Page token for pagination.",
+      "required": false
+    },
+    {
+      "name": "includeSpamTrash",
+      "type": "boolean",
+      "description": "Include messages from SPAM and TRASH.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=10&q=is:unread",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "messages": [
+        {
+          "id": "18e2abc123",
+          "threadId": "18e2abc123"
+        }
+      ],
+      "nextPageToken": "token123",
+      "resultSizeEstimate": 42
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.readonly"
+  ]
+}

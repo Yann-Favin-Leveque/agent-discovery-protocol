@@ -1,0 +1,51 @@
+{
+  "name": "templates_list",
+  "description": "Retrieve all templates with pagination.",
+  "resource_group": "templates",
+  "endpoint": "/templates",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "Count",
+      "type": "number",
+      "description": "Number of templates to return.",
+      "required": true,
+      "example": 100
+    },
+    {
+      "name": "Offset",
+      "type": "number",
+      "description": "Records to skip.",
+      "required": true,
+      "example": 0
+    },
+    {
+      "name": "TemplateType",
+      "type": "string",
+      "description": "Filter: Standard, Layout, or All.",
+      "required": false,
+      "example": "All"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.postmarkapp.com/templates?Count=100&Offset=0",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TotalCount": 5,
+      "Templates": [
+        {
+          "TemplateId": 12345,
+          "Name": "Welcome",
+          "Active": true
+        }
+      ]
+    }
+  }
+}

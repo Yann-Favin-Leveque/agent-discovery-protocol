@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "MessageBird Communications API",
-  "description": "MessageBird provides a cloud communications platform for sending SMS messages, managing conversations across channels, and performing phone number lookups. Use this API to send transactional or marketing SMS, build omnichannel messaging workflows, retrieve message delivery details, and validate phone numbers with carrier and format information.",
+  "description": "MessageBird provides a cloud communications platform for sending SMS and voice messages, managing omnichannel conversations, verifying phone numbers, and performing number lookups. Use this API to send transactional or marketing messages, build messaging workflows, implement 2FA verification, and validate phone numbers.",
   "base_url": "https://rest.messagebird.com",
   "auth": {
     "type": "api_key",
@@ -10,35 +10,37 @@
     "setup_url": "https://dashboard.messagebird.com/en/sign-up"
   },
   "capabilities": [
-    {
-      "name": "send_message",
-      "description": "Send an SMS message to one or more phone numbers. Specify a list of recipient numbers, a sender name or number, and the message body. Returns a message object with delivery status per recipient.",
-      "detail_url": "/capabilities/send_message"
-    },
-    {
-      "name": "view_message",
-      "description": "Retrieve the details of a previously sent message by its unique ID. Returns full message metadata including delivery status per recipient, timestamps, and pricing information.",
-      "detail_url": "/capabilities/view_message"
-    },
-    {
-      "name": "list_messages",
-      "description": "List recently sent and received messages on your account. Returns a paginated list of message objects with delivery statuses. Useful for auditing message history and monitoring delivery rates.",
-      "detail_url": "/capabilities/list_messages"
-    },
-    {
-      "name": "create_conversation",
-      "description": "Start a new omnichannel conversation with a contact. Conversations support messaging across SMS, WhatsApp, Facebook Messenger, and other channels from a unified thread.",
-      "detail_url": "/capabilities/create_conversation"
-    },
-    {
-      "name": "send_conversation_message",
-      "description": "Send a message within an existing conversation. The message is delivered through the conversation's active channel. Supports text, images, and other rich content types.",
-      "detail_url": "/capabilities/send_conversation_message"
-    },
-    {
-      "name": "lookup_phone",
-      "description": "Perform a phone number lookup to get carrier information, number type (mobile/fixed-line), country, and formatted versions of the number. Useful for validating phone numbers before sending messages and detecting number type.",
-      "detail_url": "/capabilities/lookup_phone"
-    }
+    {"name": "messages_create", "resource_group": "messages", "description": "Send an SMS message to one or more recipients. Specify sender, recipients, and message body.", "detail_url": "/capabilities/messages_create"},
+    {"name": "messages_get", "resource_group": "messages", "description": "Retrieve details and delivery status of a previously sent SMS message by its ID.", "detail_url": "/capabilities/messages_get"},
+    {"name": "messages_list", "resource_group": "messages", "description": "List recently sent and received SMS messages with delivery status information.", "detail_url": "/capabilities/messages_list"},
+    {"name": "voice_messages_create", "resource_group": "voice_messages", "description": "Send a voice message (text-to-speech call) to one or more phone numbers.", "detail_url": "/capabilities/voice_messages_create"},
+    {"name": "voice_messages_get", "resource_group": "voice_messages", "description": "Retrieve details of a previously sent voice message by its ID.", "detail_url": "/capabilities/voice_messages_get"},
+    {"name": "voice_messages_list", "resource_group": "voice_messages", "description": "List all voice messages sent from your account.", "detail_url": "/capabilities/voice_messages_list"},
+    {"name": "verify_create", "resource_group": "verify", "description": "Create a new phone number verification request. Sends a one-time code via SMS or voice.", "detail_url": "/capabilities/verify_create"},
+    {"name": "verify_check", "resource_group": "verify", "description": "Verify a code submitted by a user against an active verification request.", "detail_url": "/capabilities/verify_check"},
+    {"name": "verify_get", "resource_group": "verify", "description": "Retrieve the status of a verification request by its ID.", "detail_url": "/capabilities/verify_get"},
+    {"name": "verify_delete", "resource_group": "verify", "description": "Cancel an active verification request.", "detail_url": "/capabilities/verify_delete"},
+    {"name": "lookup_get", "resource_group": "lookup", "description": "Perform a phone number lookup to get carrier, format, and type information.", "detail_url": "/capabilities/lookup_get"},
+    {"name": "lookup_hlr_create", "resource_group": "lookup", "description": "Create an HLR (Home Location Register) lookup for real-time network availability.", "detail_url": "/capabilities/lookup_hlr_create"},
+    {"name": "lookup_hlr_get", "resource_group": "lookup", "description": "Retrieve the result of a previously created HLR lookup.", "detail_url": "/capabilities/lookup_hlr_get"},
+    {"name": "contacts_create", "resource_group": "contacts", "description": "Create a new contact with phone number, name, and custom fields.", "detail_url": "/capabilities/contacts_create"},
+    {"name": "contacts_get", "resource_group": "contacts", "description": "Retrieve a contact by ID including all profile information and custom fields.", "detail_url": "/capabilities/contacts_get"},
+    {"name": "contacts_list", "resource_group": "contacts", "description": "List all contacts in your account with optional filtering.", "detail_url": "/capabilities/contacts_list"},
+    {"name": "contacts_update", "resource_group": "contacts", "description": "Update a contact's information including custom fields.", "detail_url": "/capabilities/contacts_update"},
+    {"name": "contacts_delete", "resource_group": "contacts", "description": "Delete a contact from your account by ID.", "detail_url": "/capabilities/contacts_delete"},
+    {"name": "groups_create", "resource_group": "groups", "description": "Create a new contact group for organizing contacts.", "detail_url": "/capabilities/groups_create"},
+    {"name": "groups_list", "resource_group": "groups", "description": "List all contact groups in your account.", "detail_url": "/capabilities/groups_list"},
+    {"name": "groups_get", "resource_group": "groups", "description": "Retrieve a contact group by its ID.", "detail_url": "/capabilities/groups_get"},
+    {"name": "groups_update", "resource_group": "groups", "description": "Update a contact group's name.", "detail_url": "/capabilities/groups_update"},
+    {"name": "groups_delete", "resource_group": "groups", "description": "Delete a contact group by its ID.", "detail_url": "/capabilities/groups_delete"},
+    {"name": "groups_members_add", "resource_group": "groups", "description": "Add contacts to a group by their contact IDs.", "detail_url": "/capabilities/groups_members_add"},
+    {"name": "groups_members_remove", "resource_group": "groups", "description": "Remove a contact from a group.", "detail_url": "/capabilities/groups_members_remove"},
+    {"name": "conversations_create", "resource_group": "conversations", "description": "Start a new omnichannel conversation by sending the first message to a contact.", "detail_url": "/capabilities/conversations_create"},
+    {"name": "conversations_list", "resource_group": "conversations", "description": "List conversations with optional filtering by status and contact.", "detail_url": "/capabilities/conversations_list"},
+    {"name": "conversations_get", "resource_group": "conversations", "description": "Retrieve a conversation by ID with its messages.", "detail_url": "/capabilities/conversations_get"},
+    {"name": "conversations_update", "resource_group": "conversations", "description": "Update a conversation's status (active, archived).", "detail_url": "/capabilities/conversations_update"},
+    {"name": "conversations_messages_create", "resource_group": "conversations", "description": "Send a message within an existing conversation.", "detail_url": "/capabilities/conversations_messages_create"},
+    {"name": "conversations_messages_list", "resource_group": "conversations", "description": "List all messages within a specific conversation.", "detail_url": "/capabilities/conversations_messages_list"},
+    {"name": "balance_get", "resource_group": "account", "description": "Retrieve your current account balance and payment type.", "detail_url": "/capabilities/balance_get"}
   ]
 }

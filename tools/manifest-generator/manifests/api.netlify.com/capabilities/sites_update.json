@@ -1,0 +1,52 @@
+{
+  "name": "sites_update",
+  "description": "Update a site's settings including build configuration and custom domain.",
+  "endpoint": "/api/v1/sites/{site_id}",
+  "method": "PATCH",
+  "resource_group": "sites",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "string",
+      "description": "Site ID",
+      "required": true,
+      "example": "site_abc"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated site name",
+      "required": false,
+      "example": "updated-name"
+    },
+    {
+      "name": "custom_domain",
+      "type": "string",
+      "description": "Custom domain",
+      "required": false,
+      "example": "www.example.com"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.netlify.com/api/v1/sites/{site_id}",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "updated-name"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "site_abc",
+      "name": "updated-name"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "opportunities_interviews_update",
+  "resource_group": "Opportunities",
+  "endpoint": "/v1/opportunities/{opportunity}/interviews/{interview}",
+  "method": "PUT",
+  "description": "Update an existing interview.",
+  "parameters": [
+    {
+      "name": "opportunity",
+      "type": "string",
+      "required": true,
+      "description": "Opportunity UUID."
+    },
+    {
+      "name": "interview",
+      "type": "string",
+      "required": true,
+      "description": "Interview UUID."
+    },
+    {
+      "name": "date",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp."
+    },
+    {
+      "name": "interviewers",
+      "type": "array",
+      "required": false,
+      "description": "User UUIDs."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.lever.co/v1/opportunities/abc-123/interviews/int-1",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "date": 1700100000000
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "int-1",
+        "date": 1700100000000
+      }
+    }
+  }
+}

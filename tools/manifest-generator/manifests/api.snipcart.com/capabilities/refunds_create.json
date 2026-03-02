@@ -1,0 +1,49 @@
+{
+  "name": "refunds_create",
+  "description": "Create a refund for an order.",
+  "resource_group": "refunds",
+  "endpoint": "/orders/{token}/refunds",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "Order token."
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "required": true,
+      "description": "Refund amount.",
+      "example": 15.0
+    },
+    {
+      "name": "comment",
+      "type": "string",
+      "required": false,
+      "description": "Reason for refund."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.snipcart.com/api/orders/order-uuid/refunds",
+    "headers": {
+      "Authorization": "Basic {api_key_base64}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": 15.0,
+      "comment": "Customer request"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "refund-uuid",
+      "amount": 15.0,
+      "comment": "Customer request",
+      "refundedByPaymentGateway": true
+    }
+  }
+}

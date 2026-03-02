@@ -1,0 +1,20 @@
+{
+  "name": "inquiries_redact",
+  "description": "Permanently redact all personally identifiable information (PII) from an inquiry. This action is irreversible.",
+  "resource_group": "inquiries",
+  "endpoint": "/inquiries/{inquiry_id}/redact",
+  "method": "POST",
+  "parameters": [
+    {"name": "inquiry_id", "type": "string", "description": "The inquiry ID to redact.", "required": true, "example": "inq_abc123"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://withpersona.com/api/v1/inquiries/inq_abc123/redact",
+    "headers": {"Authorization": "Bearer {api_key}", "Persona-Version": "2023-01-05"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"type": "inquiry", "id": "inq_abc123", "attributes": {"status": "approved", "redacted-at": "2024-01-20T10:00:00.000Z"}}}
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

@@ -1,0 +1,92 @@
+{
+  "name": "events_read",
+  "description": "Read events from the authenticated user's calendars with filtering by date range, calendar IDs, modification timestamp, and support for incremental synchronization.",
+  "endpoint": "/v1/events",
+  "method": "GET",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "tzid",
+      "type": "string",
+      "required": true,
+      "description": "IANA Time Zone Database identifier (e.g., 'Etc/UTC', 'America/New_York').",
+      "example": "America/New_York"
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": false,
+      "description": "Oldest date to return events (ISO 8601 date). Must be within the last 42 days."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": false,
+      "description": "Return events up to this date (ISO 8601 date). Max 201 days in the future."
+    },
+    {
+      "name": "calendar_ids[]",
+      "type": "array",
+      "required": false,
+      "description": "Restrict results to specific calendar IDs."
+    },
+    {
+      "name": "last_modified",
+      "type": "string",
+      "required": false,
+      "description": "Return events modified on or after this ISO 8601 timestamp. For incremental sync."
+    },
+    {
+      "name": "include_deleted",
+      "type": "boolean",
+      "required": false,
+      "description": "Include events that have been deleted."
+    },
+    {
+      "name": "include_managed",
+      "type": "boolean",
+      "required": false,
+      "description": "Include events created by your application."
+    },
+    {
+      "name": "localized_times",
+      "type": "boolean",
+      "required": false,
+      "description": "Include timezone info with start/end times."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cronofy.com/v1/events?tzid=America/New_York&from=2024-01-15&to=2024-02-15",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "pages": {
+        "current": 1,
+        "total": 1
+      },
+      "events": [
+        {
+          "calendar_id": "cal_n23kjnwrw2_abc123",
+          "event_uid": "evt_external_54008b1a4a41730f8d5c6037",
+          "summary": "Team Standup",
+          "description": "Daily standup meeting",
+          "start": "2024-01-16T09:00:00-05:00",
+          "end": "2024-01-16T09:30:00-05:00",
+          "location": { "description": "Conference Room A" },
+          "participation_status": "accepted",
+          "status": "confirmed",
+          "transparency": "opaque"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["read_events"],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

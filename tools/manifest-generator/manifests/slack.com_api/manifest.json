@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Slack",
-  "description": "Slack API enables bots and apps to send messages, manage channels, upload files, and interact with users and workspaces. Access workspace data programmatically for team communication, file sharing, and workflow automation.",
+  "description": "Slack API enables bots and apps to send messages, manage channels, upload files, search messages, add reactions, manage pins and reminders, and interact with users and workspaces.",
   "base_url": "https://slack.com/api",
   "auth": {
     "type": "oauth2",
@@ -14,48 +14,262 @@
       "chat:write.public",
       "channels:read",
       "channels:history",
+      "groups:read",
+      "groups:history",
+      "im:read",
+      "im:history",
+      "mpim:read",
+      "mpim:history",
       "files:write",
+      "files:read",
       "users:read",
+      "users:read.email",
       "search:read",
-      "reactions:write"
+      "reactions:write",
+      "reactions:read",
+      "pins:write",
+      "pins:read",
+      "reminders:write",
+      "reminders:read",
+      "bookmarks:write",
+      "bookmarks:read"
     ],
     "setup_url": "https://api.slack.com/apps"
   },
   "capabilities": [
     {
-      "name": "post_message",
-      "description": "Send a message to a Slack channel or direct message. Supports text, blocks, and attachments for rich formatting.",
-      "detail_url": "/capabilities/post_message"
+      "name": "chat_postMessage",
+      "description": "Send a message to a channel, DM, or group. Supports text, blocks, and attachments for rich formatting.",
+      "resource_group": "chat",
+      "detail_url": "/capabilities/chat_postMessage"
     },
     {
-      "name": "list_channels",
-      "description": "Retrieve a list of all channels in the workspace. Get channel names, IDs, topics, and membership information.",
-      "detail_url": "/capabilities/list_channels"
+      "name": "chat_update",
+      "description": "Update an existing message's text, blocks, or attachments.",
+      "resource_group": "chat",
+      "detail_url": "/capabilities/chat_update"
     },
     {
-      "name": "get_channel_history",
-      "description": "Fetch message history from a Slack channel. Retrieve messages, timestamps, and sender information for a specific period.",
-      "detail_url": "/capabilities/get_channel_history"
+      "name": "chat_delete",
+      "description": "Delete a message from a channel.",
+      "resource_group": "chat",
+      "detail_url": "/capabilities/chat_delete"
     },
     {
-      "name": "upload_file",
-      "description": "Upload a file to Slack and share it in a channel. Supports all file types with optional titles and comments.",
-      "detail_url": "/capabilities/upload_file"
+      "name": "chat_postEphemeral",
+      "description": "Send an ephemeral message visible only to a specific user in a channel.",
+      "resource_group": "chat",
+      "detail_url": "/capabilities/chat_postEphemeral"
     },
     {
-      "name": "list_users",
-      "description": "Get a list of all users in the workspace. Retrieve user IDs, names, emails, and status information.",
-      "detail_url": "/capabilities/list_users"
+      "name": "chat_scheduleMessage",
+      "description": "Schedule a message to be sent at a future time.",
+      "resource_group": "chat",
+      "detail_url": "/capabilities/chat_scheduleMessage"
+    },
+    {
+      "name": "chat_getPermalink",
+      "description": "Get a permalink URL for a specific message.",
+      "resource_group": "chat",
+      "detail_url": "/capabilities/chat_getPermalink"
+    },
+    {
+      "name": "chat_unfurl",
+      "description": "Provide custom unfurl behavior for URLs in messages.",
+      "resource_group": "chat",
+      "detail_url": "/capabilities/chat_unfurl"
+    },
+    {
+      "name": "conversations_list",
+      "description": "List all channels (public, private, IMs, MPIMs) in a workspace.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_list"
+    },
+    {
+      "name": "conversations_info",
+      "description": "Retrieve information about a specific channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_info"
+    },
+    {
+      "name": "conversations_history",
+      "description": "Fetch message history from a channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_history"
+    },
+    {
+      "name": "conversations_replies",
+      "description": "Retrieve all replies in a message thread.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_replies"
+    },
+    {
+      "name": "conversations_create",
+      "description": "Create a new public or private channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_create"
+    },
+    {
+      "name": "conversations_invite",
+      "description": "Invite users to a channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_invite"
+    },
+    {
+      "name": "conversations_kick",
+      "description": "Remove a user from a channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_kick"
+    },
+    {
+      "name": "conversations_archive",
+      "description": "Archive a channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_archive"
+    },
+    {
+      "name": "conversations_unarchive",
+      "description": "Unarchive a channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_unarchive"
+    },
+    {
+      "name": "conversations_setTopic",
+      "description": "Set the topic of a channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_setTopic"
+    },
+    {
+      "name": "conversations_setPurpose",
+      "description": "Set the purpose of a channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_setPurpose"
+    },
+    {
+      "name": "conversations_members",
+      "description": "List members of a channel.",
+      "resource_group": "conversations",
+      "detail_url": "/capabilities/conversations_members"
+    },
+    {
+      "name": "users_list",
+      "description": "List all users in the workspace.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_list"
+    },
+    {
+      "name": "users_info",
+      "description": "Retrieve information about a specific user.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_info"
+    },
+    {
+      "name": "users_lookupByEmail",
+      "description": "Find a user by their email address.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_lookupByEmail"
+    },
+    {
+      "name": "files_upload",
+      "description": "Upload a file to Slack and share it in channels.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_upload"
+    },
+    {
+      "name": "files_list",
+      "description": "List files shared in the workspace.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_list"
+    },
+    {
+      "name": "files_delete",
+      "description": "Delete a file from the workspace.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_delete"
+    },
+    {
+      "name": "reactions_add",
+      "description": "Add an emoji reaction to a message.",
+      "resource_group": "reactions",
+      "detail_url": "/capabilities/reactions_add"
+    },
+    {
+      "name": "reactions_remove",
+      "description": "Remove an emoji reaction from a message.",
+      "resource_group": "reactions",
+      "detail_url": "/capabilities/reactions_remove"
+    },
+    {
+      "name": "reactions_get",
+      "description": "Get reactions for a specific message.",
+      "resource_group": "reactions",
+      "detail_url": "/capabilities/reactions_get"
     },
     {
       "name": "search_messages",
-      "description": "Search for messages across the workspace using keywords and filters. Find messages by content, date, and user.",
+      "description": "Search for messages across the workspace using keywords and filters.",
+      "resource_group": "search",
       "detail_url": "/capabilities/search_messages"
     },
     {
-      "name": "add_reaction",
-      "description": "Add an emoji reaction to a message. Express sentiment or acknowledge messages with emoji reactions.",
-      "detail_url": "/capabilities/add_reaction"
+      "name": "search_files",
+      "description": "Search for files across the workspace.",
+      "resource_group": "search",
+      "detail_url": "/capabilities/search_files"
+    },
+    {
+      "name": "pins_add",
+      "description": "Pin a message to a channel.",
+      "resource_group": "pins",
+      "detail_url": "/capabilities/pins_add"
+    },
+    {
+      "name": "pins_remove",
+      "description": "Unpin a message from a channel.",
+      "resource_group": "pins",
+      "detail_url": "/capabilities/pins_remove"
+    },
+    {
+      "name": "pins_list",
+      "description": "List pinned items in a channel.",
+      "resource_group": "pins",
+      "detail_url": "/capabilities/pins_list"
+    },
+    {
+      "name": "reminders_add",
+      "description": "Create a reminder for a user.",
+      "resource_group": "reminders",
+      "detail_url": "/capabilities/reminders_add"
+    },
+    {
+      "name": "reminders_list",
+      "description": "List all reminders for the authenticated user.",
+      "resource_group": "reminders",
+      "detail_url": "/capabilities/reminders_list"
+    },
+    {
+      "name": "reminders_delete",
+      "description": "Delete a reminder.",
+      "resource_group": "reminders",
+      "detail_url": "/capabilities/reminders_delete"
+    },
+    {
+      "name": "bookmarks_add",
+      "description": "Add a bookmark to a channel.",
+      "resource_group": "bookmarks",
+      "detail_url": "/capabilities/bookmarks_add"
+    },
+    {
+      "name": "bookmarks_list",
+      "description": "List all bookmarks in a channel.",
+      "resource_group": "bookmarks",
+      "detail_url": "/capabilities/bookmarks_list"
+    },
+    {
+      "name": "bookmarks_remove",
+      "description": "Remove a bookmark from a channel.",
+      "resource_group": "bookmarks",
+      "detail_url": "/capabilities/bookmarks_remove"
     }
   ]
 }

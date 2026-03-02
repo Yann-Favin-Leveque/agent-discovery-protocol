@@ -1,0 +1,69 @@
+{
+  "name": "project_create",
+  "description": "Create a new translation project with specified source and target languages, workflow, and settings. Supports multipart form-data to optionally include files during creation.",
+  "resource_group": "projects",
+  "endpoint": "/api/integration/v1/project/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Project name."
+    },
+    {
+      "name": "sourceLanguage",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Source language code (e.g., 'en')."
+    },
+    {
+      "name": "targetLanguages",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of target language codes (e.g., ['fr', 'de', 'es'])."
+    },
+    {
+      "name": "assignToVendor",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "Whether to assign the project to a vendor."
+    },
+    {
+      "name": "deadline",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Project deadline in ISO 8601 format."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://smartcat.com/api/integration/v1/project/create",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Website Localization Q1",
+      "sourceLanguage": "en",
+      "targetLanguages": ["fr", "de", "es"],
+      "assignToVendor": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "project-uuid-123",
+      "name": "Website Localization Q1",
+      "sourceLanguage": "en",
+      "targetLanguages": ["fr", "de", "es"],
+      "status": "created",
+      "createdAt": "2026-03-01T12:00:00.000Z"
+    }
+  }
+}

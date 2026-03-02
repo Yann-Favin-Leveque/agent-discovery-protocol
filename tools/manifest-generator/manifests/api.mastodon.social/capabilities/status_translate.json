@@ -1,0 +1,47 @@
+{
+  "name": "status_translate",
+  "resource_group": "statuses",
+  "description": "Translate a status into a target language.",
+  "endpoint": "/api/v1/statuses/{id}/translate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Status ID.",
+      "required": true,
+      "in": "path",
+      "example": "109876543210"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "description": "Target ISO 639-1 language code.",
+      "required": false,
+      "in": "body",
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mastodon.social/api/v1/statuses/109876543210/translate",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "lang": "en"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "content": "<p>Translated text</p>",
+      "detected_source_language": "fr",
+      "provider": "DeepL"
+    }
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

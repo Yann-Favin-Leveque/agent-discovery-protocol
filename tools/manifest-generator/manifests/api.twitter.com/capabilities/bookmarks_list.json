@@ -1,0 +1,48 @@
+{
+  "name": "bookmarks_list",
+  "description": "List bookmarked tweets.",
+  "resource_group": "bookmarks",
+  "endpoint": "/2/users/{id}/bookmarks",
+  "method": "GET",
+  "auth_scopes": [
+    "bookmark.read"
+  ],
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Authenticated user ID."
+    },
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "tweet.fields",
+      "type": "string",
+      "required": false,
+      "description": "Tweet fields to return."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twitter.com/2/users/123456/bookmarks?max_results=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "123",
+          "text": "Bookmarked tweet"
+        }
+      ]
+    }
+  }
+}

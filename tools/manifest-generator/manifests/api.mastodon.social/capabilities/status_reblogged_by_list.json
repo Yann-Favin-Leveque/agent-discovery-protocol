@@ -1,0 +1,45 @@
+{
+  "name": "status_reblogged_by_list",
+  "resource_group": "statuses",
+  "description": "View who boosted a status.",
+  "endpoint": "/api/v1/statuses/{id}/reblogged_by",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Status ID.",
+      "required": true,
+      "in": "path",
+      "example": "109876543210"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (default 40, max 80).",
+      "required": false,
+      "in": "query",
+      "example": 40
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/statuses/109876543210/reblogged_by",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "12345",
+        "username": "booster1",
+        "display_name": "Booster One"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

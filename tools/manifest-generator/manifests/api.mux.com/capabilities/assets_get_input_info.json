@@ -1,0 +1,46 @@
+{
+  "name": "assets_get_input_info",
+  "resource_group": "assets",
+  "description": "Retrieve input info for an asset including file details and tracks.",
+  "endpoint": "/video/v1/assets/{asset_id}/input-info",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "asset_id",
+      "type": "string",
+      "required": true,
+      "description": "Asset ID.",
+      "in": "path"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mux.com/video/v1/assets/asset_abc123/input-info",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "settings": {
+            "url": "https://example.com/video.mp4"
+          },
+          "file": {
+            "container_format": "mp4",
+            "tracks": [
+              {
+                "type": "video",
+                "width": 1920,
+                "height": 1080,
+                "frame_rate": 30
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

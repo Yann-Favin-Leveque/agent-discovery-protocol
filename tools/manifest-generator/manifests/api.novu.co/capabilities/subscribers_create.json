@@ -1,0 +1,77 @@
+{
+  "name": "subscribers_create",
+  "description": "Create a new subscriber with identification and channel data.",
+  "resource_group": "subscribers",
+  "endpoint": "/v1/subscribers",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "subscriberId",
+      "type": "string",
+      "required": true,
+      "description": "Unique subscriber identifier."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Subscriber email address."
+    },
+    {
+      "name": "firstName",
+      "type": "string",
+      "required": false,
+      "description": "First name."
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "required": false,
+      "description": "Last name."
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "required": false,
+      "description": "Phone number."
+    },
+    {
+      "name": "avatar",
+      "type": "string",
+      "required": false,
+      "description": "Avatar URL."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": false,
+      "description": "Custom data key-value pairs."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.novu.co/v1/subscribers",
+    "headers": {
+      "Authorization": "ApiKey <key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subscriberId": "user123",
+      "email": "user@example.com",
+      "firstName": "John",
+      "lastName": "Doe"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "subscriberId": "user123",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "user@example.com",
+        "channels": []
+      }
+    }
+  }
+}

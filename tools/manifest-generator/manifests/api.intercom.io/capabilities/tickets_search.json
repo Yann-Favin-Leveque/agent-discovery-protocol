@@ -1,0 +1,55 @@
+{
+  "name": "tickets_search",
+  "description": "Search tickets using structured queries with field-based filters.",
+  "resource_group": "tickets",
+  "endpoint": "/tickets/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "object",
+      "required": true,
+      "description": "Search query."
+    },
+    {
+      "name": "pagination",
+      "type": "object",
+      "required": false,
+      "description": "Pagination parameters."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/tickets/search",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "query": {
+        "field": "state",
+        "operator": "=",
+        "value": "submitted"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "ticket.list",
+      "tickets": [
+        {
+          "type": "ticket",
+          "id": "ticket-123",
+          "state": "submitted"
+        }
+      ],
+      "pages": {
+        "type": "pages",
+        "per_page": 20,
+        "total_pages": 1
+      }
+    }
+  }
+}

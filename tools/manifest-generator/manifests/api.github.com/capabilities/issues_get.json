@@ -1,0 +1,60 @@
+{
+  "name": "issues_get",
+  "description": "Get a specific issue by number.",
+  "resource_group": "issues",
+  "endpoint": "/repos/{owner}/{repo}/issues/{issue_number}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "issue_number",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "The issue number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/octocat/my-project/issues/42",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1,
+      "number": 42,
+      "title": "Login page crashes on mobile",
+      "body": "Steps to reproduce...",
+      "state": "open",
+      "labels": [
+        {
+          "name": "bug"
+        }
+      ],
+      "assignee": {
+        "login": "octocat"
+      },
+      "milestone": {
+        "title": "v2.0"
+      },
+      "created_at": "2026-02-28T10:00:00Z"
+    }
+  }
+}

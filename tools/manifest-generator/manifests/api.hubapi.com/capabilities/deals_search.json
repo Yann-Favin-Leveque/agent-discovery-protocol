@@ -1,0 +1,67 @@
+{
+  "name": "deals_search",
+  "description": "Search deals with filters.",
+  "resource_group": "deals",
+  "endpoint": "/crm/v3/objects/deals/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "filterGroups",
+      "type": "array",
+      "required": false,
+      "description": "Filters."
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": false,
+      "description": "Text search."
+    },
+    {
+      "name": "properties",
+      "type": "array",
+      "required": false,
+      "description": "Properties to return."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hubapi.com/crm/v3/objects/deals/search",
+    "body": {
+      "filterGroups": [
+        {
+          "filters": [
+            {
+              "propertyName": "dealstage",
+              "operator": "EQ",
+              "value": "closedwon"
+            }
+          ]
+        }
+      ],
+      "properties": [
+        "dealname",
+        "amount"
+      ],
+      "limit": 10
+    }
+  },
+  "response_example": {
+    "total": 3,
+    "results": [
+      {
+        "id": "701",
+        "properties": {
+          "dealname": "Enterprise Deal",
+          "amount": "50000"
+        }
+      }
+    ]
+  }
+}

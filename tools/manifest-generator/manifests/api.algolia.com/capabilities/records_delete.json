@@ -1,0 +1,42 @@
+{
+  "name": "records_delete",
+  "description": "Delete a specific record from an index by its objectID.",
+  "endpoint": "/1/indexes/{indexName}/{objectID}",
+  "method": "DELETE",
+  "resource_group": "records",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "objectID",
+      "type": "string",
+      "description": "The unique ID of the record to delete.",
+      "required": true,
+      "example": "12345"
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/12345",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "deletedAt": "2024-06-15T10:00:00.000Z",
+      "taskID": 683
+    }
+  },
+  "auth_scopes": ["deleteObject"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

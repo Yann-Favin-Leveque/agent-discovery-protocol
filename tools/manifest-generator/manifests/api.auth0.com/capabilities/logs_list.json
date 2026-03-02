@@ -1,0 +1,26 @@
+{
+  "name": "logs_list",
+  "description": "Retrieve authentication and management event logs from your Auth0 tenant for security auditing.",
+  "endpoint": "/api/v2/logs",
+  "method": "GET",
+  "resource_group": "logs",
+  "parameters": [
+    {"name": "q", "type": "string", "description": "Lucene query to filter logs.", "required": false, "example": "type:\"s\""},
+    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 0},
+    {"name": "per_page", "type": "integer", "description": "Results per page (max 100).", "required": false, "example": 50},
+    {"name": "from", "type": "string", "description": "Log ID to start from (for checkpoint pagination).", "required": false, "example": ""},
+    {"name": "take", "type": "integer", "description": "Number of entries to take (max 100).", "required": false, "example": 100},
+    {"name": "sort", "type": "string", "description": "Sort order: date:1 or date:-1.", "required": false, "example": "date:-1"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://YOUR_DOMAIN.auth0.com/api/v2/logs?per_page=50&sort=date%3A-1",
+    "headers": {"Authorization": "Bearer {token}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{"log_id": "90020241015000000000000001", "date": "2024-06-15T10:00:00.000Z", "type": "s", "description": "Successful login", "ip": "203.0.113.1", "user_id": "auth0|507f1f77bcf86cd799439011"}]
+  },
+  "auth_scopes": ["read:logs"],
+  "rate_limits": {"requests_per_minute": 50}
+}

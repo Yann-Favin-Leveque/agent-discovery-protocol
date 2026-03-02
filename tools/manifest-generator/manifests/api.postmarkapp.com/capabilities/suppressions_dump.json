@@ -1,0 +1,47 @@
+{
+  "name": "suppressions_dump",
+  "description": "Retrieve suppressions for a message stream.",
+  "resource_group": "suppressions",
+  "endpoint": "/message-streams/{stream_id}/suppressions/dump",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "stream_id",
+      "type": "string",
+      "description": "Message stream ID.",
+      "required": true,
+      "example": "outbound"
+    },
+    {
+      "name": "SuppressionReason",
+      "type": "string",
+      "description": "Filter: HardBounce, SpamComplaint, ManualSuppression.",
+      "required": false
+    },
+    {
+      "name": "Origin",
+      "type": "string",
+      "description": "Filter: Recipient, Customer, Admin.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.postmarkapp.com/message-streams/outbound/suppressions/dump",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Suppressions": [
+        {
+          "EmailAddress": "bounce@example.com",
+          "SuppressionReason": "HardBounce"
+        }
+      ]
+    }
+  }
+}

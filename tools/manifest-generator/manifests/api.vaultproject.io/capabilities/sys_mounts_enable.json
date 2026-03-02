@@ -1,0 +1,52 @@
+{
+  "name": "sys_mounts_enable",
+  "description": "Enable a new secrets engine at a specified path.",
+  "resource_group": "system",
+  "endpoint": "/v1/sys/mounts/{path}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "required": true,
+      "description": "Mount path for the secrets engine."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Engine type: kv, transit, pki, aws, database, etc."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Human-readable description."
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "required": false,
+      "description": "Engine-specific options (e.g., {\"version\": \"2\"} for KV)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com/v1/sys/mounts/my-secrets",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "kv",
+      "options": {
+        "version": "2"
+      },
+      "description": "Application secrets"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "draft_list",
+  "description": "List all email drafts for a grant.",
+  "resource_group": "draft",
+  "endpoint": "/v3/grants/{grant_id}/drafts",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "page_token",
+      "type": "string",
+      "description": "Pagination token.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.us.nylas.com/v3/grants/me/drafts?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "draft_abc",
+          "subject": "Draft email",
+          "to": [
+            {
+              "email": "jane@example.com"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

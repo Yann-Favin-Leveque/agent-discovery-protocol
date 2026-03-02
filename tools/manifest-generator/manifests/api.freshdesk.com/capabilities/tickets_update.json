@@ -1,0 +1,26 @@
+{
+  "name": "tickets_update",
+  "description": "Update a ticket's properties such as status, priority, assignee, or custom fields.",
+  "endpoint": "/api/v2/tickets/{id}",
+  "method": "PUT",
+  "resource_group": "tickets",
+  "parameters": [
+    {"name": "id", "type": "integer", "description": "The ticket ID.", "required": true, "example": 1},
+    {"name": "status", "type": "integer", "description": "Updated status.", "required": false, "example": 4},
+    {"name": "priority", "type": "integer", "description": "Updated priority.", "required": false, "example": 3},
+    {"name": "responder_id", "type": "integer", "description": "Agent ID to reassign to.", "required": false, "example": 67890},
+    {"name": "tags", "type": "array", "description": "Updated tags.", "required": false, "example": ["resolved"]}
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://yourdomain.freshdesk.com/api/v2/tickets/1",
+    "headers": {"Authorization": "Basic base64(api_key:X)", "Content-Type": "application/json"},
+    "body": {"status": 4, "priority": 1}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": 1, "subject": "Login issue", "status": 4, "priority": 1}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 80}
+}

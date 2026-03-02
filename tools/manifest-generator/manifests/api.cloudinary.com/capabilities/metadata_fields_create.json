@@ -1,0 +1,78 @@
+{
+  "name": "metadata_fields_create",
+  "resource_group": "metadata",
+  "description": "Create a new structured metadata field definition.",
+  "endpoint": "/v1_1/{cloud_name}/metadata_fields",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "external_id",
+      "type": "string",
+      "required": true,
+      "description": "Unique field ID."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Display label."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Field type: string, integer, date, enum, set."
+    },
+    {
+      "name": "mandatory",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether field is required."
+    },
+    {
+      "name": "default_value",
+      "type": "string",
+      "required": false,
+      "description": "Default value."
+    },
+    {
+      "name": "datasource",
+      "type": "object",
+      "required": false,
+      "description": "Datasource for enum/set types."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/metadata_fields",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "external_id": "category",
+      "label": "Category",
+      "type": "enum",
+      "datasource": {
+        "values": [
+          {
+            "external_id": "electronics",
+            "value": "Electronics"
+          },
+          {
+            "external_id": "clothing",
+            "value": "Clothing"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "external_id": "category",
+      "label": "Category",
+      "type": "enum"
+    }
+  }
+}

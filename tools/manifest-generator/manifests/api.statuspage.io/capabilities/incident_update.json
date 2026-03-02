@@ -1,0 +1,82 @@
+{
+  "name": "incident_update",
+  "description": "Update an existing incident with a new status, message, or affected component changes. Use this to post progress updates, change severity, or resolve incidents.",
+  "resource_group": "incidents",
+  "endpoint": "/v1/pages/{page_id}/incidents/{incident_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the status page."
+    },
+    {
+      "name": "incident_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique identifier of the incident to update."
+    },
+    {
+      "name": "incident[name]",
+      "type": "string",
+      "required": false,
+      "description": "Updated name/title for the incident."
+    },
+    {
+      "name": "incident[status]",
+      "type": "string",
+      "required": false,
+      "description": "New status: investigating, identified, monitoring, resolved."
+    },
+    {
+      "name": "incident[body]",
+      "type": "string",
+      "required": false,
+      "description": "New update message body."
+    },
+    {
+      "name": "incident[impact_override]",
+      "type": "string",
+      "required": false,
+      "description": "Override the calculated impact: none, minor, major, critical."
+    },
+    {
+      "name": "incident[component_ids]",
+      "type": "array",
+      "required": false,
+      "description": "Updated array of affected component IDs."
+    },
+    {
+      "name": "incident[deliver_notifications]",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to send notifications for this update."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.statuspage.io/v1/pages/pg1a2b3c4d5e6/incidents/inc1a2b3c4d5e6",
+    "headers": {
+      "Authorization": "OAuth your-api-key-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "incident": {
+        "status": "resolved",
+        "body": "The issue has been resolved. API latency is back to normal."
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "inc1a2b3c4d5e6",
+      "name": "API Performance Degradation",
+      "status": "resolved",
+      "impact": "minor",
+      "resolved_at": "2026-03-01T11:00:00Z",
+      "updated_at": "2026-03-01T11:00:00Z"
+    }
+  }
+}

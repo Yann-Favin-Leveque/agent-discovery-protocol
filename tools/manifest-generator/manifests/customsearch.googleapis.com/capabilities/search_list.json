@@ -1,0 +1,224 @@
+{
+  "name": "search_list",
+  "description": "Execute a web search query using a Programmable Search Engine. Returns search results with titles, snippets, URLs, and metadata.",
+  "endpoint": "/customsearch/v1",
+  "method": "GET",
+  "resource_group": "search",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "The search query string.",
+      "required": true,
+      "example": "artificial intelligence news"
+    },
+    {
+      "name": "cx",
+      "type": "string",
+      "description": "The Programmable Search Engine ID.",
+      "required": true,
+      "example": "017576662512468239146:omuauf_gy24"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "API key for authentication.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "num",
+      "type": "integer",
+      "description": "Number of search results to return (1-10, default 10).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Index of the first result to return (1-based). Use for pagination.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "lr",
+      "type": "string",
+      "description": "Restrict results to documents in a specific language (e.g., lang_en).",
+      "required": false,
+      "example": "lang_en"
+    },
+    {
+      "name": "cr",
+      "type": "string",
+      "description": "Restrict results to documents originating in a specific country (e.g., countryUS).",
+      "required": false,
+      "example": "countryUS"
+    },
+    {
+      "name": "dateRestrict",
+      "type": "string",
+      "description": "Restrict results by date (e.g., d5 for past 5 days, w2 for past 2 weeks, m1 for past month).",
+      "required": false,
+      "example": "d7"
+    },
+    {
+      "name": "exactTerms",
+      "type": "string",
+      "description": "Phrase that all results must contain.",
+      "required": false,
+      "example": "machine learning"
+    },
+    {
+      "name": "excludeTerms",
+      "type": "string",
+      "description": "Word or phrase to exclude from results.",
+      "required": false,
+      "example": "tutorial"
+    },
+    {
+      "name": "fileType",
+      "type": "string",
+      "description": "Restrict results to a specific file extension (e.g., pdf, doc).",
+      "required": false,
+      "example": "pdf"
+    },
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "Duplicate content filter: 0 (off) or 1 (on).",
+      "required": false,
+      "example": "1"
+    },
+    {
+      "name": "gl",
+      "type": "string",
+      "description": "Geolocation of end user (two-letter country code).",
+      "required": false,
+      "example": "us"
+    },
+    {
+      "name": "hl",
+      "type": "string",
+      "description": "User interface language.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "hq",
+      "type": "string",
+      "description": "Additional search terms combined with AND logic.",
+      "required": false,
+      "example": "2024"
+    },
+    {
+      "name": "imgColorType",
+      "type": "string",
+      "description": "Image color type filter: mono, gray, color, trans. Only for image search.",
+      "required": false,
+      "example": "color"
+    },
+    {
+      "name": "imgDominantColor",
+      "type": "string",
+      "description": "Image dominant color filter: black, blue, brown, gray, green, orange, pink, purple, red, teal, white, yellow.",
+      "required": false,
+      "example": "blue"
+    },
+    {
+      "name": "imgSize",
+      "type": "string",
+      "description": "Image size filter: huge, icon, large, medium, small, xlarge, xxlarge.",
+      "required": false,
+      "example": "large"
+    },
+    {
+      "name": "imgType",
+      "type": "string",
+      "description": "Image type filter: clipart, face, lineart, stock, photo, animated.",
+      "required": false,
+      "example": "photo"
+    },
+    {
+      "name": "orTerms",
+      "type": "string",
+      "description": "Additional search terms with OR logic.",
+      "required": false,
+      "example": "AI ML"
+    },
+    {
+      "name": "safe",
+      "type": "string",
+      "description": "Safe search level: active or off.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "searchType",
+      "type": "string",
+      "description": "Search type: image (for image search) or omit for web search.",
+      "required": false,
+      "example": "image"
+    },
+    {
+      "name": "siteSearch",
+      "type": "string",
+      "description": "Restrict or exclude results from a specific site.",
+      "required": false,
+      "example": "example.com"
+    },
+    {
+      "name": "siteSearchFilter",
+      "type": "string",
+      "description": "Include (i) or exclude (e) siteSearch results.",
+      "required": false,
+      "example": "i"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort expression (e.g., date for date sorting).",
+      "required": false,
+      "example": "date"
+    },
+    {
+      "name": "rights",
+      "type": "string",
+      "description": "License filter for results (e.g., cc_publicdomain, cc_attribute).",
+      "required": false,
+      "example": "cc_publicdomain"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://customsearch.googleapis.com/customsearch/v1?q=artificial+intelligence&cx=017576662512468239146:omuauf_gy24&key=AIzaSy...&num=10",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "customsearch#search",
+      "searchInformation": {
+        "searchTime": 0.45,
+        "totalResults": "1250000",
+        "formattedTotalResults": "1,250,000"
+      },
+      "items": [
+        {
+          "kind": "customsearch#result",
+          "title": "Artificial Intelligence - Wikipedia",
+          "htmlTitle": "<b>Artificial Intelligence</b> - Wikipedia",
+          "link": "https://en.wikipedia.org/wiki/Artificial_intelligence",
+          "displayLink": "en.wikipedia.org",
+          "snippet": "Artificial intelligence (AI) is intelligence demonstrated by machines...",
+          "pagemap": {
+            "metatags": [{}]
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

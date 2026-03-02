@@ -1,0 +1,87 @@
+{
+  "name": "customs_items_create",
+  "description": "Create a customs item for international shipments.",
+  "endpoint": "/customs/items",
+  "method": "POST",
+  "resource_group": "customs",
+  "parameters": [
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Item description.",
+      "required": true,
+      "example": "T-shirt"
+    },
+    {
+      "name": "quantity",
+      "type": "integer",
+      "description": "Item quantity.",
+      "required": true,
+      "example": 2
+    },
+    {
+      "name": "net_weight",
+      "type": "string",
+      "description": "Net weight.",
+      "required": true,
+      "example": "0.5"
+    },
+    {
+      "name": "mass_unit",
+      "type": "string",
+      "description": "Weight unit.",
+      "required": true,
+      "example": "lb"
+    },
+    {
+      "name": "value_amount",
+      "type": "string",
+      "description": "Item value.",
+      "required": true,
+      "example": "25.00"
+    },
+    {
+      "name": "value_currency",
+      "type": "string",
+      "description": "Currency code.",
+      "required": true,
+      "example": "USD"
+    },
+    {
+      "name": "origin_country",
+      "type": "string",
+      "description": "Country of manufacture.",
+      "required": true,
+      "example": "US"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/customs/items",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "description": "T-shirt",
+      "quantity": 2,
+      "net_weight": "0.5",
+      "mass_unit": "lb",
+      "value_amount": "25.00",
+      "value_currency": "USD",
+      "origin_country": "US"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "object_id": "cstitem_abc123",
+      "description": "T-shirt",
+      "quantity": 2
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

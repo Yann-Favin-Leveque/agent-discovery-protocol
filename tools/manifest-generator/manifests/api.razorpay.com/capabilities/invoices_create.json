@@ -1,0 +1,57 @@
+{
+  "name": "invoices_create",
+  "description": "Create an invoice and send it to the customer.",
+  "resource_group": "invoices",
+  "endpoint": "/v1/invoices",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Invoice type: invoice or link.",
+      "required": true,
+      "example": "invoice"
+    },
+    {
+      "name": "customer",
+      "type": "object",
+      "description": "Customer details.",
+      "required": true
+    },
+    {
+      "name": "line_items",
+      "type": "array",
+      "description": "Array of line items.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/invoices",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "invoice",
+      "customer": {
+        "name": "John",
+        "email": "john@example.com",
+        "contact": "9876543210"
+      },
+      "line_items": [
+        {
+          "name": "Product",
+          "amount": 1000
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "inv_DBJOWzybf0sJbb",
+      "status": "issued"
+    }
+  }
+}

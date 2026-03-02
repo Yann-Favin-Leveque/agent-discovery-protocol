@@ -1,35 +1,85 @@
 {
   "spec_version": "1.0",
   "name": "PDFShift",
-  "description": "PDFShift is a cloud API that converts HTML content or web pages into high-quality PDF documents. It supports both direct HTML strings and URLs as input, with advanced options for headers, footers, margins, page sizes, and more. Use this service when you need to programmatically generate PDFs from HTML or capture web pages as PDF files.",
-  "base_url": "https://api.pdfshift.io",
+  "description": "PDFShift is a cloud API that converts HTML content or web pages into high-quality PDF, PNG, JPEG, and WebP documents. It supports templates for reusable HTML, advanced rendering options (headers, footers, margins, page sizes), and cloud storage integration. Use this service to programmatically generate documents from HTML or capture web pages as files.",
+  "base_url": "https://api.pdfshift.io/v3",
   "auth": {
     "type": "api_key",
-    "header": "Authorization",
-    "prefix": "Basic",
-    "note": "Use your API key as the username with an empty password, Base64-encoded as 'api_key:'. The header value is 'Basic {base64(api_key:)}'.",
+    "header": "X-API-Key",
     "setup_url": "https://pdfshift.io/dashboard"
   },
   "capabilities": [
     {
-      "name": "convert_html_to_pdf",
-      "description": "Convert an HTML string or a URL to a PDF document. Returns the PDF binary or a URL to the generated PDF.",
-      "detail_url": "/capabilities/convert_html_to_pdf"
+      "name": "pdf_convert",
+      "resource_group": "convert",
+      "description": "Convert an HTML string or URL to a PDF document with advanced rendering options.",
+      "detail_url": "/capabilities/pdf_convert"
     },
     {
-      "name": "get_conversion_status",
-      "description": "Check the status of an asynchronous PDF conversion job by its ID.",
-      "detail_url": "/capabilities/get_conversion_status"
+      "name": "png_convert",
+      "resource_group": "convert",
+      "description": "Convert an HTML string or URL to a PNG screenshot image.",
+      "detail_url": "/capabilities/png_convert"
     },
     {
-      "name": "get_usage",
-      "description": "Retrieve your current API usage statistics including remaining credits and conversion counts.",
-      "detail_url": "/capabilities/get_usage"
+      "name": "jpeg_convert",
+      "resource_group": "convert",
+      "description": "Convert an HTML string or URL to a JPEG screenshot image.",
+      "detail_url": "/capabilities/jpeg_convert"
     },
     {
-      "name": "convert_with_options",
-      "description": "Convert HTML or a URL to PDF with advanced rendering options such as custom headers, footers, margins, page size, landscape orientation, and JavaScript delay.",
-      "detail_url": "/capabilities/convert_with_options"
+      "name": "webp_convert",
+      "resource_group": "convert",
+      "description": "Convert an HTML string or URL to a WebP screenshot image.",
+      "detail_url": "/capabilities/webp_convert"
+    },
+    {
+      "name": "templates_list",
+      "resource_group": "templates",
+      "description": "List all saved HTML templates in your account.",
+      "detail_url": "/capabilities/templates_list"
+    },
+    {
+      "name": "templates_create",
+      "resource_group": "templates",
+      "description": "Create a new reusable HTML template with a unique slug.",
+      "detail_url": "/capabilities/templates_create"
+    },
+    {
+      "name": "templates_get_html",
+      "resource_group": "templates",
+      "description": "Retrieve the raw HTML content of a template by its slug.",
+      "detail_url": "/capabilities/templates_get_html"
+    },
+    {
+      "name": "templates_update",
+      "resource_group": "templates",
+      "description": "Update the name or HTML content of an existing template.",
+      "detail_url": "/capabilities/templates_update"
+    },
+    {
+      "name": "templates_delete",
+      "resource_group": "templates",
+      "description": "Delete a template by its slug.",
+      "detail_url": "/capabilities/templates_delete"
+    },
+    {
+      "name": "templates_generate",
+      "resource_group": "templates",
+      "description": "Generate a document (PDF, PNG, JPEG, WebP, or HTML) from a template with variable substitution.",
+      "detail_url": "/capabilities/templates_generate"
+    },
+    {
+      "name": "logs_get",
+      "resource_group": "logs",
+      "description": "Retrieve a specific conversion log entry by request ID.",
+      "detail_url": "/capabilities/logs_get"
+    },
+    {
+      "name": "invoices_list",
+      "resource_group": "billing",
+      "description": "List all invoices for the account.",
+      "detail_url": "/capabilities/invoices_list"
     }
   ]
 }

@@ -1,0 +1,22 @@
+{
+  "name": "flags_get",
+  "description": "Retrieve a specific feature flag by its key, including configurations for all or specified environments.",
+  "resource_group": "flags",
+  "endpoint": "/flags/{projectKey}/{flagKey}",
+  "method": "GET",
+  "parameters": [
+    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
+    {"name": "flagKey", "type": "string", "description": "The feature flag key.", "required": true, "example": "new-checkout"},
+    {"name": "env", "type": "string", "description": "Filter to a specific environment.", "required": false, "example": "production"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.launchdarkly.com/api/v2/flags/my-project/new-checkout?env=production",
+    "headers": {"Authorization": "{api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"key": "new-checkout", "name": "New Checkout Flow", "kind": "boolean", "variations": [{"value": true}, {"value": false}], "environments": {"production": {"on": true, "lastModified": 1705312200000, "version": 5}}}
+  },
+  "rate_limits": {"requests_per_minute": 120}
+}

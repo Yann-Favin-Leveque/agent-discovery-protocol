@@ -1,0 +1,159 @@
+{
+  "name": "chat_completions_create",
+  "description": "Generate a chat completion response given a conversation history of messages. Supports all open-source chat models hosted on Together AI including Llama, Mistral, Qwen, and DeepSeek with streaming, tool calling, JSON mode, and reasoning.",
+  "resource_group": "chat",
+  "endpoint": "/v1/chat/completions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "The model ID to use for the completion.",
+      "example": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "A list of messages comprising the conversation so far. Each message has a 'role' (system, user, assistant) and 'content' (string).",
+      "example": [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "What is the capital of France?"}
+      ]
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of tokens to generate in the completion."
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "Sampling temperature between 0 and 1. Lower values favor correctness.",
+      "example": 0.7
+    },
+    {
+      "name": "top_p",
+      "type": "number",
+      "required": false,
+      "description": "Nucleus sampling parameter. Only tokens with cumulative probability up to top_p are considered.",
+      "example": 0.9
+    },
+    {
+      "name": "top_k",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of tokens to consider at each generation step."
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "required": false,
+      "description": "If true, partial message deltas are sent as server-sent events."
+    },
+    {
+      "name": "stop",
+      "type": "array",
+      "required": false,
+      "description": "Up to 4 sequences where the API will stop generating further tokens."
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "required": false,
+      "description": "Number of completions to generate (1-128)."
+    },
+    {
+      "name": "repetition_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Controls diversity by penalizing repeated sequences."
+    },
+    {
+      "name": "logprobs",
+      "type": "integer",
+      "required": false,
+      "description": "Return log probabilities for top k tokens (0-20)."
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Seed value for reproducible generations."
+    },
+    {
+      "name": "response_format",
+      "type": "object",
+      "required": false,
+      "description": "Specifies output format. Supports 'text', 'json_object', or 'json_schema'."
+    },
+    {
+      "name": "tools",
+      "type": "array",
+      "required": false,
+      "description": "List of functions the model may call during generation."
+    },
+    {
+      "name": "tool_choice",
+      "type": "string",
+      "required": false,
+      "description": "Controls which function is called. Options: 'auto', 'none', or a specific function name."
+    },
+    {
+      "name": "safety_model",
+      "type": "string",
+      "required": false,
+      "description": "Moderation model for token validation."
+    },
+    {
+      "name": "reasoning_effort",
+      "type": "string",
+      "required": false,
+      "description": "Reasoning level for supported models: 'low', 'medium', or 'high'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.together.xyz/v1/chat/completions",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "messages": [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "What are some fun things to do in New York?"}
+      ],
+      "max_tokens": 512,
+      "temperature": 0.7
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "chatcmpl-abc123",
+      "object": "chat.completion",
+      "created": 1709000000,
+      "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Here are some fun things to do in New York..."
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 25,
+        "completion_tokens": 150,
+        "total_tokens": 175
+      }
+    }
+  }
+}

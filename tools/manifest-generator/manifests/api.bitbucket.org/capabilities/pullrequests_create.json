@@ -1,0 +1,89 @@
+{
+  "name": "pullrequests_create",
+  "description": "Create a new pull request.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repositories/{workspace}/{repo_slug}/pullrequests",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace."
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repo slug."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "PR title."
+    },
+    {
+      "name": "source",
+      "type": "object",
+      "required": true,
+      "description": "Source: {branch: {name: 'feature-branch'}}."
+    },
+    {
+      "name": "destination",
+      "type": "object",
+      "required": false,
+      "description": "Destination: {branch: {name: 'main'}}."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "PR description."
+    },
+    {
+      "name": "close_source_branch",
+      "type": "boolean",
+      "required": false,
+      "description": "Delete source branch after merge."
+    },
+    {
+      "name": "reviewers",
+      "type": "array",
+      "required": false,
+      "description": "Reviewer objects."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace/my-project/pullrequests",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer oauth-token"
+    },
+    "body": {
+      "title": "Add dark mode",
+      "source": {
+        "branch": {
+          "name": "feature/dark-mode"
+        }
+      },
+      "destination": {
+        "branch": {
+          "name": "main"
+        }
+      },
+      "close_source_branch": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "title": "Add dark mode",
+      "state": "OPEN"
+    }
+  }
+}

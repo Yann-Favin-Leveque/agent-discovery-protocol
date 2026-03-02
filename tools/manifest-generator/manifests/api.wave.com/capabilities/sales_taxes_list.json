@@ -1,0 +1,51 @@
+{
+  "name": "sales_taxes_list",
+  "description": "List all sales taxes for a business.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "taxes",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "query ($businessId: ID!) { business(id: $businessId) { salesTaxes { edges { node { id name rate } } } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "business": {
+          "salesTaxes": {
+            "edges": [
+              {
+                "node": {
+                  "id": "VGF4Ojo...",
+                  "name": "HST",
+                  "rate": 13.0
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

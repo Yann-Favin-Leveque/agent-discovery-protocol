@@ -1,0 +1,76 @@
+{
+  "name": "media_container_create",
+  "resource_group": "publishing",
+  "description": "Create a media container for content publishing. This is step 1 of the two-step publishing process. Use as a child item in carousels or as a standalone container.",
+  "endpoint": "/{user_id}/media",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID.",
+      "required": true,
+      "in": "path",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "image_url",
+      "type": "string",
+      "description": "Public URL of the image (for IMAGE type).",
+      "required": false,
+      "in": "body",
+      "example": "https://example.com/photo.jpg"
+    },
+    {
+      "name": "video_url",
+      "type": "string",
+      "description": "Public URL of the video (for VIDEO/REELS type).",
+      "required": false,
+      "in": "body",
+      "example": "https://example.com/video.mp4"
+    },
+    {
+      "name": "media_type",
+      "type": "string",
+      "description": "Type of media: IMAGE, VIDEO, REELS, or CAROUSEL.",
+      "required": false,
+      "in": "body",
+      "example": "IMAGE"
+    },
+    {
+      "name": "is_carousel_item",
+      "type": "boolean",
+      "description": "Set to true if this container will be used as a child in a carousel.",
+      "required": false,
+      "in": "body",
+      "example": true
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "description": "Caption text (only for non-carousel-item containers).",
+      "required": false,
+      "in": "body",
+      "example": "My photo caption"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v21.0/17841400000000000/media",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "image_url": "https://example.com/photo.jpg",
+      "is_carousel_item": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "17854360000000006"
+    }
+  },
+  "auth_scopes": ["instagram_content_publish"]
+}

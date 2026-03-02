@@ -1,0 +1,64 @@
+{
+  "name": "orders_create",
+  "description": "Create a new order that the customer can pay against. Orders are mandatory before accepting payments.",
+  "resource_group": "orders",
+  "endpoint": "/v1/orders",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Amount in the smallest currency unit (e.g. paise for INR).",
+      "required": true,
+      "example": 50000
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO currency code.",
+      "required": true,
+      "example": "INR"
+    },
+    {
+      "name": "receipt",
+      "type": "string",
+      "description": "Your internal order receipt ID.",
+      "required": false,
+      "example": "receipt_1"
+    },
+    {
+      "name": "notes",
+      "type": "object",
+      "description": "Key-value notes.",
+      "required": false
+    },
+    {
+      "name": "partial_payment",
+      "type": "boolean",
+      "description": "Allow partial payments.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/orders",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": 50000,
+      "currency": "INR",
+      "receipt": "receipt_1"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "order_DBJOWzybf0sJbb",
+      "amount": 50000,
+      "currency": "INR",
+      "status": "created"
+    }
+  }
+}

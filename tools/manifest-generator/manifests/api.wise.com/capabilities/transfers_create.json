@@ -1,0 +1,61 @@
+{
+  "name": "transfers_create",
+  "description": "Create a transfer based on an existing quote and a recipient account.",
+  "resource_group": "transfers",
+  "endpoint": "/v1/transfers",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "targetAccount",
+      "type": "integer",
+      "description": "Recipient account ID.",
+      "required": true
+    },
+    {
+      "name": "quoteUuid",
+      "type": "string",
+      "description": "Quote UUID.",
+      "required": true
+    },
+    {
+      "name": "customerTransactionId",
+      "type": "string",
+      "description": "Unique transaction ID for idempotency.",
+      "required": true
+    },
+    {
+      "name": "details",
+      "type": "object",
+      "description": "Transfer details including reference.",
+      "required": false,
+      "example": {
+        "reference": "Invoice 12345"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.wise.com/v1/transfers",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "targetAccount": 13967839,
+      "quoteUuid": "q-abc123",
+      "customerTransactionId": "txn-uuid-123",
+      "details": {
+        "reference": "Invoice 12345"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 468956,
+      "targetAccount": 13967839,
+      "quoteUuid": "q-abc123",
+      "status": "incoming_payment_waiting"
+    }
+  }
+}

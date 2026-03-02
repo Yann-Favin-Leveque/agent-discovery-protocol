@@ -1,0 +1,94 @@
+{
+  "name": "forecast_5day_get",
+  "description": "Get a 5-day weather forecast with 3-hour intervals. Returns up to 40 forecast timestamps with temperature, precipitation probability, wind, and conditions.",
+  "resource_group": "forecast",
+  "endpoint": "/data/2.5/forecast",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": true,
+      "description": "Latitude.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": true,
+      "description": "Longitude.",
+      "in": "query"
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Units: standard, metric, or imperial.",
+      "in": "query"
+    },
+    {
+      "name": "cnt",
+      "type": "integer",
+      "required": false,
+      "description": "Number of timestamps to return (max 40).",
+      "in": "query"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "required": false,
+      "description": "Language code.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/2.5/forecast?lat=48.8566&lon=2.3522&appid=YOUR_API_KEY&units=metric&cnt=8"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "cod": "200",
+      "cnt": 8,
+      "list": [
+        {
+          "dt": 1705312200,
+          "main": {
+            "temp": 18.5,
+            "feels_like": 17.2,
+            "pressure": 1015,
+            "humidity": 55
+          },
+          "weather": [
+            {
+              "main": "Clear",
+              "description": "clear sky"
+            }
+          ],
+          "clouds": {
+            "all": 5
+          },
+          "wind": {
+            "speed": 3.6,
+            "deg": 220
+          },
+          "visibility": 10000,
+          "pop": 0.1,
+          "dt_txt": "2025-01-15 12:00:00"
+        }
+      ],
+      "city": {
+        "name": "Paris",
+        "country": "FR"
+      }
+    }
+  }
+}

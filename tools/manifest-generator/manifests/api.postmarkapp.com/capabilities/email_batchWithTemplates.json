@@ -1,0 +1,46 @@
+{
+  "name": "email_batchWithTemplates",
+  "description": "Send up to 500 template-based emails in a batch.",
+  "resource_group": "email",
+  "endpoint": "/email/batchWithTemplates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "Messages",
+      "type": "array",
+      "description": "Array of template email objects.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/email/batchWithTemplates",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Messages": [
+        {
+          "TemplateAlias": "welcome",
+          "TemplateModel": {
+            "name": "John"
+          },
+          "From": "sender@example.com",
+          "To": "user@example.com"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "To": "user@example.com",
+        "MessageID": "abc-123",
+        "ErrorCode": 0
+      }
+    ]
+  }
+}

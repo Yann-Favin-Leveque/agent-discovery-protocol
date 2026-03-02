@@ -1,0 +1,45 @@
+{
+  "name": "scheduled_events_cancel",
+  "resource_group": "scheduled_events",
+  "description": "Cancel a scheduled event, optionally providing a cancellation reason.",
+  "endpoint": "/scheduled_events/{uuid}/cancellation",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "uuid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Scheduled event UUID",
+      "example": "DDDD-EEEE-FFFF"
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "required": false,
+      "description": "Cancellation reason",
+      "example": "Scheduling conflict"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.calendly.com/scheduled_events/DDDD-EEEE-FFFF/cancellation",
+    "headers": {
+      "Authorization": "Bearer CALENDLY_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "reason": "Scheduling conflict"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": {
+        "canceled_by": "John Doe",
+        "reason": "Scheduling conflict",
+        "created_at": "2025-03-14T12:00:00Z"
+      }
+    }
+  }
+}

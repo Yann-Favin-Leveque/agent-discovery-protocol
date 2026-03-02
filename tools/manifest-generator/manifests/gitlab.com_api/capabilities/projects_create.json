@@ -1,0 +1,74 @@
+{
+  "name": "projects_create",
+  "description": "Create a new project.",
+  "resource_group": "projects",
+  "endpoint": "/projects",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Project name."
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "required": false,
+      "description": "URL path (auto-generated from name if omitted)."
+    },
+    {
+      "name": "namespace_id",
+      "type": "integer",
+      "required": false,
+      "description": "Namespace (group) ID. User namespace if omitted."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Project description."
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "required": false,
+      "description": "Visibility: private, internal, public. Default private."
+    },
+    {
+      "name": "initialize_with_readme",
+      "type": "boolean",
+      "required": false,
+      "description": "Initialize with README. Default false."
+    },
+    {
+      "name": "default_branch",
+      "type": "string",
+      "required": false,
+      "description": "Default branch name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    },
+    "body": {
+      "name": "new-project",
+      "description": "My new project",
+      "visibility": "private",
+      "initialize_with_readme": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 456,
+      "name": "new-project",
+      "path_with_namespace": "octocat/new-project",
+      "web_url": "https://gitlab.com/octocat/new-project"
+    }
+  }
+}

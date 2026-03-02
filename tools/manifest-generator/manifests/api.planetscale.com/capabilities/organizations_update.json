@@ -1,0 +1,41 @@
+{
+  "name": "organizations_update",
+  "resource_group": "organizations",
+  "description": "Update organization settings.",
+  "endpoint": "/organizations/{organization}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "billing_email",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Billing email."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.planetscale.com/v1/organizations/acme",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "billing_email": "new@acme.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "acme",
+      "billing_email": "new@acme.com"
+    }
+  }
+}

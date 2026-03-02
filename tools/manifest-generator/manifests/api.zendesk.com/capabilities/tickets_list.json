@@ -1,0 +1,63 @@
+{
+  "name": "tickets_list",
+  "description": "List all tickets accessible to the authenticated agent.",
+  "endpoint": "/api/v2/tickets",
+  "method": "GET",
+  "resource_group": "tickets",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": "1"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page (max 100)",
+      "required": false,
+      "example": "25"
+    },
+    {
+      "name": "sort_by",
+      "type": "string",
+      "description": "Sort field",
+      "required": false,
+      "example": "created_at"
+    },
+    {
+      "name": "sort_order",
+      "type": "string",
+      "description": "Sort direction (asc, desc)",
+      "required": false,
+      "example": "desc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{subdomain}.zendesk.com/api/v2/tickets",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tickets": [
+        {
+          "id": 1,
+          "subject": "Help needed",
+          "status": "open",
+          "priority": "normal"
+        }
+      ],
+      "count": 100
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

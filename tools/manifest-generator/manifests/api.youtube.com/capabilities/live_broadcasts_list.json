@@ -1,0 +1,81 @@
+{
+  "name": "live_broadcasts_list",
+  "description": "List live broadcasts for the authenticated user's channel.",
+  "endpoint": "/youtube/v3/liveBroadcasts",
+  "method": "GET",
+  "resource_group": "live_broadcasts",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,contentDetails,status"
+    },
+    {
+      "name": "mine",
+      "type": "boolean",
+      "description": "Return user's broadcasts",
+      "required": false,
+      "example": "true"
+    },
+    {
+      "name": "broadcastStatus",
+      "type": "string",
+      "description": "Filter by status (active, all, completed, upcoming)",
+      "required": false,
+      "example": "all"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Broadcast IDs",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": "10"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/liveBroadcasts",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "broadcast_123",
+          "snippet": {
+            "title": "My Live Stream"
+          },
+          "status": {
+            "lifeCycleStatus": "ready"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

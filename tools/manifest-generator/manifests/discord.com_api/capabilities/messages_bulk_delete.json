@@ -1,0 +1,45 @@
+{
+  "name": "messages_bulk_delete",
+  "resource_group": "messages",
+  "description": "Delete multiple messages at once (2-100 messages, not older than 14 days).",
+  "endpoint": "/v10/channels/{channel_id}/messages/bulk-delete",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Channel ID",
+      "example": "123456789012345678"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Array of message IDs to delete (2-100)",
+      "example": [
+        "111111111111111111",
+        "222222222222222222"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://discord.com/api/v10/channels/123456789012345678/messages/bulk-delete",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "messages": [
+        "111111111111111111",
+        "222222222222222222"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

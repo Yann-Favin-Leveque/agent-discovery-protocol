@@ -1,0 +1,46 @@
+{
+  "name": "invitations_list",
+  "resource_group": "invitations",
+  "description": "List all application-level invitations with pagination.",
+  "endpoint": "/v1/invitations",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Offset."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: pending, accepted, revoked."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clerk.com/v1/invitations?status=pending",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "inv_abc",
+        "object": "invitation",
+        "email_address": "bob@example.com",
+        "status": "pending",
+        "created_at": 1702656000000
+      }
+    ]
+  }
+}

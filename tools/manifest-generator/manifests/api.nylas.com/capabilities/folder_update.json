@@ -1,0 +1,50 @@
+{
+  "name": "folder_update",
+  "description": "Update a folder/label name.",
+  "resource_group": "folder",
+  "endpoint": "/v3/grants/{grant_id}/folders/{folder_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "folder_id",
+      "type": "string",
+      "description": "Folder ID (path parameter).",
+      "required": true,
+      "example": "folder_abc"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "New folder name.",
+      "required": true,
+      "example": "Renamed Folder"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.us.nylas.com/v3/grants/me/folders/folder_abc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Renamed"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "folder_abc",
+        "name": "My Folder"
+      }
+    }
+  }
+}

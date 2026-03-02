@@ -1,0 +1,82 @@
+{
+  "name": "users_list",
+  "resource_group": "users",
+  "description": "List all users in your Clerk application. Supports filtering by email, phone, username, external ID with offset pagination and sorting.",
+  "endpoint": "/v1/users",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of users per page. Default 10, max 500."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Number of users to skip. Default 0."
+    },
+    {
+      "name": "email_address",
+      "type": "array",
+      "required": false,
+      "description": "Filter by email address(es)."
+    },
+    {
+      "name": "phone_number",
+      "type": "array",
+      "required": false,
+      "description": "Filter by phone number(s)."
+    },
+    {
+      "name": "username",
+      "type": "array",
+      "required": false,
+      "description": "Filter by username(s)."
+    },
+    {
+      "name": "external_id",
+      "type": "array",
+      "required": false,
+      "description": "Filter by external ID(s)."
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "required": false,
+      "description": "Sort field: created_at, updated_at, last_sign_in_at, last_active_at. Prefix +/-."
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": false,
+      "description": "Free-text search across names, emails, usernames."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clerk.com/v1/users?limit=20&offset=0&order_by=-created_at",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "user_2abc123",
+        "object": "user",
+        "first_name": "Alice",
+        "last_name": "Johnson",
+        "email_addresses": [
+          {
+            "id": "idn_2xyz",
+            "email_address": "alice@example.com"
+          }
+        ],
+        "created_at": 1702656000000
+      }
+    ]
+  }
+}

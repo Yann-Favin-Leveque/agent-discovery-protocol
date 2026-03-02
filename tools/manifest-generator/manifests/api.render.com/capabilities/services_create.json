@@ -1,0 +1,30 @@
+{
+  "name": "services_create",
+  "description": "Create a new service on Render. Specify the service type, name, Git repository, build and start commands, environment runtime, region, plan, and auto-deploy settings.",
+  "resource_group": "services",
+  "endpoint": "/v1/services",
+  "method": "POST",
+  "parameters": [
+    {"name": "type", "type": "string", "required": true, "description": "Service type: web_service, static_site, private_service, background_worker, or cron_job."},
+    {"name": "name", "type": "string", "required": true, "description": "Service name. Must be unique within your account."},
+    {"name": "repo", "type": "string", "required": true, "description": "Git repository URL."},
+    {"name": "branch", "type": "string", "required": false, "description": "Git branch to deploy from."},
+    {"name": "autoDeploy", "type": "string", "required": false, "description": "Enable auto-deploy on push: yes or no."},
+    {"name": "serviceDetails", "type": "object", "required": true, "description": "Service config: buildCommand, startCommand, env, plan, region, numInstances, healthCheckPath, publishPath."},
+    {"name": "envVars", "type": "array", "required": false, "description": "Array of {key, value} environment variable objects."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.render.com/v1/services",
+    "body": {
+      "type": "web_service",
+      "name": "my-express-api",
+      "repo": "https://github.com/my-org/my-express-api",
+      "serviceDetails": {"buildCommand": "npm install", "startCommand": "node server.js", "env": "node", "plan": "starter", "region": "oregon"}
+    }
+  },
+  "response_example": {
+    "service": {"id": "srv-s1t2u3v4w5", "name": "my-express-api", "type": "web_service"},
+    "deployId": "dep-b1c2d3e4f5"
+  }
+}

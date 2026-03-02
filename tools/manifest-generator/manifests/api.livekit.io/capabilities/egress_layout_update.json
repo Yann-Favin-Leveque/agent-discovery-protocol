@@ -1,0 +1,44 @@
+{
+  "name": "egress_layout_update",
+  "description": "Update the web layout of an active room composite egress session without stopping and restarting.",
+  "endpoint": "/twirp/livekit.Egress/UpdateLayout",
+  "method": "POST",
+  "resource_group": "egress",
+  "parameters": [
+    {
+      "name": "egress_id",
+      "type": "string",
+      "required": true,
+      "description": "The active egress session identifier."
+    },
+    {
+      "name": "layout",
+      "type": "string",
+      "required": true,
+      "description": "New layout template to apply (e.g., 'grid', 'speaker')."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.Egress/UpdateLayout",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "egress_id": "EG_abc123",
+      "layout": "speaker"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "egress_id": "EG_abc123",
+      "status": "EGRESS_ACTIVE"
+    }
+  },
+  "auth_scopes": ["roomRecord"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

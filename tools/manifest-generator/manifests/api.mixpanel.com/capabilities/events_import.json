@@ -1,0 +1,46 @@
+{
+  "name": "events_import",
+  "description": "Batch import historical events with validation and per-event error reporting.",
+  "resource_group": "ingestion",
+  "endpoint": "/import",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "integer",
+      "required": true,
+      "description": "Mixpanel project ID",
+      "location": "query"
+    },
+    {
+      "name": "strict",
+      "type": "string",
+      "required": false,
+      "description": "Set to 1 for validation with error reporting",
+      "location": "query"
+    },
+    {
+      "name": "body",
+      "type": "array",
+      "required": true,
+      "description": "Array of event objects with event name, properties including time, distinct_id, and $insert_id"
+    }
+  ],
+  "request_example": [
+    {
+      "event": "Purchase",
+      "properties": {
+        "distinct_id": "user_123",
+        "time": 1609459200,
+        "$insert_id": "abc",
+        "price": 9.99
+      }
+    }
+  ],
+  "response_example": {
+    "code": 200,
+    "num_records_imported": 1,
+    "status": "OK"
+  },
+  "auth_scopes": []
+}

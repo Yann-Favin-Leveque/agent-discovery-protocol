@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Medusa",
-  "description": "Open-source headless commerce engine providing storefront APIs for products, carts, orders, and customers. Build custom e-commerce experiences with flexible product catalogs, checkout flows, and order management.",
+  "description": "Medusa is an open-source headless commerce engine providing storefront APIs for products, carts, orders, customers, collections, regions, and checkout. Build custom e-commerce experiences with flexible product catalogs and order management.",
   "base_url": "https://api.medusajs.com",
   "auth": {
     "type": "api_key",
@@ -11,44 +11,112 @@
   },
   "capabilities": [
     {
-      "name": "list_products",
-      "description": "Browse and search the product catalog with filtering by collection, category, tags, and pricing. Returns product details including variants and images.",
-      "detail_url": "/capabilities/list_products"
+      "name": "products_list",
+      "description": "Browse and search the product catalog with filtering by collection, category, and tags.",
+      "resource_group": "products",
+      "detail_url": "/capabilities/products_list"
     },
     {
-      "name": "get_product",
-      "description": "Retrieve full details for a specific product including all variants, options, images, and metadata.",
-      "detail_url": "/capabilities/get_product"
+      "name": "products_get",
+      "description": "Retrieve full details for a specific product with variants and images.",
+      "resource_group": "products",
+      "detail_url": "/capabilities/products_get"
     },
     {
-      "name": "create_cart",
-      "description": "Create a new shopping cart for a customer session, optionally pre-populated with line items and a region.",
-      "detail_url": "/capabilities/create_cart"
+      "name": "carts_create",
+      "description": "Create a new shopping cart for a customer session.",
+      "resource_group": "carts",
+      "detail_url": "/capabilities/carts_create"
     },
     {
-      "name": "update_cart",
-      "description": "Add or remove line items from a cart, apply discount codes, set shipping address, and select shipping options.",
-      "detail_url": "/capabilities/update_cart"
+      "name": "carts_get",
+      "description": "Retrieve cart details with line items and totals.",
+      "resource_group": "carts",
+      "detail_url": "/capabilities/carts_get"
     },
     {
-      "name": "complete_checkout",
-      "description": "Finalize a cart into an order by completing payment and creating the order record for fulfillment.",
-      "detail_url": "/capabilities/complete_checkout"
+      "name": "carts_update",
+      "description": "Update a cart with items, discount codes, or shipping info.",
+      "resource_group": "carts",
+      "detail_url": "/capabilities/carts_update"
     },
     {
-      "name": "list_collections",
-      "description": "Retrieve product collections available in the store for organized browsing and category-based navigation.",
-      "detail_url": "/capabilities/list_collections"
+      "name": "carts_line_items_add",
+      "description": "Add line items to a cart.",
+      "resource_group": "carts",
+      "detail_url": "/capabilities/carts_line_items_add"
     },
     {
-      "name": "get_order",
-      "description": "Look up an existing order by ID to check its status, line items, payment details, and fulfillment progress.",
-      "detail_url": "/capabilities/get_order"
+      "name": "carts_line_items_update",
+      "description": "Update a line item quantity in a cart.",
+      "resource_group": "carts",
+      "detail_url": "/capabilities/carts_line_items_update"
     },
     {
-      "name": "list_regions",
-      "description": "Retrieve available regions with their currencies, tax rates, and supported payment and fulfillment providers.",
-      "detail_url": "/capabilities/list_regions"
+      "name": "carts_line_items_delete",
+      "description": "Remove a line item from a cart.",
+      "resource_group": "carts",
+      "detail_url": "/capabilities/carts_line_items_delete"
+    },
+    {
+      "name": "carts_complete",
+      "description": "Complete cart checkout and create an order.",
+      "resource_group": "carts",
+      "detail_url": "/capabilities/carts_complete"
+    },
+    {
+      "name": "collections_list",
+      "description": "Retrieve product collections for organized browsing.",
+      "resource_group": "collections",
+      "detail_url": "/capabilities/collections_list"
+    },
+    {
+      "name": "collections_get",
+      "description": "Retrieve a specific collection by ID.",
+      "resource_group": "collections",
+      "detail_url": "/capabilities/collections_get"
+    },
+    {
+      "name": "orders_list",
+      "description": "List orders for the authenticated customer.",
+      "resource_group": "orders",
+      "detail_url": "/capabilities/orders_list"
+    },
+    {
+      "name": "orders_get",
+      "description": "Retrieve an order by ID with status and line items.",
+      "resource_group": "orders",
+      "detail_url": "/capabilities/orders_get"
+    },
+    {
+      "name": "regions_list",
+      "description": "Retrieve available regions with currencies and tax rates.",
+      "resource_group": "regions",
+      "detail_url": "/capabilities/regions_list"
+    },
+    {
+      "name": "categories_list",
+      "description": "Retrieve product categories.",
+      "resource_group": "categories",
+      "detail_url": "/capabilities/categories_list"
+    },
+    {
+      "name": "customers_create",
+      "description": "Create a new customer account.",
+      "resource_group": "customers",
+      "detail_url": "/capabilities/customers_create"
+    },
+    {
+      "name": "customers_me_get",
+      "description": "Retrieve the authenticated customer profile.",
+      "resource_group": "customers",
+      "detail_url": "/capabilities/customers_me_get"
+    },
+    {
+      "name": "shipping_options_list",
+      "description": "List available shipping options.",
+      "resource_group": "shipping",
+      "detail_url": "/capabilities/shipping_options_list"
     }
   ]
 }

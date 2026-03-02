@@ -1,0 +1,51 @@
+{
+  "name": "organization_memberships_create",
+  "resource_group": "organization_memberships",
+  "description": "Add a user to an organization with a specified role.",
+  "endpoint": "/v1/organizations/{organization_id}/memberships",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization ID.",
+      "in": "path"
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID to add."
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "required": true,
+      "description": "Role: org:admin or org:member."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/organizations/org_abc123/memberships",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user_id": "user_2abc123",
+      "role": "org:admin"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "orgmem_xyz",
+      "object": "organization_membership",
+      "role": "org:admin",
+      "public_user_data": {
+        "user_id": "user_2abc123"
+      }
+    }
+  }
+}

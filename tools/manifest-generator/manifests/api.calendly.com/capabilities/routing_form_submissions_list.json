@@ -1,0 +1,59 @@
+{
+  "name": "routing_form_submissions_list",
+  "resource_group": "routing_forms",
+  "description": "List all submissions for a routing form.",
+  "endpoint": "/routing_form_submissions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "routing_form",
+      "type": "string",
+      "required": true,
+      "description": "Routing form URI",
+      "example": "https://api.calendly.com/routing_forms/SSSS"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    },
+    {
+      "name": "page_token",
+      "type": "string",
+      "required": false,
+      "description": "Next page token",
+      "example": "abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.calendly.com/routing_form_submissions?routing_form=https://api.calendly.com/routing_forms/SSSS",
+    "headers": {
+      "Authorization": "Bearer CALENDLY_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "collection": [
+        {
+          "uri": "https://api.calendly.com/routing_form_submissions/VVVV",
+          "routing_form": "https://api.calendly.com/routing_forms/SSSS",
+          "questions_and_answers": [
+            {
+              "question_uuid": "q1",
+              "answer": "Engineering"
+            }
+          ],
+          "submitter": "https://api.calendly.com/scheduled_events/DDDD/invitees/GGGG"
+        }
+      ],
+      "pagination": {
+        "count": 20,
+        "next_page_token": null
+      }
+    }
+  }
+}

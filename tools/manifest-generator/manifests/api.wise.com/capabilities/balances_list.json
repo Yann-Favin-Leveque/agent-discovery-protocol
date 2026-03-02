@@ -1,0 +1,42 @@
+{
+  "name": "balances_list",
+  "description": "List all balances across currencies in a multi-currency account.",
+  "resource_group": "balances",
+  "endpoint": "/v4/profiles/{profileId}/balances",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "profileId",
+      "type": "integer",
+      "description": "Profile ID.",
+      "required": true
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Filter by balance type: STANDARD, SAVINGS.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.wise.com/v4/profiles/12345/balances?types=STANDARD",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1234,
+        "currency": "EUR",
+        "amount": {
+          "value": 1050.5,
+          "currency": "EUR"
+        },
+        "type": "STANDARD"
+      }
+    ]
+  }
+}

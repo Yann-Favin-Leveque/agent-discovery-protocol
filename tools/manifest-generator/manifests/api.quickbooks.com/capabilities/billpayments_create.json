@@ -1,0 +1,85 @@
+{
+  "name": "billpayments_create",
+  "description": "Record a payment made to a vendor against one or more bills.",
+  "endpoint": "/v3/company/{realmId}/billpayment",
+  "method": "POST",
+  "resource_group": "billpayments",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "VendorRef",
+      "type": "object",
+      "description": "Vendor reference",
+      "required": true,
+      "example": {
+        "value": "40"
+      }
+    },
+    {
+      "name": "TotalAmt",
+      "type": "number",
+      "description": "Payment amount",
+      "required": true,
+      "example": 200.0
+    },
+    {
+      "name": "PayType",
+      "type": "string",
+      "description": "Check or CreditCard",
+      "required": true,
+      "example": "Check"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/billpayment?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "VendorRef": {
+        "value": "40"
+      },
+      "TotalAmt": 200.0,
+      "PayType": "Check",
+      "CheckPayment": {
+        "BankAccountRef": {
+          "value": "35"
+        }
+      },
+      "Line": [
+        {
+          "Amount": 200.0,
+          "LinkedTxn": [
+            {
+              "TxnId": "25",
+              "TxnType": "Bill"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "BillPayment": {
+        "Id": "29",
+        "TotalAmt": 200.0
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

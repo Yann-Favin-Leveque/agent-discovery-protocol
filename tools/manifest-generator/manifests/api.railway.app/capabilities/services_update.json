@@ -1,0 +1,42 @@
+{
+  "name": "services_update",
+  "description": "Update service configuration.",
+  "resource_group": "services",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "Service ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "New name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($input: ServiceUpdateInput!) { serviceUpdate(input: $input) { id name } }",
+      "variables": {
+        "input": {
+          "id": "srv-abc",
+          "name": "new-name"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "serviceUpdate": {
+        "id": "srv-abc",
+        "name": "new-name"
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "name": "submissions_create",
+  "description": "Submit work for an assignment.",
+  "resource_group": "submissions",
+  "endpoint": "/api/v1/courses/{course_id}/assignments/{assignment_id}/submissions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "assignment_id",
+      "type": "integer",
+      "description": "Assignment ID.",
+      "required": true,
+      "example": 2001
+    },
+    {
+      "name": "submission[submission_type]",
+      "type": "string",
+      "description": "Type: online_text_entry, online_url, etc.",
+      "required": true,
+      "example": "online_text_entry"
+    },
+    {
+      "name": "submission[body]",
+      "type": "string",
+      "description": "Submission text.",
+      "required": false,
+      "example": "My answer to the homework."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/assignments/2001/submissions",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "submission": {
+        "submission_type": "online_text_entry",
+        "body": "My answer to the homework."
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 3002,
+      "submission_type": "online_text_entry",
+      "workflow_state": "submitted"
+    }
+  }
+}

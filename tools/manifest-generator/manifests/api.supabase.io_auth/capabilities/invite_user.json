@@ -1,0 +1,56 @@
+{
+  "name": "invite_user",
+  "description": "Send an invitation email to a new user. Requires service_role key. The user receives a magic link to set their password.",
+  "endpoint": "/auth/v1/invite",
+  "method": "POST",
+  "resource_group": "admin",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email address to invite.",
+      "required": true,
+      "example": "newuser@example.com"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Custom user metadata to set for the invited user.",
+      "required": false,
+      "example": {"role": "editor"}
+    },
+    {
+      "name": "redirect_to",
+      "type": "string",
+      "description": "URL to redirect to after accepting the invitation.",
+      "required": false,
+      "example": "https://example.com/welcome"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-project.supabase.co/auth/v1/invite",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {service_role_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "newuser@example.com",
+      "data": {"role": "editor"}
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-5678",
+      "email": "newuser@example.com",
+      "invited_at": "2024-01-15T10:00:00Z",
+      "user_metadata": {"role": "editor"}
+    }
+  },
+  "auth_scopes": ["service_role"],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "name": "measure_getworkouts",
+  "description": "Retrieve workout sessions with activity type, duration, distance, calories, and heart rate metrics.",
+  "resource_group": "measure",
+  "endpoint": "/v2/measure",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'getworkouts'."
+    },
+    {
+      "name": "startdateymd",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD."
+    },
+    {
+      "name": "enddateymd",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD."
+    },
+    {
+      "name": "lastupdate",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp filter."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset."
+    },
+    {
+      "name": "data_fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated fields: calories,intensity,manual_distance,manual_calories,hr_average,hr_min,hr_max,hr_zone_0,hr_zone_1,hr_zone_2,hr_zone_3,pause_duration,algo_pause_duration,spo2_average,steps,distance,elevation."
+    }
+  ],
+  "auth_scopes": [
+    "user.activity"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/measure",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "getworkouts",
+      "startdateymd": "2025-01-10",
+      "enddateymd": "2025-01-15"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "series": [
+          {
+            "id": 12345,
+            "category": 1,
+            "startdate": 1705312200,
+            "enddate": 1705315800,
+            "data": {
+              "calories": 385,
+              "distance": 5200,
+              "steps": 5840,
+              "hr_average": 142
+            }
+          }
+        ]
+      }
+    }
+  }
+}

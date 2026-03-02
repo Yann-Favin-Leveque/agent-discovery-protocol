@@ -1,0 +1,40 @@
+{
+  "name": "courses_users_list",
+  "description": "List users enrolled in a course.",
+  "resource_group": "courses",
+  "endpoint": "/api/v1/courses/{course_id}/users",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "enrollment_type[]",
+      "type": "string",
+      "description": "Filter by type.",
+      "required": false,
+      "example": "student"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/users?enrollment_type[]=student",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 5001,
+        "name": "Alice Smith",
+        "email": "alice@school.edu"
+      }
+    ]
+  }
+}

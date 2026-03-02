@@ -1,0 +1,53 @@
+{
+  "name": "users_create",
+  "description": "Create a new user.",
+  "resource_group": "users",
+  "endpoint": "/api/v1/accounts/{account_id}/users",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "integer",
+      "description": "Account ID.",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "user[name]",
+      "type": "string",
+      "description": "Full name.",
+      "required": true,
+      "example": "Bob Jones"
+    },
+    {
+      "name": "pseudonym[unique_id]",
+      "type": "string",
+      "description": "Login ID.",
+      "required": true,
+      "example": "bjones@school.edu"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/accounts/1/users",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user": {
+        "name": "Bob Jones"
+      },
+      "pseudonym": {
+        "unique_id": "bjones@school.edu"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 5003,
+      "name": "Bob Jones"
+    }
+  }
+}

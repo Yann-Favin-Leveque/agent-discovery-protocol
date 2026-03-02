@@ -1,0 +1,71 @@
+{
+  "name": "user_media_list",
+  "resource_group": "media",
+  "description": "Fetch a paginated list of media posts (photos, videos, carousels) published by the authenticated user.",
+  "endpoint": "/{user_id}/media",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID.",
+      "required": true,
+      "in": "path",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to return for each media object.",
+      "required": false,
+      "in": "query",
+      "example": "id,caption,media_type,media_url,permalink,timestamp,like_count,comments_count"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of media objects to return per page (max 100).",
+      "required": false,
+      "in": "query",
+      "example": 25
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Cursor for forward pagination.",
+      "required": false,
+      "in": "query",
+      "example": "MTAxNTExOTQ1MjAwNzI5NDE="
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17841400000000000/media?fields=id,caption,media_type,media_url,permalink,timestamp&limit=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "17854360000000000",
+          "caption": "Beautiful sunset at the beach",
+          "media_type": "IMAGE",
+          "media_url": "https://scontent.cdninstagram.com/...",
+          "permalink": "https://www.instagram.com/p/ABC123/",
+          "timestamp": "2024-03-01T15:30:00+0000"
+        }
+      ],
+      "paging": {
+        "cursors": {
+          "before": "QVFIbmR...",
+          "after": "QVFIcGF..."
+        },
+        "next": "https://graph.facebook.com/v21.0/..."
+      }
+    }
+  },
+  "auth_scopes": ["instagram_basic"]
+}

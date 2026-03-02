@@ -1,0 +1,93 @@
+{
+  "name": "monitors_get",
+  "description": "Retrieve all monitors with their current status, uptime ratios, response times, and optional log history. The API key must be included in the POST body.",
+  "resource_group": "monitors",
+  "endpoint": "/v2/getMonitors",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Your UptimeRobot API key."
+    },
+    {
+      "name": "monitors",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated list of monitor IDs to filter. If not set, all monitors are returned."
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated monitor types to filter: 1 (HTTP), 2 (keyword), 3 (ping), 4 (port)."
+    },
+    {
+      "name": "statuses",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated statuses to filter: 0 (paused), 1 (not checked), 2 (up), 8 (seems down), 9 (down)."
+    },
+    {
+      "name": "custom_uptime_ratios",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated number of days to calculate uptime ratios for (e.g. '7-30-45')."
+    },
+    {
+      "name": "logs",
+      "type": "integer",
+      "required": false,
+      "description": "Set to 1 to include log entries in the response."
+    },
+    {
+      "name": "response_times",
+      "type": "integer",
+      "required": false,
+      "description": "Set to 1 to include response time data."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "description": "Response format: 'json' (default) or 'xml'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uptimerobot.com/v2/getMonitors",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "api_key": "ur-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "format": "json",
+      "custom_uptime_ratios": "7-30",
+      "logs": 1
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stat": "ok",
+      "pagination": {
+        "offset": 0,
+        "limit": 50,
+        "total": 2
+      },
+      "monitors": [
+        {
+          "id": 12345678,
+          "friendly_name": "My Website",
+          "url": "https://example.com",
+          "type": 1,
+          "status": 2,
+          "create_datetime": 1609459200,
+          "custom_uptime_ratio": "99.98-99.95",
+          "average_response_time": 245
+        }
+      ]
+    }
+  }
+}

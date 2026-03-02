@@ -1,0 +1,42 @@
+{
+  "name": "document_download",
+  "description": "Download a completed and signed document as a PDF file.",
+  "resource_group": "document",
+  "endpoint": "/public/v1/documents/{id}/download",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Document ID.",
+      "in": "path"
+    },
+    {
+      "name": "watermark",
+      "type": "boolean",
+      "required": false,
+      "description": "Include watermark (for non-completed docs).",
+      "in": "query"
+    },
+    {
+      "name": "separate_files",
+      "type": "boolean",
+      "required": false,
+      "description": "Download as separate files in a zip.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pandadoc.com/public/v1/documents/doc-abc-123/download",
+    "headers": {
+      "Authorization": "API-Key YOUR_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "<PDF binary data>"
+  }
+}

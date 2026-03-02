@@ -1,0 +1,99 @@
+{
+  "name": "tasks_list",
+  "description": "List all tasks with filtering by status, type, index UID, and date ranges. Tasks track asynchronous operations.",
+  "endpoint": "/tasks",
+  "method": "GET",
+  "resource_group": "tasks",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of tasks to return.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "from",
+      "type": "integer",
+      "description": "Task UID to start from.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "statuses",
+      "type": "string",
+      "description": "Comma-separated task statuses to filter by (enqueued, processing, succeeded, failed, canceled).",
+      "required": false,
+      "example": "failed,succeeded"
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Comma-separated task types to filter by.",
+      "required": false,
+      "example": "documentAdditionOrUpdate"
+    },
+    {
+      "name": "indexUids",
+      "type": "string",
+      "description": "Comma-separated index UIDs to filter by.",
+      "required": false,
+      "example": "movies"
+    },
+    {
+      "name": "uids",
+      "type": "string",
+      "description": "Comma-separated task UIDs.",
+      "required": false,
+      "example": "1,2,3"
+    },
+    {
+      "name": "beforeEnqueuedAt",
+      "type": "string",
+      "description": "Filter tasks enqueued before this date (ISO 8601).",
+      "required": false,
+      "example": "2024-12-31T23:59:59Z"
+    },
+    {
+      "name": "afterEnqueuedAt",
+      "type": "string",
+      "description": "Filter tasks enqueued after this date (ISO 8601).",
+      "required": false,
+      "example": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.meilisearch.com/tasks?statuses=failed&limit=10",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "uid": 1,
+          "indexUid": "movies",
+          "status": "succeeded",
+          "type": "documentAdditionOrUpdate",
+          "duration": "PT0.5S",
+          "enqueuedAt": "2024-01-01T00:00:00Z",
+          "startedAt": "2024-01-01T00:00:01Z",
+          "finishedAt": "2024-01-01T00:00:01Z"
+        }
+      ],
+      "limit": 10,
+      "from": 1,
+      "next": null,
+      "total": 1
+    }
+  },
+  "auth_scopes": [
+    "tasks.get"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "moderation_create",
+  "description": "Classify text for harmful or unsafe content categories using Mistral's moderation model.",
+  "resource_group": "classifiers",
+  "endpoint": "/v1/moderations",
+  "method": "POST",
+  "parameters": [
+    {"name": "model", "type": "string", "required": false, "description": "Moderation model ID."},
+    {"name": "input", "type": "string or array", "required": true, "description": "Text or texts to moderate."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/moderations",
+    "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "body": {"input": "I want to harm someone."}
+  },
+  "response_example": {"status": 200, "body": {"id": "mod-abc123", "results": [{"flagged": true, "categories": {"violence": true, "hate": false}}]}}
+}

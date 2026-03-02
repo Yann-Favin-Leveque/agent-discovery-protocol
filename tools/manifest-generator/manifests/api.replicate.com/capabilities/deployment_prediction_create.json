@@ -1,0 +1,22 @@
+{
+  "name": "deployment_prediction_create",
+  "description": "Create a prediction using a deployment for dedicated hardware and faster cold starts.",
+  "resource_group": "deployments",
+  "endpoint": "/deployments/{deployment_owner}/{deployment_name}/predictions",
+  "method": "POST",
+  "parameters": [
+    {"name": "deployment_owner", "type": "string", "required": true, "description": "Deployment owner."},
+    {"name": "deployment_name", "type": "string", "required": true, "description": "Deployment name."},
+    {"name": "input", "type": "object", "required": true, "description": "Model-specific input parameters."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.replicate.com/v1/deployments/my-org/my-deployment/predictions",
+    "headers": {"Authorization": "Bearer r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json", "Prefer": "wait"},
+    "body": {"input": {"prompt": "A futuristic city"}}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": "pred123", "status": "succeeded", "output": ["https://replicate.delivery/..."]}
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "groups_update",
+  "description": "Update the name and members of an existing phone number group. Supports adding and removing phone numbers in a single request.",
+  "endpoint": "/xms/v1/{service_plan_id}/groups/{group_id}",
+  "method": "POST",
+  "resource_group": "groups",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "group_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique group identifier (path parameter)."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "New name for the group."
+    },
+    {
+      "name": "add",
+      "type": "array",
+      "required": false,
+      "description": "Phone numbers in E.164 format to add to the group."
+    },
+    {
+      "name": "remove",
+      "type": "array",
+      "required": false,
+      "description": "Phone numbers to remove from the group."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/groups/{group_id}",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {api_token}"
+    },
+    "body": {
+      "name": "Premium Customers",
+      "add": ["14155550126"],
+      "remove": ["14155550123"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "group-id-01",
+      "name": "Premium Customers",
+      "size": 3,
+      "modified_at": "2024-01-15T13:00:00.000Z"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "transactions_recurring_get",
+  "description": "Fetch recurring transaction streams (subscriptions, regular bills).",
+  "resource_group": "transactions",
+  "endpoint": "/transactions/recurring/get",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/transactions/recurring/get",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "outflow_streams": [
+        {
+          "stream_id": "str_abc",
+          "description": "Netflix",
+          "merchant_name": "Netflix",
+          "average_amount": {
+            "amount": 15.99
+          },
+          "frequency": "MONTHLY"
+        }
+      ],
+      "request_id": "abc"
+    }
+  }
+}

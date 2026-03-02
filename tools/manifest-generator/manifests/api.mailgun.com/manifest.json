@@ -1,40 +1,237 @@
 {
   "spec_version": "1.0",
   "name": "Mailgun",
-  "description": "Mailgun is a powerful email sending and receiving API built for developers. It handles transactional and bulk email delivery with high deliverability, real-time event tracking, and email validation. Use it to send emails, validate addresses, track delivery events, manage mailing lists, and monitor bounces.",
+  "description": "Email API for sending, receiving, and tracking email. Provides transactional sending, event tracking, mailing lists, email validation, and delivery analytics.",
   "base_url": "https://api.mailgun.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
     "prefix": "Basic",
     "setup_url": "https://app.mailgun.com/settings/api_security",
-    "note": "Use HTTP Basic Auth with 'api' as the username and your API key as the password. The value is base64-encoded 'api:key-xxxxxxxx'."
+    "note": "Use HTTP Basic Auth with 'api' as username and your API key as password."
   },
   "capabilities": [
     {
-      "name": "send_email",
-      "description": "Send a transactional or marketing email to one or more recipients with support for HTML, plain text, attachments, and custom headers.",
-      "detail_url": "/capabilities/send_email"
+      "name": "messages_send",
+      "description": "Send an email message via the Mailgun API.",
+      "detail_url": "/capabilities/messages_send",
+      "resource_group": "messages"
     },
     {
-      "name": "validate_email",
-      "description": "Validate an email address to check if it is deliverable, a disposable address, or has syntax errors. Helps improve deliverability by filtering bad addresses before sending.",
-      "detail_url": "/capabilities/validate_email"
+      "name": "messages_send_mime",
+      "description": "Send a MIME email message directly.",
+      "detail_url": "/capabilities/messages_send_mime",
+      "resource_group": "messages"
     },
     {
-      "name": "list_events",
-      "description": "Query the event log to track what happened to your emails: deliveries, opens, clicks, bounces, unsubscribes, and failures. Supports filtering by recipient, event type, and date range.",
-      "detail_url": "/capabilities/list_events"
+      "name": "messages_get",
+      "description": "Retrieve a stored message by its storage key.",
+      "detail_url": "/capabilities/messages_get",
+      "resource_group": "messages"
     },
     {
-      "name": "manage_mailing_lists",
-      "description": "Create, update, delete, and list mailing lists. Add or remove members from lists. Mailing lists let you send to a group of recipients using a single list address.",
-      "detail_url": "/capabilities/manage_mailing_lists"
+      "name": "events_list",
+      "description": "Query the event log to track deliveries, opens, clicks, bounces, and failures.",
+      "detail_url": "/capabilities/events_list",
+      "resource_group": "events"
     },
     {
-      "name": "get_bounces",
-      "description": "Retrieve the list of email addresses that have bounced. Use this to clean your recipient lists and improve deliverability by removing addresses that consistently fail.",
-      "detail_url": "/capabilities/get_bounces"
+      "name": "domains_list",
+      "description": "Retrieve a list of all domains in your account.",
+      "detail_url": "/capabilities/domains_list",
+      "resource_group": "domains"
+    },
+    {
+      "name": "domains_get",
+      "description": "Retrieve a single domain by name.",
+      "detail_url": "/capabilities/domains_get",
+      "resource_group": "domains"
+    },
+    {
+      "name": "domains_create",
+      "description": "Create a new sending domain.",
+      "detail_url": "/capabilities/domains_create",
+      "resource_group": "domains"
+    },
+    {
+      "name": "domains_delete",
+      "description": "Delete a domain.",
+      "detail_url": "/capabilities/domains_delete",
+      "resource_group": "domains"
+    },
+    {
+      "name": "domains_verify",
+      "description": "Verify a domain's DNS records.",
+      "detail_url": "/capabilities/domains_verify",
+      "resource_group": "domains"
+    },
+    {
+      "name": "bounces_list",
+      "description": "Retrieve the list of bounced email addresses for a domain.",
+      "detail_url": "/capabilities/bounces_list",
+      "resource_group": "bounces"
+    },
+    {
+      "name": "bounces_get",
+      "description": "Retrieve a single bounce record by email address.",
+      "detail_url": "/capabilities/bounces_get",
+      "resource_group": "bounces"
+    },
+    {
+      "name": "bounces_create",
+      "description": "Add an address to the bounce list.",
+      "detail_url": "/capabilities/bounces_create",
+      "resource_group": "bounces"
+    },
+    {
+      "name": "bounces_delete",
+      "description": "Remove an address from the bounce list.",
+      "detail_url": "/capabilities/bounces_delete",
+      "resource_group": "bounces"
+    },
+    {
+      "name": "bounces_clear",
+      "description": "Clear all bounces for a domain.",
+      "detail_url": "/capabilities/bounces_clear",
+      "resource_group": "bounces"
+    },
+    {
+      "name": "complaints_list",
+      "description": "Retrieve spam complaints for a domain.",
+      "detail_url": "/capabilities/complaints_list",
+      "resource_group": "complaints"
+    },
+    {
+      "name": "unsubscribes_list",
+      "description": "Retrieve unsubscribed email addresses for a domain.",
+      "detail_url": "/capabilities/unsubscribes_list",
+      "resource_group": "unsubscribes"
+    },
+    {
+      "name": "unsubscribes_create",
+      "description": "Add an address to the unsubscribe list.",
+      "detail_url": "/capabilities/unsubscribes_create",
+      "resource_group": "unsubscribes"
+    },
+    {
+      "name": "unsubscribes_delete",
+      "description": "Remove an address from the unsubscribe list.",
+      "detail_url": "/capabilities/unsubscribes_delete",
+      "resource_group": "unsubscribes"
+    },
+    {
+      "name": "routes_list",
+      "description": "Retrieve all routes for incoming email processing.",
+      "detail_url": "/capabilities/routes_list",
+      "resource_group": "routes"
+    },
+    {
+      "name": "routes_create",
+      "description": "Create a new route for incoming email processing.",
+      "detail_url": "/capabilities/routes_create",
+      "resource_group": "routes"
+    },
+    {
+      "name": "routes_get",
+      "description": "Retrieve a single route by ID.",
+      "detail_url": "/capabilities/routes_get",
+      "resource_group": "routes"
+    },
+    {
+      "name": "routes_update",
+      "description": "Update an existing route.",
+      "detail_url": "/capabilities/routes_update",
+      "resource_group": "routes"
+    },
+    {
+      "name": "routes_delete",
+      "description": "Delete a route.",
+      "detail_url": "/capabilities/routes_delete",
+      "resource_group": "routes"
+    },
+    {
+      "name": "mailing_lists_list",
+      "description": "Retrieve all mailing lists.",
+      "detail_url": "/capabilities/mailing_lists_list",
+      "resource_group": "mailing_lists"
+    },
+    {
+      "name": "mailing_lists_create",
+      "description": "Create a new mailing list.",
+      "detail_url": "/capabilities/mailing_lists_create",
+      "resource_group": "mailing_lists"
+    },
+    {
+      "name": "mailing_lists_get",
+      "description": "Retrieve a single mailing list.",
+      "detail_url": "/capabilities/mailing_lists_get",
+      "resource_group": "mailing_lists"
+    },
+    {
+      "name": "mailing_lists_update",
+      "description": "Update a mailing list.",
+      "detail_url": "/capabilities/mailing_lists_update",
+      "resource_group": "mailing_lists"
+    },
+    {
+      "name": "mailing_lists_delete",
+      "description": "Delete a mailing list.",
+      "detail_url": "/capabilities/mailing_lists_delete",
+      "resource_group": "mailing_lists"
+    },
+    {
+      "name": "mailing_lists_members_list",
+      "description": "Retrieve members of a mailing list.",
+      "detail_url": "/capabilities/mailing_lists_members_list",
+      "resource_group": "mailing_lists"
+    },
+    {
+      "name": "mailing_lists_members_add",
+      "description": "Add a member to a mailing list.",
+      "detail_url": "/capabilities/mailing_lists_members_add",
+      "resource_group": "mailing_lists"
+    },
+    {
+      "name": "mailing_lists_members_delete",
+      "description": "Remove a member from a mailing list.",
+      "detail_url": "/capabilities/mailing_lists_members_delete",
+      "resource_group": "mailing_lists"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "Retrieve all webhooks for a domain.",
+      "detail_url": "/capabilities/webhooks_list",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a new webhook for a domain.",
+      "detail_url": "/capabilities/webhooks_create",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update an existing webhook.",
+      "detail_url": "/capabilities/webhooks_update",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "detail_url": "/capabilities/webhooks_delete",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "email_validate",
+      "description": "Validate an email address for deliverability, syntax, and disposable status.",
+      "detail_url": "/capabilities/email_validate",
+      "resource_group": "validation"
+    },
+    {
+      "name": "stats_total",
+      "description": "Retrieve total statistics for a domain.",
+      "detail_url": "/capabilities/stats_total",
+      "resource_group": "stats"
     }
   ]
 }

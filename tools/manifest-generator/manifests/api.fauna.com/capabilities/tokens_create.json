@@ -1,0 +1,50 @@
+{
+  "name": "tokens_create",
+  "description": "Create a new access token (key) for database authentication with specific role and permissions.",
+  "endpoint": "/query/1",
+  "method": "POST",
+  "resource_group": "tokens",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "FQL query to create a key with a role. Use Key.create({role: '...'}) syntax.",
+      "required": true,
+      "example": "Key.create({ role: 'server' })"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://db.fauna.com/query/1",
+    "headers": {
+      "Authorization": "Bearer fn_your_admin_key",
+      "Content-Type": "application/json",
+      "X-Format": "simple"
+    },
+    "body": {
+      "query": "Key.create({ role: 'server' })"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "394508947012837999",
+        "coll": "Key",
+        "ts": "2024-09-01T10:00:00.000Z",
+        "role": "server",
+        "secret": "fn_new_secret_key_here"
+      },
+      "txn_ts": 1693560000000000,
+      "stats": {
+        "compute_ops": 1,
+        "read_ops": 0,
+        "write_ops": 1
+      }
+    }
+  },
+  "auth_scopes": ["admin"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "OpenWeatherMap",
-  "description": "OpenWeatherMap provides comprehensive weather data for any location worldwide. The API offers current conditions, multi-day forecasts, air pollution indices, and geocoding services. Data includes temperature, humidity, wind, pressure, precipitation, UV index, and visibility.",
+  "description": "OpenWeatherMap provides comprehensive weather data for any location worldwide. The API offers current conditions, 5-day/3-hour forecasts, One Call API 3.0 (current + minutely + hourly + daily + alerts), air pollution data, and geocoding. Data includes temperature, humidity, wind, pressure, precipitation, UV index, and visibility.",
   "base_url": "https://api.openweathermap.org",
   "auth": {
     "type": "api_key",
@@ -11,29 +11,70 @@
   },
   "capabilities": [
     {
-      "name": "get_current_weather",
-      "description": "Get the current weather conditions for a location including temperature, humidity, wind speed, pressure, cloudiness, and weather description.",
-      "detail_url": "/capabilities/get_current_weather"
+      "name": "weather_current_get",
+      "description": "Get current weather conditions for a location.",
+      "resource_group": "weather",
+      "detail_url": "/capabilities/weather_current_get"
     },
     {
-      "name": "get_forecast",
-      "description": "Get a 5-day weather forecast with 3-hour intervals including temperature, precipitation probability, wind, and weather conditions.",
-      "detail_url": "/capabilities/get_forecast"
+      "name": "forecast_5day_get",
+      "description": "Get 5-day weather forecast with 3-hour intervals.",
+      "resource_group": "forecast",
+      "detail_url": "/capabilities/forecast_5day_get"
     },
     {
-      "name": "get_air_pollution",
-      "description": "Get current air quality data including AQI index and concentrations of pollutants like PM2.5, PM10, ozone, NO2, SO2, and CO.",
-      "detail_url": "/capabilities/get_air_pollution"
+      "name": "onecall_get",
+      "description": "Get comprehensive weather: current, minutely, hourly, daily forecasts, and alerts in one call.",
+      "resource_group": "onecall",
+      "detail_url": "/capabilities/onecall_get"
     },
     {
-      "name": "geocode_location",
-      "description": "Convert a city name or zip code into geographic coordinates (latitude/longitude), or reverse-geocode coordinates into place names.",
-      "detail_url": "/capabilities/geocode_location"
+      "name": "onecall_timemachine_get",
+      "description": "Get historical weather data for a specific past date via One Call API.",
+      "resource_group": "onecall",
+      "detail_url": "/capabilities/onecall_timemachine_get"
     },
     {
-      "name": "get_one_call",
-      "description": "Get a comprehensive weather overview in a single request: current conditions, minute-by-minute precipitation for 1 hour, hourly forecast for 48 hours, daily forecast for 8 days, and government weather alerts.",
-      "detail_url": "/capabilities/get_one_call"
+      "name": "onecall_day_summary_get",
+      "description": "Get aggregated weather data for a specific date via One Call API.",
+      "resource_group": "onecall",
+      "detail_url": "/capabilities/onecall_day_summary_get"
+    },
+    {
+      "name": "air_pollution_current_get",
+      "description": "Get current air quality data with AQI and pollutant concentrations.",
+      "resource_group": "air_pollution",
+      "detail_url": "/capabilities/air_pollution_current_get"
+    },
+    {
+      "name": "air_pollution_forecast_get",
+      "description": "Get air pollution forecast for the next 4 days.",
+      "resource_group": "air_pollution",
+      "detail_url": "/capabilities/air_pollution_forecast_get"
+    },
+    {
+      "name": "air_pollution_history_get",
+      "description": "Get historical air pollution data.",
+      "resource_group": "air_pollution",
+      "detail_url": "/capabilities/air_pollution_history_get"
+    },
+    {
+      "name": "geocode_direct",
+      "description": "Convert city name to geographic coordinates.",
+      "resource_group": "geocoding",
+      "detail_url": "/capabilities/geocode_direct"
+    },
+    {
+      "name": "geocode_reverse",
+      "description": "Convert coordinates to location name.",
+      "resource_group": "geocoding",
+      "detail_url": "/capabilities/geocode_reverse"
+    },
+    {
+      "name": "geocode_zip",
+      "description": "Convert zip/postal code to coordinates.",
+      "resource_group": "geocoding",
+      "detail_url": "/capabilities/geocode_zip"
     }
   ]
 }

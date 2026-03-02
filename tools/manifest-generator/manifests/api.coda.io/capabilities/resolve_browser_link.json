@@ -1,0 +1,43 @@
+{
+  "name": "resolve_browser_link",
+  "resource_group": "misc",
+  "description": "Resolve a Coda browser URL to API resource metadata.",
+  "endpoint": "/resolveBrowserLink",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "Coda browser URL to resolve",
+      "example": "https://coda.io/d/_dAbCDeFGH/Tasks_tabc"
+    },
+    {
+      "name": "degradeGracefully",
+      "type": "boolean",
+      "required": false,
+      "description": "Return partial data instead of 404",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://coda.io/apis/v1/resolveBrowserLink?url=https://coda.io/d/_dAbCDeFGH/Tasks_tabc",
+    "headers": {
+      "Authorization": "Bearer CODA_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "apiLink",
+      "href": "https://coda.io/apis/v1/docs/AbCDeFGH/tables/grid-abc",
+      "browserLink": "https://coda.io/d/_dAbCDeFGH/Tasks_tabc",
+      "resource": {
+        "type": "table",
+        "id": "grid-abc",
+        "name": "Tasks"
+      }
+    }
+  }
+}

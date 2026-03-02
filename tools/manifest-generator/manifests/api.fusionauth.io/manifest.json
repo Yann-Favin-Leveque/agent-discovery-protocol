@@ -1,8 +1,8 @@
 {
   "spec_version": "1.0",
   "name": "FusionAuth",
-  "description": "FusionAuth is a self-hostable identity and access management platform. It provides APIs for user registration, login, JWT management, multi-factor authentication, application configuration, and tenant management for multi-tenant deployments.",
-  "base_url": "https://api.fusionauth.io",
+  "description": "FusionAuth is a self-hostable identity and access management platform. It provides APIs for user registration, login, JWT management, multi-factor authentication, application management, tenant configuration, group management, passwordless login, and consent tracking.",
+  "base_url": "https://{your-fusionauth-host}",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
@@ -12,44 +12,202 @@
   },
   "capabilities": [
     {
-      "name": "create_user",
+      "name": "users_create",
+      "resource_group": "users",
       "description": "Create a new user in FusionAuth. Optionally register them to an application in the same request.",
-      "detail_url": "/capabilities/create_user"
+      "detail_url": "/capabilities/users_create"
     },
     {
-      "name": "login_user",
-      "description": "Authenticate a user with email/username and password. Returns a JWT access token and refresh token on success.",
-      "detail_url": "/capabilities/login_user"
+      "name": "users_get",
+      "resource_group": "users",
+      "description": "Retrieve a user by ID, email, or username. Returns full user data with registrations.",
+      "detail_url": "/capabilities/users_get"
     },
     {
-      "name": "register_user",
-      "description": "Register an existing user to an application. This associates the user with an app and assigns roles.",
-      "detail_url": "/capabilities/register_user"
+      "name": "users_update",
+      "resource_group": "users",
+      "description": "Update an existing user's profile data.",
+      "detail_url": "/capabilities/users_update"
     },
     {
-      "name": "retrieve_user",
-      "description": "Retrieve a user's profile by ID, email, or username. Returns full user data including registrations and group memberships.",
-      "detail_url": "/capabilities/retrieve_user"
+      "name": "users_delete",
+      "resource_group": "users",
+      "description": "Delete a user by ID. Optionally soft-delete (deactivate) instead of hard delete.",
+      "detail_url": "/capabilities/users_delete"
     },
     {
-      "name": "validate_jwt",
-      "description": "Validate a JWT access token and return its claims. Useful for verifying tokens without a local public key.",
-      "detail_url": "/capabilities/validate_jwt"
+      "name": "users_search",
+      "resource_group": "users",
+      "description": "Search for users with complex query criteria, pagination and sorting.",
+      "detail_url": "/capabilities/users_search"
     },
     {
-      "name": "create_application",
-      "description": "Create a new application (client) in FusionAuth with OAuth settings, roles, and authentication policies.",
-      "detail_url": "/capabilities/create_application"
+      "name": "users_change_password",
+      "resource_group": "users",
+      "description": "Change a user's password by providing the current and new password.",
+      "detail_url": "/capabilities/users_change_password"
     },
     {
-      "name": "start_passwordless_login",
-      "description": "Initiate a passwordless login flow by sending a magic link or one-time code to the user's email.",
-      "detail_url": "/capabilities/start_passwordless_login"
+      "name": "login",
+      "resource_group": "login",
+      "description": "Authenticate a user with email/username and password. Returns JWT access and refresh tokens.",
+      "detail_url": "/capabilities/login"
     },
     {
-      "name": "issue_refresh_token",
-      "description": "Exchange a refresh token for a new JWT access token. Supports token rotation for security.",
-      "detail_url": "/capabilities/issue_refresh_token"
+      "name": "login_two_factor",
+      "resource_group": "login",
+      "description": "Complete a two-factor authentication login by providing the MFA code.",
+      "detail_url": "/capabilities/login_two_factor"
+    },
+    {
+      "name": "registrations_create",
+      "resource_group": "registrations",
+      "description": "Register an existing user to an application with roles.",
+      "detail_url": "/capabilities/registrations_create"
+    },
+    {
+      "name": "registrations_get",
+      "resource_group": "registrations",
+      "description": "Retrieve a user's registration for a specific application.",
+      "detail_url": "/capabilities/registrations_get"
+    },
+    {
+      "name": "registrations_update",
+      "resource_group": "registrations",
+      "description": "Update a user's registration for an application (roles, data).",
+      "detail_url": "/capabilities/registrations_update"
+    },
+    {
+      "name": "registrations_delete",
+      "resource_group": "registrations",
+      "description": "Delete a user's registration from an application.",
+      "detail_url": "/capabilities/registrations_delete"
+    },
+    {
+      "name": "jwt_validate",
+      "resource_group": "jwt",
+      "description": "Validate a JWT access token and return its claims.",
+      "detail_url": "/capabilities/jwt_validate"
+    },
+    {
+      "name": "jwt_refresh",
+      "resource_group": "jwt",
+      "description": "Exchange a refresh token for a new JWT access token.",
+      "detail_url": "/capabilities/jwt_refresh"
+    },
+    {
+      "name": "jwt_revoke_refresh_token",
+      "resource_group": "jwt",
+      "description": "Revoke a refresh token to prevent further token exchanges.",
+      "detail_url": "/capabilities/jwt_revoke_refresh_token"
+    },
+    {
+      "name": "applications_create",
+      "resource_group": "applications",
+      "description": "Create a new application with OAuth settings, roles, and policies.",
+      "detail_url": "/capabilities/applications_create"
+    },
+    {
+      "name": "applications_get",
+      "resource_group": "applications",
+      "description": "Retrieve an application by ID.",
+      "detail_url": "/capabilities/applications_get"
+    },
+    {
+      "name": "applications_update",
+      "resource_group": "applications",
+      "description": "Update an application's settings.",
+      "detail_url": "/capabilities/applications_update"
+    },
+    {
+      "name": "applications_delete",
+      "resource_group": "applications",
+      "description": "Delete an application.",
+      "detail_url": "/capabilities/applications_delete"
+    },
+    {
+      "name": "tenants_create",
+      "resource_group": "tenants",
+      "description": "Create a new tenant for multi-tenant deployments.",
+      "detail_url": "/capabilities/tenants_create"
+    },
+    {
+      "name": "tenants_get",
+      "resource_group": "tenants",
+      "description": "Retrieve a tenant by ID.",
+      "detail_url": "/capabilities/tenants_get"
+    },
+    {
+      "name": "tenants_update",
+      "resource_group": "tenants",
+      "description": "Update a tenant's configuration.",
+      "detail_url": "/capabilities/tenants_update"
+    },
+    {
+      "name": "tenants_delete",
+      "resource_group": "tenants",
+      "description": "Delete a tenant.",
+      "detail_url": "/capabilities/tenants_delete"
+    },
+    {
+      "name": "groups_create",
+      "resource_group": "groups",
+      "description": "Create a new group to organize users.",
+      "detail_url": "/capabilities/groups_create"
+    },
+    {
+      "name": "groups_get",
+      "resource_group": "groups",
+      "description": "Retrieve a group by ID.",
+      "detail_url": "/capabilities/groups_get"
+    },
+    {
+      "name": "groups_update",
+      "resource_group": "groups",
+      "description": "Update a group.",
+      "detail_url": "/capabilities/groups_update"
+    },
+    {
+      "name": "groups_delete",
+      "resource_group": "groups",
+      "description": "Delete a group.",
+      "detail_url": "/capabilities/groups_delete"
+    },
+    {
+      "name": "groups_members_add",
+      "resource_group": "groups",
+      "description": "Add users to a group.",
+      "detail_url": "/capabilities/groups_members_add"
+    },
+    {
+      "name": "groups_members_remove",
+      "resource_group": "groups",
+      "description": "Remove users from a group.",
+      "detail_url": "/capabilities/groups_members_remove"
+    },
+    {
+      "name": "passwordless_start",
+      "resource_group": "passwordless",
+      "description": "Start a passwordless login by sending a magic link or code to the user.",
+      "detail_url": "/capabilities/passwordless_start"
+    },
+    {
+      "name": "passwordless_login",
+      "resource_group": "passwordless",
+      "description": "Complete a passwordless login by providing the code from the magic link.",
+      "detail_url": "/capabilities/passwordless_login"
+    },
+    {
+      "name": "two_factor_enable",
+      "resource_group": "two_factor",
+      "description": "Enable two-factor authentication for a user with a specific method.",
+      "detail_url": "/capabilities/two_factor_enable"
+    },
+    {
+      "name": "two_factor_disable",
+      "resource_group": "two_factor",
+      "description": "Disable two-factor authentication for a user.",
+      "detail_url": "/capabilities/two_factor_disable"
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "name": "asset_report_create",
+  "description": "Create an Asset Report for underwriting purposes.",
+  "resource_group": "assets",
+  "endpoint": "/asset_report/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_tokens",
+      "type": "array",
+      "required": true,
+      "description": "Access tokens for Items."
+    },
+    {
+      "name": "days_requested",
+      "type": "integer",
+      "required": true,
+      "description": "Days of history. Max: 731."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/asset_report/create",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_tokens": [
+        "access-production-abc"
+      ],
+      "days_requested": 60
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "asset_report_token": "assets-abc",
+      "asset_report_id": "report_abc",
+      "request_id": "abc"
+    }
+  }
+}

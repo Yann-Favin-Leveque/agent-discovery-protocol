@@ -1,0 +1,76 @@
+{
+  "name": "events_list",
+  "description": "Query the event log to track deliveries, opens, clicks, bounces, and failures.",
+  "resource_group": "events",
+  "endpoint": "/v3/{domain}/events",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun domain.",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "description": "Event type: accepted, delivered, failed, opened, clicked, unsubscribed, complained, stored.",
+      "required": false,
+      "example": "delivered"
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Filter by sender.",
+      "required": false
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "Filter by recipient.",
+      "required": false
+    },
+    {
+      "name": "begin",
+      "type": "string",
+      "description": "Start date (RFC 2822).",
+      "required": false
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End date (RFC 2822).",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "description": "Number of results (max 300).",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailgun.com/v3/mg.example.com/events?event=delivered&limit=100",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "event": "delivered",
+          "recipient": "user@example.com",
+          "timestamp": 1234567890
+        }
+      ],
+      "paging": {
+        "next": "https://api.mailgun.com/v3/..."
+      }
+    }
+  }
+}

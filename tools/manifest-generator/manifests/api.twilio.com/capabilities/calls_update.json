@@ -1,0 +1,55 @@
+{
+  "name": "calls_update",
+  "resource_group": "calls",
+  "description": "Modify a live call (redirect, end, pause recording).",
+  "endpoint": "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "AccountSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Account SID",
+      "example": "ACXXX"
+    },
+    {
+      "name": "CallSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Call SID",
+      "example": "CAXXX"
+    },
+    {
+      "name": "Status",
+      "type": "string",
+      "required": false,
+      "description": "Set to completed to end call",
+      "example": "completed"
+    },
+    {
+      "name": "Url",
+      "type": "string",
+      "required": false,
+      "description": "New TwiML URL",
+      "example": "https://example.com/new-twiml"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/ACXXX/Calls/CAXXX.json",
+    "headers": {
+      "Authorization": "Basic BASE64(AccountSid:AuthToken)",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "Status=completed"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sid": "CAXXX",
+      "status": "completed"
+    }
+  }
+}

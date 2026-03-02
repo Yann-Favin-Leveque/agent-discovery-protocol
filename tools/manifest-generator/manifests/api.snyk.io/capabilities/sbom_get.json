@@ -1,0 +1,54 @@
+{
+  "name": "sbom_get",
+  "description": "Get SBOM (Software Bill of Materials) document for a project.",
+  "resource_group": "sbom",
+  "endpoint": "/rest/orgs/{org_id}/projects/{project_id}/sbom",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization UUID."
+    },
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "description": "Project UUID."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "API version date."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "description": "SBOM format: cyclonedx1.4+json, spdx2.3+json."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.snyk.io/rest/orgs/org-uuid/projects/proj-uuid/sbom?version=2024-06-21&format=cyclonedx1.4%2Bjson",
+    "headers": {
+      "Authorization": "token <api_token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "bomFormat": "CycloneDX",
+      "specVersion": "1.4",
+      "components": [
+        {
+          "type": "library",
+          "name": "lodash",
+          "version": "4.17.21"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "segments_list",
+  "description": "List all user segments in an environment.",
+  "resource_group": "segments",
+  "endpoint": "/segments/{projectKey}/{envKey}",
+  "method": "GET",
+  "parameters": [
+    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
+    {"name": "envKey", "type": "string", "description": "The environment key.", "required": true, "example": "production"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.launchdarkly.com/api/v2/segments/my-project/production",
+    "headers": {"Authorization": "{api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"items": [{"key": "beta-users", "name": "Beta Users", "description": "Users in beta program", "included": ["user1"], "excluded": []}], "totalCount": 5}
+  },
+  "rate_limits": {"requests_per_minute": 120}
+}

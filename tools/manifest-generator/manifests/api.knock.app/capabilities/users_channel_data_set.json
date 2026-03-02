@@ -1,0 +1,64 @@
+{
+  "name": "users_channel_data_set",
+  "description": "Set channel-specific data for a user (e.g., device tokens for push).",
+  "endpoint": "/v1/users/{user_id}/channel_data/{channel_id}",
+  "method": "PUT",
+  "resource_group": "channel_data",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "User ID.",
+      "required": true,
+      "example": "user_123"
+    },
+    {
+      "name": "channel_id",
+      "type": "string",
+      "description": "Channel ID.",
+      "required": true,
+      "example": "apns-channel"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Channel data payload.",
+      "required": true,
+      "example": {
+        "tokens": [
+          "device_token_abc"
+        ]
+      }
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.knock.app/v1/users/user_123/channel_data/apns-channel",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "tokens": [
+          "device_token_abc"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "channel_id": "apns-channel",
+      "data": {
+        "tokens": [
+          "device_token_abc"
+        ]
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

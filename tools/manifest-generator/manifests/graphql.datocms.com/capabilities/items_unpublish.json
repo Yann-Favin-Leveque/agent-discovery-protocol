@@ -1,0 +1,53 @@
+{
+  "name": "items_unpublish",
+  "description": "Unpublish a content record, reverting it to draft status. Can selectively unpublish specific locales.",
+  "resource_group": "items",
+  "endpoint": "/items/{item_id}/unpublish",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "item_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique record ID to unpublish."
+    },
+    {
+      "name": "recursive",
+      "type": "boolean",
+      "required": false,
+      "location": "query",
+      "description": "When true, also unpublishes child records in tree collections."
+    },
+    {
+      "name": "content_in_locales",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Array of locale codes to selectively unpublish."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://site-api.datocms.com/items/hWl-mnkWRYmMCSTq4z_piQ/unpublish",
+    "headers": {
+      "Authorization": "Bearer your-datocms-api-token",
+      "Content-Type": "application/vnd.api+json",
+      "Accept": "application/json",
+      "X-Api-Version": "3"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "item",
+        "id": "hWl-mnkWRYmMCSTq4z_piQ",
+        "meta": {
+          "status": "draft",
+          "published_at": null
+        }
+      }
+    }
+  }
+}

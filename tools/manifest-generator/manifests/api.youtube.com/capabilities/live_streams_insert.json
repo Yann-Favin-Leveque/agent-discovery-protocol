@@ -1,0 +1,52 @@
+{
+  "name": "live_streams_insert",
+  "description": "Create a new live stream.",
+  "endpoint": "/youtube/v3/liveStreams",
+  "method": "POST",
+  "resource_group": "live_streams",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,cdn"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://youtube.googleapis.com/youtube/v3/liveStreams",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "snippet": {
+        "title": "My Stream"
+      },
+      "cdn": {
+        "frameRate": "30fps",
+        "ingestionType": "rtmp",
+        "resolution": "1080p"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "stream_new",
+      "cdn": {
+        "ingestionInfo": {
+          "streamName": "xxxx-xxxx",
+          "ingestionAddress": "rtmp://a.rtmp.youtube.com/live2"
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "opportunities_tags_add",
+  "resource_group": "Opportunities",
+  "endpoint": "/v1/opportunities/{opportunity}/addTags",
+  "method": "POST",
+  "description": "Add tags to an opportunity.",
+  "parameters": [
+    {
+      "name": "opportunity",
+      "type": "string",
+      "required": true,
+      "description": "Opportunity UUID."
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": true,
+      "description": "Tag strings to add."
+    },
+    {
+      "name": "perform_as",
+      "type": "string",
+      "required": false,
+      "description": "User UUID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lever.co/v1/opportunities/abc-123/addTags",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tags": [
+        "senior",
+        "priority"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "tags": [
+          "engineering",
+          "senior",
+          "priority"
+        ]
+      }
+    }
+  }
+}

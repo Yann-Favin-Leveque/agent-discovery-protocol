@@ -1,0 +1,99 @@
+{
+  "name": "event_create",
+  "description": "Create a new calendar event with participants and notifications.",
+  "resource_group": "event",
+  "endpoint": "/v3/grants/{grant_id}/events",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "calendar_id",
+      "type": "string",
+      "description": "Calendar ID (required query parameter).",
+      "required": true,
+      "example": "cal_abc"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Event title.",
+      "required": true,
+      "example": "Team Meeting"
+    },
+    {
+      "name": "when",
+      "type": "object",
+      "description": "Event time (start_time, end_time as Unix timestamps).",
+      "required": true,
+      "example": {
+        "start_time": 1704067200,
+        "end_time": 1704070800
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Event description.",
+      "required": false
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Event location.",
+      "required": false
+    },
+    {
+      "name": "participants",
+      "type": "array",
+      "description": "Participant list with email addresses.",
+      "required": false,
+      "example": [
+        {
+          "email": "jane@example.com"
+        }
+      ]
+    },
+    {
+      "name": "busy",
+      "type": "boolean",
+      "description": "Show as busy.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.us.nylas.com/v3/grants/me/events?calendar_id=cal_abc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Team Meeting",
+      "when": {
+        "start_time": 1704067200,
+        "end_time": 1704070800
+      },
+      "participants": [
+        {
+          "email": "jane@example.com"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "evt_new",
+        "title": "Team Meeting"
+      }
+    }
+  }
+}

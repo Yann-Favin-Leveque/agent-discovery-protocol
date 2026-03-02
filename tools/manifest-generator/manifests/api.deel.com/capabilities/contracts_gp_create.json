@@ -1,0 +1,47 @@
+{
+  "name": "contracts_gp_create",
+  "resource_group": "Contracts",
+  "endpoint": "/rest/v2/contracts/gp",
+  "method": "POST",
+  "description": "Create a Global Payroll contract for a new employee.",
+  "parameters": [
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Contract details including worker info, compensation, country, and start date."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.letsdeel.com/rest/v2/contracts/gp",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "first_name": "Jane",
+        "last_name": "Smith",
+        "email": "jane@example.com",
+        "country": "US",
+        "job_title": "Engineer",
+        "compensation": {
+          "amount": 120000,
+          "currency": "USD",
+          "type": "annual"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "ct-new",
+        "type": "employee",
+        "status": "in_progress"
+      }
+    }
+  }
+}

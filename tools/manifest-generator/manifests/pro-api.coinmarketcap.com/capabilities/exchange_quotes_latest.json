@@ -1,0 +1,57 @@
+{
+  "name": "exchange_quotes_latest",
+  "description": "Return the latest aggregate market data for one or more exchanges.",
+  "resource_group": "exchange",
+  "endpoint": "/v1/exchange/quotes/latest",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Exchange IDs.",
+      "required": false,
+      "example": "270"
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "description": "Exchange slugs.",
+      "required": false,
+      "example": "binance"
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Quote currency.",
+      "required": false,
+      "example": "USD"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/exchange/quotes/latest?slug=binance",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": {
+        "270": {
+          "id": 270,
+          "name": "Binance",
+          "quote": {
+            "USD": {
+              "volume_24h": 15000000000
+            }
+          }
+        }
+      }
+    }
+  }
+}

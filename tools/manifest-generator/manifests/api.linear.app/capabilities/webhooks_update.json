@@ -1,0 +1,39 @@
+{
+  "name": "webhooks_update",
+  "description": "Update a webhook.",
+  "resource_group": "webhooks",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Webhook ID"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "New URL"
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "Enable/disable"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "mutation { webhookUpdate(id: \"webhook-id\", input: { enabled: false }) { success } }"
+  }
+}

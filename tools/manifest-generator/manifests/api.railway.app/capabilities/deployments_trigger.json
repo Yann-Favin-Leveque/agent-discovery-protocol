@@ -1,0 +1,42 @@
+{
+  "name": "deployments_trigger",
+  "description": "Trigger a new deployment.",
+  "resource_group": "deployments",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "Service ID."
+    },
+    {
+      "name": "environmentId",
+      "type": "string",
+      "required": true,
+      "description": "Environment ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($input: DeploymentTriggerInput!) { deploymentTrigger(input: $input) { id status } }",
+      "variables": {
+        "input": {
+          "serviceId": "srv-abc",
+          "environmentId": "env-abc"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "deploymentTrigger": {
+        "id": "dep-new",
+        "status": "BUILDING"
+      }
+    }
+  }
+}

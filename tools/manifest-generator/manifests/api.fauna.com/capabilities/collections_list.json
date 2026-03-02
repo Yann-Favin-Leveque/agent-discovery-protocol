@@ -1,0 +1,49 @@
+{
+  "name": "collections_list",
+  "description": "List all collections (tables) in the database.",
+  "endpoint": "/query/1",
+  "method": "POST",
+  "resource_group": "collections",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "FQL query to list collections.",
+      "required": true,
+      "example": "Collection.all()"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://db.fauna.com/query/1",
+    "headers": {
+      "Authorization": "Bearer fn_your_secret_key",
+      "Content-Type": "application/json",
+      "X-Format": "simple"
+    },
+    "body": {
+      "query": "Collection.all()"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "data": [
+          {"name": "Product", "coll": "Collection", "ts": "2024-09-01T10:00:00.000Z"},
+          {"name": "Order", "coll": "Collection", "ts": "2024-09-01T10:01:00.000Z"}
+        ]
+      },
+      "txn_ts": 1693560000000000,
+      "stats": {
+        "compute_ops": 1,
+        "read_ops": 1,
+        "write_ops": 0
+      }
+    }
+  },
+  "auth_scopes": ["admin"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

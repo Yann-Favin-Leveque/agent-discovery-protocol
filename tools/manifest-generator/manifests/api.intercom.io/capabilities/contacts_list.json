@@ -1,0 +1,52 @@
+{
+  "name": "contacts_list",
+  "description": "List all contacts (users and leads) in your Intercom workspace with cursor-based pagination.",
+  "resource_group": "contacts",
+  "endpoint": "/contacts",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Number of contacts per page (max 150). Default 50."
+    },
+    {
+      "name": "starting_after",
+      "type": "string",
+      "required": false,
+      "description": "Cursor for next page from previous response."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.intercom.io/contacts?per_page=50",
+    "headers": {
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "list",
+      "data": [
+        {
+          "type": "contact",
+          "id": "6578a0b1c2d3e4f567890abc",
+          "role": "user",
+          "email": "jane@example.com",
+          "name": "Jane Doe",
+          "created_at": 1740787200
+        }
+      ],
+      "total_count": 250,
+      "pages": {
+        "type": "pages",
+        "page": 1,
+        "per_page": 50,
+        "total_pages": 5
+      }
+    }
+  }
+}

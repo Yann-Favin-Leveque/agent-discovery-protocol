@@ -1,0 +1,57 @@
+{
+  "name": "synthetics_monitors_create",
+  "description": "Create a new synthetic monitor.",
+  "resource_group": "synthetics",
+  "endpoint": "/v3/monitors",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Monitor name"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "SIMPLE, BROWSER, SCRIPT_API, SCRIPT_BROWSER"
+    },
+    {
+      "name": "frequency",
+      "type": "integer",
+      "required": true,
+      "description": "Check frequency in minutes"
+    },
+    {
+      "name": "uri",
+      "type": "string",
+      "required": false,
+      "description": "URL to monitor (for SIMPLE and BROWSER)"
+    },
+    {
+      "name": "locations",
+      "type": "array",
+      "required": true,
+      "description": "Monitoring locations"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "ENABLED or DISABLED"
+    }
+  ],
+  "request_example": {
+    "name": "API Health",
+    "type": "SIMPLE",
+    "frequency": 5,
+    "uri": "https://api.example.com/health",
+    "locations": [
+      "AWS_US_EAST_1"
+    ],
+    "status": "ENABLED"
+  },
+  "response_example": {},
+  "auth_scopes": []
+}

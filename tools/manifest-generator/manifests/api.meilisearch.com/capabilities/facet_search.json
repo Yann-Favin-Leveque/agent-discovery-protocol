@@ -1,0 +1,82 @@
+{
+  "name": "facet_search",
+  "description": "Search for facet values within an index, useful for building dynamic filter UIs.",
+  "endpoint": "/indexes/{indexUid}/facet-search",
+  "method": "POST",
+  "resource_group": "search",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "facetName",
+      "type": "string",
+      "description": "Attribute name to search facet values for.",
+      "required": true,
+      "example": "genre"
+    },
+    {
+      "name": "facetQuery",
+      "type": "string",
+      "description": "Query string to search within the facet values.",
+      "required": false,
+      "example": "act"
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Optional main search query to scope the facet search.",
+      "required": false,
+      "example": "matrix"
+    },
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "Filter expression to scope facet search.",
+      "required": false,
+      "example": "year > 2000"
+    },
+    {
+      "name": "matchingStrategy",
+      "type": "string",
+      "description": "Matching strategy: 'last', 'all', or 'frequency'.",
+      "required": false,
+      "example": "last"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.meilisearch.com/indexes/movies/facet-search",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "facetName": "genre",
+      "facetQuery": "act"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "facetHits": [
+        {
+          "value": "action",
+          "count": 50
+        }
+      ],
+      "facetQuery": "act",
+      "processingTimeMs": 1
+    }
+  },
+  "auth_scopes": [
+    "search"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

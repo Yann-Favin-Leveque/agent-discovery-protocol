@@ -2,48 +2,188 @@
   "spec_version": "1.0",
   "name": "Algolia",
   "description": "Algolia is a hosted search and discovery API that delivers fast, relevant search results in milliseconds. It supports full-text search, faceted filtering, typo tolerance, geo-search, and AI-powered recommendations across indexes of structured data.",
-  "base_url": "https://api.algolia.com",
+  "base_url": "https://{APPLICATION_ID}.algolia.net",
   "auth": {
     "type": "api_key",
     "header": "x-algolia-api-key",
     "prefix": "",
-    "setup_url": "https://dashboard.algolia.com/account/api-keys/all"
+    "setup_url": "https://dashboard.algolia.com/account/api-keys/all",
+    "note": "Also requires x-algolia-application-id header with your Application ID."
   },
   "capabilities": [
     {
-      "name": "search_index",
-      "description": "Perform a full-text search query against an Algolia index. Supports filters, facets, pagination, typo tolerance, and geo-search. Returns ranked results with highlighted matches.",
-      "detail_url": "/capabilities/search_index"
+      "name": "search_single_index",
+      "description": "Perform a full-text search query against a single index with filters, facets, and pagination.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/search_single_index",
+      "resource_group": "search"
     },
     {
-      "name": "browse_index",
-      "description": "Iterate over all records in an index without ranking. Useful for exporting data, building feeds, or processing all records when you do not need relevance-based ordering.",
-      "detail_url": "/capabilities/browse_index"
+      "name": "search_multiple_indices",
+      "description": "Execute multiple search queries across one or more indices in a single API call.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/search_multiple_indices",
+      "resource_group": "search"
     },
     {
-      "name": "manage_objects",
-      "description": "Add, update, or delete records (objects) in an Algolia index. Supports single and batch operations for keeping your search index synchronized with your data source.",
-      "detail_url": "/capabilities/manage_objects"
+      "name": "search_for_facet_values",
+      "description": "Search for values of a specific facet attribute for building facet autocomplete.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/search_for_facet_values",
+      "resource_group": "search"
     },
     {
-      "name": "manage_index_settings",
-      "description": "Get or update the search configuration of an index including searchable attributes, ranking rules, facets, and custom relevance settings.",
-      "detail_url": "/capabilities/manage_index_settings"
+      "name": "records_browse",
+      "description": "Iterate over all records in an index without relevance ranking for data export.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/records_browse",
+      "resource_group": "records"
     },
     {
-      "name": "manage_synonyms",
-      "description": "Create, list, or delete synonyms for an index so that alternative terms return the same results. Supports one-way, two-way, and placeholder synonyms.",
-      "detail_url": "/capabilities/manage_synonyms"
+      "name": "records_get",
+      "description": "Retrieve one or more records by their objectIDs from one or more indices.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/records_get",
+      "resource_group": "records"
     },
     {
-      "name": "manage_rules",
-      "description": "Create and manage query rules that customize search behavior for specific queries. Rules can pin results, boost items, add filters, or return custom data.",
-      "detail_url": "/capabilities/manage_rules"
+      "name": "records_save",
+      "description": "Add or replace a record in an index.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/records_save",
+      "resource_group": "records"
     },
     {
-      "name": "multi_index_search",
-      "description": "Execute multiple search queries across one or more indexes in a single API call. Useful for federated search, autocomplete, and building search interfaces that combine results from different data sources.",
-      "detail_url": "/capabilities/multi_index_search"
+      "name": "records_partial_update",
+      "description": "Partially update a record by merging attributes without full replacement.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/records_partial_update",
+      "resource_group": "records"
+    },
+    {
+      "name": "records_delete",
+      "description": "Delete a specific record from an index by its objectID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/records_delete",
+      "resource_group": "records"
+    },
+    {
+      "name": "records_batch",
+      "description": "Perform multiple write operations in a single batch request for bulk indexing.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/records_batch",
+      "resource_group": "records"
+    },
+    {
+      "name": "records_delete_by_query",
+      "description": "Delete all records matching a filter expression from an index.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/records_delete_by_query",
+      "resource_group": "records"
+    },
+    {
+      "name": "indices_list",
+      "description": "List all indices in the application with metadata and entry counts.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/indices_list",
+      "resource_group": "indices"
+    },
+    {
+      "name": "indices_delete",
+      "description": "Delete an entire index and all its data permanently.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/indices_delete",
+      "resource_group": "indices"
+    },
+    {
+      "name": "indices_clear",
+      "description": "Remove all records from an index while keeping settings, synonyms, and rules.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/indices_clear",
+      "resource_group": "indices"
+    },
+    {
+      "name": "indices_copy",
+      "description": "Copy an index to a new or existing index with optional scope filtering.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/indices_copy",
+      "resource_group": "indices"
+    },
+    {
+      "name": "indices_move",
+      "description": "Rename an index by moving it to a new name.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/indices_move",
+      "resource_group": "indices"
+    },
+    {
+      "name": "settings_get",
+      "description": "Retrieve the current search configuration of an index.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/settings_get",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_update",
+      "description": "Update the search configuration of an index.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/settings_update",
+      "resource_group": "settings"
+    },
+    {
+      "name": "synonyms_save",
+      "description": "Create or update a synonym set for an index.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/synonyms_save",
+      "resource_group": "synonyms"
+    },
+    {
+      "name": "synonyms_search",
+      "description": "Search for synonyms defined on an index.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/synonyms_search",
+      "resource_group": "synonyms"
+    },
+    {
+      "name": "synonyms_delete",
+      "description": "Delete a specific synonym set from an index.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/synonyms_delete",
+      "resource_group": "synonyms"
+    },
+    {
+      "name": "rules_save",
+      "description": "Create or update a query rule for customizing search behavior.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/rules_save",
+      "resource_group": "rules"
+    },
+    {
+      "name": "rules_search",
+      "description": "Search for query rules defined on an index.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/rules_search",
+      "resource_group": "rules"
+    },
+    {
+      "name": "rules_delete",
+      "description": "Delete a specific query rule from an index.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/rules_delete",
+      "resource_group": "rules"
+    },
+    {
+      "name": "api_keys_list",
+      "description": "List all API keys with their permissions and restrictions.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/api_keys_list",
+      "resource_group": "api_keys"
+    },
+    {
+      "name": "api_keys_get",
+      "description": "Retrieve permissions and restrictions of a specific API key.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/api_keys_get",
+      "resource_group": "api_keys"
+    },
+    {
+      "name": "api_keys_create",
+      "description": "Create a new API key with specific permissions and index restrictions.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/api_keys_create",
+      "resource_group": "api_keys"
+    },
+    {
+      "name": "api_keys_update",
+      "description": "Update the permissions or restrictions of an existing API key.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/api_keys_update",
+      "resource_group": "api_keys"
+    },
+    {
+      "name": "api_keys_delete",
+      "description": "Delete an API key permanently.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/api_keys_delete",
+      "resource_group": "api_keys"
+    },
+    {
+      "name": "task_get",
+      "description": "Check the status of an asynchronous indexing task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.algolia.com/capabilities/task_get",
+      "resource_group": "tasks"
     }
   ]
 }

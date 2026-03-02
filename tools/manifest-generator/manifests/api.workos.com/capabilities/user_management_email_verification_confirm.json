@@ -1,0 +1,42 @@
+{
+  "name": "user_management_email_verification_confirm",
+  "resource_group": "user_management",
+  "description": "Confirm email verification with the code sent to the user.",
+  "endpoint": "/user_management/users/{user_id}/email_verification/confirm",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID.",
+      "in": "path"
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "Verification code."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.workos.com/user_management/users/user_abc/email_verification/confirm",
+    "headers": {
+      "Authorization": "Bearer sk_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "code": "123456"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": "user_abc",
+        "email_verified": true
+      }
+    }
+  }
+}

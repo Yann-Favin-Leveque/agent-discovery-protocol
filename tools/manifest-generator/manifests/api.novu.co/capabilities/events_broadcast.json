@@ -1,0 +1,50 @@
+{
+  "name": "events_broadcast",
+  "description": "Broadcast a notification event to all existing subscribers.",
+  "resource_group": "events",
+  "endpoint": "/v1/events/trigger/broadcast",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Workflow trigger identifier."
+    },
+    {
+      "name": "payload",
+      "type": "object",
+      "required": false,
+      "description": "Custom payload data."
+    },
+    {
+      "name": "transactionId",
+      "type": "string",
+      "required": false,
+      "description": "Unique transaction ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.novu.co/v1/events/trigger/broadcast",
+    "headers": {
+      "Authorization": "ApiKey <key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "system-announcement",
+      "payload": {
+        "message": "Scheduled maintenance tonight"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "acknowledged": true,
+        "transactionId": "tx-bcast"
+      }
+    }
+  }
+}

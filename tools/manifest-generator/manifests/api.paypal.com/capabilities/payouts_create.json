@@ -1,0 +1,71 @@
+{
+  "name": "payouts_create",
+  "description": "Create a batch payout to send money to one or more recipients via PayPal.",
+  "endpoint": "/v1/payments/payouts",
+  "method": "POST",
+  "resource_group": "payouts",
+  "parameters": [
+    {
+      "name": "sender_batch_header",
+      "type": "object",
+      "description": "Batch header with sender info",
+      "required": true,
+      "example": {
+        "sender_batch_id": "batch_001",
+        "email_subject": "You have a payout!"
+      }
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Array of payout items with recipient and amount",
+      "required": true,
+      "example": [
+        {
+          "recipient_type": "EMAIL",
+          "receiver": "user@example.com",
+          "amount": {
+            "currency": "USD",
+            "value": "50.00"
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v1/payments/payouts",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sender_batch_header": {
+        "sender_batch_id": "batch_001"
+      },
+      "items": [
+        {
+          "recipient_type": "EMAIL",
+          "receiver": "user@example.com",
+          "amount": {
+            "currency": "USD",
+            "value": "50.00"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "batch_header": {
+        "payout_batch_id": "PAYOUT_BATCH_ID",
+        "batch_status": "PENDING"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

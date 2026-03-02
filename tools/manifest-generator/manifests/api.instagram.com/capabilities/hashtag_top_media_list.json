@@ -1,0 +1,54 @@
+{
+  "name": "hashtag_top_media_list",
+  "resource_group": "discovery",
+  "description": "Retrieve top-performing media posts tagged with a specific hashtag, ranked by popularity.",
+  "endpoint": "/{hashtag_id}/top_media",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "hashtag_id",
+      "type": "string",
+      "description": "The hashtag ID obtained from hashtag_search.",
+      "required": true,
+      "in": "path",
+      "example": "17843853986012965"
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID performing the request.",
+      "required": true,
+      "in": "query",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated fields to return.",
+      "required": false,
+      "in": "query",
+      "example": "id,caption,media_type,permalink,timestamp,like_count,comments_count"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17843853986012965/top_media?user_id=17841400000000000&fields=id,caption,media_type,permalink",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "17854360000000011",
+          "caption": "Best cat photo #catlover",
+          "media_type": "IMAGE",
+          "permalink": "https://www.instagram.com/p/GHI789/"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["instagram_basic"]
+}

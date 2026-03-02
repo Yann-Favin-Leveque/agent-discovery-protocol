@@ -1,0 +1,47 @@
+{
+  "name": "pullrequests_get",
+  "description": "Get a specific pull request.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repositories/{workspace}/{repo_slug}/pullrequests/{pull_request_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace."
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repo slug."
+    },
+    {
+      "name": "pull_request_id",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "PR ID."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace/my-project/pullrequests/1",
+    "headers": {
+      "Authorization": "Bearer oauth-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1,
+      "title": "Add dark mode",
+      "state": "OPEN",
+      "close_source_branch": true,
+      "comment_count": 3
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "transit_decrypt",
+  "description": "Decrypt ciphertext using a named encryption key.",
+  "resource_group": "transit",
+  "endpoint": "/v1/transit/decrypt/{name}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Name of the encryption key."
+    },
+    {
+      "name": "ciphertext",
+      "type": "string",
+      "required": true,
+      "description": "Ciphertext to decrypt (vault:v1:...)."
+    },
+    {
+      "name": "context",
+      "type": "string",
+      "required": false,
+      "description": "Base64-encoded context for derived keys."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com/v1/transit/decrypt/my-key",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ciphertext": "vault:v1:8SDd3WHDOjf7mq69CyCqYjBXAiQQAVZRkFM13ok481zoCmHnSeDX9vyf7w=="
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "plaintext": "bXkgc2VjcmV0IGRhdGE="
+      }
+    }
+  }
+}

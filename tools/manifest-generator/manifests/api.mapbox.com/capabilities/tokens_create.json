@@ -1,0 +1,68 @@
+{
+  "name": "tokens_create",
+  "description": "Create a new access token with specified scopes.",
+  "endpoint": "/tokens/v2/{username}",
+  "method": "POST",
+  "resource_group": "tokens",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Username.",
+      "required": true,
+      "example": "myuser"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Secret access token.",
+      "required": true,
+      "example": "sk.xxx"
+    },
+    {
+      "name": "note",
+      "type": "string",
+      "description": "Token description.",
+      "required": true,
+      "example": "Production API"
+    },
+    {
+      "name": "scopes",
+      "type": "array",
+      "description": "Token scopes.",
+      "required": true,
+      "example": [
+        "styles:read",
+        "fonts:read"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mapbox.com/tokens/v2/myuser?access_token=sk.xxx",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "note": "Production API",
+      "scopes": [
+        "styles:read",
+        "fonts:read"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "token": "pk.xxx",
+      "id": "tok_def",
+      "note": "Production API"
+    }
+  },
+  "auth_scopes": [
+    "tokens:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

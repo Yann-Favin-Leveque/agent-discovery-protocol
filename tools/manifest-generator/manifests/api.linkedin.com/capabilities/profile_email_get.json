@@ -1,0 +1,38 @@
+{
+  "name": "profile_email_get",
+  "description": "Retrieve the authenticated member email address.",
+  "resource_group": "profile",
+  "endpoint": "/v2/emailAddress",
+  "method": "GET",
+  "auth_scopes": [
+    "email"
+  ],
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "Query parameter, must be 'members'.",
+      "example": "members"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "handle~": {
+            "emailAddress": "john@example.com"
+          }
+        }
+      ]
+    }
+  }
+}

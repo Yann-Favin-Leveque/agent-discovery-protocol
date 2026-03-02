@@ -1,0 +1,51 @@
+{
+  "name": "pin_get",
+  "resource_group": "pins",
+  "description": "Retrieve detailed information about a specific pin.",
+  "endpoint": "/pins/{pin_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "pin_id",
+      "type": "string",
+      "description": "Pin ID.",
+      "required": true,
+      "in": "path",
+      "example": "549755885177"
+    },
+    {
+      "name": "pin_metrics",
+      "type": "boolean",
+      "description": "Include engagement metrics.",
+      "required": false,
+      "in": "query",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pinterest.com/v5/pins/549755885177?pin_metrics=true",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "549755885177",
+      "title": "Landscape",
+      "media": {
+        "media_type": "image"
+      },
+      "pin_metrics": {
+        "90d": {
+          "pin_click": 150,
+          "impression": 5200
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "pins:read"
+  ]
+}

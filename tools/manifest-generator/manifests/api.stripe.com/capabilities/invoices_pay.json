@@ -1,0 +1,42 @@
+{
+  "name": "invoices_pay",
+  "description": "Pay an open invoice.",
+  "endpoint": "/v1/invoices/{id}/pay",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Invoice ID",
+      "required": true,
+      "example": "in_abc123"
+    },
+    {
+      "name": "payment_method",
+      "type": "string",
+      "description": "Payment method to use",
+      "required": false,
+      "example": "pm_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/invoices/in_abc123/pay",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "in_abc123",
+      "status": "paid"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

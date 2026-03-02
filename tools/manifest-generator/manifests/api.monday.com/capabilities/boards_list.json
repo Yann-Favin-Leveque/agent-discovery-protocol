@@ -1,0 +1,57 @@
+{
+  "name": "boards_list",
+  "description": "List all boards accessible to the user.",
+  "resource_group": "boards",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Number of boards to return"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Page number for pagination"
+    },
+    {
+      "name": "board_kind",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Filter by kind: public, private, share"
+    },
+    {
+      "name": "workspace_ids",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Filter by workspace IDs"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "{ boards (limit: 10) { id name description board_kind state workspace { id name } } }"
+  },
+  "response_example": {
+    "data": {
+      "boards": [
+        {
+          "id": "123",
+          "name": "My Board",
+          "board_kind": "public"
+        }
+      ]
+    }
+  }
+}

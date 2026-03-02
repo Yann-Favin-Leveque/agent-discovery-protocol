@@ -1,0 +1,48 @@
+{
+  "name": "services_create",
+  "description": "Create a new service from GitHub repo or Docker image.",
+  "resource_group": "services",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "description": "Project ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Service name."
+    },
+    {
+      "name": "source",
+      "type": "object",
+      "required": false,
+      "description": "Source: repo or image."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($input: ServiceCreateInput!) { serviceCreate(input: $input) { id name } }",
+      "variables": {
+        "input": {
+          "projectId": "proj-abc",
+          "name": "api"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "serviceCreate": {
+        "id": "srv-new",
+        "name": "api"
+      }
+    }
+  }
+}

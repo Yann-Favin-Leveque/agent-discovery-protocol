@@ -1,0 +1,59 @@
+{
+  "name": "api_app_create",
+  "description": "Create a new API app for embedded signing workflows.",
+  "endpoint": "/v3/api_app",
+  "method": "POST",
+  "resource_group": "api_app",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "App name.",
+      "required": true,
+      "example": "My Signing App"
+    },
+    {
+      "name": "domains",
+      "type": "array",
+      "description": "Allowed domains.",
+      "required": true,
+      "example": [
+        "example.com"
+      ]
+    },
+    {
+      "name": "callback_url",
+      "type": "string",
+      "description": "Callback URL.",
+      "required": false,
+      "example": "https://example.com/callback"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/api_app",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "My Signing App",
+      "domains": [
+        "example.com"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "api_app": {
+        "client_id": "b6b8e7de",
+        "name": "My Signing App"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

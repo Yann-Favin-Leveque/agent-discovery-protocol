@@ -1,0 +1,41 @@
+{
+  "name": "subscriptions_pause",
+  "description": "Pause an active subscription.",
+  "resource_group": "subscriptions",
+  "endpoint": "/subscriptions/{subscription_id}/pause",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "subscription_id",
+      "type": "string",
+      "description": "The subscription ID.",
+      "required": true
+    },
+    {
+      "name": "effective_from",
+      "type": "string",
+      "description": "When to pause: immediately or next_billing_period.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/subscriptions/sub_01h1vjes1y163xfj1rh1tkfb65/pause",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "effective_from": "next_billing_period"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "sub_01h1vjes1y163xfj1rh1tkfb65",
+        "status": "paused"
+      }
+    }
+  }
+}

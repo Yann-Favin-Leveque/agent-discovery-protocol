@@ -1,0 +1,68 @@
+{
+  "name": "postings_list",
+  "resource_group": "Postings",
+  "endpoint": "/v1/postings",
+  "method": "GET",
+  "description": "List all job postings. Note: use the public postings API at /v0/postings/{site} for public listings.",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "offset",
+      "type": "string",
+      "required": false,
+      "description": "Cursor."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "Filter: published, internal, closed, draft, pending, rejected."
+    },
+    {
+      "name": "team",
+      "type": "string",
+      "required": false,
+      "description": "Filter by team."
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "required": false,
+      "description": "Filter by location."
+    },
+    {
+      "name": "commitment",
+      "type": "string",
+      "required": false,
+      "description": "Filter by commitment (full-time, etc)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.lever.co/v1/postings?state=published&limit=20",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "posting-1",
+          "text": "Software Engineer",
+          "state": "published",
+          "categories": {
+            "team": "Engineering",
+            "location": "San Francisco"
+          }
+        }
+      ]
+    }
+  }
+}

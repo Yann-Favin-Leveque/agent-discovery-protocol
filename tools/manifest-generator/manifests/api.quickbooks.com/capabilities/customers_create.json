@@ -1,0 +1,62 @@
+{
+  "name": "customers_create",
+  "description": "Create a new customer record with contact info, billing address, and payment terms.",
+  "endpoint": "/v3/company/{realmId}/customer",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "DisplayName",
+      "type": "string",
+      "description": "Customer display name",
+      "required": true,
+      "example": "John Doe"
+    },
+    {
+      "name": "PrimaryEmailAddr",
+      "type": "object",
+      "description": "Primary email",
+      "required": false,
+      "example": {
+        "Address": "john@example.com"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/customer?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "DisplayName": "John Doe",
+      "PrimaryEmailAddr": {
+        "Address": "john@example.com"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Customer": {
+        "Id": "56",
+        "DisplayName": "John Doe",
+        "Active": true
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

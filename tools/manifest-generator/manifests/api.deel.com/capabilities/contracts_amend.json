@@ -1,0 +1,46 @@
+{
+  "name": "contracts_amend",
+  "resource_group": "Contracts",
+  "endpoint": "/rest/v2/contracts/{contract_id}/amendments",
+  "method": "POST",
+  "description": "Amend an existing contract (change compensation, title, etc.).",
+  "parameters": [
+    {
+      "name": "contract_id",
+      "type": "string",
+      "required": true,
+      "description": "Contract ID."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Amendment details."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.letsdeel.com/rest/v2/contracts/ct-1/amendments",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "compensation": {
+          "amount": 9000,
+          "currency": "USD"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "amend-1",
+        "contract_id": "ct-1"
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "webhooks_update",
+  "resource_group": "webhooks",
+  "description": "Update an existing webhook configuration.",
+  "endpoint": "/organizations/{organization}/databases/{database}/webhooks/{webhook_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Webhook ID."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "New URL."
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "required": false,
+      "in": "body",
+      "description": "Updated event subscriptions."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/webhooks/wh-123",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "events": [
+        "branch.ready",
+        "deploy_request.closed"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "wh-123"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "email_validate",
+  "description": "Validate an email address for syntax correctness, domain existence, mailbox reachability, and whether it is a disposable or role-based address.",
+  "endpoint": "/email/2/validation",
+  "method": "POST",
+  "resource_group": "email",
+  "parameters": [
+    {
+      "name": "to",
+      "type": "string",
+      "required": true,
+      "description": "The email address to validate."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/email/2/validation",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "to": "john.doe@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "to": "john.doe@example.com",
+      "validMailbox": "true",
+      "validSyntax": true,
+      "catchAll": false,
+      "disposable": false,
+      "roleBased": false,
+      "didYouMean": null
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "branches_list",
+  "resource_group": "branches",
+  "description": "List all branches for a specific database with pagination.",
+  "endpoint": "/organizations/{organization}/databases/{database}/branches",
+  "method": "GET",
+  "parameters": [
+    {"name": "organization", "type": "string", "required": true, "in": "path", "description": "Organization name slug."},
+    {"name": "database", "type": "string", "required": true, "in": "path", "description": "Database name."},
+    {"name": "page", "type": "integer", "required": false, "in": "query", "description": "Page number. Default: 1."},
+    {"name": "per_page", "type": "integer", "required": false, "in": "query", "description": "Results per page. Default: 25."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/branches",
+    "headers": {"Authorization": "Bearer {access_token}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": [{"id": "br-123", "name": "main", "production": true, "state": "ready", "created_at": "2024-01-10T00:00:00Z"}]}
+  }
+}

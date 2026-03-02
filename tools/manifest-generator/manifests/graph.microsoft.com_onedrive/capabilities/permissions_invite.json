@@ -1,0 +1,78 @@
+{
+  "name": "permissions_invite",
+  "description": "Send a sharing invitation for a DriveItem.",
+  "resource_group": "permissions",
+  "endpoint": "/v1.0/me/drive/items/{item-id}/invite",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "item-id",
+      "type": "string",
+      "description": "The item ID.",
+      "required": true
+    },
+    {
+      "name": "recipients",
+      "type": "array",
+      "description": "Array of recipients with email.",
+      "required": true
+    },
+    {
+      "name": "roles",
+      "type": "array",
+      "description": "Permission roles: read, write.",
+      "required": true
+    },
+    {
+      "name": "requireSignIn",
+      "type": "boolean",
+      "description": "Require sign-in.",
+      "required": false
+    },
+    {
+      "name": "sendInvitation",
+      "type": "boolean",
+      "description": "Send email notification.",
+      "required": false
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "Custom message.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/item123/invite",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipients": [
+        {
+          "email": "jane@example.com"
+        }
+      ],
+      "roles": [
+        "write"
+      ],
+      "sendInvitation": true,
+      "message": "Please review"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": "perm456",
+          "roles": [
+            "write"
+          ]
+        }
+      ]
+    }
+  }
+}

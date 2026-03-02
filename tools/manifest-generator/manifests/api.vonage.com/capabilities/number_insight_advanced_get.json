@@ -1,0 +1,35 @@
+{
+  "name": "number_insight_advanced_get",
+  "description": "Get advanced real-time information about a phone number including reachability, validity score, roaming status, and IP match. Most comprehensive lookup.",
+  "resource_group": "number_insight",
+  "endpoint": "/ni/advanced/json",
+  "method": "GET",
+  "parameters": [
+    {"name": "number", "type": "string", "required": true, "description": "The phone number to look up in international format."},
+    {"name": "country", "type": "string", "required": false, "description": "2-letter country code if number is in national format."},
+    {"name": "cnam", "type": "boolean", "required": false, "description": "Include caller name (CNAM) data for US numbers. Default false."},
+    {"name": "ip", "type": "string", "required": false, "description": "IP address of the user for IP-match scoring."},
+    {"name": "real_time_data", "type": "boolean", "required": false, "description": "Include real-time reachability data. Default true."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vonage.com/ni/advanced/json?number=14155550123&real_time_data=true&api_key=abc123&api_secret=xyz789",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "status_message": "Success",
+      "international_format_number": "14155550123",
+      "country_code": "US",
+      "current_carrier": {"network_code": "310260", "name": "T-Mobile USA", "country": "US", "network_type": "mobile"},
+      "ported": "assumed_ported",
+      "valid_number": "valid",
+      "reachable": "reachable",
+      "roaming": {"status": "not_roaming"},
+      "lookup_outcome": 0,
+      "lookup_outcome_message": "Success"
+    }
+  }
+}

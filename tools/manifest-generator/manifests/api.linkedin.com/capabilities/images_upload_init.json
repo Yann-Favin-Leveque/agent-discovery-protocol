@@ -1,0 +1,40 @@
+{
+  "name": "images_upload_init",
+  "description": "Initialize an image upload to get an upload URL. Use the returned URL to PUT the image binary.",
+  "resource_group": "images",
+  "endpoint": "/v2/images",
+  "method": "POST",
+  "auth_scopes": [
+    "w_member_social"
+  ],
+  "parameters": [
+    {
+      "name": "initializeUploadRequest",
+      "type": "object",
+      "required": true,
+      "description": "Object with owner (person or organization URN)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.linkedin.com/v2/images?action=initializeUpload",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "initializeUploadRequest": {
+        "owner": "urn:li:person:abc123"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "value": {
+        "image": "urn:li:image:abc123",
+        "uploadUrl": "https://www.linkedin.com/dms/uploads/..."
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "name": "dns_records_list",
+  "resource_group": "dns_records",
+  "description": "List, search, sort, and filter DNS records for a zone.",
+  "endpoint": "/zones/{zone_id}/dns_records",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Record type: A, AAAA, CNAME, MX, TXT, NS, etc."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "DNS record name."
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "DNS record content."
+    },
+    {
+      "name": "proxied",
+      "type": "boolean",
+      "required": false,
+      "in": "query",
+      "description": "Filter by proxy status."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Page number. Default: 1."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Records per page. Default: 100, max: 5000000."
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Sort by: type, name, content, ttl, proxied."
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Sort direction: asc or desc."
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Multi-property search."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dns_records?type=A",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": [
+        {
+          "id": "rec-123",
+          "type": "A",
+          "name": "example.com",
+          "content": "198.51.100.4",
+          "ttl": 3600,
+          "proxied": true
+        }
+      ],
+      "result_info": {
+        "count": 1,
+        "page": 1,
+        "total_count": 10
+      }
+    }
+  }
+}

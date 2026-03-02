@@ -1,0 +1,62 @@
+{
+  "name": "broadcasts_create",
+  "description": "Create a new broadcast email campaign.",
+  "resource_group": "broadcasts",
+  "endpoint": "/broadcasts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Sender email.",
+      "required": true,
+      "example": "news@example.com"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Email subject.",
+      "required": true,
+      "example": "Monthly Newsletter"
+    },
+    {
+      "name": "segment_id",
+      "type": "string",
+      "description": "Target segment ID.",
+      "required": true,
+      "example": "seg-123"
+    },
+    {
+      "name": "html",
+      "type": "string",
+      "description": "HTML content.",
+      "required": false
+    },
+    {
+      "name": "scheduled_at",
+      "type": "string",
+      "description": "Schedule time in ISO 8601.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.resend.com/broadcasts",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "from": "news@example.com",
+      "subject": "Newsletter",
+      "segment_id": "seg-123",
+      "html": "<p>News</p>"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "bc-123"
+    }
+  }
+}

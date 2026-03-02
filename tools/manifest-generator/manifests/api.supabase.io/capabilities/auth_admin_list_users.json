@@ -1,0 +1,48 @@
+{
+  "name": "auth_admin_list_users",
+  "description": "List all users (admin only, requires service_role key).",
+  "endpoint": "/auth/v1/admin/users",
+  "method": "GET",
+  "resource_group": "auth",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Users per page",
+      "required": false,
+      "example": 50
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{project_ref}.supabase.co/auth/v1/admin/users?page=1&per_page=50",
+    "headers": {
+      "apikey": "{service_role_key}",
+      "Authorization": "Bearer {service_role_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "users": [
+        {
+          "id": "uuid-123",
+          "email": "user@example.com"
+        }
+      ],
+      "aud": "authenticated",
+      "total": 1
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

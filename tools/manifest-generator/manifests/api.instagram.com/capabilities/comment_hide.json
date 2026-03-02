@@ -1,0 +1,43 @@
+{
+  "name": "comment_hide",
+  "resource_group": "comments",
+  "description": "Hide or unhide a comment on one of the authenticated user's media posts. Hidden comments are not visible to other users.",
+  "endpoint": "/{comment_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "comment_id",
+      "type": "string",
+      "description": "The ID of the comment to hide or unhide.",
+      "required": true,
+      "in": "path",
+      "example": "17858890000000000"
+    },
+    {
+      "name": "hide",
+      "type": "boolean",
+      "description": "Set to true to hide the comment, false to unhide.",
+      "required": true,
+      "in": "body",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v21.0/17858890000000000",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "hide": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true
+    }
+  },
+  "auth_scopes": ["instagram_manage_comments"]
+}

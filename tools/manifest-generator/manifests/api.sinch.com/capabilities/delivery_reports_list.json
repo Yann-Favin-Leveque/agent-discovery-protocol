@@ -1,0 +1,71 @@
+{
+  "name": "delivery_reports_list",
+  "description": "List delivery reports for sent batches with optional filtering by status and date range. Returns paginated results.",
+  "endpoint": "/xms/v1/{service_plan_id}/delivery_reports",
+  "method": "GET",
+  "resource_group": "delivery_reports",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number. Default 0."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "description": "Number of items per page. Default 30, max 100."
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 date for filtering reports created on or after this time."
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 date for filtering reports created before this time."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by delivery status (e.g., 'Delivered', 'Failed')."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/delivery_reports?page_size=10",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 5,
+      "page": 0,
+      "page_size": 10,
+      "delivery_reports": [
+        {
+          "batch_id": "batch-id-01",
+          "type": "delivery_report_sms",
+          "statuses": [{ "code": 0, "status": "Delivered", "count": 1 }]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

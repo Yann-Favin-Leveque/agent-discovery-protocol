@@ -1,0 +1,36 @@
+{
+  "name": "authorize_account",
+  "description": "Authorize with B2 to get an authorization token and API URL for subsequent calls.",
+  "resource_group": "auth",
+  "endpoint": "/b2api/v3/b2_authorize_account",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "Authorization",
+      "type": "string",
+      "description": "Basic auth header with applicationKeyId:applicationKey base64 encoded.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.backblazeb2.com/b2api/v3/b2_authorize_account",
+    "headers": {
+      "Authorization": "Basic {base64(keyId:key)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "accountId": "abc123",
+      "authorizationToken": "4_0022...",
+      "apiInfo": {
+        "storageApi": {
+          "apiUrl": "https://api001.backblazeb2.com",
+          "downloadUrl": "https://f001.backblazeb2.com",
+          "recommendedPartSize": 100000000
+        }
+      }
+    }
+  }
+}

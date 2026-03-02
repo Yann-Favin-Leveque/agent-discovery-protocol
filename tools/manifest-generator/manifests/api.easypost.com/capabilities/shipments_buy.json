@@ -1,0 +1,63 @@
+{
+  "name": "shipments_buy",
+  "description": "Purchase a shipment with a selected rate to generate a label.",
+  "endpoint": "/v2/shipments/{id}/buy",
+  "method": "POST",
+  "resource_group": "shipments",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Shipment ID.",
+      "required": true,
+      "example": "shp_abc123"
+    },
+    {
+      "name": "rate",
+      "type": "object",
+      "description": "Rate object with id field.",
+      "required": true,
+      "example": {
+        "id": "rate_abc123"
+      }
+    },
+    {
+      "name": "insurance",
+      "type": "string",
+      "description": "Insurance amount in USD.",
+      "required": false,
+      "example": "100.00"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/shipments/shp_abc123/buy",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "rate": {
+        "id": "rate_abc123"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "shp_abc123",
+      "tracking_code": "1Z999AA10123456784",
+      "postage_label": {
+        "label_url": "https://easypost-files.s3.amazonaws.com/label.png"
+      },
+      "selected_rate": {
+        "id": "rate_abc123",
+        "rate": "7.58"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

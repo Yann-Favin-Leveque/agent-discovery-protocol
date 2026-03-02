@@ -1,0 +1,46 @@
+{
+  "name": "issues_list_org",
+  "description": "List issues across an organization.",
+  "resource_group": "issues",
+  "endpoint": "/organizations/{organization_slug}/issues/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization_slug",
+      "type": "string",
+      "required": true,
+      "description": "Org slug."
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": false,
+      "description": "Search query."
+    },
+    {
+      "name": "project",
+      "type": "integer",
+      "required": false,
+      "description": "Project ID filter."
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "required": false,
+      "description": "Pagination."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://sentry.io/api/0/organizations/my-org/issues/?query=is:unresolved"
+  },
+  "response_example": [
+    {
+      "id": "issue-abc",
+      "title": "TypeError",
+      "shortId": "MY-PROJECT-ABC",
+      "count": "42",
+      "status": "unresolved"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "name": "collections_update",
+  "description": "Update an existing collection's schema by adding or modifying fields.",
+  "endpoint": "/collections/{collectionName}",
+  "method": "PATCH",
+  "resource_group": "collections",
+  "parameters": [
+    {
+      "name": "collectionName",
+      "type": "string",
+      "description": "Name of the collection",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "description": "Fields to add or modify",
+      "required": true,
+      "example": [
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.typesense.org/collections/products",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fields": [
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "fields": [
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

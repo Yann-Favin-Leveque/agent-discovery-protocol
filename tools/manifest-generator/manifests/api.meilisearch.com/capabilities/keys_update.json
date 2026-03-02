@@ -1,0 +1,62 @@
+{
+  "name": "keys_update",
+  "description": "Update the name or description of an existing API key.",
+  "endpoint": "/keys/{keyUidOrKey}",
+  "method": "PATCH",
+  "resource_group": "keys",
+  "parameters": [
+    {
+      "name": "keyUidOrKey",
+      "type": "string",
+      "description": "UID or key value of the API key.",
+      "required": true,
+      "example": "abc-123"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated name for the key.",
+      "required": false,
+      "example": "Updated Search Key"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Updated description.",
+      "required": false,
+      "example": "Updated description"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.meilisearch.com/keys/abc-123",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Updated Search Key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uid": "abc-123",
+      "name": "Updated Search Key",
+      "key": "abc123...",
+      "actions": [
+        "search"
+      ],
+      "indexes": [
+        "movies"
+      ],
+      "updatedAt": "2024-06-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "keys.update"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

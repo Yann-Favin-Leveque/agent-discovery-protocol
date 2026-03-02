@@ -1,0 +1,46 @@
+{
+  "name": "customers_list",
+  "description": "List customers with optional email filter.",
+  "endpoint": "/v1/customers",
+  "method": "GET",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Filter by email",
+      "required": false,
+      "example": "john@example.com"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/customers?limit=10",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "cus_abc123",
+          "email": "john@example.com"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

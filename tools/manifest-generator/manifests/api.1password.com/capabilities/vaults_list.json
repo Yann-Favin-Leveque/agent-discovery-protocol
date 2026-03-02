@@ -1,0 +1,41 @@
+{
+  "name": "vaults_list",
+  "description": "Retrieve a list of all vaults accessible to your Connect server. Supports filtering by vault name.",
+  "endpoint": "/v1/vaults",
+  "method": "GET",
+  "resource_group": "vaults",
+  "parameters": [
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "SCIM-style filter to narrow results by vault name (e.g., 'name eq \"My Vault\"').",
+      "required": false,
+      "example": "name eq \"Production\""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.1password.com/v1/vaults",
+    "headers": { "Authorization": "Bearer {token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "hfnjvi6aymbsnfc2xeeoheizda",
+        "name": "Production",
+        "description": "Production secrets",
+        "attributeVersion": 1,
+        "contentVersion": 42,
+        "items": 15,
+        "type": "USER_CREATED",
+        "createdAt": "2023-01-15T10:30:00Z",
+        "updatedAt": "2024-06-01T14:22:00Z"
+      }
+    ]
+  },
+  "auth_scopes": ["vaults"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

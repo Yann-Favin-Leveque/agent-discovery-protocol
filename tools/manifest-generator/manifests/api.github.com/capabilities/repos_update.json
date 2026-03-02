@@ -1,0 +1,93 @@
+{
+  "name": "repos_update",
+  "description": "Update a repository's settings including name, description, visibility, and feature toggles.",
+  "resource_group": "repositories",
+  "endpoint": "/repos/{owner}/{repo}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "New repository name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Updated description."
+    },
+    {
+      "name": "private",
+      "type": "boolean",
+      "required": false,
+      "description": "Set visibility."
+    },
+    {
+      "name": "has_issues",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable/disable issues."
+    },
+    {
+      "name": "has_projects",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable/disable projects."
+    },
+    {
+      "name": "has_wiki",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable/disable wiki."
+    },
+    {
+      "name": "default_branch",
+      "type": "string",
+      "required": false,
+      "description": "Update default branch."
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "required": false,
+      "description": "Archive or unarchive the repo."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.github.com/repos/octocat/my-project",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "description": "Updated description",
+      "has_wiki": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 123456,
+      "name": "my-project",
+      "description": "Updated description",
+      "has_wiki": false
+    }
+  }
+}

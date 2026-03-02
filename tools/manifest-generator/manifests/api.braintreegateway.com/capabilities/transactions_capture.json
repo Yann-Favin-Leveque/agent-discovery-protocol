@@ -1,0 +1,23 @@
+{
+  "name": "transactions_capture",
+  "description": "Capture an authorized transaction to settle the funds. Can capture full or partial amount.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    {"name": "transactionId", "type": "string", "description": "ID of the authorized transaction to capture.", "required": true, "example": "dHJhbnNhY3Rpb25fOHg2NjRi"},
+    {"name": "amount", "type": "string", "description": "Amount to capture (optional, defaults to authorized amount).", "required": false, "example": "100.00"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://payments.braintree-api.com/graphql",
+    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
+    "body": {"query": "mutation CaptureTransaction($input: CaptureTransactionInput!) { captureTransaction(input: $input) { transaction { id status } } }", "variables": {"input": {"transactionId": "dHJhbnNhY3Rpb25fOHg2NjRi"}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"captureTransaction": {"transaction": {"id": "dHJhbnNhY3Rpb25fOHg2NjRi", "status": "SUBMITTED_FOR_SETTLEMENT"}}}}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 300}
+}

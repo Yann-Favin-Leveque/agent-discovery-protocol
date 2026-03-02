@@ -1,0 +1,48 @@
+{
+  "name": "reports_get",
+  "description": "Get performance report for a sent campaign (opens, clicks, bounces).",
+  "endpoint": "/3.0/reports/{campaign_id}",
+  "method": "GET",
+  "resource_group": "reports",
+  "parameters": [
+    {
+      "name": "campaign_id",
+      "type": "string",
+      "description": "Campaign ID.",
+      "required": true,
+      "example": "camp123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us1.api.mailchimp.com/3.0/reports/camp123",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "camp123",
+      "emails_sent": 5000,
+      "opens": {
+        "opens_total": 1500,
+        "unique_opens": 1200,
+        "open_rate": 0.24
+      },
+      "clicks": {
+        "clicks_total": 300,
+        "unique_clicks": 200,
+        "click_rate": 0.04
+      },
+      "bounces": {
+        "hard_bounces": 10,
+        "soft_bounces": 25
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

@@ -1,64 +1,77 @@
 {
   "name": "sign_up",
-  "description": "Create a new user account with email and password. Returns the user object with a confirmation status and, if email confirmation is disabled, a full session with access and refresh tokens. Custom user metadata can be provided at signup time.",
-  "endpoint": "/signup",
+  "description": "Create a new user account with email/password or phone/password. Returns the user object and a session with access and refresh tokens.",
+  "endpoint": "/auth/v1/signup",
   "method": "POST",
+  "resource_group": "auth",
   "parameters": [
     {
       "name": "email",
       "type": "string",
-      "description": "The user's email address.",
-      "required": true,
+      "description": "Email address for the new user. Required if phone is not provided.",
+      "required": false,
       "example": "user@example.com"
     },
     {
       "name": "password",
       "type": "string",
-      "description": "The user's password. Minimum 6 characters by default.",
+      "description": "Password for the new user (min 6 characters).",
       "required": true,
-      "example": "securepassword123"
+      "example": "securePassword123"
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "description": "Phone number for the new user. Required if email is not provided.",
+      "required": false,
+      "example": "+1234567890"
     },
     {
       "name": "data",
       "type": "object",
-      "description": "Custom user metadata to store with the user profile.",
+      "description": "Custom user metadata to store in the user's raw_user_meta_data.",
       "required": false,
-      "example": { "first_name": "Jane", "age": 30 }
+      "example": {"first_name": "John", "last_name": "Doe"}
     },
     {
       "name": "gotrue_meta_security",
       "type": "object",
       "description": "Security metadata including captcha_token for bot protection.",
       "required": false,
-      "example": { "captcha_token": "token_value" }
+      "example": {"captcha_token": "token123"}
     }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://your-project.supabase.co/auth/v1/signup",
     "headers": {
-      "apikey": "YOUR_SUPABASE_ANON_KEY",
+      "apikey": "{anon_key}",
       "Content-Type": "application/json"
     },
     "body": {
       "email": "user@example.com",
-      "password": "securepassword123",
-      "data": { "first_name": "Jane" }
+      "password": "securePassword123",
+      "data": {"first_name": "John"}
     }
   },
   "response_example": {
     "status": 200,
     "body": {
-      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-      "aud": "authenticated",
-      "role": "authenticated",
-      "email": "user@example.com",
-      "email_confirmed_at": null,
-      "confirmation_sent_at": "2026-03-01T12:00:00.000Z",
-      "created_at": "2026-03-01T12:00:00.000Z",
-      "updated_at": "2026-03-01T12:00:00.000Z",
-      "user_metadata": { "first_name": "Jane" },
-      "app_metadata": { "provider": "email" }
+      "access_token": "eyJhbGciOiJIUzI1NiIs...",
+      "token_type": "bearer",
+      "expires_in": 3600,
+      "refresh_token": "abc123-refresh",
+      "user": {
+        "id": "uuid-1234",
+        "email": "user@example.com",
+        "email_confirmed_at": null,
+        "created_at": "2024-01-15T10:00:00Z",
+        "user_metadata": {"first_name": "John"}
+      }
     }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
   }
 }

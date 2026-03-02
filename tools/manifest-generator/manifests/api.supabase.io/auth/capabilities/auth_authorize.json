@@ -1,0 +1,38 @@
+{
+  "name": "auth_authorize",
+  "resource_group": "auth",
+  "description": "Initiate OAuth sign-in by redirecting the user to the provider's authorization page.",
+  "endpoint": "/authorize",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "provider",
+      "type": "string",
+      "required": true,
+      "description": "OAuth provider: google, github, gitlab, bitbucket, azure, discord, twitter, apple, etc."
+    },
+    {
+      "name": "redirect_to",
+      "type": "string",
+      "required": false,
+      "description": "URL to redirect after OAuth flow."
+    },
+    {
+      "name": "scopes",
+      "type": "string",
+      "required": false,
+      "description": "Space-separated OAuth scopes."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://myproject.supabase.co/auth/v1/authorize?provider=google&redirect_to=https://app.example.com/callback",
+    "headers": {
+      "apikey": "your-anon-key"
+    }
+  },
+  "response_example": {
+    "status": 302,
+    "body": null
+  }
+}

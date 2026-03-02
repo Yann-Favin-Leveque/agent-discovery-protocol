@@ -1,0 +1,44 @@
+{
+  "name": "bounces_list",
+  "description": "Retrieve the list of bounced email addresses for a domain.",
+  "resource_group": "bounces",
+  "endpoint": "/v3/{domain}/bounces",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun domain.",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "description": "Max entries (max 10000).",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailgun.com/v3/mg.example.com/bounces?limit=100",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "address": "bounce@example.com",
+          "code": "550",
+          "error": "User unknown",
+          "created_at": "2024-01-01T00:00:00Z"
+        }
+      ],
+      "paging": {}
+    }
+  }
+}

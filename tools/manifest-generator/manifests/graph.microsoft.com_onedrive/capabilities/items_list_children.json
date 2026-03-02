@@ -1,0 +1,58 @@
+{
+  "name": "items_list_children",
+  "description": "List all files and subfolders within a folder.",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/items/{item-id}/children",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "item-id",
+      "type": "string",
+      "description": "The folder item ID (use root for root folder).",
+      "required": true
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "description": "Max results.",
+      "required": false
+    },
+    {
+      "name": "$orderby",
+      "type": "string",
+      "description": "Sort order.",
+      "required": false
+    },
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter.",
+      "required": false
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Properties to select.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/root/children?$top=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": "item123",
+          "name": "doc.pdf",
+          "file": {}
+        }
+      ]
+    }
+  }
+}

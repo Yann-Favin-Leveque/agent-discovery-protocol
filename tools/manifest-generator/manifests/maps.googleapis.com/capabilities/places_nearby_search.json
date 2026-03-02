@@ -1,0 +1,115 @@
+{
+  "name": "places_nearby_search",
+  "description": "Search for places near a given location by type or keyword. Returns names, addresses, ratings, open status, and place IDs.",
+  "endpoint": "/maps/api/place/nearbysearch/json",
+  "method": "GET",
+  "resource_group": "places",
+  "parameters": [
+    {
+      "name": "location",
+      "type": "string",
+      "description": "Center point as latitude,longitude.",
+      "required": true,
+      "example": "37.7749,-122.4194"
+    },
+    {
+      "name": "radius",
+      "type": "integer",
+      "description": "Search radius in meters (max 50000).",
+      "required": true,
+      "example": 1500
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "keyword",
+      "type": "string",
+      "description": "Text string to search for (e.g., 'pizza', 'coffee').",
+      "required": false,
+      "example": "restaurant"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Place type filter (e.g., restaurant, cafe, hospital, park).",
+      "required": false,
+      "example": "restaurant"
+    },
+    {
+      "name": "rankby",
+      "type": "string",
+      "description": "Ranking order: prominence (default) or distance. If distance, radius must be omitted.",
+      "required": false,
+      "example": "prominence"
+    },
+    {
+      "name": "opennow",
+      "type": "boolean",
+      "description": "Return only places that are currently open.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "minprice",
+      "type": "integer",
+      "description": "Minimum price level (0-4).",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "maxprice",
+      "type": "integer",
+      "description": "Maximum price level (0-4).",
+      "required": false,
+      "example": 3
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for results.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "pagetoken",
+      "type": "string",
+      "description": "Token for the next page of results.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.7749,-122.4194&radius=1500&type=restaurant&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "name": "Great Restaurant",
+          "place_id": "ChIJ1234567890",
+          "vicinity": "123 Main St, San Francisco",
+          "rating": 4.5,
+          "user_ratings_total": 250,
+          "price_level": 2,
+          "opening_hours": {"open_now": true},
+          "geometry": {"location": {"lat": 37.775, "lng": -122.419}},
+          "types": ["restaurant", "food", "establishment"]
+        }
+      ],
+      "status": "OK",
+      "next_page_token": "token123"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

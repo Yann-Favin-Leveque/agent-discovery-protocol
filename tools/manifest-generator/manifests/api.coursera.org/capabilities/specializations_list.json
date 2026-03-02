@@ -1,0 +1,67 @@
+{
+  "name": "specializations_list",
+  "description": "List all specializations (multi-course sequences) with optional filtering and pagination.",
+  "endpoint": "/api/onDemandSpecializations.v1",
+  "method": "GET",
+  "resource_group": "specializations",
+  "parameters": [
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Pagination offset index.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results to return.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields (e.g. name,slug,description,logo,courseIds,partnerIds).",
+      "required": false,
+      "example": "name,slug,description,logo,courseIds,partnerIds"
+    },
+    {
+      "name": "includes",
+      "type": "string",
+      "description": "Linked resources to include.",
+      "required": false,
+      "example": "courseIds,partnerIds"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/onDemandSpecializations.v1?start=0&limit=10&fields=name,slug,description,logo,courseIds,partnerIds",
+    "headers": {},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "jhu-data-science",
+          "slug": "jhu-data-science",
+          "name": "Data Science",
+          "description": "Ask the right questions, manipulate data sets, and create visualizations...",
+          "logo": "https://coursera-s12n-assets.s3.amazonaws.com/jhu-ds/logo.png",
+          "courseIds": ["course1", "course2", "course3"],
+          "partnerIds": ["johns-hopkins"]
+        }
+      ],
+      "paging": {
+        "next": 10,
+        "total": 800
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

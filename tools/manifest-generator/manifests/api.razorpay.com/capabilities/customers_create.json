@@ -1,0 +1,60 @@
+{
+  "name": "customers_create",
+  "description": "Create a customer record to save payment methods and enable recurring payments.",
+  "resource_group": "customers",
+  "endpoint": "/v1/customers",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Customer name.",
+      "required": true
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Customer email.",
+      "required": true
+    },
+    {
+      "name": "contact",
+      "type": "string",
+      "description": "Customer phone number.",
+      "required": true
+    },
+    {
+      "name": "notes",
+      "type": "object",
+      "description": "Key-value notes.",
+      "required": false
+    },
+    {
+      "name": "gstin",
+      "type": "string",
+      "description": "GST number (India).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/customers",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "contact": "9876543210"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cust_1Aa00000000003",
+      "name": "John Doe",
+      "email": "john@example.com"
+    }
+  }
+}

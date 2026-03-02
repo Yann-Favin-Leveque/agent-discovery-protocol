@@ -1,0 +1,71 @@
+{
+  "name": "checkout_sessions_create",
+  "description": "Create a Checkout Session for a hosted payment page.",
+  "endpoint": "/v1/checkout/sessions",
+  "method": "POST",
+  "resource_group": "checkout_sessions",
+  "parameters": [
+    {
+      "name": "mode",
+      "type": "string",
+      "description": "Mode: payment, subscription, or setup",
+      "required": true,
+      "example": "payment"
+    },
+    {
+      "name": "line_items",
+      "type": "array",
+      "description": "Array of line items with price and quantity",
+      "required": true,
+      "example": [
+        {
+          "price": "price_abc123",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "name": "success_url",
+      "type": "string",
+      "description": "Redirect URL after success",
+      "required": true,
+      "example": "https://example.com/success"
+    },
+    {
+      "name": "cancel_url",
+      "type": "string",
+      "description": "Redirect URL if canceled",
+      "required": true,
+      "example": "https://example.com/cancel"
+    },
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Existing customer ID",
+      "required": false,
+      "example": "cus_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/checkout/sessions",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "mode=payment&line_items[0][price]=price_abc123&line_items[0][quantity]=1&success_url=https://example.com/success&cancel_url=https://example.com/cancel"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cs_abc123",
+      "object": "checkout.session",
+      "url": "https://checkout.stripe.com/c/pay/cs_abc123",
+      "payment_status": "unpaid"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

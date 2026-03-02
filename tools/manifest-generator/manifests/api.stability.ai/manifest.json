@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Stability AI",
-  "description": "Stability AI provides image generation, editing, and enhancement powered by Stable Diffusion models. Generate images from text prompts, transform existing images, upscale low-resolution images, remove backgrounds, inpaint specific regions, and search-and-replace objects within images.",
+  "description": "Stability AI provides image generation, editing, and enhancement powered by Stable Diffusion models. Generate images from text prompts (Ultra, Core, SD3), transform existing images, upscale, remove backgrounds, inpaint, outpaint, erase objects, and search-and-replace elements within images.",
   "base_url": "https://api.stability.ai",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,82 @@
   },
   "capabilities": [
     {
-      "name": "generate_image",
-      "description": "Generate an image from a text prompt using Stable Diffusion 3. Supports multiple aspect ratios, output formats, and negative prompts.",
-      "detail_url": "/capabilities/generate_image"
+      "name": "image_generate_ultra",
+      "description": "Generate ultra-quality images from text prompts using Stability AI's most advanced model powered by Stable Diffusion 3.5.",
+      "resource_group": "generate",
+      "detail_url": "/capabilities/image_generate_ultra"
     },
     {
-      "name": "image_to_image",
-      "description": "Transform an existing image guided by a text prompt. Control the transformation strength to balance between the original image and the prompt.",
-      "detail_url": "/capabilities/image_to_image"
+      "name": "image_generate_core",
+      "description": "Generate images from text prompts using Stable Image Core for fast, efficient generation with style presets.",
+      "resource_group": "generate",
+      "detail_url": "/capabilities/image_generate_core"
     },
     {
-      "name": "upscale_image",
-      "description": "Upscale a low-resolution image to higher resolution while preserving and enhancing details.",
-      "detail_url": "/capabilities/upscale_image"
+      "name": "image_generate_sd3",
+      "description": "Generate images from text prompts using Stable Diffusion 3 with configurable model selection.",
+      "resource_group": "generate",
+      "detail_url": "/capabilities/image_generate_sd3"
     },
     {
-      "name": "remove_background",
-      "description": "Automatically remove the background from an image, isolating the foreground subject with transparency.",
-      "detail_url": "/capabilities/remove_background"
+      "name": "image_upscale_conservative",
+      "description": "Upscale a low-resolution image while preserving details using conservative upscaling.",
+      "resource_group": "upscale",
+      "detail_url": "/capabilities/image_upscale_conservative"
     },
     {
-      "name": "inpaint_image",
+      "name": "image_upscale_creative",
+      "description": "Upscale an image with creative enhancement that adds detail and improves quality. Returns async result.",
+      "resource_group": "upscale",
+      "detail_url": "/capabilities/image_upscale_creative"
+    },
+    {
+      "name": "image_edit_erase",
+      "description": "Remove objects or content from an image using a mask to indicate the area to erase.",
+      "resource_group": "edit",
+      "detail_url": "/capabilities/image_edit_erase"
+    },
+    {
+      "name": "image_edit_inpaint",
       "description": "Edit specific regions of an image by providing a mask and a text prompt describing what to generate in the masked area.",
-      "detail_url": "/capabilities/inpaint_image"
+      "resource_group": "edit",
+      "detail_url": "/capabilities/image_edit_inpaint"
     },
     {
-      "name": "search_and_replace",
+      "name": "image_edit_outpaint",
+      "description": "Extend an image beyond its original borders in any direction with AI-generated content.",
+      "resource_group": "edit",
+      "detail_url": "/capabilities/image_edit_outpaint"
+    },
+    {
+      "name": "image_edit_search_replace",
       "description": "Find and replace objects or elements in an image by describing what to search for and what to replace it with.",
-      "detail_url": "/capabilities/search_and_replace"
+      "resource_group": "edit",
+      "detail_url": "/capabilities/image_edit_search_replace"
+    },
+    {
+      "name": "image_edit_remove_background",
+      "description": "Automatically remove the background from an image, isolating the foreground subject with transparency.",
+      "resource_group": "edit",
+      "detail_url": "/capabilities/image_edit_remove_background"
+    },
+    {
+      "name": "image_edit_replace_background",
+      "description": "Replace the background of an image with AI-generated content based on a text prompt.",
+      "resource_group": "edit",
+      "detail_url": "/capabilities/image_edit_replace_background"
+    },
+    {
+      "name": "image_control_sketch",
+      "description": "Generate images guided by a sketch input for structural control.",
+      "resource_group": "control",
+      "detail_url": "/capabilities/image_control_sketch"
+    },
+    {
+      "name": "image_control_structure",
+      "description": "Generate images that follow the structural composition of a reference image.",
+      "resource_group": "control",
+      "detail_url": "/capabilities/image_control_structure"
     }
   ]
 }

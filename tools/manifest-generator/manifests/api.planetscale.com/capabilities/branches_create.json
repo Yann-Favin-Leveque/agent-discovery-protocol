@@ -1,0 +1,26 @@
+{
+  "name": "branches_create",
+  "resource_group": "branches",
+  "description": "Create a new branch for a database from a parent branch or backup.",
+  "endpoint": "/organizations/{organization}/databases/{database}/branches",
+  "method": "POST",
+  "parameters": [
+    {"name": "organization", "type": "string", "required": true, "in": "path", "description": "Organization name slug."},
+    {"name": "database", "type": "string", "required": true, "in": "path", "description": "Database name."},
+    {"name": "name", "type": "string", "required": true, "in": "body", "description": "Name of the branch."},
+    {"name": "parent_branch", "type": "string", "required": false, "in": "body", "description": "Parent branch name. Defaults to database default branch."},
+    {"name": "backup_id", "type": "string", "required": false, "in": "body", "description": "Restore backup schema and data to new branch."},
+    {"name": "region", "type": "string", "required": false, "in": "body", "description": "Branch region."},
+    {"name": "seed_data", "type": "string", "required": false, "in": "body", "description": "Seed data option: last_successful_backup."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/branches",
+    "headers": {"Authorization": "Bearer {access_token}", "Content-Type": "application/json"},
+    "body": {"name": "feature-branch", "parent_branch": "main"}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": "br-456", "name": "feature-branch", "state": "pending", "production": false, "parent_branch": "main", "created_at": "2024-06-15T10:00:00Z"}
+  }
+}

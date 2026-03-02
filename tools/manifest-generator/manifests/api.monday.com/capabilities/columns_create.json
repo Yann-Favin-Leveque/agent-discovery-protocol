@@ -1,0 +1,39 @@
+{
+  "name": "columns_create",
+  "description": "Create a new column on a board.",
+  "resource_group": "columns",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "board_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Board ID"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Column title"
+    },
+    {
+      "name": "column_type",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Column type (status, text, numbers, date, etc.)"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "mutation { create_column (board_id: 123, title: \"Priority\", column_type: status) { id title } }"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "documents_update_by_filter",
+  "description": "Update multiple documents matching a filter condition.",
+  "endpoint": "/collections/{collectionName}/documents",
+  "method": "PATCH",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "collectionName",
+      "type": "string",
+      "description": "Collection name",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "filter_by",
+      "type": "string",
+      "description": "Filter expression to match documents",
+      "required": true,
+      "example": "category:=electronics"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.typesense.org/collections/products/documents?filter_by=category:=electronics",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "on_sale": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "num_updated": 15
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

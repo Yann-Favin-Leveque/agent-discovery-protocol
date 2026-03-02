@@ -1,0 +1,54 @@
+{
+  "name": "webinars_get",
+  "description": "Retrieve detailed information about a specific webinar including topic, schedule, settings, and registration URL.",
+  "endpoint": "/webinars/{webinarId}",
+  "method": "GET",
+  "resource_group": "webinars",
+  "parameters": [
+    {
+      "name": "webinarId",
+      "type": "integer",
+      "description": "The webinar ID.",
+      "required": true,
+      "example": 9876543210
+    },
+    {
+      "name": "occurrence_id",
+      "type": "string",
+      "description": "Occurrence ID for recurring webinar instances.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/webinars/9876543210",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uuid": "web123",
+      "id": 9876543210,
+      "host_id": "host1",
+      "topic": "Product Launch Webinar",
+      "type": 5,
+      "start_time": "2024-02-01T14:00:00Z",
+      "duration": 90,
+      "timezone": "America/New_York",
+      "join_url": "https://zoom.us/w/9876543210",
+      "registration_url": "https://zoom.us/webinar/register/9876543210",
+      "settings": {
+        "approval_type": 0,
+        "registration_type": 1,
+        "auto_recording": "cloud"
+      }
+    }
+  },
+  "auth_scopes": ["webinar:read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

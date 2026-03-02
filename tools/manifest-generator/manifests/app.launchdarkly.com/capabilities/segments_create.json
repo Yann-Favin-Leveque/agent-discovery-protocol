@@ -1,0 +1,23 @@
+{
+  "name": "segments_create",
+  "description": "Create a new user segment for targeting.",
+  "resource_group": "segments",
+  "endpoint": "/segments/{projectKey}/{envKey}",
+  "method": "POST",
+  "parameters": [
+    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
+    {"name": "envKey", "type": "string", "description": "The environment key.", "required": true, "example": "production"},
+    {"name": "key", "type": "string", "description": "Unique segment key.", "required": true, "example": "beta-users"},
+    {"name": "name", "type": "string", "description": "Segment display name.", "required": true, "example": "Beta Users"},
+    {"name": "description", "type": "string", "description": "Description.", "required": false},
+    {"name": "tags", "type": "array", "description": "Tags.", "required": false}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.launchdarkly.com/api/v2/segments/my-project/production",
+    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
+    "body": {"key": "beta-users", "name": "Beta Users", "description": "Users enrolled in the beta program"}
+  },
+  "response_example": {"status": 201, "body": {"key": "beta-users", "name": "Beta Users", "creationDate": 1705312200000}},
+  "rate_limits": {"requests_per_minute": 120}
+}

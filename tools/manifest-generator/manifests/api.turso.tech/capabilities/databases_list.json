@@ -1,0 +1,43 @@
+{
+  "name": "databases_list",
+  "resource_group": "databases",
+  "description": "List databases belonging to an organization.",
+  "endpoint": "/v1/organizations/{organizationSlug}/databases",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "group",
+      "type": "string",
+      "required": false,
+      "in": "query",
+      "description": "Filter by group name."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.turso.tech/v1/organizations/my-org/databases",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "databases": [
+        {
+          "Name": "my-db",
+          "DbId": "abc123",
+          "Hostname": "my-db-my-org.turso.io",
+          "group": "default"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "name": "columns_list",
+  "resource_group": "columns",
+  "description": "List all columns in a table.",
+  "endpoint": "/docs/{docId}/tables/{tableIdOrName}/columns",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Document ID",
+      "example": "AbCDeFGH"
+    },
+    {
+      "name": "tableIdOrName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Table ID or name",
+      "example": "grid-abc"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results",
+      "example": 25
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token",
+      "example": "eyJsaW1pd"
+    },
+    {
+      "name": "visibleOnly",
+      "type": "boolean",
+      "required": false,
+      "description": "Only visible columns",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://coda.io/apis/v1/docs/AbCDeFGH/tables/grid-abc/columns",
+    "headers": {
+      "Authorization": "Bearer CODA_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "c-abc",
+          "type": "column",
+          "name": "Task Name",
+          "format": {
+            "type": "text",
+            "isArray": false
+          }
+        },
+        {
+          "id": "c-def",
+          "type": "column",
+          "name": "Status",
+          "format": {
+            "type": "select",
+            "isArray": false
+          }
+        }
+      ]
+    }
+  }
+}

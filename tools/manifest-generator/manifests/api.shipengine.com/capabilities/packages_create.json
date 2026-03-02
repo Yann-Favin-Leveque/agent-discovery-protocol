@@ -1,0 +1,50 @@
+{
+  "name": "packages_create",
+  "description": "Define a new custom package type.",
+  "endpoint": "/v1/packages",
+  "method": "POST",
+  "resource_group": "packages",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Package type name.",
+      "required": true,
+      "example": "My Custom Box"
+    },
+    {
+      "name": "dimensions",
+      "type": "object",
+      "description": "Dimensions with length, width, height, unit.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/packages",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "My Custom Box",
+      "dimensions": {
+        "length": 12,
+        "width": 10,
+        "height": 6,
+        "unit": "inch"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "package_id": "se-pkg-456",
+      "name": "My Custom Box"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

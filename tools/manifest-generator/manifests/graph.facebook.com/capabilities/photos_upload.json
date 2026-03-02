@@ -1,0 +1,53 @@
+{
+  "name": "photos_upload",
+  "description": "Upload a photo to a Page or user album.",
+  "resource_group": "photos",
+  "endpoint": "/v21.0/{page_id}/photos",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "required": true,
+      "description": "Page or user ID."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": false,
+      "description": "URL of the photo to upload.",
+      "example": "https://example.com/photo.jpg"
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "required": false,
+      "description": "Photo caption."
+    },
+    {
+      "name": "published",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to publish immediately."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v21.0/111222333/photos",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/photo.jpg",
+      "caption": "New product photo!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "photo_123",
+      "post_id": "111222333_photo_123"
+    }
+  }
+}

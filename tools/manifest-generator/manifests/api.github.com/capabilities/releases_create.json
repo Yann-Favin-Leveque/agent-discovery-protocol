@@ -1,0 +1,89 @@
+{
+  "name": "releases_create",
+  "description": "Create a new release with release notes and optional assets.",
+  "resource_group": "releases",
+  "endpoint": "/repos/{owner}/{repo}/releases",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "tag_name",
+      "type": "string",
+      "required": true,
+      "description": "Tag for the release."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Release title."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Release notes (Markdown)."
+    },
+    {
+      "name": "target_commitish",
+      "type": "string",
+      "required": false,
+      "description": "Branch or commit SHA for the tag. Default: default branch."
+    },
+    {
+      "name": "draft",
+      "type": "boolean",
+      "required": false,
+      "description": "Create as draft. Default false."
+    },
+    {
+      "name": "prerelease",
+      "type": "boolean",
+      "required": false,
+      "description": "Mark as pre-release. Default false."
+    },
+    {
+      "name": "generate_release_notes",
+      "type": "boolean",
+      "required": false,
+      "description": "Auto-generate release notes. Default false."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/octocat/my-project/releases",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "tag_name": "v2.1.0",
+      "name": "v2.1.0",
+      "body": "## Bug Fixes\\n- Fixed dark mode contrast",
+      "generate_release_notes": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "tag_name": "v2.1.0",
+      "name": "v2.1.0",
+      "html_url": "https://github.com/octocat/my-project/releases/tag/v2.1.0"
+    }
+  }
+}

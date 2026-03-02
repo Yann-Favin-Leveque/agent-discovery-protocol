@@ -1,0 +1,56 @@
+{
+  "name": "totps_authenticate",
+  "resource_group": "totps",
+  "description": "Authenticate a TOTP code from an authenticator app.",
+  "endpoint": "/v1/totps/authenticate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID."
+    },
+    {
+      "name": "totp_code",
+      "type": "string",
+      "required": true,
+      "description": "6-digit TOTP code."
+    },
+    {
+      "name": "session_token",
+      "type": "string",
+      "required": false,
+      "description": "Existing session."
+    },
+    {
+      "name": "session_duration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Session lifetime."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/totps/authenticate",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user_id": "user-live-abc",
+      "totp_code": "123456",
+      "session_duration_minutes": 60
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "totp_id": "totp-live-abc",
+      "session_token": "sess-token-xyz",
+      "session_jwt": "eyJhbGciOi..."
+    }
+  }
+}

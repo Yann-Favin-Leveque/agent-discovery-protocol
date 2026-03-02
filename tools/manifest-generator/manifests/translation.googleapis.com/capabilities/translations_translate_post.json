@@ -1,0 +1,81 @@
+{
+  "name": "translations_translate_post",
+  "description": "Translate one or more text strings to a target language. Supports automatic source language detection, HTML/text format specification, and model selection (NMT or base).",
+  "resource_group": "translations",
+  "endpoint": "/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of text strings to translate."
+    },
+    {
+      "name": "target",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Target language code (ISO 639-1, e.g., 'en', 'fr', 'de')."
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Source language code. If omitted, auto-detection is used."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "'html' to treat input as HTML, 'text' for plain text. Default: 'text'."
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Translation model: 'nmt' (Neural Machine Translation) or 'base' (Phrase-Based)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://translation.googleapis.com/language/translate/v2",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "q": ["Hello, world!", "How are you?"],
+      "target": "fr",
+      "source": "en",
+      "format": "text"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "translations": [
+          {
+            "translatedText": "Bonjour le monde !",
+            "detectedSourceLanguage": "en",
+            "model": "nmt"
+          },
+          {
+            "translatedText": "Comment allez-vous ?",
+            "detectedSourceLanguage": "en",
+            "model": "nmt"
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/cloud-translation",
+    "https://www.googleapis.com/auth/cloud-platform"
+  ]
+}

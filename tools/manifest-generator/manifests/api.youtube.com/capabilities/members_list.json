@@ -1,0 +1,80 @@
+{
+  "name": "members_list",
+  "description": "List channel members (paid memberships).",
+  "endpoint": "/youtube/v3/members",
+  "method": "GET",
+  "resource_group": "members",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet"
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "description": "Filter mode (list_members, updates)",
+      "required": false,
+      "example": "list_members"
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": "10"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "filterByMemberChannelId",
+      "type": "string",
+      "description": "Filter by member channel ID",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "hasAccessToLevel",
+      "type": "string",
+      "description": "Filter by membership level",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/members",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "snippet": {
+            "memberDetails": {
+              "channelId": "UC_member",
+              "displayName": "Member"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.channel-memberships.creator"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "insights_project_summary",
+  "description": "Get summary metrics for a project.",
+  "resource_group": "insights",
+  "endpoint": "/insights/pages/{project-slug}/summary",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "project-slug",
+      "type": "string",
+      "required": true,
+      "description": "Project slug."
+    },
+    {
+      "name": "reporting-window",
+      "type": "string",
+      "required": false,
+      "description": "Time window: last-7-days, last-30-days, last-90-days."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://circleci.com/api/v2/insights/pages/gh/my-org/my-repo/summary?reporting-window=last-30-days"
+  },
+  "response_example": {
+    "org_data": {
+      "metrics": {
+        "total_runs": 150,
+        "success_rate": 0.92
+      }
+    },
+    "project_data": {
+      "metrics": {
+        "total_runs": 150
+      }
+    }
+  }
+}

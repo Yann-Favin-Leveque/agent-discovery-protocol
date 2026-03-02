@@ -1,0 +1,53 @@
+{
+  "name": "templates_preview",
+  "description": "Preview a template with substitution data to see the rendered output.",
+  "endpoint": "/api/v1/templates/{id}/preview",
+  "method": "POST",
+  "resource_group": "templates",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Template ID",
+      "required": true,
+      "example": "my-template"
+    },
+    {
+      "name": "substitution_data",
+      "type": "object",
+      "description": "Test substitution data",
+      "required": true,
+      "example": {
+        "name": "John"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/templates/my-template/preview",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "substitution_data": {
+        "name": "John"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "html": "<h1>Welcome John</h1>",
+        "subject": "Welcome John"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

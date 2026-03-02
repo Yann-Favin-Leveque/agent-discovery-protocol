@@ -1,0 +1,84 @@
+{
+  "name": "rates_estimate",
+  "description": "Get quick shipping rate estimates with minimal information.",
+  "endpoint": "/v1/rates/estimate",
+  "method": "POST",
+  "resource_group": "rates",
+  "parameters": [
+    {
+      "name": "from_country_code",
+      "type": "string",
+      "description": "Origin country code.",
+      "required": true,
+      "example": "US"
+    },
+    {
+      "name": "from_postal_code",
+      "type": "string",
+      "description": "Origin postal code.",
+      "required": true,
+      "example": "78756"
+    },
+    {
+      "name": "to_country_code",
+      "type": "string",
+      "description": "Destination country code.",
+      "required": true,
+      "example": "US"
+    },
+    {
+      "name": "to_postal_code",
+      "type": "string",
+      "description": "Destination postal code.",
+      "required": true,
+      "example": "95128"
+    },
+    {
+      "name": "weight",
+      "type": "object",
+      "description": "Package weight with value and unit.",
+      "required": true,
+      "example": {
+        "value": 1.5,
+        "unit": "pound"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/rates/estimate",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "from_country_code": "US",
+      "from_postal_code": "78756",
+      "to_country_code": "US",
+      "to_postal_code": "95128",
+      "weight": {
+        "value": 1.5,
+        "unit": "pound"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "rate_type": "shipment",
+        "carrier_id": "se-121861",
+        "shipping_amount": {
+          "currency": "usd",
+          "amount": 7.99
+        },
+        "service_type": "USPS Priority Mail",
+        "delivery_days": 3
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

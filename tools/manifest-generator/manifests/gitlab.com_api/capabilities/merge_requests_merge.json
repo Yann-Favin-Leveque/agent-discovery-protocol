@@ -1,0 +1,73 @@
+{
+  "name": "merge_requests_merge",
+  "description": "Accept and merge a merge request.",
+  "resource_group": "merge_requests",
+  "endpoint": "/projects/{id}/merge_requests/{merge_request_iid}/merge",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "merge_request_iid",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "MR internal ID."
+    },
+    {
+      "name": "merge_commit_message",
+      "type": "string",
+      "required": false,
+      "description": "Custom merge commit message."
+    },
+    {
+      "name": "squash",
+      "type": "boolean",
+      "required": false,
+      "description": "Squash commits."
+    },
+    {
+      "name": "squash_commit_message",
+      "type": "string",
+      "required": false,
+      "description": "Custom squash commit message."
+    },
+    {
+      "name": "should_remove_source_branch",
+      "type": "boolean",
+      "required": false,
+      "description": "Delete source branch after merge."
+    },
+    {
+      "name": "sha",
+      "type": "string",
+      "required": false,
+      "description": "Expected HEAD SHA of source branch for safety."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://gitlab.com/api/v4/projects/123/merge_requests/42/merge",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    },
+    "body": {
+      "squash": true,
+      "should_remove_source_branch": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "iid": 42,
+      "state": "merged",
+      "merge_commit_sha": "abc123def456"
+    }
+  }
+}

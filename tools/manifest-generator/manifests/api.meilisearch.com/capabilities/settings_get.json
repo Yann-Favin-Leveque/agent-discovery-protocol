@@ -1,0 +1,61 @@
+{
+  "name": "settings_get",
+  "description": "Get all settings of an index including ranking rules, searchable attributes, filterable attributes, and more.",
+  "endpoint": "/indexes/{indexUid}/settings",
+  "method": "GET",
+  "resource_group": "settings",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.meilisearch.com/indexes/movies/settings",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "rankingRules": [
+        "words",
+        "typo",
+        "proximity",
+        "attribute",
+        "sort",
+        "exactness"
+      ],
+      "searchableAttributes": [
+        "*"
+      ],
+      "displayedAttributes": [
+        "*"
+      ],
+      "filterableAttributes": [],
+      "sortableAttributes": [],
+      "stopWords": [],
+      "synonyms": {},
+      "typoTolerance": {
+        "enabled": true
+      },
+      "pagination": {
+        "maxTotalHits": 1000
+      },
+      "faceting": {
+        "maxValuesPerFacet": 100
+      }
+    }
+  },
+  "auth_scopes": [
+    "settings.get"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

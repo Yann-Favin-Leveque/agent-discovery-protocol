@@ -1,0 +1,63 @@
+{
+  "name": "webhooks_verify_signature",
+  "description": "Verify a webhook signature to confirm authenticity.",
+  "endpoint": "/v1/notifications/verify-webhook-signature",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "auth_algo",
+      "type": "string",
+      "description": "Auth algorithm from header",
+      "required": true,
+      "example": "SHA256withRSA"
+    },
+    {
+      "name": "cert_url",
+      "type": "string",
+      "description": "Certificate URL from header",
+      "required": true,
+      "example": "https://api.paypal.com/v1/notifications/certs/CERT_ID"
+    },
+    {
+      "name": "transmission_id",
+      "type": "string",
+      "description": "Transmission ID from header",
+      "required": true,
+      "example": "TRANS_ID"
+    },
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "description": "Your webhook ID",
+      "required": true,
+      "example": "WH_ID"
+    },
+    {
+      "name": "webhook_event",
+      "type": "object",
+      "description": "The webhook event body",
+      "required": true,
+      "example": {}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v1/notifications/verify-webhook-signature",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "verification_status": "SUCCESS"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

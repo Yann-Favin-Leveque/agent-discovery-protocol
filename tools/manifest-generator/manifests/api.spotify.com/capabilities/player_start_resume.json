@@ -1,0 +1,61 @@
+{
+  "name": "player_start_resume",
+  "description": "Start or resume playback on the user's active device.",
+  "resource_group": "player",
+  "endpoint": "/v1/me/player/play",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "device_id",
+      "type": "string",
+      "required": false,
+      "description": "The device ID to play on."
+    },
+    {
+      "name": "context_uri",
+      "type": "string",
+      "required": false,
+      "description": "Spotify URI of the context (album, artist, playlist)."
+    },
+    {
+      "name": "uris",
+      "type": "array",
+      "required": false,
+      "description": "Array of Spotify track URIs to play."
+    },
+    {
+      "name": "offset",
+      "type": "object",
+      "required": false,
+      "description": "Offset into context."
+    },
+    {
+      "name": "position_ms",
+      "type": "integer",
+      "required": false,
+      "description": "Position in ms to start."
+    }
+  ],
+  "auth_scopes": [
+    "user-modify-playback-state"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.spotify.com/v1/me/player/play",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "context_uri": "spotify:album:5ht7ItJgpBH7W6vJ5BqpPr",
+      "offset": {
+        "position": 5
+      },
+      "position_ms": 0
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

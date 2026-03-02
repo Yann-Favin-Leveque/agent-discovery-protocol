@@ -1,0 +1,61 @@
+{
+  "name": "articles_update",
+  "description": "Update a help center article's content, title, state, or parent.",
+  "resource_group": "articles",
+  "endpoint": "/articles/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The article ID."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Updated title."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Updated HTML body."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "Updated state: published or draft."
+    },
+    {
+      "name": "parent_id",
+      "type": "string",
+      "required": false,
+      "description": "New parent collection or section ID."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.intercom.io/articles/article-2",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "state": "published"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "article",
+      "id": "article-2",
+      "title": "How to Reset Your Password",
+      "state": "published"
+    }
+  }
+}

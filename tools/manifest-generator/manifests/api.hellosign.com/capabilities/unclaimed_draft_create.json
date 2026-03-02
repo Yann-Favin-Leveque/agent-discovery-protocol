@@ -1,0 +1,59 @@
+{
+  "name": "unclaimed_draft_create",
+  "description": "Create an unclaimed draft that can be claimed by another user to send a signature request.",
+  "endpoint": "/v3/unclaimed_draft/create",
+  "method": "POST",
+  "resource_group": "unclaimed_draft",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Draft type: send_document or request_signature.",
+      "required": true,
+      "example": "request_signature"
+    },
+    {
+      "name": "file_urls",
+      "type": "array",
+      "description": "Document URLs.",
+      "required": false,
+      "example": [
+        "https://example.com/doc.pdf"
+      ]
+    },
+    {
+      "name": "test_mode",
+      "type": "boolean",
+      "description": "Test mode.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/unclaimed_draft/create",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "request_signature",
+      "file_urls": [
+        "https://example.com/doc.pdf"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "unclaimed_draft": {
+        "signature_request_id": "fa5c8a0b",
+        "claim_url": "https://app.hellosign.com/send/claimDraft"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

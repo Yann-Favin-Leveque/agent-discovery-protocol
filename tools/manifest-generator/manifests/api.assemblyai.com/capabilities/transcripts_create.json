@@ -1,0 +1,145 @@
+{
+  "name": "transcripts_create",
+  "description": "Submit an audio/video file for transcription. Supports speaker diarization, sentiment analysis, entity detection, summarization, and PII redaction.",
+  "endpoint": "/v2/transcript",
+  "method": "POST",
+  "resource_group": "transcripts",
+  "parameters": [
+    {
+      "name": "audio_url",
+      "type": "string",
+      "description": "URL of the audio/video file to transcribe.",
+      "required": true,
+      "example": "https://cdn.assemblyai.com/upload/abc123-def456"
+    },
+    {
+      "name": "language_code",
+      "type": "string",
+      "description": "Language code (en, es, fr, de, etc.).",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "speaker_labels",
+      "type": "boolean",
+      "description": "Enable speaker diarization.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "sentiment_analysis",
+      "type": "boolean",
+      "description": "Enable sentiment analysis.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "entity_detection",
+      "type": "boolean",
+      "description": "Enable entity detection.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "summarization",
+      "type": "boolean",
+      "description": "Enable summarization.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "summary_model",
+      "type": "string",
+      "description": "Summary model: informative, conversational, catchy.",
+      "required": false,
+      "example": "informative"
+    },
+    {
+      "name": "summary_type",
+      "type": "string",
+      "description": "Summary type: bullets, bullets_verbose, gist, headline, paragraph.",
+      "required": false,
+      "example": "bullets"
+    },
+    {
+      "name": "redact_pii",
+      "type": "boolean",
+      "description": "Enable PII redaction.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "redact_pii_policies",
+      "type": "array",
+      "description": "PII types to redact: email_address, phone_number, etc.",
+      "required": false
+    },
+    {
+      "name": "punctuate",
+      "type": "boolean",
+      "description": "Enable automatic punctuation.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "format_text",
+      "type": "boolean",
+      "description": "Enable text formatting.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "webhook_url",
+      "type": "string",
+      "description": "URL for completion webhook.",
+      "required": false
+    },
+    {
+      "name": "audio_start_from",
+      "type": "integer",
+      "description": "Start transcription from this millisecond.",
+      "required": false
+    },
+    {
+      "name": "audio_end_at",
+      "type": "integer",
+      "description": "End transcription at this millisecond.",
+      "required": false
+    },
+    {
+      "name": "language_detection",
+      "type": "boolean",
+      "description": "Enable automatic language detection.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.assemblyai.com/v2/transcript",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "audio_url": "https://cdn.assemblyai.com/upload/abc123-def456",
+      "speaker_labels": true,
+      "punctuate": true,
+      "format_text": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "abc123",
+      "status": "queued",
+      "audio_url": "https://cdn.assemblyai.com/upload/abc123-def456",
+      "language_code": "en",
+      "text": null,
+      "confidence": null
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

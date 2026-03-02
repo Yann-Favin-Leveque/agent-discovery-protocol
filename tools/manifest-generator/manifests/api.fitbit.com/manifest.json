@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Fitbit",
-  "description": "Fitbit is a health and fitness tracking platform. Use this API to retrieve a user's activity data (steps, calories, distance), heart rate measurements, sleep logs, body weight measurements, and to log new exercise activities. All data is scoped to the authenticated user.",
+  "description": "Fitbit is a health and fitness tracking platform by Google. Use this API to retrieve a user's activity data (steps, calories, distance), heart rate measurements and time series, heart rate variability, sleep logs and stages, body weight and composition, breathing rate, SpO2, skin temperature, cardio fitness score (VO2 Max), electrocardiogram readings, device information, nutrition and food logs, and user profile. All data is scoped to the authenticated user.",
   "base_url": "https://api.fitbit.com",
   "auth": {
     "type": "oauth2",
@@ -13,34 +13,274 @@
   },
   "capabilities": [
     {
-      "name": "get_activity_summary",
-      "description": "Retrieve a user's daily activity summary including steps, calories burned, distance traveled, floors climbed, and active minutes for a specific date.",
-      "detail_url": "/capabilities/get_activity_summary"
+      "name": "activity_summary_get",
+      "description": "Retrieve a user's daily activity summary including steps, calories, distance, floors, and active minutes for a specific date.",
+      "resource_group": "activity",
+      "detail_url": "/capabilities/activity_summary_get"
     },
     {
-      "name": "get_heart_rate",
-      "description": "Retrieve heart rate time series data for a user on a specific date or date range, including resting heart rate and heart rate zones.",
-      "detail_url": "/capabilities/get_heart_rate"
+      "name": "activity_log_list",
+      "description": "Retrieve a list of the user's activity log entries before or after a given date.",
+      "resource_group": "activity",
+      "detail_url": "/capabilities/activity_log_list"
     },
     {
-      "name": "get_sleep_log",
-      "description": "Retrieve a user's sleep log for a specific date, including sleep duration, sleep stages (deep, light, REM, awake), and sleep efficiency.",
-      "detail_url": "/capabilities/get_sleep_log"
+      "name": "activity_log_create",
+      "description": "Log a new exercise or physical activity for the authenticated user.",
+      "resource_group": "activity",
+      "detail_url": "/capabilities/activity_log_create"
     },
     {
-      "name": "log_activity",
-      "description": "Log a new exercise or physical activity for the authenticated user, specifying the activity type, duration, start time, and optionally calories and distance.",
-      "detail_url": "/capabilities/log_activity"
+      "name": "activity_log_delete",
+      "description": "Delete a user's activity log entry by its ID.",
+      "resource_group": "activity",
+      "detail_url": "/capabilities/activity_log_delete"
     },
     {
-      "name": "get_body_weight",
-      "description": "Retrieve body weight and BMI log entries for a user on a specific date or date range.",
-      "detail_url": "/capabilities/get_body_weight"
+      "name": "activity_goals_get",
+      "description": "Retrieve a user's current daily or weekly activity goals.",
+      "resource_group": "activity",
+      "detail_url": "/capabilities/activity_goals_get"
     },
     {
-      "name": "get_step_count",
-      "description": "Retrieve step count time series data for a user over a specific date or date range, returning intraday or daily step totals.",
-      "detail_url": "/capabilities/get_step_count"
+      "name": "activity_goals_update",
+      "description": "Update a user's daily or weekly activity goals.",
+      "resource_group": "activity",
+      "detail_url": "/capabilities/activity_goals_update"
+    },
+    {
+      "name": "activity_timeseries_get",
+      "description": "Retrieve activity time series data (steps, calories, distance, floors, active minutes) for a date range.",
+      "resource_group": "activity",
+      "detail_url": "/capabilities/activity_timeseries_get"
+    },
+    {
+      "name": "activity_intraday_get",
+      "description": "Retrieve intraday time series data for activity metrics at 1-min, 5-min, or 15-min intervals.",
+      "resource_group": "activity",
+      "detail_url": "/capabilities/activity_intraday_get"
+    },
+    {
+      "name": "heart_rate_timeseries_get",
+      "description": "Retrieve heart rate time series data including resting heart rate and heart rate zones for a date range.",
+      "resource_group": "heart_rate",
+      "detail_url": "/capabilities/heart_rate_timeseries_get"
+    },
+    {
+      "name": "heart_rate_intraday_get",
+      "description": "Retrieve intraday heart rate data at 1-second or 1-minute detail level.",
+      "resource_group": "heart_rate",
+      "detail_url": "/capabilities/heart_rate_intraday_get"
+    },
+    {
+      "name": "hrv_summary_get",
+      "description": "Retrieve heart rate variability (HRV) daily summary data for a date range.",
+      "resource_group": "heart_rate",
+      "detail_url": "/capabilities/hrv_summary_get"
+    },
+    {
+      "name": "sleep_log_get",
+      "description": "Retrieve a user's sleep log entries for a specific date.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_log_get"
+    },
+    {
+      "name": "sleep_log_list",
+      "description": "Retrieve a list of a user's sleep log entries before or after a given date.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_log_list"
+    },
+    {
+      "name": "sleep_log_create",
+      "description": "Create a manually-entered sleep log for the user.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_log_create"
+    },
+    {
+      "name": "sleep_log_delete",
+      "description": "Delete a user's sleep log entry by its ID.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_log_delete"
+    },
+    {
+      "name": "sleep_goals_get",
+      "description": "Retrieve the user's current sleep goals.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_goals_get"
+    },
+    {
+      "name": "sleep_goals_update",
+      "description": "Update the user's sleep goal.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_goals_update"
+    },
+    {
+      "name": "body_weight_log_get",
+      "description": "Retrieve body weight log entries for a specific date or date range.",
+      "resource_group": "body",
+      "detail_url": "/capabilities/body_weight_log_get"
+    },
+    {
+      "name": "body_weight_log_create",
+      "description": "Create a body weight log entry for the user.",
+      "resource_group": "body",
+      "detail_url": "/capabilities/body_weight_log_create"
+    },
+    {
+      "name": "body_weight_log_delete",
+      "description": "Delete a body weight log entry by its log ID.",
+      "resource_group": "body",
+      "detail_url": "/capabilities/body_weight_log_delete"
+    },
+    {
+      "name": "body_fat_log_get",
+      "description": "Retrieve body fat percentage log entries for a specific date or date range.",
+      "resource_group": "body",
+      "detail_url": "/capabilities/body_fat_log_get"
+    },
+    {
+      "name": "body_fat_log_create",
+      "description": "Create a body fat percentage log entry.",
+      "resource_group": "body",
+      "detail_url": "/capabilities/body_fat_log_create"
+    },
+    {
+      "name": "body_fat_log_delete",
+      "description": "Delete a body fat percentage log entry by its log ID.",
+      "resource_group": "body",
+      "detail_url": "/capabilities/body_fat_log_delete"
+    },
+    {
+      "name": "body_goals_get",
+      "description": "Retrieve the user's current body weight or body fat goals.",
+      "resource_group": "body",
+      "detail_url": "/capabilities/body_goals_get"
+    },
+    {
+      "name": "body_timeseries_get",
+      "description": "Retrieve body measurement time series data (weight, BMI, fat) for a date range.",
+      "resource_group": "body",
+      "detail_url": "/capabilities/body_timeseries_get"
+    },
+    {
+      "name": "breathing_rate_summary_get",
+      "description": "Retrieve breathing rate summary data for a date or date range.",
+      "resource_group": "breathing_rate",
+      "detail_url": "/capabilities/breathing_rate_summary_get"
+    },
+    {
+      "name": "spo2_summary_get",
+      "description": "Retrieve SpO2 (blood oxygen saturation) summary data for a date or date range.",
+      "resource_group": "spo2",
+      "detail_url": "/capabilities/spo2_summary_get"
+    },
+    {
+      "name": "spo2_intraday_get",
+      "description": "Retrieve intraday SpO2 readings for a specific date.",
+      "resource_group": "spo2",
+      "detail_url": "/capabilities/spo2_intraday_get"
+    },
+    {
+      "name": "temperature_skin_get",
+      "description": "Retrieve skin temperature data for a date or date range.",
+      "resource_group": "temperature",
+      "detail_url": "/capabilities/temperature_skin_get"
+    },
+    {
+      "name": "cardio_fitness_score_get",
+      "description": "Retrieve cardio fitness score (VO2 Max) data for a date or date range.",
+      "resource_group": "cardio_fitness",
+      "detail_url": "/capabilities/cardio_fitness_score_get"
+    },
+    {
+      "name": "ecg_log_list",
+      "description": "Retrieve a list of ECG (electrocardiogram) readings for a date range.",
+      "resource_group": "ecg",
+      "detail_url": "/capabilities/ecg_log_list"
+    },
+    {
+      "name": "devices_list",
+      "description": "Retrieve a list of Fitbit devices paired to the user's account.",
+      "resource_group": "devices",
+      "detail_url": "/capabilities/devices_list"
+    },
+    {
+      "name": "device_alarms_get",
+      "description": "Retrieve the alarms set on a specific Fitbit device.",
+      "resource_group": "devices",
+      "detail_url": "/capabilities/device_alarms_get"
+    },
+    {
+      "name": "nutrition_food_log_get",
+      "description": "Retrieve the user's food log entries for a specific date.",
+      "resource_group": "nutrition",
+      "detail_url": "/capabilities/nutrition_food_log_get"
+    },
+    {
+      "name": "nutrition_food_log_create",
+      "description": "Log food intake for the authenticated user.",
+      "resource_group": "nutrition",
+      "detail_url": "/capabilities/nutrition_food_log_create"
+    },
+    {
+      "name": "nutrition_food_log_delete",
+      "description": "Delete a food log entry by its ID.",
+      "resource_group": "nutrition",
+      "detail_url": "/capabilities/nutrition_food_log_delete"
+    },
+    {
+      "name": "nutrition_water_log_get",
+      "description": "Retrieve the user's water intake log for a specific date.",
+      "resource_group": "nutrition",
+      "detail_url": "/capabilities/nutrition_water_log_get"
+    },
+    {
+      "name": "nutrition_water_log_create",
+      "description": "Log water intake for the authenticated user.",
+      "resource_group": "nutrition",
+      "detail_url": "/capabilities/nutrition_water_log_create"
+    },
+    {
+      "name": "nutrition_water_log_delete",
+      "description": "Delete a water log entry by its ID.",
+      "resource_group": "nutrition",
+      "detail_url": "/capabilities/nutrition_water_log_delete"
+    },
+    {
+      "name": "nutrition_goals_get",
+      "description": "Retrieve the user's food and water consumption goals.",
+      "resource_group": "nutrition",
+      "detail_url": "/capabilities/nutrition_goals_get"
+    },
+    {
+      "name": "nutrition_timeseries_get",
+      "description": "Retrieve nutrition time series data (calories in, water) for a date range.",
+      "resource_group": "nutrition",
+      "detail_url": "/capabilities/nutrition_timeseries_get"
+    },
+    {
+      "name": "user_profile_get",
+      "description": "Retrieve the authenticated user's Fitbit profile information.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/user_profile_get"
+    },
+    {
+      "name": "user_profile_update",
+      "description": "Update the authenticated user's Fitbit profile information.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/user_profile_update"
+    },
+    {
+      "name": "friends_list",
+      "description": "Retrieve the authenticated user's friends list.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/friends_list"
+    },
+    {
+      "name": "badges_get",
+      "description": "Retrieve the user's earned badges.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/badges_get"
     }
   ]
 }

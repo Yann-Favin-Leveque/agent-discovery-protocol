@@ -1,0 +1,24 @@
+{
+  "name": "subaccounts_update",
+  "description": "Update a subaccount's name, status (active/suspended), or whether it shares the primary account balance.",
+  "resource_group": "subaccounts",
+  "endpoint": "/accounts/{api_key}/subaccounts/{subaccount_key}",
+  "method": "PATCH",
+  "parameters": [
+    {"name": "api_key", "type": "string", "required": true, "location": "path", "description": "Your primary account API key."},
+    {"name": "subaccount_key", "type": "string", "required": true, "location": "path", "description": "The subaccount API key."},
+    {"name": "name", "type": "string", "required": false, "description": "Updated name."},
+    {"name": "suspended", "type": "boolean", "required": false, "description": "Set to true to suspend the subaccount."},
+    {"name": "use_primary_account_balance", "type": "boolean", "required": false, "description": "Whether to share the primary account balance."}
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.vonage.com/accounts/abc123/subaccounts/sub001",
+    "headers": {"Content-Type": "application/json", "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."},
+    "body": {"name": "Updated Marketing Team", "suspended": false}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"api_key": "sub001", "name": "Updated Marketing Team", "primary_account_api_key": "abc123", "use_primary_account_balance": true, "suspended": false}
+  }
+}

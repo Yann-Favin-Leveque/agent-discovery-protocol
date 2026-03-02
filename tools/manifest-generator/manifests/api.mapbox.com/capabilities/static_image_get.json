@@ -1,0 +1,85 @@
+{
+  "name": "static_image_get",
+  "description": "Render a static map image as PNG for a given location, zoom, and dimensions.",
+  "endpoint": "/styles/v1/{username}/{style_id}/static/{overlay}/{lon},{lat},{zoom},{bearing},{pitch}/{width}x{height}",
+  "method": "GET",
+  "resource_group": "static_images",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Mapbox username.",
+      "required": true,
+      "example": "mapbox"
+    },
+    {
+      "name": "style_id",
+      "type": "string",
+      "description": "Map style ID.",
+      "required": true,
+      "example": "streets-v12"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "description": "Center longitude.",
+      "required": true,
+      "example": -73.989
+    },
+    {
+      "name": "lat",
+      "type": "number",
+      "description": "Center latitude.",
+      "required": true,
+      "example": 40.733
+    },
+    {
+      "name": "zoom",
+      "type": "number",
+      "description": "Zoom level (0-22).",
+      "required": true,
+      "example": 14
+    },
+    {
+      "name": "width",
+      "type": "integer",
+      "description": "Image width in pixels (1-1280).",
+      "required": true,
+      "example": 600
+    },
+    {
+      "name": "height",
+      "type": "integer",
+      "description": "Image height in pixels (1-1280).",
+      "required": true,
+      "example": 400
+    },
+    {
+      "name": "overlay",
+      "type": "string",
+      "description": "Marker/path overlays.",
+      "required": false,
+      "example": "pin-s+ff0000(-73.989,40.733)"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "pk.xxx"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/pin-s+ff0000(-73.989,40.733)/-73.989,40.733,14/600x400?access_token=pk.xxx",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": "(PNG image binary)"
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

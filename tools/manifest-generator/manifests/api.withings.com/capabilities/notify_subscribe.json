@@ -1,0 +1,55 @@
+{
+  "name": "notify_subscribe",
+  "description": "Subscribe to webhook notifications for health data updates. Receive real-time callbacks when new measurements, activity, or sleep data is available.",
+  "resource_group": "notify",
+  "endpoint": "/notify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'subscribe'."
+    },
+    {
+      "name": "callbackurl",
+      "type": "string",
+      "required": true,
+      "description": "Your webhook callback URL."
+    },
+    {
+      "name": "appli",
+      "type": "integer",
+      "required": true,
+      "description": "Data category: 1=weight, 2=temperature, 4=blood pressure, 16=activity, 44=sleep, 46=user."
+    },
+    {
+      "name": "comment",
+      "type": "string",
+      "required": false,
+      "description": "Optional comment for the subscription."
+    }
+  ],
+  "auth_scopes": [
+    "user.metrics"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/notify",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "subscribe",
+      "callbackurl": "https://example.com/webhook",
+      "appli": 1
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0
+    }
+  }
+}

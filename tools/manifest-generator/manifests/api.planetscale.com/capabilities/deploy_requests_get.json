@@ -1,0 +1,47 @@
+{
+  "name": "deploy_requests_get",
+  "resource_group": "deploy_requests",
+  "description": "Retrieve details of a specific deploy request.",
+  "endpoint": "/organizations/{organization}/databases/{database}/deploy-requests/{number}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "number",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Deploy request number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/deploy-requests/1",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "dr-123",
+      "state": "open",
+      "branch": "feature",
+      "into_branch": "main",
+      "number": 1
+    }
+  }
+}

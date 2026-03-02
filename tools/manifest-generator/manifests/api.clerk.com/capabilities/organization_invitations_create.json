@@ -1,0 +1,56 @@
+{
+  "name": "organization_invitations_create",
+  "resource_group": "organization_invitations",
+  "description": "Invite a user to an organization by email address.",
+  "endpoint": "/v1/organizations/{organization_id}/invitations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization ID.",
+      "in": "path"
+    },
+    {
+      "name": "email_address",
+      "type": "string",
+      "required": true,
+      "description": "Email to invite."
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "required": true,
+      "description": "Role for the invited user."
+    },
+    {
+      "name": "inviter_user_id",
+      "type": "string",
+      "required": false,
+      "description": "User ID of the inviter."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/organizations/org_abc123/invitations",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email_address": "bob@example.com",
+      "role": "org:member"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "orginv_abc",
+      "object": "organization_invitation",
+      "email_address": "bob@example.com",
+      "role": "org:member",
+      "status": "pending"
+    }
+  }
+}

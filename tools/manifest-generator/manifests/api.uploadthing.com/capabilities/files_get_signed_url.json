@@ -1,0 +1,45 @@
+{
+  "name": "files_get_signed_url",
+  "resource_group": "files",
+  "description": "Generate a time-limited signed URL for accessing a private file.",
+  "endpoint": "/v6/requestFileAccess",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "fileKey",
+      "type": "string",
+      "required": false,
+      "description": "File key."
+    },
+    {
+      "name": "customId",
+      "type": "string",
+      "required": false,
+      "description": "Custom ID."
+    },
+    {
+      "name": "expiresIn",
+      "type": "integer",
+      "required": false,
+      "description": "Expiration in seconds. Max 7 days (604800)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uploadthing.com/v6/requestFileAccess",
+    "headers": {
+      "x-uploadthing-api-key": "sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fileKey": "abc123-photo.jpg",
+      "expiresIn": 3600
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "url": "https://utfs.io/f/abc123-photo.jpg?x-id=GetObject&..."
+    }
+  }
+}

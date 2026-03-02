@@ -1,0 +1,47 @@
+{
+  "name": "poll_get",
+  "resource_group": "polls",
+  "description": "View a poll attached to a status.",
+  "endpoint": "/api/v1/polls/{id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Poll ID.",
+      "required": true,
+      "in": "path",
+      "example": "34567"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/polls/34567",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "34567",
+      "expires_at": "2024-03-02T15:30:00.000Z",
+      "expired": false,
+      "multiple": false,
+      "votes_count": 42,
+      "options": [
+        {
+          "title": "Option A",
+          "votes_count": 25
+        },
+        {
+          "title": "Option B",
+          "votes_count": 17
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

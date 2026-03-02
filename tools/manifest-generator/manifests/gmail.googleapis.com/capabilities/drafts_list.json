@@ -1,0 +1,60 @@
+{
+  "name": "drafts_list",
+  "description": "Lists the drafts in the user's mailbox.",
+  "resource_group": "drafts",
+  "endpoint": "/gmail/v1/users/{userId}/drafts",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "maxResults",
+      "type": "number",
+      "description": "Maximum drafts to return (max 500).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Search query to filter drafts.",
+      "required": false
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Page token for pagination.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/drafts?maxResults=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "drafts": [
+        {
+          "id": "r123",
+          "message": {
+            "id": "18e2abc123",
+            "threadId": "18e2abc123"
+          }
+        }
+      ],
+      "resultSizeEstimate": 5
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.readonly"
+  ]
+}

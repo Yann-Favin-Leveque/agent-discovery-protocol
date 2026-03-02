@@ -1,0 +1,64 @@
+{
+  "name": "events_freebusy",
+  "description": "Retrieve free/busy information for the authenticated user's calendars within a date range. Returns time blocks without event details.",
+  "endpoint": "/v1/free_busy",
+  "method": "GET",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "tzid",
+      "type": "string",
+      "required": true,
+      "description": "IANA Time Zone Database identifier."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": false,
+      "description": "Start date for the free/busy query (ISO 8601 date)."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": false,
+      "description": "End date for the free/busy query (ISO 8601 date)."
+    },
+    {
+      "name": "calendar_ids[]",
+      "type": "array",
+      "required": false,
+      "description": "Restrict to specific calendar IDs."
+    },
+    {
+      "name": "include_free",
+      "type": "boolean",
+      "required": false,
+      "description": "Include free (transparent) events."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cronofy.com/v1/free_busy?tzid=America/New_York&from=2024-01-15&to=2024-01-22",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "pages": { "current": 1, "total": 1 },
+      "free_busy": [
+        {
+          "calendar_id": "cal_n23kjnwrw2_abc123",
+          "start": "2024-01-16T09:00:00-05:00",
+          "end": "2024-01-16T09:30:00-05:00",
+          "free_busy_status": "busy"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["read_free_busy"],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

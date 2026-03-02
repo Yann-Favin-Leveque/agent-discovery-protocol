@@ -1,0 +1,50 @@
+{
+  "name": "media_children_get",
+  "resource_group": "media",
+  "description": "Retrieve the individual image or video items within a carousel album media post.",
+  "endpoint": "/{media_id}/children",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "media_id",
+      "type": "string",
+      "description": "The ID of the carousel album media object.",
+      "required": true,
+      "in": "path",
+      "example": "17854360000000000"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to return for each child.",
+      "required": false,
+      "in": "query",
+      "example": "id,media_type,media_url,timestamp"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17854360000000000/children?fields=id,media_type,media_url",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "17854360000000001",
+          "media_type": "IMAGE",
+          "media_url": "https://scontent.cdninstagram.com/image1.jpg"
+        },
+        {
+          "id": "17854360000000002",
+          "media_type": "IMAGE",
+          "media_url": "https://scontent.cdninstagram.com/image2.jpg"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["instagram_basic"]
+}

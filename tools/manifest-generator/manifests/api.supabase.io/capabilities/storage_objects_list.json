@@ -1,0 +1,68 @@
+{
+  "name": "storage_objects_list",
+  "description": "List files in a storage bucket path.",
+  "endpoint": "/storage/v1/object/list/{bucket_id}",
+  "method": "POST",
+  "resource_group": "storage",
+  "parameters": [
+    {
+      "name": "bucket_id",
+      "type": "string",
+      "description": "Bucket ID",
+      "required": true,
+      "example": "avatars"
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "description": "Path prefix to filter",
+      "required": false,
+      "example": "user123/"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Offset for pagination",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/storage/v1/object/list/avatars",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "prefix": "user123/",
+      "limit": 100,
+      "offset": 0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "name": "avatar.png",
+        "id": "obj-123",
+        "metadata": {
+          "size": 15234,
+          "mimetype": "image/png"
+        }
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

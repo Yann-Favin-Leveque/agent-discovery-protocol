@@ -1,0 +1,23 @@
+{
+  "name": "employees_get",
+  "description": "Get detailed information about a specific employee including personal data, job info, and custom fields.",
+  "endpoint": "/api/gateway.php/{companyDomain}/v1/employees/{id}",
+  "method": "GET",
+  "resource_group": "employees",
+  "parameters": [
+    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
+    {"name": "id", "type": "integer", "description": "Employee ID.", "required": true, "example": 123},
+    {"name": "fields", "type": "string", "description": "Comma-separated list of fields to return.", "required": false, "example": "firstName,lastName,jobTitle,department"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/123?fields=firstName,lastName,jobTitle,department",
+    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Accept": "application/json"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": "123", "firstName": "John", "lastName": "Doe", "jobTitle": "Senior Engineer", "department": "Engineering"}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 60}
+}

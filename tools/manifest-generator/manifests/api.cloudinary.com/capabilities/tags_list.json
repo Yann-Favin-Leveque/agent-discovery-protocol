@@ -1,0 +1,52 @@
+{
+  "name": "tags_list",
+  "resource_group": "tags",
+  "description": "List all tags for a resource type.",
+  "endpoint": "/v1_1/{cloud_name}/tags/{resource_type}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "resource_type",
+      "type": "string",
+      "required": true,
+      "description": "Resource type: image, raw, video.",
+      "in": "path"
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "required": false,
+      "description": "Filter tags by prefix."
+    },
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    },
+    {
+      "name": "next_cursor",
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/tags/image",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tags": [
+        "featured",
+        "product",
+        "banner",
+        "hero"
+      ]
+    }
+  }
+}

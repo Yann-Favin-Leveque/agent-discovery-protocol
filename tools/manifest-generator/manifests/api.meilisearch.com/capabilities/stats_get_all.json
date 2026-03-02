@@ -1,0 +1,39 @@
+{
+  "name": "stats_get_all",
+  "description": "Get stats for all indexes including the number of documents, index sizes, and database size.",
+  "endpoint": "/stats",
+  "method": "GET",
+  "resource_group": "stats",
+  "parameters": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.meilisearch.com/stats",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "databaseSize": 1024000,
+      "lastUpdate": "2024-01-01T00:00:00Z",
+      "indexes": {
+        "movies": {
+          "numberOfDocuments": 100,
+          "isIndexing": false,
+          "fieldDistribution": {
+            "id": 100,
+            "title": 100,
+            "genre": 100
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "stats.get"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

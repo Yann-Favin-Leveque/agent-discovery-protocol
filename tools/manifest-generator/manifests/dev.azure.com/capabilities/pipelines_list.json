@@ -1,0 +1,56 @@
+{
+  "name": "pipelines_list",
+  "description": "List pipelines in a project.",
+  "resource_group": "pipelines",
+  "endpoint": "/{organization}/{project}/_apis/pipelines",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://dev.azure.com/myorg/MyProject/_apis/pipelines?api-version=7.1",
+    "headers": {
+      "Authorization": "Basic base64(user:pat)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": 1,
+          "name": "CI Pipeline",
+          "folder": "\\\\",
+          "revision": 5
+        }
+      ],
+      "count": 1
+    }
+  }
+}

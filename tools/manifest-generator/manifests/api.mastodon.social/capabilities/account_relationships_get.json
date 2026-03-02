@@ -1,0 +1,42 @@
+{
+  "name": "account_relationships_get",
+  "resource_group": "accounts",
+  "description": "Check relationships with specified accounts.",
+  "endpoint": "/api/v1/accounts/relationships",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id[]",
+      "type": "array",
+      "description": "Account IDs to check.",
+      "required": true,
+      "in": "query",
+      "example": [
+        "12345",
+        "12346"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/accounts/relationships?id[]=12345&id[]=12346",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "12345",
+        "following": true,
+        "followed_by": false,
+        "blocking": false,
+        "muting": false
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:follows"
+  ]
+}

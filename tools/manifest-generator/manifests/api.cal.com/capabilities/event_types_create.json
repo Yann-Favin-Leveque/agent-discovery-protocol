@@ -1,0 +1,63 @@
+{
+  "name": "event_types_create",
+  "resource_group": "event_types",
+  "description": "Create a new event type with specified title, duration, and settings.",
+  "endpoint": "/v2/event-types",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Event type title",
+      "example": "30 Minute Meeting"
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "required": true,
+      "description": "URL-friendly slug",
+      "example": "30-minute-meeting"
+    },
+    {
+      "name": "lengthInMinutes",
+      "type": "integer",
+      "required": true,
+      "description": "Duration in minutes",
+      "example": 30
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Description",
+      "example": "A quick catch-up call"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cal.com/v2/event-types",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "Content-Type": "application/json",
+      "cal-api-version": "2024-08-13"
+    },
+    "body": {
+      "title": "30 Minute Meeting",
+      "slug": "30-minute-meeting",
+      "lengthInMinutes": 30
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": 790,
+        "slug": "30-minute-meeting",
+        "title": "30 Minute Meeting",
+        "length": 30
+      }
+    }
+  }
+}

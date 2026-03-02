@@ -1,0 +1,68 @@
+{
+  "name": "cancellation_create",
+  "description": "Bulk cancel function runs matching criteria within a time range. Cancellation is immediate and takes milliseconds.",
+  "resource_group": "cancellation",
+  "endpoint": "/v1/cancellations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID.",
+      "required": true,
+      "example": "my-app"
+    },
+    {
+      "name": "function_id",
+      "type": "string",
+      "description": "Function ID to cancel runs for.",
+      "required": true,
+      "example": "my-app-my-function"
+    },
+    {
+      "name": "started_after",
+      "type": "string",
+      "description": "Cancel runs started after this time (ISO 8601).",
+      "required": true,
+      "example": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "started_before",
+      "type": "string",
+      "description": "Cancel runs started before this time (ISO 8601).",
+      "required": true,
+      "example": "2024-01-31T23:59:59Z"
+    },
+    {
+      "name": "if",
+      "type": "string",
+      "description": "CEL expression to filter which runs to cancel.",
+      "required": false,
+      "example": "event.data.user_id == 'usr_123'"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.inngest.com/v1/cancellations",
+    "headers": {
+      "Authorization": "Bearer {signing_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "app_id": "my-app",
+      "function_id": "my-app-my-function",
+      "started_after": "2024-01-01T00:00:00Z",
+      "started_before": "2024-01-31T23:59:59Z"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cancel_abc",
+      "environment_id": "env_123",
+      "function_id": "my-app-my-function",
+      "started_after": "2024-01-01T00:00:00Z",
+      "started_before": "2024-01-31T23:59:59Z"
+    }
+  }
+}

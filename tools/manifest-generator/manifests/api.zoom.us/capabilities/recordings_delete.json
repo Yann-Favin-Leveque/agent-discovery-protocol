@@ -1,0 +1,38 @@
+{
+  "name": "recordings_delete",
+  "description": "Delete all recording files for a meeting or move them to trash. Supports permanent deletion or trash with recovery option.",
+  "endpoint": "/meetings/{meetingId}/recordings",
+  "method": "DELETE",
+  "resource_group": "recordings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "string",
+      "description": "The meeting ID or UUID.",
+      "required": true,
+      "example": "abc123def"
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "description": "Delete action: trash (move to trash, default) or delete (permanent).",
+      "required": false,
+      "example": "trash"
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.zoom.us/v2/meetings/abc123def/recordings?action=trash",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": ["recording:write"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

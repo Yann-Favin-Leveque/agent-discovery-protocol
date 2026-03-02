@@ -1,0 +1,41 @@
+{
+  "name": "announcements_list",
+  "description": "List announcements for a course.",
+  "resource_group": "announcements",
+  "endpoint": "/api/v1/announcements",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "context_codes[]",
+      "type": "string",
+      "description": "Context codes.",
+      "required": true,
+      "example": "course_1234"
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "Start date.",
+      "required": false,
+      "example": "2026-01-01"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://canvas.instructure.com/api/v1/announcements?context_codes[]=course_1234",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 13001,
+        "title": "Welcome!",
+        "message": "Welcome to the course.",
+        "posted_at": "2026-01-15T08:00:00Z"
+      }
+    ]
+  }
+}

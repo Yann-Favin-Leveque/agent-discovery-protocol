@@ -1,0 +1,50 @@
+{
+  "name": "users_create_or_update",
+  "description": "Create or update a user based on email/external_id.",
+  "endpoint": "/api/v2/users/create_or_update",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Full name",
+      "required": true,
+      "example": "John Doe"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email",
+      "required": true,
+      "example": "john@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{subdomain}.zendesk.com/api/v2/users/create_or_update",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user": {
+        "name": "John Doe",
+        "email": "john@example.com"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": 123,
+        "name": "John Doe"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "egress_list",
+  "description": "List all active egress sessions, optionally filtered by room name. Does not include completed egress sessions.",
+  "endpoint": "/twirp/livekit.Egress/ListEgress",
+  "method": "POST",
+  "resource_group": "egress",
+  "parameters": [
+    {
+      "name": "room_name",
+      "type": "string",
+      "required": false,
+      "description": "Filter by room name. Returns all active egress if empty."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.Egress/ListEgress",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room_name": "interview-room-42"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "egress_id": "EG_abc123",
+          "room_name": "interview-room-42",
+          "status": "EGRESS_ACTIVE",
+          "started_at": 1705313800
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["roomRecord"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "name": "payments_create",
+  "description": "Create a direct debit payment to collect money from a customer bank account using an existing mandate.",
+  "resource_group": "payments",
+  "endpoint": "/payments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Amount in the smallest currency unit (e.g. pence).",
+      "required": true,
+      "example": 5000
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "ISO 4217 currency code.",
+      "required": true,
+      "example": "GBP"
+    },
+    {
+      "name": "links[mandate]",
+      "type": "string",
+      "description": "ID of the mandate to collect against.",
+      "required": true
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata.",
+      "required": false
+    },
+    {
+      "name": "charge_date",
+      "type": "string",
+      "description": "Date to charge (YYYY-MM-DD).",
+      "required": false
+    },
+    {
+      "name": "reference",
+      "type": "string",
+      "description": "Payment reference on bank statement.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/payments",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "payments": {
+        "amount": 5000,
+        "currency": "GBP",
+        "links": {
+          "mandate": "MD000123"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "payments": {
+        "id": "PM000123",
+        "amount": 5000,
+        "currency": "GBP",
+        "status": "pending_submission"
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "reports_sales",
+  "description": "Retrieve sales report with totals for a date range.",
+  "resource_group": "reports",
+  "endpoint": "/reports/sales",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date_min",
+      "type": "string",
+      "required": false,
+      "description": "Start date (YYYY-MM-DD)."
+    },
+    {
+      "name": "date_max",
+      "type": "string",
+      "required": false,
+      "description": "End date (YYYY-MM-DD)."
+    },
+    {
+      "name": "period",
+      "type": "string",
+      "required": false,
+      "description": "Report period: week, month, last_month, year."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store}/wp-json/wc/v3/reports/sales?date_min=2024-01-01&date_max=2024-01-31",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "total_sales": "2966.00",
+        "net_sales": "2765.00",
+        "total_orders": 20,
+        "total_items": 45,
+        "total_tax": "201.00",
+        "total_shipping": "120.00"
+      }
+    ]
+  }
+}

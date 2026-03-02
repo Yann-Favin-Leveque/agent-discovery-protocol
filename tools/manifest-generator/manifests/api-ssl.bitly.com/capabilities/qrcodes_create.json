@@ -1,0 +1,66 @@
+{
+  "name": "qrcodes_create",
+  "description": "Create a new QR code with optional customization.",
+  "endpoint": "/v4/qr-codes",
+  "method": "POST",
+  "resource_group": "qrcodes",
+  "parameters": [
+    {
+      "name": "group_guid",
+      "type": "string",
+      "description": "Group GUID.",
+      "required": true
+    },
+    {
+      "name": "destination",
+      "type": "string",
+      "description": "The destination URL for the QR code.",
+      "required": true,
+      "example": "https://example.com"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "QR code title.",
+      "required": false,
+      "example": "My QR Code"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Tags for the QR code.",
+      "required": false
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "description": "Archive status.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-ssl.bitly.com/v4/qr-codes",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "group_guid": "Ba1bc2de3fg",
+      "destination": "https://example.com",
+      "title": "My QR Code"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "qrcode_id": "qr_abc123",
+      "title": "My QR Code",
+      "destination": "https://example.com"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

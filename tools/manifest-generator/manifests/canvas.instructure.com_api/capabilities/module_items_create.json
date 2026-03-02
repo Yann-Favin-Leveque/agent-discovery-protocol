@@ -1,0 +1,67 @@
+{
+  "name": "module_items_create",
+  "description": "Add an item to a module.",
+  "resource_group": "modules",
+  "endpoint": "/api/v1/courses/{course_id}/modules/{module_id}/items",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "module_id",
+      "type": "integer",
+      "description": "Module ID.",
+      "required": true,
+      "example": 6001
+    },
+    {
+      "name": "module_item[title]",
+      "type": "string",
+      "description": "Item title.",
+      "required": true,
+      "example": "Reading Assignment"
+    },
+    {
+      "name": "module_item[type]",
+      "type": "string",
+      "description": "Item type.",
+      "required": true,
+      "example": "Assignment"
+    },
+    {
+      "name": "module_item[content_id]",
+      "type": "integer",
+      "description": "Content ID.",
+      "required": true,
+      "example": 2001
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/modules/6001/items",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "module_item": {
+        "title": "Reading Assignment",
+        "type": "Assignment",
+        "content_id": 2001
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 7002,
+      "title": "Reading Assignment",
+      "type": "Assignment"
+    }
+  }
+}

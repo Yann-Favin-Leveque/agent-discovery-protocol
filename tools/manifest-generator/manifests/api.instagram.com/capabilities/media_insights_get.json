@@ -1,0 +1,58 @@
+{
+  "name": "media_insights_get",
+  "resource_group": "insights",
+  "description": "Retrieve engagement metrics for a specific media post on a business or creator account. Metrics include impressions, reach, likes, comments, saves, shares, and video views.",
+  "endpoint": "/{media_id}/insights",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "media_id",
+      "type": "string",
+      "description": "The ID of the media object.",
+      "required": true,
+      "in": "path",
+      "example": "17854360000000000"
+    },
+    {
+      "name": "metric",
+      "type": "string",
+      "description": "Comma-separated metrics to retrieve. Options vary by media type: impressions, reach, likes, comments, saved, shares, plays, total_interactions.",
+      "required": true,
+      "in": "query",
+      "example": "impressions,reach,likes,comments,saved,shares"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17854360000000000/insights?metric=impressions,reach,likes,comments,saved,shares",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "name": "impressions",
+          "period": "lifetime",
+          "values": [{"value": 1250}],
+          "title": "Impressions"
+        },
+        {
+          "name": "reach",
+          "period": "lifetime",
+          "values": [{"value": 980}],
+          "title": "Reach"
+        },
+        {
+          "name": "likes",
+          "period": "lifetime",
+          "values": [{"value": 245}],
+          "title": "Likes"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["instagram_manage_insights"]
+}

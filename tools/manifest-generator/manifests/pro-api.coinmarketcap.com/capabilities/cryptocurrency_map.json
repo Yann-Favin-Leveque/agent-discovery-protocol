@@ -1,0 +1,77 @@
+{
+  "name": "cryptocurrency_map",
+  "description": "Return a mapping of all cryptocurrencies to unique CoinMarketCap IDs, including active, inactive, and delisted assets.",
+  "resource_group": "cryptocurrency",
+  "endpoint": "/v1/cryptocurrency/map",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "listing_status",
+      "type": "string",
+      "description": "Filter by status: active, inactive, untracked.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Offset (1-based).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results to return (1-5000).",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort: id or cmc_rank.",
+      "required": false,
+      "example": "cmc_rank"
+    },
+    {
+      "name": "symbol",
+      "type": "string",
+      "description": "Filter by symbols (comma-separated).",
+      "required": false,
+      "example": "BTC,ETH"
+    },
+    {
+      "name": "aux",
+      "type": "string",
+      "description": "Supplemental data fields.",
+      "required": false,
+      "example": "platform,first_historical_data"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?limit=10",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": [
+        {
+          "id": 1,
+          "name": "Bitcoin",
+          "symbol": "BTC",
+          "slug": "bitcoin",
+          "rank": 1,
+          "is_active": 1
+        }
+      ]
+    }
+  }
+}

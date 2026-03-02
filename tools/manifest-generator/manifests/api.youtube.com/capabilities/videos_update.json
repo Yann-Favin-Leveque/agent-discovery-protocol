@@ -1,0 +1,47 @@
+{
+  "name": "videos_update",
+  "description": "Update a video's metadata (title, description, tags, etc.).",
+  "endpoint": "/youtube/v3/videos",
+  "method": "PUT",
+  "resource_group": "videos",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts to update",
+      "required": true,
+      "example": "snippet"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://youtube.googleapis.com/youtube/v3/videos",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "abc123",
+      "snippet": {
+        "title": "Updated Title",
+        "description": "Updated description",
+        "categoryId": "22"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "abc123",
+      "snippet": {
+        "title": "Updated Title"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

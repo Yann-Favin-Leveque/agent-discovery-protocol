@@ -1,0 +1,47 @@
+{
+  "name": "organization_memberships_update",
+  "resource_group": "organization_memberships",
+  "description": "Update a membership role within an organization.",
+  "endpoint": "/v1/organizations/{organization_id}/memberships/{user_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "organization_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization ID.",
+      "in": "path"
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID.",
+      "in": "path"
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "required": true,
+      "description": "New role."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.clerk.com/v1/organizations/org_abc123/memberships/user_2abc123",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "role": "org:member"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "orgmem_xyz",
+      "role": "org:member"
+    }
+  }
+}

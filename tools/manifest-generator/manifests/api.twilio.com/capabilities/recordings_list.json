@@ -1,0 +1,51 @@
+{
+  "name": "recordings_list",
+  "resource_group": "recordings",
+  "description": "List call recordings.",
+  "endpoint": "/2010-04-01/Accounts/{AccountSid}/Recordings.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "AccountSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Account SID",
+      "example": "ACXXX"
+    },
+    {
+      "name": "CallSid",
+      "type": "string",
+      "required": false,
+      "description": "Filter by call SID",
+      "example": "CAXXX"
+    },
+    {
+      "name": "PageSize",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/ACXXX/Recordings.json",
+    "headers": {
+      "Authorization": "Basic BASE64(AccountSid:AuthToken)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "recordings": [
+        {
+          "sid": "REXXX",
+          "call_sid": "CAXXX",
+          "duration": "45",
+          "channels": 1
+        }
+      ]
+    }
+  }
+}

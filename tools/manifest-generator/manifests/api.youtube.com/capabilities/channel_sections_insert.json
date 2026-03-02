@@ -1,0 +1,47 @@
+{
+  "name": "channel_sections_insert",
+  "description": "Create a new channel section.",
+  "endpoint": "/youtube/v3/channelSections",
+  "method": "POST",
+  "resource_group": "channel_sections",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,contentDetails"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://youtube.googleapis.com/youtube/v3/channelSections",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "snippet": {
+        "type": "singlePlaylist",
+        "title": "My Favorites"
+      },
+      "contentDetails": {
+        "playlists": [
+          "PL_playlist_id"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "section_new"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

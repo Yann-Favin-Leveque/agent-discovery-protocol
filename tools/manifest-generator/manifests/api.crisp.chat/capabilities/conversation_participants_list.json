@@ -1,0 +1,47 @@
+{
+  "name": "conversation_participants_list",
+  "description": "List all participants in a conversation (operators and visitors).",
+  "endpoint": "/v1/website/{website_id}/conversation/{session_id}/participants",
+  "method": "GET",
+  "resource_group": "conversations",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    },
+    {
+      "name": "session_id",
+      "type": "string",
+      "description": "The conversation session identifier.",
+      "required": true,
+      "example": "session_19e5240f-0a8d-461e-a661-a3123f3e"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/conversation/session_19e5240f-0a8d-461e-a661-a3123f3e/participants",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "type": "participant",
+          "target": "user_id_here"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["website:conversation:participants"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "users_create",
+  "resource_group": "users",
+  "description": "Create a new user with email, phone, or name.",
+  "endpoint": "/v1/users",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Email address."
+    },
+    {
+      "name": "phone_number",
+      "type": "string",
+      "required": false,
+      "description": "Phone number in E.164 format."
+    },
+    {
+      "name": "name",
+      "type": "object",
+      "required": false,
+      "description": "Name object: {first_name, middle_name, last_name}."
+    },
+    {
+      "name": "create_user_as_pending",
+      "type": "boolean",
+      "required": false,
+      "description": "Create user as pending."
+    },
+    {
+      "name": "trusted_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Trusted metadata (server-side only)."
+    },
+    {
+      "name": "untrusted_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Untrusted metadata."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/users",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "alice@example.com",
+      "name": {
+        "first_name": "Alice",
+        "last_name": "Johnson"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "status": "active",
+      "user": {
+        "user_id": "user-live-abc",
+        "emails": [
+          {
+            "email": "alice@example.com",
+            "email_id": "email-live-xyz",
+            "verified": false
+          }
+        ],
+        "name": {
+          "first_name": "Alice",
+          "last_name": "Johnson"
+        }
+      }
+    }
+  }
+}

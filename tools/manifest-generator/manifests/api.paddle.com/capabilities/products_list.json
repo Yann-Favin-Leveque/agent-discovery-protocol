@@ -1,0 +1,65 @@
+{
+  "name": "products_list",
+  "description": "List all products in your Paddle catalog with filtering and pagination.",
+  "resource_group": "products",
+  "endpoint": "/products",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Cursor for pagination.",
+      "required": false
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Filter by product ID (comma-separated).",
+      "required": false
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "description": "Order results (e.g. created_at[ASC]).",
+      "required": false
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Number of results per page.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status (active, archived).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.paddle.com/products?per_page=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "pro_01h1vjes1y163xfj1rh1tkfb65",
+          "name": "My SaaS Product",
+          "status": "active"
+        }
+      ],
+      "meta": {
+        "pagination": {
+          "per_page": 10,
+          "has_more": false
+        }
+      }
+    }
+  }
+}

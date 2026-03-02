@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Greenhouse Harvest API",
-  "description": "Greenhouse is an applicant tracking system (ATS) for managing recruiting and hiring workflows. Use the Harvest API to list and search candidates, manage job postings, track applications through hiring stages, add new candidates, and view scheduled interviews. Authentication uses Basic auth where the API key is the username with an empty password (base64 encode 'apikey:').",
+  "description": "Greenhouse is an applicant tracking system (ATS) for managing recruiting and hiring workflows. The Harvest API provides programmatic access to candidates, job postings, applications, interviews, scorecards, offers, and organizational data. Use it to automate recruiting pipelines, sync candidate data, manage interview scheduling, and track hiring metrics.",
   "base_url": "https://harvest.greenhouse.io",
   "auth": {
     "type": "api_key",
@@ -11,44 +11,448 @@
   },
   "capabilities": [
     {
-      "name": "list_candidates",
-      "description": "List all candidates in the system with pagination. Can filter by creation date to retrieve only recently added candidates.",
-      "detail_url": "/capabilities/list_candidates"
+      "name": "candidates_activity_get",
+      "description": "Retrieve a candidate's activity feed including interviews, notes, and emails.",
+      "resource_group": "Activity Feed",
+      "detail_url": "/capabilities/candidates_activity_get"
     },
     {
-      "name": "get_candidate",
-      "description": "Retrieve full details for a specific candidate by ID, including their applications, email addresses, phone numbers, and custom fields.",
-      "detail_url": "/capabilities/get_candidate"
+      "name": "applications_list",
+      "description": "List all job applications with optional filtering by status, job ID, and creation date.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_list"
     },
     {
-      "name": "list_jobs",
-      "description": "List job postings with optional filtering by status (open, closed, draft) and department. Returns job titles, departments, offices, and opening counts.",
-      "detail_url": "/capabilities/list_jobs"
+      "name": "applications_get",
+      "description": "Retrieve full details for a specific application by ID.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_get"
     },
     {
-      "name": "get_job",
-      "description": "Retrieve full details for a specific job by ID, including its hiring team, departments, offices, openings, and current status.",
-      "detail_url": "/capabilities/get_job"
+      "name": "applications_delete",
+      "description": "Delete a candidate application.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_delete"
     },
     {
-      "name": "list_applications",
-      "description": "List job applications with optional filtering by job ID and status. Returns application details including current stage, rejection reason, and source.",
-      "detail_url": "/capabilities/list_applications"
+      "name": "applications_create",
+      "description": "Add a new application to an existing candidate for a specific job.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_create"
     },
     {
-      "name": "add_candidate",
-      "description": "Create a new candidate record and optionally attach them to one or more job applications. Requires at least first name and last name.",
-      "detail_url": "/capabilities/add_candidate"
+      "name": "applications_update",
+      "description": "Update an application's source, referrer, recruiter, or custom fields.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_update"
     },
     {
-      "name": "advance_application",
-      "description": "Advance a job application to the next stage in the hiring pipeline. Moves the candidate forward in the configured interview workflow.",
-      "detail_url": "/capabilities/advance_application"
+      "name": "applications_advance",
+      "description": "Advance an application to the next stage in the hiring pipeline.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_advance"
     },
     {
-      "name": "list_scheduled_interviews",
-      "description": "List all scheduled interviews across the organization. Can filter by creation date for retrieving recently scheduled interviews.",
-      "detail_url": "/capabilities/list_scheduled_interviews"
+      "name": "applications_move",
+      "description": "Move an application to a specific stage within the same job.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_move"
+    },
+    {
+      "name": "applications_transfer",
+      "description": "Transfer an application to a different job.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_transfer"
+    },
+    {
+      "name": "applications_hire",
+      "description": "Mark an application as hired with optional start date.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_hire"
+    },
+    {
+      "name": "applications_reject",
+      "description": "Reject an application with optional reason and email notification.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_reject"
+    },
+    {
+      "name": "applications_unreject",
+      "description": "Unreject a previously rejected application.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_unreject"
+    },
+    {
+      "name": "applications_attachment_create",
+      "description": "Attach a file to an application (resume, cover letter, etc.).",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_attachment_create"
+    },
+    {
+      "name": "applications_convert_prospect",
+      "description": "Convert a prospect application to a candidate application.",
+      "resource_group": "Applications",
+      "detail_url": "/capabilities/applications_convert_prospect"
+    },
+    {
+      "name": "candidates_list",
+      "description": "List all candidates with filtering by date, job, email, or external ID.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_list"
+    },
+    {
+      "name": "candidates_get",
+      "description": "Retrieve full details for a specific candidate.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_get"
+    },
+    {
+      "name": "candidates_create",
+      "description": "Create a new candidate record with optional applications.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_create"
+    },
+    {
+      "name": "candidates_update",
+      "description": "Update a candidate's information.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_update"
+    },
+    {
+      "name": "candidates_delete",
+      "description": "Permanently delete a candidate.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_delete"
+    },
+    {
+      "name": "candidates_note_create",
+      "description": "Add a note to a candidate's record.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_note_create"
+    },
+    {
+      "name": "candidates_anonymize",
+      "description": "Anonymize a candidate's personal data for GDPR compliance.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_anonymize"
+    },
+    {
+      "name": "candidates_merge",
+      "description": "Merge a duplicate candidate into a primary record.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_merge"
+    },
+    {
+      "name": "candidates_tags_list",
+      "description": "List all tags applied to a candidate.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_tags_list"
+    },
+    {
+      "name": "candidates_tag_add",
+      "description": "Add a tag to a candidate.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_tag_add"
+    },
+    {
+      "name": "candidates_education_create",
+      "description": "Add education history to a candidate.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_education_create"
+    },
+    {
+      "name": "candidates_employment_create",
+      "description": "Add employment history to a candidate.",
+      "resource_group": "Candidates",
+      "detail_url": "/capabilities/candidates_employment_create"
+    },
+    {
+      "name": "jobs_list",
+      "description": "List all jobs with optional status filtering.",
+      "resource_group": "Jobs",
+      "detail_url": "/capabilities/jobs_list"
+    },
+    {
+      "name": "jobs_get",
+      "description": "Retrieve full details for a specific job.",
+      "resource_group": "Jobs",
+      "detail_url": "/capabilities/jobs_get"
+    },
+    {
+      "name": "jobs_create",
+      "description": "Create a new job posting.",
+      "resource_group": "Jobs",
+      "detail_url": "/capabilities/jobs_create"
+    },
+    {
+      "name": "jobs_update",
+      "description": "Update a job's properties.",
+      "resource_group": "Jobs",
+      "detail_url": "/capabilities/jobs_update"
+    },
+    {
+      "name": "jobs_hiring_team_get",
+      "description": "Retrieve the hiring team for a job.",
+      "resource_group": "Jobs",
+      "detail_url": "/capabilities/jobs_hiring_team_get"
+    },
+    {
+      "name": "jobs_stages_list",
+      "description": "List all pipeline stages for a job.",
+      "resource_group": "Job Stages",
+      "detail_url": "/capabilities/jobs_stages_list"
+    },
+    {
+      "name": "job_stages_list_all",
+      "description": "List all job stages across the organization.",
+      "resource_group": "Job Stages",
+      "detail_url": "/capabilities/job_stages_list_all"
+    },
+    {
+      "name": "job_posts_list",
+      "description": "List all job posts.",
+      "resource_group": "Job Posts",
+      "detail_url": "/capabilities/job_posts_list"
+    },
+    {
+      "name": "job_posts_get",
+      "description": "Retrieve a specific job post.",
+      "resource_group": "Job Posts",
+      "detail_url": "/capabilities/job_posts_get"
+    },
+    {
+      "name": "job_posts_update",
+      "description": "Update a job post.",
+      "resource_group": "Job Posts",
+      "detail_url": "/capabilities/job_posts_update"
+    },
+    {
+      "name": "job_openings_list",
+      "description": "List all job openings.",
+      "resource_group": "Job Openings",
+      "detail_url": "/capabilities/job_openings_list"
+    },
+    {
+      "name": "job_openings_create",
+      "description": "Create new openings for a job.",
+      "resource_group": "Job Openings",
+      "detail_url": "/capabilities/job_openings_create"
+    },
+    {
+      "name": "scheduled_interviews_list",
+      "description": "List all scheduled interviews.",
+      "resource_group": "Scheduled Interviews",
+      "detail_url": "/capabilities/scheduled_interviews_list"
+    },
+    {
+      "name": "scheduled_interviews_get",
+      "description": "Retrieve a specific scheduled interview.",
+      "resource_group": "Scheduled Interviews",
+      "detail_url": "/capabilities/scheduled_interviews_get"
+    },
+    {
+      "name": "scheduled_interviews_create",
+      "description": "Create a new scheduled interview.",
+      "resource_group": "Scheduled Interviews",
+      "detail_url": "/capabilities/scheduled_interviews_create"
+    },
+    {
+      "name": "scheduled_interviews_delete",
+      "description": "Delete a scheduled interview.",
+      "resource_group": "Scheduled Interviews",
+      "detail_url": "/capabilities/scheduled_interviews_delete"
+    },
+    {
+      "name": "scorecards_list",
+      "description": "List all interview scorecards.",
+      "resource_group": "Scorecards",
+      "detail_url": "/capabilities/scorecards_list"
+    },
+    {
+      "name": "scorecards_get",
+      "description": "Retrieve a specific scorecard.",
+      "resource_group": "Scorecards",
+      "detail_url": "/capabilities/scorecards_get"
+    },
+    {
+      "name": "offers_list",
+      "description": "List all offers.",
+      "resource_group": "Offers",
+      "detail_url": "/capabilities/offers_list"
+    },
+    {
+      "name": "offers_get",
+      "description": "Retrieve a specific offer.",
+      "resource_group": "Offers",
+      "detail_url": "/capabilities/offers_get"
+    },
+    {
+      "name": "offers_current_get",
+      "description": "Retrieve the current offer for an application.",
+      "resource_group": "Offers",
+      "detail_url": "/capabilities/offers_current_get"
+    },
+    {
+      "name": "departments_list",
+      "description": "List all departments.",
+      "resource_group": "Departments",
+      "detail_url": "/capabilities/departments_list"
+    },
+    {
+      "name": "departments_get",
+      "description": "Retrieve a specific department.",
+      "resource_group": "Departments",
+      "detail_url": "/capabilities/departments_get"
+    },
+    {
+      "name": "departments_create",
+      "description": "Create a new department.",
+      "resource_group": "Departments",
+      "detail_url": "/capabilities/departments_create"
+    },
+    {
+      "name": "offices_list",
+      "description": "List all offices.",
+      "resource_group": "Offices",
+      "detail_url": "/capabilities/offices_list"
+    },
+    {
+      "name": "offices_create",
+      "description": "Create a new office.",
+      "resource_group": "Offices",
+      "detail_url": "/capabilities/offices_create"
+    },
+    {
+      "name": "users_list",
+      "description": "List all Greenhouse users.",
+      "resource_group": "Users",
+      "detail_url": "/capabilities/users_list"
+    },
+    {
+      "name": "users_get",
+      "description": "Retrieve a specific user.",
+      "resource_group": "Users",
+      "detail_url": "/capabilities/users_get"
+    },
+    {
+      "name": "users_create",
+      "description": "Create a new Greenhouse user.",
+      "resource_group": "Users",
+      "detail_url": "/capabilities/users_create"
+    },
+    {
+      "name": "users_disable",
+      "description": "Disable a user account.",
+      "resource_group": "Users",
+      "detail_url": "/capabilities/users_disable"
+    },
+    {
+      "name": "users_enable",
+      "description": "Re-enable a disabled user account.",
+      "resource_group": "Users",
+      "detail_url": "/capabilities/users_enable"
+    },
+    {
+      "name": "sources_list",
+      "description": "List all candidate sources.",
+      "resource_group": "Sources",
+      "detail_url": "/capabilities/sources_list"
+    },
+    {
+      "name": "tags_list",
+      "description": "List all candidate tags.",
+      "resource_group": "Tags",
+      "detail_url": "/capabilities/tags_list"
+    },
+    {
+      "name": "tags_create",
+      "description": "Create a new candidate tag.",
+      "resource_group": "Tags",
+      "detail_url": "/capabilities/tags_create"
+    },
+    {
+      "name": "rejection_reasons_list",
+      "description": "List all rejection reasons.",
+      "resource_group": "Rejection Reasons",
+      "detail_url": "/capabilities/rejection_reasons_list"
+    },
+    {
+      "name": "close_reasons_list",
+      "description": "List all close reasons for job openings.",
+      "resource_group": "Close Reasons",
+      "detail_url": "/capabilities/close_reasons_list"
+    },
+    {
+      "name": "email_templates_list",
+      "description": "List all email templates.",
+      "resource_group": "Email Templates",
+      "detail_url": "/capabilities/email_templates_list"
+    },
+    {
+      "name": "email_templates_get",
+      "description": "Retrieve a specific email template.",
+      "resource_group": "Email Templates",
+      "detail_url": "/capabilities/email_templates_get"
+    },
+    {
+      "name": "custom_fields_list",
+      "description": "List all custom fields.",
+      "resource_group": "Custom Fields",
+      "detail_url": "/capabilities/custom_fields_list"
+    },
+    {
+      "name": "custom_fields_get",
+      "description": "Retrieve a specific custom field.",
+      "resource_group": "Custom Fields",
+      "detail_url": "/capabilities/custom_fields_get"
+    },
+    {
+      "name": "eeoc_list",
+      "description": "List all EEOC data entries.",
+      "resource_group": "EEOC",
+      "detail_url": "/capabilities/eeoc_list"
+    },
+    {
+      "name": "user_roles_list",
+      "description": "List all user roles.",
+      "resource_group": "User Roles",
+      "detail_url": "/capabilities/user_roles_list"
+    },
+    {
+      "name": "prospect_pools_list",
+      "description": "List all prospect pools.",
+      "resource_group": "Prospect Pools",
+      "detail_url": "/capabilities/prospect_pools_list"
+    },
+    {
+      "name": "approval_flows_list",
+      "description": "List approval flows for a job.",
+      "resource_group": "Approvals",
+      "detail_url": "/capabilities/approval_flows_list"
+    },
+    {
+      "name": "pending_approvals_list",
+      "description": "List pending approvals for a user.",
+      "resource_group": "Approvals",
+      "detail_url": "/capabilities/pending_approvals_list"
+    },
+    {
+      "name": "degrees_list",
+      "description": "List all degree types.",
+      "resource_group": "Education",
+      "detail_url": "/capabilities/degrees_list"
+    },
+    {
+      "name": "disciplines_list",
+      "description": "List all academic disciplines.",
+      "resource_group": "Education",
+      "detail_url": "/capabilities/disciplines_list"
+    },
+    {
+      "name": "schools_list",
+      "description": "List all schools.",
+      "resource_group": "Education",
+      "detail_url": "/capabilities/schools_list"
     }
   ]
 }

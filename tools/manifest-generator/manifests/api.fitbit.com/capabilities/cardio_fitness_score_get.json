@@ -1,0 +1,39 @@
+{
+  "name": "cardio_fitness_score_get",
+  "description": "Retrieve cardio fitness score (VO2 Max estimate).",
+  "resource_group": "cardio_fitness",
+  "endpoint": "/1/user/-/cardioscore/date/{date}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "Date YYYY-MM-DD or {start}/{end}.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "cardio_fitness"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/cardioscore/date/2025-01-15.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "cardioScore": [
+        {
+          "dateTime": "2025-01-15",
+          "value": {
+            "vo2Max": "42-46"
+          }
+        }
+      ]
+    }
+  }
+}

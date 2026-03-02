@@ -1,0 +1,65 @@
+{
+  "name": "links_list",
+  "description": "Retrieve all links (story references) in the space for building navigation.",
+  "endpoint": "/v2/cdn/links",
+  "method": "GET",
+  "resource_group": "links",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "description": "API token",
+      "required": true,
+      "example": "your-token"
+    },
+    {
+      "name": "starts_with",
+      "type": "string",
+      "description": "Filter by slug prefix",
+      "required": false,
+      "example": "blog/"
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "description": "published or draft",
+      "required": false,
+      "example": "published"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.storyblok.com/v2/cdn/links?token=your-token",
+    "headers": {
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "links": {
+        "123": {
+          "id": 123,
+          "slug": "home",
+          "name": "Home",
+          "is_folder": false,
+          "parent_id": 0
+        },
+        "124": {
+          "id": 124,
+          "slug": "blog",
+          "name": "Blog",
+          "is_folder": true,
+          "parent_id": 0
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

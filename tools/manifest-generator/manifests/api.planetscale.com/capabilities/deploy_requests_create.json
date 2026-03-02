@@ -1,0 +1,66 @@
+{
+  "name": "deploy_requests_create",
+  "resource_group": "deploy_requests",
+  "description": "Create a new deploy request to merge schema changes between branches.",
+  "endpoint": "/organizations/{organization}/databases/{database}/deploy-requests",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "branch",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Source branch name."
+    },
+    {
+      "name": "into_branch",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Target branch name."
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Notes for the deploy request."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/deploy-requests",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "branch": "feature",
+      "into_branch": "main"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "dr-456",
+      "state": "open",
+      "branch": "feature",
+      "into_branch": "main",
+      "number": 2
+    }
+  }
+}

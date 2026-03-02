@@ -1,0 +1,151 @@
+{
+  "name": "directions_get",
+  "description": "Calculate directions and routes between an origin and destination with optional waypoints, travel mode, and traffic awareness.",
+  "endpoint": "/maps/api/directions/json",
+  "method": "GET",
+  "resource_group": "directions",
+  "parameters": [
+    {
+      "name": "origin",
+      "type": "string",
+      "description": "Starting point as address, place ID (place_id:xxx), or lat,lng coordinates.",
+      "required": true,
+      "example": "New York, NY"
+    },
+    {
+      "name": "destination",
+      "type": "string",
+      "description": "Ending point as address, place ID, or coordinates.",
+      "required": true,
+      "example": "Boston, MA"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "description": "Travel mode: driving (default), walking, bicycling, or transit.",
+      "required": false,
+      "example": "driving"
+    },
+    {
+      "name": "waypoints",
+      "type": "string",
+      "description": "Intermediate stops separated by pipes. Prefix with 'optimize:true' to optimize order.",
+      "required": false,
+      "example": "optimize:true|Hartford, CT|Providence, RI"
+    },
+    {
+      "name": "alternatives",
+      "type": "boolean",
+      "description": "Request alternative routes.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "avoid",
+      "type": "string",
+      "description": "Features to avoid: tolls, highways, ferries, indoor. Pipe-separated.",
+      "required": false,
+      "example": "tolls|highways"
+    },
+    {
+      "name": "departure_time",
+      "type": "string",
+      "description": "Departure time as Unix timestamp or 'now' for traffic-aware routing.",
+      "required": false,
+      "example": "now"
+    },
+    {
+      "name": "arrival_time",
+      "type": "integer",
+      "description": "Desired arrival time as Unix timestamp (transit mode only).",
+      "required": false,
+      "example": 1705420800
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Unit system: metric or imperial.",
+      "required": false,
+      "example": "imperial"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for results.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "Region bias as ccTLD code.",
+      "required": false,
+      "example": "us"
+    },
+    {
+      "name": "traffic_model",
+      "type": "string",
+      "description": "Traffic model: best_guess (default), pessimistic, or optimistic.",
+      "required": false,
+      "example": "best_guess"
+    },
+    {
+      "name": "transit_mode",
+      "type": "string",
+      "description": "Transit mode filter: bus, subway, train, tram, rail. Pipe-separated.",
+      "required": false,
+      "example": "bus|subway"
+    },
+    {
+      "name": "transit_routing_preference",
+      "type": "string",
+      "description": "Transit routing preference: less_walking or fewer_transfers.",
+      "required": false,
+      "example": "fewer_transfers"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/directions/json?origin=New+York,NY&destination=Boston,MA&mode=driving&departure_time=now&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "routes": [
+        {
+          "summary": "I-95 N",
+          "legs": [
+            {
+              "distance": {"text": "216 mi", "value": 347543},
+              "duration": {"text": "3 hours 45 mins", "value": 13500},
+              "duration_in_traffic": {"text": "4 hours 10 mins", "value": 15000},
+              "start_address": "New York, NY, USA",
+              "end_address": "Boston, MA, USA",
+              "steps": [
+                {
+                  "html_instructions": "Head north on I-95 N",
+                  "distance": {"text": "50 mi", "value": 80467},
+                  "duration": {"text": "55 mins", "value": 3300}
+                }
+              ]
+            }
+          ],
+          "overview_polyline": {"points": "encoded_polyline_string"}
+        }
+      ],
+      "status": "OK"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

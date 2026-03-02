@@ -1,0 +1,25 @@
+{
+  "name": "services_autoscale",
+  "description": "Configure autoscaling rules for a service based on CPU and memory thresholds.",
+  "resource_group": "services",
+  "endpoint": "/v1/services/{serviceId}/autoscaling",
+  "method": "PUT",
+  "parameters": [
+    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID to configure autoscaling for."},
+    {"name": "enabled", "type": "boolean", "required": true, "description": "Whether autoscaling is enabled."},
+    {"name": "min", "type": "integer", "required": true, "description": "Minimum number of instances."},
+    {"name": "max", "type": "integer", "required": true, "description": "Maximum number of instances."},
+    {"name": "criteria", "type": "object", "required": true, "description": "Autoscaling criteria with cpu and memory percentage thresholds."}
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5/autoscaling",
+    "body": {"enabled": true, "min": 1, "max": 5, "criteria": {"cpu": {"enabled": true, "percentage": 70}, "memory": {"enabled": true, "percentage": 80}}}
+  },
+  "response_example": {
+    "enabled": true,
+    "min": 1,
+    "max": 5,
+    "criteria": {"cpu": {"enabled": true, "percentage": 70}, "memory": {"enabled": true, "percentage": 80}}
+  }
+}

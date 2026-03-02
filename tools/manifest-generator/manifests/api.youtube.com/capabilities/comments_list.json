@@ -1,0 +1,65 @@
+{
+  "name": "comments_list",
+  "description": "List replies to a comment thread.",
+  "endpoint": "/youtube/v3/comments",
+  "method": "GET",
+  "resource_group": "comments",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet"
+    },
+    {
+      "name": "parentId",
+      "type": "string",
+      "description": "Parent comment ID to get replies for",
+      "required": true,
+      "example": "thread_123"
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": "20"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/comments",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "comment_456",
+          "snippet": {
+            "textDisplay": "Thanks!",
+            "authorDisplayName": "Reply User"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.force-ssl"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

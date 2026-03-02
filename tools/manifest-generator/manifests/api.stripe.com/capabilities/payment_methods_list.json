@@ -1,0 +1,46 @@
+{
+  "name": "payment_methods_list",
+  "description": "List PaymentMethods for a customer.",
+  "endpoint": "/v1/payment_methods",
+  "method": "GET",
+  "resource_group": "payment_methods",
+  "parameters": [
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Customer ID",
+      "required": true,
+      "example": "cus_abc123"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter by type",
+      "required": true,
+      "example": "card"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/payment_methods?customer=cus_abc123&type=card",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "pm_abc123",
+          "type": "card"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

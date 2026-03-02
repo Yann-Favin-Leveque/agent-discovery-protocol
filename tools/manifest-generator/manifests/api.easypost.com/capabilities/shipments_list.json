@@ -1,0 +1,64 @@
+{
+  "name": "shipments_list",
+  "description": "Retrieve all shipments with pagination and date filters.",
+  "endpoint": "/v2/shipments",
+  "method": "GET",
+  "resource_group": "shipments",
+  "parameters": [
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Records per page (max 100).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "before_id",
+      "type": "string",
+      "description": "Cursor for previous page.",
+      "required": false
+    },
+    {
+      "name": "after_id",
+      "type": "string",
+      "description": "Cursor for next page.",
+      "required": false
+    },
+    {
+      "name": "start_datetime",
+      "type": "string",
+      "description": "Filter after this datetime.",
+      "required": false
+    },
+    {
+      "name": "end_datetime",
+      "type": "string",
+      "description": "Filter before this datetime.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.easypost.com/v2/shipments?page_size=20",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "shipments": [
+        {
+          "id": "shp_abc123",
+          "status": "unknown",
+          "tracking_code": null
+        }
+      ],
+      "has_more": true
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

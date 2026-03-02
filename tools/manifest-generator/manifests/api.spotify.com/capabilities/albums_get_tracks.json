@@ -1,0 +1,54 @@
+{
+  "name": "albums_get_tracks",
+  "description": "Get the tracks of a specific Spotify album.",
+  "resource_group": "albums",
+  "endpoint": "/v1/albums/{id}/tracks",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "The Spotify ID of the album."
+    },
+    {
+      "name": "market",
+      "type": "string",
+      "required": false,
+      "description": "ISO 3166-1 alpha-2 country code."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max items. Default: 20. Range: 1-50."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Index of first item. Default: 0."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy/tracks?limit=5",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "abc",
+          "name": "Track 1",
+          "track_number": 1,
+          "duration_ms": 213000
+        }
+      ],
+      "total": 18
+    }
+  }
+}

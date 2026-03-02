@@ -1,0 +1,44 @@
+{
+  "name": "eor_create",
+  "resource_group": "EOR",
+  "endpoint": "/rest/v2/eor",
+  "method": "POST",
+  "description": "Create an Employer of Record contract quote.",
+  "parameters": [
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "EOR contract details including country, compensation, and worker info."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.letsdeel.com/rest/v2/eor",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "country": "GB",
+        "first_name": "Alex",
+        "last_name": "Kim",
+        "email": "alex@example.com",
+        "compensation": {
+          "amount": 80000,
+          "currency": "GBP"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "eor-1",
+        "status": "draft"
+      }
+    }
+  }
+}

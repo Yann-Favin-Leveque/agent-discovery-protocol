@@ -1,0 +1,55 @@
+{
+  "name": "bookings_reschedule",
+  "resource_group": "bookings",
+  "description": "Reschedule an existing booking to a new date and time.",
+  "endpoint": "/v2/bookings/{bookingUid}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "bookingUid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Unique booking identifier",
+      "example": "bk_abc123"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "required": true,
+      "description": "New start time in ISO 8601",
+      "example": "2025-03-16T14:00:00Z"
+    },
+    {
+      "name": "reschedulingReason",
+      "type": "string",
+      "required": false,
+      "description": "Reason for rescheduling",
+      "example": "Conflict with another meeting"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.cal.com/v2/bookings/bk_abc123",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "Content-Type": "application/json",
+      "cal-api-version": "2024-08-13"
+    },
+    "body": {
+      "start": "2025-03-16T14:00:00Z",
+      "reschedulingReason": "Conflict with another meeting"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": {
+        "uid": "bk_abc123",
+        "status": "accepted",
+        "start": "2025-03-16T14:00:00Z"
+      }
+    }
+  }
+}

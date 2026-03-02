@@ -1,0 +1,97 @@
+{
+  "name": "analytics_retrieve",
+  "description": "Retrieve analytics data for links including clicks, leads, and sales with flexible grouping by time, geography, device, or referrer.",
+  "endpoint": "/analytics",
+  "method": "GET",
+  "resource_group": "analytics",
+  "parameters": [
+    {
+      "name": "event",
+      "type": "string",
+      "description": "Event type: clicks, leads, sales, or composite.",
+      "required": false,
+      "example": "clicks"
+    },
+    {
+      "name": "groupBy",
+      "type": "string",
+      "description": "Grouping: timeseries, countries, cities, devices, browsers, os, referers, top_links, top_urls.",
+      "required": false,
+      "example": "timeseries"
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Filter by domain.",
+      "required": false
+    },
+    {
+      "name": "linkId",
+      "type": "string",
+      "description": "Filter by specific link ID.",
+      "required": false
+    },
+    {
+      "name": "interval",
+      "type": "string",
+      "description": "Time interval: 24h, 7d, 30d, 90d, 1y, mtd, qtd, ytd, all.",
+      "required": false,
+      "example": "30d"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "description": "Start date (ISO-8601).",
+      "required": false
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End date (ISO-8601).",
+      "required": false
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "description": "IANA timezone (defaults to UTC).",
+      "required": false,
+      "example": "America/New_York"
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "Filter by 2-letter country code.",
+      "required": false,
+      "example": "US"
+    },
+    {
+      "name": "device",
+      "type": "string",
+      "description": "Filter by device: Desktop, Mobile, Tablet.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.dub.co/analytics?event=clicks&groupBy=timeseries&interval=30d",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "start": "2024-01-01T00:00:00.000Z",
+        "clicks": 150,
+        "leads": 5,
+        "sales": 2,
+        "saleAmount": 9900
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

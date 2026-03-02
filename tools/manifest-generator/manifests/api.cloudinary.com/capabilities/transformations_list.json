@@ -1,0 +1,54 @@
+{
+  "name": "transformations_list",
+  "resource_group": "transformations",
+  "description": "List all stored transformations.",
+  "endpoint": "/v1_1/{cloud_name}/transformations",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    },
+    {
+      "name": "next_cursor",
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor."
+    },
+    {
+      "name": "named",
+      "type": "boolean",
+      "required": false,
+      "description": "List only named transformations."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/transformations?named=true",
+    "headers": {
+      "Authorization": "Basic base64(api_key:api_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transformations": [
+        {
+          "name": "t_thumbnail",
+          "allowed_for_strict": true,
+          "used": true,
+          "named": true,
+          "transformation": [
+            {
+              "width": 200,
+              "height": 200,
+              "crop": "fill"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

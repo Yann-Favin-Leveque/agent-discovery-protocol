@@ -1,0 +1,53 @@
+{
+  "name": "template_get",
+  "description": "Retrieve full details of a specific template including fields, roles, tokens, and content structure.",
+  "resource_group": "template",
+  "endpoint": "/public/v1/templates/{id}/details",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Template ID.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pandadoc.com/public/v1/templates/tmpl-abc-123/details",
+    "headers": {
+      "Authorization": "API-Key YOUR_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "tmpl-abc-123",
+      "name": "Standard NDA",
+      "fields": [
+        {
+          "uuid": "field-1",
+          "name": "Client.Company",
+          "type": "text"
+        }
+      ],
+      "roles": [
+        {
+          "uuid": "role-1",
+          "name": "Client"
+        }
+      ],
+      "tokens": [
+        {
+          "name": "Contract.Date"
+        }
+      ],
+      "tags": [
+        "nda",
+        "legal"
+      ]
+    }
+  }
+}

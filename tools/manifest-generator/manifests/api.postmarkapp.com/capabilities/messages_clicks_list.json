@@ -1,0 +1,43 @@
+{
+  "name": "messages_clicks_list",
+  "description": "Search link click events across messages.",
+  "resource_group": "messages",
+  "endpoint": "/messages/outbound/clicks",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "count",
+      "type": "number",
+      "description": "Records per request.",
+      "required": true,
+      "example": 100
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "description": "Records to skip.",
+      "required": true,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.postmarkapp.com/messages/outbound/clicks?count=100&offset=0",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TotalCount": 25,
+      "Clicks": [
+        {
+          "MessageID": "abc-123",
+          "OriginalLink": "https://example.com"
+        }
+      ]
+    }
+  }
+}

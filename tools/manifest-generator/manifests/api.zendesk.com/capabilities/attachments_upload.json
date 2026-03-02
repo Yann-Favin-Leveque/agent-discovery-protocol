@@ -1,0 +1,41 @@
+{
+  "name": "attachments_upload",
+  "description": "Upload a file to attach to a ticket.",
+  "endpoint": "/api/v2/uploads",
+  "method": "POST",
+  "resource_group": "attachments",
+  "parameters": [
+    {
+      "name": "filename",
+      "type": "string",
+      "description": "File name",
+      "required": true,
+      "example": "screenshot.png"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{subdomain}.zendesk.com/api/v2/uploads",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "upload": {
+        "token": "upload_token_123",
+        "attachment": {
+          "id": 1,
+          "file_name": "screenshot.png"
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

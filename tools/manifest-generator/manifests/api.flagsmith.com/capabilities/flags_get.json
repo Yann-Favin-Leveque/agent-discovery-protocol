@@ -1,0 +1,25 @@
+{
+  "name": "flags_get",
+  "description": "Get the state of a specific feature flag by its feature name for the current environment.",
+  "resource_group": "flags",
+  "endpoint": "/flags/",
+  "method": "GET",
+  "parameters": [
+    {"name": "feature", "type": "string", "description": "The feature name to retrieve.", "required": true, "example": "new_checkout"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://edge.api.flagsmith.com/api/v1/flags/?feature=new_checkout",
+    "headers": {"X-Environment-Key": "{environment_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1,
+      "feature": {"id": 101, "name": "new_checkout", "type": "FLAG"},
+      "enabled": true,
+      "feature_state_value": null
+    }
+  },
+  "rate_limits": {"requests_per_minute": 500}
+}

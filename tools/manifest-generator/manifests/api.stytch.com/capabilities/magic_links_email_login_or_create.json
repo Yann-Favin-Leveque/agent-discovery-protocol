@@ -1,0 +1,67 @@
+{
+  "name": "magic_links_email_login_or_create",
+  "resource_group": "magic_links",
+  "description": "Send a magic link that either logs in or creates a new user in one call.",
+  "endpoint": "/v1/magic_links/email/login_or_create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "description": "Email address."
+    },
+    {
+      "name": "login_magic_link_url",
+      "type": "string",
+      "required": false,
+      "description": "URL for the magic link."
+    },
+    {
+      "name": "signup_magic_link_url",
+      "type": "string",
+      "required": false,
+      "description": "URL for signup magic link."
+    },
+    {
+      "name": "login_expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Login link expiration."
+    },
+    {
+      "name": "signup_expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Signup link expiration."
+    },
+    {
+      "name": "create_user_as_pending",
+      "type": "boolean",
+      "required": false,
+      "description": "Create user as pending until verified."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/magic_links/email/login_or_create",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "alice@example.com",
+      "login_magic_link_url": "https://app.example.com/auth"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "status_code": 200,
+      "user_id": "user-live-abc",
+      "user_created": false,
+      "email_id": "email-live-xyz"
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "name": "documents_create",
+  "description": "Create a new document in the dataset. Optionally specify a custom document ID.",
+  "endpoint": "/v{apiVersion}/data/mutate/{dataset}",
+  "method": "POST",
+  "resource_group": "mutations",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "_type",
+      "type": "string",
+      "description": "Document type",
+      "required": true,
+      "example": "post"
+    },
+    {
+      "name": "returnIds",
+      "type": "boolean",
+      "description": "Return IDs of created documents",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "returnDocuments",
+      "type": "boolean",
+      "description": "Return full documents after creation",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "description": "Write visibility: sync, async, or deferred",
+      "required": false,
+      "example": "sync"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/data/mutate/production?returnIds=true",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "mutations": [
+        {
+          "create": {
+            "_type": "post",
+            "title": "New Post",
+            "slug": {
+              "_type": "slug",
+              "current": "new-post"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "transactionId": "abc123",
+      "results": [
+        {
+          "id": "newDocId",
+          "operation": "create"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "discounts_create",
+  "description": "Create a discount code that can be applied to transactions.",
+  "resource_group": "discounts",
+  "endpoint": "/discounts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "string",
+      "description": "Discount amount.",
+      "required": true,
+      "example": "10"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Discount description.",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Type: flat, flat_per_seat, or percentage.",
+      "required": true,
+      "example": "percentage"
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "description": "Unique discount code.",
+      "required": false,
+      "example": "SAVE10"
+    },
+    {
+      "name": "enabled_for_checkout",
+      "type": "boolean",
+      "description": "Can be used at checkout.",
+      "required": false
+    },
+    {
+      "name": "recur",
+      "type": "boolean",
+      "description": "Apply to recurring payments.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/discounts",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": "10",
+      "description": "10% off",
+      "type": "percentage",
+      "code": "SAVE10"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "dsc_01h1vjes1y163xfj1rh1tkfb65",
+        "code": "SAVE10"
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "webhooks_update",
+  "description": "Update an existing webhook.",
+  "resource_group": "webhooks",
+  "endpoint": "/webhooks/{webhook_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "description": "Webhook ID.",
+      "required": true,
+      "example": "wh-123"
+    },
+    {
+      "name": "endpoint",
+      "type": "string",
+      "description": "Updated URL.",
+      "required": false
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "Updated events.",
+      "required": false
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Status: enabled or disabled.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.resend.com/webhooks/wh-123",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "disabled"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "wh-123"
+    }
+  }
+}

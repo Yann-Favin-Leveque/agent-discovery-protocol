@@ -1,0 +1,42 @@
+{
+  "name": "allowlist_create",
+  "resource_group": "allowlist",
+  "description": "Add an email or phone number to the allowlist.",
+  "endpoint": "/v1/allowlist_identifiers",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "identifier",
+      "type": "string",
+      "required": true,
+      "description": "Email address or phone number."
+    },
+    {
+      "name": "notify",
+      "type": "boolean",
+      "required": false,
+      "description": "Send a notification to the identifier. Default false."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/allowlist_identifiers",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "identifier": "alice@example.com",
+      "notify": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "alid_abc",
+      "object": "allowlist_identifier",
+      "identifier": "alice@example.com",
+      "identifier_type": "email_address"
+    }
+  }
+}

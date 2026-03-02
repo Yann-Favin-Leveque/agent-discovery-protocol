@@ -1,0 +1,61 @@
+{
+  "name": "envelope_recipients_update",
+  "description": "Update recipients on a draft or sent envelope. Can correct email addresses, resend signing notifications, or add new recipients.",
+  "resource_group": "envelope",
+  "endpoint": "/v2.1/accounts/{accountId}/envelopes/{envelopeId}/recipients",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "envelopeId",
+      "type": "string",
+      "required": true,
+      "description": "Envelope ID.",
+      "in": "path"
+    },
+    {
+      "name": "signers",
+      "type": "array",
+      "required": false,
+      "description": "Array of signer objects to update.",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/envelopes/env-abc-123/recipients",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "signers": [
+        {
+          "recipientId": "1",
+          "email": "newemail@example.com",
+          "name": "John Doe"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "recipientUpdateResults": [
+        {
+          "recipientId": "1",
+          "errorDetails": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "deploys_create",
+  "description": "Trigger a new deployment for a service. Optionally clear the build cache or specify a commit ID or image URL.",
+  "resource_group": "deploys",
+  "endpoint": "/v1/services/{serviceId}/deploys",
+  "method": "POST",
+  "parameters": [
+    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID to deploy."},
+    {"name": "clearCache", "type": "string", "required": false, "description": "Set to clear to clear the build cache. Default do_not_clear."},
+    {"name": "commitId", "type": "string", "required": false, "description": "Git commit ID to deploy. Defaults to latest commit on configured branch."},
+    {"name": "imageUrl", "type": "string", "required": false, "description": "Docker image URL for image-backed services."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5/deploys",
+    "body": {"clearCache": "clear"}
+  },
+  "response_example": {
+    "id": "dep-k1l2m3n4o5",
+    "commit": {"id": "d4e5f6a1b2c3", "message": "feat: add rate limiting"},
+    "status": "created",
+    "trigger": "api",
+    "createdAt": "2026-01-20T14:30:05Z"
+  }
+}

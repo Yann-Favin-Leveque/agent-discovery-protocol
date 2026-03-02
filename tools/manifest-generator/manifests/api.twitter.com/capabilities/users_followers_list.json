@@ -1,0 +1,49 @@
+{
+  "name": "users_followers_list",
+  "description": "List followers of a user.",
+  "resource_group": "users",
+  "endpoint": "/2/users/{id}/followers",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "User ID."
+    },
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (1-1000)."
+    },
+    {
+      "name": "user.fields",
+      "type": "string",
+      "required": false,
+      "description": "User fields to return."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twitter.com/2/users/44196397/followers?max_results=100",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "789",
+          "name": "Follower",
+          "username": "follower1"
+        }
+      ],
+      "meta": {
+        "result_count": 100
+      }
+    }
+  }
+}

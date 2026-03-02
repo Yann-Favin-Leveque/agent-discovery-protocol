@@ -1,0 +1,66 @@
+{
+  "name": "query_engage",
+  "description": "Query user profiles with property filters and pagination.",
+  "resource_group": "query",
+  "endpoint": "/engage",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "integer",
+      "required": true,
+      "description": "Project ID",
+      "location": "query"
+    },
+    {
+      "name": "where",
+      "type": "string",
+      "required": false,
+      "description": "Filter expression"
+    },
+    {
+      "name": "output_properties",
+      "type": "array",
+      "required": false,
+      "description": "Properties to return"
+    },
+    {
+      "name": "filter_by_cohort",
+      "type": "string",
+      "required": false,
+      "description": "Cohort ID to filter by"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number"
+    },
+    {
+      "name": "session_id",
+      "type": "string",
+      "required": false,
+      "description": "Session ID for pagination"
+    }
+  ],
+  "request_example": {
+    "where": "properties[\"plan\"]==\"pro\"",
+    "output_properties": [
+      "$name",
+      "$email"
+    ]
+  },
+  "response_example": {
+    "results": [
+      {
+        "$distinct_id": "user_123",
+        "$properties": {
+          "$name": "John"
+        }
+      }
+    ],
+    "total": 1,
+    "page": 0
+  },
+  "auth_scopes": []
+}

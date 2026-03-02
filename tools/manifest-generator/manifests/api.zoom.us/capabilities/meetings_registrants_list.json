@@ -1,0 +1,65 @@
+{
+  "name": "meetings_registrants_list",
+  "description": "List all registrants for a meeting that has registration enabled. Returns registrant details and approval status.",
+  "endpoint": "/meetings/{meetingId}/registrants",
+  "method": "GET",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "integer",
+      "description": "The meeting ID.",
+      "required": true,
+      "example": 1234567890
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by registrant status: pending, approved, or denied.",
+      "required": false,
+      "example": "approved"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of records per page (max 300).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "next_page_token",
+      "type": "string",
+      "description": "Token for the next page of results.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/meetings/1234567890/registrants?status=approved",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page_size": 30,
+      "total_records": 10,
+      "registrants": [
+        {
+          "id": "reg123",
+          "email": "jane@example.com",
+          "first_name": "Jane",
+          "last_name": "Doe",
+          "status": "approved",
+          "create_time": "2024-01-10T08:00:00Z"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["meeting:read"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

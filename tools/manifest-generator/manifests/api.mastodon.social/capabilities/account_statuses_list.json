@@ -1,0 +1,72 @@
+{
+  "name": "account_statuses_list",
+  "resource_group": "accounts",
+  "description": "Get statuses posted by a specific account.",
+  "endpoint": "/api/v1/accounts/{id}/statuses",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Account ID.",
+      "required": true,
+      "in": "path",
+      "example": "12345"
+    },
+    {
+      "name": "only_media",
+      "type": "boolean",
+      "description": "Only statuses with media.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "exclude_replies",
+      "type": "boolean",
+      "description": "Exclude replies.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "exclude_reblogs",
+      "type": "boolean",
+      "description": "Exclude boosts.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "pinned",
+      "type": "boolean",
+      "description": "Only pinned statuses.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (default 20, max 40).",
+      "required": false,
+      "in": "query",
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/accounts/12345/statuses?limit=20",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "109876543210",
+        "content": "<p>A status</p>"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

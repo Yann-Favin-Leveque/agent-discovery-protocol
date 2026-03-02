@@ -1,0 +1,45 @@
+{
+  "name": "addresses_recognize",
+  "description": "Extract structured address data from unstructured text.",
+  "endpoint": "/v1/addresses/recognize",
+  "method": "PUT",
+  "resource_group": "addresses",
+  "parameters": [
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Unstructured text containing an address.",
+      "required": true,
+      "example": "Ship to John Smith at 525 S Winchester Blvd, San Jose CA 95128"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.shipengine.com/v1/addresses/recognize",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "text": "Ship to John Smith at 525 S Winchester Blvd, San Jose CA 95128"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "score": 0.95,
+      "address": {
+        "name": "John Smith",
+        "address_line1": "525 S Winchester Blvd",
+        "city_locality": "San Jose",
+        "state_province": "CA",
+        "postal_code": "95128",
+        "country_code": "US"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

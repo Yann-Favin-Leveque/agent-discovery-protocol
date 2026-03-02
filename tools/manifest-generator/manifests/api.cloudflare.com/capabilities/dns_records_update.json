@@ -1,0 +1,83 @@
+{
+  "name": "dns_records_update",
+  "resource_group": "dns_records",
+  "description": "Overwrite an existing DNS record (full replacement).",
+  "endpoint": "/zones/{zone_id}/dns_records/{dns_record_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "dns_record_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "DNS record identifier."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Record type."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Record name."
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Record content."
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "required": false,
+      "in": "body",
+      "description": "TTL."
+    },
+    {
+      "name": "proxied",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Proxy status."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dns_records/rec-123",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "A",
+      "name": "example.com",
+      "content": "198.51.100.5",
+      "ttl": 1,
+      "proxied": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "id": "rec-123",
+        "content": "198.51.100.5"
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "accounts_update",
+  "description": "Update an existing account. Requires full object with SyncToken for concurrency.",
+  "endpoint": "/v3/company/{realmId}/account",
+  "method": "POST",
+  "resource_group": "accounts",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "Id",
+      "type": "string",
+      "description": "Account ID",
+      "required": true,
+      "example": "94"
+    },
+    {
+      "name": "SyncToken",
+      "type": "string",
+      "description": "Concurrency token",
+      "required": true,
+      "example": "0"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/account?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Id": "94",
+      "SyncToken": "0",
+      "Name": "Updated Savings",
+      "AccountType": "Bank"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Account": {
+        "Id": "94",
+        "SyncToken": "1",
+        "Name": "Updated Savings"
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

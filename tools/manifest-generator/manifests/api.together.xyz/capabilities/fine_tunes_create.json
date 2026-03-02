@@ -1,0 +1,110 @@
+{
+  "name": "fine_tunes_create",
+  "description": "Create a fine-tuning job to train a custom model on your dataset. Supports LoRA and full fine-tuning with configurable hyperparameters, Weights & Biases integration, and Hugging Face integration.",
+  "resource_group": "fine_tunes",
+  "endpoint": "/v1/fine-tunes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "training_file",
+      "type": "string",
+      "required": true,
+      "description": "File-ID of the training data uploaded via the Files API.",
+      "example": "file-abc123"
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Name of the base model to fine-tune.",
+      "example": "meta-llama/Meta-Llama-3.1-8B-Instruct-Reference"
+    },
+    {
+      "name": "validation_file",
+      "type": "string",
+      "required": false,
+      "description": "File-ID for validation dataset."
+    },
+    {
+      "name": "n_epochs",
+      "type": "integer",
+      "required": false,
+      "description": "Number of training passes. Default is 1."
+    },
+    {
+      "name": "n_checkpoints",
+      "type": "integer",
+      "required": false,
+      "description": "Number of intermediate model checkpoints to save. Default is 1."
+    },
+    {
+      "name": "batch_size",
+      "type": "string",
+      "required": false,
+      "description": "Training examples per batch. Default is 'max'."
+    },
+    {
+      "name": "learning_rate",
+      "type": "number",
+      "required": false,
+      "description": "Model adaptation rate. Default is 0.00001."
+    },
+    {
+      "name": "suffix",
+      "type": "string",
+      "required": false,
+      "description": "Suffix for the fine-tuned model name."
+    },
+    {
+      "name": "training_method",
+      "type": "string",
+      "required": false,
+      "description": "Training method: 'sft' (supervised fine-tuning) or 'dpo' (direct preference optimization)."
+    },
+    {
+      "name": "training_type",
+      "type": "object",
+      "required": false,
+      "description": "Training configuration: 'Full' or 'Lora' with respective parameters."
+    },
+    {
+      "name": "wandb_api_key",
+      "type": "string",
+      "required": false,
+      "description": "Weights & Biases API key for logging."
+    },
+    {
+      "name": "warmup_ratio",
+      "type": "number",
+      "required": false,
+      "description": "Initial learning rate warmup percentage. Default is 0."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.together.xyz/v1/fine-tunes",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Reference",
+      "training_file": "file-abc123",
+      "n_epochs": 3,
+      "learning_rate": 0.0001
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ft-01234567890123456789",
+      "status": "pending",
+      "created_at": "2024-01-01T00:00:00.000Z",
+      "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Reference",
+      "training_file": "file-abc123",
+      "n_epochs": 3,
+      "token_count": 850000,
+      "total_price": 1500
+    }
+  }
+}

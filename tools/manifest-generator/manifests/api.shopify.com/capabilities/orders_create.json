@@ -1,0 +1,71 @@
+{
+  "name": "orders_create",
+  "description": "Create a new order with line items, customer info, and payment details.",
+  "resource_group": "orders",
+  "endpoint": "/admin/api/2024-10/orders.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "line_items",
+      "type": "array",
+      "required": true,
+      "description": "Array of line items with variant_id and quantity."
+    },
+    {
+      "name": "customer",
+      "type": "object",
+      "required": false,
+      "description": "Customer object with id or email."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Customer email."
+    },
+    {
+      "name": "financial_status",
+      "type": "string",
+      "required": false,
+      "description": "Financial status."
+    },
+    {
+      "name": "note",
+      "type": "string",
+      "required": false,
+      "description": "Order note."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}.myshopify.com/admin/api/2024-10/orders.json",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "order": {
+        "line_items": [
+          {
+            "variant_id": 447654529,
+            "quantity": 1
+          }
+        ],
+        "customer": {
+          "id": 207119551
+        },
+        "financial_status": "paid"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "order": {
+        "id": 450789470,
+        "name": "#1002",
+        "total_price": "199.00"
+      }
+    }
+  }
+}

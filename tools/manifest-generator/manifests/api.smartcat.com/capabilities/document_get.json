@@ -1,0 +1,34 @@
+{
+  "name": "document_get",
+  "description": "Retrieve details and word count of a specific document within a project.",
+  "resource_group": "documents",
+  "endpoint": "/api/integration/v1/document",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "location": "query",
+      "description": "The document ID in format 'docId_languageId' (e.g., 'doc-uuid-456_fr')."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://smartcat.com/api/integration/v1/document?documentId=doc-uuid-456_fr",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "doc-uuid-456_fr",
+      "name": "homepage.json",
+      "targetLanguage": "fr",
+      "status": "inProgress",
+      "wordsCount": 1500,
+      "progress": 65
+    }
+  }
+}

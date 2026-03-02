@@ -1,0 +1,54 @@
+{
+  "name": "schema_run_sql",
+  "resource_group": "schema",
+  "description": "Execute raw SQL statements against the database through Hasura.",
+  "endpoint": "/v2/query",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Must be 'run_sql'."
+    },
+    {
+      "name": "args",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Args: source (string), sql (string), cascade (boolean)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project}.hasura.app/v2/query",
+    "headers": {
+      "x-hasura-admin-secret": "{admin_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "run_sql",
+      "args": {
+        "source": "default",
+        "sql": "SELECT * FROM users LIMIT 10;"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "result_type": "TuplesOk",
+      "result": [
+        [
+          "id",
+          "name"
+        ],
+        [
+          "1",
+          "John"
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "name": "beams_publish_interests",
+  "description": "Send push notifications to devices subscribed to specific interests (topics) via Pusher Beams.",
+  "resource_group": "beams",
+  "endpoint": "/customer_api/v1/instances/{instance_id}/publishes/interests",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "instance_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Your Beams instance ID."
+    },
+    {
+      "name": "interests",
+      "type": "array",
+      "required": true,
+      "description": "Array of interest names to publish to (max 100)."
+    },
+    {
+      "name": "apns",
+      "type": "object",
+      "required": false,
+      "description": "APNs payload."
+    },
+    {
+      "name": "fcm",
+      "type": "object",
+      "required": false,
+      "description": "FCM payload."
+    },
+    {
+      "name": "web",
+      "type": "object",
+      "required": false,
+      "description": "Web push payload."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pusherapp.com/customer_api/v1/instances/beams-instance-id/publishes/interests",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer beams-secret-key"
+    },
+    "body": {
+      "interests": [
+        "breaking-news",
+        "sports"
+      ],
+      "fcm": {
+        "notification": {
+          "title": "Breaking News",
+          "body": "Major event just happened."
+        }
+      },
+      "web": {
+        "notification": {
+          "title": "Breaking News",
+          "body": "Major event just happened."
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "publishId": "pubid-67890"
+    }
+  }
+}

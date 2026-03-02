@@ -1,0 +1,56 @@
+{
+  "name": "subaccounts_update",
+  "description": "Update a subaccount name, status, or IP pool assignment.",
+  "endpoint": "/api/v1/subaccounts/{id}",
+  "method": "PUT",
+  "resource_group": "subaccounts",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Subaccount ID",
+      "required": true,
+      "example": 123
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated name",
+      "required": false,
+      "example": "Client A Updated"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "active or suspended",
+      "required": false,
+      "example": "active"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sparkpost.com/api/v1/subaccounts/123",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Client A Updated"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "id": 123,
+        "name": "Client A Updated"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

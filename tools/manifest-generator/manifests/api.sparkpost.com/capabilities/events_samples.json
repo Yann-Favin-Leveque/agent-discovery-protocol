@@ -1,0 +1,40 @@
+{
+  "name": "events_samples",
+  "description": "Get sample event payloads for specified event types.",
+  "endpoint": "/api/v1/events/message/samples",
+  "method": "GET",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "events",
+      "type": "string",
+      "description": "Comma-separated event types",
+      "required": false,
+      "example": "delivery,bounce"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/events/message/samples?events=delivery,bounce",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "type": "delivery",
+          "rcpt_to": "example@test.com"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

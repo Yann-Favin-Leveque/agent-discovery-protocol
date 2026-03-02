@@ -1,0 +1,59 @@
+{
+  "name": "captures_refund",
+  "description": "Refund a captured payment, fully or partially.",
+  "endpoint": "/v2/payments/captures/{capture_id}/refund",
+  "method": "POST",
+  "resource_group": "payments",
+  "parameters": [
+    {
+      "name": "capture_id",
+      "type": "string",
+      "description": "Capture ID",
+      "required": true,
+      "example": "CAPTURE_ID"
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Refund amount (omit for full refund)",
+      "required": false,
+      "example": {
+        "currency_code": "USD",
+        "value": "25.00"
+      }
+    },
+    {
+      "name": "note_to_payer",
+      "type": "string",
+      "description": "Note to the buyer about the refund",
+      "required": false,
+      "example": "Item returned"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v2/payments/captures/{capture_id}/refund",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": {
+        "currency_code": "USD",
+        "value": "25.00"
+      },
+      "note_to_payer": "Item returned"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "REFUND_ID",
+      "status": "COMPLETED"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

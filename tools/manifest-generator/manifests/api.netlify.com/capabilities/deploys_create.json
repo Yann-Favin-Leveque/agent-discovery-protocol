@@ -1,0 +1,52 @@
+{
+  "name": "deploys_create",
+  "description": "Create a new deploy for a site (trigger a build).",
+  "endpoint": "/api/v1/sites/{site_id}/deploys",
+  "method": "POST",
+  "resource_group": "deploys",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "string",
+      "description": "Site ID",
+      "required": true,
+      "example": "site_abc"
+    },
+    {
+      "name": "branch",
+      "type": "string",
+      "description": "Git branch to deploy",
+      "required": false,
+      "example": "main"
+    },
+    {
+      "name": "clear_cache",
+      "type": "boolean",
+      "description": "Clear build cache",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.netlify.com/api/v1/sites/{site_id}/deploys",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "branch": "main"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "deploy_new",
+      "state": "building"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

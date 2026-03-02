@@ -1,0 +1,108 @@
+{
+  "name": "stories_list",
+  "description": "List and filter stories with pagination, search, and sorting options.",
+  "endpoint": "/v2/cdn/stories",
+  "method": "GET",
+  "resource_group": "stories",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "description": "API token",
+      "required": true,
+      "example": "your-token"
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "description": "published or draft",
+      "required": false,
+      "example": "published"
+    },
+    {
+      "name": "starts_with",
+      "type": "string",
+      "description": "Filter by slug prefix (folder path)",
+      "required": false,
+      "example": "blog/"
+    },
+    {
+      "name": "by_slugs",
+      "type": "string",
+      "description": "Filter by comma-separated slugs",
+      "required": false,
+      "example": "blog/post-1,blog/post-2"
+    },
+    {
+      "name": "content_type",
+      "type": "string",
+      "description": "Filter by component type",
+      "required": false,
+      "example": "post"
+    },
+    {
+      "name": "with_tag",
+      "type": "string",
+      "description": "Filter by tag",
+      "required": false,
+      "example": "featured"
+    },
+    {
+      "name": "search_term",
+      "type": "string",
+      "description": "Full-text search",
+      "required": false,
+      "example": "hello"
+    },
+    {
+      "name": "sort_by",
+      "type": "string",
+      "description": "Sort field:order (e.g. created_at:desc)",
+      "required": false,
+      "example": "published_at:desc"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Stories per page (max 100)",
+      "required": false,
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.storyblok.com/v2/cdn/stories?token=your-token&starts_with=blog/&per_page=25",
+    "headers": {
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stories": [
+        {
+          "id": 123,
+          "name": "Post 1",
+          "slug": "blog/post-1",
+          "content": {
+            "component": "post"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

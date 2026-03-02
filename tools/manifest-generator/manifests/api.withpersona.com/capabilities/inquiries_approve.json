@@ -1,0 +1,22 @@
+{
+  "name": "inquiries_approve",
+  "description": "Approve an inquiry, marking the individual's identity as verified. This triggers any configured webhooks.",
+  "resource_group": "inquiries",
+  "endpoint": "/inquiries/{inquiry_id}/approve",
+  "method": "POST",
+  "parameters": [
+    {"name": "inquiry_id", "type": "string", "description": "The inquiry ID to approve.", "required": true, "example": "inq_abc123"},
+    {"name": "comment", "type": "string", "description": "Optional comment explaining the approval.", "required": false}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://withpersona.com/api/v1/inquiries/inq_abc123/approve",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json", "Persona-Version": "2023-01-05"},
+    "body": {"meta": {"comment": "Manually verified by support agent"}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"type": "inquiry", "id": "inq_abc123", "attributes": {"status": "approved"}}}
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

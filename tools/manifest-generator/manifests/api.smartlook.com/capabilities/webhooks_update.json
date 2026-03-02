@@ -1,0 +1,54 @@
+{
+  "name": "webhooks_update",
+  "description": "Update a webhook's URL or subscribed event types.",
+  "endpoint": "/api/v1/webhooks/{webhook_id}",
+  "method": "PATCH",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "description": "The webhook ID to update.",
+      "required": true,
+      "example": "wh_abc123"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Updated webhook URL.",
+      "required": false,
+      "example": "https://example.com/webhooks/smartlook-v2"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "Updated event types to subscribe to.",
+      "required": false,
+      "example": ["session.created"]
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.eu.smartlook.cloud/api/v1/webhooks/wh_abc123",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhooks/smartlook-v2",
+      "events": ["session.created"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "wh_abc123",
+      "url": "https://example.com/webhooks/smartlook-v2",
+      "events": ["session.created"]
+    }
+  },
+  "auth_scopes": ["write"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

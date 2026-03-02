@@ -1,0 +1,57 @@
+{
+  "name": "trackers_create",
+  "description": "Create a tracker for a package.",
+  "endpoint": "/v2/trackers",
+  "method": "POST",
+  "resource_group": "trackers",
+  "parameters": [
+    {
+      "name": "tracking_code",
+      "type": "string",
+      "description": "Package tracking number.",
+      "required": true,
+      "example": "1Z999AA10123456784"
+    },
+    {
+      "name": "carrier",
+      "type": "string",
+      "description": "Carrier name (auto-detected if omitted).",
+      "required": false,
+      "example": "UPS"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/trackers",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tracker": {
+        "tracking_code": "1Z999AA10123456784",
+        "carrier": "UPS"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "trk_abc123",
+      "object": "Tracker",
+      "tracking_code": "1Z999AA10123456784",
+      "carrier": "UPS",
+      "status": "in_transit",
+      "tracking_details": [
+        {
+          "message": "Package departed facility",
+          "datetime": "2024-01-15T10:30:00Z"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

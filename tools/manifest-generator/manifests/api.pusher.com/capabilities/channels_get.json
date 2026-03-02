@@ -1,0 +1,42 @@
+{
+  "name": "channels_get",
+  "description": "Get detailed information about a specific channel including occupied status and subscription/user count.",
+  "resource_group": "channels",
+  "endpoint": "/apps/{app_id}/channels/{channel_name}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Your Pusher app ID."
+    },
+    {
+      "name": "channel_name",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The channel name."
+    },
+    {
+      "name": "info",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated attributes: 'user_count' (presence only), 'subscription_count'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pusherapp.com/apps/123456/channels/presence-chat-room-1?info=user_count,subscription_count",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "occupied": true,
+      "user_count": 5,
+      "subscription_count": 7
+    }
+  }
+}

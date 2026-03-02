@@ -1,0 +1,53 @@
+{
+  "name": "customers_list",
+  "description": "Retrieve a paginated list of customers.",
+  "resource_group": "customers",
+  "endpoint": "/customers",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "email:in",
+      "type": "string",
+      "required": false,
+      "description": "Filter by email."
+    },
+    {
+      "name": "name:like",
+      "type": "string",
+      "required": false,
+      "description": "Filter by name (partial match)."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bigcommerce.com/stores/{store_hash}/v3/customers?limit=10",
+    "headers": {
+      "X-Auth-Token": "{api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 1,
+          "email": "john@example.com",
+          "first_name": "John",
+          "last_name": "Doe"
+        }
+      ]
+    }
+  }
+}

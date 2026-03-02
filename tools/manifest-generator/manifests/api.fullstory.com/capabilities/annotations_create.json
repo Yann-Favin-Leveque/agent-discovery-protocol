@@ -1,0 +1,55 @@
+{
+  "name": "annotations_create",
+  "description": "Create an annotation to mark a significant event or deployment in the FullStory timeline.",
+  "endpoint": "/v2/annotations",
+  "method": "POST",
+  "resource_group": "annotations",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Title of the annotation.",
+      "required": true,
+      "example": "v2.5.0 Deployed"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Optional description providing more context.",
+      "required": false,
+      "example": "Deployed new checkout flow with Stripe integration."
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "description": "ISO 8601 timestamp for the annotation. Defaults to current time.",
+      "required": false,
+      "example": "2024-01-20T10:00:00Z"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fullstory.com/v2/annotations",
+    "headers": {
+      "Authorization": "Basic {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "v2.5.0 Deployed",
+      "description": "Deployed new checkout flow with Stripe integration.",
+      "timestamp": "2024-01-20T10:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ann_abc123",
+      "title": "v2.5.0 Deployed",
+      "timestamp": "2024-01-20T10:00:00Z"
+    }
+  },
+  "auth_scopes": ["server"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

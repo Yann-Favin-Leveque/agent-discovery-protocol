@@ -1,0 +1,64 @@
+{
+  "name": "organizations_update",
+  "resource_group": "organizations",
+  "description": "Update an organization's name, slug, or metadata.",
+  "endpoint": "/v1/organizations/{organization_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "organization_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization ID.",
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Updated name."
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "required": false,
+      "description": "Updated slug."
+    },
+    {
+      "name": "max_allowed_memberships",
+      "type": "integer",
+      "required": false,
+      "description": "Max members."
+    },
+    {
+      "name": "public_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Public metadata."
+    },
+    {
+      "name": "private_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Private metadata."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.clerk.com/v1/organizations/org_abc123",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Acme Corporation"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "org_abc123",
+      "name": "Acme Corporation"
+    }
+  }
+}

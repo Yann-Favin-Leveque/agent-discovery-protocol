@@ -1,0 +1,52 @@
+{
+  "name": "campaigns_search",
+  "description": "Search and retrieve campaigns using GAQL.",
+  "resource_group": "campaigns",
+  "endpoint": "/v18/customers/{customerId}/googleAds:searchStream",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Google Ads customer ID (without hyphens).",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "GAQL query string.",
+      "required": true,
+      "example": "SELECT campaign.id, campaign.name, campaign.status, metrics.impressions FROM campaign WHERE campaign.status = 'ENABLED' ORDER BY metrics.impressions DESC LIMIT 10"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://googleads.googleapis.com/v18/customers/1234567890/googleAds:searchStream",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "developer-token": "{developer_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "SELECT campaign.id, campaign.name, campaign.status FROM campaign"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "results": [
+          {
+            "campaign": {
+              "resourceName": "customers/1234567890/campaigns/111",
+              "id": "111",
+              "name": "Search Campaign",
+              "status": "ENABLED"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

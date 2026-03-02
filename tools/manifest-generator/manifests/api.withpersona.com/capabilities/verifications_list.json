@@ -1,0 +1,27 @@
+{
+  "name": "verifications_list",
+  "description": "List all verifications with optional filtering by inquiry, type, and status.",
+  "resource_group": "verifications",
+  "endpoint": "/verifications",
+  "method": "GET",
+  "parameters": [
+    {"name": "filter[inquiry-id]", "type": "string", "description": "Filter by inquiry ID.", "required": false, "example": "inq_abc123"},
+    {"name": "filter[status]", "type": "string", "description": "Filter by status (initiated, submitted, passed, failed, requires_retry, confirmed, cancelled).", "required": false},
+    {"name": "page[after]", "type": "string", "description": "Cursor for forward pagination.", "required": false},
+    {"name": "page[size]", "type": "integer", "description": "Results per page (default 10, max 100).", "required": false, "example": 25}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://withpersona.com/api/v1/verifications?filter[inquiry-id]=inq_abc123",
+    "headers": {"Authorization": "Bearer {api_key}", "Persona-Version": "2023-01-05"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {"type": "verification/government-id", "id": "ver_abc123", "attributes": {"status": "passed", "created-at": "2024-01-15T10:32:00.000Z"}}
+      ]
+    }
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

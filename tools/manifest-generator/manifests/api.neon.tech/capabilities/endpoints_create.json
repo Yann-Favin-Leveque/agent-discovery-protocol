@@ -1,0 +1,46 @@
+{
+  "name": "endpoints_create",
+  "resource_group": "endpoints",
+  "description": "Create a compute endpoint for a branch.",
+  "endpoint": "/projects/{project_id}/endpoints",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "endpoint",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Endpoint config: branch_id, type, autoscaling limits."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123/endpoints",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "endpoint": {
+        "branch_id": "br-abc123",
+        "type": "read_write"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "endpoint": {
+        "id": "ep-def456",
+        "branch_id": "br-abc123"
+      }
+    }
+  }
+}

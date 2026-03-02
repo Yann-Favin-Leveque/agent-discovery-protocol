@@ -1,0 +1,46 @@
+{
+  "name": "projects_update",
+  "description": "Update a project.",
+  "resource_group": "projects",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Project ID"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "New name"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "New description"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "New state (planned, started, paused, completed, canceled)"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "mutation { projectUpdate(id: \"project-id\", input: { state: \"completed\" }) { success } }"
+  }
+}

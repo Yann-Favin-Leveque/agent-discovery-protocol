@@ -1,0 +1,94 @@
+{
+  "name": "issues_update",
+  "description": "Update an issue's title, body, state, labels, assignees, or milestone.",
+  "resource_group": "issues",
+  "endpoint": "/repos/{owner}/{repo}/issues/{issue_number}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "issue_number",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "The issue number."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Updated title."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": false,
+      "description": "Updated body."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "State: open or closed."
+    },
+    {
+      "name": "state_reason",
+      "type": "string",
+      "required": false,
+      "description": "Reason: completed, not_planned, reopened."
+    },
+    {
+      "name": "labels",
+      "type": "array",
+      "required": false,
+      "description": "Replace all labels."
+    },
+    {
+      "name": "assignees",
+      "type": "array",
+      "required": false,
+      "description": "Replace all assignees."
+    },
+    {
+      "name": "milestone",
+      "type": "integer",
+      "required": false,
+      "description": "Milestone number or null."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.github.com/repos/octocat/my-project/issues/42",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "state": "closed",
+      "state_reason": "completed"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "number": 42,
+      "title": "Login page crashes on mobile",
+      "state": "closed",
+      "state_reason": "completed"
+    }
+  }
+}

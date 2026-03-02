@@ -1,0 +1,47 @@
+{
+  "name": "inquiries_create",
+  "description": "Create a new identity verification inquiry. An inquiry represents a single attempt by an individual to verify their identity through one or more verifications.",
+  "resource_group": "inquiries",
+  "endpoint": "/inquiries",
+  "method": "POST",
+  "parameters": [
+    {"name": "inquiry-template-id", "type": "string", "description": "The inquiry template ID to use.", "required": true, "example": "itmpl_abc123"},
+    {"name": "reference-id", "type": "string", "description": "Your internal reference ID for this individual.", "required": false, "example": "user_12345"},
+    {"name": "account-id", "type": "string", "description": "Persona account ID to associate with.", "required": false},
+    {"name": "note", "type": "string", "description": "Internal note for this inquiry.", "required": false},
+    {"name": "fields", "type": "object", "description": "Pre-fill fields such as name, address, date of birth.", "required": false, "example": {"name-first": "Jane", "name-last": "Doe"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://withpersona.com/api/v1/inquiries",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Persona-Version": "2023-01-05"
+    },
+    "body": {
+      "data": {
+        "attributes": {
+          "inquiry-template-id": "itmpl_abc123",
+          "reference-id": "user_12345",
+          "fields": {"name-first": "Jane", "name-last": "Doe"}
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "type": "inquiry",
+        "id": "inq_abc123",
+        "attributes": {
+          "status": "created",
+          "reference-id": "user_12345",
+          "created-at": "2024-01-15T10:30:00.000Z"
+        }
+      }
+    }
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

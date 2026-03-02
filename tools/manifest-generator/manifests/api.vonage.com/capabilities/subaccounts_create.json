@@ -1,0 +1,23 @@
+{
+  "name": "subaccounts_create",
+  "description": "Create a new subaccount under your primary Vonage account for billing and permission isolation.",
+  "resource_group": "subaccounts",
+  "endpoint": "/accounts/{api_key}/subaccounts",
+  "method": "POST",
+  "parameters": [
+    {"name": "api_key", "type": "string", "required": true, "location": "path", "description": "Your primary account API key."},
+    {"name": "name", "type": "string", "required": true, "description": "Name for the subaccount."},
+    {"name": "secret", "type": "string", "required": false, "description": "API secret for the subaccount. Auto-generated if not provided."},
+    {"name": "use_primary_account_balance", "type": "boolean", "required": false, "description": "Whether to share the primary account balance. Default true."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vonage.com/accounts/abc123/subaccounts",
+    "headers": {"Content-Type": "application/json", "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."},
+    "body": {"name": "Marketing Team", "use_primary_account_balance": true}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"api_key": "sub001", "name": "Marketing Team", "secret": "auto-generated-secret", "primary_account_api_key": "abc123", "use_primary_account_balance": true, "created_at": "2026-03-01T12:00:00Z", "suspended": false}
+  }
+}

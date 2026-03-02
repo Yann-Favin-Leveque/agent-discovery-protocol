@@ -1,0 +1,60 @@
+{
+  "name": "timeline_home_get",
+  "resource_group": "timelines",
+  "description": "Fetch the home timeline of statuses from followed users.",
+  "endpoint": "/api/v1/timelines/home",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "max_id",
+      "type": "string",
+      "description": "Upper bound for results.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "since_id",
+      "type": "string",
+      "description": "Lower bound for results.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "min_id",
+      "type": "string",
+      "description": "Forward pagination cursor.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (default 20, max 40).",
+      "required": false,
+      "in": "query",
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/timelines/home?limit=20",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "109876543210",
+        "content": "<p>Status text</p>",
+        "account": {
+          "username": "user1"
+        }
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

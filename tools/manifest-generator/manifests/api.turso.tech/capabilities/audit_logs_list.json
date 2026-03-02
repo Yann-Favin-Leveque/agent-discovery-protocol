@@ -1,0 +1,49 @@
+{
+  "name": "audit_logs_list",
+  "resource_group": "audit_logs",
+  "description": "List audit log entries.",
+  "endpoint": "/v1/organizations/{organizationSlug}/audit-logs",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Results per page."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "in": "query",
+      "description": "Page number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.turso.tech/v1/organizations/my-org/audit-logs",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "audit_logs": [
+        {
+          "code": "db-create",
+          "message": "Database created",
+          "created_at": "2024-01-15T00:00:00Z"
+        }
+      ]
+    }
+  }
+}

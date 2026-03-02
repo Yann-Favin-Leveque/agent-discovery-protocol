@@ -1,0 +1,25 @@
+{
+  "name": "teams_create",
+  "description": "Create a new team for grouping agents.",
+  "endpoint": "/api/v1/accounts/{account_id}/teams",
+  "method": "POST",
+  "resource_group": "teams",
+  "parameters": [
+    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
+    {"name": "name", "type": "string", "description": "Team name.", "required": true, "example": "Billing"},
+    {"name": "description", "type": "string", "description": "Team description.", "required": false, "example": "Handles billing inquiries"},
+    {"name": "allow_auto_assign", "type": "boolean", "description": "Enable auto-assignment.", "required": false, "example": true}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chatwoot.com/api/v1/accounts/1/teams",
+    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
+    "body": {"name": "Billing", "description": "Handles billing inquiries", "allow_auto_assign": true}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": 3, "name": "Billing", "description": "Handles billing inquiries"}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 250}
+}

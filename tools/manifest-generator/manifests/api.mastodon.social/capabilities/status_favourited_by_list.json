@@ -1,0 +1,45 @@
+{
+  "name": "status_favourited_by_list",
+  "resource_group": "statuses",
+  "description": "View who favourited a status.",
+  "endpoint": "/api/v1/statuses/{id}/favourited_by",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Status ID.",
+      "required": true,
+      "in": "path",
+      "example": "109876543210"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (default 40, max 80).",
+      "required": false,
+      "in": "query",
+      "example": 40
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/statuses/109876543210/favourited_by",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "12346",
+        "username": "faver1",
+        "display_name": "Faver One"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

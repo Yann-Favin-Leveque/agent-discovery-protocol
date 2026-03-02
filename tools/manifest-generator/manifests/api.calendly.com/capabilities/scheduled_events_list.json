@@ -1,0 +1,102 @@
+{
+  "name": "scheduled_events_list",
+  "resource_group": "scheduled_events",
+  "description": "List scheduled events for a user or organization with optional filtering by status and date range.",
+  "endpoint": "/scheduled_events",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user",
+      "type": "string",
+      "required": false,
+      "description": "User URI to filter by",
+      "example": "https://api.calendly.com/users/AAAA"
+    },
+    {
+      "name": "organization",
+      "type": "string",
+      "required": false,
+      "description": "Organization URI to filter by",
+      "example": "https://api.calendly.com/organizations/BBBB"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by status (active or canceled)",
+      "example": "active"
+    },
+    {
+      "name": "min_start_time",
+      "type": "string",
+      "required": false,
+      "description": "Minimum start time in ISO 8601",
+      "example": "2025-03-01T00:00:00Z"
+    },
+    {
+      "name": "max_start_time",
+      "type": "string",
+      "required": false,
+      "description": "Maximum start time in ISO 8601",
+      "example": "2025-04-01T00:00:00Z"
+    },
+    {
+      "name": "invitee_email",
+      "type": "string",
+      "required": false,
+      "description": "Filter by invitee email",
+      "example": "invitee@example.com"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort order",
+      "example": "start_time:asc"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Number per page",
+      "example": 20
+    },
+    {
+      "name": "page_token",
+      "type": "string",
+      "required": false,
+      "description": "Next page token",
+      "example": "abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.calendly.com/scheduled_events?user=https://api.calendly.com/users/AAAA&status=active",
+    "headers": {
+      "Authorization": "Bearer CALENDLY_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "collection": [
+        {
+          "uri": "https://api.calendly.com/scheduled_events/DDDD",
+          "name": "30 Minute Meeting",
+          "status": "active",
+          "start_time": "2025-03-15T10:00:00Z",
+          "end_time": "2025-03-15T10:30:00Z",
+          "event_type": "https://api.calendly.com/event_types/CCCC",
+          "location": {
+            "type": "google_conference",
+            "join_url": "https://meet.google.com/abc"
+          }
+        }
+      ],
+      "pagination": {
+        "count": 20,
+        "next_page_token": null
+      }
+    }
+  }
+}

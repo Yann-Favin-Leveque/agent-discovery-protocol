@@ -1,0 +1,53 @@
+{
+  "name": "records_update",
+  "description": "Update one or more existing records (partial update).",
+  "resource_group": "records",
+  "endpoint": "/v0/{baseId}/{tableIdOrName}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "baseId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID of the Airtable base"
+    },
+    {
+      "name": "tableIdOrName",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID or name of the table"
+    },
+    {
+      "name": "records",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of records with id and fields to update"
+    },
+    {
+      "name": "typecast",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "Automatically typecast values"
+    }
+  ],
+  "auth_scopes": [
+    "data.records:read",
+    "data.records:write",
+    "schema.bases:read",
+    "schema.bases:write"
+  ],
+  "request_example": {
+    "records": [
+      {
+        "id": "recABC",
+        "fields": {
+          "Status": "Done"
+        }
+      }
+    ]
+  }
+}

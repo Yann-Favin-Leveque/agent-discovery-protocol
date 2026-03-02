@@ -1,0 +1,38 @@
+{
+  "name": "databases_rename",
+  "resource_group": "databases",
+  "description": "Rename an existing Redis database.",
+  "endpoint": "/v2/redis/rename/{database_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "database_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database ID."
+    },
+    {
+      "name": "database_name",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "New database name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.upstash.com/v2/redis/rename/db-abc123",
+    "headers": {
+      "Authorization": "Basic base64(email:api_key)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "database_name": "my-new-redis"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "OK"
+  }
+}

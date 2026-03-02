@@ -1,0 +1,42 @@
+{
+  "name": "auth_fetch_providers",
+  "resource_group": "users",
+  "description": "Look up all sign-in providers associated with an email address.",
+  "endpoint": "/v1/accounts:createAuthUri",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "identifier",
+      "type": "string",
+      "required": true,
+      "description": "Email address to look up."
+    },
+    {
+      "name": "continueUri",
+      "type": "string",
+      "required": true,
+      "description": "URI to continue the sign-in flow."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key=AIzaSyXXXXXX",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "identifier": "alice@example.com",
+      "continueUri": "https://myapp.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "allProviders": [
+        "password",
+        "google.com"
+      ],
+      "registered": true
+    }
+  }
+}

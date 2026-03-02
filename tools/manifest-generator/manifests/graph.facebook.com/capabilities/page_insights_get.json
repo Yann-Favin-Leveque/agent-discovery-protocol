@@ -1,0 +1,67 @@
+{
+  "name": "page_insights_get",
+  "description": "Fetch analytics and performance metrics for a Facebook Page.",
+  "resource_group": "pages",
+  "endpoint": "/v21.0/{page_id}/insights",
+  "method": "GET",
+  "auth_scopes": [
+    "pages_read_engagement"
+  ],
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "required": true,
+      "description": "Page ID."
+    },
+    {
+      "name": "metric",
+      "type": "string",
+      "required": true,
+      "description": "Comma-separated metrics: page_impressions, page_engaged_users, page_fans, page_views_total.",
+      "example": "page_impressions,page_engaged_users"
+    },
+    {
+      "name": "period",
+      "type": "string",
+      "required": false,
+      "description": "Aggregation period: day, week, days_28."
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "required": false,
+      "description": "Start date (YYYY-MM-DD)."
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "required": false,
+      "description": "End date (YYYY-MM-DD)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/111222333/insights?metric=page_impressions,page_engaged_users&period=day",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "name": "page_impressions",
+          "period": "day",
+          "values": [
+            {
+              "value": 1250,
+              "end_time": "2024-01-15T08:00:00+0000"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

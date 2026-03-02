@@ -1,0 +1,81 @@
+{
+  "name": "issues_update",
+  "description": "Update an existing issue.",
+  "resource_group": "issues",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Issue ID"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "New title"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "New description"
+    },
+    {
+      "name": "stateId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "New state ID"
+    },
+    {
+      "name": "assigneeId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "New assignee ID"
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "New priority"
+    },
+    {
+      "name": "labelIds",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Label IDs"
+    },
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Project ID"
+    },
+    {
+      "name": "estimate",
+      "type": "number",
+      "required": false,
+      "location": "body",
+      "description": "Point estimate"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "mutation { issueUpdate(id: \"issue-id\", input: { stateId: \"done-state-id\", priority: 0 }) { success issue { id title state { name } } } }"
+  }
+}

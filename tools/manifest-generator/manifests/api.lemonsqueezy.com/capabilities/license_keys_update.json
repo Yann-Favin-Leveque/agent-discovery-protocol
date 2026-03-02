@@ -1,0 +1,48 @@
+{
+  "name": "license_keys_update",
+  "description": "Update a license key (e.g. activate/deactivate).",
+  "resource_group": "license_keys",
+  "endpoint": "/v1/license-keys/{id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The license key ID.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.activation_limit",
+      "type": "integer",
+      "description": "Max activations allowed.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.lemonsqueezy.com/v1/license-keys/1",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "license-keys",
+        "id": "1",
+        "attributes": {
+          "activation_limit": 5
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "license-keys",
+        "id": "1"
+      }
+    }
+  }
+}

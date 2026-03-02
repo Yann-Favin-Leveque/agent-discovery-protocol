@@ -1,0 +1,79 @@
+{
+  "name": "nft_sales_get",
+  "description": "Retrieve historical NFT sales data across marketplaces with filtering by contract, token ID, and block range.",
+  "endpoint": "/nft/v3/{apiKey}/getNFTSales",
+  "method": "GET",
+  "resource_group": "nft",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "contractAddress",
+      "type": "string",
+      "required": false,
+      "description": "Filter by NFT contract address."
+    },
+    {
+      "name": "tokenId",
+      "type": "string",
+      "required": false,
+      "description": "Filter by specific token ID."
+    },
+    {
+      "name": "fromBlock",
+      "type": "string",
+      "required": false,
+      "description": "Starting block number (hex or decimal)."
+    },
+    {
+      "name": "toBlock",
+      "type": "string",
+      "required": false,
+      "description": "Ending block number (hex or 'latest')."
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "description": "Sort order: 'asc' or 'desc'."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results. Default 100."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://eth-mainnet.g.alchemy.com/nft/v3/{apiKey}/getNFTSales?contractAddress=0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D&limit=5&order=desc",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "nftSales": [
+        {
+          "marketplace": "seaport",
+          "contractAddress": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+          "tokenId": "1234",
+          "sellerAddress": "0xabc...",
+          "buyerAddress": "0xdef...",
+          "taker": "buyer",
+          "sellerFee": { "amount": "28500000000000000000", "tokenAddress": "0x0000000000000000000000000000000000000000" },
+          "blockNumber": 18500000,
+          "transactionHash": "0x123..."
+        }
+      ],
+      "pageKey": "next_sales_key"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

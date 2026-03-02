@@ -1,0 +1,45 @@
+{
+  "name": "message_get",
+  "description": "Retrieve a specific webhook message by ID.",
+  "resource_group": "message",
+  "endpoint": "/api/v1/app/{app_id}/msg/{msg_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "msg_id",
+      "type": "string",
+      "description": "Message ID (path parameter).",
+      "required": true,
+      "example": "msg_abc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.svix.com/api/v1/app/app_123/msg/msg_abc",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "msg_abc",
+      "eventType": "user.created",
+      "payload": {
+        "type": "user.created",
+        "data": {
+          "id": "usr_123"
+        }
+      },
+      "timestamp": "2024-01-01T00:00:00Z"
+    }
+  }
+}

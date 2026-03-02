@@ -1,0 +1,23 @@
+{
+  "name": "auditlog_list",
+  "description": "Retrieve audit log entries showing who changed what and when.",
+  "resource_group": "auditlog",
+  "endpoint": "/auditlog",
+  "method": "GET",
+  "parameters": [
+    {"name": "before", "type": "integer", "description": "Entries before this Unix epoch ms timestamp.", "required": false},
+    {"name": "after", "type": "integer", "description": "Entries after this Unix epoch ms timestamp.", "required": false},
+    {"name": "limit", "type": "integer", "description": "Max entries to return.", "required": false, "example": 20},
+    {"name": "q", "type": "string", "description": "Search query.", "required": false}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.launchdarkly.com/api/v2/auditlog?limit=20",
+    "headers": {"Authorization": "{api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"items": [{"_id": "audit_123", "date": 1705312200000, "kind": "flag", "name": "new-checkout", "description": "Toggled flag on", "member": {"email": "dev@example.com"}}]}
+  },
+  "rate_limits": {"requests_per_minute": 120}
+}

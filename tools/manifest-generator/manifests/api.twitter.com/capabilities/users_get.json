@@ -1,0 +1,44 @@
+{
+  "name": "users_get",
+  "description": "Look up a user profile by username.",
+  "resource_group": "users",
+  "endpoint": "/2/users/by/username/{username}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "required": true,
+      "description": "Twitter username.",
+      "example": "elonmusk"
+    },
+    {
+      "name": "user.fields",
+      "type": "string",
+      "required": false,
+      "description": "Fields: description, public_metrics, profile_image_url, created_at."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=description,public_metrics",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "44196397",
+        "name": "Elon Musk",
+        "username": "elonmusk",
+        "public_metrics": {
+          "followers_count": 170000000,
+          "following_count": 400,
+          "tweet_count": 30000
+        }
+      }
+    }
+  }
+}

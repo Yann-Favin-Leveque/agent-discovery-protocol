@@ -1,0 +1,65 @@
+{
+  "name": "users_create",
+  "description": "Create or update (upsert) a user record in FullStory with custom properties.",
+  "endpoint": "/v2/users",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "uid",
+      "type": "string",
+      "description": "A unique user identifier from your system.",
+      "required": true,
+      "example": "user_123"
+    },
+    {
+      "name": "display_name",
+      "type": "string",
+      "description": "Display name for the user.",
+      "required": false,
+      "example": "John Doe"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "User email address.",
+      "required": false,
+      "example": "john@example.com"
+    },
+    {
+      "name": "properties",
+      "type": "object",
+      "description": "Custom user properties for segmentation. Use type suffixes (_str, _int, _real, _bool, _date).",
+      "required": false,
+      "example": { "plan_str": "enterprise", "mrr_real": 99.99 }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fullstory.com/v2/users",
+    "headers": {
+      "Authorization": "Basic {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "uid": "user_123",
+      "display_name": "John Doe",
+      "email": "john@example.com",
+      "properties": { "plan_str": "enterprise", "mrr_real": 99.99 }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "fs_user_abc123",
+      "uid": "user_123",
+      "display_name": "John Doe",
+      "email": "john@example.com",
+      "app_url": "https://app.fullstory.com/ui/users/fs_user_abc123"
+    }
+  },
+  "auth_scopes": ["server"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

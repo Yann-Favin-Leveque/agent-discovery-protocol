@@ -1,0 +1,103 @@
+{
+  "name": "prospector_search",
+  "description": "Search for people at a company by role, seniority, title, or location.",
+  "endpoint": "/v1/people/search",
+  "method": "GET",
+  "resource_group": "prospector",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Company domain to search within.",
+      "required": true,
+      "example": "clearbit.com"
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "description": "Job role filter (e.g. engineering, sales, marketing).",
+      "required": false,
+      "example": "engineering"
+    },
+    {
+      "name": "seniority",
+      "type": "string",
+      "description": "Seniority filter (e.g. executive, director, manager).",
+      "required": false,
+      "example": "manager"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Job title filter.",
+      "required": false
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "Filter by city.",
+      "required": false
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "description": "Filter by state.",
+      "required": false
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "Filter by country.",
+      "required": false
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Filter by person name.",
+      "required": false
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Results per page (max 20).",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clearbit.com/v1/people/search?domain=clearbit.com&role=engineering&seniority=manager",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "id": "p_abc123",
+          "email": "john@clearbit.com",
+          "name": {
+            "fullName": "John Smith"
+          },
+          "title": "Engineering Manager"
+        }
+      ],
+      "page": 1,
+      "page_size": 10,
+      "total": 5
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

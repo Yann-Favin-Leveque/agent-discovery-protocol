@@ -1,0 +1,57 @@
+{
+  "name": "catalog_get_object",
+  "description": "Retrieve a specific catalog object by ID.",
+  "endpoint": "/v2/catalog/object/{object_id}",
+  "method": "GET",
+  "resource_group": "catalog",
+  "parameters": [
+    {
+      "name": "object_id",
+      "type": "string",
+      "description": "Catalog object ID",
+      "required": true,
+      "example": "item_123"
+    },
+    {
+      "name": "include_related_objects",
+      "type": "boolean",
+      "description": "Include related objects",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://connect.squareup.com/v2/catalog/object/item_123?include_related_objects=true",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": {
+        "type": "ITEM",
+        "id": "item_123",
+        "item_data": {
+          "name": "Coffee"
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

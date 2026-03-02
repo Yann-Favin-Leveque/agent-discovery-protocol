@@ -1,0 +1,51 @@
+{
+  "name": "services_list",
+  "description": "List all services with their status and configuration.",
+  "resource_group": "services",
+  "endpoint": "/services",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "required": false,
+      "description": "Filter by name",
+      "location": "query"
+    },
+    {
+      "name": "team_ids[]",
+      "type": "string",
+      "required": false,
+      "description": "Filter by team IDs",
+      "location": "query"
+    },
+    {
+      "name": "include[]",
+      "type": "string",
+      "required": false,
+      "description": "Include related data: escalation_policies, teams",
+      "location": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results",
+      "location": "query"
+    }
+  ],
+  "request_example": {},
+  "response_example": {
+    "services": [
+      {
+        "id": "PSVC",
+        "name": "Web Service",
+        "status": "active",
+        "escalation_policy": {
+          "id": "PPOL"
+        }
+      }
+    ]
+  },
+  "auth_scopes": []
+}

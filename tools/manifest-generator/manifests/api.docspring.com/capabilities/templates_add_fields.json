@@ -1,0 +1,54 @@
+{
+  "name": "templates_add_fields",
+  "description": "Add fillable fields to an existing template. Define field names, types, positions, and validation rules.",
+  "resource_group": "templates",
+  "endpoint": "/api/v1/templates/{template_id}/add_fields",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The template ID to add fields to."
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of field definitions with name, type, page, x, y, width, height, and validation rules."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.docspring.com/api/v1/templates/tpl_abc123/add_fields",
+    "headers": {
+      "Authorization": "Basic {base64(token_id:token_secret)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fields": [
+        {
+          "name": "signature_date",
+          "type": "string",
+          "page": 1,
+          "x": 400,
+          "y": 700,
+          "width": 150,
+          "height": 20
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "tpl_abc123",
+      "fields": [
+        { "name": "invoice_number", "type": "string", "required": true },
+        { "name": "signature_date", "type": "string", "required": false }
+      ]
+    }
+  }
+}

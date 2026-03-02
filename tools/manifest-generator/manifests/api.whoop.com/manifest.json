@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "WHOOP",
-  "description": "WHOOP is a fitness and health wearable focused on recovery, strain, and sleep optimization. The API provides access to physiological cycles, recovery scores, strain metrics, sleep performance data, workout details, and body measurements collected by the WHOOP strap.",
+  "description": "WHOOP is a fitness and health wearable focused on recovery, strain, and sleep optimization. The API provides access to physiological cycles, recovery scores (HRV, resting HR, SpO2), strain metrics, sleep performance data, workout details, body measurements, and user profile.",
   "base_url": "https://api.prod.whoop.com",
   "auth": {
     "type": "oauth2",
@@ -13,39 +13,64 @@
   },
   "capabilities": [
     {
-      "name": "get_recovery",
-      "description": "Retrieve recovery data including recovery score, resting heart rate, HRV, SpO2, and skin temperature for a given cycle or date range.",
-      "detail_url": "/capabilities/get_recovery"
+      "name": "cycle_list",
+      "description": "Retrieve all physiological cycles (wake-to-wake periods) with pagination.",
+      "resource_group": "cycle",
+      "detail_url": "/capabilities/cycle_list"
     },
     {
-      "name": "get_sleep",
-      "description": "Retrieve sleep performance data including sleep stages, sleep need, respiratory rate, and sleep efficiency scores.",
-      "detail_url": "/capabilities/get_sleep"
+      "name": "cycle_get",
+      "description": "Retrieve a single physiological cycle by ID.",
+      "resource_group": "cycle",
+      "detail_url": "/capabilities/cycle_get"
     },
     {
-      "name": "get_strain",
-      "description": "Retrieve daily strain scores that quantify cardiovascular load from all activities throughout the day, on a 0-21 scale.",
-      "detail_url": "/capabilities/get_strain"
+      "name": "recovery_list",
+      "description": "Retrieve all recovery scores with HRV, resting HR, SpO2, and skin temp.",
+      "resource_group": "recovery",
+      "detail_url": "/capabilities/recovery_list"
     },
     {
-      "name": "get_workouts",
-      "description": "Retrieve workout sessions with sport type, strain score, heart rate zones, calories burned, and distance metrics.",
-      "detail_url": "/capabilities/get_workouts"
+      "name": "recovery_get",
+      "description": "Retrieve a single recovery score by cycle ID.",
+      "resource_group": "recovery",
+      "detail_url": "/capabilities/recovery_get"
     },
     {
-      "name": "get_cycles",
-      "description": "Retrieve physiological cycles that represent a full day of data from wake to wake, linking together strain, recovery, and sleep.",
-      "detail_url": "/capabilities/get_cycles"
+      "name": "sleep_list",
+      "description": "Retrieve all sleep records with stages, performance, and respiratory rate.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_list"
     },
     {
-      "name": "get_body_measurement",
-      "description": "Retrieve body measurements including height, weight, and max heart rate as tracked by the WHOOP platform.",
-      "detail_url": "/capabilities/get_body_measurement"
+      "name": "sleep_get",
+      "description": "Retrieve a single sleep record by ID.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_get"
     },
     {
-      "name": "get_profile",
-      "description": "Retrieve the authenticated user's WHOOP profile including name, email, and user ID.",
-      "detail_url": "/capabilities/get_profile"
+      "name": "workout_list",
+      "description": "Retrieve all workouts with sport type, strain, HR zones, and calories.",
+      "resource_group": "workout",
+      "detail_url": "/capabilities/workout_list"
+    },
+    {
+      "name": "workout_get",
+      "description": "Retrieve a single workout by ID.",
+      "resource_group": "workout",
+      "detail_url": "/capabilities/workout_get"
+    },
+    {
+      "name": "body_measurement_get",
+      "description": "Retrieve body measurements (height, weight, max heart rate).",
+      "resource_group": "body",
+      "detail_url": "/capabilities/body_measurement_get"
+    },
+    {
+      "name": "profile_get",
+      "description": "Retrieve the authenticated user's WHOOP profile.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/profile_get"
     }
   ]
 }

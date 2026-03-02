@@ -1,0 +1,37 @@
+{
+  "name": "sessions_create_token",
+  "resource_group": "sessions",
+  "description": "Create a new JWT token for a session, optionally from a custom template.",
+  "endpoint": "/v1/sessions/{session_id}/tokens/{template_name}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "session_id",
+      "type": "string",
+      "required": true,
+      "description": "The session ID.",
+      "in": "path"
+    },
+    {
+      "name": "template_name",
+      "type": "string",
+      "required": false,
+      "description": "Name of a JWT template. Omit for default token.",
+      "in": "path"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/sessions/sess_abc123/tokens/my_template",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "token",
+      "jwt": "eyJhbGciOiJSUzI1NiJ9..."
+    }
+  }
+}

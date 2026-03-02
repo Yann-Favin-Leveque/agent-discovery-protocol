@@ -1,0 +1,61 @@
+{
+  "name": "qr_codes_create",
+  "description": "Create a QR code for UPI payments.",
+  "resource_group": "qr_codes",
+  "endpoint": "/v1/payments/qr_codes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "QR code type: upi_qr.",
+      "required": true,
+      "example": "upi_qr"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "QR code label.",
+      "required": true
+    },
+    {
+      "name": "usage",
+      "type": "string",
+      "description": "single_use or multiple_use.",
+      "required": true
+    },
+    {
+      "name": "fixed_amount",
+      "type": "boolean",
+      "description": "Whether amount is fixed.",
+      "required": true
+    },
+    {
+      "name": "payment_amount",
+      "type": "integer",
+      "description": "Amount in paise.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/payments/qr_codes",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "upi_qr",
+      "name": "Store QR",
+      "usage": "multiple_use",
+      "fixed_amount": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "qr_DBJOWzybf0sJbb",
+      "image_url": "https://..."
+    }
+  }
+}

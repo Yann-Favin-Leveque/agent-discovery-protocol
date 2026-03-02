@@ -1,0 +1,55 @@
+{
+  "name": "targeting_criteria_create",
+  "description": "Add targeting criteria to a line item.",
+  "resource_group": "targeting",
+  "endpoint": "/12/accounts/{account_id}/targeting_criteria",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "Ad account ID.",
+      "required": true
+    },
+    {
+      "name": "line_item_id",
+      "type": "string",
+      "description": "Line item ID.",
+      "required": true
+    },
+    {
+      "name": "targeting_type",
+      "type": "string",
+      "description": "Type: LOCATION, AGE, GENDER, INTEREST, etc.",
+      "required": true
+    },
+    {
+      "name": "targeting_value",
+      "type": "string",
+      "description": "Targeting value.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://ads-api.twitter.com/12/accounts/abc123/targeting_criteria",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "line_item_id": "li_1",
+      "targeting_type": "LOCATION",
+      "targeting_value": "US"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "tc_2",
+        "targeting_type": "LOCATION"
+      }
+    }
+  }
+}

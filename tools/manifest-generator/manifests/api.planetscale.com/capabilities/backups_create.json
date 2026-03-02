@@ -1,0 +1,44 @@
+{
+  "name": "backups_create",
+  "resource_group": "backups",
+  "description": "Create a new backup of a database branch.",
+  "endpoint": "/organizations/{organization}/databases/{database}/branches/{branch}/backups",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization name slug."
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "branch",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Branch name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/branches/main/backups",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "bk-456",
+      "state": "pending"
+    }
+  }
+}

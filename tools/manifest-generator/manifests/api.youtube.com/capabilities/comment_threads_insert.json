@@ -1,0 +1,53 @@
+{
+  "name": "comment_threads_insert",
+  "description": "Post a new top-level comment on a video.",
+  "endpoint": "/youtube/v3/commentThreads",
+  "method": "POST",
+  "resource_group": "comments",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://youtube.googleapis.com/youtube/v3/commentThreads",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "snippet": {
+        "videoId": "abc123",
+        "topLevelComment": {
+          "snippet": {
+            "textOriginal": "Great video!"
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "thread_new",
+      "snippet": {
+        "topLevelComment": {
+          "snippet": {
+            "textDisplay": "Great video!"
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.force-ssl"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

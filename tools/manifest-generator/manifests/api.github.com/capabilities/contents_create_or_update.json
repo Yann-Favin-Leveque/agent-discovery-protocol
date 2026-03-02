@@ -1,0 +1,82 @@
+{
+  "name": "contents_create_or_update",
+  "description": "Create or update a file in a repository by providing the file content encoded in Base64.",
+  "resource_group": "contents",
+  "endpoint": "/repos/{owner}/{repo}/contents/{path}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "File path."
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": true,
+      "description": "Commit message."
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "description": "Base64-encoded file content."
+    },
+    {
+      "name": "sha",
+      "type": "string",
+      "required": false,
+      "description": "Current blob SHA of the file (required for updates)."
+    },
+    {
+      "name": "branch",
+      "type": "string",
+      "required": false,
+      "description": "Branch to commit to. Default: default branch."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.github.com/repos/octocat/my-project/contents/docs/guide.md",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "message": "docs: add getting started guide",
+      "content": "IyBHZXR0aW5nIFN0YXJ0ZWQK",
+      "branch": "main"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "content": {
+        "name": "guide.md",
+        "path": "docs/guide.md",
+        "sha": "jkl012"
+      },
+      "commit": {
+        "sha": "mno345",
+        "message": "docs: add getting started guide"
+      }
+    }
+  }
+}

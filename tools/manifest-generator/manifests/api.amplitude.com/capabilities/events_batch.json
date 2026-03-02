@@ -1,0 +1,42 @@
+{
+  "name": "events_batch",
+  "description": "Upload large amounts of event data in batches (up to 2000 events per request).",
+  "resource_group": "ingestion",
+  "endpoint": "/batch",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Amplitude project API key"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "required": true,
+      "description": "Array of event objects"
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "required": false,
+      "description": "Options like min_id_length"
+    }
+  ],
+  "request_example": {
+    "api_key": "YOUR_KEY",
+    "events": [
+      {
+        "user_id": "user_123",
+        "event_type": "purchase",
+        "revenue": 9.99
+      }
+    ]
+  },
+  "response_example": {
+    "code": 200,
+    "events_ingested": 1
+  },
+  "auth_scopes": []
+}

@@ -1,0 +1,61 @@
+{
+  "name": "branches_list",
+  "description": "List branches in a repository.",
+  "resource_group": "branches",
+  "endpoint": "/repositories/{workspace}/{repo_slug}/refs/branches",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace."
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repo slug."
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "required": false,
+      "description": "Query filter."
+    },
+    {
+      "name": "pagelen",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace/my-project/refs/branches",
+    "headers": {
+      "Authorization": "Bearer oauth-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "values": [
+        {
+          "name": "main",
+          "target": {
+            "hash": "abc123"
+          }
+        },
+        {
+          "name": "feature/dark-mode",
+          "target": {
+            "hash": "def456"
+          }
+        }
+      ]
+    }
+  }
+}

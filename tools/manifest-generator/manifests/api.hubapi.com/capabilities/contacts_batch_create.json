@@ -1,0 +1,52 @@
+{
+  "name": "contacts_batch_create",
+  "description": "Create multiple contacts.",
+  "resource_group": "contacts",
+  "endpoint": "/crm/v3/objects/contacts/batch/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "inputs",
+      "type": "array",
+      "required": true,
+      "description": "Array of contact objects with properties."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hubapi.com/crm/v3/objects/contacts/batch/create",
+    "body": {
+      "inputs": [
+        {
+          "properties": {
+            "email": "a@example.com",
+            "firstname": "Alice"
+          }
+        },
+        {
+          "properties": {
+            "email": "b@example.com",
+            "firstname": "Bob"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": "COMPLETE",
+    "results": [
+      {
+        "id": "301",
+        "properties": {
+          "email": "a@example.com"
+        }
+      },
+      {
+        "id": "302",
+        "properties": {
+          "email": "b@example.com"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "messages_send_mime",
+  "description": "Send a MIME email message directly.",
+  "resource_group": "messages",
+  "endpoint": "/v3/{domain}/messages.mime",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun sending domain.",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "Recipient email address(es).",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "Raw MIME message content.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mailgun.com/v3/mg.example.com/messages.mime",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}",
+      "Content-Type": "multipart/form-data"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "<abc123@mg.example.com>",
+      "message": "Queued. Thank you."
+    }
+  }
+}

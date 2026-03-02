@@ -1,0 +1,44 @@
+{
+  "name": "licenses_activate",
+  "description": "Activate a license key.",
+  "resource_group": "licenses",
+  "endpoint": "/v1/licenses/activate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "license_key",
+      "type": "string",
+      "description": "The license key string.",
+      "required": true
+    },
+    {
+      "name": "instance_name",
+      "type": "string",
+      "description": "Name for this activation instance.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemonsqueezy.com/v1/licenses/activate",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "license_key": "XXXXX-XXXXX-XXXXX",
+      "instance_name": "My App Instance"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "activated": true,
+      "instance": {
+        "id": "ins_1234",
+        "name": "My App Instance"
+      }
+    }
+  }
+}

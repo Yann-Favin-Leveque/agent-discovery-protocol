@@ -1,0 +1,21 @@
+{
+  "name": "employees_update",
+  "description": "Update an existing employee's record with new field values.",
+  "endpoint": "/api/gateway.php/{companyDomain}/v1/employees/{id}",
+  "method": "POST",
+  "resource_group": "employees",
+  "parameters": [
+    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
+    {"name": "id", "type": "integer", "description": "Employee ID.", "required": true, "example": 123},
+    {"name": "body", "type": "object", "description": "Fields to update as key-value pairs.", "required": true, "example": {"jobTitle": "Staff Engineer", "department": "Platform"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/123",
+    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Content-Type": "application/json"},
+    "body": {"jobTitle": "Staff Engineer", "department": "Platform"}
+  },
+  "response_example": {"status": 200, "body": {}},
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 60}
+}

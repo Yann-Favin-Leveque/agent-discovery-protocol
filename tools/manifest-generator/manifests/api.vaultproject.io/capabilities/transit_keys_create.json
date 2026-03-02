@@ -1,0 +1,42 @@
+{
+  "name": "transit_keys_create",
+  "description": "Create a new named encryption key in the Transit secrets engine.",
+  "resource_group": "transit",
+  "endpoint": "/v1/transit/keys/{name}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Name for the new key."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Key type: aes128-gcm96, aes256-gcm96, chacha20-poly1305, ed25519, ecdsa-p256, rsa-2048, rsa-4096."
+    },
+    {
+      "name": "exportable",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow key to be exported."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com/v1/transit/keys/my-key",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "aes256-gcm96"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

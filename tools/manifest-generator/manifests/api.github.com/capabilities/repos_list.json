@@ -1,0 +1,65 @@
+{
+  "name": "repos_list",
+  "description": "List repositories for the authenticated user, or for a specified user or organization.",
+  "resource_group": "repositories",
+  "endpoint": "/user/repos",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Filter by type: all, owner, public, private, member. Default all."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort by: created, updated, pushed, full_name. Default full_name."
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "description": "Sort direction: asc or desc."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (max 100). Default 30."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/user/repos?type=owner&sort=updated&per_page=10",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 123456,
+        "name": "my-project",
+        "full_name": "octocat/my-project",
+        "private": false,
+        "html_url": "https://github.com/octocat/my-project",
+        "description": "A sample project",
+        "fork": false,
+        "language": "TypeScript",
+        "stargazers_count": 42,
+        "default_branch": "main",
+        "updated_at": "2026-02-28T10:00:00Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a new webhook subscription for store events.",
+  "resource_group": "webhooks",
+  "endpoint": "/admin/api/2024-10/webhooks.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "topic",
+      "type": "string",
+      "required": true,
+      "description": "Event topic (e.g., orders/create).",
+      "example": "orders/create"
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "required": true,
+      "description": "Callback URL.",
+      "example": "https://example.com/webhooks/orders"
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "description": "Response format: json or xml."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}.myshopify.com/admin/api/2024-10/webhooks.json",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "webhook": {
+        "topic": "orders/create",
+        "address": "https://example.com/webhooks/orders",
+        "format": "json"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "webhook": {
+        "id": 901431826,
+        "address": "https://example.com/webhooks/orders",
+        "topic": "orders/create"
+      }
+    }
+  }
+}

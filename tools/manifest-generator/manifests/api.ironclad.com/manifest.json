@@ -11,39 +11,364 @@
   },
   "capabilities": [
     {
-      "name": "launch_workflow",
-      "description": "Create and launch a new contract workflow from a template, specifying attributes, approvers, and counterparty details.",
-      "detail_url": "/capabilities/launch_workflow"
+      "name": "workflows_create",
+      "description": "Create and launch a new contract workflow synchronously from a template with attributes and creator info.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_create"
     },
     {
-      "name": "get_workflow",
-      "description": "Retrieve the current status, metadata, and details of an existing contract workflow.",
-      "detail_url": "/capabilities/get_workflow"
-    },
-    {
-      "name": "list_workflows",
+      "name": "workflows_list",
       "description": "List all workflows in your Ironclad instance with optional filtering by status, template, or date.",
-      "detail_url": "/capabilities/list_workflows"
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_list"
     },
     {
-      "name": "update_workflow_approval",
-      "description": "Approve or reject a workflow that is pending approval, moving it to the next step in its lifecycle.",
-      "detail_url": "/capabilities/update_workflow_approval"
+      "name": "workflows_create_async",
+      "description": "Create and launch a new contract workflow asynchronously. Returns a job ID to poll for completion.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_create_async"
     },
     {
-      "name": "list_records",
-      "description": "Retrieve all contract records from the repository with filtering by metadata, status, or date range.",
-      "detail_url": "/capabilities/list_records"
+      "name": "workflows_async_status_get",
+      "description": "Retrieve the status of an asynchronous workflow creation job by its job ID.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_async_status_get"
     },
     {
-      "name": "get_record",
-      "description": "Retrieve the full details of a specific contract record including its metadata, attachments, and lifecycle history.",
-      "detail_url": "/capabilities/get_record"
+      "name": "workflows_get",
+      "description": "Retrieve the current status, metadata, and details of a specific contract workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_get"
     },
     {
-      "name": "create_record",
-      "description": "Create a new contract record directly in the repository for contracts that were executed outside of Ironclad workflows.",
-      "detail_url": "/capabilities/create_record"
+      "name": "workflows_approvals_list",
+      "description": "List all approvals for a specific workflow including their status and assigned approvers.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_approvals_list"
+    },
+    {
+      "name": "workflows_approval_requests_get",
+      "description": "Retrieve approval requests for a workflow, showing who needs to approve and current state.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_approval_requests_get"
+    },
+    {
+      "name": "workflows_approvals_update",
+      "description": "Approve or reject a workflow that is pending approval, moving it to the next step.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_approvals_update"
+    },
+    {
+      "name": "workflows_turn_history_get",
+      "description": "Retrieve the turn history of a workflow showing all steps and transitions it has gone through.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_turn_history_get"
+    },
+    {
+      "name": "workflows_sign_status_get",
+      "description": "Retrieve the signature step status of a workflow including signer progress.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_sign_status_get"
+    },
+    {
+      "name": "workflows_signature_request_send",
+      "description": "Send a signature request for a workflow to its configured signers.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_signature_request_send"
+    },
+    {
+      "name": "workflows_signature_request_cancel",
+      "description": "Cancel a pending signature request on a workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_signature_request_cancel"
+    },
+    {
+      "name": "workflows_signer_update",
+      "description": "Update a signer's details on a specific workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_signer_update"
+    },
+    {
+      "name": "workflows_signer_delete",
+      "description": "Remove a signer from a specific workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_signer_delete"
+    },
+    {
+      "name": "workflows_signers_remind",
+      "description": "Send a reminder to signers who have not yet signed a workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_signers_remind"
+    },
+    {
+      "name": "workflows_signers_list",
+      "description": "List all signers assigned to a workflow and their signing status.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_signers_list"
+    },
+    {
+      "name": "workflows_recipient_url_create",
+      "description": "Create a recipient URL for external parties to view and interact with a workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_recipient_url_create"
+    },
+    {
+      "name": "workflows_signed_document_upload",
+      "description": "Upload a signed document to a workflow that was signed outside of Ironclad.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_signed_document_upload"
+    },
+    {
+      "name": "workflows_participants_list",
+      "description": "List all participants involved in a workflow including reviewers and approvers.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_participants_list"
+    },
+    {
+      "name": "workflows_revert",
+      "description": "Revert a workflow back to the review step from a later stage.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_revert"
+    },
+    {
+      "name": "workflows_cancel",
+      "description": "Cancel a workflow, stopping its progress through the lifecycle.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_cancel"
+    },
+    {
+      "name": "workflows_pause",
+      "description": "Pause a workflow, temporarily halting its progress.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_pause"
+    },
+    {
+      "name": "workflows_resume",
+      "description": "Resume a previously paused workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_resume"
+    },
+    {
+      "name": "workflows_comments_create",
+      "description": "Add a comment to a workflow for collaboration and discussion.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_comments_create"
+    },
+    {
+      "name": "workflows_comments_list",
+      "description": "List all comments on a workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_comments_list"
+    },
+    {
+      "name": "workflows_comments_get",
+      "description": "Retrieve a specific comment on a workflow by its ID.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_comments_get"
+    },
+    {
+      "name": "workflows_metadata_update",
+      "description": "Update the metadata attributes of a workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_metadata_update"
+    },
+    {
+      "name": "workflows_document_create",
+      "description": "Create and attach a document to a workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_document_create"
+    },
+    {
+      "name": "workflows_document_get",
+      "description": "Retrieve a specific document attached to a workflow.",
+      "resource_group": "workflows",
+      "detail_url": "/capabilities/workflows_document_get"
+    },
+    {
+      "name": "workflow_schemas_list",
+      "description": "List all workflow schemas (templates) available in your Ironclad instance.",
+      "resource_group": "workflow_schemas",
+      "detail_url": "/capabilities/workflow_schemas_list"
+    },
+    {
+      "name": "workflow_schemas_get",
+      "description": "Retrieve the schema definition for a specific workflow template.",
+      "resource_group": "workflow_schemas",
+      "detail_url": "/capabilities/workflow_schemas_get"
+    },
+    {
+      "name": "records_list",
+      "description": "List all contract records from the repository with filtering by metadata, status, or date range.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_list"
+    },
+    {
+      "name": "records_create",
+      "description": "Create a new contract record in the repository for contracts executed outside Ironclad workflows.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_create"
+    },
+    {
+      "name": "records_get",
+      "description": "Retrieve the full details of a specific contract record including metadata and attachments.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_get"
+    },
+    {
+      "name": "records_replace",
+      "description": "Replace a contract record entirely with new data.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_replace"
+    },
+    {
+      "name": "records_delete",
+      "description": "Delete a contract record from the repository.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_delete"
+    },
+    {
+      "name": "records_metadata_update",
+      "description": "Update the metadata of a specific contract record.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_metadata_update"
+    },
+    {
+      "name": "records_schema_get",
+      "description": "Retrieve the schema definition for records including available metadata fields.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_schema_get"
+    },
+    {
+      "name": "records_smart_import_create",
+      "description": "Create a smart import to automatically extract metadata from an uploaded contract document.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_smart_import_create"
+    },
+    {
+      "name": "records_attachment_create",
+      "description": "Attach a file to an existing contract record.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_attachment_create"
+    },
+    {
+      "name": "records_attachment_get",
+      "description": "Retrieve a specific attachment from a contract record.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_attachment_get"
+    },
+    {
+      "name": "records_attachment_delete",
+      "description": "Delete an attachment from a contract record.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_attachment_delete"
+    },
+    {
+      "name": "records_export_get",
+      "description": "Retrieve an XLSX export file of contract records.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_export_get"
+    },
+    {
+      "name": "entities_list",
+      "description": "List all entities (companies, people) in Ironclad.",
+      "resource_group": "entities",
+      "detail_url": "/capabilities/entities_list"
+    },
+    {
+      "name": "entities_create",
+      "description": "Create a new entity in Ironclad.",
+      "resource_group": "entities",
+      "detail_url": "/capabilities/entities_create"
+    },
+    {
+      "name": "entities_get",
+      "description": "Retrieve details of a specific entity by its ID.",
+      "resource_group": "entities",
+      "detail_url": "/capabilities/entities_get"
+    },
+    {
+      "name": "entities_update",
+      "description": "Update an existing entity's information.",
+      "resource_group": "entities",
+      "detail_url": "/capabilities/entities_update"
+    },
+    {
+      "name": "entities_delete",
+      "description": "Delete an entity from Ironclad.",
+      "resource_group": "entities",
+      "detail_url": "/capabilities/entities_delete"
+    },
+    {
+      "name": "obligations_list",
+      "description": "List all contract obligations with optional filtering.",
+      "resource_group": "obligations",
+      "detail_url": "/capabilities/obligations_list"
+    },
+    {
+      "name": "obligations_create",
+      "description": "Create a new contract obligation linked to a record.",
+      "resource_group": "obligations",
+      "detail_url": "/capabilities/obligations_create"
+    },
+    {
+      "name": "obligations_get",
+      "description": "Retrieve details of a specific contract obligation.",
+      "resource_group": "obligations",
+      "detail_url": "/capabilities/obligations_get"
+    },
+    {
+      "name": "obligations_update",
+      "description": "Update an existing contract obligation.",
+      "resource_group": "obligations",
+      "detail_url": "/capabilities/obligations_update"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a new webhook to receive notifications about Ironclad events.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List all configured webhooks.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Retrieve details of a specific webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_get"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update an existing webhook configuration.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "exports_create",
+      "description": "Submit an export request to generate a downloadable data export.",
+      "resource_group": "exports",
+      "detail_url": "/capabilities/exports_create"
+    },
+    {
+      "name": "exports_status_get",
+      "description": "Check the status of an export job.",
+      "resource_group": "exports",
+      "detail_url": "/capabilities/exports_status_get"
+    },
+    {
+      "name": "exports_download",
+      "description": "Download the file produced by a completed export job.",
+      "resource_group": "exports",
+      "detail_url": "/capabilities/exports_download"
     }
   ]
 }

@@ -1,0 +1,80 @@
+{
+  "name": "test_dep_graph",
+  "description": "Test a dependency graph for known vulnerabilities without importing (v1 API).",
+  "resource_group": "test",
+  "endpoint": "/v1/test/dep-graph",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "org",
+      "type": "string",
+      "required": false,
+      "description": "Organization ID (query parameter)."
+    },
+    {
+      "name": "depGraph",
+      "type": "object",
+      "required": true,
+      "description": "Dependency graph object with pkgs and graph."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.snyk.io/v1/test/dep-graph?org=org-uuid",
+    "headers": {
+      "Authorization": "token <api_token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "depGraph": {
+        "schemaVersion": "1.2.0",
+        "pkgManager": {
+          "name": "npm"
+        },
+        "pkgs": [
+          {
+            "id": "my-app@1.0.0",
+            "info": {
+              "name": "my-app",
+              "version": "1.0.0"
+            }
+          },
+          {
+            "id": "lodash@4.17.20",
+            "info": {
+              "name": "lodash",
+              "version": "4.17.20"
+            }
+          }
+        ],
+        "graph": {
+          "rootNodeId": "root-node",
+          "nodes": [
+            {
+              "nodeId": "root-node",
+              "pkgId": "my-app@1.0.0",
+              "deps": [
+                {
+                  "nodeId": "lodash"
+                }
+              ]
+            },
+            {
+              "nodeId": "lodash",
+              "pkgId": "lodash@4.17.20",
+              "deps": []
+            }
+          ]
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": false,
+      "issuesData": {},
+      "issues": []
+    }
+  }
+}

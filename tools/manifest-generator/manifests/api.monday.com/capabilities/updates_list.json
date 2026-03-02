@@ -1,0 +1,32 @@
+{
+  "name": "updates_list",
+  "description": "List updates (comments) on an item.",
+  "resource_group": "updates",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "item_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Item ID"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Max updates to return"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "{ items (ids: [456]) { updates (limit: 10) { id body creator { id name } created_at } } }"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "name": "station_data_get",
+  "description": "Get air quality data from a specific monitoring station. Returns more detailed pollutant breakdown than city-level data.",
+  "resource_group": "data",
+  "endpoint": "/v2/station",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "station",
+      "type": "string",
+      "required": true,
+      "description": "Station name.",
+      "in": "query"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "required": true,
+      "description": "City name.",
+      "in": "query"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": true,
+      "description": "State name.",
+      "in": "query"
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "required": true,
+      "description": "Country name.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.airvisual.com/v2/station?station=Paris-Centre&city=Paris&state=Ile-de-France&country=France&key=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": {
+        "name": "Paris-Centre",
+        "city": "Paris",
+        "state": "Ile-de-France",
+        "country": "France",
+        "current": {
+          "pollution": {
+            "aqius": 42,
+            "mainus": "p2",
+            "p2": {
+              "conc": 10.2
+            },
+            "p1": {
+              "conc": 15.8
+            },
+            "o3": {
+              "conc": 68
+            },
+            "n2": {
+              "conc": 22
+            },
+            "s2": {
+              "conc": 3
+            },
+            "co": {
+              "conc": 0.3
+            }
+          }
+        }
+      }
+    }
+  }
+}

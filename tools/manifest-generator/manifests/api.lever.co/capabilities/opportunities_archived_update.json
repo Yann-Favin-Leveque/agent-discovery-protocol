@@ -1,0 +1,52 @@
+{
+  "name": "opportunities_archived_update",
+  "resource_group": "Opportunities",
+  "endpoint": "/v1/opportunities/{opportunity}/archived",
+  "method": "PUT",
+  "description": "Archive or unarchive an opportunity with a reason.",
+  "parameters": [
+    {
+      "name": "opportunity",
+      "type": "string",
+      "required": true,
+      "description": "Opportunity UUID."
+    },
+    {
+      "name": "archived",
+      "type": "object",
+      "required": true,
+      "description": "Object with reason_id and archivedAt."
+    },
+    {
+      "name": "perform_as",
+      "type": "string",
+      "required": false,
+      "description": "User UUID."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.lever.co/v1/opportunities/abc-123/archived",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "archived": {
+        "reason_id": "reason-1"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "abc-123",
+        "archived": {
+          "reason": "Hired",
+          "archivedAt": 1700000000000
+        }
+      }
+    }
+  }
+}

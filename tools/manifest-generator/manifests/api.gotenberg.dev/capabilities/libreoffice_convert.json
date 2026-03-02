@@ -1,0 +1,129 @@
+{
+  "name": "libreoffice_convert",
+  "description": "Convert Office documents (Word, Excel, PowerPoint, OpenDocument, etc.) to PDF using LibreOffice. Supports multiple files, merging into a single PDF, page ranges, quality settings, and metadata injection.",
+  "resource_group": "libreoffice",
+  "endpoint": "/forms/libreoffice/convert",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "files",
+      "type": "file",
+      "required": true,
+      "location": "formData",
+      "description": "One or more Office document files to convert (.docx, .xlsx, .pptx, .odt, .ods, .odp, etc.)."
+    },
+    {
+      "name": "landscape",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Landscape orientation. Default: false."
+    },
+    {
+      "name": "quality",
+      "type": "integer",
+      "required": false,
+      "location": "formData",
+      "description": "JPEG export quality 1-100. Default: 90."
+    },
+    {
+      "name": "merge",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Merge all converted documents into a single PDF. Default: false."
+    },
+    {
+      "name": "nativePageRanges",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Page range (e.g., '1-4')."
+    },
+    {
+      "name": "pdfa",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "PDF/A standard: 'PDF/A-1b', 'PDF/A-2b', 'PDF/A-3b'."
+    },
+    {
+      "name": "pdfua",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Enable PDF/UA accessibility. Default: false."
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "JSON XMP metadata (Author, Title, etc.)."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Password for password-protected source files."
+    },
+    {
+      "name": "losslessImageCompression",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Use PNG instead of JPEG compression. Default: false."
+    },
+    {
+      "name": "reduceImageResolution",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Reduce image DPI. Default: false."
+    },
+    {
+      "name": "maxImageResolution",
+      "type": "integer",
+      "required": false,
+      "location": "formData",
+      "description": "Max image DPI (75, 150, 300, 600, 1200). Default: 300."
+    },
+    {
+      "name": "exportBookmarks",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Export bookmarks. Default: true."
+    },
+    {
+      "name": "singlePageSheets",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Print each sheet on a single page. Default: false."
+    },
+    {
+      "name": "flatten",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Convert form fields to static content. Default: false."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "http://localhost:3000/forms/libreoffice/convert",
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with document.docx file, merge=false"
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/pdf"
+    },
+    "body": "<binary PDF content>"
+  }
+}

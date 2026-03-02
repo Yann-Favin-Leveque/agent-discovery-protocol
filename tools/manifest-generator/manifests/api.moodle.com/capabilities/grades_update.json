@@ -1,0 +1,28 @@
+{
+  "name": "grades_update",
+  "description": "Update grade values for users in a course.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_grades_update_grades",
+  "method": "POST",
+  "resource_group": "grades",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "source", "type": "string", "description": "The source of the grade (e.g., mod/assignment)", "required": true, "example": "mod/assignment" },
+    { "name": "courseid", "type": "integer", "description": "The course ID", "required": true, "example": 5 },
+    { "name": "component", "type": "string", "description": "Component name", "required": true, "example": "mod_assign" },
+    { "name": "itemid", "type": "integer", "description": "Grade item ID", "required": true, "example": 1 },
+    { "name": "grades[0][studentid]", "type": "integer", "description": "Student user ID", "required": true, "example": 42 },
+    { "name": "grades[0][grade]", "type": "number", "description": "Grade value", "required": true, "example": 85.0 }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_grades_update_grades&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "source": "mod/assignment", "courseid": 5, "component": "mod_assign", "itemid": 1, "grades[0][studentid]": 42, "grades[0][grade]": 85.0 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": 0
+  },
+  "auth_scopes": ["core_grades_update_grades"],
+  "rate_limits": { "requests_per_minute": 30 }
+}

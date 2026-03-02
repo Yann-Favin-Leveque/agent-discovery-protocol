@@ -1,0 +1,63 @@
+{
+  "name": "meetings_get",
+  "description": "Retrieve detailed information about a specific meeting including topic, start time, duration, settings, join URL, and password.",
+  "endpoint": "/meetings/{meetingId}",
+  "method": "GET",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "integer",
+      "description": "The meeting ID.",
+      "required": true,
+      "example": 1234567890
+    },
+    {
+      "name": "occurrence_id",
+      "type": "string",
+      "description": "Occurrence ID for recurring meeting instances.",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "show_previous_occurrences",
+      "type": "boolean",
+      "description": "Include previous occurrences of recurring meetings.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/meetings/1234567890",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uuid": "abc123",
+      "id": 1234567890,
+      "host_id": "abcdefg",
+      "host_email": "user@example.com",
+      "topic": "Weekly Team Sync",
+      "type": 2,
+      "status": "waiting",
+      "start_time": "2024-01-15T10:00:00Z",
+      "duration": 60,
+      "timezone": "America/New_York",
+      "join_url": "https://zoom.us/j/1234567890",
+      "password": "abc123",
+      "settings": {
+        "waiting_room": true,
+        "join_before_host": false,
+        "mute_upon_entry": true
+      }
+    }
+  },
+  "auth_scopes": ["meeting:read"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

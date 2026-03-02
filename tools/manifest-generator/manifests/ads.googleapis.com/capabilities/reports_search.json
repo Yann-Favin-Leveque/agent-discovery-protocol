@@ -1,0 +1,53 @@
+{
+  "name": "reports_search",
+  "description": "Run a GAQL query to retrieve performance metrics across any resource.",
+  "resource_group": "reports",
+  "endpoint": "/v18/customers/{customerId}/googleAds:searchStream",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer ID.",
+      "required": true
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "GAQL query string.",
+      "required": true,
+      "example": "SELECT campaign.name, metrics.impressions, metrics.clicks, metrics.cost_micros, metrics.conversions FROM campaign WHERE segments.date DURING LAST_30_DAYS"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://googleads.googleapis.com/v18/customers/1234567890/googleAds:searchStream",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "developer-token": "{developer_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "SELECT campaign.name, metrics.impressions, metrics.clicks, metrics.cost_micros FROM campaign WHERE segments.date DURING LAST_7_DAYS"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "results": [
+          {
+            "campaign": {
+              "name": "Search Campaign"
+            },
+            "metrics": {
+              "impressions": "15000",
+              "clicks": "450",
+              "costMicros": "25000000"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

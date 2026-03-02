@@ -1,0 +1,46 @@
+{
+  "name": "team_search",
+  "description": "Search team members in the account for task assignment.",
+  "resource_group": "account",
+  "endpoint": "/api/integration/v1/account/searchMyTeam",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "skip",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Number of results to skip for pagination."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Maximum number of results to return."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://smartcat.com/api/integration/v1/account/searchMyTeam",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "skip": 0,
+      "limit": 50
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "user-uuid-123",
+        "name": "Jane Translator",
+        "email": "jane@example.com",
+        "role": "translator"
+      }
+    ]
+  }
+}

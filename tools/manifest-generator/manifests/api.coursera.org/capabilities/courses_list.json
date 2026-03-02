@@ -1,0 +1,81 @@
+{
+  "name": "courses_list",
+  "description": "List all courses in the Coursera catalog with optional pagination and field selection.",
+  "endpoint": "/api/courses.v1",
+  "method": "GET",
+  "resource_group": "courses",
+  "parameters": [
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Index of the first result to return for pagination.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results to return per page.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to include in the response (e.g. name,slug,description,photoUrl,partnerIds).",
+      "required": false,
+      "example": "name,slug,description,photoUrl,partnerIds"
+    },
+    {
+      "name": "includes",
+      "type": "string",
+      "description": "Comma-separated list of linked resources to include (e.g. instructorIds,partnerIds).",
+      "required": false,
+      "example": "instructorIds,partnerIds"
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Query type for filtering. Use 'search' for keyword search.",
+      "required": false,
+      "example": "search"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "Search keyword when q=search.",
+      "required": false,
+      "example": "machine learning"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coursera.org/api/courses.v1?start=0&limit=10&fields=name,slug,description,photoUrl,partnerIds",
+    "headers": {},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "elements": [
+        {
+          "id": "v8qYJQagEeWmMRLT3bGEhg",
+          "slug": "machine-learning",
+          "name": "Machine Learning",
+          "description": "This course provides a broad introduction to machine learning...",
+          "photoUrl": "https://coursera-course-photos.s3.amazonaws.com/ml/machine-learning.jpg",
+          "partnerIds": ["stanford"]
+        }
+      ],
+      "paging": {
+        "next": 10,
+        "total": 5000
+      },
+      "linked": {}
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

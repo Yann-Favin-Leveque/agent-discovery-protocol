@@ -1,0 +1,48 @@
+{
+  "name": "visitors_search",
+  "description": "Search visitors by custom properties, identity, or behavior criteria.",
+  "endpoint": "/api/v1/visitors/search",
+  "method": "POST",
+  "resource_group": "visitors",
+  "parameters": [
+    {
+      "name": "filters",
+      "type": "object",
+      "description": "Search filters including identity, properties, and date ranges.",
+      "required": false,
+      "example": { "uid": "user_456" }
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "description": "Maximum results to return.",
+      "required": false,
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.eu.smartlook.cloud/api/v1/visitors/search",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "filters": { "uid": "user_456" },
+      "limit": 25
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        { "id": "vis_123", "uid": "user_456", "sessions_count": 42, "last_seen": "2024-01-20T10:00:00Z" }
+      ],
+      "total_count": 1
+    }
+  },
+  "auth_scopes": ["read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

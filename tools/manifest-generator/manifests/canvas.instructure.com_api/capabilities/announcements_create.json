@@ -1,0 +1,58 @@
+{
+  "name": "announcements_create",
+  "description": "Create an announcement.",
+  "resource_group": "announcements",
+  "endpoint": "/api/v1/courses/{course_id}/discussion_topics",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Announcement title.",
+      "required": true,
+      "example": "Exam Reminder"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "Body.",
+      "required": true,
+      "example": "Midterm is next week."
+    },
+    {
+      "name": "is_announcement",
+      "type": "boolean",
+      "description": "Must be true.",
+      "required": true,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/discussion_topics",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Exam Reminder",
+      "message": "Midterm is next week.",
+      "is_announcement": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 13002,
+      "title": "Exam Reminder",
+      "is_announcement": true
+    }
+  }
+}

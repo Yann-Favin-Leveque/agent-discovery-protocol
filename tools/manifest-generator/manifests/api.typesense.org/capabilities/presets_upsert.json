@@ -1,0 +1,44 @@
+{
+  "name": "presets_upsert",
+  "description": "Create or update a search preset with saved search parameters.",
+  "endpoint": "/presets/{presetId}",
+  "method": "PUT",
+  "resource_group": "presets",
+  "parameters": [
+    {
+      "name": "presetId",
+      "type": "string",
+      "description": "Preset ID",
+      "required": true,
+      "example": "default_search"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.typesense.org/presets/default_search",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "value": {
+        "searches": [
+          {
+            "collection": "products",
+            "q": "*"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "default_search"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

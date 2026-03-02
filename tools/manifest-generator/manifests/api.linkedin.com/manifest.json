@@ -1,44 +1,79 @@
 {
   "spec_version": "1.0",
   "name": "LinkedIn",
-  "description": "Professional networking platform API for managing profiles, publishing posts, and interacting with organizations. Share content, retrieve member profiles, and manage company page posts on LinkedIn.",
+  "description": "Professional networking platform API for managing profiles, publishing posts, sharing articles, uploading media, and interacting with organizations. Share content, retrieve member profiles, and manage company page posts on LinkedIn.",
   "base_url": "https://api.linkedin.com",
   "auth": {
     "type": "oauth2",
     "authorization_url": "https://www.linkedin.com/oauth/v2/authorization",
     "token_url": "https://www.linkedin.com/oauth/v2/accessToken",
-    "scopes": ["openid", "profile", "w_member_social"]
+    "scopes": [
+      "openid",
+      "profile",
+      "email",
+      "w_member_social"
+    ]
   },
   "capabilities": [
     {
-      "name": "get_profile",
-      "description": "Retrieve the authenticated member's LinkedIn profile including name, headline, vanity name, and profile picture.",
-      "detail_url": "/capabilities/get_profile"
+      "name": "profile_get",
+      "description": "Retrieve the authenticated member LinkedIn profile.",
+      "resource_group": "profile",
+      "detail_url": "/capabilities/profile_get"
     },
     {
-      "name": "create_text_post",
-      "description": "Publish a text-only post to LinkedIn on behalf of the authenticated member or an organization page.",
-      "detail_url": "/capabilities/create_text_post"
+      "name": "profile_email_get",
+      "description": "Retrieve the authenticated member email address.",
+      "resource_group": "profile",
+      "detail_url": "/capabilities/profile_email_get"
     },
     {
-      "name": "create_article_post",
-      "description": "Share an article or URL on LinkedIn with a custom title, description, thumbnail, and commentary text.",
-      "detail_url": "/capabilities/create_article_post"
+      "name": "posts_create_text",
+      "description": "Publish a text-only post to LinkedIn.",
+      "resource_group": "posts",
+      "detail_url": "/capabilities/posts_create_text"
     },
     {
-      "name": "get_posts",
-      "description": "Retrieve posts authored by a specific member or organization, with pagination and sorting options.",
-      "detail_url": "/capabilities/get_posts"
+      "name": "posts_create_article",
+      "description": "Share an article or URL with commentary.",
+      "resource_group": "posts",
+      "detail_url": "/capabilities/posts_create_article"
     },
     {
-      "name": "delete_post",
-      "description": "Delete a specific post from LinkedIn using its share or UGC post URN identifier.",
-      "detail_url": "/capabilities/delete_post"
+      "name": "posts_create_image",
+      "description": "Publish a post with an image attachment.",
+      "resource_group": "posts",
+      "detail_url": "/capabilities/posts_create_image"
     },
     {
-      "name": "create_media_post",
-      "description": "Publish a post with an image or video attachment to LinkedIn. Requires uploading the media asset first via the Images or Videos API.",
-      "detail_url": "/capabilities/create_media_post"
+      "name": "posts_get",
+      "description": "Retrieve a specific post by URN.",
+      "resource_group": "posts",
+      "detail_url": "/capabilities/posts_get"
+    },
+    {
+      "name": "posts_delete",
+      "description": "Delete a post by URN.",
+      "resource_group": "posts",
+      "detail_url": "/capabilities/posts_delete"
+    },
+    {
+      "name": "images_upload_init",
+      "description": "Initialize an image upload to get an upload URL.",
+      "resource_group": "images",
+      "detail_url": "/capabilities/images_upload_init"
+    },
+    {
+      "name": "organizations_get",
+      "description": "Retrieve organization page information.",
+      "resource_group": "organizations",
+      "detail_url": "/capabilities/organizations_get"
+    },
+    {
+      "name": "userinfo_get",
+      "description": "Retrieve user info via OpenID Connect.",
+      "resource_group": "profile",
+      "detail_url": "/capabilities/userinfo_get"
     }
   ]
 }

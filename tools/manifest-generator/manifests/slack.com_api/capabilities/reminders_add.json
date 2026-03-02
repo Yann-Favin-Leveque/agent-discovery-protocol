@@ -1,0 +1,53 @@
+{
+  "name": "reminders_add",
+  "resource_group": "reminders",
+  "description": "Create a reminder for a user.",
+  "endpoint": "/reminders.add",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "description": "Reminder text",
+      "example": "Review the PR"
+    },
+    {
+      "name": "time",
+      "type": "string",
+      "required": true,
+      "description": "When to remind (Unix timestamp or natural language)",
+      "example": "1735689600"
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": false,
+      "description": "User to remind (defaults to caller)",
+      "example": "U1234567890"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://slack.com/api/reminders.add",
+    "headers": {
+      "Authorization": "Bearer xoxb-xxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "text": "Review the PR",
+      "time": "1735689600"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "reminder": {
+        "id": "Rm12345",
+        "text": "Review the PR",
+        "time": 1735689600
+      }
+    }
+  }
+}

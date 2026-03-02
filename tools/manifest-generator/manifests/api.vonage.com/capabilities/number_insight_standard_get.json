@@ -1,0 +1,33 @@
+{
+  "name": "number_insight_standard_get",
+  "description": "Get standard information about a phone number including carrier name, network type, porting status, and caller identity. Charged per request.",
+  "resource_group": "number_insight",
+  "endpoint": "/ni/standard/json",
+  "method": "GET",
+  "parameters": [
+    {"name": "number", "type": "string", "required": true, "description": "The phone number to look up in international format."},
+    {"name": "country", "type": "string", "required": false, "description": "2-letter country code if number is in national format."},
+    {"name": "cnam", "type": "boolean", "required": false, "description": "Include caller name (CNAM) data for US numbers. Default false."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vonage.com/ni/standard/json?number=14155550123&cnam=true&api_key=abc123&api_secret=xyz789",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "status_message": "Success",
+      "request_id": "d79c3d82-e2ee-4c89-a29a-e4e4b2b29883",
+      "international_format_number": "14155550123",
+      "national_format_number": "(415) 555-0123",
+      "country_code": "US",
+      "country_name": "United States of America",
+      "current_carrier": {"network_code": "310260", "name": "T-Mobile USA", "country": "US", "network_type": "mobile"},
+      "original_carrier": {"network_code": "310120", "name": "Sprint", "country": "US", "network_type": "mobile"},
+      "ported": "assumed_ported",
+      "caller_identity": {"caller_type": "consumer", "caller_name": "John Smith", "first_name": "John", "last_name": "Smith"}
+    }
+  }
+}

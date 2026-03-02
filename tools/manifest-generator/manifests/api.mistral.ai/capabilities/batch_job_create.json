@@ -1,0 +1,15 @@
+{
+  "name": "batch_job_create",
+  "description": "Create a batch job for asynchronous request processing.",
+  "resource_group": "batch",
+  "endpoint": "/v1/batch/jobs",
+  "method": "POST",
+  "parameters": [
+    {"name": "input_files", "type": "array", "required": true, "description": "Input file IDs containing requests."},
+    {"name": "endpoint", "type": "string", "required": true, "description": "Target endpoint for batch requests."},
+    {"name": "model", "type": "string", "required": true, "description": "Model to use."},
+    {"name": "metadata", "type": "object", "required": false, "description": "Optional metadata."}
+  ],
+  "request_example": {"method": "POST", "url": "https://api.mistral.ai/v1/batch/jobs", "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"}, "body": {"input_files": ["file-abc123"], "endpoint": "/v1/chat/completions", "model": "mistral-small-latest"}},
+  "response_example": {"status": 200, "body": {"id": "batch-abc123", "status": "queued"}}
+}

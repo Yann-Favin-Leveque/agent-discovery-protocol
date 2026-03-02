@@ -1,0 +1,73 @@
+{
+  "name": "geocode_reverse",
+  "description": "Convert geographic coordinates into a human-readable address.",
+  "endpoint": "/search/geocode/v6/reverse",
+  "method": "GET",
+  "resource_group": "geocoding",
+  "parameters": [
+    {
+      "name": "longitude",
+      "type": "number",
+      "description": "Longitude (-180 to 180).",
+      "required": true,
+      "example": -77.0365
+    },
+    {
+      "name": "latitude",
+      "type": "number",
+      "description": "Latitude (-90 to 90).",
+      "required": true,
+      "example": 38.8977
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "pk.xxx"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for results.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Feature type filter.",
+      "required": false,
+      "example": "address"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (1-5).",
+      "required": false,
+      "example": 1
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/search/geocode/v6/reverse?longitude=-77.0365&latitude=38.8977&access_token=pk.xxx",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "properties": {
+            "full_address": "1600 Pennsylvania Ave NW, Washington, DC 20500"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

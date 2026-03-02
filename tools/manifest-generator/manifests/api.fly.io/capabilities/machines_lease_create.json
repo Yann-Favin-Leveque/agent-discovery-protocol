@@ -1,0 +1,46 @@
+{
+  "name": "machines_lease_create",
+  "description": "Create an exclusive lease for safe updates.",
+  "resource_group": "machines",
+  "endpoint": "/v1/apps/{app_name}/machines/{machine_id}/lease",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_name",
+      "type": "string",
+      "required": true,
+      "description": "App name."
+    },
+    {
+      "name": "machine_id",
+      "type": "string",
+      "required": true,
+      "description": "Machine ID."
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "required": false,
+      "description": "Lease TTL seconds."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Description."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.machines.dev/v1/apps/my-app/machines/mach-abc/lease",
+    "body": {
+      "ttl": 30
+    }
+  },
+  "response_example": {
+    "data": {
+      "nonce": "lease-nonce-abc",
+      "expires_at": 1706115600
+    }
+  }
+}

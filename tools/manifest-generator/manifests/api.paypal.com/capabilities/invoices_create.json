@@ -1,0 +1,74 @@
+{
+  "name": "invoices_create",
+  "description": "Create a draft invoice.",
+  "endpoint": "/v2/invoicing/invoices",
+  "method": "POST",
+  "resource_group": "invoicing",
+  "parameters": [
+    {
+      "name": "detail",
+      "type": "object",
+      "description": "Invoice details including currency and reference",
+      "required": true,
+      "example": {
+        "currency_code": "USD"
+      }
+    },
+    {
+      "name": "invoicer",
+      "type": "object",
+      "description": "Invoicer info",
+      "required": false,
+      "example": {}
+    },
+    {
+      "name": "primary_recipients",
+      "type": "array",
+      "description": "Recipient billing info",
+      "required": false,
+      "example": [
+        {
+          "billing_info": {
+            "email_address": "buyer@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Invoice line items",
+      "required": true,
+      "example": [
+        {
+          "name": "Consulting",
+          "quantity": "1",
+          "unit_amount": {
+            "currency_code": "USD",
+            "value": "500.00"
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v2/invoicing/invoices",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "INV2-ID",
+      "status": "DRAFT"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

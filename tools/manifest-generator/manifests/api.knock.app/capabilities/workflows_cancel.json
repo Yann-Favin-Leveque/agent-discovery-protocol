@@ -1,0 +1,54 @@
+{
+  "name": "workflows_cancel",
+  "description": "Cancel queued or in-progress workflow runs.",
+  "endpoint": "/v1/workflows/{key}/cancel",
+  "method": "POST",
+  "resource_group": "workflows",
+  "parameters": [
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Workflow key.",
+      "required": true,
+      "example": "new-comment"
+    },
+    {
+      "name": "recipients",
+      "type": "array",
+      "description": "Recipient IDs to cancel for.",
+      "required": true,
+      "example": [
+        "user_123"
+      ]
+    },
+    {
+      "name": "cancellation_key",
+      "type": "string",
+      "description": "Key to identify the runs to cancel.",
+      "required": false,
+      "example": "comment_123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.knock.app/v1/workflows/new-comment/cancel",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipients": [
+        "user_123"
+      ],
+      "cancellation_key": "comment_123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

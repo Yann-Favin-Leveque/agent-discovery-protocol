@@ -1,0 +1,50 @@
+{
+  "name": "guilds_members_search",
+  "resource_group": "guilds",
+  "description": "Search for guild members by username or nickname.",
+  "endpoint": "/v10/guilds/{guild_id}/members/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "guild_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Guild ID",
+      "example": "444444444444444444"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "Search query (username or nickname)",
+      "example": "john"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results (1-1000)",
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://discord.com/api/v10/guilds/444444444444444444/members/search?query=john&limit=10",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "user": {
+          "id": "333333333333333333",
+          "username": "john_doe"
+        },
+        "nick": "John"
+      }
+    ]
+  }
+}

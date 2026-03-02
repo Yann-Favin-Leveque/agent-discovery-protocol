@@ -1,0 +1,42 @@
+{
+  "name": "env_vars_list",
+  "description": "Retrieve all environment variables for a project.",
+  "endpoint": "/v10/projects/{idOrName}/env",
+  "method": "GET",
+  "resource_group": "environment",
+  "parameters": [
+    {
+      "name": "idOrName",
+      "type": "string",
+      "description": "Project ID or name",
+      "required": true,
+      "example": "my-app"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.vercel.com/v10/projects/my-app/env",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "envs": [
+        {
+          "key": "DATABASE_URL",
+          "value": "postgres://...",
+          "target": [
+            "production"
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

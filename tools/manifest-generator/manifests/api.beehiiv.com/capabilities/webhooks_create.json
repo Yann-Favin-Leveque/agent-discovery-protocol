@@ -1,0 +1,50 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a new webhook for real-time event notifications.",
+  "resource_group": "webhooks",
+  "endpoint": "/v2/publications/{publicationId}/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "publicationId",
+      "type": "string",
+      "description": "Publication ID.",
+      "required": true
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Webhook callback URL.",
+      "required": true
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "Events to subscribe to.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.beehiiv.com/v2/publications/pub_xxx/webhooks",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "events": [
+        "subscription.created"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "wh_yyy",
+        "url": "https://example.com/webhook"
+      }
+    }
+  }
+}

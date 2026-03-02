@@ -1,0 +1,52 @@
+{
+  "name": "templates_validate",
+  "description": "Validate template content and render with test data.",
+  "resource_group": "templates",
+  "endpoint": "/templates/validate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "Subject",
+      "type": "string",
+      "description": "Template subject.",
+      "required": false
+    },
+    {
+      "name": "HtmlBody",
+      "type": "string",
+      "description": "HTML content.",
+      "required": false
+    },
+    {
+      "name": "TestRenderModel",
+      "type": "object",
+      "description": "Sample data for rendering.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/templates/validate",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Subject": "Test {{name}}",
+      "HtmlBody": "<p>Hello {{name}}</p>",
+      "TestRenderModel": {
+        "name": "John"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "AllContentIsValid": true,
+      "HtmlBody": {
+        "ContentIsValid": true
+      }
+    }
+  }
+}

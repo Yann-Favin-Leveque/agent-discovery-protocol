@@ -1,0 +1,60 @@
+{
+  "name": "bitlinks_clicks",
+  "description": "Get click counts for a Bitlink over time.",
+  "endpoint": "/v4/bitlinks/{bitlink}/clicks",
+  "method": "GET",
+  "resource_group": "bitlinks",
+  "parameters": [
+    {
+      "name": "bitlink",
+      "type": "string",
+      "description": "The Bitlink ID.",
+      "required": true,
+      "example": "bit.ly/abc123"
+    },
+    {
+      "name": "unit",
+      "type": "string",
+      "description": "Time unit: minute, hour, day, week, month.",
+      "required": false,
+      "example": "day"
+    },
+    {
+      "name": "units",
+      "type": "integer",
+      "description": "Number of time units (-1 for all).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "unit_reference",
+      "type": "string",
+      "description": "ISO-8601 reference timestamp.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api-ssl.bitly.com/v4/bitlinks/bit.ly/abc123/clicks?unit=day&units=30",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "link_clicks": [
+        {
+          "date": "2024-01-15T00:00:00+0000",
+          "clicks": 25
+        }
+      ],
+      "units": 30,
+      "unit": "day"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

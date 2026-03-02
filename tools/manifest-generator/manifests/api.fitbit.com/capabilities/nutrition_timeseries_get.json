@@ -1,0 +1,51 @@
+{
+  "name": "nutrition_timeseries_get",
+  "description": "Retrieve nutrition time series (calories in, water) for a date range.",
+  "resource_group": "nutrition",
+  "endpoint": "/1/user/-/foods/log/{resource-path}/date/{date}/{period}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "resource-path",
+      "type": "string",
+      "required": true,
+      "description": "Resource: caloriesIn or water.",
+      "in": "path"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "End date YYYY-MM-DD.",
+      "in": "path"
+    },
+    {
+      "name": "period",
+      "type": "string",
+      "required": true,
+      "description": "Range: 1d, 7d, 30d, etc.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "nutrition"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/foods/log/caloriesIn/date/2025-01-15/7d.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "foods-log-caloriesIn": [
+        {
+          "dateTime": "2025-01-09",
+          "value": "1920"
+        }
+      ]
+    }
+  }
+}

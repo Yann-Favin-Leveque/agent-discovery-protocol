@@ -1,0 +1,50 @@
+{
+  "name": "uploads_get",
+  "description": "Retrieve the status of a specific upload.",
+  "endpoint": "/uploads/v1/{username}/{upload_id}",
+  "method": "GET",
+  "resource_group": "uploads",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "Username.",
+      "required": true,
+      "example": "myuser"
+    },
+    {
+      "name": "upload_id",
+      "type": "string",
+      "description": "Upload ID.",
+      "required": true,
+      "example": "upload_abc"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "sk.xxx"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/uploads/v1/myuser/upload_abc?access_token=sk.xxx",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "upload_abc",
+      "tileset": "myuser.my-tileset",
+      "complete": true,
+      "progress": 1
+    }
+  },
+  "auth_scopes": [
+    "uploads:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

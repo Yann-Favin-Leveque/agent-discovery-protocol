@@ -1,0 +1,57 @@
+{
+  "name": "records_save",
+  "description": "Add or replace a record in an index. If the objectID exists, the record is replaced; otherwise it is created.",
+  "endpoint": "/1/indexes/{indexName}",
+  "method": "POST",
+  "resource_group": "records",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the target index.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "objectID",
+      "type": "string",
+      "description": "Unique identifier for the record. Auto-generated if omitted.",
+      "required": false,
+      "example": "12345"
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "The record attributes to index.",
+      "required": true,
+      "example": { "name": "MacBook Pro", "price": 1999, "category": "electronics" }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "objectID": "12345",
+      "name": "MacBook Pro",
+      "price": 1999,
+      "category": "electronics"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "createdAt": "2024-06-15T09:00:00.000Z",
+      "taskID": 681,
+      "objectID": "12345"
+    }
+  },
+  "auth_scopes": ["addObject"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "name": "city_data_get",
+  "description": "Get real-time air quality and weather data for a specific city by name, state, and country. Returns current AQI (US EPA and China MEP), main pollutant, PM2.5/PM10 concentrations, temperature, humidity, wind, and pressure.",
+  "resource_group": "data",
+  "endpoint": "/v2/city",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "city",
+      "type": "string",
+      "required": true,
+      "description": "City name.",
+      "in": "query"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": true,
+      "description": "State or province name.",
+      "in": "query"
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "required": true,
+      "description": "Country name.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.airvisual.com/v2/city?city=Paris&state=Ile-de-France&country=France&key=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": {
+        "city": "Paris",
+        "state": "Ile-de-France",
+        "country": "France",
+        "location": {
+          "type": "Point",
+          "coordinates": [
+            2.3522,
+            48.8566
+          ]
+        },
+        "current": {
+          "pollution": {
+            "ts": "2025-01-15T14:00:00.000Z",
+            "aqius": 42,
+            "mainus": "p2",
+            "aqicn": 15,
+            "maincn": "p2",
+            "p2": {
+              "conc": 10.2,
+              "aqius": 42,
+              "aqicn": 15
+            }
+          },
+          "weather": {
+            "ts": "2025-01-15T14:00:00.000Z",
+            "tp": 18,
+            "pr": 1015,
+            "hu": 55,
+            "ws": 3.6,
+            "wd": 220,
+            "ic": "01d"
+          }
+        }
+      }
+    }
+  }
+}

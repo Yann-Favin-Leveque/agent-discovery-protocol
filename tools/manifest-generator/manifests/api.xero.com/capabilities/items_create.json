@@ -1,0 +1,50 @@
+{
+  "name": "items_create",
+  "description": "Create a new item.",
+  "resource_group": "items",
+  "endpoint": "/Items",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "Items",
+      "type": "array",
+      "required": true,
+      "description": "Array of Item objects."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.settings"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.xero.com/api.xro/2.0/Items",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Items": [
+        {
+          "Code": "DEV",
+          "Name": "Development",
+          "SalesDetails": {
+            "UnitPrice": 200.0,
+            "AccountCode": "200"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Items": [
+        {
+          "ItemID": "item-new",
+          "Code": "DEV"
+        }
+      ]
+    }
+  }
+}

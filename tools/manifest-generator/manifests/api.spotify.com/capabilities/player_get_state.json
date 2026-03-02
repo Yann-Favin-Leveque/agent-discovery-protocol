@@ -1,0 +1,48 @@
+{
+  "name": "player_get_state",
+  "description": "Get information about the user's current playback state including device, shuffle, repeat, and progress.",
+  "resource_group": "player",
+  "endpoint": "/v1/me/player",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "market",
+      "type": "string",
+      "required": false,
+      "description": "ISO 3166-1 alpha-2 country code."
+    }
+  ],
+  "auth_scopes": [
+    "user-read-playback-state"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/me/player",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "device": {
+        "id": "abc",
+        "name": "My Computer",
+        "type": "Computer",
+        "volume_percent": 65
+      },
+      "shuffle_state": false,
+      "repeat_state": "off",
+      "is_playing": true,
+      "item": {
+        "name": "Cut To The Feeling",
+        "artists": [
+          {
+            "name": "Carly Rae Jepsen"
+          }
+        ]
+      },
+      "progress_ms": 45000
+    }
+  }
+}

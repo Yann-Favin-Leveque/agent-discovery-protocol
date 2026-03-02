@@ -1,0 +1,35 @@
+{
+  "name": "accounts_delete",
+  "description": "Bulk-delete account records and all associated data from Pendo.",
+  "endpoint": "/v1/account",
+  "method": "DELETE",
+  "resource_group": "accounts",
+  "parameters": [
+    {
+      "name": "accountIds",
+      "type": "array",
+      "description": "Array of account IDs to delete.",
+      "required": true,
+      "example": ["acme-corp", "globex-inc"]
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://app.pendo.io/api/v1/account",
+    "headers": {
+      "x-pendo-integration-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "accountIds": ["acme-corp", "globex-inc"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "deleted": 2 }
+  },
+  "auth_scopes": ["account"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

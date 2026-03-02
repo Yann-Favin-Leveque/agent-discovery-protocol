@@ -1,0 +1,60 @@
+{
+  "name": "applications_create",
+  "resource_group": "Applications",
+  "endpoint": "/v1/candidates/{candidate_id}/applications",
+  "method": "POST",
+  "description": "Add a new application to an existing candidate for a specific job.",
+  "parameters": [
+    {
+      "name": "candidate_id",
+      "type": "integer",
+      "required": true,
+      "description": "Candidate ID (path)."
+    },
+    {
+      "name": "job_id",
+      "type": "integer",
+      "required": true,
+      "description": "Job to apply for."
+    },
+    {
+      "name": "source_id",
+      "type": "integer",
+      "required": false,
+      "description": "Source ID."
+    },
+    {
+      "name": "initial_stage_id",
+      "type": "integer",
+      "required": false,
+      "description": "Initial pipeline stage."
+    },
+    {
+      "name": "On-Behalf-Of",
+      "type": "integer",
+      "required": true,
+      "description": "User ID (header)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://harvest.greenhouse.io/v1/candidates/17681532/applications",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6",
+      "On-Behalf-Of": "4321",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "job_id": 45021,
+      "source_id": 16
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 29483200,
+      "candidate_id": 17681532,
+      "status": "active"
+    }
+  }
+}

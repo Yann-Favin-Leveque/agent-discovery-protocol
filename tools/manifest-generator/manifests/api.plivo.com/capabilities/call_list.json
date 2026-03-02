@@ -1,0 +1,87 @@
+{
+  "name": "call_list",
+  "description": "List all calls with optional filtering by status and time.",
+  "resource_group": "call",
+  "endpoint": "/v1/Account/{auth_id}/Call/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "call_direction",
+      "type": "string",
+      "description": "Filter: inbound or outbound.",
+      "required": false,
+      "example": "outbound"
+    },
+    {
+      "name": "from_number",
+      "type": "string",
+      "description": "Filter by caller number.",
+      "required": false
+    },
+    {
+      "name": "to_number",
+      "type": "string",
+      "description": "Filter by destination number.",
+      "required": false
+    },
+    {
+      "name": "end_time__gt",
+      "type": "string",
+      "description": "Calls ending after this time.",
+      "required": false
+    },
+    {
+      "name": "end_time__lt",
+      "type": "string",
+      "description": "Calls ending before this time.",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results per page (max 20).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Pagination offset.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Call/?limit=5",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "meta": {
+        "limit": 5,
+        "offset": 0,
+        "total_count": 50
+      },
+      "objects": [
+        {
+          "call_uuid": "abc-123",
+          "from_number": "+14151234567",
+          "to_number": "+14157654321",
+          "call_duration": 45
+        }
+      ]
+    }
+  }
+}

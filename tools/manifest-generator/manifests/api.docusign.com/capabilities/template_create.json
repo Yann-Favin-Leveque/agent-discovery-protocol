@@ -1,0 +1,93 @@
+{
+  "name": "template_create",
+  "description": "Create a new reusable envelope template with documents, recipient roles, and tab placements.",
+  "resource_group": "template",
+  "endpoint": "/v2.1/accounts/{accountId}/templates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Template name.",
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Template description.",
+      "in": "body"
+    },
+    {
+      "name": "documents",
+      "type": "array",
+      "required": true,
+      "description": "Array of document objects.",
+      "in": "body"
+    },
+    {
+      "name": "recipients",
+      "type": "object",
+      "required": true,
+      "description": "Recipient roles with tabs.",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/templates",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Standard NDA",
+      "description": "Non-disclosure agreement",
+      "documents": [
+        {
+          "documentBase64": "base64data...",
+          "name": "NDA.pdf",
+          "documentId": "1"
+        }
+      ],
+      "recipients": {
+        "signers": [
+          {
+            "roleName": "Signer",
+            "recipientId": "1",
+            "routingOrder": "1",
+            "tabs": {
+              "signHereTabs": [
+                {
+                  "documentId": "1",
+                  "pageNumber": "2",
+                  "xPosition": "200",
+                  "yPosition": "600"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "templateId": "tmpl-abc-456",
+      "name": "Standard NDA",
+      "uri": "/templates/tmpl-abc-456"
+    }
+  }
+}

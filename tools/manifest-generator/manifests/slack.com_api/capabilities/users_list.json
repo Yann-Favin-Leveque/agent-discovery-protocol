@@ -1,0 +1,59 @@
+{
+  "name": "users_list",
+  "resource_group": "users",
+  "description": "List all users in the workspace.",
+  "endpoint": "/users.list",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 100
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "required": false,
+      "description": "Pagination cursor",
+      "example": ""
+    },
+    {
+      "name": "include_locale",
+      "type": "boolean",
+      "required": false,
+      "description": "Include user locale",
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://slack.com/api/users.list?limit=100",
+    "headers": {
+      "Authorization": "Bearer xoxb-xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "members": [
+        {
+          "id": "U1234567890",
+          "name": "john",
+          "real_name": "John Doe",
+          "profile": {
+            "email": "john@example.com",
+            "image_72": "https://example.com/avatar.png"
+          },
+          "is_admin": false,
+          "is_bot": false
+        }
+      ],
+      "response_metadata": {
+        "next_cursor": ""
+      }
+    }
+  }
+}

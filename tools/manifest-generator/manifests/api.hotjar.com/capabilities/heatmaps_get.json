@@ -1,0 +1,47 @@
+{
+  "name": "heatmaps_get",
+  "description": "Retrieve detailed heatmap data for a specific heatmap ID including interaction points.",
+  "endpoint": "/v2/sites/{site_id}/heatmaps/{heatmap_id}",
+  "method": "GET",
+  "resource_group": "heatmaps",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "number",
+      "description": "The site ID.",
+      "required": true,
+      "example": 123456
+    },
+    {
+      "name": "heatmap_id",
+      "type": "number",
+      "description": "The heatmap ID.",
+      "required": true,
+      "example": 789
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hotjar.com/v2/sites/123456/heatmaps/789",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 789,
+      "name": "Pricing Page Clicks",
+      "url_pattern": "https://example.com/pricing",
+      "type": "click",
+      "sample_size": 5000,
+      "status": "active",
+      "screenshot_url": "https://hotjar-assets.com/screenshots/789.png",
+      "created_at": "2024-01-15T00:00:00Z"
+    }
+  },
+  "auth_scopes": ["read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

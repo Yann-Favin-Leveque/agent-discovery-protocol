@@ -1,0 +1,80 @@
+{
+  "name": "assets_tracks_create",
+  "resource_group": "assets",
+  "description": "Add a text track (subtitles/captions) to an asset.",
+  "endpoint": "/video/v1/assets/{asset_id}/tracks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "asset_id",
+      "type": "string",
+      "required": true,
+      "description": "Asset ID.",
+      "in": "path"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "URL of the text track file (SRT/VTT)."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Track type: text."
+    },
+    {
+      "name": "text_type",
+      "type": "string",
+      "required": true,
+      "description": "Text type: subtitles."
+    },
+    {
+      "name": "language_code",
+      "type": "string",
+      "required": true,
+      "description": "BCP 47 language code."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Track display name."
+    },
+    {
+      "name": "closed_captions",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether track contains closed captions."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mux.com/video/v1/assets/asset_abc123/tracks",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/subtitles.vtt",
+      "type": "text",
+      "text_type": "subtitles",
+      "language_code": "en",
+      "name": "English"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "track_abc",
+        "type": "text",
+        "text_type": "subtitles",
+        "language_code": "en",
+        "name": "English",
+        "status": "preparing"
+      }
+    }
+  }
+}

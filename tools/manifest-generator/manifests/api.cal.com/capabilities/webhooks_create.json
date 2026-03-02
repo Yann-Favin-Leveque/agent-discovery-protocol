@@ -1,0 +1,60 @@
+{
+  "name": "webhooks_create",
+  "resource_group": "webhooks",
+  "description": "Create a new webhook subscription for real-time event notifications.",
+  "endpoint": "/v2/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "subscriberUrl",
+      "type": "string",
+      "required": true,
+      "description": "URL to receive payloads",
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "triggers",
+      "type": "array",
+      "required": true,
+      "description": "Event types to subscribe to",
+      "example": [
+        "BOOKING_CREATED",
+        "BOOKING_CANCELLED"
+      ]
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether webhook is active",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cal.com/v2/webhooks",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "Content-Type": "application/json",
+      "cal-api-version": "2024-08-13"
+    },
+    "body": {
+      "subscriberUrl": "https://example.com/webhook",
+      "triggers": [
+        "BOOKING_CREATED"
+      ],
+      "active": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": 2,
+        "subscriberUrl": "https://example.com/webhook",
+        "active": true
+      }
+    }
+  }
+}

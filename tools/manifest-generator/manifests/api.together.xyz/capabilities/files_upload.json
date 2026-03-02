@@ -1,0 +1,61 @@
+{
+  "name": "files_upload",
+  "description": "Upload a file for fine-tuning, evaluation, or batch processing. Accepts JSONL, CSV, or Parquet formats via multipart form data.",
+  "resource_group": "files",
+  "endpoint": "/v1/files/upload",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "file",
+      "type": "binary",
+      "required": true,
+      "description": "The file content to upload."
+    },
+    {
+      "name": "file_name",
+      "type": "string",
+      "required": true,
+      "description": "Name for the uploaded file.",
+      "example": "training_data.jsonl"
+    },
+    {
+      "name": "purpose",
+      "type": "string",
+      "required": true,
+      "description": "Purpose of the file: 'fine-tune', 'eval', 'eval-sample', 'eval-output', 'eval-summary', 'batch-generated', or 'batch-api'.",
+      "example": "fine-tune"
+    },
+    {
+      "name": "file_type",
+      "type": "string",
+      "required": false,
+      "description": "File format: 'csv', 'jsonl', or 'parquet'. Defaults to 'jsonl'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.together.xyz/v1/files/upload",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "file": "@/path/to/data.jsonl",
+      "file_name": "training_data.jsonl",
+      "purpose": "fine-tune"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "file-abc123",
+      "object": "file",
+      "created_at": 1699564800,
+      "filename": "training_data.jsonl",
+      "bytes": 2048,
+      "purpose": "fine-tune",
+      "FileType": "jsonl",
+      "Processed": true
+    }
+  }
+}

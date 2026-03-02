@@ -1,0 +1,49 @@
+{
+  "name": "pipelines_jobs_list",
+  "description": "List jobs in a pipeline.",
+  "resource_group": "pipelines",
+  "endpoint": "/projects/{id}/pipelines/{pipeline_id}/jobs",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "pipeline_id",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "Pipeline ID."
+    },
+    {
+      "name": "scope",
+      "type": "string",
+      "required": false,
+      "description": "Filter: created, pending, running, failed, success, canceled, skipped, manual."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects/123/pipelines/1001/jobs",
+    "headers": {
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 2001,
+        "name": "test",
+        "stage": "test",
+        "status": "failed",
+        "duration": 45.2,
+        "web_url": "https://gitlab.com/octocat/my-project/-/jobs/2001"
+      }
+    ]
+  }
+}

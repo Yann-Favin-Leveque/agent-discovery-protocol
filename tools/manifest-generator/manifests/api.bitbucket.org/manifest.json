@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
-  "name": "Bitbucket API",
-  "description": "Code against the Bitbucket API to automate simple tasks, embed Bitbucket data into your own site, build mobile or desktop apps, or even add custom UI add-ons into Bitbucket itself using the Connect framework.",
+  "name": "Bitbucket Cloud REST API",
+  "description": "Bitbucket Cloud provides Git repository hosting, pull requests, pipelines CI/CD, and team collaboration. Use this API to manage repositories, branches, pull requests, issues, pipelines, and workspaces.",
   "base_url": "https://api.bitbucket.org/2.0",
   "auth": {
     "type": "oauth2",
@@ -11,85 +11,111 @@
       "repository",
       "repository:write",
       "repository:admin",
-      "repository:delete",
-      "project",
-      "project:admin",
-      "email",
-      "account",
-      "account:write",
-      "team",
-      "team:write",
+      "pullrequest",
+      "pullrequest:write",
       "pipeline",
       "pipeline:write",
-      "pipeline:variable",
-      "runner",
-      "runner:write",
-      "test",
-      "test:write",
-      "pullrequest",
-      "pullrequest:write"
+      "account",
+      "email",
+      "team"
     ]
   },
   "capabilities": [
     {
-      "name": "addon",
-      "description": "Manage addon — update an installed app, delete an app. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/addon"
+      "name": "repos_list",
+      "resource_group": "repositories",
+      "description": "List repositories for a workspace.",
+      "detail_url": "/capabilities/repos_list"
     },
     {
-      "name": "webhooks",
-      "description": "Manage webhooks — get a webhook resource, list subscribable webhook types. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/webhooks"
+      "name": "repos_get",
+      "resource_group": "repositories",
+      "description": "Get a specific repository.",
+      "detail_url": "/capabilities/repos_get"
     },
     {
-      "name": "repositories",
-      "description": "Manage repositories — create a repository, fork a repository, create a webhook for a repository. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/repositories"
+      "name": "repos_create",
+      "resource_group": "repositories",
+      "description": "Create a new repository.",
+      "detail_url": "/capabilities/repos_create"
     },
     {
-      "name": "branch_restrictions",
-      "description": "Manage branch restrictions — create a branch restriction rule, update a branch restriction rule, list branch restrictions. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/branch_restrictions"
+      "name": "repos_delete",
+      "resource_group": "repositories",
+      "description": "Delete a repository.",
+      "detail_url": "/capabilities/repos_delete"
     },
     {
-      "name": "branching_model",
-      "description": "Manage branching model — update the branching model config for a repository, update the branching model config for a project, get the branching model for a repository. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/branching_model"
+      "name": "pullrequests_list",
+      "resource_group": "pull_requests",
+      "description": "List pull requests for a repository.",
+      "detail_url": "/capabilities/pullrequests_list"
     },
     {
-      "name": "commits",
-      "description": "Manage commits — list commits with include/exclude, approve a commit, create comment for a commit. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/commits"
+      "name": "pullrequests_get",
+      "resource_group": "pull_requests",
+      "description": "Get a specific pull request.",
+      "detail_url": "/capabilities/pullrequests_get"
     },
     {
-      "name": "properties",
-      "description": "Manage properties — update a user application property, update a repository application property, update a commit application property. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/properties"
+      "name": "pullrequests_create",
+      "resource_group": "pull_requests",
+      "description": "Create a new pull request.",
+      "detail_url": "/capabilities/pullrequests_create"
     },
     {
-      "name": "pullrequests",
-      "description": "Manage pullrequests — create a pull request, approve a pull request, create a comment on a pull request. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/pullrequests"
+      "name": "pullrequests_merge",
+      "resource_group": "pull_requests",
+      "description": "Merge a pull request.",
+      "detail_url": "/capabilities/pullrequests_merge"
     },
     {
-      "name": "reports",
-      "description": "Manage reports — bulk create or update annotations, create or update a report, create or update an annotation. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/reports"
+      "name": "pullrequests_approve",
+      "resource_group": "pull_requests",
+      "description": "Approve a pull request.",
+      "detail_url": "/capabilities/pullrequests_approve"
     },
     {
-      "name": "commit_statuses",
-      "description": "Manage commit statuses — create a build status for a commit, update a build status for a commit, list commit statuses for a commit. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/commit_statuses"
+      "name": "pullrequests_decline",
+      "resource_group": "pull_requests",
+      "description": "Decline a pull request.",
+      "detail_url": "/capabilities/pullrequests_decline"
     },
     {
-      "name": "deployments",
-      "description": "Manage deployments — add a repository deploy key, create an environment, create a project deploy key. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/deployments"
+      "name": "pipelines_list",
+      "resource_group": "pipelines",
+      "description": "List pipelines for a repository.",
+      "detail_url": "/capabilities/pipelines_list"
     },
     {
-      "name": "pipelines",
-      "description": "Manage pipelines — create workspace runner, create a variable for a workspace, run a pipeline. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/pipelines"
+      "name": "pipelines_create",
+      "resource_group": "pipelines",
+      "description": "Trigger a new pipeline run.",
+      "detail_url": "/capabilities/pipelines_create"
+    },
+    {
+      "name": "pipelines_stop",
+      "resource_group": "pipelines",
+      "description": "Stop a running pipeline.",
+      "detail_url": "/capabilities/pipelines_stop"
+    },
+    {
+      "name": "branches_list",
+      "resource_group": "branches",
+      "description": "List branches in a repository.",
+      "detail_url": "/capabilities/branches_list"
+    },
+    {
+      "name": "commits_list",
+      "resource_group": "commits",
+      "description": "List commits for a repository.",
+      "detail_url": "/capabilities/commits_list"
+    },
+    {
+      "name": "user_get",
+      "resource_group": "users",
+      "description": "Get the current authenticated user.",
+      "detail_url": "/capabilities/user_get"
     }
   ]
 }

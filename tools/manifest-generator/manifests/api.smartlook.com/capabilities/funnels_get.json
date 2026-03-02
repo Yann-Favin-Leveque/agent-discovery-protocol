@@ -1,0 +1,40 @@
+{
+  "name": "funnels_get",
+  "description": "Retrieve details of a specific funnel including steps, conversion rates, and drop-off points.",
+  "endpoint": "/api/v1/funnels/{funnel_id}",
+  "method": "GET",
+  "resource_group": "funnels",
+  "parameters": [
+    {
+      "name": "funnel_id",
+      "type": "string",
+      "description": "The funnel ID.",
+      "required": true,
+      "example": "funnel_123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.eu.smartlook.cloud/api/v1/funnels/funnel_123",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "funnel_123",
+      "name": "Signup Flow",
+      "conversion_rate": 25.5,
+      "steps": [
+        { "name": "Landing Page", "count": 1000, "drop_off": 600 },
+        { "name": "Signup Form", "count": 400, "drop_off": 145 },
+        { "name": "Verification", "count": 255, "drop_off": 0 }
+      ]
+    }
+  },
+  "auth_scopes": ["read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

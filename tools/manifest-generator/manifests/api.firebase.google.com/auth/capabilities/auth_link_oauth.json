@@ -1,0 +1,54 @@
+{
+  "name": "auth_link_oauth",
+  "resource_group": "provider_linking",
+  "description": "Link an OAuth credential to an existing user account.",
+  "endpoint": "/v1/accounts:signInWithIdp",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "idToken",
+      "type": "string",
+      "required": true,
+      "description": "Firebase ID token of the existing account."
+    },
+    {
+      "name": "requestUri",
+      "type": "string",
+      "required": true,
+      "description": "The redirect URI."
+    },
+    {
+      "name": "postBody",
+      "type": "string",
+      "required": true,
+      "description": "URL-encoded OAuth credential."
+    },
+    {
+      "name": "returnSecureToken",
+      "type": "boolean",
+      "required": false,
+      "description": "Return new tokens."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key=AIzaSyXXXXXX",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "idToken": "eyJhbGciOi...",
+      "requestUri": "https://myapp.com",
+      "postBody": "id_token=GOOGLE_TOKEN&providerId=google.com",
+      "returnSecureToken": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "localId": "uid123",
+      "email": "alice@gmail.com",
+      "idToken": "eyJhbGciOi..."
+    }
+  }
+}

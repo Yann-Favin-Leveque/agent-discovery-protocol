@@ -1,0 +1,52 @@
+{
+  "name": "groups_clicks",
+  "description": "Get click counts on all group Bitlinks.",
+  "endpoint": "/v4/groups/{group_guid}/clicks",
+  "method": "GET",
+  "resource_group": "groups",
+  "parameters": [
+    {
+      "name": "group_guid",
+      "type": "string",
+      "description": "The group GUID.",
+      "required": true,
+      "example": "Ba1bc2de3fg"
+    },
+    {
+      "name": "unit",
+      "type": "string",
+      "description": "Time unit.",
+      "required": false,
+      "example": "day"
+    },
+    {
+      "name": "units",
+      "type": "integer",
+      "description": "Number of time units.",
+      "required": false,
+      "example": 30
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api-ssl.bitly.com/v4/groups/Ba1bc2de3fg/clicks?unit=day&units=30",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "group_clicks": [
+        {
+          "date": "2024-01-15T00:00:00+0000",
+          "clicks": 250
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

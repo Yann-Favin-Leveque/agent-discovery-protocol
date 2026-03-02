@@ -1,0 +1,73 @@
+{
+  "name": "cryptocurrency_market_pairs",
+  "description": "Return all active market pairs for a given cryptocurrency including exchange, base/quote currency, price, and volume.",
+  "resource_group": "cryptocurrency",
+  "endpoint": "/v1/cryptocurrency/market-pairs/latest",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "CoinMarketCap ID.",
+      "required": false,
+      "example": "1"
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "description": "Slug.",
+      "required": false,
+      "example": "bitcoin"
+    },
+    {
+      "name": "symbol",
+      "type": "string",
+      "description": "Symbol.",
+      "required": false,
+      "example": "BTC"
+    },
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Offset.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results (1-5000).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Quote currency.",
+      "required": false,
+      "example": "USD"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/market-pairs/latest?symbol=BTC&limit=10",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": {
+        "id": 1,
+        "name": "Bitcoin",
+        "num_market_pairs": 9500,
+        "market_pairs": []
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "items_get",
+  "description": "Retrieve the full details of a specific item including all sections, fields, and secret values.",
+  "endpoint": "/v1/vaults/{vaultUUID}/items/{itemUUID}",
+  "method": "GET",
+  "resource_group": "items",
+  "parameters": [
+    {
+      "name": "vaultUUID",
+      "type": "string",
+      "description": "UUID of the vault containing the item.",
+      "required": true,
+      "example": "hfnjvi6aymbsnfc2xeeoheizda"
+    },
+    {
+      "name": "itemUUID",
+      "type": "string",
+      "description": "UUID of the item to retrieve.",
+      "required": true,
+      "example": "wepiqdxdzncjtnvmv5fegud4qy"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.1password.com/v1/vaults/hfnjvi6aymbsnfc2xeeoheizda/items/wepiqdxdzncjtnvmv5fegud4qy",
+    "headers": { "Authorization": "Bearer {token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "wepiqdxdzncjtnvmv5fegud4qy",
+      "title": "Database Credentials",
+      "category": "LOGIN",
+      "vault": { "id": "hfnjvi6aymbsnfc2xeeoheizda" },
+      "fields": [
+        { "id": "username", "type": "STRING", "label": "username", "value": "db_admin" },
+        { "id": "password", "type": "CONCEALED", "label": "password", "value": "s3cur3P@ss!" },
+        { "id": "notesPlain", "type": "STRING", "label": "notesPlain", "value": "Production DB" }
+      ],
+      "sections": [],
+      "createdAt": "2023-05-10T08:15:00Z",
+      "updatedAt": "2024-03-20T11:45:00Z"
+    }
+  },
+  "auth_scopes": ["vaults"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

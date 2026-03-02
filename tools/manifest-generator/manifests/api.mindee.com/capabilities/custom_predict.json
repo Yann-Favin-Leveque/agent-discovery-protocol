@@ -1,0 +1,69 @@
+{
+  "name": "custom_predict",
+  "description": "Parse a document using a custom-trained model with user-defined fields.",
+  "endpoint": "/v1/products/{account_name}/{api_name}/v{version}/predict",
+  "method": "POST",
+  "resource_group": "custom",
+  "parameters": [
+    {
+      "name": "account_name",
+      "type": "string",
+      "description": "Your Mindee account name.",
+      "required": true,
+      "example": "my_account"
+    },
+    {
+      "name": "api_name",
+      "type": "string",
+      "description": "Name of the custom API.",
+      "required": true,
+      "example": "w9_form"
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "description": "API version number.",
+      "required": true,
+      "example": "1"
+    },
+    {
+      "name": "document",
+      "type": "file",
+      "description": "Document file to parse.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mindee.com/v1/products/my_account/w9_form/v1/predict",
+    "headers": {
+      "Authorization": "Token {api_key}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "document": "(binary file data)"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "api_request": {
+        "status": "success"
+      },
+      "document": {
+        "inference": {
+          "prediction": {
+            "field_1": {
+              "value": "extracted_value",
+              "confidence": 0.95
+            }
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

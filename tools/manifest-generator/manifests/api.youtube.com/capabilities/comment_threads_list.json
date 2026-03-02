@@ -1,0 +1,104 @@
+{
+  "name": "comment_threads_list",
+  "description": "List top-level comment threads for a video or channel.",
+  "endpoint": "/youtube/v3/commentThreads",
+  "method": "GET",
+  "resource_group": "comments",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,replies"
+    },
+    {
+      "name": "videoId",
+      "type": "string",
+      "description": "Video ID to get comments for",
+      "required": false,
+      "example": "abc123"
+    },
+    {
+      "name": "channelId",
+      "type": "string",
+      "description": "Channel ID",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "allThreadsRelatedToChannelId",
+      "type": "string",
+      "description": "Get all threads related to channel",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Comment thread IDs",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results (1-100)",
+      "required": false,
+      "example": "20"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order (time, relevance)",
+      "required": false,
+      "example": "relevance"
+    },
+    {
+      "name": "searchTerms",
+      "type": "string",
+      "description": "Filter by search terms",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/commentThreads",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "thread_123",
+          "snippet": {
+            "topLevelComment": {
+              "snippet": {
+                "textDisplay": "Great video!",
+                "authorDisplayName": "User"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.force-ssl"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

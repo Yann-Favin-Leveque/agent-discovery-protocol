@@ -1,19 +1,296 @@
 {
   "spec_version": "1.0",
   "name": "Attio",
-  "description": "Attio is a flexible, data-driven CRM. Manage custom objects, people, companies, lists, and notes with powerful filtering and a relationship-first approach to customer data.",
+  "description": "Attio is a flexible, data-driven CRM. Manage custom objects, people, companies, deals, lists, notes, tasks, and webhooks with powerful filtering and a relationship-first approach to customer data.",
   "base_url": "https://api.attio.com/v2",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://app.attio.com/settings/developers"
   },
   "capabilities": [
-    {"name": "list_records", "description": "List records from any object (people, companies, or custom objects) with filtering.", "detail_url": "/capabilities/list_records"},
-    {"name": "create_record", "description": "Create a new record in any object with attribute values.", "detail_url": "/capabilities/create_record"},
-    {"name": "search_records", "description": "Search across all records by attribute values.", "detail_url": "/capabilities/search_records"},
-    {"name": "list_objects", "description": "List all objects (schemas) configured in the workspace.", "detail_url": "/capabilities/list_objects"},
-    {"name": "manage_lists", "description": "Add or remove records from lists (pipelines, segments, collections).", "detail_url": "/capabilities/manage_lists"},
-    {"name": "create_note", "description": "Create a note attached to a record.", "detail_url": "/capabilities/create_note"}
+    {
+      "name": "objects_list",
+      "description": "List all system-defined and user-defined objects in the workspace.",
+      "resource_group": "objects",
+      "detail_url": "/capabilities/objects_list"
+    },
+    {
+      "name": "objects_get",
+      "description": "Retrieve a single object by its ID or slug.",
+      "resource_group": "objects",
+      "detail_url": "/capabilities/objects_get"
+    },
+    {
+      "name": "objects_create",
+      "description": "Create a new custom object in the workspace.",
+      "resource_group": "objects",
+      "detail_url": "/capabilities/objects_create"
+    },
+    {
+      "name": "objects_update",
+      "description": "Update a single object.",
+      "resource_group": "objects",
+      "detail_url": "/capabilities/objects_update"
+    },
+    {
+      "name": "records_list",
+      "description": "List records from any object with optional filtering and sorting.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_list"
+    },
+    {
+      "name": "records_get",
+      "description": "Retrieve a single record by ID.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_get"
+    },
+    {
+      "name": "records_create",
+      "description": "Create a new record in any object.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_create"
+    },
+    {
+      "name": "records_update",
+      "description": "Update a record by ID. Multiselect values are appended.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_update"
+    },
+    {
+      "name": "records_delete",
+      "description": "Delete a single record by ID.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_delete"
+    },
+    {
+      "name": "records_upsert",
+      "description": "Create or update a record using a unique attribute to find matches.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_upsert"
+    },
+    {
+      "name": "records_search",
+      "description": "Fuzzy search for records across one or more objects.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_search"
+    },
+    {
+      "name": "records_attribute_values_get",
+      "description": "Get all values for a given attribute on a record.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_attribute_values_get"
+    },
+    {
+      "name": "records_entries_list",
+      "description": "List all list entries for which this record is the parent.",
+      "resource_group": "records",
+      "detail_url": "/capabilities/records_entries_list"
+    },
+    {
+      "name": "attributes_list",
+      "description": "List all attributes defined on a specific object or list.",
+      "resource_group": "attributes",
+      "detail_url": "/capabilities/attributes_list"
+    },
+    {
+      "name": "attributes_get",
+      "description": "Retrieve information about a single attribute.",
+      "resource_group": "attributes",
+      "detail_url": "/capabilities/attributes_get"
+    },
+    {
+      "name": "attributes_create",
+      "description": "Create a new attribute on either an object or a list.",
+      "resource_group": "attributes",
+      "detail_url": "/capabilities/attributes_create"
+    },
+    {
+      "name": "attributes_update",
+      "description": "Update a single attribute on a given object or list.",
+      "resource_group": "attributes",
+      "detail_url": "/capabilities/attributes_update"
+    },
+    {
+      "name": "lists_list",
+      "description": "List all lists accessible to the access token.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_list"
+    },
+    {
+      "name": "lists_get",
+      "description": "Retrieve a single list by ID.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_get"
+    },
+    {
+      "name": "lists_create",
+      "description": "Create a new list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_create"
+    },
+    {
+      "name": "lists_update",
+      "description": "Update an existing list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_update"
+    },
+    {
+      "name": "list_entries_list",
+      "description": "List entries in a given list with filtering and sorting.",
+      "resource_group": "list_entries",
+      "detail_url": "/capabilities/list_entries_list"
+    },
+    {
+      "name": "list_entries_get",
+      "description": "Retrieve a single list entry by ID.",
+      "resource_group": "list_entries",
+      "detail_url": "/capabilities/list_entries_get"
+    },
+    {
+      "name": "list_entries_create",
+      "description": "Add a record to a list as a new list entry.",
+      "resource_group": "list_entries",
+      "detail_url": "/capabilities/list_entries_create"
+    },
+    {
+      "name": "list_entries_update",
+      "description": "Update a list entry attribute values.",
+      "resource_group": "list_entries",
+      "detail_url": "/capabilities/list_entries_update"
+    },
+    {
+      "name": "list_entries_delete",
+      "description": "Delete a single list entry by ID.",
+      "resource_group": "list_entries",
+      "detail_url": "/capabilities/list_entries_delete"
+    },
+    {
+      "name": "notes_create",
+      "description": "Create a new note attached to a record.",
+      "resource_group": "notes",
+      "detail_url": "/capabilities/notes_create"
+    },
+    {
+      "name": "notes_list",
+      "description": "List notes for all records or a specific record.",
+      "resource_group": "notes",
+      "detail_url": "/capabilities/notes_list"
+    },
+    {
+      "name": "notes_get",
+      "description": "Retrieve a single note by ID.",
+      "resource_group": "notes",
+      "detail_url": "/capabilities/notes_get"
+    },
+    {
+      "name": "notes_delete",
+      "description": "Delete a single note by ID.",
+      "resource_group": "notes",
+      "detail_url": "/capabilities/notes_delete"
+    },
+    {
+      "name": "tasks_list",
+      "description": "List all tasks sorted by creation date.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_list"
+    },
+    {
+      "name": "tasks_get",
+      "description": "Retrieve a single task by ID.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_get"
+    },
+    {
+      "name": "tasks_create",
+      "description": "Create a new task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_create"
+    },
+    {
+      "name": "tasks_update",
+      "description": "Update an existing task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_update"
+    },
+    {
+      "name": "tasks_delete",
+      "description": "Delete a task by ID.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_delete"
+    },
+    {
+      "name": "comments_create",
+      "description": "Create a new comment on a thread, record, or entry.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_create"
+    },
+    {
+      "name": "comments_get",
+      "description": "Retrieve a single comment by ID.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_get"
+    },
+    {
+      "name": "comments_delete",
+      "description": "Delete a comment by ID.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_delete"
+    },
+    {
+      "name": "threads_list",
+      "description": "List threads of comments on a record or list entry.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/threads_list"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "Retrieve all webhooks in the workspace.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Retrieve a single webhook by ID.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_get"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook and associated subscriptions.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook and its subscriptions.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook by ID.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "workspace_members_list",
+      "description": "Retrieve all workspace members.",
+      "resource_group": "workspace",
+      "detail_url": "/capabilities/workspace_members_list"
+    },
+    {
+      "name": "workspace_members_get",
+      "description": "Retrieve a single workspace member by ID.",
+      "resource_group": "workspace",
+      "detail_url": "/capabilities/workspace_members_get"
+    },
+    {
+      "name": "identify",
+      "description": "Identify the current access token, workspace, and permissions.",
+      "resource_group": "meta",
+      "detail_url": "/capabilities/identify"
+    }
   ]
 }

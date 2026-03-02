@@ -1,0 +1,87 @@
+{
+  "name": "stats_query",
+  "description": "Query analytics data with metrics, dimensions, filters, and date ranges using the Stats API v2.",
+  "resource_group": "stats",
+  "endpoint": "/v2/query",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "string",
+      "required": true,
+      "description": "Domain of the site to query"
+    },
+    {
+      "name": "metrics",
+      "type": "array",
+      "required": true,
+      "description": "Metrics to calculate (visitors, visits, pageviews, bounce_rate, visit_duration, views_per_visit, events)"
+    },
+    {
+      "name": "date_range",
+      "type": "string",
+      "required": true,
+      "description": "Time period (7d, 30d, month, 6mo, 12mo, year, or custom ISO dates)"
+    },
+    {
+      "name": "dimensions",
+      "type": "array",
+      "required": false,
+      "description": "Grouping dimensions (event:page, visit:source, time:day, etc.)"
+    },
+    {
+      "name": "filters",
+      "type": "array",
+      "required": false,
+      "description": "Filter conditions"
+    },
+    {
+      "name": "order_by",
+      "type": "array",
+      "required": false,
+      "description": "Sort specification"
+    },
+    {
+      "name": "pagination",
+      "type": "object",
+      "required": false,
+      "description": "Limit and offset for results"
+    }
+  ],
+  "request_example": {
+    "site_id": "example.com",
+    "metrics": [
+      "visitors",
+      "pageviews"
+    ],
+    "date_range": "30d",
+    "dimensions": [
+      "event:page"
+    ],
+    "order_by": [
+      {
+        "metric": "visitors",
+        "order": "desc"
+      }
+    ]
+  },
+  "response_example": {
+    "results": [
+      {
+        "dimensions": [
+          "/"
+        ],
+        "metrics": [
+          1500,
+          3200
+        ]
+      }
+    ],
+    "meta": {
+      "visitors": {
+        "metric": "visitors"
+      }
+    }
+  },
+  "auth_scopes": []
+}

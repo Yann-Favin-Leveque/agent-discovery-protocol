@@ -1,0 +1,32 @@
+{
+  "name": "recipients_create",
+  "description": "Create a new payment recipient with their bank account details for sending electronic payments.",
+  "endpoint": "/api/v1/recipient",
+  "method": "POST",
+  "resource_group": "recipients",
+  "parameters": [
+    { "name": "name", "type": "string", "description": "Recipient name", "required": true, "example": "Acme Corp" },
+    { "name": "emails", "type": "array", "description": "Email addresses for the recipient", "required": true, "example": ["billing@acme.com"] },
+    { "name": "paymentMethod", "type": "string", "description": "Payment method: ach, domesticWire, or internationalWire", "required": true, "example": "ach" },
+    { "name": "routingNumber", "type": "string", "description": "Bank routing number", "required": true, "example": "021000089" },
+    { "name": "accountNumber", "type": "string", "description": "Bank account number", "required": true, "example": "1234567890" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mercury.com/api/v1/recipient",
+    "headers": { "Authorization": "Bearer {token}", "Content-Type": "application/json" },
+    "body": {
+      "name": "Acme Corp",
+      "emails": ["billing@acme.com"],
+      "paymentMethod": "ach",
+      "routingNumber": "021000089",
+      "accountNumber": "1234567890"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "id": "rcp_new789", "name": "Acme Corp", "paymentMethod": "ach" }
+  },
+  "auth_scopes": [],
+  "rate_limits": { "requests_per_minute": 30 }
+}

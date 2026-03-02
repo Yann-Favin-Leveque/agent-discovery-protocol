@@ -1,0 +1,72 @@
+{
+  "name": "whatsapp_send_template",
+  "description": "Send a pre-approved WhatsApp template message with optional parameters for personalization. Templates must be approved by Meta before use.",
+  "endpoint": "/whatsapp/1/message/template",
+  "method": "POST",
+  "resource_group": "whatsapp",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "Registered WhatsApp sender number in E.164 format."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": true,
+      "description": "Recipient WhatsApp phone number in E.164 format."
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "required": true,
+      "description": "Template content with 'templateName' (string), 'templateData' (object with 'body' placeholders), and 'language' (string)."
+    },
+    {
+      "name": "callbackData",
+      "type": "string",
+      "required": false,
+      "description": "Custom data to be included in delivery report webhooks."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/whatsapp/1/message/template",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "from": "447860099299",
+      "to": "14155550123",
+      "content": {
+        "templateName": "order_confirmation",
+        "templateData": {
+          "body": {
+            "placeholders": ["John", "12345"]
+          }
+        },
+        "language": "en"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "to": "14155550123",
+      "messageCount": 1,
+      "messageId": "abcdef-template-123456",
+      "status": {
+        "groupId": 1,
+        "groupName": "PENDING",
+        "id": 7,
+        "name": "PENDING_ENROUTE"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

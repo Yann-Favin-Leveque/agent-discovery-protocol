@@ -1,0 +1,57 @@
+{
+  "name": "nearest_city_data_get",
+  "description": "Get air quality and weather data for the nearest city to specified GPS coordinates or auto-detected by IP geolocation.",
+  "resource_group": "data",
+  "endpoint": "/v2/nearest_city",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": false,
+      "description": "Latitude. Omit for IP-based detection.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": false,
+      "description": "Longitude. Omit for IP-based detection.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.airvisual.com/v2/nearest_city?lat=48.8566&lon=2.3522&key=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": {
+        "city": "Paris",
+        "state": "Ile-de-France",
+        "country": "France",
+        "current": {
+          "pollution": {
+            "aqius": 42,
+            "mainus": "p2"
+          },
+          "weather": {
+            "tp": 18,
+            "hu": 55,
+            "ws": 3.6
+          }
+        }
+      }
+    }
+  }
+}

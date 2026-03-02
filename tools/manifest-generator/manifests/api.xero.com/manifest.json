@@ -1,36 +1,207 @@
 {
   "spec_version": "1.0",
   "name": "Xero Accounting API",
-  "description": "Xero Accounting API provides a REST API for programmatic access to its features. Use it to automate workflows and integrate with other services.",
+  "description": "Xero is a cloud-based accounting platform for small and medium businesses. The API provides full access to invoices, contacts, bank transactions, payments, accounts, tax rates, purchase orders, and financial reports for complete accounting automation.",
   "base_url": "https://api.xero.com/api.xro/2.0",
   "auth": {
     "type": "oauth2",
     "authorization_url": "https://login.xero.com/identity/connect/authorize",
     "token_url": "https://identity.xero.com/connect/token",
     "scopes": [
-      "email",
       "openid",
       "profile",
-      "accounting.attachments",
-      "accounting.attachments.read",
-      "accounting.budgets.read",
-      "accounting.contacts",
-      "accounting.contacts.read",
-      "accounting.journals.read",
-      "accounting.reports.read",
-      "accounting.reports.tenninetynine.read",
-      "accounting.settings",
-      "accounting.settings.read",
+      "email",
       "accounting.transactions",
       "accounting.transactions.read",
-      "paymentservices"
+      "accounting.contacts",
+      "accounting.contacts.read",
+      "accounting.settings",
+      "accounting.settings.read",
+      "accounting.reports.read",
+      "accounting.attachments",
+      "accounting.journals.read"
     ]
   },
   "capabilities": [
     {
-      "name": "accounting",
-      "description": "Manage accounting — updates a specific batch payment for invoices and credit notes, updates or creates one or more spent or received money transaction, updates or creates one or more contacts in a xero organisation. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/accounting"
+      "name": "invoices_list",
+      "description": "Retrieve all invoices with optional filtering by status, date, and contact.",
+      "resource_group": "invoices",
+      "detail_url": "/capabilities/invoices_list"
+    },
+    {
+      "name": "invoices_create",
+      "description": "Create one or more invoices.",
+      "resource_group": "invoices",
+      "detail_url": "/capabilities/invoices_create"
+    },
+    {
+      "name": "invoices_get",
+      "description": "Retrieve a specific invoice by ID.",
+      "resource_group": "invoices",
+      "detail_url": "/capabilities/invoices_get"
+    },
+    {
+      "name": "invoices_update",
+      "description": "Update an existing invoice.",
+      "resource_group": "invoices",
+      "detail_url": "/capabilities/invoices_update"
+    },
+    {
+      "name": "contacts_list",
+      "description": "Retrieve all contacts (customers and suppliers).",
+      "resource_group": "contacts",
+      "detail_url": "/capabilities/contacts_list"
+    },
+    {
+      "name": "contacts_create",
+      "description": "Create one or more contacts.",
+      "resource_group": "contacts",
+      "detail_url": "/capabilities/contacts_create"
+    },
+    {
+      "name": "contacts_get",
+      "description": "Retrieve a specific contact by ID.",
+      "resource_group": "contacts",
+      "detail_url": "/capabilities/contacts_get"
+    },
+    {
+      "name": "contacts_update",
+      "description": "Update an existing contact.",
+      "resource_group": "contacts",
+      "detail_url": "/capabilities/contacts_update"
+    },
+    {
+      "name": "payments_list",
+      "description": "Retrieve all payments.",
+      "resource_group": "payments",
+      "detail_url": "/capabilities/payments_list"
+    },
+    {
+      "name": "payments_create",
+      "description": "Create a payment against an invoice or credit note.",
+      "resource_group": "payments",
+      "detail_url": "/capabilities/payments_create"
+    },
+    {
+      "name": "accounts_list",
+      "description": "Retrieve the chart of accounts.",
+      "resource_group": "accounts",
+      "detail_url": "/capabilities/accounts_list"
+    },
+    {
+      "name": "accounts_create",
+      "description": "Create a new account in the chart of accounts.",
+      "resource_group": "accounts",
+      "detail_url": "/capabilities/accounts_create"
+    },
+    {
+      "name": "bank_transactions_list",
+      "description": "Retrieve bank transactions (spent/received money).",
+      "resource_group": "bank_transactions",
+      "detail_url": "/capabilities/bank_transactions_list"
+    },
+    {
+      "name": "bank_transactions_create",
+      "description": "Create bank transactions (record money spent or received).",
+      "resource_group": "bank_transactions",
+      "detail_url": "/capabilities/bank_transactions_create"
+    },
+    {
+      "name": "credit_notes_list",
+      "description": "Retrieve all credit notes.",
+      "resource_group": "credit_notes",
+      "detail_url": "/capabilities/credit_notes_list"
+    },
+    {
+      "name": "credit_notes_create",
+      "description": "Create a credit note.",
+      "resource_group": "credit_notes",
+      "detail_url": "/capabilities/credit_notes_create"
+    },
+    {
+      "name": "items_list",
+      "description": "Retrieve all items (products/services).",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_list"
+    },
+    {
+      "name": "items_create",
+      "description": "Create a new item.",
+      "resource_group": "items",
+      "detail_url": "/capabilities/items_create"
+    },
+    {
+      "name": "tax_rates_list",
+      "description": "Retrieve all tax rates.",
+      "resource_group": "tax_rates",
+      "detail_url": "/capabilities/tax_rates_list"
+    },
+    {
+      "name": "organisation_get",
+      "description": "Retrieve organization details.",
+      "resource_group": "organisation",
+      "detail_url": "/capabilities/organisation_get"
+    },
+    {
+      "name": "journals_list",
+      "description": "Retrieve journal entries.",
+      "resource_group": "journals",
+      "detail_url": "/capabilities/journals_list"
+    },
+    {
+      "name": "reports_profit_and_loss",
+      "description": "Generate a Profit and Loss report.",
+      "resource_group": "reports",
+      "detail_url": "/capabilities/reports_profit_and_loss"
+    },
+    {
+      "name": "reports_balance_sheet",
+      "description": "Generate a Balance Sheet report.",
+      "resource_group": "reports",
+      "detail_url": "/capabilities/reports_balance_sheet"
+    },
+    {
+      "name": "reports_trial_balance",
+      "description": "Generate a Trial Balance report.",
+      "resource_group": "reports",
+      "detail_url": "/capabilities/reports_trial_balance"
+    },
+    {
+      "name": "purchase_orders_list",
+      "description": "Retrieve all purchase orders.",
+      "resource_group": "purchase_orders",
+      "detail_url": "/capabilities/purchase_orders_list"
+    },
+    {
+      "name": "purchase_orders_create",
+      "description": "Create a purchase order.",
+      "resource_group": "purchase_orders",
+      "detail_url": "/capabilities/purchase_orders_create"
+    },
+    {
+      "name": "manual_journals_list",
+      "description": "Retrieve all manual journal entries.",
+      "resource_group": "manual_journals",
+      "detail_url": "/capabilities/manual_journals_list"
+    },
+    {
+      "name": "manual_journals_create",
+      "description": "Create a manual journal entry.",
+      "resource_group": "manual_journals",
+      "detail_url": "/capabilities/manual_journals_create"
+    },
+    {
+      "name": "tracking_categories_list",
+      "description": "Retrieve all tracking categories and options.",
+      "resource_group": "tracking",
+      "detail_url": "/capabilities/tracking_categories_list"
+    },
+    {
+      "name": "currencies_list",
+      "description": "Retrieve all currencies used by the organization.",
+      "resource_group": "currencies",
+      "detail_url": "/capabilities/currencies_list"
     }
   ]
 }

@@ -1,0 +1,46 @@
+{
+  "name": "groups_update",
+  "description": "Update a group.",
+  "resource_group": "groups",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "board_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Board ID"
+    },
+    {
+      "name": "group_id",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Group ID"
+    },
+    {
+      "name": "group_attribute",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Attribute to update (title, color)"
+    },
+    {
+      "name": "new_value",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "New value"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "mutation { update_group (board_id: 123, group_id: \"topics\", group_attribute: title, new_value: \"Renamed\") { id } }"
+  }
+}

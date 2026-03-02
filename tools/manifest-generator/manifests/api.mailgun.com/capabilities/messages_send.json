@@ -1,0 +1,96 @@
+{
+  "name": "messages_send",
+  "description": "Send an email message via the Mailgun API. Supports HTML, plain text, attachments, and custom headers.",
+  "resource_group": "messages",
+  "endpoint": "/v3/{domain}/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun sending domain.",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Sender email address.",
+      "required": true,
+      "example": "Sender <sender@mg.example.com>"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "Recipient email address(es).",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Email subject.",
+      "required": true,
+      "example": "Hello"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Plain text body.",
+      "required": false
+    },
+    {
+      "name": "html",
+      "type": "string",
+      "description": "HTML body.",
+      "required": false,
+      "example": "<h1>Hello</h1>"
+    },
+    {
+      "name": "cc",
+      "type": "string",
+      "description": "CC recipients.",
+      "required": false
+    },
+    {
+      "name": "bcc",
+      "type": "string",
+      "description": "BCC recipients.",
+      "required": false
+    },
+    {
+      "name": "o:tag",
+      "type": "string",
+      "description": "Tag for tracking.",
+      "required": false
+    },
+    {
+      "name": "o:tracking",
+      "type": "boolean",
+      "description": "Enable tracking.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mailgun.com/v3/mg.example.com/messages",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "from": "sender@mg.example.com",
+      "to": "user@example.com",
+      "subject": "Hello",
+      "html": "<h1>Hello</h1>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "<abc123@mg.example.com>",
+      "message": "Queued. Thank you."
+    }
+  }
+}

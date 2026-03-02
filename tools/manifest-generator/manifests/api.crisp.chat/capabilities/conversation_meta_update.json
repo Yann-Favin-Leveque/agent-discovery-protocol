@@ -1,0 +1,68 @@
+{
+  "name": "conversation_meta_update",
+  "description": "Update metadata for a conversation such as nickname, email, phone, or segments.",
+  "endpoint": "/v1/website/{website_id}/conversation/{session_id}/meta",
+  "method": "PATCH",
+  "resource_group": "conversations",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    },
+    {
+      "name": "session_id",
+      "type": "string",
+      "description": "The conversation session identifier.",
+      "required": true,
+      "example": "session_19e5240f-0a8d-461e-a661-a3123f3e"
+    },
+    {
+      "name": "nickname",
+      "type": "string",
+      "description": "The visitor's display name.",
+      "required": false,
+      "example": "John Doe"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "The visitor's email address.",
+      "required": false,
+      "example": "john@example.com"
+    },
+    {
+      "name": "segments",
+      "type": "array",
+      "description": "Array of segment tags to apply to the conversation.",
+      "required": false,
+      "example": ["vip", "returning"]
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/conversation/session_19e5240f-0a8d-461e-a661-a3123f3e/meta",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "Content-Type": "application/json",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {
+      "nickname": "John Doe",
+      "email": "john@example.com",
+      "segments": ["vip"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {}
+    }
+  },
+  "auth_scopes": ["website:conversation:sessions"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

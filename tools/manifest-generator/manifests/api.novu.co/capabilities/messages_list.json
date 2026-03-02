@@ -1,0 +1,64 @@
+{
+  "name": "messages_list",
+  "description": "List all sent notification messages with filtering.",
+  "resource_group": "messages",
+  "endpoint": "/v1/messages",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "channel",
+      "type": "string",
+      "required": false,
+      "description": "Filter by channel: email, sms, in_app, push."
+    },
+    {
+      "name": "subscriberId",
+      "type": "string",
+      "required": false,
+      "description": "Filter by subscriber."
+    },
+    {
+      "name": "transactionId",
+      "type": "string",
+      "required": false,
+      "description": "Filter by transaction ID."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.novu.co/v1/messages?channel=email&limit=10",
+    "headers": {
+      "Authorization": "ApiKey <key>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "_id": "msg1",
+          "channel": "email",
+          "subscriber": {
+            "subscriberId": "user123"
+          },
+          "content": "Welcome!",
+          "status": "sent",
+          "createdAt": "2024-06-20T00:00:00Z"
+        }
+      ],
+      "totalCount": 1
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "user_about_get",
+  "resource_group": "users",
+  "description": "Retrieve public profile information for a specified Reddit username, including karma, account age, and trophy data.",
+  "endpoint": "/user/{username}/about",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "username",
+      "type": "string",
+      "description": "The Reddit username to look up.",
+      "required": true,
+      "in": "path",
+      "example": "spez"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/user/spez/about",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "kind": "t2",
+      "data": {
+        "name": "spez",
+        "id": "1w72",
+        "link_karma": 152000,
+        "comment_karma": 640000,
+        "created_utc": 1118030400,
+        "is_gold": true,
+        "icon_img": "https://www.redditstatic.com/avatars/defaults/v2/avatar_default_1.png"
+      }
+    }
+  },
+  "auth_scopes": ["read"]
+}

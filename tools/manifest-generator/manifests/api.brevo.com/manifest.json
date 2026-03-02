@@ -1,72 +1,205 @@
 {
   "spec_version": "1.0",
-  "name": "Brevo API",
-  "description": "Brevo provide a RESTFul API that can be used with any languages. With this API, you will be able to :\n  - Manage your campaigns and get the statistics\n  - Manage your contacts\n  - Send transactional Emails and SMS\n  - and much more...\n\nYou can download our wrappers at https://github.com/orgs/brevo\n**Possible responses**\n  | Code | Message |\n  | :-------------: | ------------- |\n  | 200  | OK. Successful Request  |\n  | 201  | OK. Successful Creation |\n  | 202  | OK.",
+  "name": "Brevo (Sendinblue)",
+  "description": "Brevo is an all-in-one marketing platform providing REST APIs to manage contacts, send transactional and marketing emails, SMS campaigns, manage webhooks, senders, domains, lists, conversations, and ecommerce data.",
   "base_url": "https://api.brevo.com/v3",
   "auth": {
     "type": "api_key",
-    "header": "api-key"
+    "header": "api-key",
+    "setup_url": "https://app.brevo.com/settings/keys/api"
   },
   "capabilities": [
     {
-      "name": "account",
-      "description": "Manage account — get account details, retrieves user activity logs from your organization for security monitoring and audit compliance.\n\nu. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/account"
+      "name": "contacts_create",
+      "resource_group": "contacts",
+      "description": "Create a new contact with email, attributes, and list memberships.",
+      "detail_url": "/capabilities/contacts_create"
     },
     {
-      "name": "master_account",
-      "description": "Manage master account — create a new group of sub-accounts, generate sso token to access admin account, create a new sub-account under a master account. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/master_account"
+      "name": "contacts_get",
+      "resource_group": "contacts",
+      "description": "Get contact details by email or ID.",
+      "detail_url": "/capabilities/contacts_get"
     },
     {
-      "name": "user",
-      "description": "Manage user — send invitation to user, update permission for a user, revoke user permission. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/user"
+      "name": "contacts_update",
+      "resource_group": "contacts",
+      "description": "Update a contact's attributes, lists, or blacklist status.",
+      "detail_url": "/capabilities/contacts_update"
     },
     {
-      "name": "process",
-      "description": "Manage process — get background processes, get process details. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/process"
+      "name": "contacts_delete",
+      "resource_group": "contacts",
+      "description": "Delete a contact by email or ID.",
+      "detail_url": "/capabilities/contacts_delete"
     },
     {
-      "name": "senders",
-      "description": "Manage senders — create email sender, updates an existing email sender's configuration.\n\nuse this to:\n- modify sender display name or emai, validates a sender using the otp (one-time password) received via email.\n\nuse this to:\n- complete se. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/senders"
+      "name": "contacts_list",
+      "resource_group": "contacts",
+      "description": "Retrieve a paginated list of all contacts.",
+      "detail_url": "/capabilities/contacts_list"
     },
     {
-      "name": "domains",
-      "description": "Manage domains — creates a new domain in brevo.\n\nuse this to:\n- add new domains for sending emails\n- set up domain au, authenticates a specific domain.\n\nuse this to:\n- authenticate a domain\n- verify dns record configura, retrieves all domains associated with the account.\n\nuse this to:\n- list all domains\n- verify domain . Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/domains"
+      "name": "contacts_import",
+      "resource_group": "contacts",
+      "description": "Import contacts in bulk via CSV or JSON.",
+      "detail_url": "/capabilities/contacts_import"
     },
     {
-      "name": "webhooks",
-      "description": "Manage webhooks — creates a new webhook to receive real-time notifications for specified events.\n\nuse this to:\n- set u, this endpoint will submit a request to get the history of webhooks in the\ncsv file. the link to download the csv file will be sent to the webhook that\nwas provided in the notifyurl, updates an existing webhook configuration and event subscriptions.\n\nuse this to:\n- modify webhook ev. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/webhooks"
+      "name": "lists_list",
+      "resource_group": "lists",
+      "description": "Retrieve all contact lists.",
+      "detail_url": "/capabilities/lists_list"
     },
     {
-      "name": "external_feeds",
-      "description": "Manage external feeds — create external feed, update external feed, get all external feeds. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/external_feeds"
+      "name": "lists_create",
+      "resource_group": "lists",
+      "description": "Create a new contact list.",
+      "detail_url": "/capabilities/lists_create"
     },
     {
-      "name": "custom_objects",
-      "description": "Manage custom objects — create/update object records in bulk, delete multiple object records (up to 1000) asynchronously, get the list of object records and total records count for an object. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/custom_objects"
+      "name": "lists_get",
+      "resource_group": "lists",
+      "description": "Get a specific list by ID.",
+      "detail_url": "/capabilities/lists_get"
     },
     {
-      "name": "contacts",
-      "description": "Manage contacts — create a contact, update multiple contacts, create contact via doi (double-opt-in) flow. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/contacts"
+      "name": "lists_update",
+      "resource_group": "lists",
+      "description": "Update a list name or folder.",
+      "detail_url": "/capabilities/lists_update"
     },
     {
-      "name": "conversations",
-      "description": "Manage conversations — sets agent’s status to online for 2-3 minutes, send a message as an agent, send an automated message to a visitor. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/conversations"
+      "name": "lists_delete",
+      "resource_group": "lists",
+      "description": "Delete a list by ID.",
+      "detail_url": "/capabilities/lists_delete"
     },
     {
-      "name": "ecommerce",
-      "description": "Manage ecommerce — create/update a category, create categories in batch, activate the ecommerce app. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/ecommerce"
+      "name": "lists_add_contacts",
+      "resource_group": "lists",
+      "description": "Add contacts to a list.",
+      "detail_url": "/capabilities/lists_add_contacts"
+    },
+    {
+      "name": "lists_remove_contacts",
+      "resource_group": "lists",
+      "description": "Remove contacts from a list.",
+      "detail_url": "/capabilities/lists_remove_contacts"
+    },
+    {
+      "name": "email_campaigns_list",
+      "resource_group": "email_campaigns",
+      "description": "Retrieve all email campaigns.",
+      "detail_url": "/capabilities/email_campaigns_list"
+    },
+    {
+      "name": "email_campaigns_create",
+      "resource_group": "email_campaigns",
+      "description": "Create a new email marketing campaign.",
+      "detail_url": "/capabilities/email_campaigns_create"
+    },
+    {
+      "name": "email_campaigns_get",
+      "resource_group": "email_campaigns",
+      "description": "Get a specific email campaign by ID.",
+      "detail_url": "/capabilities/email_campaigns_get"
+    },
+    {
+      "name": "email_campaigns_update",
+      "resource_group": "email_campaigns",
+      "description": "Update an email campaign.",
+      "detail_url": "/capabilities/email_campaigns_update"
+    },
+    {
+      "name": "email_campaigns_delete",
+      "resource_group": "email_campaigns",
+      "description": "Delete an email campaign.",
+      "detail_url": "/capabilities/email_campaigns_delete"
+    },
+    {
+      "name": "email_campaigns_send",
+      "resource_group": "email_campaigns",
+      "description": "Send an email campaign immediately.",
+      "detail_url": "/capabilities/email_campaigns_send"
+    },
+    {
+      "name": "email_campaigns_send_test",
+      "resource_group": "email_campaigns",
+      "description": "Send a test email for a campaign.",
+      "detail_url": "/capabilities/email_campaigns_send_test"
+    },
+    {
+      "name": "transactional_emails_send",
+      "resource_group": "transactional_emails",
+      "description": "Send a transactional email.",
+      "detail_url": "/capabilities/transactional_emails_send"
+    },
+    {
+      "name": "transactional_emails_list",
+      "resource_group": "transactional_emails",
+      "description": "Retrieve transactional email events and logs.",
+      "detail_url": "/capabilities/transactional_emails_list"
+    },
+    {
+      "name": "sms_send",
+      "resource_group": "sms",
+      "description": "Send a transactional SMS.",
+      "detail_url": "/capabilities/sms_send"
+    },
+    {
+      "name": "sms_campaigns_list",
+      "resource_group": "sms",
+      "description": "Retrieve all SMS campaigns.",
+      "detail_url": "/capabilities/sms_campaigns_list"
+    },
+    {
+      "name": "sms_campaigns_create",
+      "resource_group": "sms",
+      "description": "Create a new SMS campaign.",
+      "detail_url": "/capabilities/sms_campaigns_create"
+    },
+    {
+      "name": "senders_list",
+      "resource_group": "senders",
+      "description": "List all email senders.",
+      "detail_url": "/capabilities/senders_list"
+    },
+    {
+      "name": "senders_create",
+      "resource_group": "senders",
+      "description": "Create a new email sender.",
+      "detail_url": "/capabilities/senders_create"
+    },
+    {
+      "name": "webhooks_list",
+      "resource_group": "webhooks",
+      "description": "List all configured webhooks.",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_create",
+      "resource_group": "webhooks",
+      "description": "Create a new webhook.",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_update",
+      "resource_group": "webhooks",
+      "description": "Update a webhook.",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "resource_group": "webhooks",
+      "description": "Delete a webhook.",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "account_get",
+      "resource_group": "account",
+      "description": "Retrieve account details including plan and credits.",
+      "detail_url": "/capabilities/account_get"
     }
   ]
 }

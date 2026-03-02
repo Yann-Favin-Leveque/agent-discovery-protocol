@@ -1,0 +1,48 @@
+{
+  "name": "posts_get",
+  "description": "Retrieve a single post by ID with detailed stats.",
+  "resource_group": "posts",
+  "endpoint": "/v2/publications/{publicationId}/posts/{postId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "publicationId",
+      "type": "string",
+      "description": "Publication ID.",
+      "required": true
+    },
+    {
+      "name": "postId",
+      "type": "string",
+      "description": "Post ID.",
+      "required": true
+    },
+    {
+      "name": "expand[]",
+      "type": "string",
+      "description": "Expandable: stats.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.beehiiv.com/v2/publications/pub_xxx/posts/post_xxx",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "post_xxx",
+        "title": "Weekly Update",
+        "content_html": "<p>Hello</p>",
+        "stats": {
+          "opens": 500,
+          "clicks": 120
+        }
+      }
+    }
+  }
+}

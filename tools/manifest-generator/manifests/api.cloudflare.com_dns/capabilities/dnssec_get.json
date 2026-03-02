@@ -1,0 +1,45 @@
+{
+  "name": "dnssec_get",
+  "description": "Retrieve DNSSEC status and configuration for a zone including DS record details and key information.",
+  "endpoint": "/zones/{zone_id}/dnssec",
+  "method": "GET",
+  "resource_group": "dnssec",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dnssec",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "status": "active",
+        "flags": 257,
+        "algorithm": "13",
+        "key_type": "ECDSAP256SHA256",
+        "digest_type": "2",
+        "digest_algorithm": "SHA-256",
+        "digest": "abc123...",
+        "ds": "example.com. 3600 IN DS 2371 13 2 abc123...",
+        "key_tag": 2371,
+        "public_key": "mdsswU..."
+      }
+    }
+  },
+  "auth_scopes": ["dns_records:read"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

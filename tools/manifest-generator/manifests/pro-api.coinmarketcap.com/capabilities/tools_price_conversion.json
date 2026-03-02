@@ -1,0 +1,70 @@
+{
+  "name": "tools_price_conversion",
+  "description": "Convert an amount of one cryptocurrency or fiat currency into one or more different currencies.",
+  "resource_group": "tools",
+  "endpoint": "/v1/tools/price-conversion",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Amount to convert.",
+      "required": true,
+      "example": 1.0
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Source currency CoinMarketCap ID.",
+      "required": false,
+      "example": "1"
+    },
+    {
+      "name": "symbol",
+      "type": "string",
+      "description": "Source currency symbol.",
+      "required": false,
+      "example": "BTC"
+    },
+    {
+      "name": "time",
+      "type": "string",
+      "description": "Historical time for conversion (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Target currencies (comma-separated).",
+      "required": false,
+      "example": "USD,EUR"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/tools/price-conversion?amount=1&symbol=BTC&convert=USD",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": {
+        "id": 1,
+        "symbol": "BTC",
+        "name": "Bitcoin",
+        "amount": 1,
+        "quote": {
+          "USD": {
+            "price": 65000.0
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "name": "tickets_create",
+  "description": "Create a new support ticket for a property.",
+  "endpoint": "/v1/property/{propertyId}/ticket",
+  "method": "POST",
+  "resource_group": "tickets",
+  "parameters": [
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The property ID",
+      "required": true,
+      "example": "property_id_123"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "The ticket subject",
+      "required": true,
+      "example": "Login issue"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "The ticket message body",
+      "required": true,
+      "example": "I cannot log in."
+    },
+    {
+      "name": "requesterName",
+      "type": "string",
+      "description": "Name of the requester",
+      "required": false,
+      "example": "John Doe"
+    },
+    {
+      "name": "requesterEmail",
+      "type": "string",
+      "description": "Email of the requester",
+      "required": false,
+      "example": "john@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.tawk.to/v1/property/property_id_123/ticket",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subject": "Login issue",
+      "message": "I cannot log in.",
+      "requesterName": "John Doe",
+      "requesterEmail": "john@example.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "ticket_456",
+      "subject": "Login issue",
+      "status": "open"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "transactions_create",
+  "description": "Purchase a shipping label from a rate.",
+  "endpoint": "/transactions",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "rate",
+      "type": "string",
+      "description": "Rate object ID to purchase.",
+      "required": true,
+      "example": "rate_abc123"
+    },
+    {
+      "name": "label_file_type",
+      "type": "string",
+      "description": "Label format: PDF, PNG, ZPLII.",
+      "required": false,
+      "example": "PDF"
+    },
+    {
+      "name": "async",
+      "type": "boolean",
+      "description": "If true, label is created asynchronously.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/transactions",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "rate": "rate_abc123",
+      "label_file_type": "PDF"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "object_id": "txn_abc123",
+      "object_status": "SUCCESS",
+      "tracking_number": "1Z999AA10123456784",
+      "label_url": "https://shippo-delivery.s3.amazonaws.com/label.pdf",
+      "tracking_url_provider": "https://tools.usps.com/go/TrackConfirmAction?tLabels=1Z999AA10123456784"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "name": "distance_matrix_get",
+  "description": "Calculate travel distance and duration between multiple origins and destinations for a given travel mode.",
+  "endpoint": "/maps/api/distancematrix/json",
+  "method": "GET",
+  "resource_group": "distance_matrix",
+  "parameters": [
+    {
+      "name": "origins",
+      "type": "string",
+      "description": "Starting points as pipe-separated addresses, place IDs (place_id:xxx), or lat,lng coordinates.",
+      "required": true,
+      "example": "New York, NY|Washington, DC"
+    },
+    {
+      "name": "destinations",
+      "type": "string",
+      "description": "Destination points as pipe-separated addresses, place IDs, or coordinates.",
+      "required": true,
+      "example": "Boston, MA|Philadelphia, PA"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "description": "Travel mode: driving (default), walking, bicycling, or transit.",
+      "required": false,
+      "example": "driving"
+    },
+    {
+      "name": "departure_time",
+      "type": "string",
+      "description": "Departure time as Unix timestamp or 'now'.",
+      "required": false,
+      "example": "now"
+    },
+    {
+      "name": "arrival_time",
+      "type": "integer",
+      "description": "Desired arrival time as Unix timestamp (transit only).",
+      "required": false,
+      "example": 1705420800
+    },
+    {
+      "name": "avoid",
+      "type": "string",
+      "description": "Features to avoid: tolls, highways, ferries, indoor.",
+      "required": false,
+      "example": "tolls"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Unit system: metric or imperial.",
+      "required": false,
+      "example": "imperial"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "Language for results.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "description": "Region bias as ccTLD code.",
+      "required": false,
+      "example": "us"
+    },
+    {
+      "name": "traffic_model",
+      "type": "string",
+      "description": "Traffic model: best_guess, pessimistic, or optimistic.",
+      "required": false,
+      "example": "best_guess"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/distancematrix/json?origins=New+York,NY&destinations=Boston,MA|Philadelphia,PA&mode=driving&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "origin_addresses": ["New York, NY, USA"],
+      "destination_addresses": ["Boston, MA, USA", "Philadelphia, PA, USA"],
+      "rows": [
+        {
+          "elements": [
+            {"distance": {"text": "216 mi", "value": 347543}, "duration": {"text": "3 hrs 45 mins", "value": 13500}, "status": "OK"},
+            {"distance": {"text": "97 mi", "value": 156108}, "duration": {"text": "1 hr 50 mins", "value": 6600}, "status": "OK"}
+          ]
+        }
+      ],
+      "status": "OK"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

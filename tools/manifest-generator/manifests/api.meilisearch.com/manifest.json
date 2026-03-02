@@ -11,34 +11,226 @@
   },
   "capabilities": [
     {
-      "name": "search_documents",
-      "description": "Perform a full-text search query against a Meilisearch index. Returns ranked, highlighted results with support for filters, facets, sorting, geo-search, and pagination.",
-      "detail_url": "/capabilities/search_documents"
+      "name": "indexes_list",
+      "description": "List all indexes in the Meilisearch instance with pagination.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/indexes_list",
+      "resource_group": "indexes"
     },
     {
-      "name": "add_or_replace_documents",
-      "description": "Add new documents to an index or replace existing ones by their primary key. Accepts JSON arrays of objects. Useful for initial data loading and full record updates.",
-      "detail_url": "/capabilities/add_or_replace_documents"
+      "name": "indexes_create",
+      "description": "Create a new index with an optional primary key. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/indexes_create",
+      "resource_group": "indexes"
     },
     {
-      "name": "get_documents",
-      "description": "Retrieve documents from an index by their IDs or using filters and pagination. Useful for browsing data, verifying indexed content, or building detail views.",
-      "detail_url": "/capabilities/get_documents"
+      "name": "indexes_get",
+      "description": "Get information about a specific index by its UID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/indexes_get",
+      "resource_group": "indexes"
     },
     {
-      "name": "manage_indexes",
-      "description": "Create, list, update, or delete search indexes. Each index holds a collection of documents with its own search settings and filterable attributes.",
-      "detail_url": "/capabilities/manage_indexes"
+      "name": "indexes_update",
+      "description": "Update the primary key of an index. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/indexes_update",
+      "resource_group": "indexes"
     },
     {
-      "name": "update_settings",
-      "description": "Configure how an index behaves: set searchable attributes, filterable attributes, sortable attributes, ranking rules, synonyms, stop words, and typo tolerance.",
-      "detail_url": "/capabilities/update_settings"
+      "name": "indexes_delete",
+      "description": "Delete an index and all its documents. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/indexes_delete",
+      "resource_group": "indexes"
+    },
+    {
+      "name": "indexes_swap",
+      "description": "Swap the documents, settings, and task history of two or more index pairs atomically.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/indexes_swap",
+      "resource_group": "indexes"
+    },
+    {
+      "name": "documents_list",
+      "description": "List documents in an index with pagination, field selection, and optional filtering.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/documents_list",
+      "resource_group": "documents"
+    },
+    {
+      "name": "documents_get",
+      "description": "Retrieve a single document from an index by its document ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/documents_get",
+      "resource_group": "documents"
+    },
+    {
+      "name": "documents_add_or_replace",
+      "description": "Add new documents or replace existing ones (matched by primary key). Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/documents_add_or_replace",
+      "resource_group": "documents"
+    },
+    {
+      "name": "documents_add_or_update",
+      "description": "Add new documents or update fields of existing ones (partial update, matched by primary key). Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/documents_add_or_update",
+      "resource_group": "documents"
+    },
+    {
+      "name": "documents_delete_all",
+      "description": "Delete all documents in an index. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/documents_delete_all",
+      "resource_group": "documents"
+    },
+    {
+      "name": "documents_delete_one",
+      "description": "Delete a single document from an index by its document ID. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/documents_delete_one",
+      "resource_group": "documents"
+    },
+    {
+      "name": "documents_delete_batch",
+      "description": "Delete multiple documents by their IDs in a single request. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/documents_delete_batch",
+      "resource_group": "documents"
+    },
+    {
+      "name": "documents_fetch",
+      "description": "Fetch documents using a POST body with filters, fields selection, and pagination (alternative to GET).",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/documents_fetch",
+      "resource_group": "documents"
+    },
+    {
+      "name": "search",
+      "description": "Perform a full-text search query on an index with support for filters, facets, sorting, highlighting, geo-search, and pagination.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/search",
+      "resource_group": "search"
     },
     {
       "name": "multi_search",
-      "description": "Execute multiple search queries across different indexes in a single HTTP request. Ideal for federated search, autocomplete, and combining results from separate collections.",
-      "detail_url": "/capabilities/multi_search"
+      "description": "Execute multiple search queries across one or more indexes in a single HTTP request. Supports federated search to merge results.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/multi_search",
+      "resource_group": "search"
+    },
+    {
+      "name": "facet_search",
+      "description": "Search for facet values within an index, useful for building dynamic filter UIs.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/facet_search",
+      "resource_group": "search"
+    },
+    {
+      "name": "settings_get",
+      "description": "Get all settings of an index including ranking rules, searchable attributes, filterable attributes, and more.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/settings_get",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_update",
+      "description": "Update all settings of an index at once. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/settings_update",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_reset",
+      "description": "Reset all settings of an index to their default values. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/settings_reset",
+      "resource_group": "settings"
+    },
+    {
+      "name": "tasks_list",
+      "description": "List all tasks with filtering by status, type, index UID, and date ranges. Tasks track asynchronous operations.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/tasks_list",
+      "resource_group": "tasks"
+    },
+    {
+      "name": "tasks_get",
+      "description": "Get the status and details of a single task by its UID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/tasks_get",
+      "resource_group": "tasks"
+    },
+    {
+      "name": "tasks_cancel",
+      "description": "Cancel enqueued or processing tasks matching the given filters. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/tasks_cancel",
+      "resource_group": "tasks"
+    },
+    {
+      "name": "tasks_delete",
+      "description": "Delete finished tasks (succeeded, failed, or canceled) matching the given filters.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/tasks_delete",
+      "resource_group": "tasks"
+    },
+    {
+      "name": "keys_list",
+      "description": "List all API keys with pagination.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/keys_list",
+      "resource_group": "keys"
+    },
+    {
+      "name": "keys_create",
+      "description": "Create a new API key with specified actions, indexes, and optional expiration.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/keys_create",
+      "resource_group": "keys"
+    },
+    {
+      "name": "keys_get",
+      "description": "Get details of a specific API key by its UID or key value.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/keys_get",
+      "resource_group": "keys"
+    },
+    {
+      "name": "keys_update",
+      "description": "Update the name or description of an existing API key.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/keys_update",
+      "resource_group": "keys"
+    },
+    {
+      "name": "keys_delete",
+      "description": "Delete an API key by its UID or key value.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/keys_delete",
+      "resource_group": "keys"
+    },
+    {
+      "name": "stats_get_all",
+      "description": "Get stats for all indexes including the number of documents, index sizes, and database size.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/stats_get_all",
+      "resource_group": "stats"
+    },
+    {
+      "name": "stats_get_index",
+      "description": "Get stats for a specific index including the number of documents and field distribution.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/stats_get_index",
+      "resource_group": "stats"
+    },
+    {
+      "name": "health_check",
+      "description": "Check if the Meilisearch instance is healthy and available.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/health_check",
+      "resource_group": "system"
+    },
+    {
+      "name": "version_get",
+      "description": "Get the version of the Meilisearch instance, including commit SHA and build date.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/version_get",
+      "resource_group": "system"
+    },
+    {
+      "name": "dumps_create",
+      "description": "Create a database dump. The dump is a snapshot of the entire Meilisearch data that can be used for backup or migration. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/dumps_create",
+      "resource_group": "system"
+    },
+    {
+      "name": "snapshots_create",
+      "description": "Create a snapshot of the Meilisearch database for backup. Returns an asynchronous task.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/snapshots_create",
+      "resource_group": "system"
+    },
+    {
+      "name": "experimental_features_get",
+      "description": "Get the status of all experimental features.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/experimental_features_get",
+      "resource_group": "system"
+    },
+    {
+      "name": "experimental_features_update",
+      "description": "Enable or disable experimental features. Returns the updated feature flags.",
+      "detail_url": "https://agent-dns.dev/api/services/api.meilisearch.com/capabilities/experimental_features_update",
+      "resource_group": "system"
     }
   ]
 }

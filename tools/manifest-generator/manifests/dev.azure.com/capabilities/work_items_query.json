@@ -1,0 +1,64 @@
+{
+  "name": "work_items_query",
+  "description": "Run a WIQL query to find work items.",
+  "resource_group": "work_items",
+  "endpoint": "/{organization}/{project}/_apis/wit/wiql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project."
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "WIQL query string."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://dev.azure.com/myorg/MyProject/_apis/wit/wiql?api-version=7.1",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic base64(user:pat)"
+    },
+    "body": {
+      "query": "SELECT [System.Id],[System.Title] FROM workitems WHERE [System.WorkItemType]='Bug' AND [System.State]='Active'"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "queryType": "flat",
+      "workItems": [
+        {
+          "id": 42,
+          "url": "https://dev.azure.com/myorg/MyProject/_apis/wit/workitems/42"
+        }
+      ]
+    }
+  }
+}

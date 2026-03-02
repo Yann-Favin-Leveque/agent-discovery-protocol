@@ -1,0 +1,79 @@
+{
+  "name": "addresses_validate",
+  "description": "Validate a US address using USPS database.",
+  "endpoint": "/v2/addresses",
+  "method": "POST",
+  "resource_group": "validations",
+  "parameters": [
+    {
+      "name": "country",
+      "type": "string",
+      "description": "Country code (US).",
+      "required": true,
+      "example": "US"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "description": "State code.",
+      "required": true,
+      "example": "CA"
+    },
+    {
+      "name": "zip",
+      "type": "string",
+      "description": "Postal code.",
+      "required": true,
+      "example": "90404"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "City.",
+      "required": false,
+      "example": "Santa Monica"
+    },
+    {
+      "name": "street",
+      "type": "string",
+      "description": "Street address.",
+      "required": false,
+      "example": "417 Montgomery St"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.taxjar.com/v2/addresses",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "country": "US",
+        "state": "CA",
+        "zip": "90404",
+        "city": "Santa Monica",
+        "street": "417 Montgomery St"
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "addresses": [
+        {
+          "country": "US",
+          "state": "CA",
+          "zip": "90404-2704",
+          "city": "Santa Monica",
+          "street": "417 Montgomery St"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

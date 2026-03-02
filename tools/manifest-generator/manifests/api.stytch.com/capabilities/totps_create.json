@@ -1,0 +1,46 @@
+{
+  "name": "totps_create",
+  "resource_group": "totps",
+  "description": "Create a new TOTP (authenticator app) for a user. Returns the secret and QR code.",
+  "endpoint": "/v1/totps",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID."
+    },
+    {
+      "name": "expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Recovery code expiration."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/totps",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user_id": "user-live-abc"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "totp_id": "totp-live-abc",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "qr_code": "data:image/png;base64,...",
+      "recovery_codes": [
+        "abcd-efgh",
+        "ijkl-mnop"
+      ],
+      "user_id": "user-live-abc"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "name": "events_create",
+  "description": "Create a custom server-side event for a user in FullStory.",
+  "endpoint": "/v2/events",
+  "method": "POST",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "user",
+      "type": "object",
+      "description": "User identification with uid or id.",
+      "required": true,
+      "example": { "uid": "user_123" }
+    },
+    {
+      "name": "session",
+      "type": "object",
+      "description": "Optional session identification to associate the event with.",
+      "required": false,
+      "example": { "id": "sess_abc123" }
+    },
+    {
+      "name": "context",
+      "type": "object",
+      "description": "Event context including browser, device, location info.",
+      "required": false,
+      "example": { "browser": { "url": "https://example.com/pricing" } }
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "The name of the event.",
+      "required": true,
+      "example": "Purchase Complete"
+    },
+    {
+      "name": "properties",
+      "type": "object",
+      "description": "Custom event properties.",
+      "required": false,
+      "example": { "plan": "enterprise", "amount": 99.99 }
+    },
+    {
+      "name": "timestamp",
+      "type": "string",
+      "description": "ISO 8601 timestamp. Defaults to current time.",
+      "required": false,
+      "example": "2024-01-20T10:00:00Z"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fullstory.com/v2/events",
+    "headers": {
+      "Authorization": "Basic {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user": { "uid": "user_123" },
+      "name": "Purchase Complete",
+      "properties": { "plan": "enterprise", "amount": 99.99 },
+      "timestamp": "2024-01-20T10:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": ["server"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

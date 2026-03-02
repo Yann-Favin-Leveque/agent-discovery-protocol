@@ -1,0 +1,89 @@
+{
+  "name": "isochrone_get",
+  "description": "Generate polygons showing areas reachable within a given travel time or distance from a point.",
+  "endpoint": "/isochrone/v1/{profile}/{coordinates}",
+  "method": "GET",
+  "resource_group": "navigation",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile.",
+      "required": true,
+      "example": "mapbox/driving"
+    },
+    {
+      "name": "coordinates",
+      "type": "string",
+      "description": "Center point as lng,lat.",
+      "required": true,
+      "example": "-73.989,40.733"
+    },
+    {
+      "name": "contours_minutes",
+      "type": "string",
+      "description": "Comma-separated travel time contours (1-60).",
+      "required": false,
+      "example": "5,10,15"
+    },
+    {
+      "name": "contours_meters",
+      "type": "string",
+      "description": "Comma-separated distance contours (alternative to minutes).",
+      "required": false,
+      "example": "1000,5000"
+    },
+    {
+      "name": "polygons",
+      "type": "boolean",
+      "description": "Return polygons instead of linestrings.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Access token.",
+      "required": true,
+      "example": "pk.xxx"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/isochrone/v1/mapbox/driving/-73.989,40.733?contours_minutes=5,10,15&polygons=true&access_token=pk.xxx",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "contour": 5
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -73.99,
+                  40.73
+                ],
+                [
+                  -73.98,
+                  40.74
+                ]
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "transcripts_get",
+  "description": "Retrieve a transcript by ID. Poll this endpoint until status is 'completed' or 'error'.",
+  "endpoint": "/v2/transcript/{transcript_id}",
+  "method": "GET",
+  "resource_group": "transcripts",
+  "parameters": [
+    {
+      "name": "transcript_id",
+      "type": "string",
+      "description": "Transcript ID.",
+      "required": true,
+      "example": "abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.assemblyai.com/v2/transcript/abc123",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "abc123",
+      "status": "completed",
+      "audio_url": "https://cdn.assemblyai.com/upload/abc123-def456",
+      "text": "Hello, welcome to AssemblyAI.",
+      "confidence": 0.95,
+      "audio_duration": 30,
+      "words": [
+        {
+          "text": "Hello",
+          "start": 0,
+          "end": 500,
+          "confidence": 0.99
+        }
+      ],
+      "utterances": [
+        {
+          "speaker": "A",
+          "text": "Hello, welcome to AssemblyAI.",
+          "start": 0,
+          "end": 3000,
+          "confidence": 0.95
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "files_list_versions",
+  "description": "List all versions of files in a bucket.",
+  "resource_group": "files",
+  "endpoint": "/b2api/v3/b2_list_file_versions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "The bucket ID.",
+      "required": true
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "description": "File name prefix filter.",
+      "required": false
+    },
+    {
+      "name": "maxFileCount",
+      "type": "integer",
+      "description": "Max files to return.",
+      "required": false
+    },
+    {
+      "name": "startFileName",
+      "type": "string",
+      "description": "Start file name.",
+      "required": false
+    },
+    {
+      "name": "startFileId",
+      "type": "string",
+      "description": "Start file ID.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_list_file_versions",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "bucketId": "bucket123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "files": [
+        {
+          "fileId": "file123",
+          "fileName": "test/file.txt",
+          "action": "upload"
+        }
+      ]
+    }
+  }
+}

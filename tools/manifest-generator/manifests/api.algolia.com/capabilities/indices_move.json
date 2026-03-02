@@ -1,0 +1,54 @@
+{
+  "name": "indices_move",
+  "description": "Rename an index by moving it to a new name. The source index is deleted and the destination is overwritten.",
+  "endpoint": "/1/indexes/{indexName}/operation",
+  "method": "POST",
+  "resource_group": "indices",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the source index to move.",
+      "required": true,
+      "example": "products_tmp"
+    },
+    {
+      "name": "operation",
+      "type": "string",
+      "description": "Operation type: 'move'.",
+      "required": true,
+      "example": "move"
+    },
+    {
+      "name": "destination",
+      "type": "string",
+      "description": "New name for the index.",
+      "required": true,
+      "example": "products"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products_tmp/operation",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "operation": "move",
+      "destination": "products"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "updatedAt": "2024-06-15T12:00:00.000Z",
+      "taskID": 689
+    }
+  },
+  "auth_scopes": ["addObject"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

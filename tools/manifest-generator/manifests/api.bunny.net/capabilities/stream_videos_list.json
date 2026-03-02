@@ -1,0 +1,73 @@
+{
+  "name": "stream_videos_list",
+  "resource_group": "stream",
+  "description": "List videos in a video library.",
+  "endpoint": "/library/{libraryId}/videos",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "libraryId",
+      "type": "integer",
+      "required": true,
+      "description": "Library ID.",
+      "in": "path"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "itemsPerPage",
+      "type": "integer",
+      "required": false,
+      "description": "Items per page."
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "description": "Search by title."
+    },
+    {
+      "name": "collection",
+      "type": "string",
+      "required": false,
+      "description": "Filter by collection GUID."
+    },
+    {
+      "name": "orderBy",
+      "type": "string",
+      "required": false,
+      "description": "Sort: date, title."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bunny.net/library/222/videos?page=1&itemsPerPage=20",
+    "headers": {
+      "AccessKey": "your-api-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "totalItems": 50,
+      "currentPage": 1,
+      "itemsPerPage": 20,
+      "items": [
+        {
+          "videoLibraryId": 222,
+          "guid": "video-guid",
+          "title": "My Video",
+          "status": 4,
+          "length": 120,
+          "width": 1920,
+          "height": 1080,
+          "storageSize": 15000000
+        }
+      ]
+    }
+  }
+}

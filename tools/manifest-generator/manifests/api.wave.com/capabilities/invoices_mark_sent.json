@@ -1,0 +1,45 @@
+{
+  "name": "invoices_mark_sent",
+  "description": "Mark an invoice as sent without sending an email.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "invoiceId",
+      "type": "string",
+      "description": "Invoice ID",
+      "required": true,
+      "example": "SW52b2ljZTo6..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: InvoiceMarkSentInput!) { invoiceMarkSent(input: $input) { invoice { id status } didSucceed } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "invoiceMarkSent": {
+          "invoice": {
+            "id": "SW52b2ljZTo6...",
+            "status": "SENT"
+          },
+          "didSucceed": true
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

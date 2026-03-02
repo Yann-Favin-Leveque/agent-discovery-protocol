@@ -1,0 +1,16 @@
+{
+  "name": "training_create",
+  "description": "Start a training job for a model version.",
+  "resource_group": "trainings",
+  "endpoint": "/models/{model_owner}/{model_name}/versions/{version_id}/trainings",
+  "method": "POST",
+  "parameters": [
+    {"name": "model_owner", "type": "string", "required": true, "description": "Model owner."},
+    {"name": "model_name", "type": "string", "required": true, "description": "Model name."},
+    {"name": "version_id", "type": "string", "required": true, "description": "Model version ID."},
+    {"name": "input", "type": "object", "required": true, "description": "Training input parameters."},
+    {"name": "destination", "type": "string", "required": true, "description": "Destination model (owner/name) for trained version."}
+  ],
+  "request_example": {"method": "POST", "url": "https://api.replicate.com/v1/models/stability-ai/sdxl/versions/5c7d.../trainings", "headers": {"Authorization": "Bearer r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"}, "body": {"destination": "my-org/my-sdxl", "input": {"input_images": "https://..."}}},
+  "response_example": {"status": 201, "body": {"id": "train123", "status": "starting"}}
+}

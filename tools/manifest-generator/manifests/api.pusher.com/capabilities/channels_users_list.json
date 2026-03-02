@@ -1,0 +1,44 @@
+{
+  "name": "channels_users_list",
+  "description": "Get a list of user IDs currently subscribed to a presence channel. Only works with presence- prefixed channels.",
+  "resource_group": "channels",
+  "endpoint": "/apps/{app_id}/channels/{channel_name}/users",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Your Pusher app ID."
+    },
+    {
+      "name": "channel_name",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The presence channel name (must start with 'presence-')."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pusherapp.com/apps/123456/channels/presence-chat-room-1/users",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "users": [
+        {
+          "id": "user-1"
+        },
+        {
+          "id": "user-2"
+        },
+        {
+          "id": "user-3"
+        }
+      ]
+    }
+  }
+}

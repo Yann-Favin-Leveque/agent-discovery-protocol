@@ -1,0 +1,81 @@
+{
+  "name": "orders_search",
+  "description": "Search orders with filters by location, date range, customer, and state.",
+  "endpoint": "/v2/orders/search",
+  "method": "POST",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "location_ids",
+      "type": "array",
+      "description": "Location IDs to search",
+      "required": true,
+      "example": [
+        "LOCATION_ID"
+      ]
+    },
+    {
+      "name": "query",
+      "type": "object",
+      "description": "Search query with filters",
+      "required": false,
+      "example": {
+        "filter": {
+          "state_filter": {
+            "states": [
+              "COMPLETED"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/orders/search",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "location_ids": [
+        "LOCATION_ID"
+      ],
+      "query": {
+        "filter": {
+          "state_filter": {
+            "states": [
+              "COMPLETED"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "orders": [
+        {
+          "id": "order_abc",
+          "state": "COMPLETED"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

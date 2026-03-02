@@ -1,0 +1,52 @@
+{
+  "name": "deployments_list",
+  "description": "List deployments for a service.",
+  "resource_group": "deployments",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "Service ID."
+    },
+    {
+      "name": "environmentId",
+      "type": "string",
+      "required": true,
+      "description": "Environment ID."
+    },
+    {
+      "name": "first",
+      "type": "integer",
+      "required": false,
+      "description": "Count."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "query($sId: String!, $eId: String!) { deployments(first: 10, input: {serviceId: $sId, environmentId: $eId}) { edges { node { id status createdAt } } } }",
+      "variables": {
+        "sId": "srv-abc",
+        "eId": "env-abc"
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "deployments": {
+        "edges": [
+          {
+            "node": {
+              "id": "dep-abc",
+              "status": "SUCCESS"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

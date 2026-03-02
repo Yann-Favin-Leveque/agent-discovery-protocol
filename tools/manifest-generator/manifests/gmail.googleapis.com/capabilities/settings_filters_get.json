@@ -1,0 +1,47 @@
+{
+  "name": "settings_filters_get",
+  "description": "Gets a specific message filter by ID.",
+  "resource_group": "settings",
+  "endpoint": "/gmail/v1/users/{userId}/settings/filters/{id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The filter ID.",
+      "required": true,
+      "example": "abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/settings/filters/abc123",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "abc123",
+      "criteria": {
+        "from": "user@example.com"
+      },
+      "action": {
+        "addLabelIds": [
+          "Label_1"
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.settings.basic"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "text_generate",
+  "description": "Generate text continuations from a prompt using open-source language models.",
+  "resource_group": "text_generation",
+  "endpoint": "/models/{model_id}",
+  "method": "POST",
+  "parameters": [
+    {"name": "model_id", "type": "string", "required": true, "description": "Model ID in path."},
+    {"name": "inputs", "type": "string", "required": true, "description": "The text prompt for generation."},
+    {"name": "parameters", "type": "object", "required": false, "description": "Generation parameters: max_new_tokens, temperature, top_p, top_k, repetition_penalty."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://router.huggingface.co/models/gpt2",
+    "headers": {"Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "body": {"inputs": "The future of AI is", "parameters": {"max_new_tokens": 100, "temperature": 0.7}}
+  },
+  "response_example": {"status": 200, "body": [{"generated_text": "The future of AI is incredibly promising..."}]}
+}

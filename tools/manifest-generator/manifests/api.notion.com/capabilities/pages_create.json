@@ -1,0 +1,68 @@
+{
+  "name": "pages_create",
+  "description": "Create a new page as a child of an existing page or database.",
+  "resource_group": "pages",
+  "endpoint": "/v1/pages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "parent",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "Parent page or database reference"
+    },
+    {
+      "name": "properties",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "Page properties (title, etc.)"
+    },
+    {
+      "name": "children",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Content blocks for the page"
+    },
+    {
+      "name": "icon",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Page icon (emoji or external URL)"
+    },
+    {
+      "name": "cover",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Page cover image"
+    }
+  ],
+  "auth_scopes": [
+    "default"
+  ],
+  "request_example": {
+    "parent": {
+      "database_id": "d9824bdc-8445-4327-be8b-5b47500af6ce"
+    },
+    "properties": {
+      "Name": {
+        "title": [
+          {
+            "text": {
+              "content": "New page"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "id": "page-id",
+    "object": "page",
+    "created_time": "2024-01-01T00:00:00.000Z"
+  }
+}

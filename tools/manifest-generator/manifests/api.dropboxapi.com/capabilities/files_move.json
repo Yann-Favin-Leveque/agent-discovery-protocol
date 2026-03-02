@@ -1,0 +1,48 @@
+{
+  "name": "files_move",
+  "description": "Move a file or folder to a different location.",
+  "resource_group": "files",
+  "endpoint": "/2/files/move_v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "from_path",
+      "type": "string",
+      "description": "Current path.",
+      "required": true
+    },
+    {
+      "name": "to_path",
+      "type": "string",
+      "description": "New path.",
+      "required": true
+    },
+    {
+      "name": "autorename",
+      "type": "boolean",
+      "description": "Auto-rename if conflict.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/files/move_v2",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "from_path": "/old/file.txt",
+      "to_path": "/new/file.txt"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "metadata": {
+        "name": "file.txt",
+        "path_display": "/new/file.txt"
+      }
+    }
+  }
+}

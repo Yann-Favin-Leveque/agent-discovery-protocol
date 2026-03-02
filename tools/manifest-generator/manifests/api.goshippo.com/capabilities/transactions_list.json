@@ -1,0 +1,53 @@
+{
+  "name": "transactions_list",
+  "description": "List all label purchase transactions.",
+  "endpoint": "/transactions",
+  "method": "GET",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false
+    },
+    {
+      "name": "results",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "object_status",
+      "type": "string",
+      "description": "Filter by status (SUCCESS, ERROR, etc.).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.goshippo.com/transactions?results=25",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 200,
+      "results": [
+        {
+          "object_id": "txn_abc123",
+          "object_status": "SUCCESS",
+          "tracking_number": "1Z999AA10123456784",
+          "label_url": "https://shippo-delivery.s3.amazonaws.com/label.pdf"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

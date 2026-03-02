@@ -1,0 +1,44 @@
+{
+  "name": "tenants_update",
+  "resource_group": "tenants",
+  "description": "Update a tenant's configuration.",
+  "endpoint": "/api/tenant/{tenantId}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "tenantId",
+      "type": "string",
+      "required": true,
+      "description": "Tenant UUID.",
+      "in": "path"
+    },
+    {
+      "name": "tenant",
+      "type": "object",
+      "required": true,
+      "description": "Updated tenant object."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://fusionauth.example.com/api/tenant/tenant-uuid",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tenant": {
+        "name": "Acme Corp Tenant"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tenant": {
+        "id": "tenant-uuid",
+        "name": "Acme Corp Tenant"
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "verify_request_check",
+  "description": "Check a user-submitted verification code against an active Verify v2 request. Returns the status indicating whether the code is valid.",
+  "resource_group": "verify",
+  "endpoint": "/v2/verify/{request_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "request_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The request_id returned from the verify_request_create call."
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "The verification code submitted by the user."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vonage.com/v2/verify/c11236f4-00bf-4b89-84ba-88b25df97315",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."
+    },
+    "body": {
+      "code": "482910"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "c11236f4-00bf-4b89-84ba-88b25df97315",
+      "status": "completed"
+    }
+  }
+}

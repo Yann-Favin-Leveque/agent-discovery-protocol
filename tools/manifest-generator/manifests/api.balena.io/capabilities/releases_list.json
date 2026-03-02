@@ -1,0 +1,42 @@
+{
+  "name": "releases_list",
+  "description": "List releases for an application.",
+  "resource_group": "releases",
+  "endpoint": "/v7/release",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter by application.",
+      "required": false,
+      "example": "belongs_to__application eq 1"
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Fields to return.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.balena-cloud.com/v7/release?$filter=belongs_to__application eq 1",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "d": [
+        {
+          "id": 1,
+          "commit": "abc123",
+          "status": "success",
+          "created_at": "2024-06-01T10:00:00Z"
+        }
+      ]
+    }
+  }
+}

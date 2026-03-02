@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Spotify",
-  "description": "Spotify Web API provides access to Spotify's music catalog, user libraries, and playback controls. Search for tracks, manage playlists, control playback on connected devices, and access user listening data.",
+  "description": "Spotify Web API provides access to Spotify's music catalog, user libraries, and playback controls. Search for tracks, albums, and artists, manage playlists, control playback on connected devices, and access user listening data.",
   "base_url": "https://api.spotify.com",
   "auth": {
     "type": "oauth2",
@@ -12,45 +12,57 @@
     "token_url": "https://accounts.spotify.com/api/token"
   },
   "capabilities": [
-    {
-      "name": "search_content",
-      "description": "Search Spotify's catalog for tracks, artists, albums, playlists, shows, and episodes. Supports filters for year, genre, and market.",
-      "detail_url": "/capabilities/search_content"
-    },
-    {
-      "name": "get_track",
-      "description": "Get detailed information about a specific track including its name, artist, album, duration, popularity, and preview URL.",
-      "detail_url": "/capabilities/get_track"
-    },
-    {
-      "name": "get_artist",
-      "description": "Retrieve an artist's profile including their name, genres, popularity, follower count, and images. Can also fetch their top tracks and related artists.",
-      "detail_url": "/capabilities/get_artist"
-    },
-    {
-      "name": "create_playlist",
-      "description": "Create a new playlist for the authenticated user. Set the name, description, and whether it is public or private.",
-      "detail_url": "/capabilities/create_playlist"
-    },
-    {
-      "name": "add_tracks_to_playlist",
-      "description": "Add one or more tracks to a playlist by their Spotify URIs. You can specify the position to insert the tracks.",
-      "detail_url": "/capabilities/add_tracks_to_playlist"
-    },
-    {
-      "name": "control_playback",
-      "description": "Start, pause, skip, or seek playback on the user's active Spotify device. Transfer playback between devices.",
-      "detail_url": "/capabilities/control_playback"
-    },
-    {
-      "name": "get_current_playback",
-      "description": "Get information about the user's current playback state including the currently playing track, device, volume, and progress.",
-      "detail_url": "/capabilities/get_current_playback"
-    },
-    {
-      "name": "get_recommendations",
-      "description": "Get track recommendations based on seed artists, tracks, or genres. Tune results with audio feature parameters like energy, tempo, and danceability.",
-      "detail_url": "/capabilities/get_recommendations"
-    }
+    { "name": "search_get", "description": "Search Spotify's catalog for tracks, artists, albums, playlists, shows, and episodes by keyword.", "resource_group": "search", "detail_url": "/capabilities/search_get" },
+    { "name": "albums_get", "description": "Get details for a specific album including tracks, release date, and artist info.", "resource_group": "albums", "detail_url": "/capabilities/albums_get" },
+    { "name": "albums_get_tracks", "description": "Get the tracks of a specific album.", "resource_group": "albums", "detail_url": "/capabilities/albums_get_tracks" },
+    { "name": "albums_get_several", "description": "Get details for multiple albums by their Spotify IDs.", "resource_group": "albums", "detail_url": "/capabilities/albums_get_several" },
+    { "name": "albums_get_saved", "description": "Get the current user's saved albums.", "resource_group": "albums", "detail_url": "/capabilities/albums_get_saved" },
+    { "name": "albums_save", "description": "Save one or more albums to the current user's library.", "resource_group": "albums", "detail_url": "/capabilities/albums_save" },
+    { "name": "albums_remove_saved", "description": "Remove one or more albums from the current user's library.", "resource_group": "albums", "detail_url": "/capabilities/albums_remove_saved" },
+    { "name": "albums_get_new_releases", "description": "Get a list of new album releases on Spotify.", "resource_group": "albums", "detail_url": "/capabilities/albums_get_new_releases" },
+    { "name": "artists_get", "description": "Get details for a specific artist including name, genres, popularity, and images.", "resource_group": "artists", "detail_url": "/capabilities/artists_get" },
+    { "name": "artists_get_several", "description": "Get details for multiple artists by their Spotify IDs.", "resource_group": "artists", "detail_url": "/capabilities/artists_get_several" },
+    { "name": "artists_get_albums", "description": "Get an artist's albums.", "resource_group": "artists", "detail_url": "/capabilities/artists_get_albums" },
+    { "name": "artists_get_top_tracks", "description": "Get an artist's top tracks by country.", "resource_group": "artists", "detail_url": "/capabilities/artists_get_top_tracks" },
+    { "name": "tracks_get", "description": "Get details for a specific track including name, artist, album, duration, and popularity.", "resource_group": "tracks", "detail_url": "/capabilities/tracks_get" },
+    { "name": "tracks_get_several", "description": "Get details for multiple tracks by their Spotify IDs.", "resource_group": "tracks", "detail_url": "/capabilities/tracks_get_several" },
+    { "name": "tracks_get_saved", "description": "Get the current user's saved (liked) tracks.", "resource_group": "tracks", "detail_url": "/capabilities/tracks_get_saved" },
+    { "name": "tracks_save", "description": "Save one or more tracks to the current user's library.", "resource_group": "tracks", "detail_url": "/capabilities/tracks_save" },
+    { "name": "tracks_remove_saved", "description": "Remove one or more tracks from the current user's library.", "resource_group": "tracks", "detail_url": "/capabilities/tracks_remove_saved" },
+    { "name": "playlists_get", "description": "Get details for a specific playlist including its tracks.", "resource_group": "playlists", "detail_url": "/capabilities/playlists_get" },
+    { "name": "playlists_get_items", "description": "Get the items (tracks/episodes) of a playlist.", "resource_group": "playlists", "detail_url": "/capabilities/playlists_get_items" },
+    { "name": "playlists_create", "description": "Create a new playlist for the authenticated user.", "resource_group": "playlists", "detail_url": "/capabilities/playlists_create" },
+    { "name": "playlists_update", "description": "Change a playlist's name, description, or public/private state.", "resource_group": "playlists", "detail_url": "/capabilities/playlists_update" },
+    { "name": "playlists_add_items", "description": "Add one or more tracks or episodes to a playlist.", "resource_group": "playlists", "detail_url": "/capabilities/playlists_add_items" },
+    { "name": "playlists_remove_items", "description": "Remove one or more items from a playlist.", "resource_group": "playlists", "detail_url": "/capabilities/playlists_remove_items" },
+    { "name": "playlists_get_current_user", "description": "Get the current user's playlists.", "resource_group": "playlists", "detail_url": "/capabilities/playlists_get_current_user" },
+    { "name": "playlists_get_user", "description": "Get a specific user's public playlists.", "resource_group": "playlists", "detail_url": "/capabilities/playlists_get_user" },
+    { "name": "playlists_get_featured", "description": "Get Spotify's featured playlists.", "resource_group": "playlists", "detail_url": "/capabilities/playlists_get_featured" },
+    { "name": "player_get_state", "description": "Get information about the user's current playback state.", "resource_group": "player", "detail_url": "/capabilities/player_get_state" },
+    { "name": "player_get_devices", "description": "Get the user's available Spotify-connected devices.", "resource_group": "player", "detail_url": "/capabilities/player_get_devices" },
+    { "name": "player_get_currently_playing", "description": "Get the currently playing track or episode.", "resource_group": "player", "detail_url": "/capabilities/player_get_currently_playing" },
+    { "name": "player_start_resume", "description": "Start or resume playback on the user's active device.", "resource_group": "player", "detail_url": "/capabilities/player_start_resume" },
+    { "name": "player_pause", "description": "Pause playback on the user's active device.", "resource_group": "player", "detail_url": "/capabilities/player_pause" },
+    { "name": "player_skip_next", "description": "Skip to the next track in the user's queue.", "resource_group": "player", "detail_url": "/capabilities/player_skip_next" },
+    { "name": "player_skip_previous", "description": "Skip to the previous track.", "resource_group": "player", "detail_url": "/capabilities/player_skip_previous" },
+    { "name": "player_seek", "description": "Seek to a position in the currently playing track.", "resource_group": "player", "detail_url": "/capabilities/player_seek" },
+    { "name": "player_set_volume", "description": "Set the volume for the user's current playback device.", "resource_group": "player", "detail_url": "/capabilities/player_set_volume" },
+    { "name": "player_toggle_shuffle", "description": "Toggle shuffle on or off for the user's playback.", "resource_group": "player", "detail_url": "/capabilities/player_toggle_shuffle" },
+    { "name": "player_set_repeat", "description": "Set the repeat mode for the user's playback.", "resource_group": "player", "detail_url": "/capabilities/player_set_repeat" },
+    { "name": "player_get_queue", "description": "Get the user's current playback queue.", "resource_group": "player", "detail_url": "/capabilities/player_get_queue" },
+    { "name": "player_add_to_queue", "description": "Add a track or episode to the user's playback queue.", "resource_group": "player", "detail_url": "/capabilities/player_add_to_queue" },
+    { "name": "player_transfer", "description": "Transfer playback to a different device.", "resource_group": "player", "detail_url": "/capabilities/player_transfer" },
+    { "name": "player_get_recently_played", "description": "Get the user's recently played tracks.", "resource_group": "player", "detail_url": "/capabilities/player_get_recently_played" },
+    { "name": "users_get_current", "description": "Get the current authenticated user's profile.", "resource_group": "users", "detail_url": "/capabilities/users_get_current" },
+    { "name": "users_get_profile", "description": "Get a user's public profile.", "resource_group": "users", "detail_url": "/capabilities/users_get_profile" },
+    { "name": "users_get_top_items", "description": "Get the current user's top artists or tracks.", "resource_group": "users", "detail_url": "/capabilities/users_get_top_items" },
+    { "name": "users_follow_artists", "description": "Follow one or more artists or users.", "resource_group": "users", "detail_url": "/capabilities/users_follow_artists" },
+    { "name": "users_unfollow_artists", "description": "Unfollow one or more artists or users.", "resource_group": "users", "detail_url": "/capabilities/users_unfollow_artists" },
+    { "name": "users_get_followed_artists", "description": "Get the user's followed artists.", "resource_group": "users", "detail_url": "/capabilities/users_get_followed_artists" },
+    { "name": "shows_get", "description": "Get details for a specific podcast show.", "resource_group": "shows", "detail_url": "/capabilities/shows_get" },
+    { "name": "shows_get_episodes", "description": "Get the episodes of a specific podcast show.", "resource_group": "shows", "detail_url": "/capabilities/shows_get_episodes" },
+    { "name": "episodes_get", "description": "Get details for a specific podcast episode.", "resource_group": "episodes", "detail_url": "/capabilities/episodes_get" },
+    { "name": "genres_get_seeds", "description": "Get available genre seeds for recommendations.", "resource_group": "genres", "detail_url": "/capabilities/genres_get_seeds" },
+    { "name": "markets_get", "description": "Get the list of available Spotify markets.", "resource_group": "markets", "detail_url": "/capabilities/markets_get" }
   ]
 }

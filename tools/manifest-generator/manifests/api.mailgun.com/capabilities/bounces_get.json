@@ -1,0 +1,38 @@
+{
+  "name": "bounces_get",
+  "description": "Retrieve a single bounce record by email address.",
+  "resource_group": "bounces",
+  "endpoint": "/v3/{domain}/bounces/{address}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun domain.",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "description": "The bounced email address.",
+      "required": true,
+      "example": "bounce@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailgun.com/v3/mg.example.com/bounces/bounce@example.com",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "address": "bounce@example.com",
+      "code": "550",
+      "error": "User unknown"
+    }
+  }
+}

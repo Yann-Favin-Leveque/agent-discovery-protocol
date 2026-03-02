@@ -1,0 +1,53 @@
+{
+  "name": "records_batch",
+  "description": "Perform multiple write operations (add, update, partial update, delete) in a single batch request for efficient bulk indexing.",
+  "endpoint": "/1/indexes/{indexName}/batch",
+  "method": "POST",
+  "resource_group": "records",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the target index.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "requests",
+      "type": "array",
+      "description": "Array of batch operation objects with action and body.",
+      "required": true,
+      "example": [
+        { "action": "addObject", "body": { "objectID": "1", "name": "Item A" } },
+        { "action": "deleteObject", "body": { "objectID": "2" } }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/batch",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "requests": [
+        { "action": "addObject", "body": { "objectID": "1", "name": "Item A", "price": 29 } },
+        { "action": "updateObject", "body": { "objectID": "2", "price": 39 } },
+        { "action": "deleteObject", "body": { "objectID": "3" } }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "taskID": 684,
+      "objectIDs": ["1", "2", "3"]
+    }
+  },
+  "auth_scopes": ["addObject", "deleteObject"],
+  "rate_limits": {
+    "requests_per_minute": 6000
+  }
+}

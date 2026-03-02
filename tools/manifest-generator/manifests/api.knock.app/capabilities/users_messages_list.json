@@ -1,0 +1,53 @@
+{
+  "name": "users_messages_list",
+  "description": "List messages for a specific user.",
+  "endpoint": "/v1/users/{user_id}/messages",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "User ID.",
+      "required": true,
+      "example": "user_123"
+    },
+    {
+      "name": "channel_id",
+      "type": "string",
+      "description": "Filter by channel.",
+      "required": false,
+      "example": "channel_abc"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status.",
+      "required": false,
+      "example": "delivered"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.knock.app/v1/users/user_123/messages",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "msg_abc",
+          "channel_id": "channel_abc",
+          "status": "delivered"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

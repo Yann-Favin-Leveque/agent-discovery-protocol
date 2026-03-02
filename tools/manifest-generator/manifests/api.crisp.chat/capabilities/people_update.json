@@ -1,0 +1,62 @@
+{
+  "name": "people_update",
+  "description": "Update an existing people profile with new details (partial update).",
+  "endpoint": "/v1/website/{website_id}/people/{people_id}",
+  "method": "PATCH",
+  "resource_group": "people",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    },
+    {
+      "name": "people_id",
+      "type": "string",
+      "description": "The unique people profile identifier.",
+      "required": true,
+      "example": "c7b72a68-be91-4e29-b6a0-efbb3b72ed1b"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Updated email address.",
+      "required": false,
+      "example": "john.doe@example.com"
+    },
+    {
+      "name": "person",
+      "type": "object",
+      "description": "Person details to update.",
+      "required": false,
+      "example": {"nickname": "John D."}
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/people/c7b72a68-be91-4e29-b6a0-efbb3b72ed1b",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "Content-Type": "application/json",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {
+      "email": "john.doe@example.com",
+      "person": {
+        "nickname": "John D."
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {}
+    }
+  },
+  "auth_scopes": ["website:people:profiles"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

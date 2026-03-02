@@ -1,0 +1,67 @@
+{
+  "name": "magic_links_email_send",
+  "resource_group": "magic_links",
+  "description": "Send a magic link to a user's email address for passwordless login.",
+  "endpoint": "/v1/magic_links/email/send",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "description": "Email to send magic link to."
+    },
+    {
+      "name": "login_magic_link_url",
+      "type": "string",
+      "required": false,
+      "description": "URL for the magic link for existing users."
+    },
+    {
+      "name": "signup_magic_link_url",
+      "type": "string",
+      "required": false,
+      "description": "URL for the magic link for new users."
+    },
+    {
+      "name": "login_expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Expiration time for login link."
+    },
+    {
+      "name": "signup_expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Expiration time for signup link."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "description": "Language for the email: en, es, pt-br."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/magic_links/email/send",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "alice@example.com",
+      "login_magic_link_url": "https://app.example.com/authenticate",
+      "signup_magic_link_url": "https://app.example.com/authenticate"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "request-id-abc",
+      "status_code": 200,
+      "user_id": "user-live-abc",
+      "email_id": "email-live-xyz"
+    }
+  }
+}

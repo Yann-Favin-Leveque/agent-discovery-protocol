@@ -1,0 +1,55 @@
+{
+  "name": "orders_list",
+  "description": "List all orders.",
+  "resource_group": "orders",
+  "endpoint": "/orders",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Result offset."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: draft, pending, failed, canceled, inprocess, partial, fulfilled."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.printful.com/orders",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "result": [
+        {
+          "id": 1234,
+          "status": "fulfilled",
+          "recipient": {
+            "name": "John Doe"
+          },
+          "items": [
+            {
+              "name": "Custom T-Shirt",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

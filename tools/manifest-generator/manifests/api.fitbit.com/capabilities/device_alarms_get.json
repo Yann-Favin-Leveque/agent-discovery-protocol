@@ -1,0 +1,46 @@
+{
+  "name": "device_alarms_get",
+  "description": "Retrieve alarms set on a specific Fitbit device.",
+  "resource_group": "devices",
+  "endpoint": "/1/user/-/devices/tracker/{tracker-id}/alarms.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "tracker-id",
+      "type": "string",
+      "required": true,
+      "description": "Tracker device ID.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "settings"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/devices/tracker/ABC123/alarms.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "trackerAlarms": [
+        {
+          "alarmId": 1001,
+          "time": "07:00+00:00",
+          "enabled": true,
+          "recurring": true,
+          "weekDays": [
+            "MONDAY",
+            "TUESDAY",
+            "WEDNESDAY",
+            "THURSDAY",
+            "FRIDAY"
+          ]
+        }
+      ]
+    }
+  }
+}

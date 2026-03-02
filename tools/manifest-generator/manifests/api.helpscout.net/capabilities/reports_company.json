@@ -1,0 +1,46 @@
+{
+  "name": "reports_company",
+  "description": "Retrieve overall company performance report for a date range.",
+  "endpoint": "/v2/reports/company",
+  "method": "GET",
+  "resource_group": "reports",
+  "parameters": [
+    {
+      "name": "start",
+      "type": "string",
+      "description": "Start date (ISO 8601).",
+      "required": true,
+      "example": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End date (ISO 8601).",
+      "required": true,
+      "example": "2024-12-31T23:59:59Z"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.helpscout.net/v2/reports/company?start=2024-01-01T00:00:00Z&end=2024-12-31T23:59:59Z",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "current": {
+        "totalConversations": 500,
+        "conversationsCreated": 120,
+        "customerWaitTime": {
+          "median": 3600
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

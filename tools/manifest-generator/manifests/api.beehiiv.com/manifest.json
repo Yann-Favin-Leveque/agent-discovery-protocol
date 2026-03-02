@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Beehiiv",
-  "description": "Beehiiv is a newsletter platform built for growth. Use it to manage subscribers, create and publish posts, segment your audience, track analytics, and run referral programs. It supports bulk operations and automation journeys.",
+  "description": "Beehiiv is a newsletter platform built for growth. Use it to manage subscriptions, create and publish posts, segment your audience, manage custom fields and tags, run automations, track analytics, configure webhooks, and manage referral programs.",
   "base_url": "https://api.beehiiv.com",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,190 @@
   },
   "capabilities": [
     {
-      "name": "manage_subscriptions",
-      "description": "Create, list, update, or delete subscribers in your publication. Supports bulk operations and filtering by email or ID.",
-      "detail_url": "/capabilities/manage_subscriptions"
+      "name": "subscriptions_list",
+      "resource_group": "subscriptions",
+      "description": "Retrieve a paginated list of all subscriptions for a publication with filtering by status, tier, and email.",
+      "detail_url": "/capabilities/subscriptions_list"
     },
     {
-      "name": "create_post",
-      "description": "Create and publish a new newsletter post to your audience with HTML content, subject line, and scheduling options.",
-      "detail_url": "/capabilities/create_post"
+      "name": "subscriptions_get",
+      "resource_group": "subscriptions",
+      "description": "Retrieve a single subscription by ID.",
+      "detail_url": "/capabilities/subscriptions_get"
     },
     {
-      "name": "list_posts",
-      "description": "Retrieve your published and draft posts along with their performance metrics like opens, clicks, and deliveries.",
-      "detail_url": "/capabilities/list_posts"
+      "name": "subscriptions_get_by_email",
+      "resource_group": "subscriptions",
+      "description": "Retrieve a subscription by email address.",
+      "detail_url": "/capabilities/subscriptions_get_by_email"
     },
     {
-      "name": "manage_segments",
-      "description": "List and inspect audience segments. Retrieve the subscribers belonging to a segment, and recalculate segment membership.",
-      "detail_url": "/capabilities/manage_segments"
+      "name": "subscriptions_create",
+      "resource_group": "subscriptions",
+      "description": "Create a new subscription for a publication with optional UTM tracking, custom fields, and automation enrollment.",
+      "detail_url": "/capabilities/subscriptions_create"
     },
     {
-      "name": "get_post_analytics",
-      "description": "Retrieve aggregate analytics across all posts or for a specific post, including open rates, click rates, and subscriber growth.",
-      "detail_url": "/capabilities/get_post_analytics"
+      "name": "subscriptions_update",
+      "resource_group": "subscriptions",
+      "description": "Update a subscription's status, tier, or custom fields.",
+      "detail_url": "/capabilities/subscriptions_update"
     },
     {
-      "name": "manage_custom_fields",
-      "description": "Create, update, list, and delete custom data fields on subscriber profiles for richer segmentation and personalization.",
-      "detail_url": "/capabilities/manage_custom_fields"
+      "name": "subscriptions_delete",
+      "resource_group": "subscriptions",
+      "description": "Delete a subscription by ID.",
+      "detail_url": "/capabilities/subscriptions_delete"
+    },
+    {
+      "name": "subscriptions_bulk_create",
+      "resource_group": "subscriptions",
+      "description": "Create multiple subscriptions in a single bulk request.",
+      "detail_url": "/capabilities/subscriptions_bulk_create"
+    },
+    {
+      "name": "subscriptions_bulk_update",
+      "resource_group": "subscriptions",
+      "description": "Update multiple subscriptions in a single bulk request.",
+      "detail_url": "/capabilities/subscriptions_bulk_update"
+    },
+    {
+      "name": "posts_list",
+      "resource_group": "posts",
+      "description": "Retrieve all posts belonging to a publication with their performance metrics.",
+      "detail_url": "/capabilities/posts_list"
+    },
+    {
+      "name": "posts_get",
+      "resource_group": "posts",
+      "description": "Retrieve a single post by ID with detailed stats.",
+      "detail_url": "/capabilities/posts_get"
+    },
+    {
+      "name": "posts_create",
+      "resource_group": "posts",
+      "description": "Create a new post for a publication with HTML content, subject, and scheduling options.",
+      "detail_url": "/capabilities/posts_create"
+    },
+    {
+      "name": "posts_delete",
+      "resource_group": "posts",
+      "description": "Delete a post by ID.",
+      "detail_url": "/capabilities/posts_delete"
+    },
+    {
+      "name": "segments_list",
+      "resource_group": "segments",
+      "description": "Retrieve all audience segments for a publication.",
+      "detail_url": "/capabilities/segments_list"
+    },
+    {
+      "name": "segments_get",
+      "resource_group": "segments",
+      "description": "Retrieve a specific segment by ID with subscriber count.",
+      "detail_url": "/capabilities/segments_get"
+    },
+    {
+      "name": "segments_expand",
+      "resource_group": "segments",
+      "description": "Retrieve subscribers belonging to a segment and recalculate membership.",
+      "detail_url": "/capabilities/segments_expand"
+    },
+    {
+      "name": "custom_fields_list",
+      "resource_group": "custom_fields",
+      "description": "Retrieve all custom fields for a publication.",
+      "detail_url": "/capabilities/custom_fields_list"
+    },
+    {
+      "name": "custom_fields_create",
+      "resource_group": "custom_fields",
+      "description": "Create a new custom field for subscriber profiles.",
+      "detail_url": "/capabilities/custom_fields_create"
+    },
+    {
+      "name": "custom_fields_update",
+      "resource_group": "custom_fields",
+      "description": "Update a custom field definition.",
+      "detail_url": "/capabilities/custom_fields_update"
+    },
+    {
+      "name": "custom_fields_delete",
+      "resource_group": "custom_fields",
+      "description": "Delete a custom field by ID.",
+      "detail_url": "/capabilities/custom_fields_delete"
+    },
+    {
+      "name": "automations_list",
+      "resource_group": "automations",
+      "description": "Retrieve all automations for a publication.",
+      "detail_url": "/capabilities/automations_list"
+    },
+    {
+      "name": "automations_get",
+      "resource_group": "automations",
+      "description": "Retrieve a specific automation by ID.",
+      "detail_url": "/capabilities/automations_get"
+    },
+    {
+      "name": "referral_program_get",
+      "resource_group": "referral_program",
+      "description": "Retrieve the referral program configuration for a publication.",
+      "detail_url": "/capabilities/referral_program_get"
+    },
+    {
+      "name": "publications_list",
+      "resource_group": "publications",
+      "description": "Retrieve all publications associated with your API key.",
+      "detail_url": "/capabilities/publications_list"
+    },
+    {
+      "name": "publications_get",
+      "resource_group": "publications",
+      "description": "Retrieve a specific publication by ID.",
+      "detail_url": "/capabilities/publications_get"
+    },
+    {
+      "name": "webhooks_list",
+      "resource_group": "webhooks",
+      "description": "Retrieve all webhooks for a publication.",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_create",
+      "resource_group": "webhooks",
+      "description": "Create a new webhook for real-time event notifications.",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_delete",
+      "resource_group": "webhooks",
+      "description": "Delete a webhook by ID.",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "subscription_tags_list",
+      "resource_group": "subscription_tags",
+      "description": "Retrieve all tags associated with subscriptions.",
+      "detail_url": "/capabilities/subscription_tags_list"
+    },
+    {
+      "name": "subscription_tags_create",
+      "resource_group": "subscription_tags",
+      "description": "Create a new subscription tag.",
+      "detail_url": "/capabilities/subscription_tags_create"
+    },
+    {
+      "name": "tiers_list",
+      "resource_group": "tiers",
+      "description": "Retrieve all subscription tiers for a publication.",
+      "detail_url": "/capabilities/tiers_list"
+    },
+    {
+      "name": "tiers_create",
+      "resource_group": "tiers",
+      "description": "Create a new subscription tier.",
+      "detail_url": "/capabilities/tiers_create"
     }
   ]
 }

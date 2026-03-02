@@ -1,0 +1,62 @@
+{
+  "name": "useragent_bulk_parse",
+  "description": "Parse up to 50,000 user-agent strings in a single request.",
+  "endpoint": "/v3/user-agent-bulk",
+  "method": "POST",
+  "resource_group": "user_agent",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "description": "Your API key.",
+      "required": true,
+      "example": "YOUR_API_KEY"
+    },
+    {
+      "name": "uaStrings",
+      "type": "array",
+      "description": "Array of user-agent strings.",
+      "required": true,
+      "example": [
+        "Mozilla/5.0 (Windows NT 10.0)",
+        "Mozilla/5.0 (iPhone)"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.ipgeolocation.io/v3/user-agent-bulk?apiKey=YOUR_API_KEY",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "uaStrings": [
+        "Mozilla/5.0 (Windows NT 10.0)",
+        "Mozilla/5.0 (iPhone)"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0)",
+        "name": "Chrome",
+        "device": {
+          "type": "PC"
+        }
+      },
+      {
+        "userAgent": "Mozilla/5.0 (iPhone)",
+        "name": "Safari",
+        "device": {
+          "type": "Mobile"
+        }
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

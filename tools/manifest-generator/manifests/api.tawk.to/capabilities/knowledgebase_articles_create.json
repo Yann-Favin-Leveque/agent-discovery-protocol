@@ -1,0 +1,69 @@
+{
+  "name": "knowledgebase_articles_create",
+  "description": "Create a new knowledge base article for a property.",
+  "endpoint": "/v1/property/{propertyId}/kb/articles",
+  "method": "POST",
+  "resource_group": "knowledgebase",
+  "parameters": [
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The property ID",
+      "required": true,
+      "example": "property_id_123"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Article title",
+      "required": true,
+      "example": "How to reset your password"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "Article content in HTML",
+      "required": true,
+      "example": "<p>Follow these steps...</p>"
+    },
+    {
+      "name": "categoryId",
+      "type": "string",
+      "description": "Category ID for the article",
+      "required": false,
+      "example": "cat_001"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Article status (draft, published)",
+      "required": false,
+      "example": "published"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.tawk.to/v1/property/property_id_123/kb/articles",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "How to reset your password",
+      "body": "<p>Follow these steps...</p>",
+      "status": "published"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "article_002",
+      "title": "How to reset your password",
+      "status": "published"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "templates_update",
+  "description": "Update an existing template. Use update_published=true to push changes to live version.",
+  "endpoint": "/api/v1/templates/{id}",
+  "method": "PUT",
+  "resource_group": "templates",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Template ID",
+      "required": true,
+      "example": "my-template"
+    },
+    {
+      "name": "update_published",
+      "type": "boolean",
+      "description": "Push changes to published version",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sparkpost.com/api/v1/templates/my-template?update_published=true",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": {
+        "subject": "Updated Subject",
+        "html": "<h1>Updated</h1>"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "id": "my-template"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

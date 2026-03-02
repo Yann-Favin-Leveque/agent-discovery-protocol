@@ -1,0 +1,65 @@
+{
+  "name": "template_list",
+  "description": "List all available document templates with filtering and pagination.",
+  "resource_group": "template",
+  "endpoint": "/public/v1/templates",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": false,
+      "description": "Search text.",
+      "in": "query"
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "required": false,
+      "description": "Filter by tag.",
+      "in": "query"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page.",
+      "in": "query"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pandadoc.com/public/v1/templates?count=25&page=1",
+    "headers": {
+      "Authorization": "API-Key YOUR_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 2,
+      "results": [
+        {
+          "id": "tmpl-abc-123",
+          "name": "Standard NDA",
+          "date_created": "2024-06-15T10:00:00.000Z",
+          "date_modified": "2025-01-10T09:00:00.000Z",
+          "version": "2"
+        },
+        {
+          "id": "tmpl-def-456",
+          "name": "Service Agreement",
+          "date_created": "2024-08-20T10:00:00.000Z"
+        }
+      ]
+    }
+  }
+}

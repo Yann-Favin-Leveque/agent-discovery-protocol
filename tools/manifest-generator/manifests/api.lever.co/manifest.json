@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Lever",
-  "description": "Lever is a modern recruiting and applicant tracking platform. The API lets you manage job postings, candidates (called opportunities), interviews, and hiring pipeline stages programmatically. It is commonly used to build ATS integrations and automate recruiting workflows.",
+  "description": "Lever is a modern recruiting and applicant tracking platform. The API provides programmatic access to opportunities (candidates in pipeline), job postings, interviews, notes, offers, stages, and users. Use it to automate recruiting workflows, sync candidate data with external systems, and manage the full hiring pipeline.",
   "base_url": "https://api.lever.co",
   "auth": {
     "type": "api_key",
@@ -10,12 +10,251 @@
     "setup_url": "https://hire.lever.co/settings/integrations?tab=api"
   },
   "capabilities": [
-    { "name": "list_opportunities", "description": "Retrieve all candidate opportunities (applications) in your Lever account with filtering by stage, source, and date.", "detail_url": "/capabilities/list_opportunities" },
-    { "name": "create_opportunity", "description": "Add a new candidate opportunity to Lever. Assigns them to a posting and sets initial pipeline stage.", "detail_url": "/capabilities/create_opportunity" },
-    { "name": "list_postings", "description": "Retrieve all job postings, filterable by team, location, and published status.", "detail_url": "/capabilities/list_postings" },
-    { "name": "create_posting", "description": "Create a new job posting with title, description, team, location, and commitment (full-time, part-time, etc.).", "detail_url": "/capabilities/create_posting" },
-    { "name": "add_candidate_note", "description": "Add a note to a candidate's opportunity record. Useful for logging interview feedback or recruiter observations.", "detail_url": "/capabilities/add_candidate_note" },
-    { "name": "advance_opportunity", "description": "Move a candidate opportunity to the next stage in the hiring pipeline.", "detail_url": "/capabilities/advance_opportunity" },
-    { "name": "list_interviews", "description": "Retrieve all scheduled interviews for a given opportunity, including panelists and time slots.", "detail_url": "/capabilities/list_interviews" }
+    {
+      "name": "opportunities_list",
+      "description": "List all candidate opportunities (pipeline entries) with filtering by stage, source, tag, and date.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_list"
+    },
+    {
+      "name": "opportunities_get",
+      "description": "Retrieve detailed information about a specific opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_get"
+    },
+    {
+      "name": "opportunities_create",
+      "description": "Create a new candidate opportunity. Can include contact info, tags, sources, and posting assignment.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_create"
+    },
+    {
+      "name": "opportunities_deleted_list",
+      "description": "List all deleted opportunities.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_deleted_list"
+    },
+    {
+      "name": "opportunities_stage_update",
+      "description": "Move an opportunity to a different pipeline stage.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_stage_update"
+    },
+    {
+      "name": "opportunities_archived_update",
+      "description": "Archive or unarchive an opportunity with a reason.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_archived_update"
+    },
+    {
+      "name": "opportunities_links_add",
+      "description": "Add links (portfolio, LinkedIn, etc.) to an opportunity's contact.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_links_add"
+    },
+    {
+      "name": "opportunities_tags_add",
+      "description": "Add tags to an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_tags_add"
+    },
+    {
+      "name": "opportunities_sources_add",
+      "description": "Add sources to an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_sources_add"
+    },
+    {
+      "name": "opportunities_notes_list",
+      "description": "List all notes on an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_notes_list"
+    },
+    {
+      "name": "opportunities_notes_get",
+      "description": "Retrieve a specific note.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_notes_get"
+    },
+    {
+      "name": "opportunities_interviews_list",
+      "description": "List all interviews for an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_interviews_list"
+    },
+    {
+      "name": "opportunities_interviews_update",
+      "description": "Update an existing interview.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_interviews_update"
+    },
+    {
+      "name": "opportunities_offers_list",
+      "description": "List all offers for an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_offers_list"
+    },
+    {
+      "name": "opportunities_referrals_list",
+      "description": "List all referrals for an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_referrals_list"
+    },
+    {
+      "name": "opportunities_resumes_list",
+      "description": "List all resumes for an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_resumes_list"
+    },
+    {
+      "name": "opportunities_files_list",
+      "description": "List all files attached to an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_files_list"
+    },
+    {
+      "name": "opportunities_files_upload",
+      "description": "Upload a file to an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_files_upload"
+    },
+    {
+      "name": "opportunities_feedback_create",
+      "description": "Submit interview feedback for an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_feedback_create"
+    },
+    {
+      "name": "opportunities_forms_list",
+      "description": "List all profile forms for an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_forms_list"
+    },
+    {
+      "name": "opportunities_panels_create",
+      "description": "Create an interview panel for an opportunity.",
+      "resource_group": "Opportunities",
+      "detail_url": "/capabilities/opportunities_panels_create"
+    },
+    {
+      "name": "postings_list",
+      "description": "List all job postings. Note: use the public postings API at /v0/postings/{site} for public listings.",
+      "resource_group": "Postings",
+      "detail_url": "/capabilities/postings_list"
+    },
+    {
+      "name": "postings_get",
+      "description": "Retrieve a specific posting.",
+      "resource_group": "Postings",
+      "detail_url": "/capabilities/postings_get"
+    },
+    {
+      "name": "postings_create",
+      "description": "Create a new job posting.",
+      "resource_group": "Postings",
+      "detail_url": "/capabilities/postings_create"
+    },
+    {
+      "name": "postings_apply_get",
+      "description": "Retrieve application form fields for a posting.",
+      "resource_group": "Postings",
+      "detail_url": "/capabilities/postings_apply_get"
+    },
+    {
+      "name": "contacts_get",
+      "description": "Retrieve a specific contact's details.",
+      "resource_group": "Contacts",
+      "detail_url": "/capabilities/contacts_get"
+    },
+    {
+      "name": "stages_list",
+      "description": "List all pipeline stages.",
+      "resource_group": "Stages",
+      "detail_url": "/capabilities/stages_list"
+    },
+    {
+      "name": "stages_get",
+      "description": "Retrieve a specific pipeline stage.",
+      "resource_group": "Stages",
+      "detail_url": "/capabilities/stages_get"
+    },
+    {
+      "name": "archive_reasons_list",
+      "description": "List all archive reasons.",
+      "resource_group": "Archive Reasons",
+      "detail_url": "/capabilities/archive_reasons_list"
+    },
+    {
+      "name": "sources_list",
+      "description": "List all sources.",
+      "resource_group": "Sources",
+      "detail_url": "/capabilities/sources_list"
+    },
+    {
+      "name": "tags_list",
+      "description": "List all tags used in the account.",
+      "resource_group": "Tags",
+      "detail_url": "/capabilities/tags_list"
+    },
+    {
+      "name": "users_list",
+      "description": "List all users in the Lever account. Note: this endpoint is not officially documented but available via API.",
+      "resource_group": "Users",
+      "detail_url": "/capabilities/users_list"
+    },
+    {
+      "name": "users_get",
+      "description": "Retrieve a specific user.",
+      "resource_group": "Users",
+      "detail_url": "/capabilities/users_get"
+    },
+    {
+      "name": "users_create",
+      "description": "Create a new user.",
+      "resource_group": "Users",
+      "detail_url": "/capabilities/users_create"
+    },
+    {
+      "name": "users_deactivate",
+      "description": "Deactivate a user.",
+      "resource_group": "Users",
+      "detail_url": "/capabilities/users_deactivate"
+    },
+    {
+      "name": "requisitions_list",
+      "description": "List all requisitions.",
+      "resource_group": "Requisitions",
+      "detail_url": "/capabilities/requisitions_list"
+    },
+    {
+      "name": "requisitions_get",
+      "description": "Retrieve a specific requisition.",
+      "resource_group": "Requisitions",
+      "detail_url": "/capabilities/requisitions_get"
+    },
+    {
+      "name": "form_templates_list",
+      "description": "List all active profile form templates.",
+      "resource_group": "Form Templates",
+      "detail_url": "/capabilities/form_templates_list"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook subscription.",
+      "resource_group": "Webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook subscription.",
+      "resource_group": "Webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "uploads_create",
+      "description": "Upload a file temporarily for use with the apply endpoint.",
+      "resource_group": "Uploads",
+      "detail_url": "/capabilities/uploads_create"
+    }
   ]
 }

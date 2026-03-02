@@ -1,0 +1,36 @@
+{
+  "name": "rerank_create",
+  "description": "Reorder a list of documents by relevance to a search query with normalized relevance scores. Ideal for improving RAG pipeline quality.",
+  "resource_group": "rerank",
+  "endpoint": "/v2/rerank",
+  "method": "POST",
+  "parameters": [
+    {"name": "model", "type": "string", "required": true, "description": "Rerank model ID (e.g. 'rerank-v4.0-pro', 'rerank-english-v3.0')."},
+    {"name": "query", "type": "string", "required": true, "description": "Search query text."},
+    {"name": "documents", "type": "array", "required": true, "description": "Array of document strings to rank (recommended max 1000)."},
+    {"name": "top_n", "type": "integer", "required": false, "description": "Limit returned results to top N."},
+    {"name": "max_tokens_per_doc", "type": "integer", "required": false, "description": "Maximum tokens per document (default 4096)."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cohere.com/v2/rerank",
+    "headers": {"Authorization": "Bearer co-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "body": {
+      "model": "rerank-v4.0-pro",
+      "query": "What is machine learning?",
+      "documents": ["Machine learning is a subset of AI...", "Deep learning uses neural networks...", "The weather today is sunny."],
+      "top_n": 2
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "rer123",
+      "results": [
+        {"index": 0, "relevance_score": 0.95},
+        {"index": 1, "relevance_score": 0.78}
+      ],
+      "meta": {"billed_units": {"search_units": 1}}
+    }
+  }
+}

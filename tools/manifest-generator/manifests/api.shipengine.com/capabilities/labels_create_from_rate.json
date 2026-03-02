@@ -1,0 +1,46 @@
+{
+  "name": "labels_create_from_rate",
+  "description": "Create a label from a previously quoted rate.",
+  "endpoint": "/v1/labels/rates/{rate_id}",
+  "method": "POST",
+  "resource_group": "labels",
+  "parameters": [
+    {
+      "name": "rate_id",
+      "type": "string",
+      "description": "The rate ID.",
+      "required": true,
+      "example": "se-rate-123"
+    },
+    {
+      "name": "label_format",
+      "type": "string",
+      "description": "Label format.",
+      "required": false,
+      "example": "pdf"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/labels/rates/se-rate-123",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "label_format": "pdf"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "label_id": "se-label-456",
+      "status": "completed",
+      "tracking_number": "1Z999AA10123456784"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

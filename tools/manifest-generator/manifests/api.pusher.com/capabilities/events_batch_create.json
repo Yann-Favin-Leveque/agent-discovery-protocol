@@ -1,0 +1,47 @@
+{
+  "name": "events_batch_create",
+  "description": "Trigger multiple events in a single HTTP request. Each event can target a different channel with different data. Max 10 events per batch.",
+  "resource_group": "events",
+  "endpoint": "/apps/{app_id}/batch_events",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Your Pusher app ID."
+    },
+    {
+      "name": "batch",
+      "type": "array",
+      "required": true,
+      "description": "Array of event objects, each with 'name', 'channel', and 'data' fields. Max 10 events."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pusherapp.com/apps/123456/batch_events",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "batch": [
+        {
+          "channel": "chat-room-1",
+          "name": "new-message",
+          "data": "{\"user\":\"jane\",\"message\":\"Hello!\"}"
+        },
+        {
+          "channel": "notifications",
+          "name": "alert",
+          "data": "{\"text\":\"New user signed up\"}"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "messages_send",
+  "description": "Sends the specified message to the recipients in the To, Cc, and Bcc headers.",
+  "resource_group": "messages",
+  "endpoint": "/gmail/v1/users/{userId}/messages/send",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "raw",
+      "type": "string",
+      "description": "The entire email in base64url encoded RFC 2822 format.",
+      "required": true,
+      "example": "base64url-encoded-email"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "raw": "base64url-encoded-email"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "18e2abc456",
+      "threadId": "18e2abc123",
+      "labelIds": [
+        "SENT"
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.send"
+  ]
+}

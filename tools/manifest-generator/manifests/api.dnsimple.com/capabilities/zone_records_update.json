@@ -1,0 +1,70 @@
+{
+  "name": "zone_records_update",
+  "description": "Update an existing DNS record.",
+  "resource_group": "zones",
+  "endpoint": "/{account}/zones/{zone}/records/{record}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "zone",
+      "type": "string",
+      "required": true,
+      "description": "Zone name."
+    },
+    {
+      "name": "record",
+      "type": "integer",
+      "required": true,
+      "description": "Record ID."
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": false,
+      "description": "Updated content."
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "required": false,
+      "description": "Updated TTL."
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "required": false,
+      "description": "Updated priority."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.dnsimple.com/v2/1010/zones/example.com/records/1",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "192.0.2.2",
+      "ttl": 1800
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 1,
+        "zone_id": "example.com",
+        "name": "www",
+        "type": "A",
+        "content": "192.0.2.2",
+        "ttl": 1800
+      }
+    }
+  }
+}

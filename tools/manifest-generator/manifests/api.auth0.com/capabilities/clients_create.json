@@ -1,0 +1,25 @@
+{
+  "name": "clients_create",
+  "description": "Register a new application (client) in your Auth0 tenant.",
+  "endpoint": "/api/v2/clients",
+  "method": "POST",
+  "resource_group": "clients",
+  "parameters": [
+    {"name": "name", "type": "string", "description": "Application name.", "required": true, "example": "My New App"},
+    {"name": "app_type", "type": "string", "description": "Application type: spa, regular_web, non_interactive, native.", "required": false, "example": "spa"},
+    {"name": "callbacks", "type": "array", "description": "Allowed callback URLs.", "required": false, "example": ["https://myapp.com/callback"]},
+    {"name": "allowed_origins", "type": "array", "description": "Allowed origins for CORS.", "required": false, "example": ["https://myapp.com"]}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://YOUR_DOMAIN.auth0.com/api/v2/clients",
+    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
+    "body": {"name": "My New App", "app_type": "spa", "callbacks": ["https://myapp.com/callback"]}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"client_id": "new123", "name": "My New App", "client_secret": "secret123"}
+  },
+  "auth_scopes": ["create:clients"],
+  "rate_limits": {"requests_per_minute": 50}
+}

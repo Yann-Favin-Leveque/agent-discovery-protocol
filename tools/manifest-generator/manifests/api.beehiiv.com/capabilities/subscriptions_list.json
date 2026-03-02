@@ -1,0 +1,89 @@
+{
+  "name": "subscriptions_list",
+  "description": "Retrieve a paginated list of all subscriptions for a publication with filtering by status, tier, and email.",
+  "resource_group": "subscriptions",
+  "endpoint": "/v2/publications/{publicationId}/subscriptions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "publicationId",
+      "type": "string",
+      "description": "The prefixed ID of the publication.",
+      "required": true,
+      "example": "pub_xxx"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Filter by exact email match.",
+      "required": false
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status: active, inactive, validating.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "tier",
+      "type": "string",
+      "description": "Filter by tier: free or premium.",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number per page (1-100). Default 10.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Cursor for pagination.",
+      "required": false
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "description": "Sort field. Default: created.",
+      "required": false
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "description": "Sort direction: asc or desc.",
+      "required": false,
+      "example": "desc"
+    },
+    {
+      "name": "expand[]",
+      "type": "string",
+      "description": "Expandable objects: stats, custom_fields, referrals.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.beehiiv.com/v2/publications/pub_xxx/subscriptions?status=active&limit=25",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "sub_xxx",
+          "email": "john@example.com",
+          "status": "active",
+          "created": "2024-01-10T08:00:00Z"
+        }
+      ],
+      "cursor": "next_cursor",
+      "total_results": 500
+    }
+  }
+}

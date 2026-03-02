@@ -1,0 +1,58 @@
+{
+  "name": "products_list",
+  "description": "List all products and services for a business.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "products",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": "1"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "query ($businessId: ID!, $page: Int) { business(id: $businessId) { products(page: $page) { edges { node { id name description unitPrice } } } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "business": {
+          "products": {
+            "edges": [
+              {
+                "node": {
+                  "id": "UHJvZHVjdDo6...",
+                  "name": "Web Design",
+                  "unitPrice": "500.00"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

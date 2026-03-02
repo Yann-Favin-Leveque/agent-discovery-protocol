@@ -1,0 +1,51 @@
+{
+  "name": "geocode_direct",
+  "description": "Convert a city name, state code, and country code into geographic coordinates (latitude/longitude). Returns up to 5 matching locations.",
+  "resource_group": "geocoding",
+  "endpoint": "/geo/1.0/direct",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "City name, state code (US only), and country code separated by commas. Example: 'London,GB' or 'Paris,FR'.",
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results (max 5).",
+      "in": "query"
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/geo/1.0/direct?q=Paris,FR&limit=1&appid=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "name": "Paris",
+        "local_names": {
+          "en": "Paris",
+          "fr": "Paris"
+        },
+        "lat": 48.8566,
+        "lon": 2.3522,
+        "country": "FR",
+        "state": "Ile-de-France"
+      }
+    ]
+  }
+}

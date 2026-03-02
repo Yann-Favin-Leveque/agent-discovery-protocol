@@ -1,0 +1,43 @@
+{
+  "name": "queue_list",
+  "description": "List all task queues with pagination.",
+  "resource_group": "queue",
+  "endpoint": "/api/v3/queues",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.trigger.dev/api/v3/queues?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "queue_abc",
+          "name": "default",
+          "concurrencyLimit": 10,
+          "paused": false
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "name": "meetings_create",
+  "description": "Create a new meeting for a user. Configure topic, start time, duration, timezone, password, waiting room, and other meeting settings.",
+  "endpoint": "/users/{userId}/meetings",
+  "method": "POST",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email address. Use 'me' for the authenticated user.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "description": "Meeting topic or name.",
+      "required": false,
+      "example": "Weekly Team Sync"
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "description": "Meeting type: 1 (instant), 2 (scheduled), 3 (recurring no fixed time), 8 (recurring fixed time).",
+      "required": false,
+      "example": 2
+    },
+    {
+      "name": "start_time",
+      "type": "string",
+      "description": "Meeting start time in ISO 8601 format (yyyy-MM-ddTHH:mm:ssZ). Required for scheduled meetings.",
+      "required": false,
+      "example": "2024-01-15T10:00:00Z"
+    },
+    {
+      "name": "duration",
+      "type": "integer",
+      "description": "Meeting duration in minutes.",
+      "required": false,
+      "example": 60
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "description": "Timezone for the meeting start time (e.g., America/New_York).",
+      "required": false,
+      "example": "America/New_York"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "Password to join the meeting (max 10 characters).",
+      "required": false,
+      "example": "abc123"
+    },
+    {
+      "name": "agenda",
+      "type": "string",
+      "description": "Meeting description or agenda.",
+      "required": false,
+      "example": "Discuss Q1 goals"
+    },
+    {
+      "name": "settings",
+      "type": "object",
+      "description": "Meeting settings object including waiting_room, join_before_host, mute_upon_entry, auto_recording, etc.",
+      "required": false,
+      "example": {"waiting_room": true, "join_before_host": false, "mute_upon_entry": true}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.zoom.us/v2/users/me/meetings",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "topic": "Weekly Team Sync",
+      "type": 2,
+      "start_time": "2024-01-15T10:00:00Z",
+      "duration": 60,
+      "timezone": "America/New_York",
+      "settings": {
+        "waiting_room": true,
+        "join_before_host": false,
+        "mute_upon_entry": true,
+        "auto_recording": "cloud"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uuid": "abc123",
+      "id": 1234567890,
+      "host_id": "abcdefg",
+      "host_email": "user@example.com",
+      "topic": "Weekly Team Sync",
+      "type": 2,
+      "start_time": "2024-01-15T10:00:00Z",
+      "duration": 60,
+      "timezone": "America/New_York",
+      "join_url": "https://zoom.us/j/1234567890?pwd=abc123",
+      "password": "abc123",
+      "start_url": "https://zoom.us/s/1234567890?zak=..."
+    }
+  },
+  "auth_scopes": ["meeting:write"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

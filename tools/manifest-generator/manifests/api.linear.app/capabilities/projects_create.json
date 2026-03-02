@@ -1,0 +1,60 @@
+{
+  "name": "projects_create",
+  "description": "Create a new project.",
+  "resource_group": "projects",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Project name"
+    },
+    {
+      "name": "teamIds",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Team IDs associated with the project"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Project description"
+    },
+    {
+      "name": "leadId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Project lead user ID"
+    },
+    {
+      "name": "startDate",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Start date"
+    },
+    {
+      "name": "targetDate",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Target date"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "mutation { projectCreate(input: { name: \"Q1 Launch\", teamIds: [\"team-id\"] }) { success project { id name } } }"
+  }
+}

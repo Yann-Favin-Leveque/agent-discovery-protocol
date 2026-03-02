@@ -1,0 +1,72 @@
+{
+  "name": "dns_records_patch",
+  "resource_group": "dns_records",
+  "description": "Update specific fields of a DNS record (partial update).",
+  "endpoint": "/zones/{zone_id}/dns_records/{dns_record_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "dns_record_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "DNS record identifier."
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "New content."
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "required": false,
+      "in": "body",
+      "description": "New TTL."
+    },
+    {
+      "name": "proxied",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "New proxy status."
+    },
+    {
+      "name": "comment",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "New comment."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dns_records/rec-123",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "198.51.100.6"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "id": "rec-123",
+        "content": "198.51.100.6"
+      }
+    }
+  }
+}

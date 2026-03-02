@@ -1,0 +1,60 @@
+{
+  "name": "audit_log_exports_create",
+  "resource_group": "audit_logs",
+  "description": "Create an export of audit log events for a date range.",
+  "endpoint": "/audit_logs/exports",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization ID."
+    },
+    {
+      "name": "range_start",
+      "type": "string",
+      "required": true,
+      "description": "Start datetime (ISO 8601)."
+    },
+    {
+      "name": "range_end",
+      "type": "string",
+      "required": true,
+      "description": "End datetime (ISO 8601)."
+    },
+    {
+      "name": "actions",
+      "type": "array",
+      "required": false,
+      "description": "Filter by action types."
+    },
+    {
+      "name": "targets",
+      "type": "array",
+      "required": false,
+      "description": "Filter by target types."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.workos.com/audit_logs/exports",
+    "headers": {
+      "Authorization": "Bearer sk_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "organization_id": "org_abc",
+      "range_start": "2024-01-01T00:00:00Z",
+      "range_end": "2024-02-01T00:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "ale_abc",
+      "state": "pending",
+      "url": null
+    }
+  }
+}

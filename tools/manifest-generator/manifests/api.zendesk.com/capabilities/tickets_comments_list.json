@@ -1,0 +1,48 @@
+{
+  "name": "tickets_comments_list",
+  "description": "List comments on a ticket.",
+  "endpoint": "/api/v2/tickets/{ticket_id}/comments",
+  "method": "GET",
+  "resource_group": "tickets",
+  "parameters": [
+    {
+      "name": "ticket_id",
+      "type": "integer",
+      "description": "Ticket ID",
+      "required": true,
+      "example": "1"
+    },
+    {
+      "name": "sort_order",
+      "type": "string",
+      "description": "Sort order (asc, desc)",
+      "required": false,
+      "example": "asc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{subdomain}.zendesk.com/api/v2/tickets/{ticket_id}/comments",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "comments": [
+        {
+          "id": 100,
+          "body": "Initial request",
+          "author_id": 123,
+          "public": true
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

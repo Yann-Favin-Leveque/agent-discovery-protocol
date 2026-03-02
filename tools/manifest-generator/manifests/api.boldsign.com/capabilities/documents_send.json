@@ -1,0 +1,102 @@
+{
+  "name": "documents_send",
+  "description": "Send a document for e-signature to one or more signers. Supports file upload, form fields, reminders, expiry settings, and branding. Processing is asynchronous with webhook confirmation.",
+  "endpoint": "/v1/document/send",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "Files",
+      "type": "file",
+      "required": true,
+      "description": "Document file(s) to send for signing (multipart/form-data)."
+    },
+    {
+      "name": "Signers",
+      "type": "array",
+      "required": true,
+      "description": "Array of signer objects with 'Name', 'EmailAddress', 'SignerType', and 'FormFields'."
+    },
+    {
+      "name": "Title",
+      "type": "string",
+      "required": false,
+      "description": "Document title displayed to signers."
+    },
+    {
+      "name": "Message",
+      "type": "string",
+      "required": false,
+      "description": "Custom message included in the signing notification email."
+    },
+    {
+      "name": "BrandId",
+      "type": "string",
+      "required": false,
+      "description": "Brand ID for applying custom branding to the signing experience."
+    },
+    {
+      "name": "ExpiryDays",
+      "type": "integer",
+      "required": false,
+      "description": "Number of days before the document expires."
+    },
+    {
+      "name": "ReminderSettings",
+      "type": "object",
+      "required": false,
+      "description": "Auto-reminder config with 'ReminderDays' and 'ReminderCount'."
+    },
+    {
+      "name": "EnableReassign",
+      "type": "boolean",
+      "required": false,
+      "description": "Allow signers to reassign the document to someone else."
+    },
+    {
+      "name": "CC",
+      "type": "array",
+      "required": false,
+      "description": "Array of email addresses to receive copies of the completed document."
+    },
+    {
+      "name": "DisableEmails",
+      "type": "boolean",
+      "required": false,
+      "description": "Suppress email notifications (for embedded signing use cases)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.boldsign.com/v1/document/send",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-KEY": "{api_key}"
+    },
+    "body": {
+      "Signers": [
+        {
+          "Name": "John Doe",
+          "EmailAddress": "john@example.com",
+          "SignerType": "Signer",
+          "FormFields": [
+            { "FieldType": "Signature", "PageNumber": 1, "Bounds": { "X": 100, "Y": 600, "Width": 200, "Height": 50 } }
+          ]
+        }
+      ],
+      "Title": "Employment Agreement",
+      "Message": "Please sign this employment agreement at your earliest convenience.",
+      "ExpiryDays": 30
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "documentId": "doc_abc123def456"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

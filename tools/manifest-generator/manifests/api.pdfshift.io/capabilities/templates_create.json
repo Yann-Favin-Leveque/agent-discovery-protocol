@@ -1,0 +1,54 @@
+{
+  "name": "templates_create",
+  "description": "Create a new reusable HTML template with a unique slug identifier. Templates can use variables (e.g., {{name}}) that are replaced during document generation.",
+  "resource_group": "templates",
+  "endpoint": "/templates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "slug",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Unique identifier for the template (URL-safe string)."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Human-readable name for the template."
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "HTML content of the template. Can include {{variables}} for dynamic data."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pdfshift.io/v3/templates",
+    "headers": {
+      "X-API-Key": "your-pdfshift-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "slug": "invoice-template",
+      "name": "Invoice Template",
+      "content": "<html><body><h1>Invoice #{{invoice_number}}</h1><p>Amount: {{amount}}</p></body></html>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "template": {
+        "slug": "invoice-template",
+        "name": "Invoice Template",
+        "created": 1709290800000
+      }
+    }
+  }
+}

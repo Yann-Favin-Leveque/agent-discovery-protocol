@@ -1,0 +1,53 @@
+{
+  "name": "number_buy",
+  "description": "Rent (buy) a phone number from available inventory.",
+  "resource_group": "number",
+  "endpoint": "/v1/Account/{auth_id}/PhoneNumber/{number}/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "number",
+      "type": "string",
+      "description": "The phone number to rent (path parameter).",
+      "required": true,
+      "example": "14151230000"
+    },
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID to associate with the number.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/PhoneNumber/{number}/",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "app_id": "123456789"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "message": "created",
+      "numbers": [
+        {
+          "number": "+14151230000",
+          "status": "Success"
+        }
+      ],
+      "api_id": "xxx"
+    }
+  }
+}

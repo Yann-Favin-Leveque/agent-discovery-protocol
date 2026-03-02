@@ -1,0 +1,51 @@
+{
+  "name": "service_checks_submit",
+  "description": "Submit a service check result.",
+  "resource_group": "service_checks",
+  "endpoint": "/api/v1/check_run",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "check",
+      "type": "string",
+      "required": true,
+      "description": "Check name"
+    },
+    {
+      "name": "host_name",
+      "type": "string",
+      "required": true,
+      "description": "Host name"
+    },
+    {
+      "name": "status",
+      "type": "integer",
+      "required": true,
+      "description": "0=OK, 1=Warning, 2=Critical, 3=Unknown"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false,
+      "description": "Tags"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Description"
+    }
+  ],
+  "request_example": {
+    "check": "app.health",
+    "host_name": "web-01",
+    "status": 0,
+    "tags": [
+      "env:prod"
+    ]
+  },
+  "response_example": {
+    "status": "ok"
+  },
+  "auth_scopes": []
+}

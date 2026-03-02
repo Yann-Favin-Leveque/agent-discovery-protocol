@@ -1,0 +1,53 @@
+{
+  "name": "products_create",
+  "description": "Create a catalog product for use with billing plans and subscriptions.",
+  "endpoint": "/v1/catalogs/products",
+  "method": "POST",
+  "resource_group": "products",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Product name",
+      "required": true,
+      "example": "Premium Plan"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Product type: PHYSICAL, DIGITAL, SERVICE",
+      "required": true,
+      "example": "SERVICE"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Product description",
+      "required": false,
+      "example": "Premium subscription service"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v1/catalogs/products",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Premium Plan",
+      "type": "SERVICE"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "PROD_ID",
+      "name": "Premium Plan"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

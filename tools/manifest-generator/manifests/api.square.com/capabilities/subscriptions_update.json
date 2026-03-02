@@ -1,0 +1,56 @@
+{
+  "name": "subscriptions_update",
+  "description": "Update a subscription (change plan, modify fields).",
+  "endpoint": "/v2/subscriptions/{subscription_id}",
+  "method": "PUT",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "subscription_id",
+      "type": "string",
+      "description": "Subscription ID",
+      "required": true,
+      "example": "sub_abc"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://connect.squareup.com/v2/subscriptions/sub_abc",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subscription": {
+        "price_override_money": {
+          "amount": 1500,
+          "currency": "USD"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "subscription": {
+        "id": "sub_abc",
+        "status": "ACTIVE"
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

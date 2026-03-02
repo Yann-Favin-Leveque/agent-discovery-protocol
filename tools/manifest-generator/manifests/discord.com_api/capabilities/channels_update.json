@@ -1,0 +1,72 @@
+{
+  "name": "channels_update",
+  "resource_group": "channels",
+  "description": "Update a channel's settings (name, topic, position, permissions, etc).",
+  "endpoint": "/v10/channels/{channel_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Channel ID",
+      "example": "123456789012345678"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "New channel name",
+      "example": "announcements"
+    },
+    {
+      "name": "topic",
+      "type": "string",
+      "required": false,
+      "description": "New channel topic",
+      "example": "Important announcements only"
+    },
+    {
+      "name": "position",
+      "type": "integer",
+      "required": false,
+      "description": "Channel position",
+      "example": 0
+    },
+    {
+      "name": "nsfw",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether channel is NSFW",
+      "example": false
+    },
+    {
+      "name": "rate_limit_per_user",
+      "type": "integer",
+      "required": false,
+      "description": "Slowmode in seconds (0-21600)",
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://discord.com/api/v10/channels/123456789012345678",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "announcements",
+      "topic": "Important announcements only"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "123456789012345678",
+      "name": "announcements",
+      "topic": "Important announcements only"
+    }
+  }
+}

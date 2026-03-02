@@ -1,0 +1,66 @@
+{
+  "name": "members_update",
+  "description": "Update an existing subscriber's information.",
+  "endpoint": "/3.0/lists/{list_id}/members/{subscriber_hash}",
+  "method": "PATCH",
+  "resource_group": "members",
+  "parameters": [
+    {
+      "name": "list_id",
+      "type": "string",
+      "description": "Audience ID.",
+      "required": true,
+      "example": "abc123"
+    },
+    {
+      "name": "subscriber_hash",
+      "type": "string",
+      "description": "MD5 hash of email.",
+      "required": true,
+      "example": "hash123"
+    },
+    {
+      "name": "merge_fields",
+      "type": "object",
+      "description": "Updated merge fields.",
+      "required": false,
+      "example": {
+        "FNAME": "Janet"
+      }
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Updated status.",
+      "required": false,
+      "example": "unsubscribed"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://us1.api.mailchimp.com/3.0/lists/abc123/members/hash123",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "merge_fields": {
+        "FNAME": "Janet"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "hash123",
+      "email_address": "user@example.com",
+      "merge_fields": {
+        "FNAME": "Janet"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

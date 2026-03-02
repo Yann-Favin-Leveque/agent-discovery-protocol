@@ -1,0 +1,68 @@
+{
+  "name": "databases_update_config",
+  "resource_group": "databases",
+  "description": "Update database configuration.",
+  "endpoint": "/v1/organizations/{organizationSlug}/databases/{databaseName}/configuration",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "databaseName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Database name."
+    },
+    {
+      "name": "size_limit",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Size limit."
+    },
+    {
+      "name": "allow_attach",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Allow ATTACH."
+    },
+    {
+      "name": "block_reads",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Block reads."
+    },
+    {
+      "name": "block_writes",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Block writes."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.turso.tech/v1/organizations/my-org/databases/my-db/configuration",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "size_limit": "1gb"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "size_limit": "1gb"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "routes_list",
+  "description": "Retrieve all routes for incoming email processing.",
+  "resource_group": "routes",
+  "endpoint": "/v3/routes",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "number",
+      "description": "Max routes to return.",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailgun.com/v3/routes?limit=100",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "route-123",
+          "expression": "match_recipient('.*@mg.example.com')",
+          "actions": [
+            "forward('https://example.com/webhook')"
+          ]
+        }
+      ],
+      "total_count": 1
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "pipelines_create",
+  "description": "Trigger a new pipeline for a branch or tag.",
+  "resource_group": "pipelines",
+  "endpoint": "/projects/{id}/pipeline",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "ref",
+      "type": "string",
+      "required": true,
+      "description": "Branch or tag to run the pipeline on."
+    },
+    {
+      "name": "variables",
+      "type": "array",
+      "required": false,
+      "description": "Array of variable objects: [{key: 'ENV', variable_type: 'env_var', value: 'production'}]."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/123/pipeline",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    },
+    "body": {
+      "ref": "main",
+      "variables": [
+        {
+          "key": "DEPLOY_ENV",
+          "variable_type": "env_var",
+          "value": "staging"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1002,
+      "status": "created",
+      "ref": "main",
+      "web_url": "https://gitlab.com/octocat/my-project/-/pipelines/1002"
+    }
+  }
+}

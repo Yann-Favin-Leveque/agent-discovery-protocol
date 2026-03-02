@@ -1,0 +1,24 @@
+{
+  "name": "inboxes_create",
+  "description": "Create a new inbox (channel) for receiving messages from web chat, email, or social platforms.",
+  "endpoint": "/api/v1/accounts/{account_id}/inboxes",
+  "method": "POST",
+  "resource_group": "inboxes",
+  "parameters": [
+    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
+    {"name": "name", "type": "string", "description": "Inbox name.", "required": true, "example": "Support Chat"},
+    {"name": "channel", "type": "object", "description": "Channel configuration.", "required": true, "example": {"type": "web_widget", "website_url": "https://mysite.com"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chatwoot.com/api/v1/accounts/1/inboxes",
+    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
+    "body": {"name": "Support Chat", "channel": {"type": "web_widget", "website_url": "https://mysite.com"}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": 2, "name": "Support Chat", "channel_type": "Channel::WebWidget"}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 250}
+}

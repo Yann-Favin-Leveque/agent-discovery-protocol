@@ -1,0 +1,41 @@
+{
+  "name": "sessions_get",
+  "resource_group": "sessions",
+  "description": "List all active sessions for a user.",
+  "endpoint": "/v1/sessions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID to get sessions for."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stytch.com/v1/sessions?user_id=user-live-abc",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "sessions": [
+        {
+          "session_id": "sess-abc",
+          "user_id": "user-live-abc",
+          "started_at": "2024-01-15T10:30:00Z",
+          "expires_at": "2024-01-15T11:30:00Z",
+          "authentication_factors": [
+            {
+              "type": "magic_link"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

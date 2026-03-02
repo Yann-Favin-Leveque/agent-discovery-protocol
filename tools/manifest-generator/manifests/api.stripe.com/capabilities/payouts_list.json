@@ -1,0 +1,47 @@
+{
+  "name": "payouts_list",
+  "description": "List payouts.",
+  "endpoint": "/v1/payouts",
+  "method": "GET",
+  "resource_group": "payouts",
+  "parameters": [
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status",
+      "required": false,
+      "example": "paid"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/payouts?status=paid",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "po_abc123",
+          "amount": 10000,
+          "status": "paid"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

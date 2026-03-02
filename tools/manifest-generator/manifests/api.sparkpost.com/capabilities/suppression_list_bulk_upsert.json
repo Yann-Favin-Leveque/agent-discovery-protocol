@@ -1,0 +1,55 @@
+{
+  "name": "suppression_list_bulk_upsert",
+  "description": "Bulk create or update up to 10,000 suppression entries at once.",
+  "endpoint": "/api/v1/suppression-list",
+  "method": "PUT",
+  "resource_group": "suppression_list",
+  "parameters": [
+    {
+      "name": "recipients",
+      "type": "array",
+      "description": "Array of suppression entries",
+      "required": true,
+      "example": [
+        {
+          "recipient": "a@example.com",
+          "type": "transactional"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sparkpost.com/api/v1/suppression-list",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipients": [
+        {
+          "recipient": "a@example.com",
+          "type": "transactional"
+        },
+        {
+          "recipient": "b@example.com",
+          "type": "non_transactional"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "message": "Updated"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "name": "orders_list",
+  "description": "Retrieve a paginated list of orders with filtering by status, financial status, fulfillment status, and date ranges.",
+  "resource_group": "orders",
+  "endpoint": "/admin/api/2024-10/orders.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (max 250)."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: open, closed, cancelled, any."
+    },
+    {
+      "name": "financial_status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: authorized, pending, paid, refunded, any."
+    },
+    {
+      "name": "fulfillment_status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: shipped, partial, unshipped, any."
+    },
+    {
+      "name": "created_at_min",
+      "type": "string",
+      "required": false,
+      "description": "Orders created after date (ISO 8601)."
+    },
+    {
+      "name": "since_id",
+      "type": "integer",
+      "required": false,
+      "description": "Return orders after this ID."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store}.myshopify.com/admin/api/2024-10/orders.json?status=open&limit=25",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "orders": [
+        {
+          "id": 450789469,
+          "name": "#1001",
+          "email": "bob@example.com",
+          "total_price": "598.94",
+          "financial_status": "paid",
+          "fulfillment_status": null,
+          "line_items": [
+            {
+              "title": "IPod Nano - 8GB",
+              "quantity": 1,
+              "price": "199.00"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

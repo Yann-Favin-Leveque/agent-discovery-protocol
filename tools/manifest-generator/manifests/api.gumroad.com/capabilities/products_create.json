@@ -1,0 +1,58 @@
+{
+  "name": "products_create",
+  "description": "Create a new digital product on Gumroad.",
+  "resource_group": "products",
+  "endpoint": "/v2/products",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Product name.",
+      "example": "My New Product"
+    },
+    {
+      "name": "price",
+      "type": "integer",
+      "required": true,
+      "description": "Price in cents.",
+      "example": 999
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Product description."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": false,
+      "description": "URL to deliver after purchase."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gumroad.com/v2/products",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "My New Product",
+      "price": 999
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "product": {
+        "id": "def456",
+        "name": "My New Product",
+        "price": 999
+      }
+    }
+  }
+}

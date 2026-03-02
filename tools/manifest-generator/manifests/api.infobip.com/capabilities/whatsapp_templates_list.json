@@ -1,0 +1,44 @@
+{
+  "name": "whatsapp_templates_list",
+  "description": "List all registered WhatsApp message templates for your account with their approval status from Meta.",
+  "endpoint": "/whatsapp/2/senders/{sender}/templates",
+  "method": "GET",
+  "resource_group": "whatsapp",
+  "parameters": [
+    {
+      "name": "sender",
+      "type": "string",
+      "required": true,
+      "description": "The WhatsApp sender number to list templates for."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.infobip.com/whatsapp/2/senders/447860099299/templates",
+    "headers": {
+      "Authorization": "App {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "templates": [
+        {
+          "id": "template-id-123",
+          "businessAccountId": 12345,
+          "name": "order_confirmation",
+          "language": "en",
+          "status": "APPROVED",
+          "category": "UTILITY",
+          "structure": {
+            "body": { "text": "Hi {{1}}, your order {{2}} is confirmed." }
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

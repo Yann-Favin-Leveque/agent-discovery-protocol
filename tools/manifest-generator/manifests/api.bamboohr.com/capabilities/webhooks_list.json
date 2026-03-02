@@ -1,0 +1,21 @@
+{
+  "name": "webhooks_list",
+  "description": "List all webhooks configured for your BambooHR account.",
+  "endpoint": "/api/gateway.php/{companyDomain}/v1/webhooks/",
+  "method": "GET",
+  "resource_group": "webhooks",
+  "parameters": [
+    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/webhooks/",
+    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Accept": "application/json"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"webhooks": [{"id": 1, "name": "Employee Changes", "url": "https://myapp.com/webhooks/bamboo", "monitorFields": ["firstName", "lastName"]}]}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 60}
+}

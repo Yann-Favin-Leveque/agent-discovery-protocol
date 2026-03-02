@@ -1,98 +1,78 @@
 {
   "name": "search_messages",
-  "description": "Search for messages across the workspace using keywords and filters. Find messages by content, date range, user, and channel.",
+  "resource_group": "search",
+  "description": "Search for messages across the workspace using keywords and filters.",
   "endpoint": "/search.messages",
   "method": "GET",
   "parameters": [
     {
       "name": "query",
       "type": "string",
-      "description": "The search query string. Can include keywords, operators (from:, in:, before:, after:) for advanced filtering.",
       "required": true,
-      "example": "project deadline from:john.doe after:2023-01-01"
-    },
-    {
-      "name": "count",
-      "type": "integer",
-      "description": "The number of search results to return per page. Default is 20, maximum is 100.",
-      "required": false,
-      "example": 20
-    },
-    {
-      "name": "page",
-      "type": "integer",
-      "description": "The page number for pagination. First page is 1.",
-      "required": false,
-      "example": 1
+      "description": "Search query",
+      "example": "project deadline"
     },
     {
       "name": "sort",
       "type": "string",
-      "description": "Sort results by 'relevance' (default) or 'timestamp' (most recent first).",
       "required": false,
+      "description": "Sort by (score or timestamp)",
       "example": "timestamp"
     },
     {
       "name": "sort_dir",
       "type": "string",
-      "description": "Sort direction: 'asc' for ascending or 'desc' for descending. Default is 'desc'.",
       "required": false,
+      "description": "Sort direction (asc or desc)",
       "example": "desc"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number",
+      "example": 1
     }
   ],
   "request_example": {
     "method": "GET",
-    "url": "https://slack.com/api/search.messages?query=project+deadline+from:john.doe&count=20&sort=timestamp",
+    "url": "https://slack.com/api/search.messages?query=project%20deadline&sort=timestamp&count=20",
     "headers": {
-      "Authorization": "Bearer xoxb-your-bot-token"
+      "Authorization": "Bearer xoxp-xxx"
     }
   },
   "response_example": {
     "status": 200,
     "body": {
       "ok": true,
-      "query": "project deadline from:john.doe",
+      "query": "project deadline",
       "messages": {
-        "total": 42,
-        "pagination": {
-          "total_count": 42,
+        "total": 15,
+        "paging": {
+          "count": 20,
+          "total": 15,
           "page": 1,
-          "page_count": 3,
-          "per_page": 20
+          "pages": 1
         },
         "matches": [
           {
             "type": "message",
+            "user": "U1234567890",
+            "text": "The project deadline is Friday",
             "ts": "1503435956.000247",
             "channel": {
               "id": "C1234567890",
-              "name": "project-updates"
-            },
-            "user": "U1234567890",
-            "username": "john.doe",
-            "text": "The project deadline is next Friday.",
-            "permalink": "https://team.slack.com/archives/C1234567890/p1503435956000247"
-          },
-          {
-            "type": "message",
-            "ts": "1503435900.000100",
-            "channel": {
-              "id": "C0987654321",
               "name": "general"
-            },
-            "user": "U1234567890",
-            "username": "john.doe",
-            "text": "Reminder: project deadline is approaching!",
-            "permalink": "https://team.slack.com/archives/C0987654321/p1503435900000100"
+            }
           }
         ]
-      },
-      "posts": {
-        "total": 0,
-        "pagination": {
-          "total_count": 0
-        },
-        "matches": []
       }
     }
   }

@@ -1,0 +1,46 @@
+{
+  "name": "checkout_sessions_list",
+  "description": "List Checkout Sessions.",
+  "endpoint": "/v1/checkout/sessions",
+  "method": "GET",
+  "resource_group": "checkout_sessions",
+  "parameters": [
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Filter by customer",
+      "required": false,
+      "example": "cus_abc123"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/checkout/sessions?limit=10",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "cs_abc123",
+          "payment_status": "paid"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "reveal_find",
+  "description": "Identify a company visiting your website by IP address.",
+  "endpoint": "/v1/companies/find",
+  "method": "GET",
+  "resource_group": "reveal",
+  "parameters": [
+    {
+      "name": "ip",
+      "type": "string",
+      "description": "IP address to look up.",
+      "required": true,
+      "example": "104.18.28.102"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clearbit.com/v1/companies/find?ip=104.18.28.102",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ip": "104.18.28.102",
+      "fuzzy": false,
+      "domain": "clearbit.com",
+      "company": {
+        "id": "comp_abc123",
+        "name": "Clearbit",
+        "domain": "clearbit.com",
+        "category": {
+          "sector": "Technology"
+        },
+        "metrics": {
+          "employees": 170
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

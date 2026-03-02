@@ -1,0 +1,91 @@
+{
+  "name": "route_get",
+  "description": "Get weather conditions along a travel route. Useful for trip planning, logistics, and delivery services. Returns weather at waypoints along the route.",
+  "resource_group": "route",
+  "endpoint": "/v4/route/realtime",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "apikey",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "waypoints",
+      "type": "array",
+      "required": true,
+      "description": "Array of waypoint objects with lat, lon, and timestamp.",
+      "in": "body"
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "required": false,
+      "description": "Weather fields to include.",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.tomorrow.io/v4/route/realtime?apikey=YOUR_API_KEY",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "waypoints": [
+        {
+          "lat": 48.8566,
+          "lon": 2.3522,
+          "timestamp": "2025-01-15T08:00:00Z"
+        },
+        {
+          "lat": 48.1173,
+          "lon": -1.6778,
+          "timestamp": "2025-01-15T11:00:00Z"
+        }
+      ],
+      "fields": [
+        "temperature",
+        "precipitationProbability",
+        "windSpeed",
+        "weatherCode"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "location": {
+            "lat": 48.8566,
+            "lon": 2.3522
+          },
+          "time": "2025-01-15T08:00:00Z",
+          "values": {
+            "temperature": 8.5,
+            "precipitationProbability": 15,
+            "windSpeed": 12.3,
+            "weatherCode": 1101
+          }
+        },
+        {
+          "location": {
+            "lat": 48.1173,
+            "lon": -1.6778
+          },
+          "time": "2025-01-15T11:00:00Z",
+          "values": {
+            "temperature": 10.2,
+            "precipitationProbability": 45,
+            "windSpeed": 18.5,
+            "weatherCode": 4200
+          }
+        }
+      ]
+    }
+  }
+}

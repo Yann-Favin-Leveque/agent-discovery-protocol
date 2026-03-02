@@ -1,0 +1,44 @@
+{
+  "name": "payments_list",
+  "description": "List all payments with pagination support.",
+  "resource_group": "payments",
+  "endpoint": "/v2/payments",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Offset payment ID.",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results (1-250).",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mollie.com/v2/payments?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 10,
+      "_embedded": {
+        "payments": [
+          {
+            "resource": "payment",
+            "id": "tr_7UhSN1zuXS",
+            "status": "paid"
+          }
+        ]
+      }
+    }
+  }
+}

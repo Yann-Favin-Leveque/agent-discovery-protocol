@@ -1,0 +1,57 @@
+{
+  "name": "documents_list",
+  "description": "List documents in a collection with optional pagination using cursors. Use indexes for filtered or sorted results.",
+  "endpoint": "/query/1",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "FQL query to list documents. Use Collection.all() syntax with optional .take(n) for pagination.",
+      "required": true,
+      "example": "Product.all().take(20)"
+    },
+    {
+      "name": "arguments",
+      "type": "object",
+      "description": "Named arguments for the query.",
+      "required": false,
+      "example": {}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://db.fauna.com/query/1",
+    "headers": {
+      "Authorization": "Bearer fn_your_secret_key",
+      "Content-Type": "application/json",
+      "X-Format": "simple"
+    },
+    "body": {
+      "query": "Product.all().take(20)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "data": [
+          {"id": "123", "name": "Widget", "price": 9.99},
+          {"id": "456", "name": "Gadget", "price": 24.99}
+        ],
+        "after": "cursor_token_for_next_page"
+      },
+      "txn_ts": 1693560000000000,
+      "stats": {
+        "compute_ops": 1,
+        "read_ops": 20,
+        "write_ops": 0
+      }
+    }
+  },
+  "auth_scopes": ["server", "admin"],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

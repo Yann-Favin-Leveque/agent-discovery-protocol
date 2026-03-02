@@ -1,0 +1,70 @@
+{
+  "name": "threads_create",
+  "resource_group": "threads",
+  "description": "Create a new thread in a channel without a message.",
+  "endpoint": "/v10/channels/{channel_id}/threads",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Channel ID",
+      "example": "123456789012345678"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Thread name",
+      "example": "New thread"
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "required": false,
+      "description": "Thread type (11=public, 12=private)",
+      "example": 11
+    },
+    {
+      "name": "auto_archive_duration",
+      "type": "integer",
+      "required": false,
+      "description": "Auto-archive duration in minutes",
+      "example": 1440
+    },
+    {
+      "name": "message",
+      "type": "object",
+      "required": false,
+      "description": "Initial message content",
+      "example": {
+        "content": "Thread started!"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://discord.com/api/v10/channels/123456789012345678/threads",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "New thread",
+      "type": 11,
+      "message": {
+        "content": "Thread started!"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "666666666666666666",
+      "type": 11,
+      "name": "New thread"
+    }
+  }
+}

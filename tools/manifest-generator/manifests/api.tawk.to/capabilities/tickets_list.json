@@ -1,0 +1,95 @@
+{
+  "name": "tickets_list",
+  "description": "Retrieve support tickets for a property with filtering by status, date range, and sorting.",
+  "endpoint": "/v1/ticket.list",
+  "method": "POST",
+  "resource_group": "tickets",
+  "parameters": [
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The property ID",
+      "required": true,
+      "example": "property_id_123"
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "description": "Number of results per page",
+      "required": false,
+      "example": "20"
+    },
+    {
+      "name": "startDate",
+      "type": "string",
+      "description": "Filter from this date (ISO 8601)",
+      "required": false,
+      "example": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "endDate",
+      "type": "string",
+      "description": "Filter up to this date (ISO 8601)",
+      "required": false,
+      "example": "2024-12-31T23:59:59Z"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by ticket status (open, pending, closed)",
+      "required": false,
+      "example": "open"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort order for results",
+      "required": false,
+      "example": "desc"
+    },
+    {
+      "name": "deleted",
+      "type": "boolean",
+      "description": "Include deleted tickets",
+      "required": false,
+      "example": "false"
+    },
+    {
+      "name": "dateType",
+      "type": "string",
+      "description": "Type of date to filter on",
+      "required": false,
+      "example": "created"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.tawk.to/v1/ticket.list",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "propertyId": "property_id_123",
+      "size": 20,
+      "status": "open"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "ticket_123",
+          "subject": "Need help",
+          "status": "open",
+          "createdAt": "2024-01-15T10:30:00Z"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

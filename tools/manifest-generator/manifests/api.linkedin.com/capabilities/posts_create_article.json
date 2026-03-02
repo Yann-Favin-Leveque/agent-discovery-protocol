@@ -1,0 +1,79 @@
+{
+  "name": "posts_create_article",
+  "description": "Share an article URL with commentary.",
+  "resource_group": "posts",
+  "endpoint": "/v2/posts",
+  "method": "POST",
+  "auth_scopes": [
+    "w_member_social"
+  ],
+  "parameters": [
+    {
+      "name": "author",
+      "type": "string",
+      "required": true,
+      "description": "Author URN."
+    },
+    {
+      "name": "commentary",
+      "type": "string",
+      "required": true,
+      "description": "Commentary text."
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "required": true,
+      "description": "Content object with article.source (URL), title, and description."
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "required": true,
+      "description": "Visibility: PUBLIC or CONNECTIONS."
+    },
+    {
+      "name": "lifecycleState",
+      "type": "string",
+      "required": true,
+      "description": "Must be PUBLISHED."
+    },
+    {
+      "name": "distribution",
+      "type": "object",
+      "required": true,
+      "description": "Distribution settings."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.linkedin.com/v2/posts",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "X-Restli-Protocol-Version": "2.0.0"
+    },
+    "body": {
+      "author": "urn:li:person:abc123",
+      "commentary": "Great article on AI!",
+      "content": {
+        "article": {
+          "source": "https://example.com/article",
+          "title": "The Future of AI",
+          "description": "An insightful read"
+        }
+      },
+      "visibility": "PUBLIC",
+      "lifecycleState": "PUBLISHED",
+      "distribution": {
+        "feedDistribution": "MAIN_FEED"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "urn:li:share:123456790"
+    }
+  }
+}

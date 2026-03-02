@@ -1,42 +1,66 @@
 {
   "spec_version": "1.0",
   "name": "Gotenberg",
-  "description": "Gotenberg is a developer-friendly, Docker-powered API for converting documents to PDF. It uses Chromium for HTML/URL/Markdown-to-PDF conversion and LibreOffice for Office document conversion. It can also merge multiple PDFs. Gotenberg is typically self-hosted; the base_url should be replaced with your own instance URL.",
+  "description": "Gotenberg is a developer-friendly, Docker-powered API for converting documents to PDF and taking screenshots. It uses Chromium for HTML/URL/Markdown-to-PDF conversion and screenshots, LibreOffice for Office document conversion, and PDF engines for merging and metadata operations. Gotenberg is self-hosted; replace the base_url with your own instance URL.",
   "base_url": "https://api.gotenberg.dev",
   "auth": {
     "type": "none",
-    "note": "Gotenberg is self-hosted and has no built-in authentication. If your instance is behind a reverse proxy with API key or Basic auth configured, add the appropriate Authorization header. The base_url 'https://api.gotenberg.dev' is a placeholder; replace it with your own instance URL (e.g., 'http://localhost:3000')."
+    "note": "Gotenberg is self-hosted with no built-in auth. If behind a reverse proxy with auth, add the appropriate Authorization header. The base_url is a placeholder; replace with your instance URL (e.g., 'http://localhost:3000')."
   },
   "capabilities": [
     {
-      "name": "convert_html_to_pdf",
-      "description": "Convert one or more HTML files to a PDF document using the Chromium rendering engine.",
-      "detail_url": "/capabilities/convert_html_to_pdf"
+      "name": "chromium_html_to_pdf",
+      "resource_group": "chromium",
+      "description": "Convert an HTML file (and optional assets) to a PDF using Chromium.",
+      "detail_url": "/capabilities/chromium_html_to_pdf"
     },
     {
-      "name": "convert_url_to_pdf",
-      "description": "Convert a web page at a given URL to a PDF document using the Chromium rendering engine.",
-      "detail_url": "/capabilities/convert_url_to_pdf"
+      "name": "chromium_url_to_pdf",
+      "resource_group": "chromium",
+      "description": "Convert a web page URL to a PDF using Chromium.",
+      "detail_url": "/capabilities/chromium_url_to_pdf"
     },
     {
-      "name": "convert_markdown_to_pdf",
-      "description": "Convert Markdown content to a PDF document, rendered within an HTML wrapper using Chromium.",
-      "detail_url": "/capabilities/convert_markdown_to_pdf"
+      "name": "chromium_markdown_to_pdf",
+      "resource_group": "chromium",
+      "description": "Convert Markdown files to a PDF via an HTML wrapper using Chromium.",
+      "detail_url": "/capabilities/chromium_markdown_to_pdf"
     },
     {
-      "name": "convert_office_to_pdf",
+      "name": "chromium_screenshot_url",
+      "resource_group": "chromium",
+      "description": "Take a screenshot of a web page URL in PNG, JPEG, or WebP format.",
+      "detail_url": "/capabilities/chromium_screenshot_url"
+    },
+    {
+      "name": "chromium_screenshot_html",
+      "resource_group": "chromium",
+      "description": "Take a screenshot of an HTML file in PNG, JPEG, or WebP format.",
+      "detail_url": "/capabilities/chromium_screenshot_html"
+    },
+    {
+      "name": "chromium_screenshot_markdown",
+      "resource_group": "chromium",
+      "description": "Take a screenshot of Markdown content in PNG, JPEG, or WebP format.",
+      "detail_url": "/capabilities/chromium_screenshot_markdown"
+    },
+    {
+      "name": "libreoffice_convert",
+      "resource_group": "libreoffice",
       "description": "Convert Office documents (Word, Excel, PowerPoint, etc.) to PDF using LibreOffice.",
-      "detail_url": "/capabilities/convert_office_to_pdf"
+      "detail_url": "/capabilities/libreoffice_convert"
     },
     {
-      "name": "merge_pdfs",
-      "description": "Merge multiple PDF files into a single PDF document.",
-      "detail_url": "/capabilities/merge_pdfs"
+      "name": "pdfengines_metadata_write",
+      "resource_group": "pdfengines",
+      "description": "Write XMP metadata (Author, Title, Keywords, etc.) to existing PDF files.",
+      "detail_url": "/capabilities/pdfengines_metadata_write"
     },
     {
-      "name": "get_health",
-      "description": "Check the health status of the Gotenberg instance and its Chromium and LibreOffice modules.",
-      "detail_url": "/capabilities/get_health"
+      "name": "health_get",
+      "resource_group": "system",
+      "description": "Check the health status of the Gotenberg instance and its modules.",
+      "detail_url": "/capabilities/health_get"
     }
   ]
 }

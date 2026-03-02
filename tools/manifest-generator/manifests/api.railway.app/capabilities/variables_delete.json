@@ -1,0 +1,53 @@
+{
+  "name": "variables_delete",
+  "description": "Delete an environment variable.",
+  "resource_group": "variables",
+  "endpoint": "/graphql/v2",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "description": "Project ID."
+    },
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "Service ID."
+    },
+    {
+      "name": "environmentId",
+      "type": "string",
+      "required": true,
+      "description": "Environment ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Variable name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://backboard.railway.app/graphql/v2",
+    "body": {
+      "query": "mutation($input: VariableDeleteInput!) { variableDelete(input: $input) }",
+      "variables": {
+        "input": {
+          "projectId": "proj-abc",
+          "serviceId": "srv-abc",
+          "environmentId": "env-abc",
+          "name": "OLD_VAR"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "variableDelete": true
+    }
+  }
+}

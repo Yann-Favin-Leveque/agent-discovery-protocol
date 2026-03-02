@@ -1,0 +1,27 @@
+{
+  "name": "coins_market_chart",
+  "description": "Get historical market chart data (prices, market caps, volumes) as time series arrays over a specified number of days.",
+  "resource_group": "coins",
+  "endpoint": "/coins/{id}/market_chart",
+  "method": "GET",
+  "parameters": [
+    {"name": "id", "type": "string", "description": "Coin ID.", "required": true, "example": "bitcoin"},
+    {"name": "vs_currency", "type": "string", "description": "Target currency.", "required": true, "example": "usd"},
+    {"name": "days", "type": "string", "description": "Number of days (1, 7, 14, 30, 90, 180, 365, max).", "required": true, "example": "30"},
+    {"name": "interval", "type": "string", "description": "Data interval (daily). Leave empty for automatic.", "required": false}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "prices": [[1705312200000, 43250.50], [1705398600000, 43100.75]],
+      "market_caps": [[1705312200000, 847000000000], [1705398600000, 845000000000]],
+      "total_volumes": [[1705312200000, 25000000000], [1705398600000, 23000000000]]
+    }
+  },
+  "rate_limits": {"requests_per_minute": 30}
+}

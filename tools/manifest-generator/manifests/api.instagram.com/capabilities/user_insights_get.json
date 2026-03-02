@@ -1,0 +1,72 @@
+{
+  "name": "user_insights_get",
+  "resource_group": "insights",
+  "description": "Retrieve account-level insights for a business or creator account over a time period. Includes impressions, reach, follower count, profile views, and audience demographics.",
+  "endpoint": "/{user_id}/insights",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID.",
+      "required": true,
+      "in": "path",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "metric",
+      "type": "string",
+      "description": "Comma-separated metrics: impressions, reach, follower_count, profile_views, website_clicks, email_contacts, get_directions_clicks, phone_call_clicks, text_message_clicks.",
+      "required": true,
+      "in": "query",
+      "example": "impressions,reach,follower_count,profile_views"
+    },
+    {
+      "name": "period",
+      "type": "string",
+      "description": "Time granularity for the metrics. One of: day, week, days_28, month, lifetime.",
+      "required": true,
+      "in": "query",
+      "example": "day"
+    },
+    {
+      "name": "since",
+      "type": "integer",
+      "description": "Unix timestamp for the start of the time range.",
+      "required": false,
+      "in": "query",
+      "example": 1709251200
+    },
+    {
+      "name": "until",
+      "type": "integer",
+      "description": "Unix timestamp for the end of the time range.",
+      "required": false,
+      "in": "query",
+      "example": 1709856000
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17841400000000000/insights?metric=impressions,reach,follower_count&period=day&since=1709251200&until=1709856000",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "name": "impressions",
+          "period": "day",
+          "values": [
+            {"value": 5200, "end_time": "2024-03-02T08:00:00+0000"},
+            {"value": 4800, "end_time": "2024-03-03T08:00:00+0000"}
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["instagram_manage_insights"]
+}

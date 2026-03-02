@@ -1,0 +1,77 @@
+{
+  "name": "customs_declarations_create",
+  "description": "Create a customs declaration for international shipments.",
+  "endpoint": "/customs/declarations",
+  "method": "POST",
+  "resource_group": "customs",
+  "parameters": [
+    {
+      "name": "contents_type",
+      "type": "string",
+      "description": "Type: DOCUMENTS, GIFT, SAMPLE, MERCHANDISE, etc.",
+      "required": true,
+      "example": "MERCHANDISE"
+    },
+    {
+      "name": "contents_explanation",
+      "type": "string",
+      "description": "Description of contents.",
+      "required": false
+    },
+    {
+      "name": "non_delivery_option",
+      "type": "string",
+      "description": "Non-delivery option: ABANDON or RETURN.",
+      "required": true,
+      "example": "RETURN"
+    },
+    {
+      "name": "certify",
+      "type": "boolean",
+      "description": "Certify accuracy.",
+      "required": true,
+      "example": true
+    },
+    {
+      "name": "certify_signer",
+      "type": "string",
+      "description": "Signer name.",
+      "required": true,
+      "example": "John Smith"
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Array of customs item IDs.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/customs/declarations",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "contents_type": "MERCHANDISE",
+      "non_delivery_option": "RETURN",
+      "certify": true,
+      "certify_signer": "John Smith",
+      "items": [
+        "cstitem_abc123"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "object_id": "cstdec_abc123",
+      "contents_type": "MERCHANDISE"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

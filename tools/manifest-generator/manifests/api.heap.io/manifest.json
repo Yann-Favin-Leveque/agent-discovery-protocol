@@ -1,18 +1,61 @@
 {
   "spec_version": "1.0",
   "name": "Heap",
-  "description": "Heap is a digital insights platform that automatically captures every user interaction. Analyze user behavior, build funnels, and identify friction points without manual event instrumentation.",
-  "base_url": "https://heapanalytics.com/api",
+  "description": "Heap is a digital insights platform that automatically captures every user interaction. Track custom events server-side, manage user and account properties, and delete user data for compliance.",
+  "base_url": "https://heapanalytics.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
     "prefix": "Bearer"
   },
   "capabilities": [
-    {"name": "track_event", "description": "Send a custom track event for a specific user.", "detail_url": "/capabilities/track_event"},
-    {"name": "add_user_properties", "description": "Set or update properties on a user profile.", "detail_url": "/capabilities/add_user_properties"},
-    {"name": "bulk_track", "description": "Send multiple events in a single batch request.", "detail_url": "/capabilities/bulk_track"},
-    {"name": "query_users", "description": "Query user data using the Heap Connect API.", "detail_url": "/capabilities/query_users"},
-    {"name": "add_account_properties", "description": "Set properties on an account for B2B analytics.", "detail_url": "/capabilities/add_account_properties"}
+    {
+      "name": "events_track",
+      "description": "Send a custom server-side track event for a specific user.",
+      "detail_url": "https://agent-dns.dev/api/services/api.heap.io/capabilities/events_track",
+      "resource_group": "events"
+    },
+    {
+      "name": "events_bulk_track",
+      "description": "Send multiple events in a single batch request (max 1,000).",
+      "detail_url": "https://agent-dns.dev/api/services/api.heap.io/capabilities/events_bulk_track",
+      "resource_group": "events"
+    },
+    {
+      "name": "users_identify",
+      "description": "Assign a unique identity to a user, merging anonymous sessions.",
+      "detail_url": "https://agent-dns.dev/api/services/api.heap.io/capabilities/users_identify",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_add_properties",
+      "description": "Set or update custom properties on a user profile.",
+      "detail_url": "https://agent-dns.dev/api/services/api.heap.io/capabilities/users_add_properties",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_bulk_add_properties",
+      "description": "Set properties on multiple user profiles in batch (max 1,000).",
+      "detail_url": "https://agent-dns.dev/api/services/api.heap.io/capabilities/users_bulk_add_properties",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_delete",
+      "description": "Delete users from the Heap workspace for GDPR compliance.",
+      "detail_url": "https://agent-dns.dev/api/services/api.heap.io/capabilities/users_delete",
+      "resource_group": "users"
+    },
+    {
+      "name": "accounts_add_properties",
+      "description": "Set properties on an account for B2B analytics grouping.",
+      "detail_url": "https://agent-dns.dev/api/services/api.heap.io/capabilities/accounts_add_properties",
+      "resource_group": "accounts"
+    },
+    {
+      "name": "accounts_bulk_add_properties",
+      "description": "Set properties on multiple accounts in batch (max 1,000).",
+      "detail_url": "https://agent-dns.dev/api/services/api.heap.io/capabilities/accounts_bulk_add_properties",
+      "resource_group": "accounts"
+    }
   ]
 }

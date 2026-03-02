@@ -1,48 +1,572 @@
 {
   "spec_version": "1.0",
   "name": "Asana",
-  "description": "Asana is a work management platform that helps teams organize, track, and manage projects and tasks. Connect to Asana to create, update, and search tasks across your workspace with full project management capabilities.",
+  "description": "Asana is a work management platform for organizing, tracking, and managing projects and tasks. The API provides full CRUD for tasks, projects, sections, stories, teams, users, workspaces, tags, custom fields, portfolios, goals, webhooks, attachments, and memberships.",
   "base_url": "https://app.asana.com/api",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://app.asana.com/0/developer-console"
   },
   "capabilities": [
     {
-      "name": "list_tasks",
-      "description": "List all tasks in a workspace, optionally filtered by project.",
-      "detail_url": "/capabilities/list_tasks"
+      "name": "tasks_list",
+      "description": "Get multiple tasks.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_list"
     },
     {
-      "name": "create_task",
-      "description": "Create a new task in the workspace with title and optional details.",
-      "detail_url": "/capabilities/create_task"
+      "name": "tasks_create",
+      "description": "Create a new task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_create"
     },
     {
-      "name": "update_task",
-      "description": "Update an existing task's properties like status, assignee, or due date.",
-      "detail_url": "/capabilities/update_task"
+      "name": "tasks_get",
+      "description": "Get a task by GID.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_get"
     },
     {
-      "name": "list_projects",
-      "description": "List all projects in the workspace.",
-      "detail_url": "/capabilities/list_projects"
+      "name": "tasks_update",
+      "description": "Update an existing task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_update"
     },
     {
-      "name": "create_project",
-      "description": "Create a new project in the workspace.",
-      "detail_url": "/capabilities/create_project"
+      "name": "tasks_delete",
+      "description": "Delete a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_delete"
     },
     {
-      "name": "search_tasks",
-      "description": "Search for tasks in a specific workspace using filters and keywords.",
-      "detail_url": "/capabilities/search_tasks"
+      "name": "tasks_duplicate",
+      "description": "Duplicate a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_duplicate"
     },
     {
-      "name": "add_comment",
-      "description": "Add a comment or story to an existing task for collaboration.",
-      "detail_url": "/capabilities/add_comment"
+      "name": "tasks_search",
+      "description": "Search tasks in a workspace.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_search"
+    },
+    {
+      "name": "tasks_subtasks_list",
+      "description": "Get subtasks of a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_subtasks_list"
+    },
+    {
+      "name": "tasks_subtasks_create",
+      "description": "Create a subtask.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_subtasks_create"
+    },
+    {
+      "name": "tasks_set_parent",
+      "description": "Set the parent of a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_set_parent"
+    },
+    {
+      "name": "tasks_dependencies_list",
+      "description": "Get task dependencies.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_dependencies_list"
+    },
+    {
+      "name": "tasks_dependencies_add",
+      "description": "Add dependencies to a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_dependencies_add"
+    },
+    {
+      "name": "tasks_dependencies_remove",
+      "description": "Remove dependencies from a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_dependencies_remove"
+    },
+    {
+      "name": "tasks_dependents_list",
+      "description": "Get task dependents.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_dependents_list"
+    },
+    {
+      "name": "tasks_add_project",
+      "description": "Add a task to a project.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_add_project"
+    },
+    {
+      "name": "tasks_remove_project",
+      "description": "Remove a task from a project.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_remove_project"
+    },
+    {
+      "name": "tasks_add_tag",
+      "description": "Add a tag to a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_add_tag"
+    },
+    {
+      "name": "tasks_remove_tag",
+      "description": "Remove a tag from a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_remove_tag"
+    },
+    {
+      "name": "tasks_add_followers",
+      "description": "Add followers to a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_add_followers"
+    },
+    {
+      "name": "tasks_remove_followers",
+      "description": "Remove followers from a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_remove_followers"
+    },
+    {
+      "name": "tasks_projects_list",
+      "description": "Get projects a task is in.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_projects_list"
+    },
+    {
+      "name": "tasks_tags_list",
+      "description": "Get tags on a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_tags_list"
+    },
+    {
+      "name": "projects_list",
+      "description": "Get multiple projects.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_list"
+    },
+    {
+      "name": "projects_create",
+      "description": "Create a new project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_create"
+    },
+    {
+      "name": "projects_get",
+      "description": "Get a project by GID.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_get"
+    },
+    {
+      "name": "projects_update",
+      "description": "Update a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_update"
+    },
+    {
+      "name": "projects_delete",
+      "description": "Delete a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_delete"
+    },
+    {
+      "name": "projects_duplicate",
+      "description": "Duplicate a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_duplicate"
+    },
+    {
+      "name": "projects_tasks_list",
+      "description": "Get tasks in a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_tasks_list"
+    },
+    {
+      "name": "projects_task_counts",
+      "description": "Get task counts for a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_task_counts"
+    },
+    {
+      "name": "projects_add_members",
+      "description": "Add users to a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_add_members"
+    },
+    {
+      "name": "projects_remove_members",
+      "description": "Remove users from a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_remove_members"
+    },
+    {
+      "name": "projects_add_custom_field",
+      "description": "Add a custom field to a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_add_custom_field"
+    },
+    {
+      "name": "sections_list",
+      "description": "List sections in a project.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_list"
+    },
+    {
+      "name": "sections_create",
+      "description": "Create a section in a project.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_create"
+    },
+    {
+      "name": "sections_get",
+      "description": "Get a section by GID.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_get"
+    },
+    {
+      "name": "sections_update",
+      "description": "Update a section.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_update"
+    },
+    {
+      "name": "sections_delete",
+      "description": "Delete a section.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_delete"
+    },
+    {
+      "name": "sections_add_task",
+      "description": "Add a task to a section.",
+      "resource_group": "sections",
+      "detail_url": "/capabilities/sections_add_task"
+    },
+    {
+      "name": "stories_list",
+      "description": "Get stories (comments) on a task.",
+      "resource_group": "stories",
+      "detail_url": "/capabilities/stories_list"
+    },
+    {
+      "name": "stories_create",
+      "description": "Create a story (comment) on a task.",
+      "resource_group": "stories",
+      "detail_url": "/capabilities/stories_create"
+    },
+    {
+      "name": "stories_get",
+      "description": "Get a story by GID.",
+      "resource_group": "stories",
+      "detail_url": "/capabilities/stories_get"
+    },
+    {
+      "name": "stories_update",
+      "description": "Update a story.",
+      "resource_group": "stories",
+      "detail_url": "/capabilities/stories_update"
+    },
+    {
+      "name": "stories_delete",
+      "description": "Delete a story.",
+      "resource_group": "stories",
+      "detail_url": "/capabilities/stories_delete"
+    },
+    {
+      "name": "teams_list",
+      "description": "List teams in a workspace.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_list"
+    },
+    {
+      "name": "teams_get",
+      "description": "Get a team by GID.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_get"
+    },
+    {
+      "name": "teams_create",
+      "description": "Create a team.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_create"
+    },
+    {
+      "name": "teams_add_user",
+      "description": "Add a user to a team.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_add_user"
+    },
+    {
+      "name": "teams_remove_user",
+      "description": "Remove a user from a team.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_remove_user"
+    },
+    {
+      "name": "users_list",
+      "description": "Get multiple users.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_list"
+    },
+    {
+      "name": "users_get",
+      "description": "Get a user by GID.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_get"
+    },
+    {
+      "name": "users_favorites_list",
+      "description": "Get a user's favorites.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_favorites_list"
+    },
+    {
+      "name": "workspaces_list",
+      "description": "Get all workspaces.",
+      "resource_group": "workspaces",
+      "detail_url": "/capabilities/workspaces_list"
+    },
+    {
+      "name": "workspaces_get",
+      "description": "Get a workspace by GID.",
+      "resource_group": "workspaces",
+      "detail_url": "/capabilities/workspaces_get"
+    },
+    {
+      "name": "workspaces_update",
+      "description": "Update a workspace.",
+      "resource_group": "workspaces",
+      "detail_url": "/capabilities/workspaces_update"
+    },
+    {
+      "name": "tags_list",
+      "description": "Get multiple tags.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_list"
+    },
+    {
+      "name": "tags_create",
+      "description": "Create a tag.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_create"
+    },
+    {
+      "name": "tags_get",
+      "description": "Get a tag by GID.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_get"
+    },
+    {
+      "name": "tags_update",
+      "description": "Update a tag.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_update"
+    },
+    {
+      "name": "tags_delete",
+      "description": "Delete a tag.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_delete"
+    },
+    {
+      "name": "custom_fields_create",
+      "description": "Create a custom field.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_create"
+    },
+    {
+      "name": "custom_fields_get",
+      "description": "Get a custom field.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_get"
+    },
+    {
+      "name": "custom_fields_update",
+      "description": "Update a custom field.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_update"
+    },
+    {
+      "name": "custom_fields_delete",
+      "description": "Delete a custom field.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_delete"
+    },
+    {
+      "name": "portfolios_list",
+      "description": "Get multiple portfolios.",
+      "resource_group": "portfolios",
+      "detail_url": "/capabilities/portfolios_list"
+    },
+    {
+      "name": "portfolios_create",
+      "description": "Create a portfolio.",
+      "resource_group": "portfolios",
+      "detail_url": "/capabilities/portfolios_create"
+    },
+    {
+      "name": "portfolios_get",
+      "description": "Get a portfolio.",
+      "resource_group": "portfolios",
+      "detail_url": "/capabilities/portfolios_get"
+    },
+    {
+      "name": "portfolios_update",
+      "description": "Update a portfolio.",
+      "resource_group": "portfolios",
+      "detail_url": "/capabilities/portfolios_update"
+    },
+    {
+      "name": "portfolios_delete",
+      "description": "Delete a portfolio.",
+      "resource_group": "portfolios",
+      "detail_url": "/capabilities/portfolios_delete"
+    },
+    {
+      "name": "portfolios_items_list",
+      "description": "List items in a portfolio.",
+      "resource_group": "portfolios",
+      "detail_url": "/capabilities/portfolios_items_list"
+    },
+    {
+      "name": "portfolios_add_item",
+      "description": "Add an item to a portfolio.",
+      "resource_group": "portfolios",
+      "detail_url": "/capabilities/portfolios_add_item"
+    },
+    {
+      "name": "portfolios_remove_item",
+      "description": "Remove an item from a portfolio.",
+      "resource_group": "portfolios",
+      "detail_url": "/capabilities/portfolios_remove_item"
+    },
+    {
+      "name": "goals_list",
+      "description": "Get goals.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_list"
+    },
+    {
+      "name": "goals_create",
+      "description": "Create a goal.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_create"
+    },
+    {
+      "name": "goals_get",
+      "description": "Get a goal.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_get"
+    },
+    {
+      "name": "goals_update",
+      "description": "Update a goal.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_update"
+    },
+    {
+      "name": "goals_delete",
+      "description": "Delete a goal.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_delete"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "Get webhooks.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Get a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_get"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "attachments_get",
+      "description": "Get an attachment.",
+      "resource_group": "attachments",
+      "detail_url": "/capabilities/attachments_get"
+    },
+    {
+      "name": "attachments_delete",
+      "description": "Delete an attachment.",
+      "resource_group": "attachments",
+      "detail_url": "/capabilities/attachments_delete"
+    },
+    {
+      "name": "attachments_list",
+      "description": "Get attachments on an object.",
+      "resource_group": "attachments",
+      "detail_url": "/capabilities/attachments_list"
+    },
+    {
+      "name": "attachments_create",
+      "description": "Upload an attachment to a task.",
+      "resource_group": "attachments",
+      "detail_url": "/capabilities/attachments_create"
+    },
+    {
+      "name": "memberships_list",
+      "description": "Get memberships.",
+      "resource_group": "memberships",
+      "detail_url": "/capabilities/memberships_list"
+    },
+    {
+      "name": "memberships_create",
+      "description": "Create a membership.",
+      "resource_group": "memberships",
+      "detail_url": "/capabilities/memberships_create"
+    },
+    {
+      "name": "memberships_get",
+      "description": "Get a membership.",
+      "resource_group": "memberships",
+      "detail_url": "/capabilities/memberships_get"
+    },
+    {
+      "name": "memberships_update",
+      "description": "Update a membership.",
+      "resource_group": "memberships",
+      "detail_url": "/capabilities/memberships_update"
+    },
+    {
+      "name": "memberships_delete",
+      "description": "Delete a membership.",
+      "resource_group": "memberships",
+      "detail_url": "/capabilities/memberships_delete"
+    },
+    {
+      "name": "batch",
+      "description": "Submit parallel requests.",
+      "resource_group": "batch",
+      "detail_url": "/capabilities/batch"
+    },
+    {
+      "name": "typeahead_search",
+      "description": "Get typeahead search results.",
+      "resource_group": "typeahead",
+      "detail_url": "/capabilities/typeahead_search"
     }
   ]
 }

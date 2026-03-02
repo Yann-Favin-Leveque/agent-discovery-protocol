@@ -1,0 +1,55 @@
+{
+  "name": "notes_list",
+  "description": "List all notes on a contact for internal reference.",
+  "resource_group": "notes",
+  "endpoint": "/contacts/{id}/notes",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The contact ID."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.intercom.io/contacts/contact-abc/notes",
+    "headers": {
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "list",
+      "data": [
+        {
+          "type": "note",
+          "id": "note-1",
+          "body": "<p>Called customer about renewal.</p>",
+          "author": {
+            "type": "admin",
+            "id": "admin-1",
+            "name": "Agent Smith"
+          },
+          "created_at": 1740787200
+        }
+      ]
+    }
+  }
+}

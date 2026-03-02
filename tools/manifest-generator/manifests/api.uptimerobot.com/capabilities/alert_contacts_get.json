@@ -1,0 +1,60 @@
+{
+  "name": "alert_contacts_get",
+  "description": "List all alert contacts configured in the account, including email, SMS, webhook, and integration contacts.",
+  "resource_group": "alert_contacts",
+  "endpoint": "/v2/getAlertContacts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Your UptimeRobot API key."
+    },
+    {
+      "name": "alert_contacts",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated alert contact IDs to filter."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset (default 0)."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page (default 50)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uptimerobot.com/v2/getAlertContacts",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "api_key": "ur-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "format": "json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stat": "ok",
+      "total": 2,
+      "alert_contacts": [
+        {
+          "id": "111222",
+          "friendly_name": "DevOps Team",
+          "type": 2,
+          "status": 2,
+          "value": "devops@example.com"
+        }
+      ]
+    }
+  }
+}

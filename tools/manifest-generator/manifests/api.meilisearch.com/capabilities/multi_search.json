@@ -1,40 +1,54 @@
 {
   "name": "multi_search",
-  "description": "Execute multiple search queries across different Meilisearch indexes in a single HTTP request. Each query can target a different index with its own search parameters. Perfect for building federated search UIs, autocomplete with multiple sources, or aggregated dashboards.",
+  "description": "Execute multiple search queries across one or more indexes in a single HTTP request. Supports federated search to merge results.",
   "endpoint": "/multi-search",
   "method": "POST",
+  "resource_group": "search",
   "parameters": [
     {
       "name": "queries",
       "type": "array",
-      "description": "Array of search query objects. Each must have 'indexUid' and can include any search parameters like 'q', 'filter', 'limit', etc.",
+      "description": "Array of search query objects, each with an indexUid and search parameters.",
       "required": true,
       "example": [
-        {"indexUid": "movies", "q": "inception", "limit": 3},
-        {"indexUid": "books", "q": "inception", "limit": 2}
+        {
+          "indexUid": "movies",
+          "q": "matrix"
+        },
+        {
+          "indexUid": "books",
+          "q": "matrix"
+        }
       ]
+    },
+    {
+      "name": "federation",
+      "type": "object",
+      "description": "Federation options to merge results across queries (optional).",
+      "required": false,
+      "example": {
+        "limit": 20
+      }
     }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.meilisearch.com/multi-search",
     "headers": {
-      "Authorization": "Bearer {api_key}",
+      "Authorization": "Bearer MASTER_KEY",
       "Content-Type": "application/json"
     },
     "body": {
       "queries": [
         {
           "indexUid": "movies",
-          "q": "inception",
-          "limit": 3,
-          "attributesToRetrieve": ["title", "rating"]
+          "q": "matrix",
+          "limit": 5
         },
         {
           "indexUid": "books",
-          "q": "inception",
-          "limit": 2,
-          "attributesToRetrieve": ["title", "author"]
+          "q": "matrix",
+          "limit": 5
         }
       ]
     }
@@ -46,26 +60,34 @@
         {
           "indexUid": "movies",
           "hits": [
-            {"title": "Inception", "rating": 4.8}
+            {
+              "id": 1,
+              "title": "The Matrix"
+            }
           ],
-          "query": "inception",
-          "processingTimeMs": 2,
-          "limit": 3,
-          "offset": 0,
+          "query": "matrix",
+          "processingTimeMs": 1,
           "estimatedTotalHits": 1
         },
         {
           "indexUid": "books",
           "hits": [
-            {"title": "Inception: The Shooting Script", "author": "Christopher Nolan"}
+            {
+              "id": 10,
+              "title": "The Matrix Comics"
+            }
           ],
-          "query": "inception",
+          "query": "matrix",
           "processingTimeMs": 1,
-          "limit": 2,
-          "offset": 0,
           "estimatedTotalHits": 1
         }
       ]
     }
+  },
+  "auth_scopes": [
+    "search"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
   }
 }

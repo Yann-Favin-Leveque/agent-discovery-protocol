@@ -1,0 +1,104 @@
+{
+  "name": "isochrones_post",
+  "description": "Calculate reachable areas from one or more locations within given time or distance limits. Returns polygon geometries.",
+  "endpoint": "/v2/isochrones/{profile}",
+  "method": "POST",
+  "resource_group": "isochrones",
+  "parameters": [
+    {
+      "name": "profile",
+      "type": "string",
+      "description": "Routing profile",
+      "required": true,
+      "example": "driving-car"
+    },
+    {
+      "name": "locations",
+      "type": "array",
+      "description": "Array of [longitude, latitude] center points",
+      "required": true,
+      "example": [
+        [
+          8.681495,
+          49.41461
+        ]
+      ]
+    },
+    {
+      "name": "range",
+      "type": "array",
+      "description": "Range values in seconds (time) or meters (distance)",
+      "required": true,
+      "example": [
+        300,
+        600
+      ]
+    },
+    {
+      "name": "range_type",
+      "type": "string",
+      "description": "Range type: time or distance",
+      "required": false,
+      "example": "time"
+    },
+    {
+      "name": "smoothing",
+      "type": "number",
+      "description": "Smoothing factor for polygon (0-100)",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "attributes",
+      "type": "array",
+      "description": "Attributes to include: area, reachfactor, total_pop",
+      "required": false,
+      "example": [
+        "area"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/v2/isochrones/{profile}",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "locations": [
+        [
+          8.681495,
+          49.41461
+        ]
+      ],
+      "range": [
+        300,
+        600
+      ],
+      "range_type": "time"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": []
+          },
+          "properties": {
+            "value": 300
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

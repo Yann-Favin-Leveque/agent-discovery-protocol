@@ -1,0 +1,61 @@
+{
+  "name": "transactions_list",
+  "description": "List transactions for a company with filters.",
+  "endpoint": "/api/v2/companies/{companyCode}/transactions",
+  "method": "GET",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "companyCode",
+      "type": "string",
+      "description": "Company code.",
+      "required": true,
+      "example": "DEFAULT"
+    },
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter expression.",
+      "required": false,
+      "example": "date gt 2024-01-01"
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "description": "Max results to return.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "$skip",
+      "type": "integer",
+      "description": "Results to skip.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.avatax.com/api/v2/companies/DEFAULT/transactions?$top=25",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "@recordsetCount": 100,
+      "value": [
+        {
+          "id": 12345,
+          "code": "txn-001",
+          "totalAmount": 100.0,
+          "totalTax": 8.75
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

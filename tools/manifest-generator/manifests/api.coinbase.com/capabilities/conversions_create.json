@@ -1,0 +1,25 @@
+{
+  "name": "conversions_create",
+  "description": "Convert funds between two currencies (e.g., USD to USDC) within your account.",
+  "endpoint": "/conversions",
+  "method": "POST",
+  "resource_group": "conversions",
+  "parameters": [
+    {"name": "from", "type": "string", "description": "Source currency.", "required": true, "example": "USD"},
+    {"name": "to", "type": "string", "description": "Target currency.", "required": true, "example": "USDC"},
+    {"name": "amount", "type": "string", "description": "Amount to convert.", "required": true, "example": "1000.00"},
+    {"name": "profile_id", "type": "string", "description": "Profile to perform conversion in.", "required": false, "example": "86602c68-306a-4500-ac73-4ce56a91d83c"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.exchange.coinbase.com/conversions",
+    "headers": {"CB-ACCESS-KEY": "{api_key}", "CB-ACCESS-SIGN": "{signature}", "CB-ACCESS-TIMESTAMP": "{timestamp}", "CB-ACCESS-PASSPHRASE": "{passphrase}", "Content-Type": "application/json"},
+    "body": {"from": "USD", "to": "USDC", "amount": "1000.00"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": "conv123", "amount": "1000.00", "from_account_id": "acc1", "to_account_id": "acc2", "from": "USD", "to": "USDC"}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 600}
+}

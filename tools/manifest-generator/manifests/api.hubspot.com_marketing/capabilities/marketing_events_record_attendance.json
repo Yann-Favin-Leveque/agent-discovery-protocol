@@ -1,0 +1,67 @@
+{
+  "name": "marketing_events_record_attendance",
+  "description": "Record contact attendance state for a marketing event. Supports REGISTERED, ATTENDED, CANCELLED, and NO_SHOW.",
+  "endpoint": "/marketing/v3/marketing-events/attendance/{externalEventId}/{subscriberState}/email-create",
+  "method": "POST",
+  "resource_group": "marketing_events",
+  "parameters": [
+    {
+      "name": "externalEventId",
+      "type": "string",
+      "description": "The external event identifier.",
+      "required": true,
+      "example": "ext_event_001"
+    },
+    {
+      "name": "subscriberState",
+      "type": "string",
+      "description": "Attendance state: REGISTERED, ATTENDED, CANCELLED, or NO_SHOW.",
+      "required": true,
+      "example": "ATTENDED"
+    },
+    {
+      "name": "inputs",
+      "type": "array",
+      "description": "Array of objects with email and optional interactionDateTime.",
+      "required": true,
+      "example": [
+        { "email": "john@example.com", "interactionDateTime": 1700000000000 }
+      ]
+    },
+    {
+      "name": "externalAccountId",
+      "type": "string",
+      "description": "The external account identifier.",
+      "required": true,
+      "example": "acct_001"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hubspot.com/marketing/v3/marketing-events/attendance/ext_event_001/ATTENDED/email-create?externalAccountId=acct_001",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": [
+        { "email": "john@example.com", "interactionDateTime": 1700000000000 },
+        { "email": "jane@example.com", "interactionDateTime": 1700000000000 }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "COMPLETE",
+      "results": [
+        { "email": "john@example.com", "status": "UPDATED" },
+        { "email": "jane@example.com", "status": "UPDATED" }
+      ]
+    }
+  },
+  "auth_scopes": ["marketing-events"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

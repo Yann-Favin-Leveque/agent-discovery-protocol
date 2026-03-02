@@ -1,0 +1,63 @@
+{
+  "name": "suppression_list_search",
+  "description": "Search the suppression list with filtering by type, source, and date range.",
+  "endpoint": "/api/v1/suppression-list",
+  "method": "GET",
+  "resource_group": "suppression_list",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start datetime",
+      "required": false,
+      "example": "2026-01-01T00:00"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "End datetime",
+      "required": false,
+      "example": "2026-03-01T00:00"
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "transactional, non_transactional",
+      "required": false,
+      "example": "transactional"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/suppression-list?types=transactional&per_page=100",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "recipient": "bounced@example.com",
+          "type": "transactional",
+          "source": "Bounce Rule"
+        }
+      ],
+      "total_count": 1
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

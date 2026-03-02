@@ -1,0 +1,88 @@
+{
+  "name": "live_streams_create",
+  "resource_group": "live_streams",
+  "description": "Create a new live stream with RTMP ingest support.",
+  "endpoint": "/video/v1/live-streams",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "playback_policy",
+      "type": "array",
+      "required": false,
+      "description": "Playback policies: public or signed."
+    },
+    {
+      "name": "new_asset_settings",
+      "type": "object",
+      "required": false,
+      "description": "Settings for assets created from the stream."
+    },
+    {
+      "name": "reconnect_window",
+      "type": "number",
+      "required": false,
+      "description": "Reconnect window in seconds."
+    },
+    {
+      "name": "reduced_latency",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable reduced latency."
+    },
+    {
+      "name": "low_latency",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable low latency mode."
+    },
+    {
+      "name": "test",
+      "type": "boolean",
+      "required": false,
+      "description": "Create as test stream."
+    },
+    {
+      "name": "passthrough",
+      "type": "string",
+      "required": false,
+      "description": "Custom metadata."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mux.com/video/v1/live-streams",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "playback_policy": [
+        "public"
+      ],
+      "new_asset_settings": {
+        "playback_policy": [
+          "public"
+        ]
+      },
+      "low_latency": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "stream_abc",
+        "stream_key": "live_xyz",
+        "status": "idle",
+        "playback_ids": [
+          {
+            "id": "playback_xyz",
+            "policy": "public"
+          }
+        ],
+        "low_latency": true,
+        "created_at": "2024-01-15T10:30:00Z"
+      }
+    }
+  }
+}

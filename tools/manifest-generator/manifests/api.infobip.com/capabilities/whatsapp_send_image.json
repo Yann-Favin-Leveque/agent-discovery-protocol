@@ -1,0 +1,56 @@
+{
+  "name": "whatsapp_send_image",
+  "description": "Send an image message with optional caption to a WhatsApp user. Supports JPEG, PNG formats up to 5MB.",
+  "endpoint": "/whatsapp/1/message/image",
+  "method": "POST",
+  "resource_group": "whatsapp",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "Registered WhatsApp sender number in E.164 format."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": true,
+      "description": "Recipient WhatsApp phone number in E.164 format."
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "required": true,
+      "description": "Image content with 'mediaUrl' (string, URL of the image) and optional 'caption' (string)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/whatsapp/1/message/image",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "from": "447860099299",
+      "to": "14155550123",
+      "content": {
+        "mediaUrl": "https://example.com/product-image.jpg",
+        "caption": "Here is your product photo"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "to": "14155550123",
+      "messageCount": 1,
+      "messageId": "abcdef-image-123456",
+      "status": { "groupId": 1, "groupName": "PENDING", "id": 7, "name": "PENDING_ENROUTE" }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "messages_untrash",
+  "description": "Removes the specified message from the trash.",
+  "resource_group": "messages",
+  "endpoint": "/gmail/v1/users/{userId}/messages/{id}/untrash",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID of the message to remove from trash.",
+      "required": true,
+      "example": "18e2abc123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages/18e2abc123/untrash",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "18e2abc123",
+      "threadId": "18e2abc123",
+      "labelIds": [
+        "INBOX"
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.modify"
+  ]
+}

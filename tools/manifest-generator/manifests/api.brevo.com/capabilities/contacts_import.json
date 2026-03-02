@@ -1,0 +1,54 @@
+{
+  "name": "contacts_import",
+  "description": "Import contacts in bulk.",
+  "resource_group": "contacts",
+  "endpoint": "/contacts/import",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "jsonBody",
+      "type": "array",
+      "description": "Array of contact objects.",
+      "required": false
+    },
+    {
+      "name": "listIds",
+      "type": "array",
+      "description": "List IDs to add to.",
+      "required": false
+    },
+    {
+      "name": "notifyUrl",
+      "type": "string",
+      "description": "Webhook URL for completion notification.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/contacts/import",
+    "headers": {
+      "api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "jsonBody": [
+        {
+          "email": "a@example.com",
+          "attributes": {
+            "FNAME": "Alice"
+          }
+        }
+      ],
+      "listIds": [
+        1
+      ]
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "processId": 123
+    }
+  }
+}

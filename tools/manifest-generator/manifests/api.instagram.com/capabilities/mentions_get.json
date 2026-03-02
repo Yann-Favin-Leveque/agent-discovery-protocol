@@ -1,0 +1,48 @@
+{
+  "name": "mentions_get",
+  "resource_group": "discovery",
+  "description": "Retrieve media posts and comments that mention or tag the authenticated user.",
+  "endpoint": "/{user_id}/tags",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID.",
+      "required": true,
+      "in": "path",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated fields to return.",
+      "required": false,
+      "in": "query",
+      "example": "id,caption,media_type,media_url,permalink,timestamp,username"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17841400000000000/tags?fields=id,caption,media_type,permalink,timestamp,username",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "17854360000000012",
+          "caption": "Great collab with @mybusiness!",
+          "media_type": "IMAGE",
+          "permalink": "https://www.instagram.com/p/JKL012/",
+          "timestamp": "2024-03-01T18:00:00+0000",
+          "username": "partner_account"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["instagram_basic"]
+}

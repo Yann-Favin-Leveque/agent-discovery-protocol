@@ -1,0 +1,53 @@
+{
+  "name": "forms_create",
+  "resource_group": "forms",
+  "description": "Create a new form with questions and properties.",
+  "endpoint": "/user/forms",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "questions",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Form questions."
+    },
+    {
+      "name": "properties",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Form properties."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.jotform.com/user/forms",
+    "headers": {
+      "APIKEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "questions": [
+        {
+          "type": "control_textbox",
+          "text": "Name",
+          "order": "1",
+          "name": "name"
+        }
+      ],
+      "properties": {
+        "title": "New Form"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "content": {
+        "id": "789012",
+        "title": "New Form"
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "status_get",
+  "resource_group": "statuses",
+  "description": "Retrieve a single status by its ID.",
+  "endpoint": "/api/v1/statuses/{id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Status ID.",
+      "required": true,
+      "in": "path",
+      "example": "109876543210"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/statuses/109876543210",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "109876543210",
+      "content": "<p>Hello Mastodon!</p>",
+      "account": {
+        "username": "myuser",
+        "display_name": "My User"
+      },
+      "created_at": "2024-03-01T15:30:00.000Z",
+      "reblogs_count": 5,
+      "favourites_count": 12
+    }
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

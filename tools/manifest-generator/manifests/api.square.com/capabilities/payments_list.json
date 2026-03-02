@@ -1,0 +1,74 @@
+{
+  "name": "payments_list",
+  "description": "List payments with optional filtering by date range, status, and location.",
+  "endpoint": "/v2/payments",
+  "method": "GET",
+  "resource_group": "payments",
+  "parameters": [
+    {
+      "name": "begin_time",
+      "type": "string",
+      "description": "Start of date range (RFC 3339)",
+      "required": false,
+      "example": "2026-03-01T00:00:00Z"
+    },
+    {
+      "name": "end_time",
+      "type": "string",
+      "description": "End of date range",
+      "required": false,
+      "example": "2026-03-31T23:59:59Z"
+    },
+    {
+      "name": "location_id",
+      "type": "string",
+      "description": "Filter by location",
+      "required": false,
+      "example": "LOCATION_ID"
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://connect.squareup.com/v2/payments?begin_time=2026-03-01T00:00:00Z",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "payments": [
+        {
+          "id": "pay_123",
+          "status": "COMPLETED",
+          "amount_money": {
+            "amount": 100,
+            "currency": "USD"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

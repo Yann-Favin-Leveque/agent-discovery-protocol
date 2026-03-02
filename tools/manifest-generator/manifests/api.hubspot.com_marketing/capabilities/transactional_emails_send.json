@@ -1,0 +1,63 @@
+{
+  "name": "transactional_emails_send",
+  "description": "Send a single transactional email using a pre-built template. Ideal for receipts, confirmations, and password resets.",
+  "endpoint": "/marketing/v3/transactional/single-email/send",
+  "method": "POST",
+  "resource_group": "transactional_emails",
+  "parameters": [
+    {
+      "name": "emailId",
+      "type": "integer",
+      "description": "The ID of the transactional email template to use.",
+      "required": true,
+      "example": 12345678
+    },
+    {
+      "name": "message",
+      "type": "object",
+      "description": "Message details including recipient email and optional from/cc/bcc.",
+      "required": true,
+      "example": { "to": "john@example.com" }
+    },
+    {
+      "name": "contactProperties",
+      "type": "object",
+      "description": "Contact properties for personalization tokens.",
+      "required": false,
+      "example": { "firstname": "John", "lastname": "Doe" }
+    },
+    {
+      "name": "customProperties",
+      "type": "object",
+      "description": "Custom properties for dynamic content in the template.",
+      "required": false,
+      "example": { "order_number": "ORD-12345" }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hubspot.com/marketing/v3/transactional/single-email/send",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "emailId": 12345678,
+      "message": { "to": "john@example.com" },
+      "contactProperties": { "firstname": "John", "lastname": "Doe" },
+      "customProperties": { "order_number": "ORD-12345" }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "requestedAt": "2024-01-15T10:00:00Z",
+      "statusId": "abc-def-123",
+      "status": "SENT"
+    }
+  },
+  "auth_scopes": ["transactional-email"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

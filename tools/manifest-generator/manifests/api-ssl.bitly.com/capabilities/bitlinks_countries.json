@@ -1,0 +1,63 @@
+{
+  "name": "bitlinks_countries",
+  "description": "Get country-level click metrics for a Bitlink.",
+  "endpoint": "/v4/bitlinks/{bitlink}/countries",
+  "method": "GET",
+  "resource_group": "bitlinks",
+  "parameters": [
+    {
+      "name": "bitlink",
+      "type": "string",
+      "description": "The Bitlink ID.",
+      "required": true,
+      "example": "bit.ly/abc123"
+    },
+    {
+      "name": "unit",
+      "type": "string",
+      "description": "Time unit.",
+      "required": false,
+      "example": "day"
+    },
+    {
+      "name": "units",
+      "type": "integer",
+      "description": "Number of time units.",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "description": "Number of results to return.",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api-ssl.bitly.com/v4/bitlinks/bit.ly/abc123/countries?unit=day&units=30",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "metrics": [
+        {
+          "value": "US",
+          "clicks": 500
+        },
+        {
+          "value": "GB",
+          "clicks": 120
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

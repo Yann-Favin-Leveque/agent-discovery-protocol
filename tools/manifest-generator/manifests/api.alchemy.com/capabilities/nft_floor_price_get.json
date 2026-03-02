@@ -1,0 +1,47 @@
+{
+  "name": "nft_floor_price_get",
+  "description": "Retrieve the floor price of an NFT collection from supported marketplaces (OpenSea, LooksRare, etc.).",
+  "endpoint": "/nft/v3/{apiKey}/getFloorPrice",
+  "method": "GET",
+  "resource_group": "nft",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "contractAddress",
+      "type": "string",
+      "required": true,
+      "description": "NFT contract address."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://eth-mainnet.g.alchemy.com/nft/v3/{apiKey}/getFloorPrice?contractAddress=0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "openSea": {
+        "floorPrice": 28.5,
+        "priceCurrency": "ETH",
+        "collectionUrl": "https://opensea.io/collection/boredapeyachtclub",
+        "retrievedAt": "2024-01-15T12:00:00.000Z"
+      },
+      "looksRare": {
+        "floorPrice": 28.2,
+        "priceCurrency": "ETH",
+        "collectionUrl": "https://looksrare.org/collections/0xBC4CA...",
+        "retrievedAt": "2024-01-15T12:00:00.000Z"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

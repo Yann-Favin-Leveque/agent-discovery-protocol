@@ -1,0 +1,41 @@
+{
+  "name": "chat_completion_create",
+  "description": "Generate conversational responses using Mistral's language models. Supports tool calling, JSON output, vision, streaming, safe prompt injection, and configurable sampling parameters.",
+  "resource_group": "chat",
+  "endpoint": "/v1/chat/completions",
+  "method": "POST",
+  "parameters": [
+    {"name": "model", "type": "string", "required": true, "description": "Model ID (e.g. 'mistral-large-latest', 'mistral-small-latest', 'codestral-latest')."},
+    {"name": "messages", "type": "array", "required": true, "description": "Array of message objects with 'role' and 'content'."},
+    {"name": "temperature", "type": "number", "required": false, "description": "Sampling temperature (0.0-0.7 recommended)."},
+    {"name": "top_p", "type": "number", "required": false, "description": "Nucleus sampling (default 1)."},
+    {"name": "max_tokens", "type": "integer", "required": false, "description": "Maximum tokens to generate."},
+    {"name": "stream", "type": "boolean", "required": false, "description": "Enable streaming (default false)."},
+    {"name": "tools", "type": "array", "required": false, "description": "Tool/function definitions."},
+    {"name": "tool_choice", "type": "string", "required": false, "description": "Tool selection: 'auto', 'none', 'any', or specific."},
+    {"name": "response_format", "type": "object", "required": false, "description": "Output format specification."},
+    {"name": "safe_prompt", "type": "boolean", "required": false, "description": "Inject safety prompt (default false)."},
+    {"name": "random_seed", "type": "integer", "required": false, "description": "Deterministic sampling seed."},
+    {"name": "n", "type": "integer", "required": false, "description": "Number of completions."},
+    {"name": "stop", "type": "string or array", "required": false, "description": "Stop generation tokens."},
+    {"name": "frequency_penalty", "type": "number", "required": false, "description": "Frequency penalty (default 0)."},
+    {"name": "presence_penalty", "type": "number", "required": false, "description": "Presence penalty (default 0)."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/chat/completions",
+    "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "body": {"model": "mistral-large-latest", "messages": [{"role": "user", "content": "Explain neural networks."}], "temperature": 0.3, "max_tokens": 500}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cmpl-abc123",
+      "object": "chat.completion",
+      "created": 1709164800,
+      "model": "mistral-large-latest",
+      "choices": [{"index": 0, "message": {"role": "assistant", "content": "Neural networks are computational models..."}, "finish_reason": "stop"}],
+      "usage": {"prompt_tokens": 12, "completion_tokens": 150, "total_tokens": 162}
+    }
+  }
+}

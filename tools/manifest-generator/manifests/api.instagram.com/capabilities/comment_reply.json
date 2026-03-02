@@ -1,0 +1,43 @@
+{
+  "name": "comment_reply",
+  "resource_group": "comments",
+  "description": "Post a reply to a specific comment on one of the authenticated user's media posts.",
+  "endpoint": "/{comment_id}/replies",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "comment_id",
+      "type": "string",
+      "description": "The ID of the comment to reply to.",
+      "required": true,
+      "in": "path",
+      "example": "17858890000000000"
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "The reply text.",
+      "required": true,
+      "in": "body",
+      "example": "Thank you so much!"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v21.0/17858890000000000/replies",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "message": "Thank you so much!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "17858890000000001"
+    }
+  },
+  "auth_scopes": ["instagram_manage_comments"]
+}

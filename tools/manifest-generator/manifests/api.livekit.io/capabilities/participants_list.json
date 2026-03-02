@@ -1,0 +1,47 @@
+{
+  "name": "participants_list",
+  "description": "Retrieve a list of all participants currently connected to a specific room with their track and permission details.",
+  "endpoint": "/twirp/livekit.RoomService/ListParticipants",
+  "method": "POST",
+  "resource_group": "participants",
+  "parameters": [
+    {
+      "name": "room",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room to list participants for."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/ListParticipants",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room": "interview-room-42"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "participants": [
+        {
+          "sid": "PA_xyz789",
+          "identity": "user-alice",
+          "name": "Alice",
+          "state": "ACTIVE",
+          "joined_at": 1705313400,
+          "tracks": [],
+          "metadata": "",
+          "permission": { "can_publish": true, "can_subscribe": true }
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["roomAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

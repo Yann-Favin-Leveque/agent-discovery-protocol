@@ -1,0 +1,53 @@
+{
+  "name": "poll_vote",
+  "resource_group": "polls",
+  "description": "Vote on a poll.",
+  "endpoint": "/api/v1/polls/{id}/votes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Poll ID.",
+      "required": true,
+      "in": "path",
+      "example": "34567"
+    },
+    {
+      "name": "choices[]",
+      "type": "array",
+      "description": "Array of option indices (0-based).",
+      "required": true,
+      "in": "body",
+      "example": [
+        0
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mastodon.social/api/v1/polls/34567/votes",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "choices": [
+        0
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "34567",
+      "voted": true,
+      "own_votes": [
+        0
+      ]
+    }
+  },
+  "auth_scopes": [
+    "write:statuses"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "name": "analytics_rules_upsert",
+  "description": "Create or update an analytics rule for tracking search events.",
+  "endpoint": "/analytics/rules/{ruleName}",
+  "method": "PUT",
+  "resource_group": "analytics",
+  "parameters": [
+    {
+      "name": "ruleName",
+      "type": "string",
+      "description": "Rule name",
+      "required": true,
+      "example": "product_clicks"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Rule type (counter, popular_queries, etc.)",
+      "required": true,
+      "example": "counter"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.typesense.org/analytics/rules/product_clicks",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "counter",
+      "params": {
+        "source": {
+          "collections": [
+            "products"
+          ]
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "product_clicks",
+      "type": "counter"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

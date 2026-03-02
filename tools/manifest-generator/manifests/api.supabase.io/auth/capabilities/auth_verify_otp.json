@@ -1,0 +1,66 @@
+{
+  "name": "auth_verify_otp",
+  "resource_group": "auth",
+  "description": "Verify an OTP or magic link token and return a session.",
+  "endpoint": "/verify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Verification type: sms, email, magiclink, signup, recovery."
+    },
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "The OTP code or token hash."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Email (for email/magiclink types)."
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "required": false,
+      "description": "Phone (for sms type)."
+    },
+    {
+      "name": "redirect_to",
+      "type": "string",
+      "required": false,
+      "description": "URL to redirect after verification."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://myproject.supabase.co/auth/v1/verify",
+    "headers": {
+      "apikey": "your-anon-key",
+      "Authorization": "Bearer your-anon-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "email",
+      "token": "123456",
+      "email": "alice@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "access_token": "eyJhbGciOi...",
+      "token_type": "bearer",
+      "expires_in": 3600,
+      "refresh_token": "abc123",
+      "user": {
+        "id": "uuid-here",
+        "email": "alice@example.com"
+      }
+    }
+  }
+}

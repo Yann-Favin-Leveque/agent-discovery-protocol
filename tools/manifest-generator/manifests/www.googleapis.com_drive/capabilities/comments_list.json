@@ -1,0 +1,48 @@
+{
+  "name": "comments_list",
+  "description": "List all comments on a file.",
+  "resource_group": "comments",
+  "endpoint": "/drive/v3/files/{fileId}/comments",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "fileId",
+      "type": "string",
+      "description": "The file ID.",
+      "required": true
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Fields to include.",
+      "required": true
+    },
+    {
+      "name": "pageSize",
+      "type": "integer",
+      "description": "Max comments per page.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://www.googleapis.com/drive/v3/files/1abc/comments?fields=*",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "comments": [
+        {
+          "id": "comment1",
+          "content": "Great document!"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive"
+  ]
+}

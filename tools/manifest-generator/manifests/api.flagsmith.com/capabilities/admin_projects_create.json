@@ -1,0 +1,22 @@
+{
+  "name": "admin_projects_create",
+  "description": "Create a new project in the organization. Requires the Admin API token.",
+  "resource_group": "admin_projects",
+  "endpoint": "/projects/",
+  "method": "POST",
+  "parameters": [
+    {"name": "name", "type": "string", "description": "Project name.", "required": true, "example": "New Mobile App"},
+    {"name": "organisation", "type": "integer", "description": "Organisation ID.", "required": true, "example": 1}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.flagsmith.com/api/v1/projects/",
+    "headers": {"Authorization": "Token {admin_api_token}", "Content-Type": "application/json"},
+    "body": {"name": "New Mobile App", "organisation": 1}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": 2, "name": "New Mobile App", "organisation": {"id": 1, "name": "Acme Corp"}}
+  },
+  "rate_limits": {"requests_per_minute": 500}
+}

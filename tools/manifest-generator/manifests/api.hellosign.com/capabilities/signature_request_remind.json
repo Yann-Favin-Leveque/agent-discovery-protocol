@@ -1,0 +1,46 @@
+{
+  "name": "signature_request_remind",
+  "description": "Send a reminder email to a signer who has not yet signed.",
+  "endpoint": "/v3/signature_request/remind/{signature_request_id}",
+  "method": "POST",
+  "resource_group": "signature_request",
+  "parameters": [
+    {
+      "name": "signature_request_id",
+      "type": "string",
+      "description": "ID of the signature request.",
+      "required": true,
+      "example": "fa5c8a0b"
+    },
+    {
+      "name": "email_address",
+      "type": "string",
+      "description": "Email of the signer to remind.",
+      "required": true,
+      "example": "signer@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/signature_request/remind/fa5c8a0b",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email_address": "signer@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signature_request": {
+        "signature_request_id": "fa5c8a0b"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

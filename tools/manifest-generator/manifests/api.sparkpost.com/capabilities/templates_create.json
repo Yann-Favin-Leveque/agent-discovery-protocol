@@ -1,0 +1,65 @@
+{
+  "name": "templates_create",
+  "description": "Create a new email template as a draft with HTML/text content and substitution variables.",
+  "endpoint": "/api/v1/templates",
+  "method": "POST",
+  "resource_group": "templates",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Unique template ID",
+      "required": true,
+      "example": "my-template"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Template display name",
+      "required": true,
+      "example": "Welcome Email"
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "description": "Template content with from, subject, html, text",
+      "required": true,
+      "example": {
+        "from": "noreply@example.com",
+        "subject": "Welcome {{name}}",
+        "html": "<h1>Welcome {{name}}</h1>"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/templates",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "my-template",
+      "name": "Welcome Email",
+      "content": {
+        "from": "noreply@example.com",
+        "subject": "Welcome {{name}}",
+        "html": "<h1>Welcome {{name}}</h1>"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "id": "my-template"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

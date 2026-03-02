@@ -1,0 +1,76 @@
+{
+  "name": "items_create",
+  "description": "Create a new item in a vault. Supports logins, passwords, API credentials, secure notes, and other item categories.",
+  "endpoint": "/v1/vaults/{vaultUUID}/items",
+  "method": "POST",
+  "resource_group": "items",
+  "parameters": [
+    {
+      "name": "vaultUUID",
+      "type": "string",
+      "description": "UUID of the vault to create the item in.",
+      "required": true,
+      "example": "hfnjvi6aymbsnfc2xeeoheizda"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Title of the new item.",
+      "required": true,
+      "example": "AWS Access Key"
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "description": "Item category (LOGIN, PASSWORD, API_CREDENTIAL, SECURE_NOTE, etc.).",
+      "required": true,
+      "example": "API_CREDENTIAL"
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "description": "Array of field objects with id, type, label, and value.",
+      "required": false,
+      "example": [{ "id": "username", "type": "STRING", "label": "username", "value": "AKIAIOSFODNN7EXAMPLE" }]
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Tags for organizing the item.",
+      "required": false,
+      "example": ["aws", "production"]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.1password.com/v1/vaults/hfnjvi6aymbsnfc2xeeoheizda/items",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "AWS Access Key",
+      "category": "API_CREDENTIAL",
+      "fields": [
+        { "id": "username", "type": "STRING", "label": "Access Key ID", "value": "AKIAIOSFODNN7EXAMPLE" },
+        { "id": "credential", "type": "CONCEALED", "label": "Secret Access Key", "value": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" }
+      ],
+      "tags": ["aws", "production"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "kp2td65r4wbuhocwhhijpdbfqq",
+      "title": "AWS Access Key",
+      "category": "API_CREDENTIAL",
+      "vault": { "id": "hfnjvi6aymbsnfc2xeeoheizda" },
+      "createdAt": "2024-06-15T09:00:00Z",
+      "updatedAt": "2024-06-15T09:00:00Z"
+    }
+  },
+  "auth_scopes": ["vaults"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

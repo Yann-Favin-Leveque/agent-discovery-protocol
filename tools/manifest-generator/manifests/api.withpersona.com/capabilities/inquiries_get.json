@@ -1,0 +1,36 @@
+{
+  "name": "inquiries_get",
+  "description": "Retrieve a specific inquiry by ID, including its status, verifications, and submitted information.",
+  "resource_group": "inquiries",
+  "endpoint": "/inquiries/{inquiry_id}",
+  "method": "GET",
+  "parameters": [
+    {"name": "inquiry_id", "type": "string", "description": "The inquiry ID.", "required": true, "example": "inq_abc123"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://withpersona.com/api/v1/inquiries/inq_abc123",
+    "headers": {"Authorization": "Bearer {api_key}", "Persona-Version": "2023-01-05"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "inquiry",
+        "id": "inq_abc123",
+        "attributes": {
+          "status": "approved",
+          "reference-id": "user_12345",
+          "name-first": "Jane",
+          "name-last": "Doe",
+          "created-at": "2024-01-15T10:30:00.000Z",
+          "completed-at": "2024-01-15T10:35:00.000Z"
+        },
+        "relationships": {
+          "verifications": {"data": [{"type": "verification/government-id", "id": "ver_abc123"}]}
+        }
+      }
+    }
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

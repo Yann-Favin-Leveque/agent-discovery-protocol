@@ -1,0 +1,47 @@
+{
+  "name": "creditmemos_get",
+  "description": "Retrieve a specific credit memo by its ID.",
+  "endpoint": "/v3/company/{realmId}/creditmemo/{creditMemoId}",
+  "method": "GET",
+  "resource_group": "creditmemos",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "creditMemoId",
+      "type": "string",
+      "description": "Credit memo ID",
+      "required": true,
+      "example": "101"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/creditmemo/101?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "CreditMemo": {
+        "Id": "101",
+        "TotalAmt": 50.0,
+        "RemainingCredit": 50.0
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

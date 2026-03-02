@@ -1,0 +1,63 @@
+{
+  "name": "subscriptions_create",
+  "description": "Create a subscription for a buyer against a billing plan.",
+  "endpoint": "/v1/billing/subscriptions",
+  "method": "POST",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "plan_id",
+      "type": "string",
+      "description": "Billing plan ID",
+      "required": true,
+      "example": "PLAN_ID"
+    },
+    {
+      "name": "subscriber",
+      "type": "object",
+      "description": "Subscriber information",
+      "required": false,
+      "example": {
+        "name": {
+          "given_name": "John",
+          "surname": "Doe"
+        }
+      }
+    },
+    {
+      "name": "application_context",
+      "type": "object",
+      "description": "Return/cancel URLs and preferences",
+      "required": false,
+      "example": {
+        "return_url": "https://example.com/return"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v1/billing/subscriptions",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "SUB_ID",
+      "status": "APPROVAL_PENDING",
+      "links": [
+        {
+          "href": "https://www.paypal.com/webapps/billing/subscriptions?ba_token=BA_TOKEN",
+          "rel": "approve"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

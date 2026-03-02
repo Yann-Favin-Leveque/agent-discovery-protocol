@@ -1,0 +1,39 @@
+{
+  "name": "document_statistics_get",
+  "description": "Get word count statistics for a specific document including TM match breakdowns.",
+  "resource_group": "documents",
+  "endpoint": "/api/integration/v1/document/statistics",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "location": "query",
+      "description": "The document ID in format 'docId_languageId'."
+    },
+    {
+      "name": "onlyExactMatches",
+      "type": "boolean",
+      "required": false,
+      "location": "query",
+      "description": "If true, return only exact match statistics."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://smartcat.com/api/integration/v1/document/statistics?documentId=doc-uuid-456_fr",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "totalWords": 1500,
+      "exactMatches": 300,
+      "fuzzyMatches": 200,
+      "newWords": 1000
+    }
+  }
+}

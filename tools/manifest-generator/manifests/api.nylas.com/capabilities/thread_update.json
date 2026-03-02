@@ -1,0 +1,55 @@
+{
+  "name": "thread_update",
+  "description": "Update thread attributes such as unread or starred status.",
+  "resource_group": "thread",
+  "endpoint": "/v3/grants/{grant_id}/threads/{thread_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "thread_id",
+      "type": "string",
+      "description": "Thread ID (path parameter).",
+      "required": true,
+      "example": "thread_abc"
+    },
+    {
+      "name": "unread",
+      "type": "boolean",
+      "description": "Mark unread or read.",
+      "required": false
+    },
+    {
+      "name": "starred",
+      "type": "boolean",
+      "description": "Star or unstar.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.us.nylas.com/v3/grants/me/threads/thread_abc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "unread": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "thread_abc",
+        "unread": false
+      }
+    }
+  }
+}

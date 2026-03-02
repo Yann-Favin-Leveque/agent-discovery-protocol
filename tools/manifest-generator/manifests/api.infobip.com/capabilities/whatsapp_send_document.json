@@ -1,0 +1,57 @@
+{
+  "name": "whatsapp_send_document",
+  "description": "Send a document file (PDF, DOC, XLSX, etc.) to a WhatsApp user with optional filename and caption. Maximum 100MB.",
+  "endpoint": "/whatsapp/1/message/document",
+  "method": "POST",
+  "resource_group": "whatsapp",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "Registered WhatsApp sender number in E.164 format."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": true,
+      "description": "Recipient WhatsApp phone number in E.164 format."
+    },
+    {
+      "name": "content",
+      "type": "object",
+      "required": true,
+      "description": "Document content with 'mediaUrl' (string), optional 'caption' and 'filename'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/whatsapp/1/message/document",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "from": "447860099299",
+      "to": "14155550123",
+      "content": {
+        "mediaUrl": "https://example.com/invoice-2024.pdf",
+        "caption": "Your invoice for January 2024",
+        "filename": "invoice-2024.pdf"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "to": "14155550123",
+      "messageCount": 1,
+      "messageId": "abcdef-doc-123456",
+      "status": { "groupId": 1, "groupName": "PENDING", "id": 7, "name": "PENDING_ENROUTE" }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

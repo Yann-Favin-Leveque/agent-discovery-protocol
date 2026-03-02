@@ -1,0 +1,54 @@
+{
+  "name": "webhooks_update",
+  "description": "Update an existing webhook.",
+  "resource_group": "webhooks",
+  "endpoint": "/v1/webhooks/{id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The webhook ID.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.url",
+      "type": "string",
+      "description": "Updated URL.",
+      "required": false
+    },
+    {
+      "name": "data.attributes.events",
+      "type": "array",
+      "description": "Updated events.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.lemonsqueezy.com/v1/webhooks/1",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "webhooks",
+        "id": "1",
+        "attributes": {
+          "url": "https://example.com/webhook-v2"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "webhooks",
+        "id": "1"
+      }
+    }
+  }
+}

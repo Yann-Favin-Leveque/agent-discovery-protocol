@@ -1,0 +1,67 @@
+{
+  "name": "combined_find",
+  "description": "Look up both person and company data in a single request using an email address.",
+  "endpoint": "/v2/combined/find",
+  "method": "GET",
+  "resource_group": "enrichment",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email address to look up.",
+      "required": true,
+      "example": "alex@clearbit.com"
+    },
+    {
+      "name": "webhook_url",
+      "type": "string",
+      "description": "URL for async webhook delivery.",
+      "required": false
+    },
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "description": "Custom ID included in webhook payload.",
+      "required": false
+    },
+    {
+      "name": "subscribe",
+      "type": "boolean",
+      "description": "Subscribe to future updates.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clearbit.com/v2/combined/find?email=alex@clearbit.com",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "person": {
+        "id": "d54c36b1",
+        "fullName": "Alex MacCaw",
+        "email": "alex@clearbit.com",
+        "employment": {
+          "name": "Clearbit",
+          "title": "CEO"
+        }
+      },
+      "company": {
+        "id": "comp_abc123",
+        "name": "Clearbit",
+        "domain": "clearbit.com",
+        "metrics": {
+          "employees": 170
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

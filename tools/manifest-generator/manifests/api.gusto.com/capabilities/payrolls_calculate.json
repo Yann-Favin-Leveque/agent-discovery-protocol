@@ -1,0 +1,15 @@
+{
+  "name": "payrolls_calculate",
+  "description": "Calculate a payroll to compute wages, taxes, and deductions for a pay period.",
+  "endpoint": "/v1/companies/{company_id}/payrolls/{payroll_id}/calculate",
+  "method": "PUT",
+  "resource_group": "payrolls",
+  "parameters": [
+    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
+    {"name": "payroll_id", "type": "string", "description": "The payroll UUID.", "required": true, "example": "pay_789"}
+  ],
+  "request_example": {"method": "PUT", "url": "https://api.gusto.com/v1/companies/7757616923531542/payrolls/pay_789/calculate", "headers": {"Authorization": "Bearer {token}"}, "body": {}},
+  "response_example": {"status": 200, "body": {"payroll_uuid": "pay_789", "calculated": true, "totals": {"gross_pay": "50000.00", "net_pay": "38000.00", "employer_taxes": "5000.00"}}},
+  "auth_scopes": ["payrolls:write"],
+  "rate_limits": {"requests_per_minute": 60}
+}

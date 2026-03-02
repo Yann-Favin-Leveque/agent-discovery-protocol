@@ -1,0 +1,57 @@
+{
+  "name": "drafts_update",
+  "description": "Replaces a draft's content with new content.",
+  "resource_group": "drafts",
+  "endpoint": "/gmail/v1/users/{userId}/drafts/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID of the draft.",
+      "required": true,
+      "example": "r123"
+    },
+    {
+      "name": "message.raw",
+      "type": "string",
+      "description": "Updated email in base64url encoded RFC 2822 format.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/drafts/r123",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "message": {
+        "raw": "base64url-encoded-email"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "r123",
+      "message": {
+        "id": "18e2abc123",
+        "labelIds": [
+          "DRAFT"
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.compose"
+  ]
+}

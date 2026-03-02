@@ -1,0 +1,21 @@
+{
+  "name": "branches_get_schema",
+  "resource_group": "branches",
+  "description": "Retrieve the schema of a database branch including tables, columns, and indexes.",
+  "endpoint": "/organizations/{organization}/databases/{database}/branches/{branch}/schema",
+  "method": "GET",
+  "parameters": [
+    {"name": "organization", "type": "string", "required": true, "in": "path", "description": "Organization name slug."},
+    {"name": "database", "type": "string", "required": true, "in": "path", "description": "Database name."},
+    {"name": "branch", "type": "string", "required": true, "in": "path", "description": "Branch name."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases/my-db/branches/main/schema",
+    "headers": {"Authorization": "Bearer {access_token}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"tables": [{"name": "users", "columns": [{"name": "id", "type": "bigint"}, {"name": "email", "type": "varchar(255)"}]}]}
+  }
+}

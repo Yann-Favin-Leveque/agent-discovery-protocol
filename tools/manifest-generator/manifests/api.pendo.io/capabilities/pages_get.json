@@ -1,0 +1,39 @@
+{
+  "name": "pages_get",
+  "description": "Retrieve details of a specific tracked page including URL rules and analytics.",
+  "endpoint": "/v1/page/{page_id}",
+  "method": "GET",
+  "resource_group": "pages",
+  "parameters": [
+    {
+      "name": "page_id",
+      "type": "string",
+      "description": "The page ID.",
+      "required": true,
+      "example": "page_xyz"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.pendo.io/api/v1/page/page_xyz",
+    "headers": {
+      "x-pendo-integration-key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "page_xyz",
+      "name": "Dashboard",
+      "urlRule": "/dashboard",
+      "numViews": 25000,
+      "numVisitors": 5000,
+      "avgTimeOnPage": 45000,
+      "createdAt": 1705747200000
+    }
+  },
+  "auth_scopes": ["page"],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

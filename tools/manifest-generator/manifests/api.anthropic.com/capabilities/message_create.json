@@ -1,0 +1,121 @@
+{
+  "name": "message_create",
+  "description": "Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation. Supports multi-turn conversations, vision, tool use, extended thinking, documents, and system prompts.",
+  "resource_group": "messages",
+  "endpoint": "/v1/messages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "The model to use (e.g. 'claude-opus-4-6', 'claude-sonnet-4-6', 'claude-haiku-4-5')."
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Array of message objects with alternating user/assistant roles. Each message has 'role' and 'content' (string or array of content blocks)."
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "required": true,
+      "description": "Maximum number of tokens to generate before stopping."
+    },
+    {
+      "name": "system",
+      "type": "string or array",
+      "required": false,
+      "description": "System prompt for context and instructions."
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "Randomness level between 0.0 and 1.0 (default 1.0)."
+    },
+    {
+      "name": "top_p",
+      "type": "number",
+      "required": false,
+      "description": "Nucleus sampling parameter."
+    },
+    {
+      "name": "top_k",
+      "type": "integer",
+      "required": false,
+      "description": "Sample from the top K most likely tokens."
+    },
+    {
+      "name": "stop_sequences",
+      "type": "array",
+      "required": false,
+      "description": "Custom sequences that will cause the model to stop generating."
+    },
+    {
+      "name": "tools",
+      "type": "array",
+      "required": false,
+      "description": "Tool definitions the model may use, each with name, description, and input_schema."
+    },
+    {
+      "name": "tool_choice",
+      "type": "object",
+      "required": false,
+      "description": "How the model should use tools: auto, any, specific tool, or none."
+    },
+    {
+      "name": "thinking",
+      "type": "object",
+      "required": false,
+      "description": "Extended thinking configuration for chain-of-thought reasoning."
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "description": "User ID and request metadata."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.anthropic.com/v1/messages",
+    "headers": {
+      "x-api-key": "sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "anthropic-version": "2023-06-01",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "claude-sonnet-4-6",
+      "max_tokens": 1024,
+      "system": "You are a helpful assistant.",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain quantum entanglement in simple terms."
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "Quantum entanglement is a phenomenon where two particles become connected in such a way that the state of one instantly influences the state of the other, regardless of the distance between them."
+        }
+      ],
+      "model": "claude-sonnet-4-6",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 25,
+        "output_tokens": 150
+      }
+    }
+  }
+}

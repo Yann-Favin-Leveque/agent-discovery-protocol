@@ -1,0 +1,54 @@
+{
+  "name": "indexes_swap",
+  "description": "Swap the documents, settings, and task history of two or more index pairs atomically.",
+  "endpoint": "/swap-indexes",
+  "method": "POST",
+  "resource_group": "indexes",
+  "parameters": [
+    {
+      "name": "indexes",
+      "type": "array",
+      "description": "Array of objects with 'indexes' arrays, each containing exactly two index UIDs to swap.",
+      "required": true,
+      "example": [
+        {
+          "indexes": [
+            "indexA",
+            "indexB"
+          ]
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.meilisearch.com/swap-indexes",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "indexes": [
+          "indexA",
+          "indexB"
+        ]
+      }
+    ]
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "taskUid": 3,
+      "status": "enqueued",
+      "type": "indexSwap",
+      "enqueuedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "indexes.swap"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

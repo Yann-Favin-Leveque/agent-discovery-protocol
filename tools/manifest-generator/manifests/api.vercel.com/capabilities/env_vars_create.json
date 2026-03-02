@@ -1,0 +1,78 @@
+{
+  "name": "env_vars_create",
+  "description": "Create one or more environment variables for a project.",
+  "endpoint": "/v10/projects/{idOrName}/env",
+  "method": "POST",
+  "resource_group": "environment",
+  "parameters": [
+    {
+      "name": "idOrName",
+      "type": "string",
+      "description": "Project ID or name",
+      "required": true,
+      "example": "my-app"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Variable key",
+      "required": true,
+      "example": "DATABASE_URL"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Variable value",
+      "required": true,
+      "example": "postgres://user:pass@host/db"
+    },
+    {
+      "name": "target",
+      "type": "array",
+      "description": "Target environments (production, preview, development)",
+      "required": true,
+      "example": [
+        "production"
+      ]
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Variable type (plain, encrypted, secret)",
+      "required": false,
+      "example": "encrypted"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vercel.com/v10/projects/my-app/env",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "key": "DATABASE_URL",
+        "value": "postgres://...",
+        "target": [
+          "production"
+        ],
+        "type": "encrypted"
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "created": [
+        {
+          "key": "DATABASE_URL"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

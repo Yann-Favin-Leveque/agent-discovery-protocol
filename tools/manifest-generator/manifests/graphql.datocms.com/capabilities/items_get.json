@@ -1,0 +1,59 @@
+{
+  "name": "items_get",
+  "description": "Retrieve a single content record by its ID, including all field values, metadata, and relationships. Supports nested block expansion and version selection.",
+  "resource_group": "items",
+  "endpoint": "/items/{item_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "item_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique record ID."
+    },
+    {
+      "name": "nested",
+      "type": "boolean",
+      "required": false,
+      "location": "query",
+      "description": "If true, returns full payload for nested blocks instead of IDs."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "'published' for published version, 'current' (default) for latest."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://site-api.datocms.com/items/hWl-mnkWRYmMCSTq4z_piQ?nested=true",
+    "headers": {
+      "Authorization": "Bearer your-datocms-api-token",
+      "Accept": "application/json",
+      "X-Api-Version": "3"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "item",
+        "id": "hWl-mnkWRYmMCSTq4z_piQ",
+        "attributes": {
+          "title": "Introduction to AI",
+          "content": "Full article content...",
+          "_status": "published",
+          "_published_at": "2026-02-28T10:00:00.000Z"
+        },
+        "relationships": {
+          "item_type": {
+            "data": { "type": "item_type", "id": "article" }
+          }
+        }
+      }
+    }
+  }
+}

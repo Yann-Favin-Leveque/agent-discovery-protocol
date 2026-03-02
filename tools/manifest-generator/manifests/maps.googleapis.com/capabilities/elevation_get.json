@@ -1,0 +1,59 @@
+{
+  "name": "elevation_get",
+  "description": "Retrieve elevation data for locations on Earth. Supports individual points and sampled paths along routes.",
+  "endpoint": "/maps/api/elevation/json",
+  "method": "GET",
+  "resource_group": "elevation",
+  "parameters": [
+    {
+      "name": "locations",
+      "type": "string",
+      "description": "Pipe-separated latitude,longitude pairs (max 512 points). Use for specific point elevation.",
+      "required": false,
+      "example": "39.7391536,-104.9847034|36.455556,-116.866667"
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "description": "Pipe-separated coordinates defining a path for elevation sampling. Requires 'samples' parameter.",
+      "required": false,
+      "example": "36.578581,-118.291994|36.23998,-116.83171"
+    },
+    {
+      "name": "samples",
+      "type": "integer",
+      "description": "Number of sample points along a path. Required when using 'path'.",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://maps.googleapis.com/maps/api/elevation/json?locations=39.7391536,-104.9847034&key=AIzaSy...",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "elevation": 1608.637939453125,
+          "location": {"lat": 39.7391536, "lng": -104.9847034},
+          "resolution": 4.771975994110107
+        }
+      ],
+      "status": "OK"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
+  }
+}

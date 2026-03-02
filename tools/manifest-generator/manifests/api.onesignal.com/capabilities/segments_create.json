@@ -1,0 +1,53 @@
+{
+  "name": "segments_create",
+  "description": "Create a user segment with filters.",
+  "resource_group": "segments",
+  "endpoint": "/api/v1/apps/{app_id}/segments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "required": true,
+      "description": "App ID."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Segment name."
+    },
+    {
+      "name": "filters",
+      "type": "array",
+      "required": true,
+      "description": "Array of filter objects."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.onesignal.com/api/v1/apps/app-uuid/segments",
+    "headers": {
+      "Authorization": "Basic <rest_api_key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Premium Users",
+      "filters": [
+        {
+          "field": "tag",
+          "key": "plan",
+          "relation": "=",
+          "value": "premium"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "seg-uuid",
+      "name": "Premium Users"
+    }
+  }
+}

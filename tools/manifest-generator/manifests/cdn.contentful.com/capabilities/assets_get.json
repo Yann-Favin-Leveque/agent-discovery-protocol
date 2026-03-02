@@ -1,0 +1,64 @@
+{
+  "name": "assets_get",
+  "description": "Retrieve a single asset by its ID including file URL, dimensions, size, and content type information.",
+  "endpoint": "/spaces/{space_id}/environments/{environment_id}/assets/{asset_id}",
+  "method": "GET",
+  "resource_group": "assets",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "string",
+      "description": "The space ID.",
+      "required": true,
+      "example": "cfexampleapi"
+    },
+    {
+      "name": "environment_id",
+      "type": "string",
+      "description": "The environment ID.",
+      "required": true,
+      "example": "master"
+    },
+    {
+      "name": "asset_id",
+      "type": "string",
+      "description": "The asset ID.",
+      "required": true,
+      "example": "asset1"
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "Locale code.",
+      "required": false,
+      "example": "en-US"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/assets/asset1",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sys": {"id": "asset1", "type": "Asset"},
+      "fields": {
+        "title": "Hero Image",
+        "description": "Main banner image",
+        "file": {
+          "url": "//images.ctfassets.net/cfexampleapi/asset1/hero.jpg",
+          "fileName": "hero.jpg",
+          "contentType": "image/jpeg",
+          "details": {"size": 204800, "image": {"width": 1920, "height": 1080}}
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 78
+  }
+}

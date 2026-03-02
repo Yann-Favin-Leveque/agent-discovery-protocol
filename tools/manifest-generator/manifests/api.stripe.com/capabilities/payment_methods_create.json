@@ -1,0 +1,53 @@
+{
+  "name": "payment_methods_create",
+  "description": "Create a PaymentMethod (card, bank account, etc.).",
+  "endpoint": "/v1/payment_methods",
+  "method": "POST",
+  "resource_group": "payment_methods",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Payment method type: card, us_bank_account, etc.",
+      "required": true,
+      "example": "card"
+    },
+    {
+      "name": "card",
+      "type": "object",
+      "description": "Card details (number, exp_month, exp_year, cvc)",
+      "required": false,
+      "example": {
+        "number": "4242424242424242",
+        "exp_month": 12,
+        "exp_year": 2027,
+        "cvc": "314"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/payment_methods",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": "type=card&card[number]=4242424242424242&card[exp_month]=12&card[exp_year]=2027&card[cvc]=314"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "pm_abc123",
+      "object": "payment_method",
+      "type": "card",
+      "card": {
+        "brand": "visa",
+        "last4": "4242"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

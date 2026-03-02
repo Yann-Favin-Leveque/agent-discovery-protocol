@@ -1,0 +1,56 @@
+{
+  "name": "users_watch",
+  "description": "Sets up or updates a push notification watch on the given user mailbox via Cloud Pub/Sub.",
+  "resource_group": "users",
+  "endpoint": "/gmail/v1/users/{userId}/watch",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "topicName",
+      "type": "string",
+      "description": "Cloud Pub/Sub topic name.",
+      "required": true,
+      "example": "projects/my-project/topics/gmail"
+    },
+    {
+      "name": "labelIds",
+      "type": "array",
+      "description": "Label IDs to restrict notifications to.",
+      "required": false,
+      "example": [
+        "INBOX"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/watch",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "topicName": "projects/my-project/topics/gmail",
+      "labelIds": [
+        "INBOX"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "historyId": "12345",
+      "expiration": "1234567890000"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.modify"
+  ]
+}

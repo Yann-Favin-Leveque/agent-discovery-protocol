@@ -1,0 +1,36 @@
+{
+  "name": "redis_execute_command",
+  "resource_group": "redis",
+  "description": "Execute any Redis command over HTTP. Commands are URL path segments.",
+  "endpoint": "/{command}/{arg1}/{arg2}/.../{argN}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "command",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Redis command (e.g., GET, SET, HGET)."
+    },
+    {
+      "name": "args",
+      "type": "string",
+      "required": false,
+      "in": "path",
+      "description": "Command arguments as path segments."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{endpoint}.upstash.io/set/mykey/myvalue",
+    "headers": {
+      "Authorization": "Bearer {rest_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "result": "OK"
+    }
+  }
+}

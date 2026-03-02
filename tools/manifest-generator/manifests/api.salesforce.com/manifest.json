@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Salesforce",
-  "description": "Salesforce is the world's leading CRM platform. Manage accounts, contacts, leads, opportunities, and cases with extensive customization, automation, and reporting through the REST API.",
+  "description": "Salesforce is the leading CRM platform. Manage accounts, contacts, leads, opportunities, cases, and custom objects through the REST API with SOQL queries, SOSL search, and composite operations.",
   "base_url": "https://{instance}.salesforce.com/services/data/v59.0",
   "auth": {
     "type": "oauth2",
@@ -12,34 +12,100 @@
   },
   "capabilities": [
     {
-      "name": "query_records",
+      "name": "records_query",
       "description": "Execute a SOQL query to search and retrieve records from any Salesforce object.",
-      "detail_url": "/capabilities/query_records"
+      "resource_group": "query",
+      "detail_url": "/capabilities/records_query"
     },
     {
-      "name": "create_record",
+      "name": "records_query_more",
+      "description": "Retrieve the next batch of records from a SOQL query using a query locator.",
+      "resource_group": "query",
+      "detail_url": "/capabilities/records_query_more"
+    },
+    {
+      "name": "records_search",
+      "description": "Execute a SOSL full-text search across multiple Salesforce objects.",
+      "resource_group": "search",
+      "detail_url": "/capabilities/records_search"
+    },
+    {
+      "name": "sobjects_list",
+      "description": "List all available SObject types in the org.",
+      "resource_group": "sobjects",
+      "detail_url": "/capabilities/sobjects_list"
+    },
+    {
+      "name": "sobject_describe",
+      "description": "Get metadata describing a Salesforce object including fields, relationships, and properties.",
+      "resource_group": "sobjects",
+      "detail_url": "/capabilities/sobject_describe"
+    },
+    {
+      "name": "sobject_get",
+      "description": "Retrieve a specific record by SObject type and ID with selected fields.",
+      "resource_group": "sobjects",
+      "detail_url": "/capabilities/sobject_get"
+    },
+    {
+      "name": "sobject_create",
       "description": "Create a new record in any standard or custom Salesforce object.",
-      "detail_url": "/capabilities/create_record"
+      "resource_group": "sobjects",
+      "detail_url": "/capabilities/sobject_create"
     },
     {
-      "name": "update_record",
-      "description": "Update fields on an existing Salesforce record.",
-      "detail_url": "/capabilities/update_record"
+      "name": "sobject_update",
+      "description": "Update fields on an existing Salesforce record by ID.",
+      "resource_group": "sobjects",
+      "detail_url": "/capabilities/sobject_update"
     },
     {
-      "name": "get_record",
-      "description": "Retrieve a specific record by ID with selected fields.",
-      "detail_url": "/capabilities/get_record"
+      "name": "sobject_delete",
+      "description": "Delete a Salesforce record by SObject type and ID.",
+      "resource_group": "sobjects",
+      "detail_url": "/capabilities/sobject_delete"
     },
     {
-      "name": "describe_object",
-      "description": "Get metadata describing a Salesforce object's fields, relationships, and properties.",
-      "detail_url": "/capabilities/describe_object"
+      "name": "sobject_get_by_external_id",
+      "description": "Retrieve a record using an external ID field.",
+      "resource_group": "sobjects",
+      "detail_url": "/capabilities/sobject_get_by_external_id"
     },
     {
-      "name": "search_records",
-      "description": "Execute a SOSL full-text search across multiple objects.",
-      "detail_url": "/capabilities/search_records"
+      "name": "sobject_upsert",
+      "description": "Create or update a record using an external ID field for matching.",
+      "resource_group": "sobjects",
+      "detail_url": "/capabilities/sobject_upsert"
+    },
+    {
+      "name": "sobject_collections_create",
+      "description": "Create multiple records in a single request (up to 200).",
+      "resource_group": "composite",
+      "detail_url": "/capabilities/sobject_collections_create"
+    },
+    {
+      "name": "sobject_collections_update",
+      "description": "Update multiple records in a single request (up to 200).",
+      "resource_group": "composite",
+      "detail_url": "/capabilities/sobject_collections_update"
+    },
+    {
+      "name": "sobject_collections_delete",
+      "description": "Delete multiple records in a single request.",
+      "resource_group": "composite",
+      "detail_url": "/capabilities/sobject_collections_delete"
+    },
+    {
+      "name": "versions_list",
+      "description": "List available Salesforce REST API versions.",
+      "resource_group": "meta",
+      "detail_url": "/capabilities/versions_list"
+    },
+    {
+      "name": "limits_get",
+      "description": "Get current org limits and usage including API calls, storage, and data limits.",
+      "resource_group": "meta",
+      "detail_url": "/capabilities/limits_get"
     }
   ]
 }

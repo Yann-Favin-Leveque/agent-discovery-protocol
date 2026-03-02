@@ -1,0 +1,51 @@
+{
+  "name": "playlists_add_items",
+  "description": "Add one or more tracks or episodes to a playlist by their Spotify URIs.",
+  "resource_group": "playlists",
+  "endpoint": "/v1/playlists/{playlist_id}/tracks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "playlist_id",
+      "type": "string",
+      "required": true,
+      "description": "The Spotify ID of the playlist."
+    },
+    {
+      "name": "uris",
+      "type": "array",
+      "required": true,
+      "description": "Array of Spotify URIs to add."
+    },
+    {
+      "name": "position",
+      "type": "integer",
+      "required": false,
+      "description": "Zero-based position to insert. Appends if omitted."
+    }
+  ],
+  "auth_scopes": [
+    "playlist-modify-public",
+    "playlist-modify-private"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n/tracks",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "uris": [
+        "spotify:track:4iV5W9uYEdYUVa79Axb7Rh"
+      ],
+      "position": 0
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "snapshot_id": "abc123"
+    }
+  }
+}

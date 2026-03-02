@@ -1,0 +1,49 @@
+{
+  "name": "event_type_create",
+  "description": "Create a new event type for webhook message routing.",
+  "resource_group": "event_type",
+  "endpoint": "/api/v1/event-type",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Event type name (must be unique).",
+      "required": true,
+      "example": "user.created"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description of the event type.",
+      "required": true,
+      "example": "Fired when a new user is created"
+    },
+    {
+      "name": "schemas",
+      "type": "object",
+      "description": "JSON Schema for the event payload.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.svix.com/api/v1/event-type",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "user.created",
+      "description": "Fired when a new user is created"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "name": "user.created",
+      "description": "Fired when a new user is created",
+      "createdAt": "2024-01-01T00:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "sending_domains_get",
+  "description": "Retrieve details of a specific sending domain including verification status.",
+  "endpoint": "/api/v1/sending-domains/{domain}",
+  "method": "GET",
+  "resource_group": "sending_domains",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Domain name",
+      "required": true,
+      "example": "mail.example.com"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/sending-domains/mail.example.com",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "domain": "mail.example.com",
+        "status": {
+          "ownership_verified": true,
+          "dkim_status": "valid",
+          "compliance_status": "valid"
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

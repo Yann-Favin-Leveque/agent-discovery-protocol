@@ -1,0 +1,99 @@
+{
+  "name": "dns_records_create",
+  "resource_group": "dns_records",
+  "description": "Create a new DNS record for a zone.",
+  "endpoint": "/zones/{zone_id}/dns_records",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Record type: A, AAAA, CNAME, MX, TXT, etc."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "DNS record name."
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "DNS record content."
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "required": false,
+      "in": "body",
+      "description": "TTL in seconds. 1 = auto."
+    },
+    {
+      "name": "proxied",
+      "type": "boolean",
+      "required": false,
+      "in": "body",
+      "description": "Enable Cloudflare proxy."
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "required": false,
+      "in": "body",
+      "description": "Priority for MX/SRV records."
+    },
+    {
+      "name": "comment",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Record comment."
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false,
+      "in": "body",
+      "description": "Record tags."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dns_records",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "A",
+      "name": "app.example.com",
+      "content": "198.51.100.4",
+      "ttl": 3600,
+      "proxied": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "id": "rec-456",
+        "type": "A",
+        "name": "app.example.com",
+        "content": "198.51.100.4"
+      }
+    }
+  }
+}

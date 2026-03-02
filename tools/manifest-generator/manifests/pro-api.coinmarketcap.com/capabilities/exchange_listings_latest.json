@@ -1,0 +1,71 @@
+{
+  "name": "exchange_listings_latest",
+  "description": "Return a paginated list of all cryptocurrency exchanges ranked by 24h trading volume.",
+  "resource_group": "exchange",
+  "endpoint": "/v1/exchange/listings/latest",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Offset.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results.",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort: volume_24h or exchange_score.",
+      "required": false,
+      "example": "volume_24h"
+    },
+    {
+      "name": "sort_dir",
+      "type": "string",
+      "description": "Sort direction.",
+      "required": false,
+      "example": "desc"
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Quote currency.",
+      "required": false,
+      "example": "USD"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/exchange/listings/latest?limit=10",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": [
+        {
+          "id": 270,
+          "name": "Binance",
+          "quote": {
+            "USD": {
+              "volume_24h": 15000000000
+            }
+          }
+        }
+      ]
+    }
+  }
+}

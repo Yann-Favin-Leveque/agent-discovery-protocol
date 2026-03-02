@@ -1,0 +1,65 @@
+{
+  "name": "daily_activity_list",
+  "description": "Retrieve daily activity score summaries including steps, active calories, MET minutes, and movement contributors for a date range. Supports pagination with next_token.",
+  "resource_group": "daily",
+  "endpoint": "/v2/usercollection/daily_activity",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token from previous response.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "activity"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/daily_activity?start_date=2025-01-10&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "abc-456",
+          "day": "2025-01-15",
+          "score": 82,
+          "active_calories": 450,
+          "steps": 8432,
+          "equivalent_walking_distance": 6240,
+          "timestamp": "2025-01-15T00:00:00+00:00",
+          "contributors": {
+            "meet_daily_targets": 80,
+            "move_every_hour": 75,
+            "recovery_time": 90,
+            "stay_active": 85,
+            "training_frequency": 78,
+            "training_volume": 70
+          }
+        }
+      ],
+      "next_token": null
+    }
+  }
+}

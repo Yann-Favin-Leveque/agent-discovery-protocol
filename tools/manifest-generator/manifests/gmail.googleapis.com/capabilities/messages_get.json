@@ -1,0 +1,67 @@
+{
+  "name": "messages_get",
+  "description": "Gets the specified message by ID including headers, body, and metadata.",
+  "resource_group": "messages",
+  "endpoint": "/gmail/v1/users/{userId}/messages/{id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID of the message to retrieve.",
+      "required": true,
+      "example": "18e2abc123"
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "description": "Format to return: full, metadata, minimal, raw.",
+      "required": false,
+      "example": "full"
+    },
+    {
+      "name": "metadataHeaders",
+      "type": "array",
+      "description": "When format is metadata, only include these headers.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages/18e2abc123?format=full",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "18e2abc123",
+      "threadId": "18e2abc123",
+      "labelIds": [
+        "INBOX",
+        "UNREAD"
+      ],
+      "snippet": "Hello...",
+      "payload": {
+        "mimeType": "text/html",
+        "headers": [
+          {
+            "name": "Subject",
+            "value": "Test"
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.readonly"
+  ]
+}

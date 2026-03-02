@@ -1,0 +1,66 @@
+{
+  "name": "status_edit",
+  "resource_group": "statuses",
+  "description": "Edit a previously posted status.",
+  "endpoint": "/api/v1/statuses/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Status ID.",
+      "required": true,
+      "in": "path",
+      "example": "109876543210"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Updated text.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "spoiler_text",
+      "type": "string",
+      "description": "Updated content warning.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "sensitive",
+      "type": "boolean",
+      "description": "Mark sensitive.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "media_ids[]",
+      "type": "array",
+      "description": "Updated media IDs.",
+      "required": false,
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://mastodon.social/api/v1/statuses/109876543210",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "Updated text!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "109876543210",
+      "content": "<p>Updated text!</p>"
+    }
+  },
+  "auth_scopes": [
+    "write:statuses"
+  ]
+}

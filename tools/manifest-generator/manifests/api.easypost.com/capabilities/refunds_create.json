@@ -1,0 +1,55 @@
+{
+  "name": "refunds_create",
+  "description": "Create refunds for one or more shipments.",
+  "endpoint": "/v2/refunds",
+  "method": "POST",
+  "resource_group": "refunds",
+  "parameters": [
+    {
+      "name": "carrier",
+      "type": "string",
+      "description": "Carrier name.",
+      "required": true,
+      "example": "USPS"
+    },
+    {
+      "name": "tracking_codes",
+      "type": "array",
+      "description": "Array of tracking codes to refund.",
+      "required": true,
+      "example": [
+        "1Z999AA10123456784"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/refunds",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "refund": {
+        "carrier": "USPS",
+        "tracking_codes": [
+          "1Z999AA10123456784"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": [
+      {
+        "id": "rfnd_abc123",
+        "tracking_code": "1Z999AA10123456784",
+        "status": "submitted"
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

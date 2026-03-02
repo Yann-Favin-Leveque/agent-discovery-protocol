@@ -1,0 +1,65 @@
+{
+  "name": "permissions_create",
+  "description": "Create a permission for a file or shared drive (share with a user/group).",
+  "resource_group": "permissions",
+  "endpoint": "/drive/v3/files/{fileId}/permissions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "fileId",
+      "type": "string",
+      "description": "The file ID.",
+      "required": true
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "description": "Role: owner, organizer, fileOrganizer, writer, commenter, reader.",
+      "required": true,
+      "example": "reader"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Type: user, group, domain, anyone.",
+      "required": true,
+      "example": "user"
+    },
+    {
+      "name": "emailAddress",
+      "type": "string",
+      "description": "Email of user/group.",
+      "required": false
+    },
+    {
+      "name": "sendNotificationEmail",
+      "type": "boolean",
+      "description": "Send notification email.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://www.googleapis.com/drive/v3/files/1abc/permissions?sendNotificationEmail=false",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "role": "reader",
+      "type": "user",
+      "emailAddress": "jane@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "perm123",
+      "role": "reader",
+      "type": "user"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/drive"
+  ]
+}

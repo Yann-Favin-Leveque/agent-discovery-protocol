@@ -1,0 +1,69 @@
+{
+  "name": "contacts_update",
+  "description": "Update an existing contact's attributes, name, email, or custom data.",
+  "resource_group": "contacts",
+  "endpoint": "/contacts/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The Intercom contact ID."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Updated email."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Updated name."
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "required": false,
+      "description": "Updated phone."
+    },
+    {
+      "name": "custom_attributes",
+      "type": "object",
+      "required": false,
+      "description": "Updated custom attributes."
+    },
+    {
+      "name": "unsubscribed_from_emails",
+      "type": "boolean",
+      "required": false,
+      "description": "Email unsubscribe status."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.intercom.io/contacts/abc123def456",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "name": "John A. Smith",
+      "custom_attributes": {
+        "plan": "pro"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "contact",
+      "id": "abc123def456",
+      "name": "John A. Smith"
+    }
+  }
+}

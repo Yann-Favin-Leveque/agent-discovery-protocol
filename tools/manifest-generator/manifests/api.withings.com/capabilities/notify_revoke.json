@@ -1,0 +1,49 @@
+{
+  "name": "notify_revoke",
+  "description": "Revoke a webhook subscription.",
+  "resource_group": "notify",
+  "endpoint": "/notify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'revoke'."
+    },
+    {
+      "name": "callbackurl",
+      "type": "string",
+      "required": true,
+      "description": "The callback URL to revoke."
+    },
+    {
+      "name": "appli",
+      "type": "integer",
+      "required": true,
+      "description": "Data category to revoke."
+    }
+  ],
+  "auth_scopes": [
+    "user.metrics"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/notify",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "revoke",
+      "callbackurl": "https://example.com/webhook",
+      "appli": 1
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0
+    }
+  }
+}

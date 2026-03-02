@@ -1,0 +1,66 @@
+{
+  "name": "users_create",
+  "description": "Create a new user with properties and subscriptions.",
+  "resource_group": "users",
+  "endpoint": "/api/v1/users",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "properties",
+      "type": "object",
+      "required": false,
+      "description": "User properties (tags, language, timezone, etc.)."
+    },
+    {
+      "name": "identity",
+      "type": "object",
+      "required": false,
+      "description": "Identity aliases (external_id, etc.)."
+    },
+    {
+      "name": "subscriptions",
+      "type": "array",
+      "required": false,
+      "description": "Subscription objects (push, email, SMS)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.onesignal.com/api/v1/users",
+    "headers": {
+      "Authorization": "Basic <rest_api_key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "identity": {
+        "external_id": "user123"
+      },
+      "properties": {
+        "tags": {
+          "plan": "premium"
+        },
+        "language": "en"
+      },
+      "subscriptions": [
+        {
+          "type": "Email",
+          "token": "user@example.com"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "identity": {
+        "external_id": "user123",
+        "onesignal_id": "os-uuid"
+      },
+      "properties": {
+        "tags": {
+          "plan": "premium"
+        }
+      }
+    }
+  }
+}

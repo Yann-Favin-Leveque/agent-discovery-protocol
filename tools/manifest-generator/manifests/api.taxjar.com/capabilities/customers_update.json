@@ -1,0 +1,68 @@
+{
+  "name": "customers_update",
+  "description": "Update an existing customer.",
+  "endpoint": "/v2/customers/{customer_id}",
+  "method": "PUT",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "customer_id",
+      "type": "string",
+      "description": "Customer ID.",
+      "required": true,
+      "example": "CUST-001"
+    },
+    {
+      "name": "exemption_type",
+      "type": "string",
+      "description": "Updated exemption type.",
+      "required": false
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated name.",
+      "required": false
+    },
+    {
+      "name": "exempt_regions",
+      "type": "array",
+      "description": "Updated exempt regions.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.taxjar.com/v2/customers/CUST-001",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "exemption_type": "government",
+      "exempt_regions": [
+        {
+          "country": "US",
+          "state": "CA"
+        },
+        {
+          "country": "US",
+          "state": "TX"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "customer": {
+        "customer_id": "CUST-001",
+        "exemption_type": "government"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

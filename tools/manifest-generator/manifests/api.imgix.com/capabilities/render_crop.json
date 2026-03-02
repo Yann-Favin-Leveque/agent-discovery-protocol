@@ -1,0 +1,60 @@
+{
+  "name": "render_crop",
+  "resource_group": "rendering",
+  "description": "Crop an image with focal point, face detection, or entropy-based smart cropping.",
+  "endpoint": "/{image_path}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "w",
+      "type": "integer",
+      "required": false,
+      "description": "Width."
+    },
+    {
+      "name": "h",
+      "type": "integer",
+      "required": false,
+      "description": "Height."
+    },
+    {
+      "name": "fit",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'crop'."
+    },
+    {
+      "name": "crop",
+      "type": "string",
+      "required": false,
+      "description": "Crop mode: top, bottom, left, right, faces, focalpoint, entropy, edges."
+    },
+    {
+      "name": "fp-x",
+      "type": "number",
+      "required": false,
+      "description": "Focal point X (0-1)."
+    },
+    {
+      "name": "fp-y",
+      "type": "number",
+      "required": false,
+      "description": "Focal point Y (0-1)."
+    },
+    {
+      "name": "fp-z",
+      "type": "number",
+      "required": false,
+      "description": "Focal point zoom (1-100)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://my-source.imgix.net/images/photo.jpg?w=400&h=400&fit=crop&crop=faces",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": "<binary image data>"
+  }
+}

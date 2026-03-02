@@ -1,0 +1,87 @@
+{
+  "name": "sleep_list",
+  "description": "Retrieve all sleep records with sleep stages, performance metrics, respiratory rate, and sleep efficiency. Sorted by start time descending.",
+  "resource_group": "sleep",
+  "endpoint": "/developer/v1/activity/sleep",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results per page (default 10, max 25).",
+      "in": "query"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "required": false,
+      "description": "Return sleeps after this ISO 8601 datetime.",
+      "in": "query"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "required": false,
+      "description": "Return sleeps before this ISO 8601 datetime.",
+      "in": "query"
+    },
+    {
+      "name": "nextToken",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "read:sleep"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.prod.whoop.com/developer/v1/activity/sleep?start=2025-01-10T00:00:00.000Z&end=2025-01-15T23:59:59.000Z",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "records": [
+        {
+          "id": 54321,
+          "user_id": 67890,
+          "created_at": "2025-01-15T07:00:00.000Z",
+          "start": "2025-01-14T23:00:00.000Z",
+          "end": "2025-01-15T07:00:00.000Z",
+          "timezone_offset": "-05:00",
+          "nap": false,
+          "score_state": "SCORED",
+          "score": {
+            "stage_summary": {
+              "total_in_bed_time_milli": 28800000,
+              "total_awake_time_milli": 2400000,
+              "total_no_data_time_milli": 0,
+              "total_light_sleep_time_milli": 12600000,
+              "total_slow_wave_sleep_time_milli": 5400000,
+              "total_rem_sleep_time_milli": 5400000,
+              "sleep_cycle_count": 5,
+              "disturbance_count": 8
+            },
+            "sleep_needed": {
+              "baseline_milli": 27000000,
+              "need_from_sleep_debt_milli": 1200000,
+              "need_from_recent_strain_milli": 900000,
+              "need_from_recent_nap_milli": -600000
+            },
+            "respiratory_rate": 15.2,
+            "sleep_performance_percentage": 92,
+            "sleep_consistency_percentage": 85,
+            "sleep_efficiency_percentage": 91
+          }
+        }
+      ],
+      "next_token": null
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "articles_list",
+  "description": "List help center articles with pagination.",
+  "resource_group": "articles",
+  "endpoint": "/articles",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page. Default 50."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number (1-based)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.intercom.io/articles?per_page=25",
+    "headers": {
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "list",
+      "data": [
+        {
+          "type": "article",
+          "id": "article-1",
+          "title": "Getting Started",
+          "state": "published",
+          "author_id": "admin-1",
+          "created_at": 1740787200
+        }
+      ],
+      "total_count": 35,
+      "pages": {
+        "type": "pages",
+        "page": 1,
+        "per_page": 25,
+        "total_pages": 2
+      }
+    }
+  }
+}

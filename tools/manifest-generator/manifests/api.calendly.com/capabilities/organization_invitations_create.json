@@ -1,0 +1,45 @@
+{
+  "name": "organization_invitations_create",
+  "resource_group": "organization_invitations",
+  "description": "Invite a user to join the organization.",
+  "endpoint": "/organizations/{org_uuid}/invitations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "org_uuid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization UUID",
+      "example": "BBBB-CCCC-DDDD"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "description": "Email to invite",
+      "example": "newuser@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.calendly.com/organizations/BBBB-CCCC-DDDD/invitations",
+    "headers": {
+      "Authorization": "Bearer CALENDLY_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "newuser@example.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": {
+        "uri": "https://api.calendly.com/organizations/BBBB-CCCC-DDDD/invitations/MMMM",
+        "email": "newuser@example.com",
+        "status": "pending"
+      }
+    }
+  }
+}

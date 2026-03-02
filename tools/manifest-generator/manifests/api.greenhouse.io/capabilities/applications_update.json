@@ -1,0 +1,61 @@
+{
+  "name": "applications_update",
+  "resource_group": "Applications",
+  "endpoint": "/v1/applications/{id}",
+  "method": "PATCH",
+  "description": "Update an application's source, referrer, recruiter, or custom fields.",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Application ID."
+    },
+    {
+      "name": "source_id",
+      "type": "integer",
+      "required": false,
+      "description": "New source ID."
+    },
+    {
+      "name": "referrer",
+      "type": "object",
+      "required": false,
+      "description": "Referrer info."
+    },
+    {
+      "name": "custom_fields",
+      "type": "array",
+      "required": false,
+      "description": "Custom field updates."
+    },
+    {
+      "name": "On-Behalf-Of",
+      "type": "integer",
+      "required": true,
+      "description": "User ID (header)."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://harvest.greenhouse.io/v1/applications/29483021",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6",
+      "On-Behalf-Of": "4321",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "source_id": 7
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 29483021,
+      "source": {
+        "id": 7,
+        "public_name": "LinkedIn"
+      }
+    }
+  }
+}

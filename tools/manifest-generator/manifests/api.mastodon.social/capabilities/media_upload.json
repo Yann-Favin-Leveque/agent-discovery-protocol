@@ -1,0 +1,56 @@
+{
+  "name": "media_upload",
+  "resource_group": "media",
+  "description": "Upload a media attachment for use with a new status.",
+  "endpoint": "/api/v2/media",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "file",
+      "type": "file",
+      "description": "Media file (multipart form data).",
+      "required": true,
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Accessibility description.",
+      "required": false,
+      "in": "body",
+      "example": "A photo of a sunset"
+    },
+    {
+      "name": "focus",
+      "type": "string",
+      "description": "Focal point (x,y) from -1.0 to 1.0.",
+      "required": false,
+      "in": "body",
+      "example": "0.0,0.0"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mastodon.social/api/v2/media",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "file": "(binary)",
+      "description": "A photo of a sunset"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "12345",
+      "type": "image",
+      "url": "https://files.mastodon.social/media/...",
+      "description": "A photo of a sunset"
+    }
+  },
+  "auth_scopes": [
+    "write:media"
+  ]
+}

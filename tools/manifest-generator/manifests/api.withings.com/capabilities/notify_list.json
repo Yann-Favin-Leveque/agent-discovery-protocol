@@ -1,0 +1,50 @@
+{
+  "name": "notify_list",
+  "description": "List all active webhook subscriptions for the user.",
+  "resource_group": "notify",
+  "endpoint": "/notify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'list'."
+    },
+    {
+      "name": "appli",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by data category."
+    }
+  ],
+  "auth_scopes": [
+    "user.metrics"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/notify",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "list"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "profiles": [
+          {
+            "callbackurl": "https://example.com/webhook",
+            "appli": 1,
+            "comment": "Weight updates"
+          }
+        ]
+      }
+    }
+  }
+}

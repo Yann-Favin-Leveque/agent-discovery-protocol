@@ -1,0 +1,53 @@
+{
+  "name": "manifests_create",
+  "description": "Create a manifest for carrier shipment pickup.",
+  "endpoint": "/v1/manifests",
+  "method": "POST",
+  "resource_group": "manifests",
+  "parameters": [
+    {
+      "name": "carrier_id",
+      "type": "string",
+      "description": "Carrier ID.",
+      "required": true
+    },
+    {
+      "name": "warehouse_id",
+      "type": "string",
+      "description": "Warehouse ID.",
+      "required": true
+    },
+    {
+      "name": "ship_date",
+      "type": "string",
+      "description": "Ship date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-01-15"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/manifests",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "carrier_id": "se-121861",
+      "warehouse_id": "se-wh-123",
+      "ship_date": "2024-01-15"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "manifest_id": "se-manifest-123",
+      "carrier_id": "se-121861",
+      "ship_date": "2024-01-15"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

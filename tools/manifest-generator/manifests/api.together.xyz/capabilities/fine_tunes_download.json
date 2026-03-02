@@ -1,0 +1,39 @@
+{
+  "name": "fine_tunes_download",
+  "description": "Download a compressed fine-tuned model or checkpoint as a binary file.",
+  "resource_group": "fine_tunes",
+  "endpoint": "/v1/finetune/download",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "ft_id",
+      "type": "string",
+      "required": true,
+      "description": "The fine-tune job ID starting with 'ft-'.",
+      "example": "ft-01234567890123456789"
+    },
+    {
+      "name": "checkpoint_step",
+      "type": "integer",
+      "required": false,
+      "description": "Checkpoint step number to download."
+    },
+    {
+      "name": "checkpoint",
+      "type": "string",
+      "required": false,
+      "description": "Checkpoint type: 'merged', 'adapter', or 'model_output_path'. Required if checkpoint_step is not specified."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.together.xyz/v1/finetune/download?ft_id=ft-01234567890123456789&checkpoint=merged",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "Binary file data (application/octet-stream)"
+  }
+}

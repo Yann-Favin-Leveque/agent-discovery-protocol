@@ -1,0 +1,52 @@
+{
+  "name": "endpoints_update",
+  "resource_group": "endpoints",
+  "description": "Update endpoint settings (autoscaling, suspend timeout).",
+  "endpoint": "/projects/{project_id}/endpoints/{endpoint_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "endpoint_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Endpoint ID."
+    },
+    {
+      "name": "endpoint",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Fields to update."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123/endpoints/ep-abc123",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "endpoint": {
+        "autoscaling_limit_min_cu": 0.25,
+        "autoscaling_limit_max_cu": 2
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "endpoint": {
+        "id": "ep-abc123"
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "name": "lists_create",
+  "description": "Create a new audience/list.",
+  "endpoint": "/3.0/lists",
+  "method": "POST",
+  "resource_group": "lists",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Audience name.",
+      "required": true,
+      "example": "Newsletter Subscribers"
+    },
+    {
+      "name": "contact",
+      "type": "object",
+      "description": "Contact info for the list.",
+      "required": true,
+      "example": {
+        "company": "Acme",
+        "address1": "123 Main St",
+        "city": "Atlanta",
+        "state": "GA",
+        "zip": "30301",
+        "country": "US"
+      }
+    },
+    {
+      "name": "permission_reminder",
+      "type": "string",
+      "description": "Permission reminder text.",
+      "required": true,
+      "example": "You signed up on our website."
+    },
+    {
+      "name": "campaign_defaults",
+      "type": "object",
+      "description": "Default campaign settings.",
+      "required": true,
+      "example": {
+        "from_name": "Acme",
+        "from_email": "news@example.com",
+        "subject": "",
+        "language": "en"
+      }
+    },
+    {
+      "name": "email_type_option",
+      "type": "boolean",
+      "description": "Allow HTML/plain text choice.",
+      "required": true,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://us1.api.mailchimp.com/3.0/lists",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Newsletter",
+      "contact": {
+        "company": "Acme",
+        "address1": "123 Main",
+        "city": "Atlanta",
+        "state": "GA",
+        "zip": "30301",
+        "country": "US"
+      },
+      "permission_reminder": "You signed up.",
+      "campaign_defaults": {
+        "from_name": "Acme",
+        "from_email": "news@example.com",
+        "subject": "",
+        "language": "en"
+      },
+      "email_type_option": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "abc123",
+      "name": "Newsletter"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

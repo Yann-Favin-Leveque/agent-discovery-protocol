@@ -1,0 +1,50 @@
+{
+  "name": "grant_list",
+  "description": "List all grants (authenticated user connections) for the application.",
+  "resource_group": "grant",
+  "endpoint": "/v3/grants",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Pagination offset.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "provider",
+      "type": "string",
+      "description": "Filter by provider: google, microsoft, imap.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.us.nylas.com/v3/grants?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "grant_abc",
+          "email": "user@gmail.com",
+          "provider": "google",
+          "grant_status": "valid"
+        }
+      ]
+    }
+  }
+}

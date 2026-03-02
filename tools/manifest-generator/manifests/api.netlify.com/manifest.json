@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Netlify",
-  "description": "Netlify provides web deployment, serverless functions, form handling, and CDN distribution for modern web applications. Use this API to manage sites, trigger and rollback deploys, and retrieve form submissions collected from deployed sites.",
+  "description": "Netlify provides web deployment, serverless functions, form handling, DNS management, and CDN distribution for modern web applications. Use this API to manage sites, deploys, environment variables, DNS zones, forms, build hooks, split tests, and SSL certificates.",
   "base_url": "https://api.netlify.com",
   "auth": {
     "type": "api_key",
@@ -11,44 +11,358 @@
   },
   "capabilities": [
     {
-      "name": "list_sites",
-      "description": "List all sites in your Netlify account. Returns site names, IDs, URLs, custom domains, and deployment status.",
-      "detail_url": "/capabilities/list_sites"
+      "name": "accounts_get",
+      "description": "Get details of a specific account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/accounts_get",
+      "resource_group": "accounts"
     },
     {
-      "name": "get_site",
-      "description": "Get detailed information about a specific site including its current deploy, build settings, repository link, and SSL configuration.",
-      "detail_url": "/capabilities/get_site"
+      "name": "accounts_list",
+      "description": "List all accounts accessible to the current user.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/accounts_list",
+      "resource_group": "accounts"
     },
     {
-      "name": "create_site",
-      "description": "Create a new Netlify site. Optionally link it to a Git repository for continuous deployment and configure a custom domain.",
-      "detail_url": "/capabilities/create_site"
+      "name": "build_hooks_create",
+      "description": "Create a build hook (URL to trigger deploys).",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/build_hooks_create",
+      "resource_group": "build_hooks"
     },
     {
-      "name": "list_deploys",
-      "description": "List all deploys for a specific site. Returns deploy IDs, states, timestamps, commit messages, and deploy URLs.",
-      "detail_url": "/capabilities/list_deploys"
+      "name": "build_hooks_delete",
+      "description": "Delete a build hook.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/build_hooks_delete",
+      "resource_group": "build_hooks"
     },
     {
-      "name": "trigger_deploy",
-      "description": "Trigger a new build and deploy for a site. Useful for redeploying after environment variable changes or manual content updates.",
-      "detail_url": "/capabilities/trigger_deploy"
+      "name": "build_hooks_list",
+      "description": "List all build hooks for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/build_hooks_list",
+      "resource_group": "build_hooks"
     },
     {
-      "name": "list_forms",
-      "description": "List all forms detected on a deployed site. Netlify automatically captures form submissions from HTML forms with the netlify attribute.",
-      "detail_url": "/capabilities/list_forms"
+      "name": "builds_create",
+      "description": "Trigger a new build for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/builds_create",
+      "resource_group": "builds"
     },
     {
-      "name": "list_submissions",
-      "description": "List all submissions for a specific form. Returns submitted field values, timestamps, and submission metadata.",
-      "detail_url": "/capabilities/list_submissions"
+      "name": "builds_list",
+      "description": "List all builds for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/builds_list",
+      "resource_group": "builds"
     },
     {
-      "name": "rollback_deploy",
-      "description": "Rollback a site to a previous deploy. Restores the site to the state of an earlier successful deployment without triggering a new build.",
-      "detail_url": "/capabilities/rollback_deploy"
+      "name": "cache_purge",
+      "description": "Purge the CDN cache for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/cache_purge",
+      "resource_group": "cache"
+    },
+    {
+      "name": "deploy_keys_create",
+      "description": "Create a new deploy key.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploy_keys_create",
+      "resource_group": "deploy_keys"
+    },
+    {
+      "name": "deploy_keys_list",
+      "description": "List all deploy keys.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploy_keys_list",
+      "resource_group": "deploy_keys"
+    },
+    {
+      "name": "deployed_branches_list",
+      "description": "List all deployed branches for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deployed_branches_list",
+      "resource_group": "branches"
+    },
+    {
+      "name": "deploys_cancel",
+      "description": "Cancel a deploy that is currently building.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploys_cancel",
+      "resource_group": "deploys"
+    },
+    {
+      "name": "deploys_create",
+      "description": "Create a new deploy for a site (trigger a build).",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploys_create",
+      "resource_group": "deploys"
+    },
+    {
+      "name": "deploys_get",
+      "description": "Get details for a specific deploy.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploys_get",
+      "resource_group": "deploys"
+    },
+    {
+      "name": "deploys_list",
+      "description": "List all deploys for a specific site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploys_list",
+      "resource_group": "deploys"
+    },
+    {
+      "name": "deploys_lock",
+      "description": "Lock a deploy to prevent auto-publishing.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploys_lock",
+      "resource_group": "deploys"
+    },
+    {
+      "name": "deploys_restore",
+      "description": "Restore a previous deploy, making it the live version of the site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploys_restore",
+      "resource_group": "deploys"
+    },
+    {
+      "name": "deploys_rollback",
+      "description": "Rollback a site to a previous deploy.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploys_rollback",
+      "resource_group": "deploys"
+    },
+    {
+      "name": "deploys_unlock",
+      "description": "Unlock a previously locked deploy.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/deploys_unlock",
+      "resource_group": "deploys"
+    },
+    {
+      "name": "dns_records_create",
+      "description": "Create a new DNS record in a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/dns_records_create",
+      "resource_group": "dns"
+    },
+    {
+      "name": "dns_records_delete",
+      "description": "Delete a DNS record from a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/dns_records_delete",
+      "resource_group": "dns"
+    },
+    {
+      "name": "dns_records_list",
+      "description": "List all DNS records in a zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/dns_records_list",
+      "resource_group": "dns"
+    },
+    {
+      "name": "dns_zones_create",
+      "description": "Create a new DNS zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/dns_zones_create",
+      "resource_group": "dns"
+    },
+    {
+      "name": "dns_zones_delete",
+      "description": "Delete a DNS zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/dns_zones_delete",
+      "resource_group": "dns"
+    },
+    {
+      "name": "dns_zones_get",
+      "description": "Get details of a specific DNS zone.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/dns_zones_get",
+      "resource_group": "dns"
+    },
+    {
+      "name": "dns_zones_list",
+      "description": "List all DNS zones in your account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/dns_zones_list",
+      "resource_group": "dns"
+    },
+    {
+      "name": "env_vars_create",
+      "description": "Create new environment variables for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/env_vars_create",
+      "resource_group": "env_vars"
+    },
+    {
+      "name": "env_vars_delete",
+      "description": "Delete an environment variable.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/env_vars_delete",
+      "resource_group": "env_vars"
+    },
+    {
+      "name": "env_vars_list",
+      "description": "List all environment variables for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/env_vars_list",
+      "resource_group": "env_vars"
+    },
+    {
+      "name": "env_vars_update",
+      "description": "Update an environment variable.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/env_vars_update",
+      "resource_group": "env_vars"
+    },
+    {
+      "name": "files_list",
+      "description": "List all files in the current deploy of a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/files_list",
+      "resource_group": "files"
+    },
+    {
+      "name": "forms_delete",
+      "description": "Delete a form and all its submissions.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/forms_delete",
+      "resource_group": "forms"
+    },
+    {
+      "name": "forms_list",
+      "description": "List all forms detected on a deployed site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/forms_list",
+      "resource_group": "forms"
+    },
+    {
+      "name": "functions_list",
+      "description": "List all serverless functions deployed on a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/functions_list",
+      "resource_group": "functions"
+    },
+    {
+      "name": "hooks_create",
+      "description": "Create a notification webhook for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/hooks_create",
+      "resource_group": "hooks"
+    },
+    {
+      "name": "hooks_delete",
+      "description": "Delete a notification webhook.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/hooks_delete",
+      "resource_group": "hooks"
+    },
+    {
+      "name": "hooks_list",
+      "description": "List all notification webhooks for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/hooks_list",
+      "resource_group": "hooks"
+    },
+    {
+      "name": "metadata_get",
+      "description": "Get metadata for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/metadata_get",
+      "resource_group": "metadata"
+    },
+    {
+      "name": "metadata_update",
+      "description": "Update metadata for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/metadata_update",
+      "resource_group": "metadata"
+    },
+    {
+      "name": "sites_create",
+      "description": "Create a new Netlify site. Optionally link to a Git repository.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/sites_create",
+      "resource_group": "sites"
+    },
+    {
+      "name": "sites_delete",
+      "description": "Delete a Netlify site permanently.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/sites_delete",
+      "resource_group": "sites"
+    },
+    {
+      "name": "sites_disable",
+      "description": "Disable a site (block all traffic).",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/sites_disable",
+      "resource_group": "sites"
+    },
+    {
+      "name": "sites_enable",
+      "description": "Re-enable a previously disabled site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/sites_enable",
+      "resource_group": "sites"
+    },
+    {
+      "name": "sites_get",
+      "description": "Get detailed information about a specific site including deploy settings and SSL.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/sites_get",
+      "resource_group": "sites"
+    },
+    {
+      "name": "sites_list",
+      "description": "List all sites in your Netlify account with deployment status and URLs.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/sites_list",
+      "resource_group": "sites"
+    },
+    {
+      "name": "sites_unlink_repo",
+      "description": "Unlink a Git repository from a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/sites_unlink_repo",
+      "resource_group": "sites"
+    },
+    {
+      "name": "sites_update",
+      "description": "Update a site's settings including build configuration and custom domain.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/sites_update",
+      "resource_group": "sites"
+    },
+    {
+      "name": "snippets_create",
+      "description": "Create a code snippet to inject into a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/snippets_create",
+      "resource_group": "snippets"
+    },
+    {
+      "name": "snippets_delete",
+      "description": "Delete a code snippet.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/snippets_delete",
+      "resource_group": "snippets"
+    },
+    {
+      "name": "snippets_list",
+      "description": "List all code snippets injected into a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/snippets_list",
+      "resource_group": "snippets"
+    },
+    {
+      "name": "split_tests_create",
+      "description": "Create a new A/B split test for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/split_tests_create",
+      "resource_group": "split_tests"
+    },
+    {
+      "name": "split_tests_disable",
+      "description": "Disable a split test.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/split_tests_disable",
+      "resource_group": "split_tests"
+    },
+    {
+      "name": "split_tests_enable",
+      "description": "Enable a split test.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/split_tests_enable",
+      "resource_group": "split_tests"
+    },
+    {
+      "name": "split_tests_list",
+      "description": "List all A/B split tests for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/split_tests_list",
+      "resource_group": "split_tests"
+    },
+    {
+      "name": "ssl_get",
+      "description": "Show the TLS/SSL certificate for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/ssl_get",
+      "resource_group": "ssl"
+    },
+    {
+      "name": "ssl_provision",
+      "description": "Provision a TLS/SSL certificate for a site.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/ssl_provision",
+      "resource_group": "ssl"
+    },
+    {
+      "name": "submissions_delete",
+      "description": "Delete a specific form submission.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/submissions_delete",
+      "resource_group": "forms"
+    },
+    {
+      "name": "submissions_list",
+      "description": "List all submissions for a specific form.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/submissions_list",
+      "resource_group": "forms"
+    },
+    {
+      "name": "user_get",
+      "description": "Get the currently authenticated user's information.",
+      "detail_url": "https://agent-dns.dev/api/services/api.netlify.com/capabilities/user_get",
+      "resource_group": "user"
     }
   ]
 }

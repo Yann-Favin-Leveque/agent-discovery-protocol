@@ -1,0 +1,58 @@
+{
+  "name": "endpoint_list",
+  "description": "List all webhook endpoints for a given application.",
+  "resource_group": "endpoint",
+  "endpoint": "/api/v1/app/{app_id}/endpoint",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "iterator",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.svix.com/api/v1/app/app_123/endpoint?limit=10",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "ep_abc",
+          "url": "https://example.com/webhook",
+          "description": "Production endpoint",
+          "disabled": false
+        }
+      ],
+      "iterator": null,
+      "done": true
+    }
+  }
+}

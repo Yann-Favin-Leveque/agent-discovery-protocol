@@ -1,0 +1,77 @@
+{
+  "name": "sleep_getsummary",
+  "description": "Retrieve sleep summary with total duration, sleep stages breakdown, breathing disturbances, and quality metrics.",
+  "resource_group": "sleep",
+  "endpoint": "/v2/sleep",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'getsummary'."
+    },
+    {
+      "name": "startdateymd",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD."
+    },
+    {
+      "name": "enddateymd",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD."
+    },
+    {
+      "name": "lastupdate",
+      "type": "integer",
+      "required": false,
+      "description": "Unix timestamp filter."
+    },
+    {
+      "name": "data_fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated: breathing_disturbances_intensity,deepsleepduration,durationtosleep,durationtowakeup,hr_average,hr_max,hr_min,lightsleepduration,nb_rem_episodes,out_of_bed_count,remsleepduration,rr_average,rr_max,rr_min,sleep_efficiency,sleep_latency,sleep_score,snoring,snoringepisodecount,wakeupcount,wakeupduration."
+    }
+  ],
+  "auth_scopes": [
+    "user.sleepevents"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/sleep",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "getsummary",
+      "startdateymd": "2025-01-10",
+      "enddateymd": "2025-01-15"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "series": [
+          {
+            "date": "2025-01-15",
+            "data": {
+              "breathing_disturbances_intensity": 12,
+              "deepsleepduration": 5100,
+              "lightsleepduration": 12600,
+              "remsleepduration": 5700,
+              "wakeupduration": 2820,
+              "sleep_score": 82,
+              "hr_average": 58
+            }
+          }
+        ]
+      }
+    }
+  }
+}

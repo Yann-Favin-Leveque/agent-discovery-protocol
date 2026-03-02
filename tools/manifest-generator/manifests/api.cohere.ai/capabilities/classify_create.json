@@ -1,0 +1,38 @@
+{
+  "name": "classify_create",
+  "description": "Classify text inputs into predefined categories using few-shot examples. Useful for sentiment analysis, topic tagging, and content moderation.",
+  "resource_group": "classify",
+  "endpoint": "/v1/classify",
+  "method": "POST",
+  "parameters": [
+    {"name": "inputs", "type": "array", "required": true, "description": "Array of text strings to classify (max 96)."},
+    {"name": "examples", "type": "array", "required": false, "description": "Array of {text, label} pairs as training examples (max 2500, min 2 per label)."},
+    {"name": "model", "type": "string", "required": false, "description": "Fine-tuned classify model ID."},
+    {"name": "preset", "type": "string", "required": false, "description": "Custom playground preset ID."},
+    {"name": "truncate", "type": "string", "required": false, "description": "Truncation mode: NONE, START, or END (default END)."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cohere.com/v1/classify",
+    "headers": {"Authorization": "Bearer co-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "body": {
+      "inputs": ["This product is amazing!", "Terrible customer service."],
+      "examples": [
+        {"text": "I love this", "label": "positive"},
+        {"text": "Great product", "label": "positive"},
+        {"text": "This is awful", "label": "negative"},
+        {"text": "Very disappointing", "label": "negative"}
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cls123",
+      "classifications": [
+        {"id": "0", "input": "This product is amazing!", "prediction": "positive", "confidence": 0.95, "labels": {"positive": {"confidence": 0.95}, "negative": {"confidence": 0.05}}},
+        {"id": "1", "input": "Terrible customer service.", "prediction": "negative", "confidence": 0.92, "labels": {"positive": {"confidence": 0.08}, "negative": {"confidence": 0.92}}}
+      ]
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "applications_create",
+  "resource_group": "applications",
+  "description": "Create a new application with OAuth settings, roles, and policies.",
+  "endpoint": "/api/application",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "application",
+      "type": "object",
+      "required": true,
+      "description": "Application object with name, roles, oauthConfiguration, etc."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/application",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "application": {
+        "name": "My App",
+        "roles": [
+          {
+            "name": "admin"
+          },
+          {
+            "name": "user"
+          }
+        ],
+        "oauthConfiguration": {
+          "authorizedRedirectURLs": [
+            "https://app.example.com/callback"
+          ],
+          "clientSecret": "secret",
+          "enabledGrants": [
+            "authorization_code",
+            "refresh_token"
+          ]
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "application": {
+        "id": "app-uuid",
+        "name": "My App",
+        "roles": [
+          {
+            "id": "role-uuid",
+            "name": "admin"
+          },
+          {
+            "id": "role-uuid-2",
+            "name": "user"
+          }
+        ]
+      }
+    }
+  }
+}

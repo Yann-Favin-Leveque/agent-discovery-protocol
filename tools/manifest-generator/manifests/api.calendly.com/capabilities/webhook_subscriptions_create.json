@@ -1,0 +1,86 @@
+{
+  "name": "webhook_subscriptions_create",
+  "resource_group": "webhook_subscriptions",
+  "description": "Create a webhook subscription to receive real-time notifications when events are scheduled or canceled.",
+  "endpoint": "/webhook_subscriptions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "Callback URL for webhook payloads",
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "required": true,
+      "description": "Event types to subscribe to",
+      "example": [
+        "invitee.created",
+        "invitee.canceled"
+      ]
+    },
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "description": "Organization URI",
+      "example": "https://api.calendly.com/organizations/BBBB"
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": false,
+      "description": "User URI for user-scoped webhooks",
+      "example": "https://api.calendly.com/users/AAAA"
+    },
+    {
+      "name": "scope",
+      "type": "string",
+      "required": true,
+      "description": "Webhook scope (user or organization)",
+      "example": "organization"
+    },
+    {
+      "name": "signing_key",
+      "type": "string",
+      "required": false,
+      "description": "Secret key for payload signatures",
+      "example": "whsec_xxxxx"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.calendly.com/webhook_subscriptions",
+    "headers": {
+      "Authorization": "Bearer CALENDLY_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "events": [
+        "invitee.created",
+        "invitee.canceled"
+      ],
+      "organization": "https://api.calendly.com/organizations/BBBB",
+      "scope": "organization"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": {
+        "uri": "https://api.calendly.com/webhook_subscriptions/PPPP",
+        "callback_url": "https://example.com/webhook",
+        "events": [
+          "invitee.created",
+          "invitee.canceled"
+        ],
+        "scope": "organization",
+        "state": "active"
+      }
+    }
+  }
+}

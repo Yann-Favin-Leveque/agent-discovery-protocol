@@ -1,0 +1,42 @@
+{
+  "name": "customers_delete",
+  "description": "Delete a customer record.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Customer ID",
+      "required": true,
+      "example": "Q3VzdG9tZXI6..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: CustomerDeleteInput!) { customerDelete(input: $input) { didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "customerDelete": {
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

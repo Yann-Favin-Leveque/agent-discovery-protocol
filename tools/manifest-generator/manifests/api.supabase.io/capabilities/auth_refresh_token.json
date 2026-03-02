@@ -1,0 +1,39 @@
+{
+  "name": "auth_refresh_token",
+  "description": "Refresh an access token using a refresh token.",
+  "endpoint": "/auth/v1/token?grant_type=refresh_token",
+  "method": "POST",
+  "resource_group": "auth",
+  "parameters": [
+    {
+      "name": "refresh_token",
+      "type": "string",
+      "description": "Refresh token from previous sign-in",
+      "required": true,
+      "example": "abc..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/auth/v1/token?grant_type=refresh_token",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "refresh_token": "abc..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "access_token": "eyJ_new...",
+      "refresh_token": "def...",
+      "expires_in": 3600
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

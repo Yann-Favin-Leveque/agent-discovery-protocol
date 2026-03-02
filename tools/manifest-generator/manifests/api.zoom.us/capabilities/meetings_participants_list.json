@@ -1,0 +1,58 @@
+{
+  "name": "meetings_participants_list",
+  "description": "List participants who attended a past meeting instance. Returns names, emails, join times, leave times, and duration.",
+  "endpoint": "/past_meetings/{meetingId}/participants",
+  "method": "GET",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "string",
+      "description": "The past meeting ID or UUID. Double-encode UUIDs containing / or //.",
+      "required": true,
+      "example": "abc123def"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of records per page (max 300).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "next_page_token",
+      "type": "string",
+      "description": "Token for the next page of results.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/past_meetings/abc123def/participants?page_size=30",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page_size": 30,
+      "total_records": 5,
+      "participants": [
+        {
+          "id": "participant1",
+          "name": "Jane Doe",
+          "user_email": "jane@example.com",
+          "join_time": "2024-01-15T10:01:00Z",
+          "leave_time": "2024-01-15T11:00:00Z",
+          "duration": 3540
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["meeting:read"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

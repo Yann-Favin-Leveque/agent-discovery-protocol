@@ -1,0 +1,52 @@
+{
+  "name": "useragent_parse_custom",
+  "description": "Parse a custom user-agent string sent in the request body.",
+  "endpoint": "/v3/user-agent",
+  "method": "POST",
+  "resource_group": "user_agent",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "description": "Your API key.",
+      "required": true,
+      "example": "YOUR_API_KEY"
+    },
+    {
+      "name": "uaString",
+      "type": "string",
+      "description": "User-agent string to parse.",
+      "required": true,
+      "example": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.ipgeolocation.io/v3/user-agent?apiKey=YOUR_API_KEY",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "uaString": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)",
+      "name": "Safari",
+      "operatingSystem": {
+        "name": "iOS",
+        "version": "17.0"
+      },
+      "device": {
+        "name": "iPhone",
+        "type": "Mobile"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

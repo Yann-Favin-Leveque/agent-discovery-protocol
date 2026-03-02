@@ -1,0 +1,41 @@
+{
+  "name": "logs_get",
+  "description": "Retrieve a specific conversion log entry by its request ID, including duration, credits used, and error information.",
+  "resource_group": "logs",
+  "endpoint": "/logs/{request_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "request_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique request ID of the log entry."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pdfshift.io/v3/logs/req-abc123",
+    "headers": {
+      "X-API-Key": "your-pdfshift-api-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "log": {
+        "id": 12345,
+        "duration": 2500,
+        "executed": 1709290800,
+        "credits": 1,
+        "sandbox": false,
+        "filesize": 150000,
+        "error": null,
+        "code": 200,
+        "user_agent": "PDFShift/1.0",
+        "request_id": "req-abc123"
+      }
+    }
+  }
+}

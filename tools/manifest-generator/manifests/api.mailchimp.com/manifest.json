@@ -1,8 +1,8 @@
 {
   "spec_version": "1.0",
   "name": "Mailchimp",
-  "description": "Mailchimp is an email marketing and automation platform that enables managing audiences, creating campaigns, and tracking performance. Use this API to manage contacts, build and send email campaigns, and access detailed performance analytics.",
-  "base_url": "https://api.mailchimp.com",
+  "description": "Mailchimp is an email marketing and automation platform. Manage audiences/lists, subscribers, campaigns, templates, automations, segments, tags, and access detailed analytics and reports.",
+  "base_url": "https://{dc}.api.mailchimp.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
@@ -11,39 +11,214 @@
   },
   "capabilities": [
     {
-      "name": "list_audiences",
-      "description": "Retrieve all audiences (mailing lists) associated with your Mailchimp account, including subscriber counts and list settings.",
-      "detail_url": "/capabilities/list_audiences"
+      "name": "lists_list",
+      "description": "List all audiences (lists) in your Mailchimp account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/lists_list",
+      "resource_group": "lists"
     },
     {
-      "name": "add_member",
-      "description": "Add a new subscriber to a specific audience with email address, name, and custom merge fields.",
-      "detail_url": "/capabilities/add_member"
+      "name": "lists_get",
+      "description": "Retrieve details of a specific audience by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/lists_get",
+      "resource_group": "lists"
     },
     {
-      "name": "search_members",
-      "description": "Search across all audiences for members by email address or other criteria, returning matching subscriber records.",
-      "detail_url": "/capabilities/search_members"
+      "name": "lists_create",
+      "description": "Create a new audience/list.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/lists_create",
+      "resource_group": "lists"
     },
     {
-      "name": "create_campaign",
-      "description": "Create a new email campaign with recipient list, subject line, and email content, ready to send or schedule.",
-      "detail_url": "/capabilities/create_campaign"
+      "name": "lists_update",
+      "description": "Update an audience's settings.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/lists_update",
+      "resource_group": "lists"
     },
     {
-      "name": "send_campaign",
-      "description": "Send a campaign immediately to all subscribers in its target audience.",
-      "detail_url": "/capabilities/send_campaign"
+      "name": "lists_delete",
+      "description": "Delete an audience/list.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/lists_delete",
+      "resource_group": "lists"
     },
     {
-      "name": "get_campaign_report",
-      "description": "Retrieve detailed performance metrics for a sent campaign including open rates, click rates, bounces, and conversions.",
-      "detail_url": "/capabilities/get_campaign_report"
+      "name": "members_list",
+      "description": "List subscribers in an audience with filtering options.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/members_list",
+      "resource_group": "members"
     },
     {
-      "name": "list_templates",
-      "description": "List all email templates saved in your Mailchimp account that can be used as a basis for campaigns.",
-      "detail_url": "/capabilities/list_templates"
+      "name": "members_get",
+      "description": "Retrieve a specific subscriber by their email hash.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/members_get",
+      "resource_group": "members"
+    },
+    {
+      "name": "members_add",
+      "description": "Add a new subscriber to an audience.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/members_add",
+      "resource_group": "members"
+    },
+    {
+      "name": "members_update",
+      "description": "Update an existing subscriber's information.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/members_update",
+      "resource_group": "members"
+    },
+    {
+      "name": "members_archive",
+      "description": "Archive (soft delete) a subscriber from an audience.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/members_archive",
+      "resource_group": "members"
+    },
+    {
+      "name": "members_add_or_update",
+      "description": "Add or update a subscriber using PUT (upsert by email).",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/members_add_or_update",
+      "resource_group": "members"
+    },
+    {
+      "name": "members_search",
+      "description": "Search for members across all audiences by email or other criteria.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/members_search",
+      "resource_group": "members"
+    },
+    {
+      "name": "members_tags_update",
+      "description": "Add or remove tags from a subscriber.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/members_tags_update",
+      "resource_group": "members"
+    },
+    {
+      "name": "campaigns_list",
+      "description": "List all campaigns in your account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/campaigns_list",
+      "resource_group": "campaigns"
+    },
+    {
+      "name": "campaigns_get",
+      "description": "Retrieve details of a specific campaign.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/campaigns_get",
+      "resource_group": "campaigns"
+    },
+    {
+      "name": "campaigns_create",
+      "description": "Create a new email campaign.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/campaigns_create",
+      "resource_group": "campaigns"
+    },
+    {
+      "name": "campaigns_update",
+      "description": "Update a campaign's settings before sending.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/campaigns_update",
+      "resource_group": "campaigns"
+    },
+    {
+      "name": "campaigns_delete",
+      "description": "Delete a campaign.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/campaigns_delete",
+      "resource_group": "campaigns"
+    },
+    {
+      "name": "campaigns_send",
+      "description": "Send a campaign immediately.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/campaigns_send",
+      "resource_group": "campaigns"
+    },
+    {
+      "name": "campaigns_schedule",
+      "description": "Schedule a campaign to send at a future date/time.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/campaigns_schedule",
+      "resource_group": "campaigns"
+    },
+    {
+      "name": "campaigns_content_set",
+      "description": "Set the HTML content for a campaign.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/campaigns_content_set",
+      "resource_group": "campaigns"
+    },
+    {
+      "name": "campaigns_content_get",
+      "description": "Retrieve the content of a campaign.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/campaigns_content_get",
+      "resource_group": "campaigns"
+    },
+    {
+      "name": "reports_get",
+      "description": "Get performance report for a sent campaign (opens, clicks, bounces).",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/reports_get",
+      "resource_group": "reports"
+    },
+    {
+      "name": "reports_list",
+      "description": "List reports for all sent campaigns.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/reports_list",
+      "resource_group": "reports"
+    },
+    {
+      "name": "templates_list",
+      "description": "List all email templates.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/templates_list",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_get",
+      "description": "Retrieve a specific template.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/templates_get",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_create",
+      "description": "Create a new email template.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/templates_create",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_update",
+      "description": "Update a template's name or HTML.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/templates_update",
+      "resource_group": "templates"
+    },
+    {
+      "name": "templates_delete",
+      "description": "Delete a template.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/templates_delete",
+      "resource_group": "templates"
+    },
+    {
+      "name": "segments_list",
+      "description": "List all segments for an audience.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/segments_list",
+      "resource_group": "segments"
+    },
+    {
+      "name": "segments_create",
+      "description": "Create a new segment for an audience.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/segments_create",
+      "resource_group": "segments"
+    },
+    {
+      "name": "automations_list",
+      "description": "List all automations (automated email series).",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/automations_list",
+      "resource_group": "automations"
+    },
+    {
+      "name": "automations_get",
+      "description": "Retrieve details of a specific automation.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/automations_get",
+      "resource_group": "automations"
+    },
+    {
+      "name": "automations_pause",
+      "description": "Pause all emails in an automation.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/automations_pause",
+      "resource_group": "automations"
+    },
+    {
+      "name": "automations_start",
+      "description": "Start all emails in an automation.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mailchimp.com/capabilities/automations_start",
+      "resource_group": "automations"
     }
   ]
 }

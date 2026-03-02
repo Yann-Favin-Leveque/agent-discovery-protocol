@@ -1,0 +1,45 @@
+{
+  "name": "files_get_thumbnail",
+  "description": "Get a thumbnail for a file.",
+  "resource_group": "files",
+  "endpoint": "/2.0/files/{file_id}/thumbnail.{extension}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "file_id",
+      "type": "string",
+      "description": "The file ID.",
+      "required": true
+    },
+    {
+      "name": "extension",
+      "type": "string",
+      "description": "Thumbnail format: png or jpg.",
+      "required": true,
+      "example": "png"
+    },
+    {
+      "name": "min_width",
+      "type": "integer",
+      "description": "Minimum width.",
+      "required": false
+    },
+    {
+      "name": "min_height",
+      "type": "integer",
+      "description": "Minimum height.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.box.com/2.0/files/12345/thumbnail.png?min_width=256&min_height=256",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": "<thumbnail binary>"
+  }
+}

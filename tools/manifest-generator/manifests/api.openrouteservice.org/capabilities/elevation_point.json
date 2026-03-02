@@ -1,0 +1,55 @@
+{
+  "name": "elevation_point",
+  "description": "Get elevation data for a single geographic point.",
+  "endpoint": "/elevation/point",
+  "method": "POST",
+  "resource_group": "elevation",
+  "parameters": [
+    {
+      "name": "format_in",
+      "type": "string",
+      "description": "Input format: geojson or point",
+      "required": true,
+      "example": "point"
+    },
+    {
+      "name": "geometry",
+      "type": "array",
+      "description": "Coordinate as [longitude, latitude]",
+      "required": true,
+      "example": [
+        13.349762,
+        38.11619
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/elevation/point",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "format_in": "point",
+      "geometry": [
+        13.349762,
+        38.11619
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "geometry": [
+        13.349762,
+        38.11619,
+        554.0
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

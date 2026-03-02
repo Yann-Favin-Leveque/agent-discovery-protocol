@@ -1,0 +1,47 @@
+{
+  "name": "items_upload_create_session",
+  "description": "Create an upload session for large files (over 4 MB).",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/items/{parent-id}:/{filename}:/createUploadSession",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "parent-id",
+      "type": "string",
+      "description": "Parent folder ID.",
+      "required": true
+    },
+    {
+      "name": "filename",
+      "type": "string",
+      "description": "File name.",
+      "required": true
+    },
+    {
+      "name": "item",
+      "type": "object",
+      "description": "Item properties.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/root:/Documents/largefile.zip:/createUploadSession",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "item": {
+        "@microsoft.graph.conflictBehavior": "rename"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uploadUrl": "https://sn3302.up.1drv.com/up/abc123",
+      "expirationDateTime": "2024-01-15T12:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "email_addresses_create",
+  "resource_group": "email_addresses",
+  "description": "Create a new email address for a user.",
+  "endpoint": "/v1/email_addresses",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID to associate with."
+    },
+    {
+      "name": "email_address",
+      "type": "string",
+      "required": true,
+      "description": "The email address."
+    },
+    {
+      "name": "verified",
+      "type": "boolean",
+      "required": false,
+      "description": "Mark as verified. Default false."
+    },
+    {
+      "name": "primary",
+      "type": "boolean",
+      "required": false,
+      "description": "Set as primary. Default false."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/email_addresses",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user_id": "user_2abc123",
+      "email_address": "alice@work.com",
+      "verified": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "idn_abc",
+      "object": "email_address",
+      "email_address": "alice@work.com",
+      "verification": {
+        "status": "verified"
+      }
+    }
+  }
+}

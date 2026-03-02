@@ -1,0 +1,62 @@
+{
+  "name": "entries_get",
+  "description": "Retrieve a single content entry by its document ID from a specific collection type. Supports field selection and population of relations and components.",
+  "resource_group": "entries",
+  "endpoint": "/api/{pluralApiId}/{documentId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "pluralApiId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The pluralized API ID of the collection type (e.g., 'articles')."
+    },
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique document ID of the entry (string in Strapi 5)."
+    },
+    {
+      "name": "populate",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Relations/components to populate. Use '*' for all first-level relations."
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Select specific fields to return."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.strapi.io/api/articles/a1b2c3d4e5?populate=*",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 1,
+        "documentId": "a1b2c3d4e5",
+        "attributes": {
+          "title": "Introduction to AI Agents",
+          "slug": "introduction-to-ai-agents",
+          "content": "A comprehensive guide...",
+          "publishedAt": "2026-02-28T10:00:00.000Z",
+          "createdAt": "2026-02-27T14:00:00.000Z",
+          "updatedAt": "2026-02-28T10:00:00.000Z"
+        }
+      },
+      "meta": {}
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "users_create",
+  "resource_group": "users",
+  "description": "Create a new user in FusionAuth. Optionally register them to an application in the same request.",
+  "endpoint": "/api/user",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user",
+      "type": "object",
+      "required": true,
+      "description": "User object with email, password, firstName, lastName, etc."
+    },
+    {
+      "name": "registration",
+      "type": "object",
+      "required": false,
+      "description": "Optional application registration with applicationId and roles."
+    },
+    {
+      "name": "sendSetPasswordEmail",
+      "type": "boolean",
+      "required": false,
+      "description": "Send a set-password email instead of setting password."
+    },
+    {
+      "name": "skipVerification",
+      "type": "boolean",
+      "required": false,
+      "description": "Skip email verification."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/user",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user": {
+        "email": "alice@example.com",
+        "password": "securePass123!",
+        "firstName": "Alice",
+        "lastName": "Johnson"
+      },
+      "registration": {
+        "applicationId": "app-uuid",
+        "roles": [
+          "user"
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": "user-uuid",
+        "email": "alice@example.com",
+        "firstName": "Alice",
+        "lastName": "Johnson",
+        "verified": true,
+        "active": true
+      }
+    }
+  }
+}

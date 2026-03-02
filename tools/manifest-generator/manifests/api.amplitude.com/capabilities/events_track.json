@@ -1,0 +1,47 @@
+{
+  "name": "events_track",
+  "description": "Send event data to Amplitude via the HTTP V2 API for user behavior tracking.",
+  "resource_group": "ingestion",
+  "endpoint": "/2/httpapi",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Amplitude project API key"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "required": true,
+      "description": "Array of event objects with event_type, user_id or device_id, and properties"
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "required": false,
+      "description": "Options like min_id_length"
+    }
+  ],
+  "request_example": {
+    "api_key": "YOUR_KEY",
+    "events": [
+      {
+        "user_id": "user_123",
+        "event_type": "page_view",
+        "event_properties": {
+          "page": "/pricing"
+        },
+        "time": 1609459200000
+      }
+    ]
+  },
+  "response_example": {
+    "code": 200,
+    "events_ingested": 1,
+    "payload_size_bytes": 150,
+    "server_upload_time": 1609459201000
+  },
+  "auth_scopes": []
+}

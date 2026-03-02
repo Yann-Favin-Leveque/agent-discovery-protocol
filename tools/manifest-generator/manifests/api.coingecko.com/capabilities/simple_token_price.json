@@ -1,0 +1,25 @@
+{
+  "name": "simple_token_price",
+  "description": "Get the current price of tokens by contract address on a specific blockchain platform.",
+  "resource_group": "simple",
+  "endpoint": "/simple/token_price/{id}",
+  "method": "GET",
+  "parameters": [
+    {"name": "id", "type": "string", "description": "Asset platform ID (e.g., ethereum, polygon-pos).", "required": true, "example": "ethereum"},
+    {"name": "contract_addresses", "type": "string", "description": "Comma-separated token contract addresses.", "required": true, "example": "0xdac17f958d2ee523a2206206994597c13d831ec7"},
+    {"name": "vs_currencies", "type": "string", "description": "Target currencies.", "required": true, "example": "usd"},
+    {"name": "include_market_cap", "type": "boolean", "description": "Include market cap.", "required": false},
+    {"name": "include_24hr_vol", "type": "boolean", "description": "Include 24h volume.", "required": false},
+    {"name": "include_24hr_change", "type": "boolean", "description": "Include 24h change.", "required": false}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0xdac17f958d2ee523a2206206994597c13d831ec7&vs_currencies=usd",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"0xdac17f958d2ee523a2206206994597c13d831ec7": {"usd": 1.0}}
+  },
+  "rate_limits": {"requests_per_minute": 30}
+}

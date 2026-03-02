@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Backblaze B2",
-  "description": "Backblaze B2 is a low-cost cloud object storage service. The API allows you to create buckets, upload and download files, list bucket contents, and manage stored objects at a fraction of the cost of other cloud providers.",
+  "description": "Backblaze B2 is a low-cost cloud object storage service. The API allows you to create buckets, upload and download files, list bucket contents, manage application keys, and handle large file uploads at a fraction of the cost of other cloud providers.",
   "base_url": "https://api.backblazeb2.com",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,139 @@
   },
   "capabilities": [
     {
-      "name": "upload_file",
-      "description": "Upload a file to a specific bucket in Backblaze B2. Requires first obtaining an upload URL via b2_get_upload_url.",
-      "detail_url": "/capabilities/upload_file"
+      "name": "authorize_account",
+      "description": "Authorize with B2 to get an authorization token and API URL for subsequent calls.",
+      "detail_url": "/capabilities/authorize_account"
     },
     {
-      "name": "download_file",
-      "description": "Download a file from B2 storage by its file name and bucket, or by its unique file ID.",
-      "detail_url": "/capabilities/download_file"
+      "name": "buckets_create",
+      "description": "Create a new storage bucket.",
+      "detail_url": "/capabilities/buckets_create"
     },
     {
-      "name": "list_files",
-      "description": "List files in a B2 bucket, with optional prefix filtering and pagination for navigating large collections.",
-      "detail_url": "/capabilities/list_files"
+      "name": "buckets_list",
+      "description": "List all buckets in your account.",
+      "detail_url": "/capabilities/buckets_list"
     },
     {
-      "name": "delete_file",
-      "description": "Delete a specific version of a file from a B2 bucket using its file name and file ID.",
-      "detail_url": "/capabilities/delete_file"
+      "name": "buckets_update",
+      "description": "Update a bucket's settings.",
+      "detail_url": "/capabilities/buckets_update"
     },
     {
-      "name": "create_bucket",
-      "description": "Create a new storage bucket in your Backblaze B2 account with a specified name and visibility setting.",
-      "detail_url": "/capabilities/create_bucket"
+      "name": "buckets_delete",
+      "description": "Delete an empty bucket.",
+      "detail_url": "/capabilities/buckets_delete"
     },
     {
-      "name": "list_buckets",
-      "description": "List all buckets in your Backblaze B2 account along with their configuration and metadata.",
-      "detail_url": "/capabilities/list_buckets"
+      "name": "files_get_upload_url",
+      "description": "Get a URL and token for uploading files to a bucket.",
+      "detail_url": "/capabilities/files_get_upload_url"
+    },
+    {
+      "name": "files_upload",
+      "description": "Upload a file to B2 using the URL from get_upload_url.",
+      "detail_url": "/capabilities/files_upload"
+    },
+    {
+      "name": "files_download_by_id",
+      "description": "Download a file by its file ID.",
+      "detail_url": "/capabilities/files_download_by_id"
+    },
+    {
+      "name": "files_download_by_name",
+      "description": "Download a file by its name and bucket.",
+      "detail_url": "/capabilities/files_download_by_name"
+    },
+    {
+      "name": "files_list_names",
+      "description": "List file names in a bucket.",
+      "detail_url": "/capabilities/files_list_names"
+    },
+    {
+      "name": "files_list_versions",
+      "description": "List all versions of files in a bucket.",
+      "detail_url": "/capabilities/files_list_versions"
+    },
+    {
+      "name": "files_get_info",
+      "description": "Get info about a specific file version.",
+      "detail_url": "/capabilities/files_get_info"
+    },
+    {
+      "name": "files_delete_version",
+      "description": "Delete a specific version of a file.",
+      "detail_url": "/capabilities/files_delete_version"
+    },
+    {
+      "name": "files_hide",
+      "description": "Hide a file (mark as deleted without removing it).",
+      "detail_url": "/capabilities/files_hide"
+    },
+    {
+      "name": "files_copy",
+      "description": "Copy a file to a new location within B2.",
+      "detail_url": "/capabilities/files_copy"
+    },
+    {
+      "name": "large_files_start",
+      "description": "Start a large file upload session.",
+      "detail_url": "/capabilities/large_files_start"
+    },
+    {
+      "name": "large_files_get_upload_part_url",
+      "description": "Get a URL for uploading a part of a large file.",
+      "detail_url": "/capabilities/large_files_get_upload_part_url"
+    },
+    {
+      "name": "large_files_upload_part",
+      "description": "Upload a part of a large file.",
+      "detail_url": "/capabilities/large_files_upload_part"
+    },
+    {
+      "name": "large_files_finish",
+      "description": "Finish a large file upload by combining all parts.",
+      "detail_url": "/capabilities/large_files_finish"
+    },
+    {
+      "name": "large_files_cancel",
+      "description": "Cancel a large file upload and delete all uploaded parts.",
+      "detail_url": "/capabilities/large_files_cancel"
+    },
+    {
+      "name": "large_files_list_parts",
+      "description": "List parts that have been uploaded for a large file.",
+      "detail_url": "/capabilities/large_files_list_parts"
+    },
+    {
+      "name": "large_files_list_unfinished",
+      "description": "List all unfinished large file uploads in a bucket.",
+      "detail_url": "/capabilities/large_files_list_unfinished"
+    },
+    {
+      "name": "large_files_copy_part",
+      "description": "Copy a part from an existing file to a large file upload.",
+      "detail_url": "/capabilities/large_files_copy_part"
+    },
+    {
+      "name": "keys_create",
+      "description": "Create a new application key.",
+      "detail_url": "/capabilities/keys_create"
+    },
+    {
+      "name": "keys_list",
+      "description": "List all application keys.",
+      "detail_url": "/capabilities/keys_list"
+    },
+    {
+      "name": "keys_delete",
+      "description": "Delete an application key.",
+      "detail_url": "/capabilities/keys_delete"
+    },
+    {
+      "name": "download_auth_get",
+      "description": "Get an authorization token for downloading files from a private bucket.",
+      "detail_url": "/capabilities/download_auth_get"
     }
   ]
 }

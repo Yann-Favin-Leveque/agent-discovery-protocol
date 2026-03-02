@@ -1,0 +1,90 @@
+{
+  "name": "issues_create",
+  "description": "Create a new issue in a project.",
+  "resource_group": "issues",
+  "endpoint": "/projects/{id}/issues",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Issue title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Issue description (Markdown)."
+    },
+    {
+      "name": "labels",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated label names."
+    },
+    {
+      "name": "assignee_ids",
+      "type": "array",
+      "required": false,
+      "description": "Array of assignee user IDs."
+    },
+    {
+      "name": "milestone_id",
+      "type": "integer",
+      "required": false,
+      "description": "Milestone ID."
+    },
+    {
+      "name": "weight",
+      "type": "integer",
+      "required": false,
+      "description": "Issue weight (0-9)."
+    },
+    {
+      "name": "due_date",
+      "type": "string",
+      "required": false,
+      "description": "Due date (YYYY-MM-DD)."
+    },
+    {
+      "name": "confidential",
+      "type": "boolean",
+      "required": false,
+      "description": "Make issue confidential."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gitlab.com/api/v4/projects/123/issues",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    },
+    "body": {
+      "title": "Add dark mode",
+      "description": "Users have requested dark mode.",
+      "labels": "enhancement,ui",
+      "assignee_ids": [
+        1
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "iid": 11,
+      "title": "Add dark mode",
+      "state": "opened",
+      "web_url": "https://gitlab.com/octocat/my-project/-/issues/11"
+    }
+  }
+}

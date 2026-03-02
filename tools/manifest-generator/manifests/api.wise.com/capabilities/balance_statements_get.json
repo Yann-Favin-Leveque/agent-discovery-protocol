@@ -1,0 +1,67 @@
+{
+  "name": "balance_statements_get",
+  "description": "Get a statement for a balance showing all transactions in a period.",
+  "resource_group": "balance_statements",
+  "endpoint": "/v1/profiles/{profileId}/balance-statements/{balanceId}/statement",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "profileId",
+      "type": "integer",
+      "description": "Profile ID.",
+      "required": true
+    },
+    {
+      "name": "balanceId",
+      "type": "integer",
+      "description": "Balance ID.",
+      "required": true
+    },
+    {
+      "name": "intervalStart",
+      "type": "string",
+      "description": "Statement start (ISO 8601).",
+      "required": true
+    },
+    {
+      "name": "intervalEnd",
+      "type": "string",
+      "description": "Statement end (ISO 8601).",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Statement format: COMPACT or FLAT.",
+      "required": false,
+      "example": "COMPACT"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.wise.com/v1/profiles/12345/balance-statements/1234/statement?intervalStart=2024-01-01T00:00:00Z&intervalEnd=2024-01-31T23:59:59Z&type=COMPACT",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "accountHolder": {
+        "type": "PERSONAL",
+        "address": {},
+        "firstName": "John",
+        "lastName": "Doe"
+      },
+      "transactions": [
+        {
+          "type": "CREDIT",
+          "amount": {
+            "value": 100,
+            "currency": "EUR"
+          }
+        }
+      ]
+    }
+  }
+}

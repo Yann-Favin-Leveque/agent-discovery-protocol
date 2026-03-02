@@ -1,73 +1,536 @@
 {
   "spec_version": "1.0",
-  "name": "Trello REST API",
-  "description": "Trello REST API provides a REST API for programmatic access to its features. Use it to automate workflows and integrate with other services.",
+  "name": "Trello",
+  "description": "Trello is a visual project management tool using boards, lists, and cards. The REST API provides full CRUD for boards, cards, lists, labels, checklists, members, organizations, webhooks, custom fields, and more.",
   "base_url": "https://api.trello.com/1",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://trello.com/power-ups/admin"
   },
   "capabilities": [
     {
-      "name": "actions",
-      "description": "Manage actions — create reaction for action, update an action, update a comment action. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/actions"
+      "name": "boards_create",
+      "description": "Create a new board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_create"
     },
     {
-      "name": "applications",
-      "description": "Manage applications — get application's compliance data. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/applications"
+      "name": "boards_get",
+      "description": "Get a board by ID.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_get"
+    },
+    {
+      "name": "boards_update",
+      "description": "Update a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_update"
+    },
+    {
+      "name": "boards_delete",
+      "description": "Delete a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_delete"
+    },
+    {
+      "name": "boards_field_get",
+      "description": "Get a specific field of a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_field_get"
+    },
+    {
+      "name": "boards_actions_list",
+      "description": "List actions/activity on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_actions_list"
+    },
+    {
+      "name": "boards_cards_list",
+      "description": "List all cards on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_cards_list"
+    },
+    {
+      "name": "boards_cards_filter",
+      "description": "Get filtered cards on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_cards_filter"
+    },
+    {
+      "name": "boards_checklists_list",
+      "description": "List checklists on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_checklists_list"
+    },
+    {
+      "name": "boards_custom_fields_list",
+      "description": "List custom field definitions on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_custom_fields_list"
+    },
+    {
+      "name": "boards_labels_list",
+      "description": "List labels on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_labels_list"
+    },
+    {
+      "name": "boards_labels_create",
+      "description": "Create a new label on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_labels_create"
+    },
+    {
+      "name": "boards_lists_list",
+      "description": "List all lists on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_lists_list"
+    },
+    {
+      "name": "boards_lists_create",
+      "description": "Create a new list on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_lists_create"
+    },
+    {
+      "name": "boards_lists_filter",
+      "description": "Get filtered lists on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_lists_filter"
+    },
+    {
+      "name": "boards_members_list",
+      "description": "List members of a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_members_list"
+    },
+    {
+      "name": "boards_members_invite",
+      "description": "Invite a member to a board by email.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_members_invite"
+    },
+    {
+      "name": "boards_members_add",
+      "description": "Add an existing member to a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_members_add"
+    },
+    {
+      "name": "boards_members_remove",
+      "description": "Remove a member from a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_members_remove"
+    },
+    {
+      "name": "boards_memberships_list",
+      "description": "Get board memberships.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_memberships_list"
+    },
+    {
+      "name": "boards_plugins_list",
+      "description": "List Power-Ups on a board.",
+      "resource_group": "boards",
+      "detail_url": "/capabilities/boards_plugins_list"
+    },
+    {
+      "name": "cards_create",
+      "description": "Create a new card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_create"
+    },
+    {
+      "name": "cards_get",
+      "description": "Get a card by ID.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_get"
+    },
+    {
+      "name": "cards_update",
+      "description": "Update a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_update"
+    },
+    {
+      "name": "cards_delete",
+      "description": "Delete a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_delete"
+    },
+    {
+      "name": "cards_field_get",
+      "description": "Get a specific field of a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_field_get"
+    },
+    {
+      "name": "cards_actions_list",
+      "description": "List actions/activity on a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_actions_list"
+    },
+    {
+      "name": "cards_attachments_list",
+      "description": "List attachments on a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_attachments_list"
+    },
+    {
+      "name": "cards_attachments_create",
+      "description": "Add an attachment to a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_attachments_create"
+    },
+    {
+      "name": "cards_attachments_get",
+      "description": "Get a specific attachment on a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_attachments_get"
+    },
+    {
+      "name": "cards_attachments_delete",
+      "description": "Delete an attachment from a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_attachments_delete"
+    },
+    {
+      "name": "cards_board_get",
+      "description": "Get the board a card is on.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_board_get"
+    },
+    {
+      "name": "cards_list_get",
+      "description": "Get the list a card is in.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_list_get"
+    },
+    {
+      "name": "cards_members_list",
+      "description": "List members assigned to a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_members_list"
+    },
+    {
+      "name": "cards_members_add",
+      "description": "Add a member to a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_members_add"
+    },
+    {
+      "name": "cards_members_remove",
+      "description": "Remove a member from a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_members_remove"
+    },
+    {
+      "name": "cards_labels_list",
+      "description": "List labels on a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_labels_list"
+    },
+    {
+      "name": "cards_labels_add",
+      "description": "Add a label to a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_labels_add"
+    },
+    {
+      "name": "cards_labels_remove",
+      "description": "Remove a label from a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_labels_remove"
+    },
+    {
+      "name": "cards_checklists_list",
+      "description": "List checklists on a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_checklists_list"
+    },
+    {
+      "name": "cards_checklists_create",
+      "description": "Add a checklist to a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_checklists_create"
+    },
+    {
+      "name": "cards_checklists_delete",
+      "description": "Remove a checklist from a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_checklists_delete"
+    },
+    {
+      "name": "cards_custom_field_items_list",
+      "description": "Get custom field values on a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_custom_field_items_list"
+    },
+    {
+      "name": "cards_custom_field_items_update",
+      "description": "Update a custom field value on a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_custom_field_items_update"
+    },
+    {
+      "name": "cards_stickers_list",
+      "description": "List stickers on a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_stickers_list"
+    },
+    {
+      "name": "cards_stickers_create",
+      "description": "Add a sticker to a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_stickers_create"
+    },
+    {
+      "name": "cards_stickers_delete",
+      "description": "Remove a sticker from a card.",
+      "resource_group": "cards",
+      "detail_url": "/capabilities/cards_stickers_delete"
+    },
+    {
+      "name": "lists_get",
+      "description": "Get a list by ID.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_get"
+    },
+    {
+      "name": "lists_update",
+      "description": "Update a list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_update"
+    },
+    {
+      "name": "lists_field_get",
+      "description": "Get a specific field of a list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_field_get"
+    },
+    {
+      "name": "lists_archive_all_cards",
+      "description": "Archive all cards in a list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_archive_all_cards"
+    },
+    {
+      "name": "lists_move_all_cards",
+      "description": "Move all cards in a list to another list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_move_all_cards"
+    },
+    {
+      "name": "lists_cards_list",
+      "description": "Get cards in a list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_cards_list"
+    },
+    {
+      "name": "lists_create",
+      "description": "Create a new list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_create"
+    },
+    {
+      "name": "labels_get",
+      "description": "Get a label by ID.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_get"
+    },
+    {
+      "name": "labels_update",
+      "description": "Update a label.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_update"
+    },
+    {
+      "name": "labels_delete",
+      "description": "Delete a label.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_delete"
+    },
+    {
+      "name": "labels_create",
+      "description": "Create a new label.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_create"
+    },
+    {
+      "name": "checklists_create",
+      "description": "Create a new checklist.",
+      "resource_group": "checklists",
+      "detail_url": "/capabilities/checklists_create"
+    },
+    {
+      "name": "checklists_get",
+      "description": "Get a checklist by ID.",
+      "resource_group": "checklists",
+      "detail_url": "/capabilities/checklists_get"
+    },
+    {
+      "name": "checklists_update",
+      "description": "Update a checklist.",
+      "resource_group": "checklists",
+      "detail_url": "/capabilities/checklists_update"
+    },
+    {
+      "name": "checklists_delete",
+      "description": "Delete a checklist.",
+      "resource_group": "checklists",
+      "detail_url": "/capabilities/checklists_delete"
+    },
+    {
+      "name": "checklists_checkitems_create",
+      "description": "Create a checkitem on a checklist.",
+      "resource_group": "checklists",
+      "detail_url": "/capabilities/checklists_checkitems_create"
+    },
+    {
+      "name": "actions_get",
+      "description": "Get an action by ID.",
+      "resource_group": "actions",
+      "detail_url": "/capabilities/actions_get"
+    },
+    {
+      "name": "actions_update",
+      "description": "Update a comment action.",
+      "resource_group": "actions",
+      "detail_url": "/capabilities/actions_update"
+    },
+    {
+      "name": "actions_delete",
+      "description": "Delete a comment action.",
+      "resource_group": "actions",
+      "detail_url": "/capabilities/actions_delete"
+    },
+    {
+      "name": "actions_reactions_list",
+      "description": "List reactions on an action.",
+      "resource_group": "actions",
+      "detail_url": "/capabilities/actions_reactions_list"
+    },
+    {
+      "name": "actions_reactions_create",
+      "description": "Add a reaction to an action.",
+      "resource_group": "actions",
+      "detail_url": "/capabilities/actions_reactions_create"
+    },
+    {
+      "name": "members_get",
+      "description": "Get a member by ID.",
+      "resource_group": "members",
+      "detail_url": "/capabilities/members_get"
+    },
+    {
+      "name": "members_update",
+      "description": "Update a member.",
+      "resource_group": "members",
+      "detail_url": "/capabilities/members_update"
+    },
+    {
+      "name": "members_boards_list",
+      "description": "List boards a member belongs to.",
+      "resource_group": "members",
+      "detail_url": "/capabilities/members_boards_list"
+    },
+    {
+      "name": "members_organizations_list",
+      "description": "List organizations a member belongs to.",
+      "resource_group": "members",
+      "detail_url": "/capabilities/members_organizations_list"
+    },
+    {
+      "name": "organizations_get",
+      "description": "Get an organization by ID.",
+      "resource_group": "organizations",
+      "detail_url": "/capabilities/organizations_get"
+    },
+    {
+      "name": "organizations_update",
+      "description": "Update an organization.",
+      "resource_group": "organizations",
+      "detail_url": "/capabilities/organizations_update"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List webhooks for a token.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Get a webhook by ID.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_get"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "search",
+      "description": "Search for boards, cards, members, and organizations.",
+      "resource_group": "search",
+      "detail_url": "/capabilities/search"
     },
     {
       "name": "batch",
-      "description": "Manage batch — batch requests. Supports standard CRUD operations through the REST API.",
+      "description": "Make multiple GET requests in a single call.",
+      "resource_group": "batch",
       "detail_url": "/capabilities/batch"
     },
     {
-      "name": "boards",
-      "description": "Manage boards — create a board, create a label on a board, create a list on a board. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/boards"
+      "name": "custom_fields_create",
+      "description": "Create a custom field on a board.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_create"
     },
     {
-      "name": "cards",
-      "description": "Manage cards — create a new card, create attachment on card, create checklist on a card. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/cards"
+      "name": "custom_fields_get",
+      "description": "Get a custom field by ID.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_get"
     },
     {
-      "name": "checklists",
-      "description": "Manage checklists — create a checklist, create checkitem on checklist, update a checklist. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/checklists"
+      "name": "custom_fields_update",
+      "description": "Update a custom field.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_update"
     },
     {
-      "name": "custom_fields",
-      "description": "Manage custom fields — create a new custom field on a board, add option to custom field dropdown, update a custom field definition. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/custom_fields"
+      "name": "custom_fields_delete",
+      "description": "Delete a custom field.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_delete"
     },
     {
-      "name": "emoji",
-      "description": "Manage emoji — list available emoji. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/emoji"
+      "name": "tokens_get",
+      "description": "Get information about a token.",
+      "resource_group": "tokens",
+      "detail_url": "/capabilities/tokens_get"
     },
     {
-      "name": "enterprises",
-      "description": "Manage enterprises — create an auth token for an enterprise, decline enterprisejoinrequests from one organization or a bulk list of organizations, transfer an organization to an enterprise. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/enterprises"
-    },
-    {
-      "name": "labels",
-      "description": "Manage labels — create a label, update a label, update a field on a label. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/labels"
-    },
-    {
-      "name": "lists",
-      "description": "Manage lists — create a new list, archive all cards in list, move all cards in list. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/lists"
-    },
-    {
-      "name": "members",
-      "description": "Manage members — upload new boardbackground for member, create star for board, create a new custom board background. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/members"
+      "name": "emoji_list",
+      "description": "List available emoji.",
+      "resource_group": "emoji",
+      "detail_url": "/capabilities/emoji_list"
     }
   ]
 }

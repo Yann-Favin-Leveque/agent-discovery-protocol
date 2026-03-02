@@ -1,0 +1,62 @@
+{
+  "name": "env_vars_create",
+  "description": "Create new environment variables for a site.",
+  "endpoint": "/api/v1/sites/{site_id}/env",
+  "method": "POST",
+  "resource_group": "env_vars",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "string",
+      "description": "Site ID",
+      "required": true,
+      "example": "site_abc"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Variable name",
+      "required": true,
+      "example": "API_KEY"
+    },
+    {
+      "name": "values",
+      "type": "array",
+      "description": "Values with deploy contexts",
+      "required": true,
+      "example": [
+        {
+          "value": "secret123",
+          "context": "production"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.netlify.com/api/v1/sites/{site_id}/env",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "key": "API_KEY",
+        "values": [
+          {
+            "value": "secret123",
+            "context": "production"
+          }
+        ]
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

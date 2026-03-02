@@ -1,40 +1,31 @@
 {
   "spec_version": "1.0",
   "name": "Braintree",
-  "description": "Braintree is a full-stack payment gateway owned by PayPal. It enables you to accept credit cards, debit cards, PayPal, Venmo, Apple Pay, and Google Pay in your app or website. Braintree handles PCI compliance, tokenization, and vault storage so you never touch raw card numbers. It supports transactions, customer management, subscriptions, and client token generation for Drop-in UI integration.",
+  "description": "Braintree is a full-stack payment gateway by PayPal. It enables you to accept credit cards, PayPal, Venmo, Apple Pay, and Google Pay. The GraphQL API handles transactions, customer management, vault storage, payment method tokenization, and dispute handling.",
   "base_url": "https://payments.braintree-api.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
     "prefix": "Basic",
     "setup_url": "https://www.braintreegateway.com/login",
-    "note": "Braintree uses public_key, private_key, and merchant_id for authentication. For the GraphQL API, use Basic auth with base64(public_key:private_key). The merchant_id is passed in the Braintree-Version header or URL path."
+    "note": "Uses Basic auth with base64(public_key:private_key). All operations use the GraphQL endpoint at /graphql. Include Braintree-Version header."
   },
   "capabilities": [
-    {
-      "name": "create_transaction",
-      "description": "Charge a payment method (credit card, PayPal, Venmo, etc.) by creating a sale transaction. Supports payment method nonces from the client SDK, vaulted payment tokens, and direct card details (if PCI compliant).",
-      "detail_url": "/capabilities/create_transaction"
-    },
-    {
-      "name": "create_customer",
-      "description": "Create a customer in the Braintree vault to store their payment methods for future use. Customers can have multiple payment methods and a default payment method for recurring charges.",
-      "detail_url": "/capabilities/create_customer"
-    },
-    {
-      "name": "generate_client_token",
-      "description": "Generate a client token for initializing the Braintree client SDK (Drop-in UI or Hosted Fields) in a web or mobile app. The token authorizes the client to tokenize payment information securely.",
-      "detail_url": "/capabilities/generate_client_token"
-    },
-    {
-      "name": "find_transaction",
-      "description": "Look up the details of a specific transaction by its ID, or search for transactions matching specific criteria like status, amount, date range, and payment method.",
-      "detail_url": "/capabilities/find_transaction"
-    },
-    {
-      "name": "create_subscription",
-      "description": "Create a recurring subscription that automatically charges a customer's vaulted payment method on a defined billing cycle. Supports trial periods, discounts, add-ons, and prorated first charges.",
-      "detail_url": "/capabilities/create_subscription"
-    }
+    {"name": "transactions_charge", "description": "Charge a payment method to create a sale transaction.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/transactions_charge", "resource_group": "transactions"},
+    {"name": "transactions_authorize", "description": "Authorize a payment without capturing funds.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/transactions_authorize", "resource_group": "transactions"},
+    {"name": "transactions_capture", "description": "Capture an authorized transaction to settle funds.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/transactions_capture", "resource_group": "transactions"},
+    {"name": "transactions_void", "description": "Void a transaction before settlement.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/transactions_void", "resource_group": "transactions"},
+    {"name": "transactions_refund", "description": "Refund a settled transaction fully or partially.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/transactions_refund", "resource_group": "transactions"},
+    {"name": "transactions_search", "description": "Search for transactions by status, amount, date, or other criteria.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/transactions_search", "resource_group": "transactions"},
+    {"name": "customers_create", "description": "Create a customer in the vault for storing payment methods.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/customers_create", "resource_group": "customers"},
+    {"name": "customers_update", "description": "Update a customer's information.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/customers_update", "resource_group": "customers"},
+    {"name": "customers_delete", "description": "Delete a customer and their vaulted payment methods.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/customers_delete", "resource_group": "customers"},
+    {"name": "payment_methods_vault", "description": "Vault a single-use payment method for reuse.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/payment_methods_vault", "resource_group": "payment_methods"},
+    {"name": "payment_methods_delete", "description": "Delete a vaulted payment method.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/payment_methods_delete", "resource_group": "payment_methods"},
+    {"name": "payment_methods_verify", "description": "Verify a vaulted payment method is valid.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/payment_methods_verify", "resource_group": "payment_methods"},
+    {"name": "client_token_create", "description": "Generate a client token for initializing the Braintree client SDK.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/client_token_create", "resource_group": "client_tokens"},
+    {"name": "disputes_accept", "description": "Accept a dispute, conceding the amount to the customer.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/disputes_accept", "resource_group": "disputes"},
+    {"name": "disputes_add_evidence", "description": "Add text evidence to contest a dispute.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/disputes_add_evidence", "resource_group": "disputes"},
+    {"name": "disputes_finalize", "description": "Finalize a dispute and submit evidence for review.", "detail_url": "https://agent-dns.dev/api/services/api.braintreegateway.com/capabilities/disputes_finalize", "resource_group": "disputes"}
   ]
 }

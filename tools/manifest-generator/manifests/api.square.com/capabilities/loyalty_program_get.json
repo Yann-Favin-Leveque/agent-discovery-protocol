@@ -1,0 +1,48 @@
+{
+  "name": "loyalty_program_get",
+  "description": "Retrieve the loyalty program configuration.",
+  "endpoint": "/v2/loyalty/programs/{program_id}",
+  "method": "GET",
+  "resource_group": "loyalty",
+  "parameters": [
+    {
+      "name": "program_id",
+      "type": "string",
+      "description": "Program ID or 'main'",
+      "required": true,
+      "example": "main"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://connect.squareup.com/v2/loyalty/programs/main",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "program": {
+        "id": "prog_123",
+        "status": "ACTIVE",
+        "reward_tiers": []
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

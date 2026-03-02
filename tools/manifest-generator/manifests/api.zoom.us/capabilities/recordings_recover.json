@@ -1,0 +1,42 @@
+{
+  "name": "recordings_recover",
+  "description": "Recover meeting recordings that were moved to trash. Restores all recording files for the specified meeting.",
+  "endpoint": "/meetings/{meetingId}/recordings/status",
+  "method": "PUT",
+  "resource_group": "recordings",
+  "parameters": [
+    {
+      "name": "meetingId",
+      "type": "string",
+      "description": "The meeting ID or UUID.",
+      "required": true,
+      "example": "abc123def"
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "description": "Recovery action. Set to 'recover'.",
+      "required": true,
+      "example": "recover"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.zoom.us/v2/meetings/abc123def/recordings/status",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "action": "recover"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": ["recording:write"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

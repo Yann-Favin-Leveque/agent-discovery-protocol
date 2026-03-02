@@ -1,0 +1,47 @@
+{
+  "name": "otps_email_login_or_create",
+  "resource_group": "otps",
+  "description": "Send an email OTP that either logs in or creates a new user.",
+  "endpoint": "/v1/otps/email/login_or_create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "description": "Email address."
+    },
+    {
+      "name": "expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "OTP expiration."
+    },
+    {
+      "name": "create_user_as_pending",
+      "type": "boolean",
+      "required": false,
+      "description": "Create user as pending."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/otps/email/login_or_create",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "alice@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "user_created": false,
+      "email_id": "email-live-xyz"
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "name": "events_create",
+  "description": "Submit a custom data event for a user to track product usage and trigger Intercom automations.",
+  "resource_group": "events",
+  "endpoint": "/events",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "event_name",
+      "type": "string",
+      "required": true,
+      "description": "Name of the event (e.g., 'purchased-item', 'completed-onboarding')."
+    },
+    {
+      "name": "created_at",
+      "type": "integer",
+      "required": true,
+      "description": "Unix timestamp when the event occurred."
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": false,
+      "description": "Your external user ID. One of user_id, email, or intercom_user_id required."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "User email."
+    },
+    {
+      "name": "intercom_user_id",
+      "type": "string",
+      "required": false,
+      "description": "Intercom contact ID."
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "required": false,
+      "description": "Event metadata key-value pairs (max 10 keys, values are strings, integers, or booleans)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/events",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "event_name": "purchased-item",
+      "created_at": 1740960000,
+      "user_id": "user-12345",
+      "metadata": {
+        "item_name": "Pro Plan",
+        "price": 29.99
+      }
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": null
+  }
+}

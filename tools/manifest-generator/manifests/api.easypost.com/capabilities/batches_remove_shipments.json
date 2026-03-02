@@ -1,0 +1,48 @@
+{
+  "name": "batches_remove_shipments",
+  "description": "Remove shipments from a batch.",
+  "endpoint": "/v2/batches/{id}/remove_shipments",
+  "method": "POST",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Batch ID.",
+      "required": true,
+      "example": "batch_abc123"
+    },
+    {
+      "name": "shipments",
+      "type": "array",
+      "description": "Shipment objects or IDs to remove.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/batches/batch_abc123/remove_shipments",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "shipments": [
+        {
+          "id": "shp_def456"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "batch_abc123",
+      "num_shipments": 49
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

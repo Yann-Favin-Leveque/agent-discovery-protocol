@@ -1,0 +1,63 @@
+{
+  "name": "experimental_features_update",
+  "description": "Enable or disable experimental features. Returns the updated feature flags.",
+  "endpoint": "/experimental-features",
+  "method": "PATCH",
+  "resource_group": "system",
+  "parameters": [
+    {
+      "name": "vectorStore",
+      "type": "boolean",
+      "description": "Enable/disable the vector store feature.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "metrics",
+      "type": "boolean",
+      "description": "Enable/disable the metrics feature.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "logsRoute",
+      "type": "boolean",
+      "description": "Enable/disable the logs route feature.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "editDocumentsByFunction",
+      "type": "boolean",
+      "description": "Enable/disable editing documents by function.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.meilisearch.com/experimental-features",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "vectorStore": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "vectorStore": true,
+      "metrics": false,
+      "logsRoute": false,
+      "editDocumentsByFunction": false
+    }
+  },
+  "auth_scopes": [
+    "experimental.update"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

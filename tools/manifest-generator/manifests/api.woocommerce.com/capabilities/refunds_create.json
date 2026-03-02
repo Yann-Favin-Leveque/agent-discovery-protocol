@@ -1,0 +1,53 @@
+{
+  "name": "refunds_create",
+  "description": "Create a refund for an order.",
+  "resource_group": "refunds",
+  "endpoint": "/orders/{order_id}/refunds",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "order_id",
+      "type": "integer",
+      "required": true,
+      "description": "Order ID to refund."
+    },
+    {
+      "name": "amount",
+      "type": "string",
+      "required": false,
+      "description": "Refund amount."
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "required": false,
+      "description": "Reason for refund."
+    },
+    {
+      "name": "line_items",
+      "type": "array",
+      "required": false,
+      "description": "Line items to refund."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}/wp-json/wc/v3/orders/727/refunds",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": "10.00",
+      "reason": "Customer request"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 726,
+      "amount": "10.00",
+      "reason": "Customer request"
+    }
+  }
+}

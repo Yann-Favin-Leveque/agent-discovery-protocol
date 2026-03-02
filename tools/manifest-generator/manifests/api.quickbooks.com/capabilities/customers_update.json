@@ -1,0 +1,59 @@
+{
+  "name": "customers_update",
+  "description": "Update an existing customer record. Requires SyncToken for concurrency.",
+  "endpoint": "/v3/company/{realmId}/customer",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "Id",
+      "type": "string",
+      "description": "Customer ID",
+      "required": true,
+      "example": "56"
+    },
+    {
+      "name": "SyncToken",
+      "type": "string",
+      "description": "Concurrency token",
+      "required": true,
+      "example": "0"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/customer?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Id": "56",
+      "SyncToken": "0",
+      "DisplayName": "John Doe Updated"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Customer": {
+        "Id": "56",
+        "SyncToken": "1",
+        "DisplayName": "John Doe Updated"
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

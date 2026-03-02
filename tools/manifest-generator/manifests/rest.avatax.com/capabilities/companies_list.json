@@ -1,0 +1,53 @@
+{
+  "name": "companies_list",
+  "description": "List all companies visible to the current user.",
+  "endpoint": "/api/v2/companies",
+  "method": "GET",
+  "resource_group": "companies",
+  "parameters": [
+    {
+      "name": "$filter",
+      "type": "string",
+      "description": "OData filter.",
+      "required": false
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "description": "Max results.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "$skip",
+      "type": "integer",
+      "description": "Results to skip.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.avatax.com/api/v2/companies?$top=25",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "@recordsetCount": 2,
+      "value": [
+        {
+          "id": 67890,
+          "companyCode": "DEFAULT",
+          "name": "My Company",
+          "isActive": true
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

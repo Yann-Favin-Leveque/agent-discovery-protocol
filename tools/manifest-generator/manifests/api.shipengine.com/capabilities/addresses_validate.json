@@ -1,0 +1,60 @@
+{
+  "name": "addresses_validate",
+  "description": "Validate one or more addresses against carrier databases.",
+  "endpoint": "/v1/addresses/validate",
+  "method": "POST",
+  "resource_group": "addresses",
+  "parameters": [
+    {
+      "name": "addresses",
+      "type": "array",
+      "description": "Array of address objects with address_line1, city_locality, state_province, postal_code, country_code.",
+      "required": true,
+      "example": [
+        {
+          "address_line1": "525 S Winchester Blvd",
+          "city_locality": "San Jose",
+          "state_province": "CA",
+          "postal_code": "95128",
+          "country_code": "US"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.shipengine.com/v1/addresses/validate",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "address_line1": "525 S Winchester Blvd",
+        "city_locality": "San Jose",
+        "state_province": "CA",
+        "postal_code": "95128",
+        "country_code": "US"
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "status": "verified",
+        "matched_address": {
+          "address_line1": "525 S WINCHESTER BLVD",
+          "city_locality": "SAN JOSE",
+          "state_province": "CA",
+          "postal_code": "95128-2537",
+          "country_code": "US"
+        }
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

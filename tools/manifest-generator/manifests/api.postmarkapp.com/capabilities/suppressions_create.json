@@ -1,0 +1,49 @@
+{
+  "name": "suppressions_create",
+  "description": "Create suppressions for email addresses.",
+  "resource_group": "suppressions",
+  "endpoint": "/message-streams/{stream_id}/suppressions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "stream_id",
+      "type": "string",
+      "description": "Message stream ID.",
+      "required": true,
+      "example": "outbound"
+    },
+    {
+      "name": "Suppressions",
+      "type": "array",
+      "description": "Array of email addresses to suppress (max 50).",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/message-streams/outbound/suppressions",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Suppressions": [
+        {
+          "EmailAddress": "suppress@example.com"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Suppressions": [
+        {
+          "EmailAddress": "suppress@example.com",
+          "Status": "Suppressed"
+        }
+      ]
+    }
+  }
+}

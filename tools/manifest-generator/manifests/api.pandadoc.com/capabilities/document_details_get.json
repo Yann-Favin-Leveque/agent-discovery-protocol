@@ -1,0 +1,57 @@
+{
+  "name": "document_details_get",
+  "description": "Get comprehensive document details including all fields, tokens, content sections, pricing, and recipient information.",
+  "resource_group": "document",
+  "endpoint": "/public/v1/documents/{id}/details",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Document ID.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pandadoc.com/public/v1/documents/doc-abc-123/details",
+    "headers": {
+      "Authorization": "API-Key YOUR_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "doc-abc-123",
+      "name": "Service Agreement",
+      "status": "document.completed",
+      "fields": [
+        {
+          "uuid": "field-1",
+          "name": "Client.Company",
+          "value": "Acme Corporation",
+          "type": "text"
+        }
+      ],
+      "tokens": [
+        {
+          "name": "Contract.Date",
+          "value": "2025-01-15"
+        }
+      ],
+      "recipients": [
+        {
+          "email": "client@acme.com",
+          "role": "Client",
+          "has_completed": true
+        }
+      ],
+      "grand_total": {
+        "amount": "5000.00",
+        "currency": "USD"
+      }
+    }
+  }
+}

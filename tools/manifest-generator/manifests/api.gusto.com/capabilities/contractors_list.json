@@ -1,0 +1,15 @@
+{
+  "name": "contractors_list",
+  "description": "List all 1099 contractors for a company with their payment method and onboarding status.",
+  "endpoint": "/v1/companies/{company_id}/contractors",
+  "method": "GET",
+  "resource_group": "contractors",
+  "parameters": [
+    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
+    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1}
+  ],
+  "request_example": {"method": "GET", "url": "https://api.gusto.com/v1/companies/7757616923531542/contractors", "headers": {"Authorization": "Bearer {token}"}, "body": {}},
+  "response_example": {"status": 200, "body": [{"uuid": "con_123", "first_name": "Bob", "last_name": "Builder", "email": "bob@freelance.com", "type": "Individual", "wage_type": "Hourly"}]},
+  "auth_scopes": ["contractors:read"],
+  "rate_limits": {"requests_per_minute": 60}
+}

@@ -1,0 +1,51 @@
+{
+  "name": "application_list",
+  "description": "List all webhook applications with pagination and optional filtering.",
+  "resource_group": "application",
+  "endpoint": "/api/v1/app",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results (default 50).",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "iterator",
+      "type": "string",
+      "description": "Pagination cursor from previous response.",
+      "required": false
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order: ascending or descending.",
+      "required": false,
+      "example": "descending"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.svix.com/api/v1/app?limit=10",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "uid": "app_123",
+          "name": "My App",
+          "createdAt": "2024-01-01T00:00:00Z"
+        }
+      ],
+      "iterator": "next_cursor",
+      "done": false
+    }
+  }
+}

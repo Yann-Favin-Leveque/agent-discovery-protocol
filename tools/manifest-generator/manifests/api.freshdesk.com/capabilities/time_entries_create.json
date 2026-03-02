@@ -1,0 +1,26 @@
+{
+  "name": "time_entries_create",
+  "description": "Log a time entry against a ticket with duration and description.",
+  "endpoint": "/api/v2/tickets/{ticket_id}/time_entries",
+  "method": "POST",
+  "resource_group": "time_entries",
+  "parameters": [
+    {"name": "ticket_id", "type": "integer", "description": "The ticket ID.", "required": true, "example": 1},
+    {"name": "time_spent", "type": "string", "description": "Time spent in HH:MM format.", "required": true, "example": "01:30"},
+    {"name": "billable", "type": "boolean", "description": "Whether this time is billable.", "required": false, "example": true},
+    {"name": "note", "type": "string", "description": "Description of work done.", "required": false, "example": "Debugging login issue"},
+    {"name": "agent_id", "type": "integer", "description": "The agent who spent the time.", "required": false, "example": 67890}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://yourdomain.freshdesk.com/api/v2/tickets/1/time_entries",
+    "headers": {"Authorization": "Basic base64(api_key:X)", "Content-Type": "application/json"},
+    "body": {"time_spent": "01:30", "billable": true, "note": "Debugging login issue"}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": 301, "agent_id": 67890, "billable": true, "time_spent": "01:30", "note": "Debugging login issue"}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 80}
+}

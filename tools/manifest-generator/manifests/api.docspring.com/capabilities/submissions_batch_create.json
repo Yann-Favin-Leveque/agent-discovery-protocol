@@ -1,0 +1,58 @@
+{
+  "name": "submissions_batch_create",
+  "description": "Generate multiple PDFs in a single API call. Up to 50 submissions per batch. Each submission can use different templates and data. Returns a batch ID and individual submission statuses.",
+  "resource_group": "submissions",
+  "endpoint": "/api/v1/submissions/batches",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "submissions",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of submission objects, each with template_id, data, test, metadata, and wait fields. Max 50 per batch."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.docspring.com/api/v1/submissions/batches",
+    "headers": {
+      "Authorization": "Basic {base64(token_id:token_secret)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "submissions": [
+        {
+          "template_id": "tpl_abc123",
+          "data": { "invoice_number": "INV-001", "amount": "100.00" },
+          "test": false
+        },
+        {
+          "template_id": "tpl_abc123",
+          "data": { "invoice_number": "INV-002", "amount": "200.00" },
+          "test": false
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "batch": {
+        "id": "bat_abc123",
+        "status": "pending",
+        "created_at": "2026-03-01T12:00:00.000Z"
+      },
+      "submissions": [
+        {
+          "id": "sub_001",
+          "status": "pending"
+        },
+        {
+          "id": "sub_002",
+          "status": "pending"
+        }
+      ]
+    }
+  }
+}

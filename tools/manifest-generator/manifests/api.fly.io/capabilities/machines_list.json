@@ -1,0 +1,42 @@
+{
+  "name": "machines_list",
+  "description": "List all Machines for an app.",
+  "resource_group": "machines",
+  "endpoint": "/v1/apps/{app_name}/machines",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_name",
+      "type": "string",
+      "required": true,
+      "description": "App name."
+    },
+    {
+      "name": "include_deleted",
+      "type": "boolean",
+      "required": false,
+      "description": "Include deleted."
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "required": false,
+      "description": "Filter by region."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.machines.dev/v1/apps/my-app/machines"
+  },
+  "response_example": [
+    {
+      "id": "mach-abc",
+      "name": "web-1",
+      "state": "started",
+      "region": "iad",
+      "config": {
+        "image": "my-org/app:latest"
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "shipments_update",
+  "description": "Update a shipment tracking information.",
+  "resource_group": "shipments",
+  "endpoint": "/v2/orders/{orderId}/shipments/{id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "orderId",
+      "type": "string",
+      "description": "The order ID.",
+      "required": true
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The shipment ID.",
+      "required": true
+    },
+    {
+      "name": "tracking",
+      "type": "object",
+      "description": "Updated tracking info.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.mollie.com/v2/orders/ord_pbjz8x/shipments/shp_3wmsgCJN4U",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tracking": {
+        "carrier": "PostNL",
+        "code": "3SKABA000000001"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "resource": "shipment",
+      "id": "shp_3wmsgCJN4U"
+    }
+  }
+}

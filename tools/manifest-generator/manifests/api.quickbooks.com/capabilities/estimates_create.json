@@ -1,0 +1,77 @@
+{
+  "name": "estimates_create",
+  "description": "Create a new estimate (quote) for a customer with line items.",
+  "endpoint": "/v3/company/{realmId}/estimate",
+  "method": "POST",
+  "resource_group": "estimates",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "CustomerRef",
+      "type": "object",
+      "description": "Customer reference",
+      "required": true,
+      "example": {
+        "value": "1"
+      }
+    },
+    {
+      "name": "Line",
+      "type": "array",
+      "description": "Line items",
+      "required": true,
+      "example": [
+        {
+          "Amount": 500.0,
+          "DetailType": "SalesItemLineDetail"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/estimate?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "CustomerRef": {
+        "value": "1"
+      },
+      "Line": [
+        {
+          "Amount": 500.0,
+          "DetailType": "SalesItemLineDetail",
+          "SalesItemLineDetail": {
+            "ItemRef": {
+              "value": "1"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Estimate": {
+        "Id": "95",
+        "TotalAmt": 500.0,
+        "TxnStatus": "Pending"
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

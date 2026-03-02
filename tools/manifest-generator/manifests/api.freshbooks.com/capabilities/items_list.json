@@ -1,0 +1,23 @@
+{
+  "name": "items_list",
+  "description": "List all billable items/services with filtering by name, SKU, or unit cost.",
+  "endpoint": "/accounting/account/{account_id}/items/items",
+  "method": "GET",
+  "resource_group": "items",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
+    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/items/items?page=1",
+    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha"},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"response": {"result": {"items": [{"id": 555, "name": "Web Development", "description": "Hourly web development", "unit_cost": {"amount": "100.00", "code": "USD"}, "sku": "WEB-DEV"}], "page": 1, "total": 15}}}
+  },
+  "auth_scopes": ["user:billable_items:read"],
+  "rate_limits": {"requests_per_minute": 100}
+}

@@ -1,52 +1,53 @@
 {
   "name": "geocode_search",
-  "description": "Convert an address, place name, or point of interest into geographic coordinates (forward geocoding). Powered by the Pelias geocoder using OpenStreetMap, Who's on First, and GeoNames data. Returns multiple candidate results ranked by relevance, each with coordinates and structured address components.",
+  "description": "Convert an address or place name into geographic coordinates (forward geocoding).",
   "endpoint": "/geocode/search",
   "method": "GET",
+  "resource_group": "geocoding",
   "parameters": [
     {
       "name": "text",
       "type": "string",
+      "description": "Address or place name to search",
       "required": true,
-      "description": "The address or place name to geocode. Examples: '1600 Pennsylvania Avenue, Washington DC', 'Eiffel Tower', 'Berlin Hauptbahnhof'."
-    },
-    {
-      "name": "size",
-      "type": "integer",
-      "required": false,
-      "description": "Maximum number of results to return. Default is 10, maximum is 40."
+      "example": "Heidelberg, Germany"
     },
     {
       "name": "boundary.country",
       "type": "string",
+      "description": "ISO 3166-1 alpha-2/3 country code to restrict results",
       "required": false,
-      "description": "Restrict results to a specific country using ISO 3166-1 alpha-3 code. Example: 'DEU' for Germany, 'USA' for United States."
+      "example": "DE"
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "description": "Maximum number of results",
+      "required": false,
+      "example": 5
     },
     {
       "name": "focus.point.lon",
       "type": "number",
+      "description": "Longitude to bias results toward",
       "required": false,
-      "description": "Longitude to bias results toward. Used together with focus.point.lat."
+      "example": 8.681495
     },
     {
       "name": "focus.point.lat",
       "type": "number",
+      "description": "Latitude to bias results toward",
       "required": false,
-      "description": "Latitude to bias results toward. Used together with focus.point.lon."
-    },
-    {
-      "name": "layers",
-      "type": "string",
-      "required": false,
-      "description": "Comma-separated filter for result types. Options: venue, address, street, neighbourhood, borough, localadmin, locality, county, macrocounty, region, macroregion, country."
+      "example": 49.41461
     }
   ],
   "request_example": {
     "method": "GET",
-    "url": "https://api.openrouteservice.org/geocode/search?text=Heidelberg%20Castle&size=3&boundary.country=DEU",
+    "url": "https://api.openrouteservice.org/geocode/search",
     "headers": {
-      "Authorization": "5b3ce3597851110001cf6248xxxxxxxxxx"
-    }
+      "Authorization": "{api_key}"
+    },
+    "body": {}
   },
   "response_example": {
     "status": 200,
@@ -57,30 +58,21 @@
           "type": "Feature",
           "geometry": {
             "type": "Point",
-            "coordinates": [8.715405, 49.410556]
+            "coordinates": [
+              8.6946,
+              49.4058
+            ]
           },
           "properties": {
-            "id": "way:123456789",
-            "name": "Heidelberger Schloss",
-            "confidence": 0.95,
-            "label": "Heidelberger Schloss, Heidelberg, Baden-Wuerttemberg, Germany",
-            "country": "Germany",
-            "country_a": "DEU",
-            "region": "Baden-Wuerttemberg",
-            "locality": "Heidelberg",
-            "layer": "venue",
-            "source": "openstreetmap"
+            "name": "Heidelberg",
+            "country": "Germany"
           }
         }
-      ],
-      "geocoding": {
-        "version": "0.2",
-        "query": {
-          "text": "Heidelberg Castle",
-          "size": 3,
-          "boundary.country": ["DEU"]
-        }
-      }
+      ]
     }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
   }
 }

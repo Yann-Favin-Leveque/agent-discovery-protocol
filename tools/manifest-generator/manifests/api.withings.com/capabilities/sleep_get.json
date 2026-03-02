@@ -1,0 +1,71 @@
+{
+  "name": "sleep_get",
+  "description": "Retrieve detailed sleep data including sleep states (awake, light, deep, REM), heart rate during sleep, respiratory rate, and snoring data.",
+  "resource_group": "sleep",
+  "endpoint": "/v2/sleep",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'get'."
+    },
+    {
+      "name": "startdate",
+      "type": "integer",
+      "required": true,
+      "description": "Start date as Unix timestamp."
+    },
+    {
+      "name": "enddate",
+      "type": "integer",
+      "required": true,
+      "description": "End date as Unix timestamp."
+    },
+    {
+      "name": "data_fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated: hr,rr,snoring."
+    }
+  ],
+  "auth_scopes": [
+    "user.sleepevents"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/sleep",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "get",
+      "startdate": 1705276800,
+      "enddate": 1705363200
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "series": [
+          {
+            "startdate": 1705276800,
+            "enddate": 1705305600,
+            "state": 1,
+            "hr": {
+              "1705276800": 62,
+              "1705277400": 58
+            },
+            "rr": {
+              "1705276800": 15
+            }
+          }
+        ]
+      }
+    }
+  }
+}

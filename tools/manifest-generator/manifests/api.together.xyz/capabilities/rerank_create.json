@@ -1,0 +1,84 @@
+{
+  "name": "rerank_create",
+  "description": "Rerank a list of documents by relevance to a query. Returns a relevance score and ordering index for each document, useful for improving search result quality in RAG pipelines.",
+  "resource_group": "rerank",
+  "endpoint": "/v1/rerank",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "The reranking model to use.",
+      "example": "Salesforce/Llama-Rank-v1"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "description": "The search query for ranking documents.",
+      "example": "What animals can I find near Peru?"
+    },
+    {
+      "name": "documents",
+      "type": "array",
+      "required": true,
+      "description": "List of documents as strings or objects with custom fields to be ranked.",
+      "example": ["The llama is a domesticated South American camelid.", "The giant panda is endemic to China."]
+    },
+    {
+      "name": "top_n",
+      "type": "integer",
+      "required": false,
+      "description": "Number of top results to return."
+    },
+    {
+      "name": "return_documents",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to include the supplied documents in the response."
+    },
+    {
+      "name": "rank_fields",
+      "type": "array",
+      "required": false,
+      "description": "Specific JSON keys to rank by when documents are objects. Defaults to all keys."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.together.xyz/v1/rerank",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "Salesforce/Llama-Rank-v1",
+      "query": "What animals can I find near Peru?",
+      "documents": [
+        "The llama is a domesticated South American camelid.",
+        "The giant panda is endemic to China."
+      ],
+      "top_n": 2
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "rerank",
+      "model": "Salesforce/Llama-Rank-v1",
+      "results": [
+        {
+          "index": 0,
+          "relevance_score": 0.2998,
+          "document": {"text": "The llama is a domesticated South American camelid."}
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1837,
+        "completion_tokens": 0,
+        "total_tokens": 1837
+      }
+    }
+  }
+}

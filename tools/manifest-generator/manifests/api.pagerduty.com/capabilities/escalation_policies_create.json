@@ -1,0 +1,38 @@
+{
+  "name": "escalation_policies_create",
+  "description": "Create a new escalation policy with rules and targets.",
+  "resource_group": "escalation_policies",
+  "endpoint": "/escalation_policies",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "escalation_policy",
+      "type": "object",
+      "required": true,
+      "description": "Policy with name, escalation_rules, num_loops, teams"
+    }
+  ],
+  "request_example": {
+    "escalation_policy": {
+      "type": "escalation_policy",
+      "name": "Urgent",
+      "escalation_rules": [
+        {
+          "escalation_delay_in_minutes": 10,
+          "targets": [
+            {
+              "id": "PUSER",
+              "type": "user_reference"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "escalation_policy": {
+      "id": "PPOL2"
+    }
+  },
+  "auth_scopes": []
+}

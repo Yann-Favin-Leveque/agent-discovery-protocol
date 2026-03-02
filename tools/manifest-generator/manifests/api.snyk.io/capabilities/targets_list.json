@@ -1,0 +1,51 @@
+{
+  "name": "targets_list",
+  "description": "List all import targets in an organization.",
+  "resource_group": "targets",
+  "endpoint": "/rest/orgs/{org_id}/targets",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization UUID."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "API version date."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.snyk.io/rest/orgs/org-uuid/targets?version=2024-06-21",
+    "headers": {
+      "Authorization": "token <api_token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "target-uuid",
+          "type": "target",
+          "attributes": {
+            "display_name": "my-org/my-repo",
+            "url": "https://github.com/my-org/my-repo",
+            "origin": "github",
+            "is_private": true
+          }
+        }
+      ]
+    }
+  }
+}

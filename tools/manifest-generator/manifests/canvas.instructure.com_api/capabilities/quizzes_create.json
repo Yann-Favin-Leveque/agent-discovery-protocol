@@ -1,0 +1,51 @@
+{
+  "name": "quizzes_create",
+  "description": "Create a quiz.",
+  "resource_group": "quizzes",
+  "endpoint": "/api/v1/courses/{course_id}/quizzes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "quiz[title]",
+      "type": "string",
+      "description": "Quiz title.",
+      "required": true,
+      "example": "Quiz 2"
+    },
+    {
+      "name": "quiz[quiz_type]",
+      "type": "string",
+      "description": "Type.",
+      "required": false,
+      "example": "assignment"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/quizzes",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "quiz": {
+        "title": "Quiz 2",
+        "quiz_type": "assignment"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 10002,
+      "title": "Quiz 2"
+    }
+  }
+}

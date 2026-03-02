@@ -1,0 +1,43 @@
+{
+  "name": "entries_delete",
+  "description": "Permanently delete a content entry by its document ID. This action cannot be undone.",
+  "resource_group": "entries",
+  "endpoint": "/api/{pluralApiId}/{documentId}",
+  "method": "DELETE",
+  "parameters": [
+    {
+      "name": "pluralApiId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The pluralized API ID of the collection type (e.g., 'articles')."
+    },
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The document ID of the entry to delete."
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.strapi.io/api/articles/a1b2c3d4e5",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 1,
+        "documentId": "a1b2c3d4e5",
+        "attributes": {
+          "title": "Deleted Article",
+          "deletedAt": "2026-03-01T15:00:00.000Z"
+        }
+      }
+    }
+  }
+}

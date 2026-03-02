@@ -1,0 +1,56 @@
+{
+  "name": "items_create_folder",
+  "description": "Create a new folder inside an existing folder.",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/items/{parent-item-id}/children",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "parent-item-id",
+      "type": "string",
+      "description": "Parent folder ID.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Folder name.",
+      "required": true
+    },
+    {
+      "name": "folder",
+      "type": "object",
+      "description": "Empty folder facet.",
+      "required": true
+    },
+    {
+      "name": "@microsoft.graph.conflictBehavior",
+      "type": "string",
+      "description": "Conflict behavior: rename, replace, fail.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/root/children",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "New Folder",
+      "folder": {},
+      "@microsoft.graph.conflictBehavior": "rename"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "folder123",
+      "name": "New Folder",
+      "folder": {
+        "childCount": 0
+      }
+    }
+  }
+}

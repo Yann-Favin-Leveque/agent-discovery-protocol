@@ -1,0 +1,61 @@
+{
+  "name": "properties_create",
+  "description": "Create a property on a thing.",
+  "resource_group": "properties",
+  "endpoint": "/iot/v2/things/{thingId}/properties",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "thingId",
+      "type": "string",
+      "description": "Thing ID.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Property name.",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Property type: FLOAT, INT, BOOL, STRING, etc.",
+      "required": true
+    },
+    {
+      "name": "permission",
+      "type": "string",
+      "description": "READ_ONLY or READ_WRITE.",
+      "required": true
+    },
+    {
+      "name": "update_strategy",
+      "type": "string",
+      "description": "ON_CHANGE or TIMED.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api2.arduino.cc/iot/v2/things/thing_1/properties",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "humidity",
+      "type": "FLOAT",
+      "permission": "READ_ONLY",
+      "update_strategy": "ON_CHANGE"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "prop_2",
+      "name": "humidity",
+      "type": "FLOAT"
+    }
+  }
+}

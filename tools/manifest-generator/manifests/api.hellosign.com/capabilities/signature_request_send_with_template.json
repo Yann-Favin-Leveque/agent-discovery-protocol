@@ -1,0 +1,91 @@
+{
+  "name": "signature_request_send_with_template",
+  "description": "Send a signature request using a pre-configured template with signer roles.",
+  "endpoint": "/v3/signature_request/send_with_template",
+  "method": "POST",
+  "resource_group": "signature_request",
+  "parameters": [
+    {
+      "name": "template_ids",
+      "type": "array",
+      "description": "Template IDs to use.",
+      "required": true,
+      "example": [
+        "c26b8a16"
+      ]
+    },
+    {
+      "name": "signers",
+      "type": "array",
+      "description": "Signer objects with role, email, name.",
+      "required": true,
+      "example": [
+        {
+          "role": "Client",
+          "email_address": "client@example.com",
+          "name": "John Doe"
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Title.",
+      "required": false,
+      "example": "Employment Agreement"
+    },
+    {
+      "name": "custom_fields",
+      "type": "array",
+      "description": "Pre-filled custom field values.",
+      "required": false,
+      "example": [
+        {
+          "name": "start_date",
+          "value": "2024-01-15"
+        }
+      ]
+    },
+    {
+      "name": "test_mode",
+      "type": "boolean",
+      "description": "Test mode flag.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/signature_request/send_with_template",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "template_ids": [
+        "c26b8a16"
+      ],
+      "signers": [
+        {
+          "role": "Client",
+          "email_address": "client@example.com",
+          "name": "John Doe"
+        }
+      ],
+      "test_mode": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "signature_request": {
+        "signature_request_id": "fa5c8a0b",
+        "is_complete": false
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

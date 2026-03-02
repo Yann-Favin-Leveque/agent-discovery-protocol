@@ -1,0 +1,82 @@
+{
+  "name": "nutrition_food_log_create",
+  "description": "Log food intake by food ID or custom food name.",
+  "resource_group": "nutrition",
+  "endpoint": "/1/user/-/foods/log.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "foodId",
+      "type": "integer",
+      "required": false,
+      "description": "Fitbit food database ID."
+    },
+    {
+      "name": "foodName",
+      "type": "string",
+      "required": false,
+      "description": "Custom food name."
+    },
+    {
+      "name": "mealTypeId",
+      "type": "integer",
+      "required": true,
+      "description": "Meal: 1=Breakfast, 3=Lunch, 5=Dinner, 7=Anytime."
+    },
+    {
+      "name": "unitId",
+      "type": "integer",
+      "required": true,
+      "description": "Unit ID for serving size."
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "required": true,
+      "description": "Number of servings."
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "Date YYYY-MM-DD."
+    },
+    {
+      "name": "calories",
+      "type": "integer",
+      "required": false,
+      "description": "Calories (for custom foods)."
+    }
+  ],
+  "auth_scopes": [
+    "nutrition"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fitbit.com/1/user/-/foods/log.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "foodId": 81093,
+      "mealTypeId": 1,
+      "unitId": 304,
+      "amount": 1,
+      "date": "2025-01-15"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "foodLog": {
+        "logId": 9002,
+        "loggedFood": {
+          "foodId": 81093,
+          "name": "Banana",
+          "calories": 105
+        }
+      }
+    }
+  }
+}

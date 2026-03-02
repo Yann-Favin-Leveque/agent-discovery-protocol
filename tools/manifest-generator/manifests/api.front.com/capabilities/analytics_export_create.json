@@ -1,0 +1,16 @@
+{
+  "name": "analytics_export_create",
+  "description": "Create an analytics data export for a specific date range and metrics.",
+  "endpoint": "/analytics/exports",
+  "method": "POST",
+  "resource_group": "analytics",
+  "parameters": [
+    {"name": "start", "type": "number", "description": "Start timestamp (Unix epoch).", "required": true, "example": 1693440000},
+    {"name": "end", "type": "number", "description": "End timestamp (Unix epoch).", "required": true, "example": 1693560000},
+    {"name": "metrics", "type": "array", "description": "Metrics to export (e.g. num_messages_received, avg_first_response_time).", "required": true, "example": ["num_messages_received"]}
+  ],
+  "request_example": {"method": "POST", "url": "https://api2.frontapp.com/analytics/exports", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"start": 1693440000, "end": 1693560000, "metrics": ["num_messages_received"]}},
+  "response_example": {"status": 201, "body": {"id": "exp_123", "status": "pending", "progress": 0}},
+  "auth_scopes": ["shared:analytics.read"],
+  "rate_limits": {"requests_per_minute": 120}
+}

@@ -1,0 +1,54 @@
+{
+  "name": "conversations_create",
+  "resource_group": "conversations",
+  "description": "Create a new public or private channel.",
+  "endpoint": "/conversations.create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Channel name (no spaces, lowercase)",
+      "example": "project-alpha"
+    },
+    {
+      "name": "is_private",
+      "type": "boolean",
+      "required": false,
+      "description": "Create as private channel",
+      "example": false
+    },
+    {
+      "name": "team_id",
+      "type": "string",
+      "required": false,
+      "description": "Team ID for Enterprise Grid",
+      "example": "T1234567890"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://slack.com/api/conversations.create",
+    "headers": {
+      "Authorization": "Bearer xoxb-xxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "project-alpha",
+      "is_private": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "channel": {
+        "id": "C9876543210",
+        "name": "project-alpha",
+        "is_channel": true,
+        "is_private": false
+      }
+    }
+  }
+}

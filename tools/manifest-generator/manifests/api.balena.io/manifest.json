@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Balena",
-  "description": "Balena is a container-based IoT fleet management platform. It lets you deploy, manage, and monitor fleets of Linux devices running Docker containers, with capabilities for remote device actions, environment variable configuration, and release management.",
+  "description": "Balena is a container-based IoT fleet management platform. Deploy, manage, and monitor fleets of Linux devices running Docker containers with remote device actions, environment variable configuration, and release management via an OData-based REST API.",
   "base_url": "https://api.balena-cloud.com",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,112 @@
   },
   "capabilities": [
     {
-      "name": "list_devices",
-      "description": "List all devices in your Balena fleet with their online status, OS version, and last connectivity timestamp.",
-      "detail_url": "/capabilities/list_devices"
+      "name": "devices_list",
+      "resource_group": "devices",
+      "description": "List all devices with online status, OS version, and connectivity info.",
+      "detail_url": "/capabilities/devices_list"
     },
     {
-      "name": "get_device_info",
-      "description": "Get detailed information about a specific device including its status, IP address, OS version, supervisor version, and running services.",
-      "detail_url": "/capabilities/get_device_info"
+      "name": "devices_get",
+      "resource_group": "devices",
+      "description": "Get detailed info about a specific device by ID or UUID.",
+      "detail_url": "/capabilities/devices_get"
     },
     {
-      "name": "perform_device_action",
-      "description": "Execute a remote action on a device such as reboot, shutdown, restart application, or purge data.",
-      "detail_url": "/capabilities/perform_device_action"
+      "name": "devices_update",
+      "resource_group": "devices",
+      "description": "Update device name, notes, or configuration.",
+      "detail_url": "/capabilities/devices_update"
     },
     {
-      "name": "manage_applications",
-      "description": "List, create, or update Balena applications (fleets) that group devices running the same software.",
-      "detail_url": "/capabilities/manage_applications"
+      "name": "devices_delete",
+      "resource_group": "devices",
+      "description": "Delete a device from the fleet.",
+      "detail_url": "/capabilities/devices_delete"
     },
     {
-      "name": "set_environment_variables",
-      "description": "Set, update, or delete environment variables on a device or across an entire application fleet.",
-      "detail_url": "/capabilities/set_environment_variables"
+      "name": "devices_reboot",
+      "resource_group": "devices",
+      "description": "Reboot a device remotely.",
+      "detail_url": "/capabilities/devices_reboot"
     },
     {
-      "name": "manage_releases",
-      "description": "List releases for an application, pin a device to a specific release, or track deployment history.",
-      "detail_url": "/capabilities/manage_releases"
+      "name": "devices_shutdown",
+      "resource_group": "devices",
+      "description": "Shut down a device remotely.",
+      "detail_url": "/capabilities/devices_shutdown"
+    },
+    {
+      "name": "devices_restart_application",
+      "resource_group": "devices",
+      "description": "Restart the application on a device.",
+      "detail_url": "/capabilities/devices_restart_application"
+    },
+    {
+      "name": "applications_list",
+      "resource_group": "applications",
+      "description": "List all applications (fleets).",
+      "detail_url": "/capabilities/applications_list"
+    },
+    {
+      "name": "applications_get",
+      "resource_group": "applications",
+      "description": "Get a specific application by ID.",
+      "detail_url": "/capabilities/applications_get"
+    },
+    {
+      "name": "applications_create",
+      "resource_group": "applications",
+      "description": "Create a new application (fleet).",
+      "detail_url": "/capabilities/applications_create"
+    },
+    {
+      "name": "env_vars_list",
+      "resource_group": "environment_variables",
+      "description": "List environment variables for a device or application.",
+      "detail_url": "/capabilities/env_vars_list"
+    },
+    {
+      "name": "env_vars_create",
+      "resource_group": "environment_variables",
+      "description": "Create an environment variable.",
+      "detail_url": "/capabilities/env_vars_create"
+    },
+    {
+      "name": "env_vars_update",
+      "resource_group": "environment_variables",
+      "description": "Update an environment variable value.",
+      "detail_url": "/capabilities/env_vars_update"
+    },
+    {
+      "name": "env_vars_delete",
+      "resource_group": "environment_variables",
+      "description": "Delete an environment variable.",
+      "detail_url": "/capabilities/env_vars_delete"
+    },
+    {
+      "name": "releases_list",
+      "resource_group": "releases",
+      "description": "List releases for an application.",
+      "detail_url": "/capabilities/releases_list"
+    },
+    {
+      "name": "releases_get",
+      "resource_group": "releases",
+      "description": "Get a specific release by ID.",
+      "detail_url": "/capabilities/releases_get"
+    },
+    {
+      "name": "device_tags_list",
+      "resource_group": "tags",
+      "description": "List all tags for a device.",
+      "detail_url": "/capabilities/device_tags_list"
+    },
+    {
+      "name": "device_tags_create",
+      "resource_group": "tags",
+      "description": "Add a tag to a device.",
+      "detail_url": "/capabilities/device_tags_create"
     }
   ]
 }

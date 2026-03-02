@@ -1,0 +1,46 @@
+{
+  "name": "branches_create",
+  "resource_group": "branches",
+  "description": "Create a new branch from an existing branch.",
+  "endpoint": "/projects/{project_id}/branches",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "branch",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Branch config: name, parent_id, parent_timestamp."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123/branches",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "branch": {
+        "name": "dev",
+        "parent_id": "br-abc123"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "branch": {
+        "id": "br-def456",
+        "name": "dev"
+      }
+    }
+  }
+}

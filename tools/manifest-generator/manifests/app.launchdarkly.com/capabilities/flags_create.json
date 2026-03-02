@@ -1,0 +1,27 @@
+{
+  "name": "flags_create",
+  "description": "Create a new feature flag in a project with specified variations and targeting rules.",
+  "resource_group": "flags",
+  "endpoint": "/flags/{projectKey}",
+  "method": "POST",
+  "parameters": [
+    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
+    {"name": "key", "type": "string", "description": "Unique flag key.", "required": true, "example": "new-checkout"},
+    {"name": "name", "type": "string", "description": "Human-readable flag name.", "required": true, "example": "New Checkout Flow"},
+    {"name": "description", "type": "string", "description": "Description of the flag.", "required": false},
+    {"name": "kind", "type": "string", "description": "Flag kind: boolean, multivariate, or json.", "required": false, "example": "boolean"},
+    {"name": "variations", "type": "array", "description": "Array of flag variations.", "required": false, "example": [{"value": true}, {"value": false}]},
+    {"name": "tags", "type": "array", "description": "Tags for organizing flags.", "required": false, "example": ["frontend"]}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.launchdarkly.com/api/v2/flags/my-project",
+    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
+    "body": {"key": "new-checkout", "name": "New Checkout Flow", "kind": "boolean", "variations": [{"value": true}, {"value": false}], "tags": ["frontend"]}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"key": "new-checkout", "name": "New Checkout Flow", "kind": "boolean", "creationDate": 1705312200000}
+  },
+  "rate_limits": {"requests_per_minute": 120}
+}

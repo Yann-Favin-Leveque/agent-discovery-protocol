@@ -1,0 +1,53 @@
+{
+  "name": "transit_encrypt",
+  "description": "Encrypt plaintext data using a named encryption key in the Transit secrets engine.",
+  "resource_group": "transit",
+  "endpoint": "/v1/transit/encrypt/{name}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Name of the encryption key."
+    },
+    {
+      "name": "plaintext",
+      "type": "string",
+      "required": true,
+      "description": "Base64-encoded plaintext data to encrypt."
+    },
+    {
+      "name": "context",
+      "type": "string",
+      "required": false,
+      "description": "Base64-encoded context for key derivation (if key is derived)."
+    },
+    {
+      "name": "key_version",
+      "type": "integer",
+      "required": false,
+      "description": "Key version to use."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://vault.example.com/v1/transit/encrypt/my-key",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "plaintext": "bXkgc2VjcmV0IGRhdGE="
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "ciphertext": "vault:v1:8SDd3WHDOjf7mq69CyCqYjBXAiQQAVZRkFM13ok481zoCmHnSeDX9vyf7w==",
+        "key_version": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "auth_signup",
+  "resource_group": "auth",
+  "description": "Register a new user with email and password. Returns user object and session tokens.",
+  "endpoint": "/signup",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "description": "User email address."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "description": "User password (min 6 chars)."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": false,
+      "description": "Additional user metadata."
+    },
+    {
+      "name": "gotrue_meta_security",
+      "type": "object",
+      "required": false,
+      "description": "CAPTCHA token for bot protection."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://myproject.supabase.co/auth/v1/signup",
+    "headers": {
+      "apikey": "your-anon-key",
+      "Authorization": "Bearer your-anon-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "alice@example.com",
+      "password": "securePass123!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "access_token": "eyJhbGciOi...",
+      "token_type": "bearer",
+      "expires_in": 3600,
+      "refresh_token": "abc123",
+      "user": {
+        "id": "uuid-here",
+        "email": "alice@example.com",
+        "created_at": "2024-01-15T10:30:00Z"
+      }
+    }
+  }
+}

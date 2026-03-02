@@ -1,0 +1,47 @@
+{
+  "name": "smart_invites_get",
+  "description": "Retrieve the current status of a smart invite including all recipient RSVP responses.",
+  "endpoint": "/v1/smart_invites",
+  "method": "GET",
+  "resource_group": "smart_invites",
+  "parameters": [
+    {
+      "name": "smart_invite_id",
+      "type": "string",
+      "required": true,
+      "description": "The smart invite ID to retrieve (query parameter)."
+    },
+    {
+      "name": "recipient_email",
+      "type": "string",
+      "required": true,
+      "description": "Email of the recipient to get status for (query parameter)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cronofy.com/v1/smart_invites?smart_invite_id=invite-001&recipient_email=alice@example.com",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "smart_invite_id": "invite-001",
+      "recipient": {
+        "email": "alice@example.com",
+        "status": "accepted"
+      },
+      "event": {
+        "summary": "Team Lunch",
+        "start": "2024-01-22T12:00:00Z",
+        "end": "2024-01-22T13:00:00Z"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

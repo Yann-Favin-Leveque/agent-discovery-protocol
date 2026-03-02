@@ -1,0 +1,60 @@
+{
+  "name": "prediction_create",
+  "description": "Create a prediction by running a model version with specified inputs. Supports synchronous waiting via Prefer header and webhook notifications.",
+  "resource_group": "predictions",
+  "endpoint": "/predictions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "The model version ID to run."
+    },
+    {
+      "name": "input",
+      "type": "object",
+      "required": true,
+      "description": "Model-specific input parameters (e.g. prompt, image URL)."
+    },
+    {
+      "name": "webhook",
+      "type": "string",
+      "required": false,
+      "description": "URL to receive webhook notifications on prediction events."
+    },
+    {
+      "name": "webhook_events_filter",
+      "type": "array",
+      "required": false,
+      "description": "Filter which events trigger webhooks: 'start', 'output', 'logs', 'completed'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.replicate.com/v1/predictions",
+    "headers": {
+      "Authorization": "Bearer r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json",
+      "Prefer": "wait"
+    },
+    "body": {
+      "version": "5c7d5dc6dd8bf75c1acaa8565735e7986bc5b66206b55cca93cb72c9bf15ccaa",
+      "input": {
+        "prompt": "A photo of an astronaut riding a horse on mars"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "abc123xyz",
+      "version": "5c7d5dc6dd8bf75c1acaa8565735e7986bc5b66206b55cca93cb72c9bf15ccaa",
+      "status": "succeeded",
+      "input": {"prompt": "A photo of an astronaut riding a horse on mars"},
+      "output": ["https://replicate.delivery/pbxt/..."],
+      "created_at": "2026-03-01T10:00:00Z",
+      "completed_at": "2026-03-01T10:00:15Z"
+    }
+  }
+}

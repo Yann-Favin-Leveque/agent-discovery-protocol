@@ -1,0 +1,60 @@
+{
+  "name": "pipelines_create",
+  "description": "Trigger a new pipeline run.",
+  "resource_group": "pipelines",
+  "endpoint": "/repositories/{workspace}/{repo_slug}/pipelines",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace."
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repo slug."
+    },
+    {
+      "name": "target",
+      "type": "object",
+      "required": true,
+      "description": "Target: {ref_type: 'branch', type: 'pipeline_ref_target', ref_name: 'main'}."
+    },
+    {
+      "name": "variables",
+      "type": "array",
+      "required": false,
+      "description": "Variables: [{key: 'ENV', value: 'prod'}]."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace/my-project/pipelines",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer oauth-token"
+    },
+    "body": {
+      "target": {
+        "ref_type": "branch",
+        "type": "pipeline_ref_target",
+        "ref_name": "main"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uuid": "{uuid}",
+      "build_number": 51,
+      "state": {
+        "name": "PENDING"
+      }
+    }
+  }
+}

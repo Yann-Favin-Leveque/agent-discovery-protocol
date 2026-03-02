@@ -1,50 +1,153 @@
 {
   "spec_version": "1.0",
   "name": "Pinterest",
-  "description": "Pinterest is a visual discovery and bookmarking platform where users save and organize ideas as pins on boards. The API allows agents to create and manage pins and boards, retrieve user account data, and access analytics for content performance.",
-  "base_url": "https://api.pinterest.com",
+  "description": "Pinterest is a visual discovery and bookmarking platform where users save and organize ideas as pins on boards. The API v5 allows agents to create and manage pins and boards, retrieve user account data, access analytics, manage board sections, and handle media uploads.",
+  "base_url": "https://api.pinterest.com/v5",
   "auth": {
     "type": "oauth2",
     "authorization_url": "https://www.pinterest.com/oauth/",
     "token_url": "https://api.pinterest.com/v5/oauth/token",
-    "scopes": ["boards:read", "pins:read", "pins:write"],
+    "scopes": ["boards:read", "boards:write", "pins:read", "pins:write", "user_accounts:read"],
     "setup_url": "https://developers.pinterest.com/apps/"
   },
   "capabilities": [
     {
-      "name": "create_pin",
+      "name": "pin_create",
+      "resource_group": "pins",
       "description": "Create a new pin on a specified board with an image URL, title, description, and optional destination link.",
-      "detail_url": "/capabilities/create_pin"
+      "detail_url": "/capabilities/pin_create"
     },
     {
-      "name": "get_pin",
+      "name": "pins_list",
+      "resource_group": "pins",
+      "description": "Get a list of pins owned by the authenticated user.",
+      "detail_url": "/capabilities/pins_list"
+    },
+    {
+      "name": "pin_get",
+      "resource_group": "pins",
       "description": "Retrieve detailed information about a specific pin including its image, description, board, and engagement metrics.",
-      "detail_url": "/capabilities/get_pin"
+      "detail_url": "/capabilities/pin_get"
     },
     {
-      "name": "list_boards",
-      "description": "Fetch a paginated list of boards owned by the authenticated user, including board name, description, and pin count.",
-      "detail_url": "/capabilities/list_boards"
+      "name": "pin_update",
+      "resource_group": "pins",
+      "description": "Update an existing pin's title, description, link, or board.",
+      "detail_url": "/capabilities/pin_update"
     },
     {
-      "name": "create_board",
+      "name": "pin_delete",
+      "resource_group": "pins",
+      "description": "Delete a specific pin owned by the authenticated user.",
+      "detail_url": "/capabilities/pin_delete"
+    },
+    {
+      "name": "pin_save",
+      "resource_group": "pins",
+      "description": "Save a pin to a board or board section.",
+      "detail_url": "/capabilities/pin_save"
+    },
+    {
+      "name": "pin_analytics_get",
+      "resource_group": "analytics",
+      "description": "Get analytics for a specific pin owned by the authenticated user.",
+      "detail_url": "/capabilities/pin_analytics_get"
+    },
+    {
+      "name": "board_create",
+      "resource_group": "boards",
       "description": "Create a new board for the authenticated user with a name, description, and privacy setting.",
-      "detail_url": "/capabilities/create_board"
+      "detail_url": "/capabilities/board_create"
     },
     {
-      "name": "list_board_pins",
+      "name": "boards_list",
+      "resource_group": "boards",
+      "description": "Fetch a paginated list of boards owned by the authenticated user.",
+      "detail_url": "/capabilities/boards_list"
+    },
+    {
+      "name": "board_get",
+      "resource_group": "boards",
+      "description": "Retrieve details for a specific board by ID.",
+      "detail_url": "/capabilities/board_get"
+    },
+    {
+      "name": "board_update",
+      "resource_group": "boards",
+      "description": "Update an existing board's name, description, or privacy setting.",
+      "detail_url": "/capabilities/board_update"
+    },
+    {
+      "name": "board_delete",
+      "resource_group": "boards",
+      "description": "Delete a specific board owned by the authenticated user.",
+      "detail_url": "/capabilities/board_delete"
+    },
+    {
+      "name": "board_pins_list",
+      "resource_group": "boards",
       "description": "Retrieve a paginated list of all pins saved to a specific board.",
-      "detail_url": "/capabilities/list_board_pins"
+      "detail_url": "/capabilities/board_pins_list"
     },
     {
-      "name": "get_user_account",
+      "name": "board_section_create",
+      "resource_group": "board_sections",
+      "description": "Create a new section within a board for organizing pins.",
+      "detail_url": "/capabilities/board_section_create"
+    },
+    {
+      "name": "board_sections_list",
+      "resource_group": "board_sections",
+      "description": "Retrieve all sections within a specific board.",
+      "detail_url": "/capabilities/board_sections_list"
+    },
+    {
+      "name": "board_section_update",
+      "resource_group": "board_sections",
+      "description": "Update the name of a board section.",
+      "detail_url": "/capabilities/board_section_update"
+    },
+    {
+      "name": "board_section_delete",
+      "resource_group": "board_sections",
+      "description": "Delete a section from a board.",
+      "detail_url": "/capabilities/board_section_delete"
+    },
+    {
+      "name": "board_section_pins_list",
+      "resource_group": "board_sections",
+      "description": "Retrieve pins within a specific board section.",
+      "detail_url": "/capabilities/board_section_pins_list"
+    },
+    {
+      "name": "user_account_get",
+      "resource_group": "user_accounts",
       "description": "Retrieve the authenticated user's Pinterest profile including username, bio, follower count, and website URL.",
-      "detail_url": "/capabilities/get_user_account"
+      "detail_url": "/capabilities/user_account_get"
     },
     {
-      "name": "search_pins",
-      "description": "Search for pins matching a query string, with optional filters for media type and sorting.",
-      "detail_url": "/capabilities/search_pins"
+      "name": "user_account_analytics_get",
+      "resource_group": "analytics",
+      "description": "Retrieve analytics data for the authenticated user's account.",
+      "detail_url": "/capabilities/user_account_analytics_get"
+    },
+    {
+      "name": "user_followers_list",
+      "resource_group": "user_accounts",
+      "description": "Get a list of the authenticated user's followers.",
+      "detail_url": "/capabilities/user_followers_list"
+    },
+    {
+      "name": "user_following_list",
+      "resource_group": "user_accounts",
+      "description": "Get a list of users the authenticated user follows.",
+      "detail_url": "/capabilities/user_following_list"
+    },
+    {
+      "name": "media_upload",
+      "resource_group": "media",
+      "description": "Register intent to upload media and get an upload URL.",
+      "detail_url": "/capabilities/media_upload"
     }
   ]
 }

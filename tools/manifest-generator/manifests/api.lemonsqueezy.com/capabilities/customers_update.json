@@ -1,0 +1,57 @@
+{
+  "name": "customers_update",
+  "description": "Update an existing customer.",
+  "resource_group": "customers",
+  "endpoint": "/v1/customers/{id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The customer ID.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.name",
+      "type": "string",
+      "description": "Updated name.",
+      "required": false
+    },
+    {
+      "name": "data.attributes.email",
+      "type": "string",
+      "description": "Updated email.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.lemonsqueezy.com/v1/customers/1",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "customers",
+        "id": "1",
+        "attributes": {
+          "name": "Jane Doe"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "customers",
+        "id": "1",
+        "attributes": {
+          "name": "Jane Doe"
+        }
+      }
+    }
+  }
+}

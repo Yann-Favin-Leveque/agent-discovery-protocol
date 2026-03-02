@@ -1,0 +1,55 @@
+{
+  "name": "sync_products_create",
+  "description": "Create a new synchronized product.",
+  "resource_group": "sync_products",
+  "endpoint": "/sync/products",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "sync_product",
+      "type": "object",
+      "required": true,
+      "description": "Product details with name and thumbnail."
+    },
+    {
+      "name": "sync_variants",
+      "type": "array",
+      "required": true,
+      "description": "Array of variant configurations with files."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.printful.com/sync/products",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sync_product": {
+        "name": "Custom T-Shirt"
+      },
+      "sync_variants": [
+        {
+          "variant_id": 4011,
+          "retail_price": "25.00",
+          "files": [
+            {
+              "url": "https://example.com/design.png"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 200,
+      "result": {
+        "id": 124,
+        "name": "Custom T-Shirt"
+      }
+    }
+  }
+}

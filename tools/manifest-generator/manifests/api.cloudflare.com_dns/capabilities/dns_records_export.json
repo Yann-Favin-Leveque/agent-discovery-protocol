@@ -1,0 +1,31 @@
+{
+  "name": "dns_records_export",
+  "description": "Export DNS records as a BIND zone file format. Useful for backups and migration.",
+  "endpoint": "/zones/{zone_id}/dns_records/export",
+  "method": "GET",
+  "resource_group": "dns_records",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_records/export",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": ";; BIND zone file for example.com\n$ORIGIN example.com.\n$TTL 300\nexample.com. IN A 198.51.100.4\nwww.example.com. IN CNAME example.com."
+  },
+  "auth_scopes": ["dns_records:read"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

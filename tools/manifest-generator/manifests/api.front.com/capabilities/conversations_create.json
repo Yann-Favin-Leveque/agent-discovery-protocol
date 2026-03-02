@@ -1,0 +1,16 @@
+{
+  "name": "conversations_create",
+  "description": "Create a new discussion conversation for internal team communication.",
+  "endpoint": "/conversations",
+  "method": "POST",
+  "resource_group": "conversations",
+  "parameters": [
+    {"name": "type", "type": "string", "description": "Conversation type (discussion).", "required": true, "example": "discussion"},
+    {"name": "subject", "type": "string", "description": "Conversation subject.", "required": true, "example": "Internal discussion about Q3 goals"},
+    {"name": "comment", "type": "object", "description": "Initial comment with body text.", "required": true, "example": {"body": "Let's discuss our Q3 priorities."}}
+  ],
+  "request_example": {"method": "POST", "url": "https://api2.frontapp.com/conversations", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"type": "discussion", "subject": "Q3 goals", "comment": {"body": "Let's discuss our priorities."}}},
+  "response_example": {"status": 201, "body": {"id": "cnv_def456", "subject": "Q3 goals", "status": "assigned"}},
+  "auth_scopes": ["shared:conversations.write"],
+  "rate_limits": {"requests_per_minute": 120}
+}

@@ -1,0 +1,84 @@
+{
+  "name": "envelope_list",
+  "description": "List envelopes in the account with filtering by status, date range, sender, and text search. Supports pagination.",
+  "resource_group": "envelope",
+  "endpoint": "/v2.1/accounts/{accountId}/envelopes",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "from_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date ISO 8601.",
+      "in": "query"
+    },
+    {
+      "name": "to_date",
+      "type": "string",
+      "required": false,
+      "description": "End date ISO 8601.",
+      "in": "query"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by status: sent, delivered, completed, declined, voided.",
+      "in": "query"
+    },
+    {
+      "name": "search_text",
+      "type": "string",
+      "required": false,
+      "description": "Search text in envelope metadata.",
+      "in": "query"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results (max 100).",
+      "in": "query"
+    },
+    {
+      "name": "start_position",
+      "type": "integer",
+      "required": false,
+      "description": "Starting position for pagination.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/envelopes?from_date=2025-01-01T00:00:00Z&status=completed&count=25",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "resultSetSize": "2",
+      "totalSetSize": "2",
+      "envelopes": [
+        {
+          "envelopeId": "env-abc-123",
+          "status": "completed",
+          "emailSubject": "Contract Q1",
+          "sentDateTime": "2025-01-15T14:30:00.000Z",
+          "completedDateTime": "2025-01-15T15:45:00.000Z"
+        }
+      ]
+    }
+  }
+}

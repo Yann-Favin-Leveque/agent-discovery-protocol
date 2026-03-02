@@ -1,0 +1,24 @@
+{
+  "name": "push_device_list",
+  "description": "List all registered push notification devices.",
+  "resource_group": "push",
+  "endpoint": "/push/deviceRegistrations",
+  "method": "GET",
+  "parameters": [
+    {"name": "clientId", "type": "string", "description": "Filter by client ID.", "required": false},
+    {"name": "deviceId", "type": "string", "description": "Filter by device ID.", "required": false},
+    {"name": "limit", "type": "integer", "description": "Maximum results to return.", "required": false, "example": 100}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.ably.io/push/deviceRegistrations?limit=100",
+    "headers": {"Authorization": "Basic {base64_api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {"id": "device_001", "platform": "android", "clientId": "user1"}
+    ]
+  },
+  "rate_limits": {"requests_per_minute": 1500}
+}

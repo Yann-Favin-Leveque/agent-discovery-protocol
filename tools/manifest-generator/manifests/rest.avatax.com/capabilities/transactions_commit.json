@@ -1,0 +1,53 @@
+{
+  "name": "transactions_commit",
+  "description": "Commit a transaction, marking it as finalized.",
+  "endpoint": "/api/v2/companies/{companyCode}/transactions/{transactionCode}/commit",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "companyCode",
+      "type": "string",
+      "description": "Company code.",
+      "required": true,
+      "example": "DEFAULT"
+    },
+    {
+      "name": "transactionCode",
+      "type": "string",
+      "description": "Transaction code.",
+      "required": true,
+      "example": "txn-001"
+    },
+    {
+      "name": "commit",
+      "type": "boolean",
+      "description": "Must be true.",
+      "required": true,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.avatax.com/api/v2/companies/DEFAULT/transactions/txn-001/commit",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "commit": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 12345,
+      "code": "txn-001",
+      "status": "Committed"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

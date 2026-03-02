@@ -1,0 +1,21 @@
+{
+  "name": "accounts_get_holds",
+  "description": "List current holds on an account from active orders and pending withdrawals.",
+  "endpoint": "/accounts/{account_id}/holds",
+  "method": "GET",
+  "resource_group": "accounts",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "Account UUID.", "required": true, "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.exchange.coinbase.com/accounts/a1b2c3d4-e5f6-7890-abcd-ef1234567890/holds",
+    "headers": {"CB-ACCESS-KEY": "{api_key}", "CB-ACCESS-SIGN": "{signature}", "CB-ACCESS-TIMESTAMP": "{timestamp}", "CB-ACCESS-PASSPHRASE": "{passphrase}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{"id": "82dcd140-c3c7-4507-8de4-2c529cd1a28f", "created_at": "2024-06-15T10:00:00.000Z", "amount": "0.5", "type": "order", "ref": "order-id-123"}]
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 600}
+}

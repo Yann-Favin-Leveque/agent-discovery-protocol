@@ -1,0 +1,46 @@
+{
+  "name": "recipient_lists_get",
+  "description": "Retrieve a specific recipient list by ID.",
+  "endpoint": "/api/v1/recipient-lists/{id}",
+  "method": "GET",
+  "resource_group": "recipient_lists",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "List ID",
+      "required": true,
+      "example": "my-list"
+    },
+    {
+      "name": "show_recipients",
+      "type": "boolean",
+      "description": "Include all recipients in response",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/recipient-lists/my-list?show_recipients=true",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "id": "my-list",
+        "name": "Newsletter Subscribers",
+        "total_accepted_recipients": 1
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

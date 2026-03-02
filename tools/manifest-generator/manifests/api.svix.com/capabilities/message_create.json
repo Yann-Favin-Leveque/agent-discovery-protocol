@@ -1,0 +1,73 @@
+{
+  "name": "message_create",
+  "description": "Create and send a new webhook message to all matching endpoints in an application.",
+  "resource_group": "message",
+  "endpoint": "/api/v1/app/{app_id}/msg",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "eventType",
+      "type": "string",
+      "description": "Event type for routing.",
+      "required": true,
+      "example": "user.created"
+    },
+    {
+      "name": "payload",
+      "type": "object",
+      "description": "Message payload (JSON).",
+      "required": true,
+      "example": {
+        "type": "user.created",
+        "data": {
+          "id": "usr_123",
+          "email": "user@example.com"
+        }
+      }
+    },
+    {
+      "name": "eventId",
+      "type": "string",
+      "description": "Optional deduplication ID.",
+      "required": false
+    },
+    {
+      "name": "channels",
+      "type": "array",
+      "description": "Channels to send to.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.svix.com/api/v1/app/app_123/msg",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "eventType": "user.created",
+      "payload": {
+        "type": "user.created",
+        "data": {
+          "id": "usr_123"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "id": "msg_abc",
+      "eventType": "user.created",
+      "timestamp": "2024-01-01T00:00:00Z"
+    }
+  }
+}

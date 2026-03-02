@@ -1,0 +1,48 @@
+{
+  "name": "users_bulk_add_properties",
+  "description": "Set properties on multiple user profiles in a single batch request (max 1,000 users).",
+  "endpoint": "/api/add_user_properties",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Your Heap environment ID.",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "users",
+      "type": "array",
+      "description": "Array of user objects with identity and properties (max 1,000).",
+      "required": true,
+      "example": [
+        { "identity": "user1@example.com", "properties": { "plan": "pro" } },
+        { "identity": "user2@example.com", "properties": { "plan": "enterprise" } }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://heapanalytics.com/api/add_user_properties",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "app_id": "123456789",
+      "users": [
+        { "identity": "user1@example.com", "properties": { "plan": "pro" } },
+        { "identity": "user2@example.com", "properties": { "plan": "enterprise" } }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 15000
+  }
+}

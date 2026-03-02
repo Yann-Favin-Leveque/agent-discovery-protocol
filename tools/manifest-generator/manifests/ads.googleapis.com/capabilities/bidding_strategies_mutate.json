@@ -1,0 +1,52 @@
+{
+  "name": "bidding_strategies_mutate",
+  "description": "Create, update, or remove portfolio bidding strategies.",
+  "resource_group": "bidding_strategies",
+  "endpoint": "/v18/customers/{customerId}/biddingStrategies:mutate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer ID.",
+      "required": true
+    },
+    {
+      "name": "operations",
+      "type": "array",
+      "description": "Array of create/update/remove operations.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://googleads.googleapis.com/v18/customers/1234567890/biddingStrategies:mutate",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "developer-token": "{developer_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "operations": [
+        {
+          "create": {
+            "name": "Target CPA",
+            "targetCpa": {
+              "targetCpaMicros": "2000000"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "resourceName": "customers/1234567890/biddingStrategies/123"
+        }
+      ]
+    }
+  }
+}

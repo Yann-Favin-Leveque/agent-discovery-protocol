@@ -1,0 +1,49 @@
+{
+  "name": "sharing_list_shared_links",
+  "description": "List shared links for a file or across the account.",
+  "resource_group": "sharing",
+  "endpoint": "/2/sharing/list_shared_links",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "description": "File path (optional, empty for all).",
+      "required": false
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    },
+    {
+      "name": "direct_only",
+      "type": "boolean",
+      "description": "Only direct links.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/sharing/list_shared_links",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "path": "/test/file.txt"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "links": [
+        {
+          "url": "https://www.dropbox.com/s/abc123/file.txt?dl=0"
+        }
+      ],
+      "has_more": false
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Cloudflare R2",
-  "description": "Cloudflare R2 is S3-compatible object storage with zero egress fees. The API lets you create and manage storage buckets, upload and delete objects, and list bucket contents through Cloudflare's global network.",
+  "description": "Cloudflare R2 is S3-compatible object storage with zero egress fees. Manage buckets, CORS, custom domains, lifecycle rules, event notifications, and temporary credentials through the Cloudflare API.",
   "base_url": "https://api.cloudflare.com/client/v4",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,172 @@
   },
   "capabilities": [
     {
-      "name": "create_bucket",
-      "description": "Create a new R2 storage bucket in your Cloudflare account with a specified name and optional location hint.",
-      "detail_url": "/capabilities/create_bucket"
+      "name": "buckets_list",
+      "description": "List all R2 buckets in an account.",
+      "resource_group": "buckets",
+      "detail_url": "/capabilities/buckets_list"
     },
     {
-      "name": "list_buckets",
-      "description": "List all R2 storage buckets in your Cloudflare account with their names and creation dates.",
-      "detail_url": "/capabilities/list_buckets"
+      "name": "buckets_get",
+      "description": "Get details of a specific R2 bucket.",
+      "resource_group": "buckets",
+      "detail_url": "/capabilities/buckets_get"
     },
     {
-      "name": "upload_object",
-      "description": "Upload an object to an R2 bucket using the S3-compatible endpoint or the Cloudflare API.",
-      "detail_url": "/capabilities/upload_object"
+      "name": "buckets_create",
+      "description": "Create a new R2 bucket.",
+      "resource_group": "buckets",
+      "detail_url": "/capabilities/buckets_create"
     },
     {
-      "name": "delete_object",
-      "description": "Delete an object from an R2 bucket by its key name.",
-      "detail_url": "/capabilities/delete_object"
+      "name": "buckets_update",
+      "description": "Update properties of an R2 bucket.",
+      "resource_group": "buckets",
+      "detail_url": "/capabilities/buckets_update"
     },
     {
-      "name": "list_objects",
-      "description": "List all objects within an R2 bucket, with optional prefix filtering and pagination support.",
-      "detail_url": "/capabilities/list_objects"
+      "name": "buckets_delete",
+      "description": "Delete an R2 bucket.",
+      "resource_group": "buckets",
+      "detail_url": "/capabilities/buckets_delete"
     },
     {
-      "name": "get_bucket",
-      "description": "Retrieve metadata and configuration details for a specific R2 bucket by name.",
-      "detail_url": "/capabilities/get_bucket"
+      "name": "cors_get",
+      "description": "Get the CORS policy for a bucket.",
+      "resource_group": "cors",
+      "detail_url": "/capabilities/cors_get"
+    },
+    {
+      "name": "cors_put",
+      "description": "Set CORS rules for a bucket.",
+      "resource_group": "cors",
+      "detail_url": "/capabilities/cors_put"
+    },
+    {
+      "name": "cors_delete",
+      "description": "Remove CORS configuration from a bucket.",
+      "resource_group": "cors",
+      "detail_url": "/capabilities/cors_delete"
+    },
+    {
+      "name": "custom_domains_list",
+      "description": "List custom domains for a bucket.",
+      "resource_group": "custom_domains",
+      "detail_url": "/capabilities/custom_domains_list"
+    },
+    {
+      "name": "custom_domains_get",
+      "description": "Get details of a custom domain.",
+      "resource_group": "custom_domains",
+      "detail_url": "/capabilities/custom_domains_get"
+    },
+    {
+      "name": "custom_domains_create",
+      "description": "Register a custom domain for a bucket.",
+      "resource_group": "custom_domains",
+      "detail_url": "/capabilities/custom_domains_create"
+    },
+    {
+      "name": "custom_domains_update",
+      "description": "Update custom domain configuration.",
+      "resource_group": "custom_domains",
+      "detail_url": "/capabilities/custom_domains_update"
+    },
+    {
+      "name": "custom_domains_delete",
+      "description": "Remove a custom domain from a bucket.",
+      "resource_group": "custom_domains",
+      "detail_url": "/capabilities/custom_domains_delete"
+    },
+    {
+      "name": "managed_domain_get",
+      "description": "Get state of r2.dev public access for a bucket.",
+      "resource_group": "managed_domains",
+      "detail_url": "/capabilities/managed_domain_get"
+    },
+    {
+      "name": "managed_domain_update",
+      "description": "Configure r2.dev domain access for a bucket.",
+      "resource_group": "managed_domains",
+      "detail_url": "/capabilities/managed_domain_update"
+    },
+    {
+      "name": "event_notifications_list",
+      "description": "List event notification rules for a bucket.",
+      "resource_group": "event_notifications",
+      "detail_url": "/capabilities/event_notifications_list"
+    },
+    {
+      "name": "event_notifications_get",
+      "description": "Get a specific event notification rule.",
+      "resource_group": "event_notifications",
+      "detail_url": "/capabilities/event_notifications_get"
+    },
+    {
+      "name": "event_notifications_create",
+      "description": "Create event notification rules for a bucket.",
+      "resource_group": "event_notifications",
+      "detail_url": "/capabilities/event_notifications_create"
+    },
+    {
+      "name": "event_notifications_delete",
+      "description": "Delete event notification rules.",
+      "resource_group": "event_notifications",
+      "detail_url": "/capabilities/event_notifications_delete"
+    },
+    {
+      "name": "lifecycle_get",
+      "description": "Get object lifecycle rules for a bucket.",
+      "resource_group": "lifecycle",
+      "detail_url": "/capabilities/lifecycle_get"
+    },
+    {
+      "name": "lifecycle_put",
+      "description": "Set object lifecycle rules for a bucket.",
+      "resource_group": "lifecycle",
+      "detail_url": "/capabilities/lifecycle_put"
+    },
+    {
+      "name": "lock_get",
+      "description": "Get lock rules for a bucket.",
+      "resource_group": "locks",
+      "detail_url": "/capabilities/lock_get"
+    },
+    {
+      "name": "lock_put",
+      "description": "Set lock policies for a bucket.",
+      "resource_group": "locks",
+      "detail_url": "/capabilities/lock_put"
+    },
+    {
+      "name": "metrics_get",
+      "description": "Get storage metrics across all buckets.",
+      "resource_group": "metrics",
+      "detail_url": "/capabilities/metrics_get"
+    },
+    {
+      "name": "sippy_get",
+      "description": "Get Sippy migration configuration for a bucket.",
+      "resource_group": "sippy",
+      "detail_url": "/capabilities/sippy_get"
+    },
+    {
+      "name": "sippy_put",
+      "description": "Configure Sippy migration for a bucket.",
+      "resource_group": "sippy",
+      "detail_url": "/capabilities/sippy_put"
+    },
+    {
+      "name": "sippy_delete",
+      "description": "Disable Sippy migration for a bucket.",
+      "resource_group": "sippy",
+      "detail_url": "/capabilities/sippy_delete"
+    },
+    {
+      "name": "temp_credentials_create",
+      "description": "Create temporary access credentials for a bucket.",
+      "resource_group": "temp_credentials",
+      "detail_url": "/capabilities/temp_credentials_create"
     }
   ]
 }

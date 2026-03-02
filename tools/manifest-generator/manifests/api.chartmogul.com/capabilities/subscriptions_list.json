@@ -1,0 +1,55 @@
+{
+  "name": "subscriptions_list",
+  "description": "List all subscriptions for a customer.",
+  "endpoint": "/v1/customers/{customer_uuid}/subscriptions",
+  "method": "GET",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "customer_uuid",
+      "type": "string",
+      "description": "The customer UUID.",
+      "required": true
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 200
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.chartmogul.com/v1/customers/cus_93b06efd/subscriptions",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "entries": [
+        {
+          "uuid": "sub_93b06efd",
+          "external_id": "sub_001",
+          "plan_uuid": "pl_93b06efd",
+          "data_source_uuid": "ds_93b06efd",
+          "cancellation_dates": []
+        }
+      ],
+      "cursor": "next_cursor",
+      "has_more": false
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

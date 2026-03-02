@@ -1,0 +1,76 @@
+{
+  "name": "users_list",
+  "description": "List all users on the Zoom account. Returns user IDs, emails, names, types, and status with pagination.",
+  "endpoint": "/users",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "status",
+      "type": "string",
+      "description": "User status filter: active, inactive, or pending.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of records per page (max 300).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "page_number",
+      "type": "integer",
+      "description": "Page number (deprecated, use next_page_token).",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "next_page_token",
+      "type": "string",
+      "description": "Token for the next page of results.",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "role_id",
+      "type": "string",
+      "description": "Filter users by role ID.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/users?status=active&page_size=30",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page_count": 1,
+      "page_number": 1,
+      "page_size": 30,
+      "total_records": 3,
+      "users": [
+        {
+          "id": "user123",
+          "first_name": "Jane",
+          "last_name": "Doe",
+          "email": "jane@example.com",
+          "type": 2,
+          "status": "active",
+          "timezone": "America/New_York",
+          "dept": "Engineering"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["user:read:admin"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

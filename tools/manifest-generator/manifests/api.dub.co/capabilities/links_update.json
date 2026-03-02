@@ -1,0 +1,84 @@
+{
+  "name": "links_update",
+  "description": "Update an existing short link's destination URL, tags, expiration, geo-targeting, or other properties.",
+  "endpoint": "/links/{linkId}",
+  "method": "PATCH",
+  "resource_group": "links",
+  "parameters": [
+    {
+      "name": "linkId",
+      "type": "string",
+      "description": "The link ID or externalId prefixed with ext_.",
+      "required": true,
+      "example": "clux0rgak0001..."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "New destination URL.",
+      "required": false,
+      "example": "https://example.com/new"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "New short link slug.",
+      "required": false
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "description": "Archive or unarchive the link.",
+      "required": false
+    },
+    {
+      "name": "tagIds",
+      "type": "array",
+      "description": "New tag IDs to assign.",
+      "required": false
+    },
+    {
+      "name": "expiresAt",
+      "type": "string",
+      "description": "New expiration date (ISO-8601).",
+      "required": false
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Custom OG title.",
+      "required": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Custom OG description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.dub.co/links/clux0rgak0001",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/new-destination"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "clux0rgak0001...",
+      "domain": "dub.sh",
+      "key": "my-link",
+      "url": "https://example.com/new-destination",
+      "shortLink": "https://dub.sh/my-link"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "opportunities_stage_update",
+  "resource_group": "Opportunities",
+  "endpoint": "/v1/opportunities/{opportunity}/stage",
+  "method": "PUT",
+  "description": "Move an opportunity to a different pipeline stage.",
+  "parameters": [
+    {
+      "name": "opportunity",
+      "type": "string",
+      "required": true,
+      "description": "Opportunity UUID."
+    },
+    {
+      "name": "stage",
+      "type": "string",
+      "required": true,
+      "description": "Target stage UUID."
+    },
+    {
+      "name": "perform_as",
+      "type": "string",
+      "required": false,
+      "description": "User UUID."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.lever.co/v1/opportunities/abc-123/stage",
+    "headers": {
+      "Authorization": "Basic base64(apikey:)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "stage": "stage-2"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "abc-123",
+        "stage": {
+          "id": "stage-2",
+          "text": "Technical Screen"
+        }
+      }
+    }
+  }
+}

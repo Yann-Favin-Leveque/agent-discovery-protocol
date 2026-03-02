@@ -1,0 +1,65 @@
+{
+  "name": "measure_getintradayactivity",
+  "description": "Retrieve high-resolution intraday activity data with minute-level heart rate, steps, and calories.",
+  "resource_group": "measure",
+  "endpoint": "/v2/measure",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'getintradayactivity'."
+    },
+    {
+      "name": "startdate",
+      "type": "integer",
+      "required": true,
+      "description": "Start date as Unix timestamp."
+    },
+    {
+      "name": "enddate",
+      "type": "integer",
+      "required": true,
+      "description": "End date as Unix timestamp."
+    },
+    {
+      "name": "data_fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated: heart_rate,steps,elevation,calories,distance,stroke,pool_lap,duration,spo2_auto,hr_timestamp."
+    }
+  ],
+  "auth_scopes": [
+    "user.activity"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://wbsapi.withings.net/v2/measure",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "action": "getintradayactivity",
+      "startdate": 1705276800,
+      "enddate": 1705363200,
+      "data_fields": "heart_rate,steps,calories"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": 0,
+      "body": {
+        "series": {
+          "1705280400": {
+            "heart_rate": 72,
+            "steps": 45,
+            "calories": 1.5
+          }
+        }
+      }
+    }
+  }
+}

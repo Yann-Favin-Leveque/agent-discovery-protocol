@@ -1,0 +1,84 @@
+{
+  "name": "commits_list",
+  "description": "List commits for a repository with optional filtering by branch, path, author, and date.",
+  "resource_group": "commits",
+  "endpoint": "/repos/{owner}/{repo}/commits",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "sha",
+      "type": "string",
+      "required": false,
+      "description": "Branch name or commit SHA to start listing from."
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "required": false,
+      "description": "Only commits touching this file path."
+    },
+    {
+      "name": "author",
+      "type": "string",
+      "required": false,
+      "description": "Filter by author username or email."
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "required": false,
+      "description": "Only commits after this date (ISO 8601)."
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "required": false,
+      "description": "Only commits before this date (ISO 8601)."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/octocat/my-project/commits?sha=main&per_page=10",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "sha": "abc123",
+        "commit": {
+          "message": "feat: add dark mode",
+          "author": {
+            "name": "Octocat",
+            "email": "octocat@github.com",
+            "date": "2026-02-28T10:00:00Z"
+          }
+        },
+        "html_url": "https://github.com/octocat/my-project/commit/abc123"
+      }
+    ]
+  }
+}

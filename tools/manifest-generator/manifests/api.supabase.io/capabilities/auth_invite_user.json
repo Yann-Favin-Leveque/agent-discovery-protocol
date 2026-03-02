@@ -1,0 +1,51 @@
+{
+  "name": "auth_invite_user",
+  "description": "Invite a user by email (admin only, requires service_role key).",
+  "endpoint": "/auth/v1/invite",
+  "method": "POST",
+  "resource_group": "auth",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email to invite",
+      "required": true,
+      "example": "newuser@example.com"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "User metadata",
+      "required": false,
+      "example": {
+        "role": "editor"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/auth/v1/invite",
+    "headers": {
+      "apikey": "{service_role_key}",
+      "Authorization": "Bearer {service_role_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "newuser@example.com",
+      "data": {
+        "role": "editor"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-456",
+      "email": "newuser@example.com"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

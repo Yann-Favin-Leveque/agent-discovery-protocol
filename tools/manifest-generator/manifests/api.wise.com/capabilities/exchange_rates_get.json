@@ -1,0 +1,65 @@
+{
+  "name": "exchange_rates_get",
+  "description": "Retrieve current or historical exchange rates between two currencies.",
+  "resource_group": "exchange_rates",
+  "endpoint": "/v1/rates",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "source",
+      "type": "string",
+      "description": "Source currency code.",
+      "required": true,
+      "example": "USD"
+    },
+    {
+      "name": "target",
+      "type": "string",
+      "description": "Target currency code.",
+      "required": true,
+      "example": "EUR"
+    },
+    {
+      "name": "time",
+      "type": "string",
+      "description": "Historical rate at ISO 8601 timestamp.",
+      "required": false
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Range start (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "Range end (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "group",
+      "type": "string",
+      "description": "Grouping: day, hour, minute.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.wise.com/v1/rates?source=USD&target=EUR",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "rate": 0.8523,
+        "source": "USD",
+        "target": "EUR",
+        "time": "2024-01-15T12:00:00+0000"
+      }
+    ]
+  }
+}

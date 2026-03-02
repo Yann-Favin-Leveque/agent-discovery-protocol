@@ -1,0 +1,38 @@
+{
+  "name": "spo2_intraday_get",
+  "description": "Retrieve intraday SpO2 readings at 5-minute intervals during sleep.",
+  "resource_group": "spo2",
+  "endpoint": "/1/user/-/spo2/date/{date}/all.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "Date YYYY-MM-DD.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "oxygen_saturation"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/spo2/date/2025-01-15/all.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "dateTime": "2025-01-15",
+      "minutes": [
+        {
+          "minute": "2025-01-15T01:00:00",
+          "value": 96.5
+        }
+      ]
+    }
+  }
+}

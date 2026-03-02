@@ -1,0 +1,40 @@
+{
+  "name": "account_verify",
+  "description": "Verify whether a Dropbox Sign account exists for a given email.",
+  "endpoint": "/v3/account/verify",
+  "method": "POST",
+  "resource_group": "account",
+  "parameters": [
+    {
+      "name": "email_address",
+      "type": "string",
+      "description": "Email to verify.",
+      "required": true,
+      "example": "user@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hellosign.com/v3/account/verify",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email_address": "user@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "account": {
+        "email_address": "user@example.com",
+        "is_paid_hs": true
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

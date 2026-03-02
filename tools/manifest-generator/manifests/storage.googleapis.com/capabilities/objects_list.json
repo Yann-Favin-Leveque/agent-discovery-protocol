@@ -1,0 +1,75 @@
+{
+  "name": "objects_list",
+  "description": "List objects in a bucket.",
+  "resource_group": "objects",
+  "endpoint": "/b/{bucket}/o",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "bucket",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Name of the bucket"
+    },
+    {
+      "name": "delimiter",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Delimiter for hierarchical listing"
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "required": false,
+      "location": "query",
+      "description": "Maximum number of items to return"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Page token for pagination"
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Filter to objects with names starting with this prefix"
+    },
+    {
+      "name": "projection",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Set of properties to return"
+    },
+    {
+      "name": "versions",
+      "type": "boolean",
+      "required": false,
+      "location": "query",
+      "description": "If true, list all object versions"
+    }
+  ],
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/cloud-platform",
+    "https://www.googleapis.com/auth/cloud-platform.read-only",
+    "https://www.googleapis.com/auth/devstorage.full_control",
+    "https://www.googleapis.com/auth/devstorage.read_only",
+    "https://www.googleapis.com/auth/devstorage.read_write"
+  ],
+  "response_example": {
+    "kind": "storage#objects",
+    "items": [
+      {
+        "name": "file.txt",
+        "bucket": "my-bucket",
+        "size": "1024"
+      }
+    ]
+  }
+}

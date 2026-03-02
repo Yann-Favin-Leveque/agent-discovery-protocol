@@ -1,0 +1,70 @@
+{
+  "name": "campaigns_create",
+  "description": "Create a new campaign.",
+  "resource_group": "campaigns",
+  "endpoint": "/12/accounts/{account_id}/campaigns",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "Ad account ID.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Campaign name.",
+      "required": true
+    },
+    {
+      "name": "funding_instrument_id",
+      "type": "string",
+      "description": "Funding instrument ID.",
+      "required": true
+    },
+    {
+      "name": "daily_budget_amount_local_micro",
+      "type": "integer",
+      "description": "Daily budget in micros.",
+      "required": true,
+      "example": 50000000
+    },
+    {
+      "name": "entity_status",
+      "type": "string",
+      "description": "ACTIVE or PAUSED.",
+      "required": false,
+      "example": "PAUSED"
+    },
+    {
+      "name": "start_time",
+      "type": "string",
+      "description": "ISO 8601 start time.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://ads-api.twitter.com/12/accounts/abc123/campaigns",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "New Campaign",
+      "funding_instrument_id": "fi_1",
+      "daily_budget_amount_local_micro": 50000000,
+      "entity_status": "PAUSED"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "camp_2",
+        "name": "New Campaign"
+      }
+    }
+  }
+}

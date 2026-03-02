@@ -1,0 +1,40 @@
+{
+  "name": "machines_wait",
+  "description": "Wait for a Machine to reach a specific state.",
+  "resource_group": "machines",
+  "endpoint": "/v1/apps/{app_name}/machines/{machine_id}/wait",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_name",
+      "type": "string",
+      "required": true,
+      "description": "App name."
+    },
+    {
+      "name": "machine_id",
+      "type": "string",
+      "required": true,
+      "description": "Machine ID."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "Target state: started, stopped, suspended, destroyed."
+    },
+    {
+      "name": "timeout",
+      "type": "integer",
+      "required": false,
+      "description": "Timeout seconds."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.machines.dev/v1/apps/my-app/machines/mach-abc/wait?state=started&timeout=30"
+  },
+  "response_example": {
+    "ok": true
+  }
+}

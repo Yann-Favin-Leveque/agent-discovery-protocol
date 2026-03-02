@@ -1,0 +1,46 @@
+{
+  "name": "invoices_clone",
+  "description": "Duplicate an existing invoice.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "invoiceId",
+      "type": "string",
+      "description": "Invoice ID to clone",
+      "required": true,
+      "example": "SW52b2ljZTo6..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: InvoiceCloneInput!) { invoiceClone(input: $input) { invoice { id title } didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "invoiceClone": {
+          "invoice": {
+            "id": "SW52b2ljZTo6_new",
+            "title": "Invoice #003"
+          },
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

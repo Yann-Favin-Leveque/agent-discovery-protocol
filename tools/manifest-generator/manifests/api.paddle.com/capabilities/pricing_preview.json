@@ -1,0 +1,74 @@
+{
+  "name": "pricing_preview",
+  "description": "Preview pricing calculations for given items, including taxes and discounts.",
+  "resource_group": "pricing",
+  "endpoint": "/pricing-preview",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Items to preview pricing for.",
+      "required": true
+    },
+    {
+      "name": "customer_id",
+      "type": "string",
+      "description": "Customer for tax calculation.",
+      "required": false
+    },
+    {
+      "name": "address_id",
+      "type": "string",
+      "description": "Address for tax calculation.",
+      "required": false
+    },
+    {
+      "name": "currency_code",
+      "type": "string",
+      "description": "Currency code.",
+      "required": false
+    },
+    {
+      "name": "discount_id",
+      "type": "string",
+      "description": "Discount to apply.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/pricing-preview",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "items": [
+        {
+          "price_id": "pri_01h1vjes1y163xfj1rh1tkfb65",
+          "quantity": 1
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "details": {
+          "line_items": [
+            {
+              "price_id": "pri_01h1vjes1y163xfj1rh1tkfb65",
+              "totals": {
+                "subtotal": "1000",
+                "tax": "200",
+                "total": "1200"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

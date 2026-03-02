@@ -1,0 +1,18 @@
+{
+  "name": "object_detect",
+  "description": "Detect and locate objects within images using object detection models. Returns bounding boxes, labels, and confidence scores.",
+  "resource_group": "object_detection",
+  "endpoint": "/models/{model_id}",
+  "method": "POST",
+  "parameters": [
+    {"name": "model_id", "type": "string", "required": true, "description": "Model ID (e.g. 'facebook/detr-resnet-50')."},
+    {"name": "data", "type": "file", "required": true, "description": "Image file (sent as binary)."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://router.huggingface.co/models/facebook/detr-resnet-50",
+    "headers": {"Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "image/jpeg"},
+    "body": "Binary image content"
+  },
+  "response_example": {"status": 200, "body": [{"score": 0.97, "label": "cat", "box": {"xmin": 100, "ymin": 50, "xmax": 400, "ymax": 350}}]}
+}

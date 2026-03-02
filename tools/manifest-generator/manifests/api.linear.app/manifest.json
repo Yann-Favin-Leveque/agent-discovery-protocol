@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Linear",
-  "description": "Linear is a modern project management tool designed for software teams. It offers a fast, streamlined interface for issue tracking, project planning, and team workflows. Its GraphQL API provides full access to issues, projects, cycles, and comments.",
+  "description": "Linear is a modern issue tracking and project management tool for software teams. Its GraphQL API provides full access to issues, projects, cycles, comments, teams, labels, workflow states, users, and webhooks.",
   "base_url": "https://api.linear.app",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,190 @@
   },
   "capabilities": [
     {
-      "name": "create_issue",
-      "description": "Create a new issue in a team's backlog with title, description, priority, assignee, and labels.",
-      "detail_url": "/capabilities/create_issue"
+      "name": "issues_list",
+      "description": "List issues with optional filtering.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_list"
     },
     {
-      "name": "list_issues",
-      "description": "Retrieve issues with filtering by team, status, assignee, label, or project.",
-      "detail_url": "/capabilities/list_issues"
+      "name": "issues_get",
+      "description": "Get a specific issue by ID.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_get"
     },
     {
-      "name": "update_issue",
-      "description": "Update properties of an existing issue such as title, status, priority, or assignee.",
-      "detail_url": "/capabilities/update_issue"
+      "name": "issues_create",
+      "description": "Create a new issue.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_create"
     },
     {
-      "name": "list_projects",
-      "description": "List all projects with their status, progress, lead, and associated teams.",
-      "detail_url": "/capabilities/list_projects"
+      "name": "issues_update",
+      "description": "Update an existing issue.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_update"
     },
     {
-      "name": "create_comment",
-      "description": "Add a comment to an existing issue for discussion and collaboration.",
-      "detail_url": "/capabilities/create_comment"
+      "name": "issues_delete",
+      "description": "Delete an issue.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_delete"
     },
     {
-      "name": "search_issues",
-      "description": "Full-text search across all issues by keywords, returning matching results ranked by relevance.",
-      "detail_url": "/capabilities/search_issues"
+      "name": "issues_archive",
+      "description": "Archive an issue.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_archive"
+    },
+    {
+      "name": "issues_search",
+      "description": "Search issues by text.",
+      "resource_group": "issues",
+      "detail_url": "/capabilities/issues_search"
+    },
+    {
+      "name": "comments_list",
+      "description": "List comments on an issue.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_list"
+    },
+    {
+      "name": "comments_create",
+      "description": "Add a comment to an issue.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_create"
+    },
+    {
+      "name": "comments_update",
+      "description": "Update a comment.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_update"
+    },
+    {
+      "name": "comments_delete",
+      "description": "Delete a comment.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_delete"
+    },
+    {
+      "name": "projects_list",
+      "description": "List all projects.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_list"
+    },
+    {
+      "name": "projects_get",
+      "description": "Get a specific project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_get"
+    },
+    {
+      "name": "projects_create",
+      "description": "Create a new project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_create"
+    },
+    {
+      "name": "projects_update",
+      "description": "Update a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_update"
+    },
+    {
+      "name": "projects_delete",
+      "description": "Delete a project.",
+      "resource_group": "projects",
+      "detail_url": "/capabilities/projects_delete"
+    },
+    {
+      "name": "cycles_list",
+      "description": "List cycles for a team.",
+      "resource_group": "cycles",
+      "detail_url": "/capabilities/cycles_list"
+    },
+    {
+      "name": "cycles_get",
+      "description": "Get a specific cycle.",
+      "resource_group": "cycles",
+      "detail_url": "/capabilities/cycles_get"
+    },
+    {
+      "name": "cycles_create",
+      "description": "Create a new cycle.",
+      "resource_group": "cycles",
+      "detail_url": "/capabilities/cycles_create"
+    },
+    {
+      "name": "teams_list",
+      "description": "List all teams.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_list"
+    },
+    {
+      "name": "teams_get",
+      "description": "Get a specific team.",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_get"
+    },
+    {
+      "name": "labels_list",
+      "description": "List issue labels.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_list"
+    },
+    {
+      "name": "labels_create",
+      "description": "Create a new label.",
+      "resource_group": "labels",
+      "detail_url": "/capabilities/labels_create"
+    },
+    {
+      "name": "workflow_states_list",
+      "description": "List workflow states for a team.",
+      "resource_group": "workflow_states",
+      "detail_url": "/capabilities/workflow_states_list"
+    },
+    {
+      "name": "users_list",
+      "description": "List users in the workspace.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_list"
+    },
+    {
+      "name": "users_me",
+      "description": "Get the authenticated user.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_me"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List webhooks.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "organization_get",
+      "description": "Get organization details.",
+      "resource_group": "organization",
+      "detail_url": "/capabilities/organization_get"
     }
   ]
 }

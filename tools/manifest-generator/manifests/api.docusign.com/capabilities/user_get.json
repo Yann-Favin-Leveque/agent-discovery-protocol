@@ -1,0 +1,48 @@
+{
+  "name": "user_get",
+  "description": "Retrieve a specific user's profile and permissions.",
+  "resource_group": "user",
+  "endpoint": "/v2.1/accounts/{accountId}/users/{userId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "userId",
+      "type": "string",
+      "required": true,
+      "description": "User ID.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/users/user-123",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "userId": "user-123",
+      "userName": "Jane Admin",
+      "email": "admin@example.com",
+      "userStatus": "active",
+      "permissionProfileName": "Account Administrator",
+      "groupList": [
+        {
+          "groupName": "Administrators"
+        }
+      ]
+    }
+  }
+}

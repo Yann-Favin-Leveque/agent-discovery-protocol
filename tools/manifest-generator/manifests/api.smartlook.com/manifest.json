@@ -1,19 +1,151 @@
 {
   "spec_version": "1.0",
   "name": "Smartlook",
-  "description": "Smartlook is a qualitative analytics platform for web and mobile apps. Record user sessions, analyze heatmaps, track events, and build funnels to understand user behavior.",
-  "base_url": "https://api.smartlook.com/v2",
+  "description": "Smartlook is a qualitative analytics platform for web and mobile apps. Search session recordings, analyze events and funnels, manage visitors, configure webhooks, and export analytics data via the REST API.",
+  "base_url": "https://api.eu.smartlook.cloud",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
     "prefix": "Bearer"
   },
   "capabilities": [
-    {"name": "list_recordings", "description": "List and filter session recordings by date, duration, and user attributes.", "detail_url": "/capabilities/list_recordings"},
-    {"name": "get_recording", "description": "Get details of a specific session recording.", "detail_url": "/capabilities/get_recording"},
-    {"name": "list_events", "description": "List tracked events with filtering and aggregation.", "detail_url": "/capabilities/list_events"},
-    {"name": "list_funnels", "description": "List configured funnels and their conversion rates.", "detail_url": "/capabilities/list_funnels"},
-    {"name": "get_heatmap", "description": "Retrieve heatmap data for a specific page.", "detail_url": "/capabilities/get_heatmap"},
-    {"name": "identify_user", "description": "Set identity and custom properties for a visitor.", "detail_url": "/capabilities/identify_user"}
+    {
+      "name": "sessions_search",
+      "description": "Search and filter session recordings by date, duration, and attributes.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/sessions_search",
+      "resource_group": "sessions"
+    },
+    {
+      "name": "sessions_get",
+      "description": "Get detailed information about a specific session recording.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/sessions_get",
+      "resource_group": "sessions"
+    },
+    {
+      "name": "sessions_get_public_link",
+      "description": "Generate a shareable public link for a session recording.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/sessions_get_public_link",
+      "resource_group": "sessions"
+    },
+    {
+      "name": "events_list",
+      "description": "List tracked events with filtering and aggregation.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/events_list",
+      "resource_group": "events"
+    },
+    {
+      "name": "events_get",
+      "description": "Retrieve details of a specific tracked event.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/events_get",
+      "resource_group": "events"
+    },
+    {
+      "name": "events_get_visitors",
+      "description": "Get visitors who triggered a specific event.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/events_get_visitors",
+      "resource_group": "events"
+    },
+    {
+      "name": "events_delete",
+      "description": "Delete a tracked event definition.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/events_delete",
+      "resource_group": "events"
+    },
+    {
+      "name": "funnels_list",
+      "description": "List funnels with conversion rates and step breakdowns.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/funnels_list",
+      "resource_group": "funnels"
+    },
+    {
+      "name": "funnels_get",
+      "description": "Retrieve details of a specific funnel with drop-off analysis.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/funnels_get",
+      "resource_group": "funnels"
+    },
+    {
+      "name": "funnels_get_dropoff_visitors",
+      "description": "Get visitors who dropped off at each funnel step.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/funnels_get_dropoff_visitors",
+      "resource_group": "funnels"
+    },
+    {
+      "name": "visitors_get",
+      "description": "Retrieve details of a specific visitor.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/visitors_get",
+      "resource_group": "visitors"
+    },
+    {
+      "name": "visitors_search",
+      "description": "Search visitors by properties, identity, or behavior.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/visitors_search",
+      "resource_group": "visitors"
+    },
+    {
+      "name": "visitors_get_sessions",
+      "description": "Get all session recordings for a specific visitor.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/visitors_get_sessions",
+      "resource_group": "visitors"
+    },
+    {
+      "name": "visitors_get_events",
+      "description": "Get all events triggered by a specific visitor.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/visitors_get_events",
+      "resource_group": "visitors"
+    },
+    {
+      "name": "visitors_delete",
+      "description": "Delete a visitor and all associated data.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/visitors_delete",
+      "resource_group": "visitors"
+    },
+    {
+      "name": "visitors_bulk_delete",
+      "description": "Bulk-delete multiple visitors and their data.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/visitors_bulk_delete",
+      "resource_group": "visitors"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook for real-time event notifications.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/webhooks_create",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List all configured webhooks.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/webhooks_list",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Retrieve details of a specific webhook.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/webhooks_get",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook's URL or subscribed events.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/webhooks_update",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/webhooks_delete",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "project_get",
+      "description": "Retrieve information about the current project.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/project_get",
+      "resource_group": "project"
+    },
+    {
+      "name": "statistics_get",
+      "description": "Retrieve API usage statistics.",
+      "detail_url": "https://agent-dns.dev/api/services/api.smartlook.com/capabilities/statistics_get",
+      "resource_group": "project"
+    }
   ]
 }

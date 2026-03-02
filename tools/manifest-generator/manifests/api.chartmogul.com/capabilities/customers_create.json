@@ -1,0 +1,97 @@
+{
+  "name": "customers_create",
+  "description": "Create a customer in ChartMogul under a specified data source.",
+  "endpoint": "/v1/customers",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "data_source_uuid",
+      "type": "string",
+      "description": "UUID of the data source.",
+      "required": true
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "description": "Unique customer ID from your system.",
+      "required": true,
+      "example": "cus_123"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Customer name.",
+      "required": false,
+      "example": "Acme Corp"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Customer email.",
+      "required": false,
+      "example": "billing@acme.com"
+    },
+    {
+      "name": "company",
+      "type": "string",
+      "description": "Company name.",
+      "required": false
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code.",
+      "required": false,
+      "example": "US"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "Customer city.",
+      "required": false
+    },
+    {
+      "name": "lead_created_at",
+      "type": "string",
+      "description": "ISO 8601 timestamp when customer became a lead.",
+      "required": false
+    },
+    {
+      "name": "free_trial_started_at",
+      "type": "string",
+      "description": "ISO 8601 timestamp for trial start.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chartmogul.com/v1/customers",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data_source_uuid": "ds_93b06efd",
+      "external_id": "cus_123",
+      "name": "Acme Corp",
+      "email": "billing@acme.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uuid": "cus_93b06efd",
+      "external_id": "cus_123",
+      "name": "Acme Corp",
+      "email": "billing@acme.com",
+      "status": "Lead",
+      "mrr": 0,
+      "arr": 0
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

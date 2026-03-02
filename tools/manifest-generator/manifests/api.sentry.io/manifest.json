@@ -1,19 +1,176 @@
 {
   "spec_version": "1.0",
   "name": "Sentry",
-  "description": "Sentry is an application monitoring and error tracking platform. Capture, triage, and resolve errors and performance issues across your stack in real-time.",
+  "description": "Sentry is an application monitoring and error tracking platform. Capture, triage, and resolve errors in real-time. Manage projects, issues, events, releases, and teams.",
   "base_url": "https://sentry.io/api/0",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://sentry.io/settings/account/api/auth-tokens/"
   },
   "capabilities": [
-    {"name": "list_projects", "description": "List all projects accessible to the authenticated user across organizations.", "detail_url": "/capabilities/list_projects"},
-    {"name": "list_issues", "description": "List error issues for a project with filtering by status, priority, and query.", "detail_url": "/capabilities/list_issues"},
-    {"name": "get_issue_details", "description": "Retrieve detailed information about a specific issue including stacktrace and events.", "detail_url": "/capabilities/get_issue_details"},
-    {"name": "resolve_issue", "description": "Update an issue's status to resolved, ignored, or unresolved.", "detail_url": "/capabilities/resolve_issue"},
-    {"name": "list_events", "description": "List recent error events for a project with full stacktraces and context.", "detail_url": "/capabilities/list_events"},
-    {"name": "create_alert_rule", "description": "Create an alert rule to get notified when specific error conditions are met.", "detail_url": "/capabilities/create_alert_rule"}
+    {
+      "name": "organizations_list",
+      "resource_group": "organizations",
+      "description": "List organizations the user belongs to.",
+      "detail_url": "/capabilities/organizations_list"
+    },
+    {
+      "name": "organizations_get",
+      "resource_group": "organizations",
+      "description": "Get organization details.",
+      "detail_url": "/capabilities/organizations_get"
+    },
+    {
+      "name": "projects_list",
+      "resource_group": "projects",
+      "description": "List projects in an organization.",
+      "detail_url": "/capabilities/projects_list"
+    },
+    {
+      "name": "projects_get",
+      "resource_group": "projects",
+      "description": "Get project details.",
+      "detail_url": "/capabilities/projects_get"
+    },
+    {
+      "name": "projects_create",
+      "resource_group": "projects",
+      "description": "Create a new project.",
+      "detail_url": "/capabilities/projects_create"
+    },
+    {
+      "name": "projects_update",
+      "resource_group": "projects",
+      "description": "Update a project.",
+      "detail_url": "/capabilities/projects_update"
+    },
+    {
+      "name": "projects_delete",
+      "resource_group": "projects",
+      "description": "Delete a project.",
+      "detail_url": "/capabilities/projects_delete"
+    },
+    {
+      "name": "issues_list",
+      "resource_group": "issues",
+      "description": "List issues for a project.",
+      "detail_url": "/capabilities/issues_list"
+    },
+    {
+      "name": "issues_list_org",
+      "resource_group": "issues",
+      "description": "List issues across an organization.",
+      "detail_url": "/capabilities/issues_list_org"
+    },
+    {
+      "name": "issues_get",
+      "resource_group": "issues",
+      "description": "Get issue details.",
+      "detail_url": "/capabilities/issues_get"
+    },
+    {
+      "name": "issues_update",
+      "resource_group": "issues",
+      "description": "Update issue (resolve, ignore, assign).",
+      "detail_url": "/capabilities/issues_update"
+    },
+    {
+      "name": "issues_delete",
+      "resource_group": "issues",
+      "description": "Delete an issue.",
+      "detail_url": "/capabilities/issues_delete"
+    },
+    {
+      "name": "issues_bulk_update",
+      "resource_group": "issues",
+      "description": "Bulk update issues for a project.",
+      "detail_url": "/capabilities/issues_bulk_update"
+    },
+    {
+      "name": "events_list",
+      "resource_group": "events",
+      "description": "List events for a project.",
+      "detail_url": "/capabilities/events_list"
+    },
+    {
+      "name": "events_get",
+      "resource_group": "events",
+      "description": "Get a specific event.",
+      "detail_url": "/capabilities/events_get"
+    },
+    {
+      "name": "events_issue_list",
+      "resource_group": "events",
+      "description": "List events for a specific issue.",
+      "detail_url": "/capabilities/events_issue_list"
+    },
+    {
+      "name": "releases_list",
+      "resource_group": "releases",
+      "description": "List releases for an organization.",
+      "detail_url": "/capabilities/releases_list"
+    },
+    {
+      "name": "releases_create",
+      "resource_group": "releases",
+      "description": "Create a release.",
+      "detail_url": "/capabilities/releases_create"
+    },
+    {
+      "name": "releases_get",
+      "resource_group": "releases",
+      "description": "Get release details.",
+      "detail_url": "/capabilities/releases_get"
+    },
+    {
+      "name": "releases_update",
+      "resource_group": "releases",
+      "description": "Update a release.",
+      "detail_url": "/capabilities/releases_update"
+    },
+    {
+      "name": "releases_delete",
+      "resource_group": "releases",
+      "description": "Delete a release.",
+      "detail_url": "/capabilities/releases_delete"
+    },
+    {
+      "name": "releases_deploy_create",
+      "resource_group": "releases",
+      "description": "Create a deploy for a release.",
+      "detail_url": "/capabilities/releases_deploy_create"
+    },
+    {
+      "name": "teams_list",
+      "resource_group": "teams",
+      "description": "List teams in an organization.",
+      "detail_url": "/capabilities/teams_list"
+    },
+    {
+      "name": "teams_create",
+      "resource_group": "teams",
+      "description": "Create a team.",
+      "detail_url": "/capabilities/teams_create"
+    },
+    {
+      "name": "teams_delete",
+      "resource_group": "teams",
+      "description": "Delete a team.",
+      "detail_url": "/capabilities/teams_delete"
+    },
+    {
+      "name": "members_list",
+      "resource_group": "organizations",
+      "description": "List organization members.",
+      "detail_url": "/capabilities/members_list"
+    },
+    {
+      "name": "project_keys_list",
+      "resource_group": "projects",
+      "description": "List client keys (DSN) for a project.",
+      "detail_url": "/capabilities/project_keys_list"
+    }
   ]
 }

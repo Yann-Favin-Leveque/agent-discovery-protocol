@@ -1,0 +1,107 @@
+{
+  "name": "admin_user_update",
+  "description": "Update a user's attributes as admin. Can modify email, password, phone, metadata, role, and ban/confirm status. Requires service_role key.",
+  "endpoint": "/auth/v1/admin/users/{user_id}",
+  "method": "PUT",
+  "resource_group": "admin",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The user's UUID.",
+      "required": true,
+      "example": "uuid-1234"
+    },
+    {
+      "name": "Authorization",
+      "type": "string",
+      "description": "Bearer token with service_role key.",
+      "required": true,
+      "example": "Bearer {service_role_key}"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "New email address.",
+      "required": false,
+      "example": "updated@example.com"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "New password.",
+      "required": false,
+      "example": "newPassword123"
+    },
+    {
+      "name": "email_confirm",
+      "type": "boolean",
+      "description": "Automatically confirm the user's email.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "phone_confirm",
+      "type": "boolean",
+      "description": "Automatically confirm the user's phone.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "ban_duration",
+      "type": "string",
+      "description": "Ban duration (e.g., '24h', '168h'). Set to 'none' to unban.",
+      "required": false,
+      "example": "24h"
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "description": "User role.",
+      "required": false,
+      "example": "authenticated"
+    },
+    {
+      "name": "user_metadata",
+      "type": "object",
+      "description": "Custom user metadata.",
+      "required": false,
+      "example": {"first_name": "Jane"}
+    },
+    {
+      "name": "app_metadata",
+      "type": "object",
+      "description": "Application metadata (admin-only, not editable by user).",
+      "required": false,
+      "example": {"plan": "premium"}
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://your-project.supabase.co/auth/v1/admin/users/uuid-1234",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {service_role_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email_confirm": true,
+      "user_metadata": {"first_name": "Jane"},
+      "app_metadata": {"plan": "premium"}
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-1234",
+      "email": "user@example.com",
+      "email_confirmed_at": "2024-01-15T12:00:00Z",
+      "user_metadata": {"first_name": "Jane"},
+      "app_metadata": {"plan": "premium"}
+    }
+  },
+  "auth_scopes": ["service_role"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

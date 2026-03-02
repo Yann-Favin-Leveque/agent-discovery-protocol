@@ -1,0 +1,42 @@
+{
+  "name": "tickets_update_many",
+  "description": "Bulk update multiple tickets.",
+  "endpoint": "/api/v2/tickets/update_many",
+  "method": "PUT",
+  "resource_group": "tickets",
+  "parameters": [
+    {
+      "name": "ids",
+      "type": "string",
+      "description": "Comma-separated ticket IDs",
+      "required": true,
+      "example": "1,2,3"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{subdomain}.zendesk.com/api/v2/tickets/update_many",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ticket": {
+        "status": "solved"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "job_status": {
+        "id": "job_456",
+        "status": "queued"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

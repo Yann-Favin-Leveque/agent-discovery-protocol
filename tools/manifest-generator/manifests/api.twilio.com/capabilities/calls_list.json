@@ -1,0 +1,65 @@
+{
+  "name": "calls_list",
+  "resource_group": "calls",
+  "description": "List calls made to and from the account.",
+  "endpoint": "/2010-04-01/Accounts/{AccountSid}/Calls.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "AccountSid",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Account SID",
+      "example": "ACXXX"
+    },
+    {
+      "name": "To",
+      "type": "string",
+      "required": false,
+      "description": "Filter by destination",
+      "example": "+15558675310"
+    },
+    {
+      "name": "From",
+      "type": "string",
+      "required": false,
+      "description": "Filter by caller",
+      "example": "+15017122661"
+    },
+    {
+      "name": "Status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by status",
+      "example": "completed"
+    },
+    {
+      "name": "PageSize",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.twilio.com/2010-04-01/Accounts/ACXXX/Calls.json?PageSize=20",
+    "headers": {
+      "Authorization": "Basic BASE64(AccountSid:AuthToken)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "calls": [
+        {
+          "sid": "CAXXX",
+          "to": "+15558675310",
+          "status": "completed",
+          "duration": "45"
+        }
+      ]
+    }
+  }
+}

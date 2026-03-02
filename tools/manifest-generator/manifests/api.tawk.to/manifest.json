@@ -1,8 +1,8 @@
 {
   "spec_version": "1.0",
   "name": "tawk.to",
-  "description": "tawk.to is a free live chat platform for websites. Its API provides webhook-driven event notifications for chat sessions and tickets, plus a JavaScript widget API for controlling the chat widget behavior on your site.",
-  "base_url": "https://api.tawk.to/v1",
+  "description": "tawk.to is a free live chat platform for websites. Its REST API lets you manage properties, chat conversations, support tickets, visitors, webhooks, team members, knowledge base articles, and chat widgets programmatically.",
+  "base_url": "https://api.tawk.to",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
@@ -11,34 +11,88 @@
   },
   "capabilities": [
     {
-      "name": "list_chats",
-      "description": "Retrieve a paginated list of chat conversations for a property. Supports filtering by date range and status.",
-      "detail_url": "/capabilities/list_chats"
+      "name": "properties_list",
+      "description": "Retrieve a list of all properties (websites/apps) associated with your tawk.to account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/properties_list",
+      "resource_group": "properties"
     },
     {
-      "name": "get_chat_transcript",
-      "description": "Fetch the full message transcript for a specific chat session. Returns all messages exchanged between visitor and agents.",
-      "detail_url": "/capabilities/get_chat_transcript"
+      "name": "chats_list",
+      "description": "Retrieve a paginated list of chat conversations for a property with optional date and status filters.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/chats_list",
+      "resource_group": "chats"
     },
     {
-      "name": "list_tickets",
-      "description": "Retrieve support tickets submitted through the tawk.to widget. Supports filtering by status and date.",
-      "detail_url": "/capabilities/list_tickets"
+      "name": "chats_get",
+      "description": "Fetch the full details and message transcript for a specific chat session.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/chats_get",
+      "resource_group": "chats"
     },
     {
-      "name": "send_message",
-      "description": "Send a message to an active chat conversation as an agent. Supports text messages to ongoing visitor sessions.",
-      "detail_url": "/capabilities/send_message"
+      "name": "tickets_list",
+      "description": "Retrieve support tickets for a property with filtering by status, date range, and sorting.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/tickets_list",
+      "resource_group": "tickets"
     },
     {
-      "name": "get_visitor_info",
-      "description": "Retrieve information about a specific visitor including their name, email, location, and browsing history on your site.",
-      "detail_url": "/capabilities/get_visitor_info"
+      "name": "tickets_create",
+      "description": "Create a new support ticket for a property.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/tickets_create",
+      "resource_group": "tickets"
     },
     {
-      "name": "create_ticket",
-      "description": "Create a new support ticket in tawk.to. Useful for logging issues that need follow-up outside of live chat.",
-      "detail_url": "/capabilities/create_ticket"
+      "name": "visitors_get",
+      "description": "Retrieve information about a specific visitor including name, email, location, and browsing history.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/visitors_get",
+      "resource_group": "visitors"
+    },
+    {
+      "name": "messages_send",
+      "description": "Send a message to an active chat conversation as an agent.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/messages_send",
+      "resource_group": "messages"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List all configured webhooks for a property.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/webhooks_list",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a new webhook subscription to receive real-time event notifications.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/webhooks_create",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook subscription for a property.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/webhooks_delete",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "members_list",
+      "description": "Retrieve a list of team members (agents) for a property.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/members_list",
+      "resource_group": "members"
+    },
+    {
+      "name": "knowledgebase_articles_list",
+      "description": "List knowledge base articles for a property.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/knowledgebase_articles_list",
+      "resource_group": "knowledgebase"
+    },
+    {
+      "name": "knowledgebase_articles_create",
+      "description": "Create a new knowledge base article for a property.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/knowledgebase_articles_create",
+      "resource_group": "knowledgebase"
+    },
+    {
+      "name": "widgets_create",
+      "description": "Create a new chat widget configuration for a property.",
+      "detail_url": "https://agent-dns.dev/api/services/api.tawk.to/capabilities/widgets_create",
+      "resource_group": "widgets"
     }
   ]
 }

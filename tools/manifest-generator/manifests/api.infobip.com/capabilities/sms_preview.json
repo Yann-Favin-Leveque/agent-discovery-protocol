@@ -1,0 +1,56 @@
+{
+  "name": "sms_preview",
+  "description": "Preview how an SMS message will be segmented and charged without actually sending it. Returns character count, message count, and encoding details.",
+  "endpoint": "/sms/1/preview",
+  "method": "POST",
+  "resource_group": "sms",
+  "parameters": [
+    {
+      "name": "text",
+      "type": "string",
+      "required": true,
+      "description": "The message text to preview."
+    },
+    {
+      "name": "transliteration",
+      "type": "string",
+      "required": false,
+      "description": "Transliteration scheme to apply (e.g., 'TURKISH', 'GREEK', 'CENTRAL_EUROPEAN')."
+    },
+    {
+      "name": "languageCode",
+      "type": "string",
+      "required": false,
+      "description": "Language code for the message content."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/sms/1/preview",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "text": "Let's see how many characters remain in the last SMS part."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "originalText": "Let's see how many characters remain in the last SMS part.",
+      "previews": [
+        {
+          "textPreview": "Let's see how many characters remain in the last SMS part.",
+          "messageCount": 1,
+          "charactersRemaining": 102,
+          "configuration": {}
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

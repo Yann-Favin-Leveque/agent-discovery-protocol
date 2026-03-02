@@ -1,0 +1,42 @@
+{
+  "name": "purge_create",
+  "resource_group": "purge",
+  "description": "Purge cached derivative copies of an asset from the CDN.",
+  "endpoint": "/api/v1/purge",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "JSON:API purge object with url attribute."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.imgix.com/api/v1/purge",
+    "headers": {
+      "Authorization": "Bearer imgix-api-key",
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "purges",
+        "attributes": {
+          "url": "https://my-source.imgix.net/images/photo.jpg"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "type": "purges",
+        "attributes": {
+          "url": "https://my-source.imgix.net/images/photo.jpg"
+        }
+      }
+    }
+  }
+}

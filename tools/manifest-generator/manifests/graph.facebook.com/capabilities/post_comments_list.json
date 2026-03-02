@@ -1,0 +1,50 @@
+{
+  "name": "post_comments_list",
+  "description": "Retrieve comments on a specific post.",
+  "resource_group": "comments",
+  "endpoint": "/v21.0/{post_id}/comments",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "post_id",
+      "type": "string",
+      "required": true,
+      "description": "Post ID."
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "required": false,
+      "description": "Fields: id, message, from, created_time."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of comments to return."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/111222333_444555666/comments?fields=id,message,from,created_time&limit=25",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "comment_01",
+          "message": "Great post!",
+          "from": {
+            "name": "User",
+            "id": "789"
+          },
+          "created_time": "2024-01-15T13:00:00+0000"
+        }
+      ]
+    }
+  }
+}

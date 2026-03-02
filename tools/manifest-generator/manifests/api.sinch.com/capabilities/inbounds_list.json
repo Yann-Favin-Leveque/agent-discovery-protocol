@@ -1,0 +1,74 @@
+{
+  "name": "inbounds_list",
+  "description": "List inbound SMS messages received on your Sinch numbers with optional date range filtering and pagination.",
+  "endpoint": "/xms/v1/{service_plan_id}/inbounds",
+  "method": "GET",
+  "resource_group": "inbounds",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number. Default 0."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "description": "Number of items per page. Default 30, max 100."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": false,
+      "description": "Filter by the destination Sinch number."
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 date for filtering messages received on or after."
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 date for filtering messages received before."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/inbounds?page_size=20",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 1,
+      "page": 0,
+      "inbounds": [
+        {
+          "id": "inbound-msg-01",
+          "from": "14155550123",
+          "to": "12015550145",
+          "body": "HELP",
+          "type": "mo_text",
+          "received_at": "2024-01-15T12:10:00.000Z"
+        }
+      ],
+      "page_size": 20
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

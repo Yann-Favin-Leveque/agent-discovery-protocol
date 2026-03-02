@@ -1,0 +1,67 @@
+{
+  "name": "batches_replace",
+  "description": "Replace all properties of an existing batch with new values. Unlike update, this replaces the entire batch configuration.",
+  "endpoint": "/xms/v1/{service_plan_id}/batches/{batch_id}",
+  "method": "PUT",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "batch_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique batch identifier (path parameter)."
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "required": true,
+      "description": "Array of recipient phone numbers in E.164 format."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "Sender phone number."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "description": "The new message body text."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/batches/{batch_id}",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {api_token}"
+    },
+    "body": {
+      "from": "12015550145",
+      "to": ["14155550126"],
+      "body": "Completely replaced message body."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "batch-id-01HXYZ",
+      "to": ["14155550126"],
+      "from": "12015550145",
+      "body": "Completely replaced message body.",
+      "type": "mt_text",
+      "modified_at": "2024-01-15T12:10:00.000Z"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

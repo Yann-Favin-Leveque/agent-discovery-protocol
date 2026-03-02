@@ -1,0 +1,88 @@
+{
+  "name": "catalog_upsert_object",
+  "description": "Create or update a single catalog object (item, category, tax, discount).",
+  "endpoint": "/v2/catalog/object",
+  "method": "POST",
+  "resource_group": "catalog",
+  "parameters": [
+    {
+      "name": "idempotency_key",
+      "type": "string",
+      "description": "Unique key",
+      "required": true,
+      "example": "upsert-key-123"
+    },
+    {
+      "name": "object",
+      "type": "object",
+      "description": "Catalog object to create/update",
+      "required": true,
+      "example": {
+        "type": "ITEM",
+        "id": "#coffee",
+        "item_data": {
+          "name": "Coffee",
+          "variations": [
+            {
+              "type": "ITEM_VARIATION",
+              "id": "#small",
+              "item_variation_data": {
+                "name": "Small",
+                "pricing_type": "FIXED_PRICING",
+                "price_money": {
+                  "amount": 350,
+                  "currency": "USD"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/catalog/object",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "idempotency_key": "upsert-key-123",
+      "object": {
+        "type": "ITEM",
+        "id": "#coffee",
+        "item_data": {
+          "name": "Coffee"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "catalog_object": {
+        "type": "ITEM",
+        "id": "item_123",
+        "item_data": {
+          "name": "Coffee"
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "run_tags_add",
+  "description": "Add tags to an existing run for organization and filtering.",
+  "resource_group": "run",
+  "endpoint": "/api/v3/runs/{runId}/tags",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "runId",
+      "type": "string",
+      "description": "Run ID (path parameter).",
+      "required": true,
+      "example": "run_abc123"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Tags to add.",
+      "required": true,
+      "example": [
+        "production",
+        "priority-high"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trigger.dev/api/v3/runs/run_abc123/tags",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tags": [
+        "production",
+        "priority-high"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "run_abc123",
+      "tags": [
+        "production",
+        "priority-high"
+      ]
+    }
+  }
+}

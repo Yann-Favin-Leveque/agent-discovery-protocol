@@ -1,0 +1,70 @@
+{
+  "name": "loyalty_accounts_create",
+  "description": "Create a loyalty account for a customer.",
+  "endpoint": "/v2/loyalty/accounts",
+  "method": "POST",
+  "resource_group": "loyalty",
+  "parameters": [
+    {
+      "name": "loyalty_account",
+      "type": "object",
+      "description": "Loyalty account data",
+      "required": true,
+      "example": {
+        "program_id": "prog_123",
+        "mapping": {
+          "phone_number": "+15551234567"
+        }
+      }
+    },
+    {
+      "name": "idempotency_key",
+      "type": "string",
+      "description": "Unique key",
+      "required": true,
+      "example": "loyalty-key-123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/loyalty/accounts",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "loyalty_account": {
+        "program_id": "prog_123",
+        "mapping": {
+          "phone_number": "+15551234567"
+        }
+      },
+      "idempotency_key": "loyalty-key-123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "loyalty_account": {
+        "id": "loyalty_abc",
+        "program_id": "prog_123",
+        "balance": 0
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

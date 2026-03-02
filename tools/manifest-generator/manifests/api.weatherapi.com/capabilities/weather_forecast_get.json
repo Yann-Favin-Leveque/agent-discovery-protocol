@@ -1,0 +1,116 @@
+{
+  "name": "weather_forecast_get",
+  "description": "Get weather forecast for up to 14 days with hourly breakdowns including temperature, precipitation chance, wind, humidity, and daily summaries with min/max temperature.",
+  "resource_group": "weather",
+  "endpoint": "/v1/forecast.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "required": true,
+      "description": "Location query: city name, lat/lon, US/UK/Canada postal code, IP address, or 'auto:ip'.",
+      "in": "query"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "days",
+      "type": "integer",
+      "required": true,
+      "description": "Number of forecast days (1-14).",
+      "in": "query"
+    },
+    {
+      "name": "aqi",
+      "type": "string",
+      "required": false,
+      "description": "Include air quality: 'yes' or 'no'.",
+      "in": "query"
+    },
+    {
+      "name": "alerts",
+      "type": "string",
+      "required": false,
+      "description": "Include weather alerts: 'yes' or 'no'.",
+      "in": "query"
+    },
+    {
+      "name": "hour",
+      "type": "integer",
+      "required": false,
+      "description": "Restrict to a specific hour (0-23).",
+      "in": "query"
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "required": false,
+      "description": "Language code.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.weatherapi.com/v1/forecast.json?key=YOUR_API_KEY&q=Paris&days=3&aqi=yes&alerts=yes"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "location": {
+        "name": "Paris",
+        "country": "France"
+      },
+      "current": {
+        "temp_c": 18.5
+      },
+      "forecast": {
+        "forecastday": [
+          {
+            "date": "2025-01-15",
+            "day": {
+              "maxtemp_c": 20.3,
+              "mintemp_c": 12.1,
+              "avgtemp_c": 16.2,
+              "totalprecip_mm": 0.0,
+              "avghumidity": 55,
+              "daily_chance_of_rain": 15,
+              "condition": {
+                "text": "Sunny"
+              },
+              "uv": 3
+            },
+            "astro": {
+              "sunrise": "08:33 AM",
+              "sunset": "05:14 PM",
+              "moonrise": "12:45 PM",
+              "moonset": "02:30 AM",
+              "moon_phase": "Waxing Gibbous"
+            },
+            "hour": [
+              {
+                "time": "2025-01-15 00:00",
+                "temp_c": 13.2,
+                "condition": {
+                  "text": "Clear"
+                },
+                "wind_kph": 8.5,
+                "humidity": 68,
+                "chance_of_rain": 5
+              }
+            ]
+          }
+        ]
+      },
+      "alerts": {
+        "alert": []
+      }
+    }
+  }
+}

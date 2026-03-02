@@ -1,0 +1,60 @@
+{
+  "name": "entries_update",
+  "description": "Update an existing content entry by its document ID. Only the provided fields are modified; omitted fields remain unchanged.",
+  "resource_group": "entries",
+  "endpoint": "/api/{pluralApiId}/{documentId}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "pluralApiId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The pluralized API ID of the collection type (e.g., 'articles')."
+    },
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The document ID of the entry to update."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "An object containing the fields to update."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.strapi.io/api/articles/a1b2c3d4e5",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "title": "Updated Article Title",
+        "content": "Updated content..."
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 1,
+        "documentId": "a1b2c3d4e5",
+        "attributes": {
+          "title": "Updated Article Title",
+          "content": "Updated content...",
+          "slug": "introduction-to-ai-agents",
+          "updatedAt": "2026-03-01T14:00:00.000Z"
+        }
+      },
+      "meta": {}
+    }
+  }
+}

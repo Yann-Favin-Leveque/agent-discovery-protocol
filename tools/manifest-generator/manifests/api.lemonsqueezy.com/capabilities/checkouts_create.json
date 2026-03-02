@@ -1,0 +1,78 @@
+{
+  "name": "checkouts_create",
+  "description": "Create a checkout session for a variant.",
+  "resource_group": "checkouts",
+  "endpoint": "/v1/checkouts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "data.type",
+      "type": "string",
+      "description": "Resource type.",
+      "required": true
+    },
+    {
+      "name": "data.attributes.checkout_data",
+      "type": "object",
+      "description": "Checkout customization data.",
+      "required": false
+    },
+    {
+      "name": "data.relationships.store",
+      "type": "object",
+      "description": "Store relationship.",
+      "required": true
+    },
+    {
+      "name": "data.relationships.variant",
+      "type": "object",
+      "description": "Variant relationship.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lemonsqueezy.com/v1/checkouts",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "checkouts",
+        "attributes": {
+          "checkout_data": {
+            "email": "john@example.com"
+          }
+        },
+        "relationships": {
+          "store": {
+            "data": {
+              "type": "stores",
+              "id": "1"
+            }
+          },
+          "variant": {
+            "data": {
+              "type": "variants",
+              "id": "1"
+            }
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "type": "checkouts",
+        "id": "1",
+        "attributes": {
+          "url": "https://store.lemonsqueezy.com/checkout/..."
+        }
+      }
+    }
+  }
+}

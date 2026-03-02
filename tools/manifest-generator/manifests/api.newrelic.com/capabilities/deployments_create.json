@@ -1,0 +1,37 @@
+{
+  "name": "deployments_create",
+  "description": "Record a new deployment for an application.",
+  "resource_group": "deployments",
+  "endpoint": "/v2/applications/{application_id}/deployments.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "application_id",
+      "type": "integer",
+      "required": true,
+      "description": "Application ID",
+      "location": "path"
+    },
+    {
+      "name": "deployment",
+      "type": "object",
+      "required": true,
+      "description": "Deployment with revision, changelog, description, user"
+    }
+  ],
+  "request_example": {
+    "deployment": {
+      "revision": "abc123",
+      "description": "v2.0 release",
+      "user": "deploy-bot",
+      "changelog": "New features"
+    }
+  },
+  "response_example": {
+    "deployment": {
+      "id": 2,
+      "revision": "abc123"
+    }
+  },
+  "auth_scopes": []
+}

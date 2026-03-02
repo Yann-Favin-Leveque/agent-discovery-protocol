@@ -1,0 +1,52 @@
+{
+  "name": "pages_create",
+  "description": "Create a wiki page.",
+  "resource_group": "pages",
+  "endpoint": "/api/v1/courses/{course_id}/pages",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "wiki_page[title]",
+      "type": "string",
+      "description": "Page title.",
+      "required": true,
+      "example": "Resources"
+    },
+    {
+      "name": "wiki_page[body]",
+      "type": "string",
+      "description": "Page HTML body.",
+      "required": false,
+      "example": "<p>Useful links</p>"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/pages",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "wiki_page": {
+        "title": "Resources",
+        "body": "<p>Useful links</p>"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page_id": 11002,
+      "url": "resources",
+      "title": "Resources"
+    }
+  }
+}

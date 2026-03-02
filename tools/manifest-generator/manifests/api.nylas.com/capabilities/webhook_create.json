@@ -1,0 +1,56 @@
+{
+  "name": "webhook_create",
+  "description": "Create a new webhook subscription for real-time event notifications.",
+  "resource_group": "webhook",
+  "endpoint": "/v3/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "webhook_url",
+      "type": "string",
+      "description": "URL to receive webhook events.",
+      "required": true,
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "triggers",
+      "type": "array",
+      "description": "Event triggers to subscribe to.",
+      "required": true,
+      "example": [
+        "message.created",
+        "event.created"
+      ]
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Webhook description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.us.nylas.com/v3/webhooks",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "webhook_url": "https://example.com/webhook",
+      "triggers": [
+        "message.created"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "wh_new",
+        "webhook_url": "https://example.com/webhook",
+        "webhook_secret": "whsec_xxx"
+      }
+    }
+  }
+}

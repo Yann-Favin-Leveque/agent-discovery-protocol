@@ -1,0 +1,39 @@
+{
+  "name": "breathing_rate_summary_get",
+  "description": "Retrieve breathing rate summary (breaths per minute during sleep).",
+  "resource_group": "breathing_rate",
+  "endpoint": "/1/user/-/br/date/{date}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "Date YYYY-MM-DD or {start}/{end}.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "respiratory_rate"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/br/date/2025-01-15.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "br": [
+        {
+          "dateTime": "2025-01-15",
+          "value": {
+            "breathingRate": 15.2
+          }
+        }
+      ]
+    }
+  }
+}

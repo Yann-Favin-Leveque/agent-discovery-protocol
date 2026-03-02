@@ -1,0 +1,48 @@
+{
+  "name": "sending_domains_update",
+  "description": "Update a sending domain configuration including tracking domain and DKIM settings.",
+  "endpoint": "/api/v1/sending-domains/{domain}",
+  "method": "PUT",
+  "resource_group": "sending_domains",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Domain name",
+      "required": true,
+      "example": "mail.example.com"
+    },
+    {
+      "name": "tracking_domain",
+      "type": "string",
+      "description": "Associated tracking domain",
+      "required": false,
+      "example": "track.example.com"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sparkpost.com/api/v1/sending-domains/mail.example.com",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tracking_domain": "track.example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "domain": "mail.example.com"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

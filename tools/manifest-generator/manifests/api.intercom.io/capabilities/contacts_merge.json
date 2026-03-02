@@ -1,0 +1,43 @@
+{
+  "name": "contacts_merge",
+  "description": "Merge a lead contact into an existing user contact.",
+  "resource_group": "contacts",
+  "endpoint": "/contacts/merge",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "The ID of the lead to merge from."
+    },
+    {
+      "name": "into",
+      "type": "string",
+      "required": true,
+      "description": "The ID of the user to merge into."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/contacts/merge",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "from": "lead-id-abc",
+      "into": "user-id-xyz"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "contact",
+      "id": "user-id-xyz",
+      "role": "user",
+      "email": "jane@example.com"
+    }
+  }
+}

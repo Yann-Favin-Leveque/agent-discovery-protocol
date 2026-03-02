@@ -1,0 +1,43 @@
+{
+  "name": "large_files_list_unfinished",
+  "description": "List all unfinished large file uploads in a bucket.",
+  "resource_group": "large_files",
+  "endpoint": "/b2api/v3/b2_list_unfinished_large_files",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "The bucket ID.",
+      "required": true
+    },
+    {
+      "name": "maxFileCount",
+      "type": "integer",
+      "description": "Max files to return.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_list_unfinished_large_files",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "bucketId": "bucket123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "files": [
+        {
+          "fileId": "largefile123",
+          "fileName": "large-file.zip"
+        }
+      ]
+    }
+  }
+}

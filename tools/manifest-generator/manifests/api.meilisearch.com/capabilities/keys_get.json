@@ -1,0 +1,46 @@
+{
+  "name": "keys_get",
+  "description": "Get details of a specific API key by its UID or key value.",
+  "endpoint": "/keys/{keyUidOrKey}",
+  "method": "GET",
+  "resource_group": "keys",
+  "parameters": [
+    {
+      "name": "keyUidOrKey",
+      "type": "string",
+      "description": "UID or key value of the API key.",
+      "required": true,
+      "example": "abc-123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.meilisearch.com/keys/abc-123",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "uid": "abc-123",
+      "name": "My Search Key",
+      "key": "abc123...",
+      "actions": [
+        "search"
+      ],
+      "indexes": [
+        "movies"
+      ],
+      "expiresAt": "2025-01-01T00:00:00Z",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "keys.get"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

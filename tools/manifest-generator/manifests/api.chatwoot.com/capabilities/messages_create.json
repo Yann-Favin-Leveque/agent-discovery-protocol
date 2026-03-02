@@ -1,0 +1,27 @@
+{
+  "name": "messages_create",
+  "description": "Send a message to a conversation as an agent, bot, or on behalf of a contact.",
+  "endpoint": "/api/v1/accounts/{account_id}/conversations/{conversation_id}/messages",
+  "method": "POST",
+  "resource_group": "messages",
+  "parameters": [
+    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
+    {"name": "conversation_id", "type": "integer", "description": "Conversation ID.", "required": true, "example": 101},
+    {"name": "content", "type": "string", "description": "Message text content.", "required": true, "example": "Thank you for reaching out! Let me look into this."},
+    {"name": "message_type", "type": "string", "description": "Type: outgoing, incoming, activity.", "required": false, "example": "outgoing"},
+    {"name": "private", "type": "boolean", "description": "If true, message is internal note only visible to agents.", "required": false, "example": false},
+    {"name": "content_type", "type": "string", "description": "Content type: text, input_select, cards, form, article.", "required": false, "example": "text"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chatwoot.com/api/v1/accounts/1/conversations/101/messages",
+    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
+    "body": {"content": "Thank you for reaching out! Let me look into this.", "message_type": "outgoing", "private": false}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": 1002, "content": "Thank you for reaching out! Let me look into this.", "message_type": 1, "created_at": 1718438500}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 250}
+}

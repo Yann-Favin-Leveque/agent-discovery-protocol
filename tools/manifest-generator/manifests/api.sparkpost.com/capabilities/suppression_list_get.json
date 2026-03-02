@@ -1,0 +1,41 @@
+{
+  "name": "suppression_list_get",
+  "description": "Get all suppression entries for a specific recipient.",
+  "endpoint": "/api/v1/suppression-list/{recipient}",
+  "method": "GET",
+  "resource_group": "suppression_list",
+  "parameters": [
+    {
+      "name": "recipient",
+      "type": "string",
+      "description": "Email address",
+      "required": true,
+      "example": "user@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/suppression-list/user@example.com",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "recipient": "user@example.com",
+          "type": "transactional",
+          "source": "Manually Added"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

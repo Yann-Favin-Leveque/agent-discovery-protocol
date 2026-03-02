@@ -1,0 +1,61 @@
+{
+  "name": "draft_update",
+  "description": "Update an existing email draft.",
+  "resource_group": "draft",
+  "endpoint": "/v3/grants/{grant_id}/drafts/{draft_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "draft_id",
+      "type": "string",
+      "description": "Draft ID (path parameter).",
+      "required": true,
+      "example": "draft_abc"
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Updated subject.",
+      "required": false
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "Updated body.",
+      "required": false
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "description": "Updated recipients.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.us.nylas.com/v3/grants/me/drafts/draft_abc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subject": "Updated Subject"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "draft_abc",
+        "subject": "Updated Subject"
+      }
+    }
+  }
+}

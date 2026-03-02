@@ -1,0 +1,71 @@
+{
+  "name": "rates_get",
+  "description": "Get tax rates for a specific location by zip code.",
+  "endpoint": "/v2/rates/{zip}",
+  "method": "GET",
+  "resource_group": "rates",
+  "parameters": [
+    {
+      "name": "zip",
+      "type": "string",
+      "description": "Five-digit US zip code.",
+      "required": true,
+      "example": "90404"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "description": "City name for more accuracy.",
+      "required": false,
+      "example": "Santa Monica"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "description": "Two-letter state code.",
+      "required": false,
+      "example": "CA"
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "Country code.",
+      "required": false,
+      "example": "US"
+    },
+    {
+      "name": "street",
+      "type": "string",
+      "description": "Street address.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.taxjar.com/v2/rates/90404?city=Santa+Monica&state=CA",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "rate": {
+        "zip": "90404",
+        "state": "CA",
+        "state_rate": "0.0625",
+        "county": "LOS ANGELES",
+        "county_rate": "0.0025",
+        "city": "SANTA MONICA",
+        "city_rate": "0.0",
+        "combined_district_rate": "0.0175",
+        "combined_rate": "0.0825",
+        "freight_taxable": false
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

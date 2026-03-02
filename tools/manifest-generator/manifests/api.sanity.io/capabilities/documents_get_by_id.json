@@ -1,0 +1,58 @@
+{
+  "name": "documents_get_by_id",
+  "description": "Retrieve one or more documents by their IDs. Returns the latest version from the content lake.",
+  "endpoint": "/v{apiVersion}/data/doc/{dataset}/{documentIds}",
+  "method": "GET",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "description": "API version date string",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "dataset",
+      "type": "string",
+      "description": "Dataset name",
+      "required": true,
+      "example": "production"
+    },
+    {
+      "name": "documentIds",
+      "type": "string",
+      "description": "Comma-separated document IDs (no spaces)",
+      "required": true,
+      "example": "doc1,doc2,doc3"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{projectId}.api.sanity.io/v2024-01-01/data/doc/production/doc1,doc2",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "documents": [
+        {
+          "_id": "doc1",
+          "_type": "post",
+          "title": "Hello World",
+          "_rev": "abc123"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

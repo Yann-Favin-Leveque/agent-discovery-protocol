@@ -1,0 +1,60 @@
+{
+  "name": "exchange_map",
+  "description": "Return a mapping of all supported exchanges to unique CoinMarketCap IDs.",
+  "resource_group": "exchange",
+  "endpoint": "/v1/exchange/map",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "listing_status",
+      "type": "string",
+      "description": "Filter: active or inactive.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "slug",
+      "type": "string",
+      "description": "Filter by slug.",
+      "required": false,
+      "example": "binance"
+    },
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Offset.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results (1-5000).",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/exchange/map?limit=10",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": [
+        {
+          "id": 270,
+          "name": "Binance",
+          "slug": "binance"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "name": "merge_requests_update",
+  "description": "Update a merge request's title, description, assignee, labels, or state.",
+  "resource_group": "merge_requests",
+  "endpoint": "/projects/{id}/merge_requests/{merge_request_iid}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "merge_request_iid",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "MR internal ID."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Updated title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Updated description."
+    },
+    {
+      "name": "state_event",
+      "type": "string",
+      "required": false,
+      "description": "State transition: close or reopen."
+    },
+    {
+      "name": "assignee_id",
+      "type": "integer",
+      "required": false,
+      "description": "New assignee."
+    },
+    {
+      "name": "labels",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated labels."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://gitlab.com/api/v4/projects/123/merge_requests/42",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    },
+    "body": {
+      "title": "Add dark mode [v2]",
+      "labels": "enhancement,ui"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "iid": 42,
+      "title": "Add dark mode [v2]",
+      "labels": [
+        "enhancement",
+        "ui"
+      ]
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "name": "notifications_list",
+  "resource_group": "notifications",
+  "description": "Get paginated notifications.",
+  "endpoint": "/api/v1/notifications",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "max_id",
+      "type": "string",
+      "description": "Upper bound.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "since_id",
+      "type": "string",
+      "description": "Lower bound.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (default 40, max 80).",
+      "required": false,
+      "in": "query",
+      "example": 40
+    },
+    {
+      "name": "types[]",
+      "type": "array",
+      "description": "Types to include: mention, status, reblog, follow, follow_request, favourite, poll, update.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "exclude_types[]",
+      "type": "array",
+      "description": "Types to exclude.",
+      "required": false,
+      "in": "query"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/notifications?limit=20",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "1",
+        "type": "mention",
+        "account": {
+          "username": "user1"
+        },
+        "status": {
+          "id": "109876543210",
+          "content": "<p>@myuser hello!</p>"
+        }
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:notifications"
+  ]
+}

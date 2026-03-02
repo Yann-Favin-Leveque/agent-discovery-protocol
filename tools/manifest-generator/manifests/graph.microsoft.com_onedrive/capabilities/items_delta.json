@@ -1,0 +1,41 @@
+{
+  "name": "items_delta",
+  "description": "Track changes to files and folders since the last sync.",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/root/delta",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "$top",
+      "type": "integer",
+      "description": "Max results per page.",
+      "required": false
+    },
+    {
+      "name": "token",
+      "type": "string",
+      "description": "Delta token from previous response.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/root/delta",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": "item123",
+          "name": "doc.pdf",
+          "deleted": {}
+        }
+      ],
+      "@odata.deltaLink": "https://graph.microsoft.com/v1.0/me/drive/root/delta?token=abc"
+    }
+  }
+}

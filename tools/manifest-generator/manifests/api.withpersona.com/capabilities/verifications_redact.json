@@ -1,0 +1,20 @@
+{
+  "name": "verifications_redact",
+  "description": "Permanently redact all personally identifiable information from a verification. This is irreversible.",
+  "resource_group": "verifications",
+  "endpoint": "/verifications/{verification_id}/redact",
+  "method": "POST",
+  "parameters": [
+    {"name": "verification_id", "type": "string", "description": "The verification ID to redact.", "required": true, "example": "ver_abc123"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://withpersona.com/api/v1/verifications/ver_abc123/redact",
+    "headers": {"Authorization": "Bearer {api_key}", "Persona-Version": "2023-01-05"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"type": "verification/government-id", "id": "ver_abc123", "attributes": {"status": "passed", "redacted-at": "2024-01-20T10:00:00.000Z"}}}
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

@@ -1,57 +1,70 @@
 {
   "name": "update_user",
-  "description": "Update the authenticated user's profile attributes. Can change email, password, phone, and custom user metadata. Requires a valid JWT access token. Email changes trigger a confirmation email to the new address.",
-  "endpoint": "/user",
+  "description": "Update the authenticated user's profile attributes including email, password, phone, and custom user metadata.",
+  "endpoint": "/auth/v1/user",
   "method": "PUT",
+  "resource_group": "users",
   "parameters": [
+    {
+      "name": "Authorization",
+      "type": "string",
+      "description": "Bearer token (JWT access token) in the Authorization header.",
+      "required": true,
+      "example": "Bearer eyJhbGciOiJIUzI1NiIs..."
+    },
     {
       "name": "email",
       "type": "string",
-      "description": "New email address. A confirmation email will be sent to the new address.",
+      "description": "New email address. Triggers a confirmation email to both old and new addresses.",
       "required": false,
       "example": "newemail@example.com"
     },
     {
       "name": "password",
       "type": "string",
-      "description": "New password. Minimum 6 characters by default.",
+      "description": "New password (min 6 characters).",
       "required": false,
-      "example": "newsecurepassword456"
+      "example": "newPassword456"
     },
     {
       "name": "phone",
       "type": "string",
-      "description": "New phone number in E.164 format.",
+      "description": "New phone number.",
       "required": false,
-      "example": "+14155559876"
+      "example": "+1234567890"
     },
     {
       "name": "data",
       "type": "object",
-      "description": "Custom user metadata to merge with existing metadata.",
+      "description": "Custom user metadata. Merged with existing metadata.",
       "required": false,
-      "example": { "first_name": "Janet", "avatar_url": "https://example.com/avatar.png" }
+      "example": {"first_name": "Jane", "avatar_url": "https://example.com/avatar.jpg"}
     }
   ],
   "request_example": {
     "method": "PUT",
     "url": "https://your-project.supabase.co/auth/v1/user",
     "headers": {
-      "apikey": "YOUR_SUPABASE_ANON_KEY",
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIs...",
       "Content-Type": "application/json"
     },
     "body": {
-      "data": { "first_name": "Janet" }
+      "data": {"first_name": "Jane"},
+      "password": "newPassword456"
     }
   },
   "response_example": {
     "status": 200,
     "body": {
-      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "id": "uuid-1234",
       "email": "user@example.com",
-      "user_metadata": { "first_name": "Janet" },
-      "updated_at": "2026-03-01T13:00:00.000Z"
+      "user_metadata": {"first_name": "Jane"},
+      "updated_at": "2024-01-15T12:00:00Z"
     }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 150
   }
 }

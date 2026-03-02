@@ -1,0 +1,58 @@
+{
+  "name": "pulls_reviews_list",
+  "description": "List reviews on a pull request.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "pull_number",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "The PR number."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/octocat/my-project/pulls/101/reviews",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 5001,
+        "user": {
+          "login": "reviewer1"
+        },
+        "state": "APPROVED",
+        "body": "LGTM!",
+        "submitted_at": "2026-02-28T14:00:00Z"
+      }
+    ]
+  }
+}

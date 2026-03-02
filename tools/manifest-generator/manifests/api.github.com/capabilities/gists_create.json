@@ -1,0 +1,53 @@
+{
+  "name": "gists_create",
+  "description": "Create a new gist with one or more files.",
+  "resource_group": "gists",
+  "endpoint": "/gists",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Gist description."
+    },
+    {
+      "name": "files",
+      "type": "object",
+      "required": true,
+      "description": "Object with filenames as keys and {content: '...'} as values."
+    },
+    {
+      "name": "public",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether the gist is public. Default false."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.github.com/gists",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "description": "API example",
+      "files": {
+        "example.py": {
+          "content": "print('hello')"
+        }
+      },
+      "public": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "bb6b426e72bf0549c29e",
+      "html_url": "https://gist.github.com/bb6b426e72bf0549c29e",
+      "description": "API example"
+    }
+  }
+}

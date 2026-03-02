@@ -1,0 +1,16 @@
+{
+  "name": "employees_update",
+  "description": "Update an employee's profile details such as name, email, or personal information.",
+  "endpoint": "/v1/employees/{employee_id}",
+  "method": "PUT",
+  "resource_group": "employees",
+  "parameters": [
+    {"name": "employee_id", "type": "string", "description": "The employee UUID.", "required": true, "example": "emp_123"},
+    {"name": "first_name", "type": "string", "description": "Updated first name.", "required": false, "example": "Jonathan"},
+    {"name": "email", "type": "string", "description": "Updated email.", "required": false, "example": "jonathan@acme.com"}
+  ],
+  "request_example": {"method": "PUT", "url": "https://api.gusto.com/v1/employees/emp_123", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"first_name": "Jonathan"}},
+  "response_example": {"status": 200, "body": {"uuid": "emp_123", "first_name": "Jonathan", "last_name": "Doe"}},
+  "auth_scopes": ["employees:write"],
+  "rate_limits": {"requests_per_minute": 60}
+}

@@ -1,0 +1,106 @@
+{
+  "name": "weather_timelines_post",
+  "description": "Get custom weather timelines by specifying exact fields, timesteps, and time ranges. Supports 80+ data fields including air quality, pollen, fire index, and road conditions.",
+  "resource_group": "weather",
+  "endpoint": "/v4/timelines",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "apikey",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "required": true,
+      "description": "Location as lat,lon string in the request body.",
+      "in": "body"
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "required": true,
+      "description": "Array of weather data field names to include (e.g., 'temperature', 'humidity', 'windSpeed', 'precipitationProbability', 'pollenTreeIndex', 'epaIndex').",
+      "in": "body"
+    },
+    {
+      "name": "timesteps",
+      "type": "array",
+      "required": true,
+      "description": "Array of timesteps: '1m', '5m', '15m', '30m', '1h', '1d', 'current'.",
+      "in": "body"
+    },
+    {
+      "name": "startTime",
+      "type": "string",
+      "required": false,
+      "description": "Start time ISO 8601.",
+      "in": "body"
+    },
+    {
+      "name": "endTime",
+      "type": "string",
+      "required": false,
+      "description": "End time ISO 8601.",
+      "in": "body"
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "required": false,
+      "description": "Units: 'metric' or 'imperial'.",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.tomorrow.io/v4/timelines?apikey=YOUR_API_KEY",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "location": "48.8566,2.3522",
+      "fields": [
+        "temperature",
+        "humidity",
+        "windSpeed",
+        "precipitationProbability"
+      ],
+      "timesteps": [
+        "1h"
+      ],
+      "startTime": "2025-01-15T00:00:00Z",
+      "endTime": "2025-01-16T00:00:00Z",
+      "units": "metric"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "timelines": [
+          {
+            "timestep": "1h",
+            "startTime": "2025-01-15T00:00:00Z",
+            "endTime": "2025-01-16T00:00:00Z",
+            "intervals": [
+              {
+                "startTime": "2025-01-15T00:00:00Z",
+                "values": {
+                  "temperature": 13.2,
+                  "humidity": 68,
+                  "windSpeed": 2.1,
+                  "precipitationProbability": 5
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

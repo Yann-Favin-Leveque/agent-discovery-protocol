@@ -1,0 +1,52 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook to monitor events on a file or folder.",
+  "resource_group": "webhooks",
+  "endpoint": "/2.0/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "target",
+      "type": "object",
+      "description": "Target item with type and id.",
+      "required": true
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "description": "Webhook URL.",
+      "required": true
+    },
+    {
+      "name": "triggers",
+      "type": "array",
+      "description": "Events to trigger on.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.box.com/2.0/webhooks",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "target": {
+        "type": "folder",
+        "id": "0"
+      },
+      "address": "https://example.com/webhook",
+      "triggers": [
+        "FILE.UPLOADED"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "type": "webhook",
+      "id": "wh123"
+    }
+  }
+}

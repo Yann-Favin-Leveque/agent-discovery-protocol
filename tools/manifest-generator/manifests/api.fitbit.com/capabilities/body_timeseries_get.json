@@ -1,0 +1,55 @@
+{
+  "name": "body_timeseries_get",
+  "description": "Retrieve body measurement time series (weight, BMI, fat) for a date range.",
+  "resource_group": "body",
+  "endpoint": "/1/user/-/body/{resource-path}/date/{date}/{period}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "resource-path",
+      "type": "string",
+      "required": true,
+      "description": "Resource: weight, bmi, or fat.",
+      "in": "path"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "End date YYYY-MM-DD.",
+      "in": "path"
+    },
+    {
+      "name": "period",
+      "type": "string",
+      "required": true,
+      "description": "Range: 1d, 7d, 30d, 1m, 3m, 6m, 1y, or end date.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "weight"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/body/weight/date/2025-01-15/30d.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "body-weight": [
+        {
+          "dateTime": "2025-01-01",
+          "value": "76.2"
+        },
+        {
+          "dateTime": "2025-01-15",
+          "value": "75.5"
+        }
+      ]
+    }
+  }
+}

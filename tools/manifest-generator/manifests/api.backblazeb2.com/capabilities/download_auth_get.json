@@ -1,0 +1,47 @@
+{
+  "name": "download_auth_get",
+  "description": "Get an authorization token for downloading files from a private bucket.",
+  "resource_group": "download",
+  "endpoint": "/b2api/v3/b2_get_download_authorization",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "The bucket ID.",
+      "required": true
+    },
+    {
+      "name": "fileNamePrefix",
+      "type": "string",
+      "description": "Restrict to this prefix.",
+      "required": true
+    },
+    {
+      "name": "validDurationInSeconds",
+      "type": "integer",
+      "description": "Token validity in seconds.",
+      "required": true,
+      "example": 3600
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_get_download_authorization",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "bucketId": "bucket123",
+      "fileNamePrefix": "images/",
+      "validDurationInSeconds": 3600
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "authorizationToken": "download-token-123"
+    }
+  }
+}

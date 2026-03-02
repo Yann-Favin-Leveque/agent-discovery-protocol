@@ -1,0 +1,101 @@
+{
+  "name": "tickets_create",
+  "description": "Create a new support ticket.",
+  "endpoint": "/api/v2/tickets",
+  "method": "POST",
+  "resource_group": "tickets",
+  "parameters": [
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Ticket subject",
+      "required": true,
+      "example": "Need help with login"
+    },
+    {
+      "name": "comment",
+      "type": "object",
+      "description": "Initial comment with body text",
+      "required": true,
+      "example": {
+        "body": "I cannot log in."
+      }
+    },
+    {
+      "name": "priority",
+      "type": "string",
+      "description": "Priority (urgent, high, normal, low)",
+      "required": false,
+      "example": "normal"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Status (new, open, pending, hold, solved, closed)",
+      "required": false,
+      "example": "new"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Type (problem, incident, question, task)",
+      "required": false,
+      "example": "question"
+    },
+    {
+      "name": "assignee_id",
+      "type": "integer",
+      "description": "Agent ID to assign to",
+      "required": false,
+      "example": "456"
+    },
+    {
+      "name": "requester_id",
+      "type": "integer",
+      "description": "Requester user ID",
+      "required": false,
+      "example": "123"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Tags to apply",
+      "required": false,
+      "example": [
+        "login",
+        "urgent"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{subdomain}.zendesk.com/api/v2/tickets",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ticket": {
+        "subject": "Need help with login",
+        "comment": {
+          "body": "I cannot log in."
+        },
+        "priority": "normal"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ticket": {
+        "id": 2,
+        "subject": "Need help with login",
+        "status": "new"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

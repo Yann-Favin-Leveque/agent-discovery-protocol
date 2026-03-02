@@ -1,0 +1,51 @@
+{
+  "name": "organizations_add_member",
+  "resource_group": "organizations",
+  "description": "Add a member to an organization.",
+  "endpoint": "/v1/organizations/{organizationSlug}/members",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organizationSlug",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Organization slug."
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Turso username."
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Role: admin, member, or viewer."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.turso.tech/v1/organizations/my-org/members",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "username": "jane",
+      "role": "member"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "member": {
+        "username": "jane",
+        "role": "member"
+      }
+    }
+  }
+}

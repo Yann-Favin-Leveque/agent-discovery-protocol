@@ -1,0 +1,55 @@
+{
+  "name": "stream_collections_list",
+  "resource_group": "stream",
+  "description": "List video collections in a library.",
+  "endpoint": "/library/{libraryId}/collections",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "libraryId",
+      "type": "integer",
+      "required": true,
+      "description": "Library ID.",
+      "in": "path"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page."
+    },
+    {
+      "name": "itemsPerPage",
+      "type": "integer",
+      "required": false,
+      "description": "Items per page."
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "description": "Search by name."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bunny.net/library/222/collections",
+    "headers": {
+      "AccessKey": "your-api-key"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "totalItems": 5,
+      "items": [
+        {
+          "videoLibraryId": 222,
+          "guid": "collection-guid",
+          "name": "My Collection",
+          "videoCount": 10
+        }
+      ]
+    }
+  }
+}

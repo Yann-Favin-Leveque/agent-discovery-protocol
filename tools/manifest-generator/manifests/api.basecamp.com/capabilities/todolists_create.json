@@ -1,0 +1,68 @@
+{
+  "name": "todolists_create",
+  "resource_group": "todolists",
+  "description": "Create a new todolist in a todoset.",
+  "endpoint": "/{account_id}/buckets/{project_id}/todosets/{todoset_id}/todolists.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Account ID",
+      "example": 9999999
+    },
+    {
+      "name": "project_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Project ID",
+      "example": 2085958499
+    },
+    {
+      "name": "todoset_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Todoset ID",
+      "example": 1234567
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Todolist name",
+      "example": "Sprint 1 tasks"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "HTML description",
+      "example": "<p>Tasks for sprint 1</p>"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://3.basecampapi.com/9999999/buckets/2085958499/todosets/1234567/todolists.json",
+    "headers": {
+      "Authorization": "Bearer BC3_TOKEN",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApp (user@example.com)"
+    },
+    "body": {
+      "name": "Sprint 1 tasks",
+      "description": "<p>Tasks for sprint 1</p>"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1069479339,
+      "title": "Sprint 1 tasks",
+      "description": "<p>Tasks for sprint 1</p>"
+    }
+  }
+}

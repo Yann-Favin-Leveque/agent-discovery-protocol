@@ -1,63 +1,182 @@
 {
   "spec_version": "1.0",
-  "name": "Replicate HTTP API",
-  "description": "Replicate HTTP API provides a REST API for programmatic access to its features. Use it to automate workflows and integrate with other services.",
+  "name": "Replicate",
+  "description": "Replicate provides cloud infrastructure for running open-source AI models. Create predictions using any model, manage deployments, upload files, search models, run training jobs, and manage model versions through a comprehensive REST API.",
   "base_url": "https://api.replicate.com/v1",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://replicate.com/account/api-tokens"
   },
   "capabilities": [
     {
-      "name": "account",
-      "description": "Manage account — get the authenticated account. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/account"
+      "name": "prediction_create",
+      "description": "Create a prediction by running a model with specified inputs. Supports webhooks and async polling.",
+      "resource_group": "predictions",
+      "detail_url": "/capabilities/prediction_create"
     },
     {
-      "name": "collections",
-      "description": "Manage collections — list collections of models, get a collection of models. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/collections"
+      "name": "predictions_list",
+      "description": "List all predictions with optional filtering by date and source.",
+      "resource_group": "predictions",
+      "detail_url": "/capabilities/predictions_list"
     },
     {
-      "name": "deployments",
-      "description": "Manage deployments — create a deployment, create a prediction using a deployment, list deployments. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/deployments"
+      "name": "prediction_get",
+      "description": "Retrieve the current state and output of a specific prediction.",
+      "resource_group": "predictions",
+      "detail_url": "/capabilities/prediction_get"
     },
     {
-      "name": "files",
-      "description": "Manage files — create a file, list files, get a file. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/files"
+      "name": "prediction_cancel",
+      "description": "Cancel a running prediction.",
+      "resource_group": "predictions",
+      "detail_url": "/capabilities/prediction_cancel"
     },
     {
-      "name": "hardware",
-      "description": "Manage hardware — list available hardware for models. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/hardware"
+      "name": "models_list",
+      "description": "List public models with sorting options.",
+      "resource_group": "models",
+      "detail_url": "/capabilities/models_list"
     },
     {
-      "name": "models",
-      "description": "Manage models — create a model, create a prediction using an official model, create a training. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/models"
+      "name": "model_get",
+      "description": "Get details about a specific model including its latest version and schema.",
+      "resource_group": "models",
+      "detail_url": "/capabilities/model_get"
     },
     {
-      "name": "predictions",
-      "description": "Manage predictions — create a prediction, cancel a prediction, list predictions. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/predictions"
+      "name": "model_create",
+      "description": "Create a new model on Replicate.",
+      "resource_group": "models",
+      "detail_url": "/capabilities/model_create"
     },
     {
-      "name": "search",
-      "description": "Manage search — search models, collections, and docs (beta). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/search"
+      "name": "model_prediction_create",
+      "description": "Create a prediction using an official model's latest version directly.",
+      "resource_group": "models",
+      "detail_url": "/capabilities/model_prediction_create"
     },
     {
-      "name": "trainings",
-      "description": "Manage trainings — cancel a training, list trainings, get a training. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/trainings"
+      "name": "model_versions_list",
+      "description": "List all versions of a specific model.",
+      "resource_group": "models",
+      "detail_url": "/capabilities/model_versions_list"
     },
     {
-      "name": "webhooks",
-      "description": "Manage webhooks — get the signing secret for the default webhook. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/webhooks"
+      "name": "models_search",
+      "description": "Search for models by text query.",
+      "resource_group": "search",
+      "detail_url": "/capabilities/models_search"
+    },
+    {
+      "name": "deployments_list",
+      "description": "List all deployments for your user or organization.",
+      "resource_group": "deployments",
+      "detail_url": "/capabilities/deployments_list"
+    },
+    {
+      "name": "deployment_create",
+      "description": "Create a new deployment with a specific model version and hardware.",
+      "resource_group": "deployments",
+      "detail_url": "/capabilities/deployment_create"
+    },
+    {
+      "name": "deployment_get",
+      "description": "Get details about a specific deployment.",
+      "resource_group": "deployments",
+      "detail_url": "/capabilities/deployment_get"
+    },
+    {
+      "name": "deployment_prediction_create",
+      "description": "Create a prediction using a deployment.",
+      "resource_group": "deployments",
+      "detail_url": "/capabilities/deployment_prediction_create"
+    },
+    {
+      "name": "deployment_delete",
+      "description": "Delete a deployment.",
+      "resource_group": "deployments",
+      "detail_url": "/capabilities/deployment_delete"
+    },
+    {
+      "name": "collections_list",
+      "description": "List curated collections of models.",
+      "resource_group": "collections",
+      "detail_url": "/capabilities/collections_list"
+    },
+    {
+      "name": "collection_get",
+      "description": "Get a specific collection of models by slug.",
+      "resource_group": "collections",
+      "detail_url": "/capabilities/collection_get"
+    },
+    {
+      "name": "files_list",
+      "description": "List all uploaded files.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_list"
+    },
+    {
+      "name": "file_create",
+      "description": "Upload a file for use with predictions.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/file_create"
+    },
+    {
+      "name": "file_get",
+      "description": "Get details about an uploaded file.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/file_get"
+    },
+    {
+      "name": "file_delete",
+      "description": "Delete an uploaded file.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/file_delete"
+    },
+    {
+      "name": "trainings_list",
+      "description": "List all training jobs.",
+      "resource_group": "trainings",
+      "detail_url": "/capabilities/trainings_list"
+    },
+    {
+      "name": "training_create",
+      "description": "Start a training job for a model version.",
+      "resource_group": "trainings",
+      "detail_url": "/capabilities/training_create"
+    },
+    {
+      "name": "training_get",
+      "description": "Get the status of a training job.",
+      "resource_group": "trainings",
+      "detail_url": "/capabilities/training_get"
+    },
+    {
+      "name": "training_cancel",
+      "description": "Cancel a running training job.",
+      "resource_group": "trainings",
+      "detail_url": "/capabilities/training_cancel"
+    },
+    {
+      "name": "hardware_list",
+      "description": "List available hardware SKUs for running models.",
+      "resource_group": "hardware",
+      "detail_url": "/capabilities/hardware_list"
+    },
+    {
+      "name": "account_get",
+      "description": "Get the authenticated account details.",
+      "resource_group": "account",
+      "detail_url": "/capabilities/account_get"
+    },
+    {
+      "name": "webhook_secret_get",
+      "description": "Get the signing secret for the default webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhook_secret_get"
     }
   ]
 }

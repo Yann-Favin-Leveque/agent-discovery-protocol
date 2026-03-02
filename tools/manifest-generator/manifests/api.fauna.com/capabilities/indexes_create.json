@@ -1,0 +1,51 @@
+{
+  "name": "indexes_create",
+  "description": "Create an index on a collection for efficient queries and sorting.",
+  "endpoint": "/query/1",
+  "method": "POST",
+  "resource_group": "indexes",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "FQL query to define an index on a collection.",
+      "required": true,
+      "example": "Product.definition.update({ indexes: { byPrice: { terms: [{ field: '.price' }] } } })"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://db.fauna.com/query/1",
+    "headers": {
+      "Authorization": "Bearer fn_your_secret_key",
+      "Content-Type": "application/json",
+      "X-Format": "simple"
+    },
+    "body": {
+      "query": "Product.definition.update({ indexes: { byPrice: { terms: [{ field: '.price' }] } } })"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "name": "Product",
+        "indexes": {
+          "byPrice": {
+            "terms": [{"field": ".price"}]
+          }
+        }
+      },
+      "txn_ts": 1693560000000000,
+      "stats": {
+        "compute_ops": 1,
+        "read_ops": 1,
+        "write_ops": 1
+      }
+    }
+  },
+  "auth_scopes": ["admin"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

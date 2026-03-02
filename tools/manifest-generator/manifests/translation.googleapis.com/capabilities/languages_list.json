@@ -1,0 +1,54 @@
+{
+  "name": "languages_list",
+  "description": "List all languages supported by Google Translate. Optionally returns localized language names when a target language is specified.",
+  "resource_group": "languages",
+  "endpoint": "/v2/languages",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "target",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Language code to localize language names into (e.g., 'fr' returns French names)."
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "Filter languages supported by a specific model: 'nmt' or 'base'."
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "required": false,
+      "location": "query",
+      "description": "API key (alternative to OAuth bearer token)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://translation.googleapis.com/language/translate/v2/languages?target=en&key=YOUR_API_KEY",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "languages": [
+          { "language": "af", "name": "Afrikaans" },
+          { "language": "ar", "name": "Arabic" },
+          { "language": "fr", "name": "French" },
+          { "language": "de", "name": "German" },
+          { "language": "es", "name": "Spanish" },
+          { "language": "zh-CN", "name": "Chinese (Simplified)" }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/cloud-translation",
+    "https://www.googleapis.com/auth/cloud-platform"
+  ]
+}

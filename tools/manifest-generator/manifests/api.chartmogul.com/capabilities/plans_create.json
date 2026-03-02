@@ -1,0 +1,69 @@
+{
+  "name": "plans_create",
+  "description": "Create a new subscription plan.",
+  "endpoint": "/v1/plans",
+  "method": "POST",
+  "resource_group": "plans",
+  "parameters": [
+    {
+      "name": "data_source_uuid",
+      "type": "string",
+      "description": "UUID of the data source.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Plan name.",
+      "required": true,
+      "example": "Pro Monthly"
+    },
+    {
+      "name": "interval_count",
+      "type": "integer",
+      "description": "Billing interval count.",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "interval_unit",
+      "type": "string",
+      "description": "Billing interval unit: month or year.",
+      "required": true,
+      "example": "month"
+    },
+    {
+      "name": "external_id",
+      "type": "string",
+      "description": "External plan ID from your system.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chartmogul.com/v1/plans",
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data_source_uuid": "ds_93b06efd",
+      "name": "Pro Monthly",
+      "interval_count": 1,
+      "interval_unit": "month"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uuid": "pl_93b06efd",
+      "name": "Pro Monthly",
+      "interval_count": 1,
+      "interval_unit": "month"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

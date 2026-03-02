@@ -1,0 +1,59 @@
+{
+  "name": "tables_create",
+  "description": "Create a new table in a base.",
+  "resource_group": "tables",
+  "endpoint": "/v0/meta/bases/{baseId}/tables",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "baseId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID of the Airtable base"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Name of the new table"
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of field definitions"
+    }
+  ],
+  "auth_scopes": [
+    "data.records:read",
+    "data.records:write",
+    "schema.bases:read",
+    "schema.bases:write"
+  ],
+  "request_example": {
+    "name": "Projects",
+    "fields": [
+      {
+        "name": "Name",
+        "type": "singleLineText"
+      },
+      {
+        "name": "Status",
+        "type": "singleSelect",
+        "options": {
+          "choices": [
+            {
+              "name": "Todo"
+            },
+            {
+              "name": "Done"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

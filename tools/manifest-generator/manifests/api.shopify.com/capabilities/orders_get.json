@@ -1,0 +1,50 @@
+{
+  "name": "orders_get",
+  "description": "Retrieve full details of a specific order.",
+  "resource_group": "orders",
+  "endpoint": "/admin/api/2024-10/orders/{order_id}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "order_id",
+      "type": "integer",
+      "required": true,
+      "description": "Order ID.",
+      "example": 450789469
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated fields."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store}.myshopify.com/admin/api/2024-10/orders/450789469.json",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "order": {
+        "id": 450789469,
+        "name": "#1001",
+        "total_price": "598.94",
+        "financial_status": "paid",
+        "line_items": [
+          {
+            "title": "IPod Nano - 8GB",
+            "quantity": 1
+          }
+        ],
+        "shipping_address": {
+          "city": "Ottawa",
+          "country": "Canada"
+        }
+      }
+    }
+  }
+}

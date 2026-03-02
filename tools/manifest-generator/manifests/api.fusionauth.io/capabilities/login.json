@@ -1,0 +1,71 @@
+{
+  "name": "login",
+  "resource_group": "login",
+  "description": "Authenticate a user with email/username and password. Returns JWT access and refresh tokens.",
+  "endpoint": "/api/login",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "loginId",
+      "type": "string",
+      "required": true,
+      "description": "Email or username."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "description": "Password."
+    },
+    {
+      "name": "applicationId",
+      "type": "string",
+      "required": true,
+      "description": "Application UUID."
+    },
+    {
+      "name": "ipAddress",
+      "type": "string",
+      "required": false,
+      "description": "Client IP for rate limiting."
+    },
+    {
+      "name": "noJWT",
+      "type": "boolean",
+      "required": false,
+      "description": "Skip JWT generation."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/login",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "loginId": "alice@example.com",
+      "password": "securePass123!",
+      "applicationId": "app-uuid"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "token": "eyJhbGciOi...",
+      "refreshToken": "refresh-token",
+      "user": {
+        "id": "user-uuid",
+        "email": "alice@example.com",
+        "registrations": [
+          {
+            "applicationId": "app-uuid",
+            "roles": [
+              "user"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

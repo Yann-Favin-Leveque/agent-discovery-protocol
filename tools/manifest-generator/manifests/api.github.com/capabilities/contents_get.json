@@ -1,0 +1,57 @@
+{
+  "name": "contents_get",
+  "description": "Get the contents of a file or directory in a repository.",
+  "resource_group": "contents",
+  "endpoint": "/repos/{owner}/{repo}/contents/{path}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "File or directory path."
+    },
+    {
+      "name": "ref",
+      "type": "string",
+      "required": false,
+      "description": "Branch, tag, or commit SHA. Default: default branch."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/octocat/my-project/contents/README.md?ref=main",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "file",
+      "name": "README.md",
+      "path": "README.md",
+      "sha": "ghi789",
+      "size": 1024,
+      "content": "IyBNeSBQcm9qZWN0Cg==",
+      "encoding": "base64",
+      "html_url": "https://github.com/octocat/my-project/blob/main/README.md"
+    }
+  }
+}

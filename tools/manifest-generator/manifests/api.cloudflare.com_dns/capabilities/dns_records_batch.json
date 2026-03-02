@@ -1,0 +1,74 @@
+{
+  "name": "dns_records_batch",
+  "description": "Execute batched DNS record operations. Create, update, and delete multiple DNS records in a single API call.",
+  "endpoint": "/zones/{zone_id}/dns_records/batch",
+  "method": "POST",
+  "resource_group": "dns_records",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    },
+    {
+      "name": "posts",
+      "type": "array",
+      "description": "Array of DNS records to create.",
+      "required": false,
+      "example": [{"type": "A", "name": "app.example.com", "content": "198.51.100.4"}]
+    },
+    {
+      "name": "puts",
+      "type": "array",
+      "description": "Array of DNS records to overwrite (full update with record ID).",
+      "required": false,
+      "example": []
+    },
+    {
+      "name": "patches",
+      "type": "array",
+      "description": "Array of DNS records to partially update.",
+      "required": false,
+      "example": []
+    },
+    {
+      "name": "deletes",
+      "type": "array",
+      "description": "Array of DNS record IDs to delete.",
+      "required": false,
+      "example": [{"id": "372e67954025e0ba6aaa6d586b9e0b59"}]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_records/batch",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "posts": [
+        {"type": "A", "name": "app.example.com", "content": "198.51.100.4", "proxied": true}
+      ],
+      "deletes": [
+        {"id": "old_record_id"}
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "posts": [{"id": "new_record_id", "type": "A", "name": "app.example.com"}],
+        "deletes": [{"id": "old_record_id"}]
+      }
+    }
+  },
+  "auth_scopes": ["dns_records:edit"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

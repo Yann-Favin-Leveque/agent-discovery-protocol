@@ -1,0 +1,64 @@
+{
+  "name": "events_list",
+  "description": "List data events for a specific user.",
+  "resource_group": "events",
+  "endpoint": "/events",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'user'."
+    },
+    {
+      "name": "intercom_user_id",
+      "type": "string",
+      "required": false,
+      "description": "Intercom contact ID. One of this, user_id, or email required."
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": false,
+      "description": "External user ID."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "User email."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Events per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.intercom.io/events?type=user&user_id=user-12345",
+    "headers": {
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "event.list",
+      "events": [
+        {
+          "type": "event",
+          "event_name": "purchased-item",
+          "created_at": 1740960000,
+          "user_id": "user-12345",
+          "metadata": {
+            "item_name": "Pro Plan"
+          }
+        }
+      ]
+    }
+  }
+}

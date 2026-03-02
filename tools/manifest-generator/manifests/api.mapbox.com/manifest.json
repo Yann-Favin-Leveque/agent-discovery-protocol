@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Mapbox",
-  "description": "Mapbox provides location and mapping APIs for geocoding, routing, travel-time matrices, isochrone analysis, and static map image generation. Use it to convert addresses to coordinates, calculate directions between points, and render map images programmatically.",
+  "description": "Mapbox provides location and mapping APIs for geocoding, directions, travel-time matrices, isochrone analysis, map matching, route optimization, static map images, styles, datasets, uploads, and token management.",
   "base_url": "https://api.mapbox.com",
   "auth": {
     "type": "api_key",
@@ -12,34 +12,142 @@
   },
   "capabilities": [
     {
-      "name": "forward_geocode",
-      "description": "Convert a text address or place name into geographic coordinates (longitude, latitude). Returns ranked results with detailed address components.",
-      "detail_url": "/capabilities/forward_geocode"
+      "name": "geocode_forward",
+      "description": "Convert a text address or place name into geographic coordinates. Returns ranked results.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/geocode_forward",
+      "resource_group": "geocoding"
     },
     {
-      "name": "reverse_geocode",
-      "description": "Convert geographic coordinates (longitude, latitude) into a human-readable address. Returns address components ordered by administrative hierarchy.",
-      "detail_url": "/capabilities/reverse_geocode"
+      "name": "geocode_reverse",
+      "description": "Convert geographic coordinates into a human-readable address.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/geocode_reverse",
+      "resource_group": "geocoding"
     },
     {
-      "name": "get_directions",
-      "description": "Calculate turn-by-turn driving, walking, or cycling directions between two or more coordinates. Returns route geometry, distance, duration, and step-by-step instructions.",
-      "detail_url": "/capabilities/get_directions"
+      "name": "geocode_batch",
+      "description": "Geocode up to 50 queries (forward, reverse, or structured) in a single request.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/geocode_batch",
+      "resource_group": "geocoding"
     },
     {
-      "name": "get_matrix",
-      "description": "Compute travel time and distance matrices between multiple origins and destinations. Useful for logistics optimization and nearest-neighbor calculations.",
-      "detail_url": "/capabilities/get_matrix"
+      "name": "directions_get",
+      "description": "Calculate turn-by-turn directions between coordinates for driving, walking, or cycling.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/directions_get",
+      "resource_group": "navigation"
     },
     {
-      "name": "get_isochrone",
-      "description": "Generate isochrone polygons showing areas reachable within a given travel time or distance from a point. Supports driving, walking, and cycling profiles.",
-      "detail_url": "/capabilities/get_isochrone"
+      "name": "matrix_get",
+      "description": "Compute travel time and distance matrices between multiple origins and destinations.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/matrix_get",
+      "resource_group": "navigation"
     },
     {
-      "name": "get_static_map",
-      "description": "Render a static map image as PNG or JPEG for a given location, zoom level, and dimensions. Supports custom markers, paths, and GeoJSON overlays.",
-      "detail_url": "/capabilities/get_static_map"
+      "name": "isochrone_get",
+      "description": "Generate polygons showing areas reachable within a given travel time or distance from a point.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/isochrone_get",
+      "resource_group": "navigation"
+    },
+    {
+      "name": "map_matching_get",
+      "description": "Snap GPS trace coordinates to the road network and return the matched route.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/map_matching_get",
+      "resource_group": "navigation"
+    },
+    {
+      "name": "optimization_submit",
+      "description": "Submit a routing optimization problem (vehicle routing / TSP).",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/optimization_submit",
+      "resource_group": "optimization"
+    },
+    {
+      "name": "optimization_get",
+      "description": "Retrieve the solution for a previously submitted optimization problem.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/optimization_get",
+      "resource_group": "optimization"
+    },
+    {
+      "name": "static_image_get",
+      "description": "Render a static map image as PNG for a given location, zoom, and dimensions.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/static_image_get",
+      "resource_group": "static_images"
+    },
+    {
+      "name": "styles_list",
+      "description": "List all map styles for a user account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/styles_list",
+      "resource_group": "styles"
+    },
+    {
+      "name": "styles_get",
+      "description": "Retrieve a specific map style document.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/styles_get",
+      "resource_group": "styles"
+    },
+    {
+      "name": "styles_create",
+      "description": "Create a new map style.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/styles_create",
+      "resource_group": "styles"
+    },
+    {
+      "name": "datasets_list",
+      "description": "List all datasets for a user account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/datasets_list",
+      "resource_group": "datasets"
+    },
+    {
+      "name": "datasets_create",
+      "description": "Create a new empty dataset.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/datasets_create",
+      "resource_group": "datasets"
+    },
+    {
+      "name": "datasets_get",
+      "description": "Retrieve information about a specific dataset.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/datasets_get",
+      "resource_group": "datasets"
+    },
+    {
+      "name": "datasets_features_list",
+      "description": "List all features in a dataset as GeoJSON.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/datasets_features_list",
+      "resource_group": "datasets"
+    },
+    {
+      "name": "datasets_feature_put",
+      "description": "Insert or update a feature in a dataset.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/datasets_feature_put",
+      "resource_group": "datasets"
+    },
+    {
+      "name": "datasets_delete",
+      "description": "Delete a dataset.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/datasets_delete",
+      "resource_group": "datasets"
+    },
+    {
+      "name": "tokens_list",
+      "description": "List all access tokens for a user.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/tokens_list",
+      "resource_group": "tokens"
+    },
+    {
+      "name": "tokens_create",
+      "description": "Create a new access token with specified scopes.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/tokens_create",
+      "resource_group": "tokens"
+    },
+    {
+      "name": "uploads_create",
+      "description": "Create a new tileset upload from a staged file or existing dataset.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/uploads_create",
+      "resource_group": "uploads"
+    },
+    {
+      "name": "uploads_get",
+      "description": "Retrieve the status of a specific upload.",
+      "detail_url": "https://agent-dns.dev/api/services/api.mapbox.com/capabilities/uploads_get",
+      "resource_group": "uploads"
     }
   ]
 }

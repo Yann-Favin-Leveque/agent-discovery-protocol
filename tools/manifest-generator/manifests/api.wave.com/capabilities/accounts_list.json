@@ -1,0 +1,61 @@
+{
+  "name": "accounts_list",
+  "description": "Retrieve the chart of accounts for a business.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "accounts",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": "1"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "query ($businessId: ID!, $page: Int) { business(id: $businessId) { accounts(page: $page) { edges { node { id name type { name } subtype { name } balance } } } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "business": {
+          "accounts": {
+            "edges": [
+              {
+                "node": {
+                  "id": "QWNjb3VudDo6...",
+                  "name": "Sales Revenue",
+                  "type": {
+                    "name": "INCOME"
+                  },
+                  "balance": "15000.00"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

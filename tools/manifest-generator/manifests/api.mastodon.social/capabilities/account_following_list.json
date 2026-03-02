@@ -1,0 +1,44 @@
+{
+  "name": "account_following_list",
+  "resource_group": "accounts",
+  "description": "Get accounts that a given account follows.",
+  "endpoint": "/api/v1/accounts/{id}/following",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Account ID.",
+      "required": true,
+      "in": "path",
+      "example": "12345"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (default 40, max 80).",
+      "required": false,
+      "in": "query",
+      "example": 40
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/accounts/12345/following",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "12347",
+        "username": "following1"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read:accounts"
+  ]
+}

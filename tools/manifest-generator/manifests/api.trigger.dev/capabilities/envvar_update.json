@@ -1,0 +1,41 @@
+{
+  "name": "envvar_update",
+  "description": "Update an existing environment variable.",
+  "resource_group": "envvar",
+  "endpoint": "/api/v3/envvars/{envVarId}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "envVarId",
+      "type": "string",
+      "description": "Environment variable ID (path parameter).",
+      "required": true,
+      "example": "ev_abc"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "New value.",
+      "required": true,
+      "example": "sk_live_new"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.trigger.dev/api/v3/envvars/ev_abc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "value": "sk_live_new"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ev_abc",
+      "key": "API_KEY"
+    }
+  }
+}

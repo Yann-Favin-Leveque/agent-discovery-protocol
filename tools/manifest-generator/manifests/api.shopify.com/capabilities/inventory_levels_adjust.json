@@ -1,0 +1,53 @@
+{
+  "name": "inventory_levels_adjust",
+  "description": "Adjust inventory quantity for a variant at a specific location.",
+  "resource_group": "inventory",
+  "endpoint": "/admin/api/2024-10/inventory_levels/adjust.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "inventory_item_id",
+      "type": "integer",
+      "required": true,
+      "description": "The inventory item ID.",
+      "example": 808950810
+    },
+    {
+      "name": "location_id",
+      "type": "integer",
+      "required": true,
+      "description": "The location ID.",
+      "example": 905684977
+    },
+    {
+      "name": "available_adjustment",
+      "type": "integer",
+      "required": true,
+      "description": "Amount to adjust.",
+      "example": 5
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}.myshopify.com/admin/api/2024-10/inventory_levels/adjust.json",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "location_id": 905684977,
+      "inventory_item_id": 808950810,
+      "available_adjustment": 5
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "inventory_level": {
+        "inventory_item_id": 808950810,
+        "location_id": 905684977,
+        "available": 11
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "name": "candidates_employment_create",
+  "resource_group": "Candidates",
+  "endpoint": "/v1/candidates/{id}/employments",
+  "method": "POST",
+  "description": "Add employment history to a candidate.",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Candidate ID."
+    },
+    {
+      "name": "company_name",
+      "type": "string",
+      "required": false,
+      "description": "Company."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Job title."
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date."
+    },
+    {
+      "name": "On-Behalf-Of",
+      "type": "integer",
+      "required": true,
+      "description": "User ID (header)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://harvest.greenhouse.io/v1/candidates/17681532/employments",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6",
+      "On-Behalf-Of": "4321",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "company_name": "Google",
+      "title": "Software Engineer"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 400,
+      "company_name": "Google",
+      "title": "Software Engineer"
+    }
+  }
+}

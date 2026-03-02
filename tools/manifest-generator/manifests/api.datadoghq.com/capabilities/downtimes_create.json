@@ -1,0 +1,38 @@
+{
+  "name": "downtimes_create",
+  "description": "Schedule a new downtime.",
+  "resource_group": "downtimes",
+  "endpoint": "/api/v2/downtime",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Downtime data with scope, schedule, message"
+    }
+  ],
+  "request_example": {
+    "data": {
+      "type": "downtime",
+      "attributes": {
+        "monitor_identifier": {
+          "monitor_tags": [
+            "env:prod"
+          ]
+        },
+        "scope": "host:web-01",
+        "schedule": {
+          "start": "2025-01-01T00:00:00Z"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "data": {
+      "id": "dt_456",
+      "type": "downtime"
+    }
+  },
+  "auth_scopes": []
+}

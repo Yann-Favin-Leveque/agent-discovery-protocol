@@ -1,0 +1,43 @@
+{
+  "name": "email_batch",
+  "description": "Send up to 500 emails in a single batch.",
+  "resource_group": "email",
+  "endpoint": "/email/batch",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "messages",
+      "type": "array",
+      "description": "Array of email objects.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/email/batch",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "From": "sender@example.com",
+        "To": "user@example.com",
+        "Subject": "Hello",
+        "HtmlBody": "<p>Hi</p>"
+      }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "To": "user@example.com",
+        "MessageID": "abc-123",
+        "ErrorCode": 0,
+        "Message": "OK"
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "envelope_documents_list",
+  "description": "List all documents within an envelope with their IDs, names, and page counts.",
+  "resource_group": "envelope",
+  "endpoint": "/v2.1/accounts/{accountId}/envelopes/{envelopeId}/documents",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "envelopeId",
+      "type": "string",
+      "required": true,
+      "description": "Envelope ID.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/envelopes/env-abc-123/documents",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "envelopeId": "env-abc-123",
+      "envelopeDocuments": [
+        {
+          "documentId": "1",
+          "name": "Contract.pdf",
+          "type": "content",
+          "pages": "3",
+          "uri": "/envelopes/env-abc-123/documents/1"
+        },
+        {
+          "documentId": "certificate",
+          "name": "Summary",
+          "type": "summary",
+          "pages": "1"
+        }
+      ]
+    }
+  }
+}

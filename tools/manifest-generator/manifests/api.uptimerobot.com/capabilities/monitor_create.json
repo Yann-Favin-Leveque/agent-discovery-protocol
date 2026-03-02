@@ -1,0 +1,93 @@
+{
+  "name": "monitor_create",
+  "description": "Create a new uptime monitor for a URL or IP address. Supports HTTP(s), keyword, ping, and port monitor types with configurable intervals and alert contacts.",
+  "resource_group": "monitors",
+  "endpoint": "/v2/newMonitor",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Your UptimeRobot API key."
+    },
+    {
+      "name": "friendly_name",
+      "type": "string",
+      "required": true,
+      "description": "A human-readable name for the monitor."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "The URL or IP address to monitor."
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "required": true,
+      "description": "Monitor type: 1 (HTTP/S), 2 (keyword), 3 (ping), 4 (port)."
+    },
+    {
+      "name": "interval",
+      "type": "integer",
+      "required": false,
+      "description": "Monitoring interval in seconds (minimum 60 for free plan)."
+    },
+    {
+      "name": "alert_contacts",
+      "type": "string",
+      "required": false,
+      "description": "Alert contact IDs and thresholds in format 'id_threshold_recurrence'."
+    },
+    {
+      "name": "keyword_type",
+      "type": "integer",
+      "required": false,
+      "description": "For keyword monitors: 1 (exists), 2 (not exists)."
+    },
+    {
+      "name": "keyword_value",
+      "type": "string",
+      "required": false,
+      "description": "For keyword monitors: the keyword to check for."
+    },
+    {
+      "name": "sub_type",
+      "type": "integer",
+      "required": false,
+      "description": "For port monitors: 1 (HTTP 80), 2 (HTTPS 443), 3 (FTP 21), 4 (SMTP 25), 5 (POP3 110), 6 (IMAP 143), 99 (custom)."
+    },
+    {
+      "name": "port",
+      "type": "integer",
+      "required": false,
+      "description": "For port monitors with sub_type 99: the custom port number."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uptimerobot.com/v2/newMonitor",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "api_key": "ur-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "friendly_name": "My API Health Check",
+      "url": "https://api.example.com/health",
+      "type": 1,
+      "interval": 300
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stat": "ok",
+      "monitor": {
+        "id": 12345679,
+        "status": 1
+      }
+    }
+  }
+}

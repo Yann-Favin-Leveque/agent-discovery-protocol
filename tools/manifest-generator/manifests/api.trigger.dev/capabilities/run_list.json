@@ -1,0 +1,63 @@
+{
+  "name": "run_list",
+  "description": "List runs with optional filtering by status, task, and pagination.",
+  "resource_group": "run",
+  "endpoint": "/api/v3/runs",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "status",
+      "type": "array",
+      "description": "Filter by status: QUEUED, EXECUTING, COMPLETED, FAILED, CANCELED, etc.",
+      "required": false,
+      "example": [
+        "COMPLETED",
+        "FAILED"
+      ]
+    },
+    {
+      "name": "taskIdentifier",
+      "type": "string",
+      "description": "Filter by task identifier.",
+      "required": false,
+      "example": "my-task"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.trigger.dev/api/v3/runs?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "run_abc",
+          "taskIdentifier": "my-task",
+          "status": "COMPLETED",
+          "createdAt": "2024-01-01T00:00:00Z"
+        }
+      ],
+      "pagination": {
+        "next": "cursor_xyz"
+      }
+    }
+  }
+}

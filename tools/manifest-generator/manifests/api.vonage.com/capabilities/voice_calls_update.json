@@ -1,0 +1,56 @@
+{
+  "name": "voice_calls_update",
+  "description": "Modify an in-progress voice call. Transfer to a new NCCO, mute/unmute, earmuff/unearmuff, or hang up the call.",
+  "resource_group": "voice",
+  "endpoint": "/v1/calls/{uuid}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "uuid",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The UUID of the call to modify."
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "required": true,
+      "description": "The action to perform: 'transfer', 'hangup', 'mute', 'unmute', 'earmuff', 'unearmuff'."
+    },
+    {
+      "name": "destination",
+      "type": "object",
+      "required": false,
+      "description": "Required for 'transfer' action. Object with 'type' ('ncco') and 'url' (array of NCCO URLs) or 'ncco' (inline NCCO actions)."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.vonage.com/v1/calls/63f61863-4a51-4f6b-86e1-46edebcf9356",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."
+    },
+    "body": {
+      "action": "transfer",
+      "destination": {
+        "type": "ncco",
+        "ncco": [
+          {
+            "action": "talk",
+            "text": "You are being transferred to a support agent."
+          },
+          {
+            "action": "connect",
+            "endpoint": [{ "type": "phone", "number": "12015550199" }]
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

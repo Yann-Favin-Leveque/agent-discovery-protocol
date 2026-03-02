@@ -1,0 +1,111 @@
+{
+  "name": "message_list",
+  "description": "List messages from a user's mailbox with optional search, filtering by folder, subject, and date.",
+  "resource_group": "message",
+  "endpoint": "/v3/grants/{grant_id}/messages",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID, email, or 'me' (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results (default 50, max 200).",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "page_token",
+      "type": "string",
+      "description": "Pagination token.",
+      "required": false
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Filter by subject.",
+      "required": false
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Filter by sender email.",
+      "required": false
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "Filter by recipient email.",
+      "required": false
+    },
+    {
+      "name": "in",
+      "type": "string",
+      "description": "Filter by folder ID.",
+      "required": false
+    },
+    {
+      "name": "unread",
+      "type": "boolean",
+      "description": "Filter by unread status.",
+      "required": false
+    },
+    {
+      "name": "starred",
+      "type": "boolean",
+      "description": "Filter by starred status.",
+      "required": false
+    },
+    {
+      "name": "received_before",
+      "type": "integer",
+      "description": "Unix timestamp upper bound.",
+      "required": false
+    },
+    {
+      "name": "received_after",
+      "type": "integer",
+      "description": "Unix timestamp lower bound.",
+      "required": false
+    },
+    {
+      "name": "has_attachment",
+      "type": "boolean",
+      "description": "Filter by attachment presence.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.us.nylas.com/v3/grants/me/messages?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "msg_abc",
+          "subject": "Hello",
+          "from": [
+            {
+              "name": "John",
+              "email": "john@example.com"
+            }
+          ],
+          "date": 1704067200,
+          "unread": true
+        }
+      ],
+      "next_cursor": "token_xyz"
+    }
+  }
+}

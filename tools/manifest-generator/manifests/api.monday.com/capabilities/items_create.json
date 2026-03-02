@@ -1,0 +1,46 @@
+{
+  "name": "items_create",
+  "description": "Create a new item on a board.",
+  "resource_group": "items",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "board_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Board ID"
+    },
+    {
+      "name": "item_name",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Item name"
+    },
+    {
+      "name": "group_id",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Group to create the item in"
+    },
+    {
+      "name": "column_values",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "JSON string of column values"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "mutation { create_item (board_id: 123, item_name: \"New Item\", column_values: \"{\\\"status\\\":{\\\"label\\\":\\\"Working on it\\\"}}\") { id name } }"
+  }
+}

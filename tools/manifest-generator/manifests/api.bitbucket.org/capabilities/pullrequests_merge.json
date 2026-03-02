@@ -1,0 +1,70 @@
+{
+  "name": "pullrequests_merge",
+  "description": "Merge a pull request.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repositories/{workspace}/{repo_slug}/pullrequests/{pull_request_id}/merge",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace."
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repo slug."
+    },
+    {
+      "name": "pull_request_id",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "PR ID."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Merge strategy: merge_commit, squash, fast_forward."
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "description": "Merge commit message."
+    },
+    {
+      "name": "close_source_branch",
+      "type": "boolean",
+      "required": false,
+      "description": "Delete source branch."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace/my-project/pullrequests/1/merge",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer oauth-token"
+    },
+    "body": {
+      "type": "squash",
+      "close_source_branch": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1,
+      "state": "MERGED",
+      "merge_commit": {
+        "hash": "abc123"
+      }
+    }
+  }
+}

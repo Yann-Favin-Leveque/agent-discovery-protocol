@@ -1,0 +1,39 @@
+{
+  "name": "labels_create",
+  "description": "Create a new label.",
+  "resource_group": "labels",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Label name"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Label color hex"
+    },
+    {
+      "name": "teamId",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Team ID for team-specific label"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "mutation { issueLabelCreate(input: { name: \"bug\", color: \"#eb5757\" }) { success issueLabel { id name } } }"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "users_get",
+  "description": "Retrieve a user record by FullStory ID or external UID.",
+  "endpoint": "/v2/users/{id}",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The FullStory user ID.",
+      "required": true,
+      "example": "fs_user_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fullstory.com/v2/users/fs_user_abc123",
+    "headers": {
+      "Authorization": "Basic {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "fs_user_abc123",
+      "uid": "user_123",
+      "display_name": "John Doe",
+      "email": "john@example.com",
+      "properties": { "plan_str": "enterprise", "mrr_real": 99.99 },
+      "app_url": "https://app.fullstory.com/ui/users/fs_user_abc123"
+    }
+  },
+  "auth_scopes": ["server"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

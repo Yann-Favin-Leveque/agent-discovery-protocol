@@ -1,0 +1,64 @@
+{
+  "name": "registrar_register_domain",
+  "description": "Register a domain name.",
+  "resource_group": "registrar",
+  "endpoint": "/{account}/registrar/domains/{domain}/registrations",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "required": true,
+      "description": "Domain name."
+    },
+    {
+      "name": "registrant_id",
+      "type": "integer",
+      "required": true,
+      "description": "Contact ID for registrant."
+    },
+    {
+      "name": "auto_renew",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable auto-renewal."
+    },
+    {
+      "name": "whois_privacy",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable WHOIS privacy."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dnsimple.com/v2/1010/registrar/domains/example.com/registrations",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "registrant_id": 1,
+      "auto_renew": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": 1,
+        "domain_id": 1,
+        "registrant_id": 1,
+        "period": 1,
+        "state": "new",
+        "auto_renew": true
+      }
+    }
+  }
+}

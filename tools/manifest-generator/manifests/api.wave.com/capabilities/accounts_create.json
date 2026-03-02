@@ -1,0 +1,67 @@
+{
+  "name": "accounts_create",
+  "description": "Create a new account in the chart of accounts.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "accounts",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Account name",
+      "required": true,
+      "example": "Software Subscriptions"
+    },
+    {
+      "name": "typeValue",
+      "type": "string",
+      "description": "Account type (ASSET, LIABILITY, INCOME, EXPENSE, EQUITY)",
+      "required": true,
+      "example": "EXPENSE"
+    },
+    {
+      "name": "subtypeValue",
+      "type": "string",
+      "description": "Account subtype",
+      "required": true,
+      "example": "OPERATING_EXPENSE"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: AccountCreateInput!) { accountCreate(input: $input) { account { id name } didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "accountCreate": {
+          "account": {
+            "id": "QWNjb3VudDo6...",
+            "name": "Software Subscriptions"
+          },
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

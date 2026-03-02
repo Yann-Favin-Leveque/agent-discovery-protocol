@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "OpenRouteService",
-  "description": "OpenRouteService is an open-source routing, geocoding, and spatial analysis API built on OpenStreetMap data. It provides driving/walking/cycling directions, isochrone calculations (reachable areas), forward and reverse geocoding, distance/duration matrices, and elevation data. Use this for any location-based routing, address lookup, or geographic analysis task.",
+  "description": "OpenRouteService is an open-source routing, geocoding, and spatial analysis API built on OpenStreetMap data. It provides driving/walking/cycling directions, isochrone calculations, forward and reverse geocoding, distance/duration matrices, elevation data, POI search, route optimization, and coordinate snapping.",
   "base_url": "https://api.openrouteservice.org",
   "auth": {
     "type": "api_key",
@@ -10,34 +10,82 @@
   },
   "capabilities": [
     {
-      "name": "get_directions",
-      "description": "Calculate a route between two or more points with turn-by-turn directions, distance, and duration for driving, walking, or cycling.",
-      "detail_url": "/capabilities/get_directions"
+      "name": "directions_geojson",
+      "description": "Calculate a route and return the result in GeoJSON format.",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/directions_geojson",
+      "resource_group": "directions"
     },
     {
-      "name": "get_isochrones",
-      "description": "Calculate reachable areas from a location within a given time or distance limit, returned as polygons.",
-      "detail_url": "/capabilities/get_isochrones"
+      "name": "directions_get",
+      "description": "Calculate a route between waypoints using GET with coordinates in the URL. Returns turn-by-turn directions, distance, and duration.",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/directions_get",
+      "resource_group": "directions"
+    },
+    {
+      "name": "directions_post",
+      "description": "Calculate routes with advanced options using POST. Supports waypoints, avoid areas, route preferences, and alternative routes.",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/directions_post",
+      "resource_group": "directions"
+    },
+    {
+      "name": "elevation_line",
+      "description": "Get elevation data for a line geometry (sequence of points).",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/elevation_line",
+      "resource_group": "elevation"
+    },
+    {
+      "name": "elevation_point",
+      "description": "Get elevation data for a single geographic point.",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/elevation_point",
+      "resource_group": "elevation"
+    },
+    {
+      "name": "geocode_autocomplete",
+      "description": "Type-ahead geocoding search that returns results as the user types.",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/geocode_autocomplete",
+      "resource_group": "geocoding"
+    },
+    {
+      "name": "geocode_reverse",
+      "description": "Convert geographic coordinates into a human-readable address (reverse geocoding).",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/geocode_reverse",
+      "resource_group": "geocoding"
     },
     {
       "name": "geocode_search",
       "description": "Convert an address or place name into geographic coordinates (forward geocoding).",
-      "detail_url": "/capabilities/geocode_search"
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/geocode_search",
+      "resource_group": "geocoding"
     },
     {
-      "name": "reverse_geocode",
-      "description": "Convert geographic coordinates into a human-readable address (reverse geocoding).",
-      "detail_url": "/capabilities/reverse_geocode"
+      "name": "isochrones_post",
+      "description": "Calculate reachable areas from one or more locations within given time or distance limits. Returns polygon geometries.",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/isochrones_post",
+      "resource_group": "isochrones"
     },
     {
-      "name": "get_matrix",
+      "name": "matrix_post",
       "description": "Calculate a distance and/or duration matrix between multiple origin and destination points.",
-      "detail_url": "/capabilities/get_matrix"
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/matrix_post",
+      "resource_group": "matrix"
     },
     {
-      "name": "get_elevation",
-      "description": "Get elevation data for one or more geographic coordinates.",
-      "detail_url": "/capabilities/get_elevation"
+      "name": "optimization_solve",
+      "description": "Solve vehicle routing problems by optimizing routes through multiple jobs for one or more vehicles.",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/optimization_solve",
+      "resource_group": "optimization"
+    },
+    {
+      "name": "pois_search",
+      "description": "Find points of interest near a location, filtered by category.",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/pois_search",
+      "resource_group": "pois"
+    },
+    {
+      "name": "snapping_post",
+      "description": "Snap coordinates to the nearest point on the road network.",
+      "detail_url": "https://agent-dns.dev/api/services/api.openrouteservice.org/capabilities/snapping_post",
+      "resource_group": "snapping"
     }
   ]
 }

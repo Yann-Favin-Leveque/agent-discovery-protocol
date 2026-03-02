@@ -1,0 +1,90 @@
+{
+  "name": "pulls_list",
+  "description": "List pull requests for a repository with optional filtering.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repos/{owner}/{repo}/pulls",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "required": false,
+      "description": "Filter: open, closed, all. Default open."
+    },
+    {
+      "name": "head",
+      "type": "string",
+      "required": false,
+      "description": "Filter by head branch (user:branch format)."
+    },
+    {
+      "name": "base",
+      "type": "string",
+      "required": false,
+      "description": "Filter by base branch."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort by: created, updated, popularity, long-running."
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "description": "asc or desc."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (max 100)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/octocat/my-project/pulls?state=open&per_page=10",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1,
+        "number": 101,
+        "title": "Add dark mode",
+        "state": "open",
+        "head": {
+          "ref": "feature/dark-mode",
+          "sha": "abc123"
+        },
+        "base": {
+          "ref": "main"
+        },
+        "user": {
+          "login": "octocat"
+        },
+        "created_at": "2026-02-28T10:00:00Z",
+        "draft": false
+      }
+    ]
+  }
+}

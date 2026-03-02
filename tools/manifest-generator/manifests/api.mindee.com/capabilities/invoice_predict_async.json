@@ -1,0 +1,43 @@
+{
+  "name": "invoice_predict_async",
+  "description": "Submit an invoice for asynchronous parsing and receive a job ID to poll for results.",
+  "endpoint": "/v1/products/mindee/invoices/v4/predict_async",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "document",
+      "type": "file",
+      "description": "Invoice file (PDF, JPG, PNG, TIFF, WEBP).",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mindee.com/v1/products/mindee/invoices/v4/predict_async",
+    "headers": {
+      "Authorization": "Token {api_key}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "document": "(binary file data)"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "api_request": {
+        "status": "success"
+      },
+      "job": {
+        "id": "job_abc123",
+        "issued_at": "2024-01-15T10:30:00.000Z",
+        "status": "waiting"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

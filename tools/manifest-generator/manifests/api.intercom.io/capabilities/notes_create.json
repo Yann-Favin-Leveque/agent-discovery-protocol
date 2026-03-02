@@ -1,0 +1,49 @@
+{
+  "name": "notes_create",
+  "description": "Create a note on a contact for internal team reference. Notes are not visible to the contact.",
+  "resource_group": "notes",
+  "endpoint": "/contacts/{id}/notes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The contact ID."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "description": "HTML note body."
+    },
+    {
+      "name": "admin_id",
+      "type": "string",
+      "required": true,
+      "description": "The admin creating the note."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/contacts/contact-abc/notes",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "body": "<p>Customer interested in enterprise plan.</p>",
+      "admin_id": "admin-1"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "note",
+      "id": "note-2",
+      "body": "<p>Customer interested in enterprise plan.</p>"
+    }
+  }
+}

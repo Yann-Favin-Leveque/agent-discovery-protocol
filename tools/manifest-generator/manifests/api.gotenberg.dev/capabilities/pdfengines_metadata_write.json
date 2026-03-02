@@ -1,0 +1,38 @@
+{
+  "name": "pdfengines_metadata_write",
+  "description": "Write XMP metadata (Author, Title, Copyright, Keywords, etc.) to one or more existing PDF files.",
+  "resource_group": "pdfengines",
+  "endpoint": "/forms/pdfengines/metadata/write",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "files",
+      "type": "file",
+      "required": true,
+      "location": "formData",
+      "description": "One or more PDF files to update metadata on."
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "required": true,
+      "location": "formData",
+      "description": "JSON string with metadata fields. Example: {\"Author\": \"John Doe\", \"Title\": \"Report\"}."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "http://localhost:3000/forms/pdfengines/metadata/write",
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with document.pdf file and metadata={\"Author\": \"John Doe\", \"Title\": \"Annual Report 2026\"}"
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/pdf"
+    },
+    "body": "<binary PDF content with updated metadata>"
+  }
+}

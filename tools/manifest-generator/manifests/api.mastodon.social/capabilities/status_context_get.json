@@ -1,0 +1,44 @@
+{
+  "name": "status_context_get",
+  "resource_group": "statuses",
+  "description": "Get parent and child statuses in the thread.",
+  "endpoint": "/api/v1/statuses/{id}/context",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Status ID.",
+      "required": true,
+      "in": "path",
+      "example": "109876543210"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mastodon.social/api/v1/statuses/109876543210/context",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ancestors": [
+        {
+          "id": "109876543209",
+          "content": "<p>Parent</p>"
+        }
+      ],
+      "descendants": [
+        {
+          "id": "109876543211",
+          "content": "<p>Reply</p>"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read:statuses"
+  ]
+}

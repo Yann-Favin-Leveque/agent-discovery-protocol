@@ -1,0 +1,81 @@
+{
+  "name": "projects_list",
+  "description": "List projects accessible to the authenticated user with filtering and sorting options.",
+  "resource_group": "projects",
+  "endpoint": "/projects",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "description": "Search by project name."
+    },
+    {
+      "name": "owned",
+      "type": "boolean",
+      "required": false,
+      "description": "Only projects owned by current user."
+    },
+    {
+      "name": "membership",
+      "type": "boolean",
+      "required": false,
+      "description": "Only projects the user is a member of."
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "required": false,
+      "description": "Filter: public, internal, private."
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "required": false,
+      "description": "Sort by: id, name, path, created_at, updated_at, last_activity_at, similarity."
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "asc or desc."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (max 100). Default 20."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://gitlab.com/api/v4/projects?owned=true&per_page=10",
+    "headers": {
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 123,
+        "name": "my-project",
+        "path_with_namespace": "octocat/my-project",
+        "description": "Sample project",
+        "visibility": "private",
+        "default_branch": "main",
+        "web_url": "https://gitlab.com/octocat/my-project",
+        "star_count": 5,
+        "forks_count": 2,
+        "last_activity_at": "2026-02-28T10:00:00Z"
+      }
+    ]
+  }
+}

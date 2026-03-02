@@ -1,0 +1,56 @@
+{
+  "name": "functions_query",
+  "resource_group": "functions",
+  "description": "Execute a read-only Convex query function and get the result.",
+  "endpoint": "/api/query",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Function path (e.g., 'messages:list')."
+    },
+    {
+      "name": "args",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Named arguments for the function."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Output format. Currently supports 'json'."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{deployment}.convex.cloud/api/query",
+    "headers": {
+      "Authorization": "Convex {deploy_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "path": "messages:list",
+      "args": {},
+      "format": "json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "value": [
+        {
+          "_id": "abc123",
+          "text": "Hello world"
+        }
+      ],
+      "logLines": []
+    }
+  }
+}

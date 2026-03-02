@@ -1,8 +1,8 @@
 {
   "spec_version": "1.0",
   "name": "Canvas LMS",
-  "description": "Canvas LMS by Instructure is a learning management system used by schools and universities. Its REST API provides programmatic access to courses, assignments, submissions, grades, enrollments, and user data. All responses are JSON over HTTPS with OAuth2 authentication.",
-  "base_url": "https://canvas.instructure.com/api",
+  "description": "Canvas LMS by Instructure is a learning management system used by schools and universities. Its REST API provides programmatic access to courses, assignments, submissions, grades, enrollments, users, modules, quizzes, discussions, pages, calendar events, announcements, and files.",
+  "base_url": "https://canvas.instructure.com",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
@@ -11,39 +11,352 @@
   },
   "capabilities": [
     {
-      "name": "list_courses",
-      "description": "Retrieve all courses the authenticated user is enrolled in, including active, completed, and upcoming courses.",
-      "detail_url": "/capabilities/list_courses"
+      "name": "courses_list",
+      "description": "List active courses for the current user.",
+      "resource_group": "courses",
+      "detail_url": "/capabilities/courses_list"
     },
     {
-      "name": "list_assignments",
-      "description": "List all assignments for a specific course, including due dates, point values, and submission types.",
-      "detail_url": "/capabilities/list_assignments"
+      "name": "courses_get",
+      "description": "Retrieve a single course by ID.",
+      "resource_group": "courses",
+      "detail_url": "/capabilities/courses_get"
     },
     {
-      "name": "submit_assignment",
-      "description": "Submit work for a specific assignment on behalf of a student, supporting text, URLs, and file uploads.",
-      "detail_url": "/capabilities/submit_assignment"
+      "name": "courses_create",
+      "description": "Create a new course in an account.",
+      "resource_group": "courses",
+      "detail_url": "/capabilities/courses_create"
     },
     {
-      "name": "get_grades",
-      "description": "Retrieve the grades and enrollment details for a student in a specific course.",
-      "detail_url": "/capabilities/get_grades"
+      "name": "courses_update",
+      "description": "Update an existing course.",
+      "resource_group": "courses",
+      "detail_url": "/capabilities/courses_update"
     },
     {
-      "name": "list_enrollments",
-      "description": "List all enrollments for a course or user, showing who is enrolled and in what role (student, teacher, TA).",
-      "detail_url": "/capabilities/list_enrollments"
+      "name": "courses_delete",
+      "description": "Delete or conclude a course.",
+      "resource_group": "courses",
+      "detail_url": "/capabilities/courses_delete"
     },
     {
-      "name": "create_announcement",
-      "description": "Post a new announcement to a course that all enrolled students and instructors can see.",
-      "detail_url": "/capabilities/create_announcement"
+      "name": "courses_users_list",
+      "description": "List users enrolled in a course.",
+      "resource_group": "courses",
+      "detail_url": "/capabilities/courses_users_list"
     },
     {
-      "name": "get_user_profile",
-      "description": "Retrieve the profile and account details of a specific user or the currently authenticated user.",
-      "detail_url": "/capabilities/get_user_profile"
+      "name": "courses_settings_get",
+      "description": "Get course settings.",
+      "resource_group": "courses",
+      "detail_url": "/capabilities/courses_settings_get"
+    },
+    {
+      "name": "courses_settings_update",
+      "description": "Update course settings.",
+      "resource_group": "courses",
+      "detail_url": "/capabilities/courses_settings_update"
+    },
+    {
+      "name": "assignments_list",
+      "description": "List assignments for a course.",
+      "resource_group": "assignments",
+      "detail_url": "/capabilities/assignments_list"
+    },
+    {
+      "name": "assignments_get",
+      "description": "Retrieve a single assignment.",
+      "resource_group": "assignments",
+      "detail_url": "/capabilities/assignments_get"
+    },
+    {
+      "name": "assignments_create",
+      "description": "Create a new assignment.",
+      "resource_group": "assignments",
+      "detail_url": "/capabilities/assignments_create"
+    },
+    {
+      "name": "assignments_update",
+      "description": "Update an assignment.",
+      "resource_group": "assignments",
+      "detail_url": "/capabilities/assignments_update"
+    },
+    {
+      "name": "assignments_delete",
+      "description": "Delete an assignment.",
+      "resource_group": "assignments",
+      "detail_url": "/capabilities/assignments_delete"
+    },
+    {
+      "name": "submissions_list",
+      "description": "List submissions for an assignment.",
+      "resource_group": "submissions",
+      "detail_url": "/capabilities/submissions_list"
+    },
+    {
+      "name": "submissions_get",
+      "description": "Retrieve a single submission.",
+      "resource_group": "submissions",
+      "detail_url": "/capabilities/submissions_get"
+    },
+    {
+      "name": "submissions_create",
+      "description": "Submit work for an assignment.",
+      "resource_group": "submissions",
+      "detail_url": "/capabilities/submissions_create"
+    },
+    {
+      "name": "submissions_grade",
+      "description": "Grade or comment on a submission.",
+      "resource_group": "submissions",
+      "detail_url": "/capabilities/submissions_grade"
+    },
+    {
+      "name": "enrollments_list",
+      "description": "List enrollments for a course.",
+      "resource_group": "enrollments",
+      "detail_url": "/capabilities/enrollments_list"
+    },
+    {
+      "name": "enrollments_create",
+      "description": "Enroll a user in a course.",
+      "resource_group": "enrollments",
+      "detail_url": "/capabilities/enrollments_create"
+    },
+    {
+      "name": "enrollments_delete",
+      "description": "Conclude, deactivate, or delete an enrollment.",
+      "resource_group": "enrollments",
+      "detail_url": "/capabilities/enrollments_delete"
+    },
+    {
+      "name": "users_get",
+      "description": "Retrieve user details.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_get"
+    },
+    {
+      "name": "users_profile_get",
+      "description": "Retrieve user profile.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_profile_get"
+    },
+    {
+      "name": "users_create",
+      "description": "Create a new user.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_create"
+    },
+    {
+      "name": "users_update",
+      "description": "Update a user.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_update"
+    },
+    {
+      "name": "modules_list",
+      "description": "List modules in a course.",
+      "resource_group": "modules",
+      "detail_url": "/capabilities/modules_list"
+    },
+    {
+      "name": "modules_get",
+      "description": "Retrieve a module.",
+      "resource_group": "modules",
+      "detail_url": "/capabilities/modules_get"
+    },
+    {
+      "name": "modules_create",
+      "description": "Create a module.",
+      "resource_group": "modules",
+      "detail_url": "/capabilities/modules_create"
+    },
+    {
+      "name": "modules_update",
+      "description": "Update a module.",
+      "resource_group": "modules",
+      "detail_url": "/capabilities/modules_update"
+    },
+    {
+      "name": "modules_delete",
+      "description": "Delete a module.",
+      "resource_group": "modules",
+      "detail_url": "/capabilities/modules_delete"
+    },
+    {
+      "name": "module_items_list",
+      "description": "List items in a module.",
+      "resource_group": "modules",
+      "detail_url": "/capabilities/module_items_list"
+    },
+    {
+      "name": "module_items_create",
+      "description": "Add an item to a module.",
+      "resource_group": "modules",
+      "detail_url": "/capabilities/module_items_create"
+    },
+    {
+      "name": "discussions_list",
+      "description": "List discussion topics for a course.",
+      "resource_group": "discussions",
+      "detail_url": "/capabilities/discussions_list"
+    },
+    {
+      "name": "discussions_get",
+      "description": "Retrieve a discussion topic.",
+      "resource_group": "discussions",
+      "detail_url": "/capabilities/discussions_get"
+    },
+    {
+      "name": "discussions_create",
+      "description": "Create a discussion topic.",
+      "resource_group": "discussions",
+      "detail_url": "/capabilities/discussions_create"
+    },
+    {
+      "name": "discussions_update",
+      "description": "Update a discussion topic.",
+      "resource_group": "discussions",
+      "detail_url": "/capabilities/discussions_update"
+    },
+    {
+      "name": "discussions_delete",
+      "description": "Delete a discussion topic.",
+      "resource_group": "discussions",
+      "detail_url": "/capabilities/discussions_delete"
+    },
+    {
+      "name": "discussions_entries_list",
+      "description": "List entries in a discussion.",
+      "resource_group": "discussions",
+      "detail_url": "/capabilities/discussions_entries_list"
+    },
+    {
+      "name": "discussions_entries_create",
+      "description": "Post an entry to a discussion.",
+      "resource_group": "discussions",
+      "detail_url": "/capabilities/discussions_entries_create"
+    },
+    {
+      "name": "quizzes_list",
+      "description": "List quizzes in a course.",
+      "resource_group": "quizzes",
+      "detail_url": "/capabilities/quizzes_list"
+    },
+    {
+      "name": "quizzes_get",
+      "description": "Retrieve a quiz.",
+      "resource_group": "quizzes",
+      "detail_url": "/capabilities/quizzes_get"
+    },
+    {
+      "name": "quizzes_create",
+      "description": "Create a quiz.",
+      "resource_group": "quizzes",
+      "detail_url": "/capabilities/quizzes_create"
+    },
+    {
+      "name": "quizzes_update",
+      "description": "Update a quiz.",
+      "resource_group": "quizzes",
+      "detail_url": "/capabilities/quizzes_update"
+    },
+    {
+      "name": "quizzes_delete",
+      "description": "Delete a quiz.",
+      "resource_group": "quizzes",
+      "detail_url": "/capabilities/quizzes_delete"
+    },
+    {
+      "name": "pages_list",
+      "description": "List wiki pages in a course.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_list"
+    },
+    {
+      "name": "pages_get",
+      "description": "Retrieve a wiki page.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_get"
+    },
+    {
+      "name": "pages_create",
+      "description": "Create a wiki page.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_create"
+    },
+    {
+      "name": "pages_update",
+      "description": "Update a wiki page.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_update"
+    },
+    {
+      "name": "pages_delete",
+      "description": "Delete a wiki page.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_delete"
+    },
+    {
+      "name": "calendar_events_list",
+      "description": "List calendar events.",
+      "resource_group": "calendar_events",
+      "detail_url": "/capabilities/calendar_events_list"
+    },
+    {
+      "name": "calendar_events_get",
+      "description": "Retrieve a calendar event.",
+      "resource_group": "calendar_events",
+      "detail_url": "/capabilities/calendar_events_get"
+    },
+    {
+      "name": "calendar_events_create",
+      "description": "Create a calendar event.",
+      "resource_group": "calendar_events",
+      "detail_url": "/capabilities/calendar_events_create"
+    },
+    {
+      "name": "calendar_events_update",
+      "description": "Update a calendar event.",
+      "resource_group": "calendar_events",
+      "detail_url": "/capabilities/calendar_events_update"
+    },
+    {
+      "name": "calendar_events_delete",
+      "description": "Delete a calendar event.",
+      "resource_group": "calendar_events",
+      "detail_url": "/capabilities/calendar_events_delete"
+    },
+    {
+      "name": "announcements_list",
+      "description": "List announcements for a course.",
+      "resource_group": "announcements",
+      "detail_url": "/capabilities/announcements_list"
+    },
+    {
+      "name": "announcements_create",
+      "description": "Create an announcement.",
+      "resource_group": "announcements",
+      "detail_url": "/capabilities/announcements_create"
+    },
+    {
+      "name": "files_list",
+      "description": "List files in a course.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_list"
+    },
+    {
+      "name": "files_get",
+      "description": "Retrieve file metadata.",
+      "resource_group": "files",
+      "detail_url": "/capabilities/files_get"
+    },
+    {
+      "name": "grades_list",
+      "description": "List enrollments with grades for a course.",
+      "resource_group": "grades",
+      "detail_url": "/capabilities/grades_list"
     }
   ]
 }

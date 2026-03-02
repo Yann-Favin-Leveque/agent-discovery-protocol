@@ -1,0 +1,28 @@
+{
+  "name": "databases_list",
+  "resource_group": "databases",
+  "description": "List all databases in a PlanetScale organization with optional search and pagination.",
+  "endpoint": "/organizations/{organization}/databases",
+  "method": "GET",
+  "parameters": [
+    {"name": "organization", "type": "string", "required": true, "in": "path", "description": "Organization name slug.", "example": "acme"},
+    {"name": "q", "type": "string", "required": false, "in": "query", "description": "Search term to filter databases by name."},
+    {"name": "page", "type": "integer", "required": false, "in": "query", "description": "Page number for pagination. Default: 1."},
+    {"name": "per_page", "type": "integer", "required": false, "in": "query", "description": "Number of results per page. Default: 25."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.planetscale.com/v1/organizations/acme/databases?page=1&per_page=25",
+    "headers": {"Authorization": "Bearer {access_token}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "current_page": 1,
+      "next_page": 2,
+      "data": [
+        {"id": "db-id-123", "name": "production_db", "state": "ready", "kind": "mysql", "branches_count": 5, "default_branch": "main", "created_at": "2024-01-15T10:00:00Z"}
+      ]
+    }
+  }
+}

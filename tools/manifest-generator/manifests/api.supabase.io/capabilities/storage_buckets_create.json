@@ -1,0 +1,71 @@
+{
+  "name": "storage_buckets_create",
+  "description": "Create a new storage bucket.",
+  "endpoint": "/storage/v1/bucket",
+  "method": "POST",
+  "resource_group": "storage",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Bucket ID/name",
+      "required": true,
+      "example": "documents"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Bucket display name",
+      "required": true,
+      "example": "documents"
+    },
+    {
+      "name": "public",
+      "type": "boolean",
+      "description": "Allow public access",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "file_size_limit",
+      "type": "integer",
+      "description": "Max file size in bytes",
+      "required": false,
+      "example": 5242880
+    },
+    {
+      "name": "allowed_mime_types",
+      "type": "array",
+      "description": "Allowed MIME types",
+      "required": false,
+      "example": [
+        "application/pdf",
+        "image/*"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/storage/v1/bucket",
+    "headers": {
+      "apikey": "{service_role_key}",
+      "Authorization": "Bearer {service_role_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "documents",
+      "name": "documents",
+      "public": false
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "name": "documents"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

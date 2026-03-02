@@ -1,0 +1,53 @@
+{
+  "name": "licenses_verify",
+  "description": "Verify a software license key for a product.",
+  "resource_group": "licenses",
+  "endpoint": "/v2/licenses/verify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "product_id",
+      "type": "string",
+      "required": true,
+      "description": "Product permalink or ID.",
+      "example": "abc123"
+    },
+    {
+      "name": "license_key",
+      "type": "string",
+      "required": true,
+      "description": "The license key to verify.",
+      "example": "ABCD-1234-EFGH-5678"
+    },
+    {
+      "name": "increment_uses_count",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to increment the uses count. Default true."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gumroad.com/v2/licenses/verify",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "product_id": "abc123",
+      "license_key": "ABCD-1234-EFGH-5678"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "uses": 1,
+      "purchase": {
+        "email": "buyer@example.com",
+        "product_id": "abc123",
+        "license_key": "ABCD-1234-EFGH-5678"
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "accounts_get",
+  "description": "Retrieve account details including metadata, visitor count, and activity timestamps.",
+  "endpoint": "/v1/account/{account_id}",
+  "method": "GET",
+  "resource_group": "accounts",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The account/company ID.",
+      "required": true,
+      "example": "acme-corp"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.pendo.io/api/v1/account/acme-corp",
+    "headers": {
+      "x-pendo-integration-key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "accountId": "acme-corp",
+      "metadata": {
+        "auto": { "firstvisit": 1705747200000, "lastvisit": 1706006400000, "visitorcount": 25 },
+        "custom": { "name": "Acme Corp", "plan": "enterprise", "industry": "Technology" }
+      }
+    }
+  },
+  "auth_scopes": ["account"],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

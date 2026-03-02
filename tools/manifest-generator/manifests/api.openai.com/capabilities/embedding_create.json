@@ -1,0 +1,63 @@
+{
+  "name": "embedding_create",
+  "description": "Generate vector embeddings for text input, useful for semantic search, clustering, and similarity comparisons.",
+  "resource_group": "embeddings",
+  "endpoint": "/v1/embeddings",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Model ID to use (e.g. 'text-embedding-3-small', 'text-embedding-3-large', 'text-embedding-ada-002')."
+    },
+    {
+      "name": "input",
+      "type": "string or array",
+      "required": true,
+      "description": "Input text to embed, encoded as a string or array of strings."
+    },
+    {
+      "name": "encoding_format",
+      "type": "string",
+      "required": false,
+      "description": "The format of the embeddings: 'float' (default) or 'base64'."
+    },
+    {
+      "name": "dimensions",
+      "type": "integer",
+      "required": false,
+      "description": "The number of dimensions for the output embeddings (supported by text-embedding-3 models)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/embeddings",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "text-embedding-3-small",
+      "input": "The quick brown fox jumps over the lazy dog"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "object": "embedding",
+          "index": 0,
+          "embedding": [0.0023064255, -0.009327292, 0.015797347]
+        }
+      ],
+      "model": "text-embedding-3-small",
+      "usage": {
+        "prompt_tokens": 9,
+        "total_tokens": 9
+      }
+    }
+  }
+}

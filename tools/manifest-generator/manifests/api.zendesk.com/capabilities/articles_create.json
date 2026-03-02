@@ -1,0 +1,65 @@
+{
+  "name": "articles_create",
+  "description": "Create a new Help Center article.",
+  "endpoint": "/api/v2/help_center/sections/{section_id}/articles",
+  "method": "POST",
+  "resource_group": "help_center",
+  "parameters": [
+    {
+      "name": "section_id",
+      "type": "integer",
+      "description": "Section ID",
+      "required": true,
+      "example": "10"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Article title",
+      "required": true,
+      "example": "New Guide"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "Article body HTML",
+      "required": true,
+      "example": "<p>Content...</p>"
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "description": "Locale",
+      "required": false,
+      "example": "en-us"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{subdomain}.zendesk.com/api/v2/help_center/sections/{section_id}/articles",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "article": {
+        "title": "New Guide",
+        "body": "<p>Content...</p>",
+        "locale": "en-us"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "article": {
+        "id": 10,
+        "title": "New Guide"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

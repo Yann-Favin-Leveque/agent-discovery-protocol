@@ -1,0 +1,23 @@
+{
+  "name": "document_upload",
+  "description": "Upload a document and queue it for translation while preserving formatting. Returns a document ID and key for status checking.",
+  "resource_group": "documents",
+  "endpoint": "/v2/document",
+  "method": "POST",
+  "parameters": [
+    {"name": "file", "type": "file", "required": true, "description": "Document file to translate."},
+    {"name": "target_lang", "type": "string", "required": true, "description": "Target language code."},
+    {"name": "source_lang", "type": "string", "required": false, "description": "Source language code."},
+    {"name": "filename", "type": "string", "required": false, "description": "Name of the uploaded file."},
+    {"name": "formality", "type": "string", "required": false, "description": "Formality level."},
+    {"name": "glossary_id", "type": "string", "required": false, "description": "Glossary ID."},
+    {"name": "output_format", "type": "string", "required": false, "description": "Output file extension (e.g. 'pdf', 'docx')."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.deepl.com/v2/document",
+    "headers": {"Authorization": "DeepL-Auth-Key your-api-key-here"},
+    "body": "multipart/form-data: file=@document.docx&target_lang=DE"
+  },
+  "response_example": {"status": 200, "body": {"document_id": "doc123", "document_key": "key456"}}
+}

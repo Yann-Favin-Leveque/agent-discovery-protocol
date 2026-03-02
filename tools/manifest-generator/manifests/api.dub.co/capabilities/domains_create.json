@@ -1,0 +1,67 @@
+{
+  "name": "domains_create",
+  "description": "Add a custom domain to the workspace for use with short links.",
+  "endpoint": "/domains",
+  "method": "POST",
+  "resource_group": "domains",
+  "parameters": [
+    {
+      "name": "slug",
+      "type": "string",
+      "description": "The domain name to add (1-190 chars).",
+      "required": true,
+      "example": "links.acme.com"
+    },
+    {
+      "name": "expiredUrl",
+      "type": "string",
+      "description": "Default redirect URL for expired links.",
+      "required": false
+    },
+    {
+      "name": "notFoundUrl",
+      "type": "string",
+      "description": "Default redirect URL for non-existent links.",
+      "required": false
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "description": "Example URL shown to teammates.",
+      "required": false
+    },
+    {
+      "name": "archived",
+      "type": "boolean",
+      "description": "Whether to archive the domain.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dub.co/domains",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "slug": "links.acme.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "dom_abc123",
+      "slug": "links.acme.com",
+      "verified": false,
+      "primary": false,
+      "archived": false,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

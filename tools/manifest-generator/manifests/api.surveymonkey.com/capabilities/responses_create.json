@@ -1,0 +1,61 @@
+{
+  "name": "responses_create",
+  "resource_group": "responses",
+  "description": "Create a response via the API.",
+  "endpoint": "/v3/collectors/{collector_id}/responses",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "collector_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Collector ID."
+    },
+    {
+      "name": "pages",
+      "type": "array",
+      "required": true,
+      "in": "body",
+      "description": "Page and question response data."
+    },
+    {
+      "name": "response_status",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Status: completed or partial."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.surveymonkey.com/v3/collectors/coll-123/responses",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "pages": [
+        {
+          "id": "p1",
+          "questions": [
+            {
+              "id": "q1",
+              "answers": [
+                {
+                  "choice_id": "c1"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "resp-2"
+    }
+  }
+}

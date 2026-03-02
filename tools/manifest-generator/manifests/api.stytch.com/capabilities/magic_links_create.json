@@ -1,0 +1,48 @@
+{
+  "name": "magic_links_create",
+  "resource_group": "magic_links",
+  "description": "Create an embeddable magic link token that you can deliver via any channel.",
+  "endpoint": "/v1/magic_links",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID to create magic link for."
+    },
+    {
+      "name": "expiration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Token expiration in minutes."
+    },
+    {
+      "name": "attributes",
+      "type": "object",
+      "required": false,
+      "description": "Attributes to attach."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/magic_links",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user_id": "user-live-abc",
+      "expiration_minutes": 60
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "status_code": 200,
+      "token": "magic-link-token-xyz",
+      "user_id": "user-live-abc"
+    }
+  }
+}

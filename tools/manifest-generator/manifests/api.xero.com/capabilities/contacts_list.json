@@ -1,0 +1,51 @@
+{
+  "name": "contacts_list",
+  "description": "Retrieve all contacts (customers and suppliers).",
+  "resource_group": "contacts",
+  "endpoint": "/Contacts",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "where",
+      "type": "string",
+      "required": false,
+      "description": "Filter expression."
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "description": "Sort order."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.contacts.read"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.xero.com/api.xro/2.0/Contacts?page=1",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Contacts": [
+        {
+          "ContactID": "contact-abc",
+          "Name": "Acme Corp",
+          "EmailAddress": "billing@acme.com",
+          "IsCustomer": true
+        }
+      ]
+    }
+  }
+}

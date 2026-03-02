@@ -1,0 +1,52 @@
+{
+  "name": "body_weight_log_create",
+  "description": "Create a body weight log entry.",
+  "resource_group": "body",
+  "endpoint": "/1/user/-/body/log/weight.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "weight",
+      "type": "number",
+      "required": true,
+      "description": "Weight value."
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "Date YYYY-MM-DD."
+    },
+    {
+      "name": "time",
+      "type": "string",
+      "required": false,
+      "description": "Time HH:mm:ss."
+    }
+  ],
+  "auth_scopes": [
+    "weight"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.fitbit.com/1/user/-/body/log/weight.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "weight": 75.5,
+      "date": "2025-01-15"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "weightLog": {
+        "logId": 1234,
+        "weight": 75.5,
+        "bmi": 24.2
+      }
+    }
+  }
+}

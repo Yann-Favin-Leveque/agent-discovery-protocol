@@ -1,0 +1,73 @@
+{
+  "name": "cryptocurrency_listings_historical",
+  "description": "Return a ranked list of all cryptocurrencies at a historical snapshot in time.",
+  "resource_group": "cryptocurrency",
+  "endpoint": "/v1/cryptocurrency/listings/historical",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date",
+      "type": "string",
+      "description": "Historical date snapshot (ISO 8601).",
+      "required": true,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "start",
+      "type": "integer",
+      "description": "Offset.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results (1-5000).",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Quote currency.",
+      "required": false,
+      "example": "USD"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort: cmc_rank, name, symbol, market_cap, price.",
+      "required": false,
+      "example": "cmc_rank"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/historical?date=2024-01-01&limit=10",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": [
+        {
+          "id": 1,
+          "name": "Bitcoin",
+          "symbol": "BTC",
+          "cmc_rank": 1,
+          "quote": {
+            "USD": {
+              "price": 42000.0
+            }
+          }
+        }
+      ]
+    }
+  }
+}

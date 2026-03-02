@@ -1,0 +1,43 @@
+{
+  "name": "handover_take_thread_control",
+  "description": "Take thread control from another app. Only the primary receiver app can take control.",
+  "endpoint": "/me/take_thread_control",
+  "method": "POST",
+  "resource_group": "handover",
+  "parameters": [
+    {
+      "name": "recipient_id",
+      "type": "string",
+      "description": "The PSID of the user whose thread control to take.",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "description": "Optional metadata string.",
+      "required": false,
+      "example": "Taking control back from human agent"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v18.0/me/take_thread_control",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipient": { "id": "1234567890" },
+      "metadata": "Taking control back from human agent"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "success": true }
+  },
+  "auth_scopes": ["pages_messaging"],
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
+}

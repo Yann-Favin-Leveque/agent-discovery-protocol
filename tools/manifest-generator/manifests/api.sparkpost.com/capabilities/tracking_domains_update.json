@@ -1,0 +1,48 @@
+{
+  "name": "tracking_domains_update",
+  "description": "Update a tracking domain configuration.",
+  "endpoint": "/api/v1/tracking-domains/{domain}",
+  "method": "PUT",
+  "resource_group": "tracking_domains",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Domain name",
+      "required": true,
+      "example": "track.example.com"
+    },
+    {
+      "name": "secure",
+      "type": "boolean",
+      "description": "Enable/disable HTTPS",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sparkpost.com/api/v1/tracking-domains/track.example.com",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "secure": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "domain": "track.example.com"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

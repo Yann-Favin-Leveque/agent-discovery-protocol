@@ -1,0 +1,44 @@
+{
+  "name": "pullrequests_decline",
+  "description": "Decline a pull request.",
+  "resource_group": "pull_requests",
+  "endpoint": "/repositories/{workspace}/{repo_slug}/pullrequests/{pull_request_id}/decline",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace."
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repo slug."
+    },
+    {
+      "name": "pull_request_id",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "PR ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace/my-project/pullrequests/1/decline",
+    "headers": {
+      "Authorization": "Bearer oauth-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 1,
+      "state": "DECLINED"
+    }
+  }
+}

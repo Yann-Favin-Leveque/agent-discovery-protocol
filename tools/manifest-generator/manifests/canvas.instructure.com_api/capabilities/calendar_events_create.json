@@ -1,0 +1,60 @@
+{
+  "name": "calendar_events_create",
+  "description": "Create a calendar event.",
+  "resource_group": "calendar_events",
+  "endpoint": "/api/v1/calendar_events",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "calendar_event[context_code]",
+      "type": "string",
+      "description": "Context code.",
+      "required": true,
+      "example": "course_1234"
+    },
+    {
+      "name": "calendar_event[title]",
+      "type": "string",
+      "description": "Event title.",
+      "required": true,
+      "example": "Office Hours"
+    },
+    {
+      "name": "calendar_event[start_at]",
+      "type": "string",
+      "description": "Start time.",
+      "required": true,
+      "example": "2026-02-01T14:00:00Z"
+    },
+    {
+      "name": "calendar_event[end_at]",
+      "type": "string",
+      "description": "End time.",
+      "required": false,
+      "example": "2026-02-01T15:00:00Z"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://canvas.instructure.com/api/v1/calendar_events",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "calendar_event": {
+        "context_code": "course_1234",
+        "title": "Office Hours",
+        "start_at": "2026-02-01T14:00:00Z",
+        "end_at": "2026-02-01T15:00:00Z"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 12002,
+      "title": "Office Hours"
+    }
+  }
+}

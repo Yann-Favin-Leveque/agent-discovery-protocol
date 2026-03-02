@@ -1,0 +1,52 @@
+{
+  "name": "lists_add_contacts",
+  "description": "Add contacts to a list.",
+  "resource_group": "lists",
+  "endpoint": "/contacts/lists/{listId}/contacts/add",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "listId",
+      "type": "integer",
+      "description": "List ID.",
+      "required": true
+    },
+    {
+      "name": "emails",
+      "type": "array",
+      "description": "Emails to add.",
+      "required": false
+    },
+    {
+      "name": "ids",
+      "type": "array",
+      "description": "Contact IDs to add.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/contacts/lists/1/contacts/add",
+    "headers": {
+      "api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "emails": [
+        "a@example.com",
+        "b@example.com"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "contacts": {
+        "success": [
+          "a@example.com",
+          "b@example.com"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "items_patch",
+  "description": "Apply partial updates to an item using RFC6902 JSON Patch operations (add, remove, or replace specific fields).",
+  "endpoint": "/v1/vaults/{vaultUUID}/items/{itemUUID}",
+  "method": "PATCH",
+  "resource_group": "items",
+  "parameters": [
+    {
+      "name": "vaultUUID",
+      "type": "string",
+      "description": "UUID of the vault containing the item.",
+      "required": true,
+      "example": "hfnjvi6aymbsnfc2xeeoheizda"
+    },
+    {
+      "name": "itemUUID",
+      "type": "string",
+      "description": "UUID of the item to patch.",
+      "required": true,
+      "example": "wepiqdxdzncjtnvmv5fegud4qy"
+    },
+    {
+      "name": "body",
+      "type": "array",
+      "description": "Array of JSON Patch operations (op, path, value).",
+      "required": true,
+      "example": [{ "op": "replace", "path": "/title", "value": "New Title" }]
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.1password.com/v1/vaults/hfnjvi6aymbsnfc2xeeoheizda/items/wepiqdxdzncjtnvmv5fegud4qy",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json-patch+json"
+    },
+    "body": [
+      { "op": "replace", "path": "/fields/password/value", "value": "updatedP@ssw0rd!" }
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "wepiqdxdzncjtnvmv5fegud4qy",
+      "title": "Database Credentials",
+      "category": "LOGIN",
+      "vault": { "id": "hfnjvi6aymbsnfc2xeeoheizda" },
+      "updatedAt": "2024-06-15T10:30:00Z"
+    }
+  },
+  "auth_scopes": ["vaults"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

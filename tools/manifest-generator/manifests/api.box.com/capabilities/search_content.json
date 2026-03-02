@@ -1,0 +1,65 @@
+{
+  "name": "search_content",
+  "description": "Search for files and folders across Box.",
+  "resource_group": "search",
+  "endpoint": "/2.0/search",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "description": "Search query string.",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter by type: file or folder.",
+      "required": false
+    },
+    {
+      "name": "file_extensions",
+      "type": "string",
+      "description": "Filter by extensions (comma-separated).",
+      "required": false
+    },
+    {
+      "name": "ancestor_folder_ids",
+      "type": "string",
+      "description": "Limit to specific folder IDs.",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results.",
+      "required": false
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Pagination offset.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.box.com/2.0/search?query=report&type=file&limit=10",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "total_count": 3,
+      "entries": [
+        {
+          "type": "file",
+          "id": "12345",
+          "name": "report.pdf"
+        }
+      ]
+    }
+  }
+}

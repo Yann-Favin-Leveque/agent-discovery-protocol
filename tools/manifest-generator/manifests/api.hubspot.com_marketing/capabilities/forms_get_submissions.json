@@ -1,0 +1,59 @@
+{
+  "name": "forms_get_submissions",
+  "description": "Retrieve all submissions for a specific form with field values, timestamps, and contact associations.",
+  "endpoint": "/form-integrations/v1/submissions/forms/{formId}",
+  "method": "GET",
+  "resource_group": "forms",
+  "parameters": [
+    {
+      "name": "formId",
+      "type": "string",
+      "description": "The form ID.",
+      "required": true,
+      "example": "form_abc123"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum submissions to return (default 20, max 50).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Cursor for pagination.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hubspot.com/form-integrations/v1/submissions/forms/form_abc123?limit=20",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "submittedAt": 1700000000000,
+          "values": [
+            { "name": "email", "value": "john@example.com" },
+            { "name": "firstname", "value": "John" }
+          ],
+          "pageUrl": "https://example.com/signup"
+        }
+      ],
+      "paging": {
+        "next": { "after": "abc123" }
+      }
+    }
+  },
+  "auth_scopes": ["forms"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

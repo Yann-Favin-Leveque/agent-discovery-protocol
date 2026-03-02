@@ -1,0 +1,54 @@
+{
+  "name": "delivery_reports_get",
+  "description": "Retrieve the delivery report for a specific batch, showing aggregated per-status counts and per-recipient delivery status with error codes.",
+  "endpoint": "/xms/v1/{service_plan_id}/batches/{batch_id}/delivery_report",
+  "method": "GET",
+  "resource_group": "delivery_reports",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "batch_id",
+      "type": "string",
+      "required": true,
+      "description": "The unique batch identifier (path parameter)."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Report type: 'summary' or 'full'. Default 'summary'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/batches/{batch_id}/delivery_report?type=full",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "batch_id": "batch-id-01HXYZ",
+      "total_message_count": 2,
+      "type": "delivery_report_sms",
+      "statuses": [
+        {
+          "code": 0,
+          "status": "Delivered",
+          "count": 2,
+          "recipients": ["14155550123", "14155550124"]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

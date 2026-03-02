@@ -1,0 +1,47 @@
+{
+  "name": "segments_list",
+  "description": "List all segments for an audience.",
+  "endpoint": "/3.0/lists/{list_id}/segments",
+  "method": "GET",
+  "resource_group": "segments",
+  "parameters": [
+    {
+      "name": "list_id",
+      "type": "string",
+      "description": "Audience ID.",
+      "required": true,
+      "example": "abc123"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 10
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us1.api.mailchimp.com/3.0/lists/abc123/segments?count=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "segments": [
+        {
+          "id": 1,
+          "name": "VIP Customers",
+          "member_count": 500
+        }
+      ],
+      "total_items": 5
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

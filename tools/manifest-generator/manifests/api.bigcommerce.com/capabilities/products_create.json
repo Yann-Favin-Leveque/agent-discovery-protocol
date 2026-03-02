@@ -1,0 +1,79 @@
+{
+  "name": "products_create",
+  "description": "Create a new product in the BigCommerce catalog.",
+  "resource_group": "products",
+  "endpoint": "/catalog/products",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Product name.",
+      "example": "New Product"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Product type: physical or digital.",
+      "example": "physical"
+    },
+    {
+      "name": "price",
+      "type": "number",
+      "required": true,
+      "description": "Product price.",
+      "example": 29.99
+    },
+    {
+      "name": "weight",
+      "type": "number",
+      "required": true,
+      "description": "Product weight.",
+      "example": 1.0
+    },
+    {
+      "name": "sku",
+      "type": "string",
+      "required": false,
+      "description": "Product SKU."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "HTML description."
+    },
+    {
+      "name": "categories",
+      "type": "array",
+      "required": false,
+      "description": "Array of category IDs."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bigcommerce.com/stores/{store_hash}/v3/catalog/products",
+    "headers": {
+      "X-Auth-Token": "{api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "New Product",
+      "type": "physical",
+      "price": 29.99,
+      "weight": 1.0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 78,
+        "name": "New Product",
+        "price": 29.99
+      }
+    }
+  }
+}

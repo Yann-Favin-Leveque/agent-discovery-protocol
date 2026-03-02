@@ -1,0 +1,59 @@
+{
+  "name": "refunds_create",
+  "description": "Create a refund for a payment.",
+  "resource_group": "refunds",
+  "endpoint": "/refunds",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "amount",
+      "type": "integer",
+      "description": "Refund amount in smallest currency unit.",
+      "required": true
+    },
+    {
+      "name": "links[payment]",
+      "type": "string",
+      "description": "Payment ID to refund.",
+      "required": true
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata.",
+      "required": false
+    },
+    {
+      "name": "reference",
+      "type": "string",
+      "description": "Reference for the refund.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/refunds",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "refunds": {
+        "amount": 5000,
+        "links": {
+          "payment": "PM000123"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "refunds": {
+        "id": "RF000123",
+        "amount": 5000
+      }
+    }
+  }
+}

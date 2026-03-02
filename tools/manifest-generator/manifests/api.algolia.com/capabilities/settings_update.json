@@ -1,0 +1,55 @@
+{
+  "name": "settings_update",
+  "description": "Update the search configuration of an index including searchable attributes, ranking rules, facets, and custom settings.",
+  "endpoint": "/1/indexes/{indexName}/settings",
+  "method": "PUT",
+  "resource_group": "settings",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the index.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "forwardToReplicas",
+      "type": "boolean",
+      "description": "Whether to forward settings changes to replica indices.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "Settings object with updated configuration values.",
+      "required": true,
+      "example": { "searchableAttributes": ["name", "description"], "hitsPerPage": 25 }
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/settings?forwardToReplicas=true",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "searchableAttributes": ["name", "description", "brand"],
+      "attributesForFaceting": ["category", "brand"],
+      "customRanking": ["desc(popularity)"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "updatedAt": "2024-06-15T12:30:00.000Z",
+      "taskID": 690
+    }
+  },
+  "auth_scopes": ["editSettings"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

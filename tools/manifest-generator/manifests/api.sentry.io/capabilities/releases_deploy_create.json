@@ -1,0 +1,39 @@
+{
+  "name": "releases_deploy_create",
+  "description": "Create a deploy for a release.",
+  "resource_group": "releases",
+  "endpoint": "/organizations/{organization_slug}/releases/{version}/deploys/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization_slug",
+      "type": "string",
+      "required": true,
+      "description": "Org slug."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "Version."
+    },
+    {
+      "name": "environment",
+      "type": "string",
+      "required": true,
+      "description": "Environment: production, staging."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://sentry.io/api/0/organizations/my-org/releases/1.0.0/deploys/",
+    "body": {
+      "environment": "production"
+    }
+  },
+  "response_example": {
+    "id": "deploy-abc",
+    "environment": "production",
+    "dateStarted": "2026-01-20T14:00:00Z"
+  }
+}

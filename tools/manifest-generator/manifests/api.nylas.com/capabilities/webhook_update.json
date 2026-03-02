@@ -1,0 +1,54 @@
+{
+  "name": "webhook_update",
+  "description": "Update an existing webhook subscription.",
+  "resource_group": "webhook",
+  "endpoint": "/v3/webhooks/{webhook_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "description": "Webhook ID (path parameter).",
+      "required": true,
+      "example": "wh_abc"
+    },
+    {
+      "name": "webhook_url",
+      "type": "string",
+      "description": "Updated URL.",
+      "required": false
+    },
+    {
+      "name": "triggers",
+      "type": "array",
+      "description": "Updated triggers.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.us.nylas.com/v3/webhooks/wh_abc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "triggers": [
+        "message.created",
+        "message.updated"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "wh_abc",
+        "triggers": [
+          "message.created",
+          "message.updated"
+        ]
+      }
+    }
+  }
+}

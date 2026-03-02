@@ -1,0 +1,35 @@
+{
+  "name": "checkout_sessions_expire",
+  "description": "Expire an open Checkout Session so it can no longer be completed.",
+  "endpoint": "/v1/checkout/sessions/{id}/expire",
+  "method": "POST",
+  "resource_group": "checkout_sessions",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Session ID to expire",
+      "required": true,
+      "example": "cs_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/checkout/sessions/cs_abc123/expire",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cs_abc123",
+      "status": "expired"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

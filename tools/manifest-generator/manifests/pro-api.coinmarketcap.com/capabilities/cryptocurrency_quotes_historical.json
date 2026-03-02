@@ -1,0 +1,86 @@
+{
+  "name": "cryptocurrency_quotes_historical",
+  "description": "Return historical market quotes for a cryptocurrency at regular intervals over a time period.",
+  "resource_group": "cryptocurrency",
+  "endpoint": "/v1/cryptocurrency/quotes/historical",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "CoinMarketCap ID.",
+      "required": false,
+      "example": "1"
+    },
+    {
+      "name": "symbol",
+      "type": "string",
+      "description": "Symbol.",
+      "required": false,
+      "example": "BTC"
+    },
+    {
+      "name": "time_start",
+      "type": "string",
+      "description": "Start time (ISO 8601).",
+      "required": false,
+      "example": "2024-01-01"
+    },
+    {
+      "name": "time_end",
+      "type": "string",
+      "description": "End time (ISO 8601).",
+      "required": false,
+      "example": "2024-01-31"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Number of intervals (1-10000).",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "interval",
+      "type": "string",
+      "description": "Interval: hourly, daily, weekly, monthly.",
+      "required": false,
+      "example": "daily"
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Quote currency.",
+      "required": false,
+      "example": "USD"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/historical?symbol=BTC&time_start=2024-01-01&time_end=2024-01-31&interval=daily",
+    "headers": {
+      "X-CMC_PRO_API_KEY": "{api_key}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": {
+        "error_code": 0
+      },
+      "data": {
+        "quotes": [
+          {
+            "timestamp": "2024-01-01T00:00:00.000Z",
+            "quote": {
+              "USD": {
+                "price": 42000.0
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

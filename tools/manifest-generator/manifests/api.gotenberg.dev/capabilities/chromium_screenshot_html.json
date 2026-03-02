@@ -1,0 +1,73 @@
+{
+  "name": "chromium_screenshot_html",
+  "description": "Take a screenshot of an HTML file using Chromium. The HTML file must be named 'index.html'. Supports PNG, JPEG, and WebP formats.",
+  "resource_group": "chromium",
+  "endpoint": "/forms/chromium/screenshot/html",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "files",
+      "type": "file",
+      "required": true,
+      "location": "formData",
+      "description": "An HTML file named 'index.html' to screenshot."
+    },
+    {
+      "name": "width",
+      "type": "integer",
+      "required": false,
+      "location": "formData",
+      "description": "Screen width in pixels. Default: 800."
+    },
+    {
+      "name": "height",
+      "type": "integer",
+      "required": false,
+      "location": "formData",
+      "description": "Screen height in pixels. Default: 600."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Image format: 'png', 'jpeg', or 'webp'. Default: 'png'."
+    },
+    {
+      "name": "quality",
+      "type": "integer",
+      "required": false,
+      "location": "formData",
+      "description": "Compression quality 0-100. Default: 100."
+    },
+    {
+      "name": "clip",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Clip to device dimensions. Default: false."
+    },
+    {
+      "name": "waitDelay",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Wait duration before capture."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "http://localhost:3000/forms/chromium/screenshot/html",
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with index.html file, width=1280, height=720"
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "image/png"
+    },
+    "body": "<binary image content>"
+  }
+}

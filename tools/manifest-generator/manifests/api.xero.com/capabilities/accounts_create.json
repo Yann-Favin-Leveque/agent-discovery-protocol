@@ -1,0 +1,44 @@
+{
+  "name": "accounts_create",
+  "description": "Create a new account in the chart of accounts.",
+  "resource_group": "accounts",
+  "endpoint": "/Accounts",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "Account",
+      "type": "object",
+      "required": true,
+      "description": "Account object with Code, Name, Type."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.settings"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.xero.com/api.xro/2.0/Accounts",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Code": "610",
+      "Name": "Advertising",
+      "Type": "EXPENSE"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Accounts": [
+        {
+          "AccountID": "acc-new",
+          "Code": "610",
+          "Name": "Advertising"
+        }
+      ]
+    }
+  }
+}

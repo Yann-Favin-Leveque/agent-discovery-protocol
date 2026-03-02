@@ -1,0 +1,59 @@
+{
+  "name": "hashtag_recent_media_list",
+  "resource_group": "discovery",
+  "description": "Retrieve recent media posts tagged with a specific hashtag. Limited to 30 unique hashtag searches per 7-day rolling window per user.",
+  "endpoint": "/{hashtag_id}/recent_media",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "hashtag_id",
+      "type": "string",
+      "description": "The hashtag ID obtained from hashtag_search.",
+      "required": true,
+      "in": "path",
+      "example": "17843853986012965"
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID performing the request.",
+      "required": true,
+      "in": "query",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated fields to return.",
+      "required": false,
+      "in": "query",
+      "example": "id,caption,media_type,permalink,timestamp,like_count,comments_count"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17843853986012965/recent_media?user_id=17841400000000000&fields=id,caption,media_type,permalink",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "17854360000000010",
+          "caption": "My cute cat #catlover",
+          "media_type": "IMAGE",
+          "permalink": "https://www.instagram.com/p/DEF456/"
+        }
+      ],
+      "paging": {
+        "cursors": {
+          "after": "QVFIcGF..."
+        }
+      }
+    }
+  },
+  "auth_scopes": ["instagram_basic"]
+}

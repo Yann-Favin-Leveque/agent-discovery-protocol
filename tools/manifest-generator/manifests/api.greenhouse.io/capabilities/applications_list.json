@@ -1,0 +1,84 @@
+{
+  "name": "applications_list",
+  "resource_group": "Applications",
+  "endpoint": "/v1/applications",
+  "method": "GET",
+  "description": "List all job applications with optional filtering by status, job ID, and creation date.",
+  "parameters": [
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (1-500, default 100)."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "created_after",
+      "type": "string",
+      "required": false,
+      "description": "ISO-8601 date filter."
+    },
+    {
+      "name": "created_before",
+      "type": "string",
+      "required": false,
+      "description": "ISO-8601 date filter."
+    },
+    {
+      "name": "last_activity_after",
+      "type": "string",
+      "required": false,
+      "description": "ISO-8601 last activity filter."
+    },
+    {
+      "name": "job_id",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by job ID."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: active, converted, hired, rejected."
+    },
+    {
+      "name": "skip_count",
+      "type": "boolean",
+      "required": false,
+      "description": "Skip total count for performance."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://harvest.greenhouse.io/v1/applications?job_id=45021&status=active&per_page=50",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 29483021,
+        "candidate_id": 17681532,
+        "status": "active",
+        "current_stage": {
+          "id": 7834,
+          "name": "Technical Interview"
+        },
+        "jobs": [
+          {
+            "id": 45021,
+            "name": "Software Engineer"
+          }
+        ]
+      }
+    ]
+  }
+}

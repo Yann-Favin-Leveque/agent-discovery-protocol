@@ -1,0 +1,60 @@
+{
+  "name": "products_update",
+  "description": "Update a product or service.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "products",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Product ID",
+      "required": true,
+      "example": "UHJvZHVjdDo6..."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated name",
+      "required": false,
+      "example": "Premium Web Design"
+    },
+    {
+      "name": "unitPrice",
+      "type": "string",
+      "description": "Updated price",
+      "required": false,
+      "example": "750.00"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: ProductPatchInput!) { productPatch(input: $input) { product { id name unitPrice } didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "productPatch": {
+          "product": {
+            "id": "UHJvZHVjdDo6...",
+            "name": "Premium Web Design"
+          },
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

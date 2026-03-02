@@ -1,0 +1,46 @@
+{
+  "name": "files_copy",
+  "description": "Copy a file to a new location within B2.",
+  "resource_group": "files",
+  "endpoint": "/b2api/v3/b2_copy_file",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "sourceFileId",
+      "type": "string",
+      "description": "Source file ID.",
+      "required": true
+    },
+    {
+      "name": "fileName",
+      "type": "string",
+      "description": "Destination file name.",
+      "required": true
+    },
+    {
+      "name": "destinationBucketId",
+      "type": "string",
+      "description": "Destination bucket (optional, same bucket if omitted).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_copy_file",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sourceFileId": "file123",
+      "fileName": "copy/file.txt"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "fileId": "file789",
+      "fileName": "copy/file.txt"
+    }
+  }
+}

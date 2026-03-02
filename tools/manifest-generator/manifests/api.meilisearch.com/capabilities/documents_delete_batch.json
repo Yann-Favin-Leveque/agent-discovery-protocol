@@ -1,0 +1,56 @@
+{
+  "name": "documents_delete_batch",
+  "description": "Delete multiple documents by their IDs in a single request. Returns an asynchronous task.",
+  "endpoint": "/indexes/{indexUid}/documents/delete-batch",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "ids",
+      "type": "array",
+      "description": "Array of document IDs to delete.",
+      "required": true,
+      "example": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.meilisearch.com/indexes/movies/documents/delete-batch",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      1,
+      2,
+      3
+    ]
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "taskUid": 8,
+      "indexUid": "movies",
+      "status": "enqueued",
+      "type": "documentDeletion",
+      "enqueuedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "documents.delete"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

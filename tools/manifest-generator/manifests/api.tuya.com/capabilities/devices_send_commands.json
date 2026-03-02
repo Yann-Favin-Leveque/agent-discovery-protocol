@@ -1,0 +1,48 @@
+{
+  "name": "devices_send_commands",
+  "description": "Send control commands to a device.",
+  "resource_group": "devices",
+  "endpoint": "/v1.0/devices/{device_id}/commands",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "device_id",
+      "type": "string",
+      "description": "Device ID.",
+      "required": true
+    },
+    {
+      "name": "commands",
+      "type": "array",
+      "description": "Array of {code, value} command objects.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://openapi.tuyaus.com/v1.0/devices/dev_1/commands",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "commands": [
+        {
+          "code": "switch_led",
+          "value": true
+        },
+        {
+          "code": "bright_value",
+          "value": 200
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "result": true,
+      "success": true
+    }
+  }
+}

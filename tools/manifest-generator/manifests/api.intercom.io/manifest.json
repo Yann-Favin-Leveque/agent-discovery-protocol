@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Intercom Customer Platform API",
-  "description": "Intercom provides a customer messaging and support platform for managing contacts, conversations, support tickets, and help center articles. Use this API to search and create contacts, manage customer conversations with replies, create and track support tickets, and build self-service help center content. Intercom is commonly used for customer support, user onboarding, and customer engagement workflows.",
+  "description": "Intercom provides a customer messaging and support platform for managing contacts, conversations, support tickets, help center articles, companies, tags, notes, data events, and admin users. Use this API to build customer support workflows, manage user data, engage customers with targeted messages, and create self-service help documentation.",
   "base_url": "https://api.intercom.io",
   "auth": {
     "type": "oauth2",
@@ -12,45 +12,49 @@
     "token_url": "https://api.intercom.io/auth/eagle/token"
   },
   "capabilities": [
-    {
-      "name": "search_contacts",
-      "description": "Search for contacts (users and leads) in your Intercom workspace using field-based queries. Filter by email, name, role, custom attributes, creation date, and more. Returns matching contact objects with full profile data.",
-      "detail_url": "/capabilities/search_contacts"
-    },
-    {
-      "name": "create_contact",
-      "description": "Create a new contact (user or lead) in your Intercom workspace. Set the role, email, name, and custom attributes. Returns the created contact object with a unique Intercom ID.",
-      "detail_url": "/capabilities/create_contact"
-    },
-    {
-      "name": "list_conversations",
-      "description": "List conversations in your Intercom workspace. Returns a paginated list of conversations with their latest messages, assignees, and status. Useful for monitoring open support threads.",
-      "detail_url": "/capabilities/list_conversations"
-    },
-    {
-      "name": "reply_to_conversation",
-      "description": "Send a reply to an existing conversation. Can reply as an admin (support agent) or on behalf of a contact. Supports plain text and rich HTML content. Use this to respond to customer inquiries.",
-      "detail_url": "/capabilities/reply_to_conversation"
-    },
-    {
-      "name": "create_ticket",
-      "description": "Create a support ticket for tracking customer issues. Tickets have defined types, are associated with contacts, and support custom attributes. Use this for structured issue tracking that requires resolution workflows.",
-      "detail_url": "/capabilities/create_ticket"
-    },
-    {
-      "name": "list_articles",
-      "description": "List articles from your Intercom help center. Returns published and draft articles with their titles, content, and metadata. Use this to find existing documentation or audit help center coverage.",
-      "detail_url": "/capabilities/list_articles"
-    },
-    {
-      "name": "create_article",
-      "description": "Create a new help center article. Specify the title, body content (HTML), author, and parent collection or section. Use this to build self-service documentation for your customers.",
-      "detail_url": "/capabilities/create_article"
-    },
-    {
-      "name": "tag_contact",
-      "description": "Apply a tag to a contact for segmentation and organization. Tags help categorize contacts by behavior, plan, lifecycle stage, or any custom grouping. A contact can have multiple tags.",
-      "detail_url": "/capabilities/tag_contact"
-    }
+    {"name": "contacts_list", "resource_group": "contacts", "description": "List all contacts (users and leads) in your Intercom workspace with pagination.", "detail_url": "/capabilities/contacts_list"},
+    {"name": "contacts_get", "resource_group": "contacts", "description": "Retrieve a single contact by their Intercom ID.", "detail_url": "/capabilities/contacts_get"},
+    {"name": "contacts_create", "resource_group": "contacts", "description": "Create a new contact (user or lead) with email, name, role, and custom attributes.", "detail_url": "/capabilities/contacts_create"},
+    {"name": "contacts_update", "resource_group": "contacts", "description": "Update an existing contact's attributes, name, email, or custom data.", "detail_url": "/capabilities/contacts_update"},
+    {"name": "contacts_delete", "resource_group": "contacts", "description": "Delete a contact permanently by their Intercom ID.", "detail_url": "/capabilities/contacts_delete"},
+    {"name": "contacts_archive", "resource_group": "contacts", "description": "Archive a contact. Archived contacts are excluded from searches and segments.", "detail_url": "/capabilities/contacts_archive"},
+    {"name": "contacts_unarchive", "resource_group": "contacts", "description": "Unarchive a previously archived contact.", "detail_url": "/capabilities/contacts_unarchive"},
+    {"name": "contacts_search", "resource_group": "contacts", "description": "Search contacts using structured queries with field filters and AND/OR logic.", "detail_url": "/capabilities/contacts_search"},
+    {"name": "contacts_merge", "resource_group": "contacts", "description": "Merge a lead into an existing user contact.", "detail_url": "/capabilities/contacts_merge"},
+    {"name": "conversations_list", "resource_group": "conversations", "description": "List all conversations with pagination and optional admin filtering.", "detail_url": "/capabilities/conversations_list"},
+    {"name": "conversations_get", "resource_group": "conversations", "description": "Retrieve a conversation by ID with all its parts (messages, notes, assignments).", "detail_url": "/capabilities/conversations_get"},
+    {"name": "conversations_create", "resource_group": "conversations", "description": "Create a new conversation by sending an initial message from an admin to a contact.", "detail_url": "/capabilities/conversations_create"},
+    {"name": "conversations_reply", "resource_group": "conversations", "description": "Reply to an existing conversation as an admin or on behalf of a contact.", "detail_url": "/capabilities/conversations_reply"},
+    {"name": "conversations_assign", "resource_group": "conversations", "description": "Assign a conversation to an admin or team.", "detail_url": "/capabilities/conversations_assign"},
+    {"name": "conversations_close", "resource_group": "conversations", "description": "Close an open conversation.", "detail_url": "/capabilities/conversations_close"},
+    {"name": "conversations_open", "resource_group": "conversations", "description": "Reopen a closed conversation.", "detail_url": "/capabilities/conversations_open"},
+    {"name": "conversations_snooze", "resource_group": "conversations", "description": "Snooze a conversation until a specified time.", "detail_url": "/capabilities/conversations_snooze"},
+    {"name": "conversations_search", "resource_group": "conversations", "description": "Search conversations using structured queries with field filters.", "detail_url": "/capabilities/conversations_search"},
+    {"name": "tickets_create", "resource_group": "tickets", "description": "Create a support ticket associated with a contact and ticket type.", "detail_url": "/capabilities/tickets_create"},
+    {"name": "tickets_get", "resource_group": "tickets", "description": "Retrieve a ticket by its ID.", "detail_url": "/capabilities/tickets_get"},
+    {"name": "tickets_update", "resource_group": "tickets", "description": "Update a ticket's attributes, state, or assignment.", "detail_url": "/capabilities/tickets_update"},
+    {"name": "tickets_reply", "resource_group": "tickets", "description": "Reply to a ticket as an admin or on behalf of a contact.", "detail_url": "/capabilities/tickets_reply"},
+    {"name": "tickets_search", "resource_group": "tickets", "description": "Search tickets using structured queries.", "detail_url": "/capabilities/tickets_search"},
+    {"name": "articles_list", "resource_group": "articles", "description": "List help center articles with pagination.", "detail_url": "/capabilities/articles_list"},
+    {"name": "articles_get", "resource_group": "articles", "description": "Retrieve a help center article by ID.", "detail_url": "/capabilities/articles_get"},
+    {"name": "articles_create", "resource_group": "articles", "description": "Create a new help center article with title, body, and parent collection.", "detail_url": "/capabilities/articles_create"},
+    {"name": "articles_update", "resource_group": "articles", "description": "Update a help center article's content, title, or state.", "detail_url": "/capabilities/articles_update"},
+    {"name": "articles_delete", "resource_group": "articles", "description": "Delete a help center article by ID.", "detail_url": "/capabilities/articles_delete"},
+    {"name": "companies_list", "resource_group": "companies", "description": "List all companies in your Intercom workspace.", "detail_url": "/capabilities/companies_list"},
+    {"name": "companies_get", "resource_group": "companies", "description": "Retrieve a company by its Intercom ID.", "detail_url": "/capabilities/companies_get"},
+    {"name": "companies_create", "resource_group": "companies", "description": "Create or update a company with a company_id, name, and custom attributes.", "detail_url": "/capabilities/companies_create"},
+    {"name": "tags_list", "resource_group": "tags", "description": "List all tags in your Intercom workspace.", "detail_url": "/capabilities/tags_list"},
+    {"name": "tags_create", "resource_group": "tags", "description": "Create a new tag or apply an existing tag to contacts, companies, or conversations.", "detail_url": "/capabilities/tags_create"},
+    {"name": "tags_delete", "resource_group": "tags", "description": "Delete a tag by its ID.", "detail_url": "/capabilities/tags_delete"},
+    {"name": "notes_list", "resource_group": "notes", "description": "List all notes on a contact.", "detail_url": "/capabilities/notes_list"},
+    {"name": "notes_create", "resource_group": "notes", "description": "Create a note on a contact for internal reference.", "detail_url": "/capabilities/notes_create"},
+    {"name": "events_create", "resource_group": "events", "description": "Submit a data event for a user to track product usage and trigger automation.", "detail_url": "/capabilities/events_create"},
+    {"name": "events_list", "resource_group": "events", "description": "List events for a specific user by their intercom_user_id or email.", "detail_url": "/capabilities/events_list"},
+    {"name": "admins_list", "resource_group": "admins", "description": "List all admins (team members) in your Intercom workspace.", "detail_url": "/capabilities/admins_list"},
+    {"name": "admins_get", "resource_group": "admins", "description": "Retrieve an admin by ID.", "detail_url": "/capabilities/admins_get"},
+    {"name": "teams_list", "resource_group": "teams", "description": "List all teams in your Intercom workspace.", "detail_url": "/capabilities/teams_list"},
+    {"name": "segments_list", "resource_group": "segments", "description": "List all segments in your Intercom workspace.", "detail_url": "/capabilities/segments_list"},
+    {"name": "data_attributes_list", "resource_group": "data_attributes", "description": "List all data attributes (custom and built-in) for contacts or companies.", "detail_url": "/capabilities/data_attributes_list"},
+    {"name": "data_attributes_create", "resource_group": "data_attributes", "description": "Create a new custom data attribute for contacts or companies.", "detail_url": "/capabilities/data_attributes_create"}
   ]
 }

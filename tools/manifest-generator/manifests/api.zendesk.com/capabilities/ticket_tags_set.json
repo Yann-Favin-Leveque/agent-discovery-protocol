@@ -1,0 +1,52 @@
+{
+  "name": "ticket_tags_set",
+  "description": "Set tags on a ticket (replaces existing).",
+  "endpoint": "/api/v2/tickets/{ticket_id}/tags",
+  "method": "PUT",
+  "resource_group": "tags",
+  "parameters": [
+    {
+      "name": "ticket_id",
+      "type": "integer",
+      "description": "Ticket ID",
+      "required": true,
+      "example": "1"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Tags to set",
+      "required": true,
+      "example": [
+        "urgent"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{subdomain}.zendesk.com/api/v2/tickets/{ticket_id}/tags",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tags": [
+        "urgent",
+        "billing"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tags": [
+        "urgent",
+        "billing"
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

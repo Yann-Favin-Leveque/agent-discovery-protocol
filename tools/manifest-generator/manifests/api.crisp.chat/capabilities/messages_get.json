@@ -1,0 +1,56 @@
+{
+  "name": "messages_get",
+  "description": "Retrieve a specific message by its fingerprint from a conversation.",
+  "endpoint": "/v1/website/{website_id}/conversation/{session_id}/message/{fingerprint}",
+  "method": "GET",
+  "resource_group": "messages",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    },
+    {
+      "name": "session_id",
+      "type": "string",
+      "description": "The conversation session identifier.",
+      "required": true,
+      "example": "session_19e5240f-0a8d-461e-a661-a3123f3e"
+    },
+    {
+      "name": "fingerprint",
+      "type": "integer",
+      "description": "The unique message fingerprint identifier.",
+      "required": true,
+      "example": 163435890009
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/conversation/session_19e5240f-0a8d-461e-a661-a3123f3e/message/163435890009",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "fingerprint": 163435890009,
+        "type": "text",
+        "from": "user",
+        "origin": "chat",
+        "content": "Hi, I need help with my order.",
+        "timestamp": 1693560000
+      }
+    }
+  },
+  "auth_scopes": ["website:conversation:messages"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

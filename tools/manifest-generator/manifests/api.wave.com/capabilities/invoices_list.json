@@ -1,0 +1,64 @@
+{
+  "name": "invoices_list",
+  "description": "List all invoices for a business with optional status filtering.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "invoices",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": "1"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "query ($businessId: ID!, $page: Int) { business(id: $businessId) { invoices(page: $page) { edges { node { id title status amountDue { value currency { code } } customer { name } } } } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "business": {
+          "invoices": {
+            "edges": [
+              {
+                "node": {
+                  "id": "SW52b2ljZTo6...",
+                  "title": "Invoice #001",
+                  "status": "SENT",
+                  "amountDue": {
+                    "value": "150.00",
+                    "currency": {
+                      "code": "USD"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

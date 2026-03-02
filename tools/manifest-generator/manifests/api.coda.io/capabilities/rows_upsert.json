@@ -1,0 +1,91 @@
+{
+  "name": "rows_upsert",
+  "resource_group": "rows",
+  "description": "Insert or update rows in a table. Rows matching keyColumns are updated; others are inserted.",
+  "endpoint": "/docs/{docId}/tables/{tableIdOrName}/rows",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Document ID",
+      "example": "AbCDeFGH"
+    },
+    {
+      "name": "tableIdOrName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Table ID or name",
+      "example": "grid-abc"
+    },
+    {
+      "name": "rows",
+      "type": "array",
+      "required": true,
+      "description": "Array of row objects with cells",
+      "example": [
+        {
+          "cells": [
+            {
+              "column": "Task Name",
+              "value": "New task"
+            },
+            {
+              "column": "Status",
+              "value": "To Do"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "keyColumns",
+      "type": "array",
+      "required": false,
+      "description": "Columns used for upsert matching",
+      "example": [
+        "Task Name"
+      ]
+    },
+    {
+      "name": "disableParsing",
+      "type": "boolean",
+      "required": false,
+      "description": "Disable formula parsing for values",
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://coda.io/apis/v1/docs/AbCDeFGH/tables/grid-abc/rows",
+    "headers": {
+      "Authorization": "Bearer CODA_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "rows": [
+        {
+          "cells": [
+            {
+              "column": "Task Name",
+              "value": "New task"
+            },
+            {
+              "column": "Status",
+              "value": "To Do"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "requestId": "req-abc123"
+    }
+  }
+}

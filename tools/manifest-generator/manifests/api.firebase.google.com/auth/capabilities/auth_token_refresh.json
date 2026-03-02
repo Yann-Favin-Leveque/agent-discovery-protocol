@@ -1,0 +1,43 @@
+{
+  "name": "auth_token_refresh",
+  "resource_group": "auth",
+  "description": "Exchange a refresh token for a new ID token.",
+  "endpoint": "/v1/token",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "grant_type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'refresh_token'."
+    },
+    {
+      "name": "refresh_token",
+      "type": "string",
+      "required": true,
+      "description": "The refresh token."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://securetoken.googleapis.com/v1/token?key=AIzaSyXXXXXX",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "grant_type": "refresh_token",
+      "refresh_token": "AMf-vBx..."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id_token": "eyJhbGciOi...",
+      "refresh_token": "AMf-vBx-new...",
+      "expires_in": "3600",
+      "token_type": "Bearer",
+      "user_id": "uid123",
+      "project_id": "my-project"
+    }
+  }
+}

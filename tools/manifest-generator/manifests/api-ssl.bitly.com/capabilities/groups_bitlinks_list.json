@@ -1,0 +1,74 @@
+{
+  "name": "groups_bitlinks_list",
+  "description": "Retrieve a paginated list of Bitlinks for a group.",
+  "endpoint": "/v4/groups/{group_guid}/bitlinks",
+  "method": "GET",
+  "resource_group": "groups",
+  "parameters": [
+    {
+      "name": "group_guid",
+      "type": "string",
+      "description": "The group GUID.",
+      "required": true,
+      "example": "Ba1bc2de3fg"
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "description": "Search filter.",
+      "required": false
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Filter by tags.",
+      "required": false
+    },
+    {
+      "name": "created_after",
+      "type": "string",
+      "description": "Filter links created after this date.",
+      "required": false
+    },
+    {
+      "name": "created_before",
+      "type": "string",
+      "description": "Filter links created before this date.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api-ssl.bitly.com/v4/groups/Ba1bc2de3fg/bitlinks?size=50",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "links": [
+        {
+          "id": "bit.ly/abc123",
+          "long_url": "https://example.com",
+          "link": "https://bit.ly/abc123"
+        }
+      ],
+      "pagination": {
+        "total": 100,
+        "size": 50
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "jobs_list",
+  "resource_group": "Jobs",
+  "endpoint": "/v1/jobs",
+  "method": "GET",
+  "description": "List all jobs with optional status filtering.",
+  "parameters": [
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: all, open, closed, draft."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://harvest.greenhouse.io/v1/jobs?status=open",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 45021,
+        "name": "Software Engineer",
+        "status": "open",
+        "departments": [
+          {
+            "id": 1,
+            "name": "Engineering"
+          }
+        ]
+      }
+    ]
+  }
+}

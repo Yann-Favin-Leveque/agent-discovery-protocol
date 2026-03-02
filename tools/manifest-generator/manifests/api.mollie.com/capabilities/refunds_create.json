@@ -1,0 +1,53 @@
+{
+  "name": "refunds_create",
+  "description": "Issue a full or partial refund for a completed payment.",
+  "resource_group": "refunds",
+  "endpoint": "/v2/payments/{paymentId}/refunds",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "paymentId",
+      "type": "string",
+      "description": "The payment ID.",
+      "required": true
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Amount to refund.",
+      "required": false,
+      "example": {
+        "currency": "EUR",
+        "value": "5.00"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Refund description.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mollie.com/v2/payments/tr_7UhSN1zuXS/refunds",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": {
+        "currency": "EUR",
+        "value": "5.00"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "resource": "refund",
+      "id": "re_4qqhO89gsT",
+      "status": "pending"
+    }
+  }
+}

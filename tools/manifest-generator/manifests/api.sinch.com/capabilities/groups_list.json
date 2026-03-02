@@ -1,0 +1,50 @@
+{
+  "name": "groups_list",
+  "description": "List all phone number groups in your account with pagination support.",
+  "endpoint": "/xms/v1/{service_plan_id}/groups",
+  "method": "GET",
+  "resource_group": "groups",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number. Default 0."
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "required": false,
+      "description": "Number of items per page. Default 30."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/groups",
+    "headers": {
+      "Authorization": "Bearer {api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 2,
+      "page": 0,
+      "groups": [
+        { "id": "group-id-01", "name": "VIP Customers", "size": 3 },
+        { "id": "group-id-02", "name": "Newsletter Subscribers", "size": 150 }
+      ],
+      "page_size": 30
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

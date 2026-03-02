@@ -1,0 +1,70 @@
+{
+  "name": "upload_video",
+  "resource_group": "upload",
+  "description": "Upload a video to Cloudinary from a URL or file.",
+  "endpoint": "/v1_1/{cloud_name}/video/upload",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "file",
+      "type": "string",
+      "required": true,
+      "description": "Video file: URL, base64, or file."
+    },
+    {
+      "name": "public_id",
+      "type": "string",
+      "required": false,
+      "description": "Custom public ID."
+    },
+    {
+      "name": "folder",
+      "type": "string",
+      "required": false,
+      "description": "Folder path."
+    },
+    {
+      "name": "eager",
+      "type": "string",
+      "required": false,
+      "description": "Eager transformations."
+    },
+    {
+      "name": "resource_type",
+      "type": "string",
+      "required": false,
+      "description": "Must be 'video'."
+    },
+    {
+      "name": "upload_preset",
+      "type": "string",
+      "required": false,
+      "description": "Upload preset."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudinary.com/v1_1/mycloud/video/upload",
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "file": "https://example.com/video.mp4",
+      "public_id": "my-video",
+      "folder": "videos"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "public_id": "videos/my-video",
+      "format": "mp4",
+      "resource_type": "video",
+      "duration": 120.5,
+      "width": 1920,
+      "height": 1080,
+      "bytes": 15000000,
+      "secure_url": "https://res.cloudinary.com/mycloud/video/upload/videos/my-video.mp4"
+    }
+  }
+}

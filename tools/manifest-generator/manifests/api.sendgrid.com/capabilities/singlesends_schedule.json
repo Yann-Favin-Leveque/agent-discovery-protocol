@@ -1,0 +1,41 @@
+{
+  "name": "singlesends_schedule",
+  "description": "Schedule a Single Send for delivery.",
+  "resource_group": "singlesends",
+  "endpoint": "/v3/marketing/singlesends/{id}/schedule",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Single Send ID.",
+      "required": true,
+      "example": "ss-123"
+    },
+    {
+      "name": "send_at",
+      "type": "string",
+      "description": "ISO 8601 send time.",
+      "required": true,
+      "example": "2024-12-01T12:00:00Z"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sendgrid.com/v3/marketing/singlesends/ss-123/schedule",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "send_at": "2024-12-01T12:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "send_at": "2024-12-01T12:00:00Z",
+      "status": "scheduled"
+    }
+  }
+}

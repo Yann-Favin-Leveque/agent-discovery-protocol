@@ -1,0 +1,104 @@
+{
+  "name": "optimization_solve",
+  "description": "Solve vehicle routing problems by optimizing routes through multiple jobs for one or more vehicles.",
+  "endpoint": "/optimization",
+  "method": "POST",
+  "resource_group": "optimization",
+  "parameters": [
+    {
+      "name": "jobs",
+      "type": "array",
+      "description": "Array of job objects with location, service time, etc.",
+      "required": true,
+      "example": [
+        {
+          "id": 1,
+          "location": [
+            8.681495,
+            49.41461
+          ],
+          "service": 300
+        }
+      ]
+    },
+    {
+      "name": "vehicles",
+      "type": "array",
+      "description": "Array of vehicle objects with start/end locations, capacity, etc.",
+      "required": true,
+      "example": [
+        {
+          "id": 1,
+          "profile": "driving-car",
+          "start": [
+            8.681495,
+            49.41461
+          ]
+        }
+      ]
+    },
+    {
+      "name": "shipments",
+      "type": "array",
+      "description": "Array of pickup-delivery shipment pairs",
+      "required": false,
+      "example": []
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openrouteservice.org/optimization",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "jobs": [
+        {
+          "id": 1,
+          "location": [
+            8.681495,
+            49.41461
+          ],
+          "service": 300
+        },
+        {
+          "id": 2,
+          "location": [
+            8.687872,
+            49.420318
+          ],
+          "service": 300
+        }
+      ],
+      "vehicles": [
+        {
+          "id": 1,
+          "profile": "driving-car",
+          "start": [
+            8.69,
+            49.415
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "code": 0,
+      "summary": {
+        "cost": 574,
+        "routes": 1,
+        "unassigned": 0,
+        "duration": 574,
+        "distance": 1548
+      },
+      "routes": []
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

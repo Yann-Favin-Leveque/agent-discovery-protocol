@@ -1,0 +1,71 @@
+{
+  "name": "geocode_reverse",
+  "description": "Convert geographic coordinates into a human-readable address (reverse geocoding).",
+  "endpoint": "/geocode/reverse",
+  "method": "GET",
+  "resource_group": "geocoding",
+  "parameters": [
+    {
+      "name": "point.lon",
+      "type": "number",
+      "description": "Longitude",
+      "required": true,
+      "example": 8.681495
+    },
+    {
+      "name": "point.lat",
+      "type": "number",
+      "description": "Latitude",
+      "required": true,
+      "example": 49.41461
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "description": "Maximum number of results",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "boundary.country",
+      "type": "string",
+      "description": "Country code filter",
+      "required": false,
+      "example": "DE"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openrouteservice.org/geocode/reverse",
+    "headers": {
+      "Authorization": "{api_key}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              8.681495,
+              49.41461
+            ]
+          },
+          "properties": {
+            "name": "Hauptstrasse 1",
+            "country": "Germany"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 40
+  }
+}

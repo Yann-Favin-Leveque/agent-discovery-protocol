@@ -1,0 +1,25 @@
+{
+  "name": "disks_create",
+  "description": "Attach a new persistent disk to a service.",
+  "resource_group": "disks",
+  "endpoint": "/v1/disks",
+  "method": "POST",
+  "parameters": [
+    {"name": "name", "type": "string", "required": true, "description": "Name for the disk."},
+    {"name": "sizeGB", "type": "integer", "required": true, "description": "Size of the disk in GB."},
+    {"name": "mountPath", "type": "string", "required": true, "description": "Mount path inside the service container."},
+    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID to attach the disk to."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.render.com/v1/disks",
+    "body": {"name": "data-disk", "sizeGB": 10, "mountPath": "/data", "serviceId": "srv-a1b2c3d4e5"}
+  },
+  "response_example": {
+    "id": "dsk-abc123",
+    "name": "data-disk",
+    "sizeGB": 10,
+    "mountPath": "/data",
+    "serviceId": "srv-a1b2c3d4e5"
+  }
+}

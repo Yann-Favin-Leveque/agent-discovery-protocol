@@ -1,0 +1,36 @@
+{
+  "name": "sys_policies_write",
+  "description": "Create or update an ACL policy.",
+  "resource_group": "system",
+  "endpoint": "/v1/sys/policies/acl/{name}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Policy name."
+    },
+    {
+      "name": "policy",
+      "type": "string",
+      "required": true,
+      "description": "Policy document in HCL or JSON format."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://vault.example.com/v1/sys/policies/acl/my-policy",
+    "headers": {
+      "X-Vault-Token": "<token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "policy": "path \"secret/data/*\" {\n  capabilities = [\"create\", \"read\", \"update\", \"delete\", \"list\"]\n}"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

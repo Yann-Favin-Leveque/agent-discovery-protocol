@@ -1,0 +1,68 @@
+{
+  "name": "transactional_send",
+  "description": "Send a transactional email using a pre-built template.",
+  "endpoint": "/api/v1/transactional/send",
+  "method": "POST",
+  "resource_group": "transactional",
+  "parameters": [
+    {
+      "name": "transactionalId",
+      "type": "string",
+      "description": "ID of the transactional email template.",
+      "required": true,
+      "example": "txn_abc123"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Recipient email address.",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "dataVariables",
+      "type": "object",
+      "description": "Template variables as key-value pairs.",
+      "required": false
+    },
+    {
+      "name": "addToAudience",
+      "type": "boolean",
+      "description": "Whether to add recipient as a contact.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "attachments",
+      "type": "array",
+      "description": "File attachments.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.loops.so/api/v1/transactional/send",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transactionalId": "txn_abc123",
+      "email": "user@example.com",
+      "dataVariables": {
+        "name": "John",
+        "resetUrl": "https://example.com/reset"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

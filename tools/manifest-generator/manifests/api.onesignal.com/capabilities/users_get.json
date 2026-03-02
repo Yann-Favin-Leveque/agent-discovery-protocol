@@ -1,0 +1,49 @@
+{
+  "name": "users_get",
+  "description": "Retrieve a user including aliases, properties, and subscriptions.",
+  "resource_group": "users",
+  "endpoint": "/api/v1/users/by/{alias_label}/{alias_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "alias_label",
+      "type": "string",
+      "required": true,
+      "description": "Alias type (e.g., 'external_id', 'onesignal_id')."
+    },
+    {
+      "name": "alias_id",
+      "type": "string",
+      "required": true,
+      "description": "Alias value."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.onesignal.com/api/v1/users/by/external_id/user123",
+    "headers": {
+      "Authorization": "Basic <rest_api_key>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "identity": {
+        "external_id": "user123",
+        "onesignal_id": "os-uuid"
+      },
+      "properties": {
+        "tags": {
+          "plan": "premium"
+        }
+      },
+      "subscriptions": [
+        {
+          "id": "sub-uuid",
+          "type": "Email",
+          "token": "user@example.com"
+        }
+      ]
+    }
+  }
+}

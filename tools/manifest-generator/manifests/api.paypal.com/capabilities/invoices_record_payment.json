@@ -1,0 +1,50 @@
+{
+  "name": "invoices_record_payment",
+  "description": "Record an external payment for an invoice.",
+  "endpoint": "/v2/invoicing/invoices/{invoice_id}/payments",
+  "method": "POST",
+  "resource_group": "invoicing",
+  "parameters": [
+    {
+      "name": "invoice_id",
+      "type": "string",
+      "description": "Invoice ID",
+      "required": true,
+      "example": "INV2-ID"
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "description": "Payment method (BANK_TRANSFER, CASH, CHECK, etc.)",
+      "required": true,
+      "example": "BANK_TRANSFER"
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Payment amount",
+      "required": false,
+      "example": {
+        "currency_code": "USD",
+        "value": "500.00"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v2/invoicing/invoices/{invoice_id}/payments",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Box Platform API",
-  "description": "[Box Platform](https://developer.box.com) provides functionality to provide access to content stored within [Box](https://box.com). It provides endpoints for basic manipulation of files and folders, management of users within an enterprise, as well as more complex topics such as legal holds and retention policies.",
+  "description": "Box Platform provides functionality to access content stored within Box. It provides endpoints for basic manipulation of files and folders, management of users within an enterprise, as well as more complex topics such as legal holds and retention policies.",
   "base_url": "https://api.box.com/2.0",
   "auth": {
     "type": "oauth2",
@@ -21,64 +21,159 @@
   },
   "capabilities": [
     {
-      "name": "authorization",
-      "description": "Manage authorization — request access token, refresh access token, revoke access token. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/authorization"
+      "name": "files_get",
+      "description": "Retrieve file metadata by ID.",
+      "detail_url": "/capabilities/files_get"
     },
     {
-      "name": "files",
-      "description": "Manage files — copy file, update file, get file information. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/files"
+      "name": "files_update",
+      "description": "Update a file's metadata (rename, move, or set description).",
+      "detail_url": "/capabilities/files_update"
     },
     {
-      "name": "trashed_files",
-      "description": "Manage trashed files — restore file, get trashed file, permanently remove file. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/trashed_files"
+      "name": "files_delete",
+      "description": "Delete a file, permanently or to trash.",
+      "detail_url": "/capabilities/files_delete"
     },
     {
-      "name": "app_item_associations",
-      "description": "Manage app item associations — list file app item associations, list folder app item associations. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/app_item_associations"
+      "name": "files_copy",
+      "description": "Create a copy of a file in a different folder.",
+      "detail_url": "/capabilities/files_copy"
     },
     {
-      "name": "downloads",
-      "description": "Manage downloads — download file. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/downloads"
+      "name": "files_download",
+      "description": "Download the contents of a file in binary format.",
+      "detail_url": "/capabilities/files_download"
     },
     {
-      "name": "uploads",
-      "description": "Manage uploads — upload file, upload file version. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/uploads"
+      "name": "files_upload",
+      "description": "Upload a small file to Box (under 50 MB).",
+      "detail_url": "/capabilities/files_upload"
     },
     {
-      "name": "uploads_chunked",
-      "description": "Manage uploads chunked — create upload session, create upload session for existing file, commit upload session. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/uploads_chunked"
+      "name": "files_upload_version",
+      "description": "Upload a new version of an existing file.",
+      "detail_url": "/capabilities/files_upload_version"
     },
     {
-      "name": "collaborations_list",
-      "description": "Manage collaborations list — list pending collaborations, list file collaborations, list folder collaborations. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/collaborations_list"
+      "name": "files_get_thumbnail",
+      "description": "Get a thumbnail for a file.",
+      "detail_url": "/capabilities/files_get_thumbnail"
     },
     {
-      "name": "comments",
-      "description": "Manage comments — create comment, update comment, list file comments. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/comments"
+      "name": "folders_get",
+      "description": "Retrieve folder metadata by ID.",
+      "detail_url": "/capabilities/folders_get"
     },
     {
-      "name": "tasks",
-      "description": "Manage tasks — create task, update task, list tasks on file. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/tasks"
+      "name": "folders_list_items",
+      "description": "List all items in a folder.",
+      "detail_url": "/capabilities/folders_list_items"
     },
     {
-      "name": "file_versions",
-      "description": "Manage file versions — promote file version, restore file version, list all file versions. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/file_versions"
+      "name": "folders_create",
+      "description": "Create a new subfolder inside a folder.",
+      "detail_url": "/capabilities/folders_create"
     },
     {
-      "name": "metadata_instances_files",
-      "description": "Manage metadata instances files — create metadata instance on file, update metadata instance on file, list metadata instances on file. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/metadata_instances_files"
+      "name": "folders_update",
+      "description": "Update a folder (rename or move).",
+      "detail_url": "/capabilities/folders_update"
+    },
+    {
+      "name": "folders_delete",
+      "description": "Delete a folder and its contents.",
+      "detail_url": "/capabilities/folders_delete"
+    },
+    {
+      "name": "folders_copy",
+      "description": "Create a copy of a folder.",
+      "detail_url": "/capabilities/folders_copy"
+    },
+    {
+      "name": "search_content",
+      "description": "Search for files and folders across Box.",
+      "detail_url": "/capabilities/search_content"
+    },
+    {
+      "name": "collaborations_create",
+      "description": "Create a collaboration to share a file or folder with a user or group.",
+      "detail_url": "/capabilities/collaborations_create"
+    },
+    {
+      "name": "collaborations_get",
+      "description": "Retrieve a specific collaboration.",
+      "detail_url": "/capabilities/collaborations_get"
+    },
+    {
+      "name": "collaborations_update",
+      "description": "Update a collaboration role.",
+      "detail_url": "/capabilities/collaborations_update"
+    },
+    {
+      "name": "collaborations_delete",
+      "description": "Remove a collaboration.",
+      "detail_url": "/capabilities/collaborations_delete"
+    },
+    {
+      "name": "collaborations_list_pending",
+      "description": "List all pending collaborations.",
+      "detail_url": "/capabilities/collaborations_list_pending"
+    },
+    {
+      "name": "comments_create",
+      "description": "Create a comment on a file.",
+      "detail_url": "/capabilities/comments_create"
+    },
+    {
+      "name": "comments_get",
+      "description": "Retrieve a specific comment.",
+      "detail_url": "/capabilities/comments_get"
+    },
+    {
+      "name": "comments_update",
+      "description": "Update a comment.",
+      "detail_url": "/capabilities/comments_update"
+    },
+    {
+      "name": "comments_delete",
+      "description": "Delete a comment.",
+      "detail_url": "/capabilities/comments_delete"
+    },
+    {
+      "name": "users_get_current",
+      "description": "Get information about the currently authenticated user.",
+      "detail_url": "/capabilities/users_get_current"
+    },
+    {
+      "name": "shared_links_find",
+      "description": "Find a file or folder by its shared link URL.",
+      "detail_url": "/capabilities/shared_links_find"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook to monitor events on a file or folder.",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List all webhooks.",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Retrieve a specific webhook.",
+      "detail_url": "/capabilities/webhooks_get"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook.",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "detail_url": "/capabilities/webhooks_delete"
     }
   ]
 }

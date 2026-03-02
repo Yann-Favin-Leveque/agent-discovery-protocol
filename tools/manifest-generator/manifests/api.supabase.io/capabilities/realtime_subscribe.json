@@ -1,0 +1,51 @@
+{
+  "name": "realtime_subscribe",
+  "description": "Subscribe to real-time changes on a table via WebSocket. Connect to the Realtime server and listen for INSERT, UPDATE, DELETE events.",
+  "endpoint": "/realtime/v1/websocket",
+  "method": "GET",
+  "resource_group": "realtime",
+  "parameters": [
+    {
+      "name": "table",
+      "type": "string",
+      "description": "Table to listen on",
+      "required": true,
+      "example": "posts"
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "description": "Event type: INSERT, UPDATE, DELETE, or *",
+      "required": false,
+      "example": "*"
+    },
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "Filter condition (column=op.value)",
+      "required": false,
+      "example": "status=eq.published"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "wss://{project_ref}.supabase.co/realtime/v1/websocket?apikey={anon_key}&vsn=1.0.0",
+    "headers": {
+      "apikey": "{anon_key}"
+    }
+  },
+  "response_example": {
+    "status": 101,
+    "body": {
+      "event": "phx_reply",
+      "payload": {
+        "status": "ok",
+        "response": {}
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "endpoint_replay_missing",
+  "description": "Replay all missed webhook messages to an endpoint within a time range.",
+  "resource_group": "endpoint",
+  "endpoint": "/api/v1/app/{app_id}/endpoint/{endpoint_id}/replay-missing",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "endpoint_id",
+      "type": "string",
+      "description": "Endpoint ID or UID (path parameter).",
+      "required": true,
+      "example": "ep_abc"
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "description": "Replay messages since this time (ISO 8601).",
+      "required": true,
+      "example": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "description": "Replay messages until this time (ISO 8601).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.svix.com/api/v1/app/app_123/endpoint/ep_abc/replay-missing",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "since": "2024-01-01T00:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {}
+  }
+}

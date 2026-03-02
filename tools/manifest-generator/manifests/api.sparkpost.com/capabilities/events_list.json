@@ -1,0 +1,72 @@
+{
+  "name": "events_list",
+  "description": "Search message events (deliveries, bounces, opens, clicks, spam complaints). Data retained for 10 days.",
+  "endpoint": "/api/v1/events/message",
+  "method": "GET",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start datetime (YYYY-MM-DDTHH:MM)",
+      "required": false,
+      "example": "2026-03-01T00:00"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "End datetime",
+      "required": false,
+      "example": "2026-03-02T23:59"
+    },
+    {
+      "name": "events",
+      "type": "string",
+      "description": "Comma-separated event types: delivery, bounce, open, click, spam_complaint",
+      "required": false,
+      "example": "bounce,delivery"
+    },
+    {
+      "name": "recipients",
+      "type": "string",
+      "description": "Comma-separated recipient emails",
+      "required": false,
+      "example": "user@example.com"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page (max 10000)",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/events/message?events=bounce&from=2026-03-01T00:00&per_page=100",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "type": "bounce",
+          "bounce_class": 10,
+          "rcpt_to": "user@example.com",
+          "timestamp": "2026-03-01T12:00:00Z"
+        }
+      ],
+      "total_count": 1,
+      "links": {}
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

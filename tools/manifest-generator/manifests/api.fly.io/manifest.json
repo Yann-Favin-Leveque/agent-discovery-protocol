@@ -1,19 +1,188 @@
 {
   "spec_version": "1.0",
   "name": "Fly.io",
-  "description": "Fly.io is a platform for running applications on servers close to users worldwide. Deploy containers, manage Fly Machines, scale apps globally, and configure networking with edge computing capabilities.",
+  "description": "Fly.io runs applications on servers close to users worldwide. Deploy containers as Fly Machines, manage persistent volumes, configure networking, and scale globally via the Machines API.",
   "base_url": "https://api.machines.dev/v1",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Bearer"
+    "prefix": "Bearer",
+    "setup_url": "https://fly.io/user/personal_access_tokens"
   },
   "capabilities": [
-    {"name": "list_apps", "description": "List all applications in the authenticated Fly.io organization.", "detail_url": "/capabilities/list_apps"},
-    {"name": "create_app", "description": "Create a new Fly.io application in a specific organization and region.", "detail_url": "/capabilities/create_app"},
-    {"name": "list_machines", "description": "List all Machines (VMs) running for a specific application.", "detail_url": "/capabilities/list_machines"},
-    {"name": "create_machine", "description": "Create and start a new Fly Machine with a Docker image and configuration.", "detail_url": "/capabilities/create_machine"},
-    {"name": "manage_secrets", "description": "Set, unset, or list secrets (environment variables) for an application.", "detail_url": "/capabilities/manage_secrets"},
-    {"name": "scale_machine", "description": "Update a Machine's CPU, memory, and scaling configuration.", "detail_url": "/capabilities/scale_machine"}
+    {
+      "name": "apps_list",
+      "resource_group": "apps",
+      "description": "List all apps in an organization.",
+      "detail_url": "/capabilities/apps_list"
+    },
+    {
+      "name": "apps_create",
+      "resource_group": "apps",
+      "description": "Create a new Fly App.",
+      "detail_url": "/capabilities/apps_create"
+    },
+    {
+      "name": "apps_get",
+      "resource_group": "apps",
+      "description": "Get app details.",
+      "detail_url": "/capabilities/apps_get"
+    },
+    {
+      "name": "apps_delete",
+      "resource_group": "apps",
+      "description": "Delete a Fly App.",
+      "detail_url": "/capabilities/apps_delete"
+    },
+    {
+      "name": "machines_list",
+      "resource_group": "machines",
+      "description": "List all Machines for an app.",
+      "detail_url": "/capabilities/machines_list"
+    },
+    {
+      "name": "machines_create",
+      "resource_group": "machines",
+      "description": "Create and start a new Fly Machine.",
+      "detail_url": "/capabilities/machines_create"
+    },
+    {
+      "name": "machines_get",
+      "resource_group": "machines",
+      "description": "Get Machine details.",
+      "detail_url": "/capabilities/machines_get"
+    },
+    {
+      "name": "machines_update",
+      "resource_group": "machines",
+      "description": "Update a Machine's configuration.",
+      "detail_url": "/capabilities/machines_update"
+    },
+    {
+      "name": "machines_delete",
+      "resource_group": "machines",
+      "description": "Delete a Machine.",
+      "detail_url": "/capabilities/machines_delete"
+    },
+    {
+      "name": "machines_start",
+      "resource_group": "machines",
+      "description": "Start a stopped Machine.",
+      "detail_url": "/capabilities/machines_start"
+    },
+    {
+      "name": "machines_stop",
+      "resource_group": "machines",
+      "description": "Stop a running Machine.",
+      "detail_url": "/capabilities/machines_stop"
+    },
+    {
+      "name": "machines_suspend",
+      "resource_group": "machines",
+      "description": "Suspend a Machine (save state to disk).",
+      "detail_url": "/capabilities/machines_suspend"
+    },
+    {
+      "name": "machines_wait",
+      "resource_group": "machines",
+      "description": "Wait for a Machine to reach a specific state.",
+      "detail_url": "/capabilities/machines_wait"
+    },
+    {
+      "name": "machines_cordon",
+      "resource_group": "machines",
+      "description": "Cordon a Machine (prevent new connections).",
+      "detail_url": "/capabilities/machines_cordon"
+    },
+    {
+      "name": "machines_uncordon",
+      "resource_group": "machines",
+      "description": "Uncordon a Machine (allow connections).",
+      "detail_url": "/capabilities/machines_uncordon"
+    },
+    {
+      "name": "machines_metadata_get",
+      "resource_group": "machines",
+      "description": "Get all metadata for a Machine.",
+      "detail_url": "/capabilities/machines_metadata_get"
+    },
+    {
+      "name": "machines_metadata_set",
+      "resource_group": "machines",
+      "description": "Set a metadata key-value on a Machine.",
+      "detail_url": "/capabilities/machines_metadata_set"
+    },
+    {
+      "name": "machines_metadata_delete",
+      "resource_group": "machines",
+      "description": "Delete a metadata key.",
+      "detail_url": "/capabilities/machines_metadata_delete"
+    },
+    {
+      "name": "machines_lease_create",
+      "resource_group": "machines",
+      "description": "Create an exclusive lease for safe updates.",
+      "detail_url": "/capabilities/machines_lease_create"
+    },
+    {
+      "name": "machines_lease_get",
+      "resource_group": "machines",
+      "description": "Get current lease on a Machine.",
+      "detail_url": "/capabilities/machines_lease_get"
+    },
+    {
+      "name": "machines_lease_release",
+      "resource_group": "machines",
+      "description": "Release a lease on a Machine.",
+      "detail_url": "/capabilities/machines_lease_release"
+    },
+    {
+      "name": "volumes_list",
+      "resource_group": "volumes",
+      "description": "List all volumes for an app.",
+      "detail_url": "/capabilities/volumes_list"
+    },
+    {
+      "name": "volumes_create",
+      "resource_group": "volumes",
+      "description": "Create a persistent volume.",
+      "detail_url": "/capabilities/volumes_create"
+    },
+    {
+      "name": "volumes_get",
+      "resource_group": "volumes",
+      "description": "Get volume details.",
+      "detail_url": "/capabilities/volumes_get"
+    },
+    {
+      "name": "volumes_update",
+      "resource_group": "volumes",
+      "description": "Update volume snapshot/backup settings.",
+      "detail_url": "/capabilities/volumes_update"
+    },
+    {
+      "name": "volumes_delete",
+      "resource_group": "volumes",
+      "description": "Delete a volume permanently.",
+      "detail_url": "/capabilities/volumes_delete"
+    },
+    {
+      "name": "volumes_extend",
+      "resource_group": "volumes",
+      "description": "Extend a volume's size.",
+      "detail_url": "/capabilities/volumes_extend"
+    },
+    {
+      "name": "volumes_snapshots_list",
+      "resource_group": "volumes",
+      "description": "List snapshots for a volume.",
+      "detail_url": "/capabilities/volumes_snapshots_list"
+    },
+    {
+      "name": "volumes_snapshots_create",
+      "resource_group": "volumes",
+      "description": "Create a volume snapshot.",
+      "detail_url": "/capabilities/volumes_snapshots_create"
+    }
   ]
 }

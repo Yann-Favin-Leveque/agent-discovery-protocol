@@ -1,0 +1,89 @@
+{
+  "name": "products_create",
+  "description": "Create a new product with title, description, variants, pricing, images, and inventory details.",
+  "resource_group": "products",
+  "endpoint": "/admin/api/2024-10/products.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Product name.",
+      "example": "Burton Custom Freestyle 151"
+    },
+    {
+      "name": "body_html",
+      "type": "string",
+      "required": false,
+      "description": "HTML description."
+    },
+    {
+      "name": "vendor",
+      "type": "string",
+      "required": false,
+      "description": "Vendor name."
+    },
+    {
+      "name": "product_type",
+      "type": "string",
+      "required": false,
+      "description": "Product type."
+    },
+    {
+      "name": "tags",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated tags."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Status: active, archived, draft."
+    },
+    {
+      "name": "variants",
+      "type": "array",
+      "required": false,
+      "description": "Array of product variants."
+    },
+    {
+      "name": "images",
+      "type": "array",
+      "required": false,
+      "description": "Array of image objects."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{store}.myshopify.com/admin/api/2024-10/products.json",
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "product": {
+        "title": "Burton Custom Freestyle 151",
+        "body_html": "<strong>Good snowboard!</strong>",
+        "vendor": "Burton",
+        "variants": [
+          {
+            "price": "10.00",
+            "sku": "BSF-151"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "product": {
+        "id": 1071559748,
+        "title": "Burton Custom Freestyle 151",
+        "status": "active"
+      }
+    }
+  }
+}

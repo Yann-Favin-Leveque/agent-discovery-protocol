@@ -1,0 +1,78 @@
+{
+  "name": "scheduled_interviews_create",
+  "resource_group": "Scheduled Interviews",
+  "endpoint": "/v2/scheduled_interviews",
+  "method": "POST",
+  "description": "Create a new scheduled interview.",
+  "parameters": [
+    {
+      "name": "application_id",
+      "type": "integer",
+      "required": true,
+      "description": "Application ID."
+    },
+    {
+      "name": "interview_id",
+      "type": "integer",
+      "required": true,
+      "description": "Interview kit ID."
+    },
+    {
+      "name": "interviewers",
+      "type": "array",
+      "required": true,
+      "description": "Interviewer user IDs."
+    },
+    {
+      "name": "starts_at",
+      "type": "string",
+      "required": true,
+      "description": "ISO-8601 start."
+    },
+    {
+      "name": "ends_at",
+      "type": "string",
+      "required": true,
+      "description": "ISO-8601 end."
+    },
+    {
+      "name": "location",
+      "type": "string",
+      "required": false,
+      "description": "Location."
+    },
+    {
+      "name": "On-Behalf-Of",
+      "type": "integer",
+      "required": true,
+      "description": "User ID (header)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://harvest.greenhouse.io/v2/scheduled_interviews",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6",
+      "On-Behalf-Of": "4321",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "application_id": 29483021,
+      "interview_id": 700,
+      "interviewers": [
+        {
+          "user_id": 100
+        }
+      ],
+      "starts_at": "2024-11-10T10:00:00Z",
+      "ends_at": "2024-11-10T11:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 5010,
+      "application_id": 29483021
+    }
+  }
+}

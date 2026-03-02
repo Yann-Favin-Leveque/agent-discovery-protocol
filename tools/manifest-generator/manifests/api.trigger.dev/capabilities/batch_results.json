@@ -1,0 +1,45 @@
+{
+  "name": "batch_results",
+  "description": "Get execution results of all completed runs in a batch.",
+  "resource_group": "batch",
+  "endpoint": "/api/v3/batches/{batchId}/results",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "batchId",
+      "type": "string",
+      "description": "Batch ID (path parameter).",
+      "required": true,
+      "example": "batch_abc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.trigger.dev/api/v3/batches/batch_abc/results",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "runId": "run_1",
+          "ok": true,
+          "output": {
+            "result": "done"
+          }
+        },
+        {
+          "runId": "run_2",
+          "ok": true,
+          "output": {
+            "result": "done"
+          }
+        }
+      ]
+    }
+  }
+}

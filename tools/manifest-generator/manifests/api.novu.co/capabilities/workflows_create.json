@@ -1,0 +1,75 @@
+{
+  "name": "workflows_create",
+  "description": "Create a new notification workflow.",
+  "resource_group": "workflows",
+  "endpoint": "/v1/workflows",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Workflow name."
+    },
+    {
+      "name": "steps",
+      "type": "array",
+      "required": true,
+      "description": "Array of workflow step definitions."
+    },
+    {
+      "name": "notificationGroupId",
+      "type": "string",
+      "required": true,
+      "description": "Notification group ID."
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether workflow is active."
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "required": false,
+      "description": "Tags for the workflow."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.novu.co/v1/workflows",
+    "headers": {
+      "Authorization": "ApiKey <key>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Order Confirmation",
+      "notificationGroupId": "group1",
+      "steps": [
+        {
+          "template": {
+            "type": "email",
+            "content": "Your order has been confirmed"
+          }
+        }
+      ],
+      "active": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "_id": "wf2",
+        "name": "Order Confirmation",
+        "triggers": [
+          {
+            "identifier": "order-confirmation"
+          }
+        ],
+        "active": true
+      }
+    }
+  }
+}

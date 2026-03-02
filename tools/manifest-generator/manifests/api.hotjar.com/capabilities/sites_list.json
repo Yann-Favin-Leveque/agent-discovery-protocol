@@ -1,0 +1,49 @@
+{
+  "name": "sites_list",
+  "description": "List all sites (properties) configured in the Hotjar account with their tracking status.",
+  "endpoint": "/v2/sites",
+  "method": "GET",
+  "resource_group": "sites",
+  "parameters": [
+    {
+      "name": "offset",
+      "type": "number",
+      "description": "Pagination offset.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "description": "Maximum number of results to return.",
+      "required": false,
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hotjar.com/v2/sites?limit=25",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": 123456,
+          "name": "My Website",
+          "url": "https://example.com",
+          "tracking_code_installed": true,
+          "created_at": "2024-01-01T00:00:00Z"
+        }
+      ],
+      "total": 3
+    }
+  },
+  "auth_scopes": ["read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

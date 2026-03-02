@@ -1,0 +1,55 @@
+{
+  "name": "users_list",
+  "description": "List users matching the specified filter criteria.",
+  "endpoint": "/v2/users",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "uid",
+      "type": "string",
+      "description": "Filter by external user ID.",
+      "required": false,
+      "example": "user_123"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Filter by email address.",
+      "required": false,
+      "example": "john@example.com"
+    },
+    {
+      "name": "page_token",
+      "type": "string",
+      "description": "Pagination token from a previous response.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fullstory.com/v2/users?uid=user_123",
+    "headers": {
+      "Authorization": "Basic {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "users": [
+        {
+          "id": "fs_user_abc123",
+          "uid": "user_123",
+          "display_name": "John Doe",
+          "email": "john@example.com"
+        }
+      ],
+      "next_page_token": ""
+    }
+  },
+  "auth_scopes": ["server"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

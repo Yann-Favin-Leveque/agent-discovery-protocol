@@ -1,0 +1,73 @@
+{
+  "name": "collections_create",
+  "description": "Create a new collection with a defined schema of fields and types.",
+  "endpoint": "/collections",
+  "method": "POST",
+  "resource_group": "collections",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name of the collection",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "description": "Array of field definitions with name, type, and facet properties",
+      "required": true,
+      "example": [
+        {
+          "name": "title",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "default_sorting_field",
+      "type": "string",
+      "description": "Field to sort results by default",
+      "required": false,
+      "example": "popularity"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.typesense.org/collections",
+    "headers": {
+      "X-TYPESENSE-API-KEY": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "products",
+      "fields": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "price",
+          "type": "float"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "name": "products",
+      "num_documents": 0,
+      "fields": [
+        {
+          "name": "title",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

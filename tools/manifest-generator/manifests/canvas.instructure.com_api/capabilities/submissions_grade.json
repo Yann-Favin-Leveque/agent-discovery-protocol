@@ -1,0 +1,68 @@
+{
+  "name": "submissions_grade",
+  "description": "Grade or comment on a submission.",
+  "resource_group": "submissions",
+  "endpoint": "/api/v1/courses/{course_id}/assignments/{assignment_id}/submissions/{user_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "assignment_id",
+      "type": "integer",
+      "description": "Assignment ID.",
+      "required": true,
+      "example": 2001
+    },
+    {
+      "name": "user_id",
+      "type": "integer",
+      "description": "User ID.",
+      "required": true,
+      "example": 5001
+    },
+    {
+      "name": "submission[posted_grade]",
+      "type": "string",
+      "description": "Grade to assign.",
+      "required": false,
+      "example": "95"
+    },
+    {
+      "name": "comment[text_comment]",
+      "type": "string",
+      "description": "Comment.",
+      "required": false,
+      "example": "Great work!"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/assignments/2001/submissions/5001",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "submission": {
+        "posted_grade": "95"
+      },
+      "comment": {
+        "text_comment": "Great work!"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 3001,
+      "score": 95,
+      "grade": "A"
+    }
+  }
+}

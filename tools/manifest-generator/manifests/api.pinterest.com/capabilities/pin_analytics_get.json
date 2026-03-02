@@ -1,0 +1,76 @@
+{
+  "name": "pin_analytics_get",
+  "resource_group": "analytics",
+  "description": "Get analytics for a pin over a date range.",
+  "endpoint": "/pins/{pin_id}/analytics",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "pin_id",
+      "type": "string",
+      "description": "Pin ID.",
+      "required": true,
+      "in": "path",
+      "example": "549755885177"
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "YYYY-MM-DD.",
+      "required": true,
+      "in": "query",
+      "example": "2024-01-01"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "YYYY-MM-DD.",
+      "required": true,
+      "in": "query",
+      "example": "2024-03-01"
+    },
+    {
+      "name": "metric_types",
+      "type": "string",
+      "description": "IMPRESSION,SAVE,PIN_CLICK,OUTBOUND_CLICK.",
+      "required": true,
+      "in": "query",
+      "example": "IMPRESSION,SAVE,PIN_CLICK"
+    },
+    {
+      "name": "app_types",
+      "type": "string",
+      "description": "ALL,MOBILE,TABLET,WEB.",
+      "required": false,
+      "in": "query",
+      "example": "ALL"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pinterest.com/v5/pins/549755885177/analytics?start_date=2024-01-01&end_date=2024-03-01&metric_types=IMPRESSION,SAVE,PIN_CLICK",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "all": {
+        "daily_metrics": [
+          {
+            "date": "2024-03-01",
+            "metrics": {
+              "IMPRESSION": 5200,
+              "SAVE": 42,
+              "PIN_CLICK": 150
+            }
+          }
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "pins:read"
+  ]
+}

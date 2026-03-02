@@ -1,0 +1,92 @@
+{
+  "name": "png_convert",
+  "description": "Convert an HTML string or URL to a PNG screenshot image. Supports viewport sizing, full-page capture, element selection via CSS selector, DPI scaling, and transparency.",
+  "resource_group": "convert",
+  "endpoint": "/convert/png",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "source",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "URL or HTML string to convert."
+    },
+    {
+      "name": "viewport",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Rendering window size (e.g., '1280x1024'). Default: '1280x1024'."
+    },
+    {
+      "name": "fullpage",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "Capture entire scrollable page. Default: false."
+    },
+    {
+      "name": "transparent",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "Enable transparent background for PNG. Default: false."
+    },
+    {
+      "name": "css_selector",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "CSS selector to capture a specific element."
+    },
+    {
+      "name": "clip",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Region to capture: { width, height, x, y }."
+    },
+    {
+      "name": "dpi",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "DPI scaling factor: 1, 2, or 4. Default: 1."
+    },
+    {
+      "name": "delay",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Delay in ms before capture (0-10000). Default: 0."
+    },
+    {
+      "name": "sandbox",
+      "type": "boolean",
+      "required": false,
+      "location": "body",
+      "description": "Test mode, no credit charge. Default: false."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pdfshift.io/v3/convert/png",
+    "headers": {
+      "X-API-Key": "your-pdfshift-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "source": "https://example.com",
+      "viewport": "1920x1080",
+      "fullpage": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "image/png"
+    },
+    "body": "<binary PNG content>"
+  }
+}

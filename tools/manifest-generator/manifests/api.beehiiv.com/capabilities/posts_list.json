@@ -1,0 +1,54 @@
+{
+  "name": "posts_list",
+  "description": "Retrieve all posts belonging to a publication with performance metrics.",
+  "resource_group": "posts",
+  "endpoint": "/v2/publications/{publicationId}/posts",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "publicationId",
+      "type": "string",
+      "description": "Publication ID.",
+      "required": true
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter: draft, confirmed, archived.",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number per page.",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.beehiiv.com/v2/publications/pub_xxx/posts?limit=10",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "post_xxx",
+          "title": "Weekly Update",
+          "status": "confirmed",
+          "publish_date": "2024-06-01T10:00:00Z"
+        }
+      ]
+    }
+  }
+}

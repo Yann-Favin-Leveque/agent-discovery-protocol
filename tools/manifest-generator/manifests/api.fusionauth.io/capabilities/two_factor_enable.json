@@ -1,0 +1,62 @@
+{
+  "name": "two_factor_enable",
+  "resource_group": "two_factor",
+  "description": "Enable two-factor authentication for a user with a specific method.",
+  "endpoint": "/api/user/two-factor/{userId}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "required": true,
+      "description": "User UUID.",
+      "in": "path"
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "required": true,
+      "description": "MFA method: authenticator, email, sms."
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "Verification code to confirm setup."
+    },
+    {
+      "name": "secret",
+      "type": "string",
+      "required": false,
+      "description": "TOTP secret for authenticator method."
+    },
+    {
+      "name": "mobilePhone",
+      "type": "string",
+      "required": false,
+      "description": "Phone number for SMS method."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://fusionauth.example.com/api/user/two-factor/user-uuid",
+    "headers": {
+      "Authorization": "your-api-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "method": "authenticator",
+      "code": "123456",
+      "secret": "JBSWY3DPEHPK3PXP"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "recoveryCodes": [
+        "abc123",
+        "def456"
+      ]
+    }
+  }
+}

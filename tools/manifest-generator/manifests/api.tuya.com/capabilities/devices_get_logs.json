@@ -1,0 +1,55 @@
+{
+  "name": "devices_get_logs",
+  "description": "Get historical status logs.",
+  "resource_group": "devices",
+  "endpoint": "/v1.0/devices/{device_id}/logs",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "device_id",
+      "type": "string",
+      "description": "Device ID.",
+      "required": true
+    },
+    {
+      "name": "start_time",
+      "type": "integer",
+      "description": "Start timestamp (ms).",
+      "required": true
+    },
+    {
+      "name": "end_time",
+      "type": "integer",
+      "description": "End timestamp (ms).",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "description": "Log type.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://openapi.tuyaus.com/v1.0/devices/dev_1/logs?start_time=1717200000000&end_time=1717286400000",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "result": {
+        "logs": [
+          {
+            "code": "switch_led",
+            "value": "true",
+            "event_time": 1717200000000
+          }
+        ]
+      },
+      "success": true
+    }
+  }
+}

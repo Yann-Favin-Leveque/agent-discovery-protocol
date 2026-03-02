@@ -1,0 +1,36 @@
+{
+  "name": "auth_token_refresh",
+  "resource_group": "auth",
+  "description": "Exchange a refresh token for a new access token.",
+  "endpoint": "/token?grant_type=refresh_token",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "refresh_token",
+      "type": "string",
+      "required": true,
+      "description": "The refresh token from a previous sign-in."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://myproject.supabase.co/auth/v1/token?grant_type=refresh_token",
+    "headers": {
+      "apikey": "your-anon-key",
+      "Authorization": "Bearer your-anon-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "refresh_token": "abc123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "access_token": "eyJhbGciOi...",
+      "token_type": "bearer",
+      "expires_in": 3600,
+      "refresh_token": "def456"
+    }
+  }
+}

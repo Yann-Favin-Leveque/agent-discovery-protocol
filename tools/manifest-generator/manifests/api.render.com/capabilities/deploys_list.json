@@ -1,0 +1,30 @@
+{
+  "name": "deploys_list",
+  "description": "List all deploys for a service. Returns deploy IDs, statuses, commit information, and timestamps. Supports filtering by status and date range.",
+  "resource_group": "deploys",
+  "endpoint": "/v1/services/{serviceId}/deploys",
+  "method": "GET",
+  "parameters": [
+    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID to list deploys for."},
+    {"name": "status", "type": "string", "required": false, "description": "Filter by status: created, build_in_progress, update_in_progress, live, deactivated, build_failed, update_failed, canceled, pre_deploy_in_progress, pre_deploy_failed."},
+    {"name": "cursor", "type": "string", "required": false, "description": "Cursor for pagination."},
+    {"name": "limit", "type": "integer", "required": false, "description": "Max results to return. Default 20."}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5/deploys?limit=5"
+  },
+  "response_example": [
+    {
+      "deploy": {
+        "id": "dep-k1l2m3n4o5",
+        "commit": {"id": "d4e5f6a1b2c3", "message": "feat: add rate limiting"},
+        "status": "live",
+        "trigger": "api",
+        "createdAt": "2026-01-20T14:30:05Z",
+        "finishedAt": "2026-01-20T14:35:00Z"
+      },
+      "cursor": "deploy-cursor-123"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "assets_list",
+  "description": "List all assets in the space.",
+  "endpoint": "/v1/spaces/{space_id}/assets",
+  "method": "GET",
+  "resource_group": "assets",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "integer",
+      "description": "Space ID",
+      "required": true,
+      "example": 12345
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Assets per page",
+      "required": false,
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://mapi.storyblok.com/v1/spaces/12345/assets?page=1&per_page=25",
+    "headers": {
+      "Authorization": "your-management-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 1,
+        "filename": "image.jpg",
+        "content_type": "image/jpeg",
+        "created_at": "2026-03-01T10:00:00Z"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

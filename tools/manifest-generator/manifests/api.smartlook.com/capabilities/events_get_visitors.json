@@ -1,0 +1,44 @@
+{
+  "name": "events_get_visitors",
+  "description": "Retrieve the list of visitors who triggered a specific event.",
+  "endpoint": "/api/v1/events/{event_id}/visitors",
+  "method": "GET",
+  "resource_group": "events",
+  "parameters": [
+    {
+      "name": "event_id",
+      "type": "string",
+      "description": "The event ID.",
+      "required": true,
+      "example": "evt_abc123"
+    },
+    {
+      "name": "limit",
+      "type": "number",
+      "description": "Maximum results to return.",
+      "required": false,
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.eu.smartlook.cloud/api/v1/events/evt_abc123/visitors?limit=25",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        { "visitor_id": "vis_123", "occurrences": 5, "last_triggered": "2024-01-20T10:00:00Z" },
+        { "visitor_id": "vis_456", "occurrences": 2, "last_triggered": "2024-01-19T15:00:00Z" }
+      ],
+      "total_count": 800
+    }
+  },
+  "auth_scopes": ["read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

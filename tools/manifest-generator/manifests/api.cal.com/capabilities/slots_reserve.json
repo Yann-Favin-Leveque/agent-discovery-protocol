@@ -1,0 +1,46 @@
+{
+  "name": "slots_reserve",
+  "resource_group": "slots",
+  "description": "Reserve a time slot temporarily before completing a booking.",
+  "endpoint": "/v2/slots/reserve",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "eventTypeId",
+      "type": "integer",
+      "required": true,
+      "description": "Event type ID",
+      "example": 789
+    },
+    {
+      "name": "slotStart",
+      "type": "string",
+      "required": true,
+      "description": "Slot start time",
+      "example": "2025-03-15T10:00:00Z"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cal.com/v2/slots/reserve",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "Content-Type": "application/json",
+      "cal-api-version": "2024-08-13"
+    },
+    "body": {
+      "eventTypeId": 789,
+      "slotStart": "2025-03-15T10:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "status": "success",
+      "data": {
+        "uid": "slot-uid-123",
+        "slotStart": "2025-03-15T10:00:00Z"
+      }
+    }
+  }
+}

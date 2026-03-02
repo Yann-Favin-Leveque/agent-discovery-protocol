@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Zoom",
-  "description": "Zoom API enables AI agents to programmatically manage video meetings, webinars, and cloud recordings. Create, schedule, update, and retrieve meetings; manage participants; and access meeting recordings through a simple REST API.",
+  "description": "Zoom API enables AI agents to programmatically manage video meetings, webinars, users, and cloud recordings. Create, schedule, update, and retrieve meetings; manage participants and registrants; configure webinars; and access meeting recordings through a comprehensive REST API.",
   "base_url": "https://api.zoom.us/v2",
   "auth": {
     "type": "oauth2",
@@ -11,45 +11,208 @@
       "meeting:write",
       "meeting:read",
       "recording:read",
-      "user:read"
+      "recording:write",
+      "user:read",
+      "user:read:admin",
+      "user:write",
+      "user:write:admin",
+      "webinar:read",
+      "webinar:write"
     ],
     "setup_url": "https://marketplace.zoom.us"
   },
   "capabilities": [
     {
-      "name": "create_meeting",
-      "description": "Schedule a new meeting for a user. Set meeting topic, description, start time, duration, timezone, and meeting settings like password, waiting room, and participant join restrictions.",
-      "detail_url": "/capabilities/create_meeting"
+      "name": "meetings_list",
+      "description": "List all scheduled and live meetings for a user with pagination.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_list",
+      "resource_group": "meetings"
     },
     {
-      "name": "list_meetings",
-      "description": "Retrieve all scheduled meetings for a user. Returns meeting IDs, topics, start times, durations, and status for pagination and filtering.",
-      "detail_url": "/capabilities/list_meetings"
+      "name": "meetings_create",
+      "description": "Create a new meeting with topic, schedule, duration, and settings.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_create",
+      "resource_group": "meetings"
     },
     {
-      "name": "get_meeting",
-      "description": "Get detailed information about a specific meeting including topic, description, start time, duration, settings, join URL, and password.",
-      "detail_url": "/capabilities/get_meeting"
+      "name": "meetings_get",
+      "description": "Retrieve detailed information about a specific meeting.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_get",
+      "resource_group": "meetings"
     },
     {
-      "name": "update_meeting",
-      "description": "Modify an existing meeting's details such as topic, start time, duration, timezone, settings, and password. Useful for rescheduling or changing meeting configuration.",
-      "detail_url": "/capabilities/update_meeting"
+      "name": "meetings_update",
+      "description": "Update an existing meeting's topic, schedule, and settings.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_update",
+      "resource_group": "meetings"
     },
     {
-      "name": "delete_meeting",
-      "description": "Cancel and delete a scheduled meeting. Optionally notify participants of the cancellation.",
-      "detail_url": "/capabilities/delete_meeting"
+      "name": "meetings_delete",
+      "description": "Delete a scheduled meeting with optional cancellation notification.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_delete",
+      "resource_group": "meetings"
     },
     {
-      "name": "list_recordings",
-      "description": "Retrieve all cloud recordings for a user. Returns recording IDs, topics, start times, file types, file sizes, and download URLs for playback.",
-      "detail_url": "/capabilities/list_recordings"
+      "name": "meetings_participants_list",
+      "description": "List participants who attended a past meeting instance.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_participants_list",
+      "resource_group": "meetings"
     },
     {
-      "name": "get_meeting_participants",
-      "description": "Get a list of participants who joined a past meeting. Returns participant IDs, names, emails, join times, and leave times.",
-      "detail_url": "/capabilities/get_meeting_participants"
+      "name": "meetings_registrants_list",
+      "description": "List all registrants for a meeting with registration enabled.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_registrants_list",
+      "resource_group": "meetings"
+    },
+    {
+      "name": "meetings_registrants_add",
+      "description": "Register a participant for a meeting that requires registration.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_registrants_add",
+      "resource_group": "meetings"
+    },
+    {
+      "name": "meetings_registrants_update_status",
+      "description": "Approve, deny, or cancel registration for meeting registrants.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_registrants_update_status",
+      "resource_group": "meetings"
+    },
+    {
+      "name": "meetings_polls_list",
+      "description": "List all polls configured for a meeting.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_polls_list",
+      "resource_group": "meetings"
+    },
+    {
+      "name": "meetings_poll_create",
+      "description": "Create a poll with questions and answers for a meeting.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_poll_create",
+      "resource_group": "meetings"
+    },
+    {
+      "name": "meetings_invitation_get",
+      "description": "Retrieve the email-ready invitation text for a meeting.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_invitation_get",
+      "resource_group": "meetings"
+    },
+    {
+      "name": "meetings_livestream_update",
+      "description": "Configure live streaming URL and key for a meeting.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/meetings_livestream_update",
+      "resource_group": "meetings"
+    },
+    {
+      "name": "past_meetings_get",
+      "description": "Retrieve details of a past meeting including participant count and duration.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/past_meetings_get",
+      "resource_group": "meetings"
+    },
+    {
+      "name": "recordings_list",
+      "description": "List all cloud recordings for a user within a date range.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/recordings_list",
+      "resource_group": "recordings"
+    },
+    {
+      "name": "recordings_get",
+      "description": "Retrieve all recording files and download URLs for a meeting.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/recordings_get",
+      "resource_group": "recordings"
+    },
+    {
+      "name": "recordings_delete",
+      "description": "Delete or trash recording files for a meeting.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/recordings_delete",
+      "resource_group": "recordings"
+    },
+    {
+      "name": "recordings_recover",
+      "description": "Recover meeting recordings from trash.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/recordings_recover",
+      "resource_group": "recordings"
+    },
+    {
+      "name": "users_list",
+      "description": "List all users on the Zoom account with status filtering.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/users_list",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_get",
+      "description": "Retrieve detailed profile information for a specific user.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/users_get",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_create",
+      "description": "Create a new user on the Zoom account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/users_create",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_update",
+      "description": "Update a user profile including name, type, and department.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/users_update",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_delete",
+      "description": "Delete or disassociate a user with optional data transfer.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/users_delete",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_settings_get",
+      "description": "Retrieve a user's meeting, recording, and feature settings.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/users_settings_get",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_settings_update",
+      "description": "Update a user's meeting, recording, and notification settings.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/users_settings_update",
+      "resource_group": "users"
+    },
+    {
+      "name": "webinars_list",
+      "description": "List all webinars scheduled by a user.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/webinars_list",
+      "resource_group": "webinars"
+    },
+    {
+      "name": "webinars_create",
+      "description": "Create a new webinar with topic, schedule, and settings.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/webinars_create",
+      "resource_group": "webinars"
+    },
+    {
+      "name": "webinars_get",
+      "description": "Retrieve detailed information about a specific webinar.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/webinars_get",
+      "resource_group": "webinars"
+    },
+    {
+      "name": "webinars_update",
+      "description": "Update an existing webinar's details and settings.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/webinars_update",
+      "resource_group": "webinars"
+    },
+    {
+      "name": "webinars_delete",
+      "description": "Delete a scheduled webinar with optional cancellation notification.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/webinars_delete",
+      "resource_group": "webinars"
+    },
+    {
+      "name": "webinars_panelists_list",
+      "description": "List all panelists assigned to a webinar.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/webinars_panelists_list",
+      "resource_group": "webinars"
+    },
+    {
+      "name": "webinars_registrants_list",
+      "description": "List all registrants for a webinar with status filtering.",
+      "detail_url": "https://agent-dns.dev/api/services/api.zoom.us/capabilities/webinars_registrants_list",
+      "resource_group": "webinars"
     }
   ]
 }

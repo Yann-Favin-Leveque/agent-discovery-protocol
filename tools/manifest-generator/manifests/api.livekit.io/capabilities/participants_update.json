@@ -1,0 +1,66 @@
+{
+  "name": "participants_update",
+  "description": "Update a participant's metadata, permissions, or display name in a room.",
+  "endpoint": "/twirp/livekit.RoomService/UpdateParticipant",
+  "method": "POST",
+  "resource_group": "participants",
+  "parameters": [
+    {
+      "name": "room",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room."
+    },
+    {
+      "name": "identity",
+      "type": "string",
+      "required": true,
+      "description": "Identity of the participant to update."
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "required": false,
+      "description": "New metadata string for the participant."
+    },
+    {
+      "name": "permission",
+      "type": "object",
+      "required": false,
+      "description": "Permission object with 'can_publish', 'can_subscribe', 'can_publish_data' booleans."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "New display name for the participant."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.RoomService/UpdateParticipant",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room": "interview-room-42",
+      "identity": "user-alice",
+      "metadata": "{\"role\":\"presenter\"}",
+      "permission": { "can_publish": true, "can_subscribe": true, "can_publish_data": true }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sid": "PA_xyz789",
+      "identity": "user-alice",
+      "metadata": "{\"role\":\"presenter\"}",
+      "permission": { "can_publish": true, "can_subscribe": true, "can_publish_data": true }
+    }
+  },
+  "auth_scopes": ["roomAdmin"],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

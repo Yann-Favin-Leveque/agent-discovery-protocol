@@ -1,0 +1,68 @@
+{
+  "name": "messages_list",
+  "resource_group": "messages",
+  "description": "Retrieve messages from a channel, ordered from newest to oldest.",
+  "endpoint": "/v10/channels/{channel_id}/messages",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Channel ID",
+      "example": "123456789012345678"
+    },
+    {
+      "name": "around",
+      "type": "string",
+      "required": false,
+      "description": "Get messages around this message ID",
+      "example": "111111111111111111"
+    },
+    {
+      "name": "before",
+      "type": "string",
+      "required": false,
+      "description": "Get messages before this message ID",
+      "example": "111111111111111111"
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "required": false,
+      "description": "Get messages after this message ID",
+      "example": "111111111111111111"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max messages to return (1-100, default 50)",
+      "example": 50
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://discord.com/api/v10/channels/123456789012345678/messages?limit=50",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "111111111111111111",
+        "type": 0,
+        "content": "Hello!",
+        "channel_id": "123456789012345678",
+        "author": {
+          "id": "333333333333333333",
+          "username": "User1"
+        },
+        "timestamp": "2025-03-15T10:00:00.000000+00:00"
+      }
+    ]
+  }
+}

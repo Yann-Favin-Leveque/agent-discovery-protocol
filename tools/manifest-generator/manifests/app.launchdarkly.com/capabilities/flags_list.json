@@ -1,0 +1,31 @@
+{
+  "name": "flags_list",
+  "description": "List all feature flags in a project with optional environment filtering and pagination.",
+  "resource_group": "flags",
+  "endpoint": "/flags/{projectKey}",
+  "method": "GET",
+  "parameters": [
+    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
+    {"name": "env", "type": "string", "description": "Filter configurations to a specific environment key.", "required": false, "example": "production"},
+    {"name": "tag", "type": "string", "description": "Filter by tag.", "required": false},
+    {"name": "limit", "type": "integer", "description": "Maximum number of flags to return.", "required": false, "example": 20},
+    {"name": "offset", "type": "integer", "description": "Offset for pagination.", "required": false, "example": 0},
+    {"name": "filter", "type": "string", "description": "Filter expression (e.g., 'query equals my-flag').", "required": false},
+    {"name": "sort", "type": "string", "description": "Sort order (creationDate, name, etc.).", "required": false}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.launchdarkly.com/api/v2/flags/my-project?env=production&limit=20",
+    "headers": {"Authorization": "{api_key}"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {"key": "new-checkout", "name": "New Checkout Flow", "kind": "boolean", "creationDate": 1705312200000, "variations": [{"value": true}, {"value": false}], "environments": {"production": {"on": true}}}
+      ],
+      "totalCount": 45
+    }
+  },
+  "rate_limits": {"requests_per_minute": 120}
+}

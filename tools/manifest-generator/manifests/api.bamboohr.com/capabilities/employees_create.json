@@ -1,0 +1,28 @@
+{
+  "name": "employees_create",
+  "description": "Add a new employee to the company directory with personal and job information.",
+  "endpoint": "/api/gateway.php/{companyDomain}/v1/employees/",
+  "method": "POST",
+  "resource_group": "employees",
+  "parameters": [
+    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
+    {"name": "firstName", "type": "string", "description": "Employee first name.", "required": true, "example": "Jane"},
+    {"name": "lastName", "type": "string", "description": "Employee last name.", "required": true, "example": "Smith"},
+    {"name": "jobTitle", "type": "string", "description": "Job title.", "required": false, "example": "Product Manager"},
+    {"name": "department", "type": "string", "description": "Department name.", "required": false, "example": "Product"},
+    {"name": "workEmail", "type": "string", "description": "Work email address.", "required": false, "example": "jane@company.com"},
+    {"name": "hireDate", "type": "string", "description": "Hire date in YYYY-MM-DD format.", "required": false, "example": "2024-07-01"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/",
+    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Content-Type": "application/json"},
+    "body": {"firstName": "Jane", "lastName": "Smith", "jobTitle": "Product Manager", "department": "Product", "hireDate": "2024-07-01"}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": 456, "location": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/456"}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 60}
+}

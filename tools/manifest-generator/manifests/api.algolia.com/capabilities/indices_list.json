@@ -1,0 +1,51 @@
+{
+  "name": "indices_list",
+  "description": "List all indices in the current Algolia application with metadata including entry count and data size.",
+  "endpoint": "/1/indexes",
+  "method": "GET",
+  "resource_group": "indices",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for paginated results.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "hitsPerPage",
+      "type": "integer",
+      "description": "Number of indices per page (default: 100).",
+      "required": false,
+      "example": 100
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "name": "products",
+          "createdAt": "2023-01-15T10:00:00.000Z",
+          "updatedAt": "2024-06-15T08:00:00.000Z",
+          "entries": 15000,
+          "dataSize": 5242880,
+          "fileSize": 8388608
+        }
+      ],
+      "nbPages": 1
+    }
+  },
+  "auth_scopes": ["listIndexes"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

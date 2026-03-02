@@ -1,0 +1,61 @@
+{
+  "name": "carousel_publish",
+  "resource_group": "publishing",
+  "description": "Create a carousel container for publishing multiple images and/or videos as a single Instagram post. Requires creating child containers first.",
+  "endpoint": "/{user_id}/media",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID.",
+      "required": true,
+      "in": "path",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "media_type",
+      "type": "string",
+      "description": "Must be set to CAROUSEL.",
+      "required": true,
+      "in": "body",
+      "example": "CAROUSEL"
+    },
+    {
+      "name": "children",
+      "type": "array",
+      "description": "Array of container IDs for the carousel items (2-10 items).",
+      "required": true,
+      "in": "body",
+      "example": ["17854360000000001", "17854360000000002"]
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "description": "The caption for the carousel post.",
+      "required": false,
+      "in": "body",
+      "example": "Swipe for more! #carousel"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v21.0/17841400000000000/media",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "media_type": "CAROUSEL",
+      "children": ["17854360000000001", "17854360000000002"],
+      "caption": "Swipe for more! #carousel"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "17854360000000005"
+    }
+  },
+  "auth_scopes": ["instagram_content_publish"]
+}

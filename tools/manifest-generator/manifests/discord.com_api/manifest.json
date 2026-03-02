@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Discord",
-  "description": "Build bots and integrate with Discord servers. Send messages, manage channels, react to messages, and access guild information through the Discord Bot API.",
+  "description": "Build bots and integrate with Discord servers. Send messages, manage channels, guilds, members, threads, and reactions through the Discord Bot API.",
   "base_url": "https://discord.com/api",
   "auth": {
     "type": "api_key",
@@ -10,39 +10,232 @@
   },
   "capabilities": [
     {
-      "name": "send_message",
-      "description": "Send a message to a channel.",
-      "detail_url": "/capabilities/send_message"
+      "name": "messages_create",
+      "description": "Post a message to a guild text or DM channel. Supports text, embeds, components, and file attachments.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_create"
     },
     {
-      "name": "list_guild_channels",
-      "description": "Get all channels in a guild.",
-      "detail_url": "/capabilities/list_guild_channels"
+      "name": "messages_list",
+      "description": "Retrieve messages from a channel, ordered from newest to oldest.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_list"
     },
     {
-      "name": "get_channel_messages",
-      "description": "Fetch messages from a channel.",
-      "detail_url": "/capabilities/get_channel_messages"
+      "name": "messages_get",
+      "description": "Retrieve a specific message by ID from a channel.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_get"
     },
     {
-      "name": "create_channel",
+      "name": "messages_update",
+      "description": "Edit a previously sent message.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_update"
+    },
+    {
+      "name": "messages_delete",
+      "description": "Delete a message from a channel.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_delete"
+    },
+    {
+      "name": "messages_bulk_delete",
+      "description": "Delete multiple messages at once (2-100 messages, not older than 14 days).",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_bulk_delete"
+    },
+    {
+      "name": "messages_crosspost",
+      "description": "Crosspost (publish) a message in an announcement channel to following channels.",
+      "resource_group": "messages",
+      "detail_url": "/capabilities/messages_crosspost"
+    },
+    {
+      "name": "reactions_create",
+      "description": "Add a reaction emoji to a message.",
+      "resource_group": "reactions",
+      "detail_url": "/capabilities/reactions_create"
+    },
+    {
+      "name": "reactions_delete_own",
+      "description": "Remove your own reaction from a message.",
+      "resource_group": "reactions",
+      "detail_url": "/capabilities/reactions_delete_own"
+    },
+    {
+      "name": "reactions_list",
+      "description": "Get users who reacted with a specific emoji on a message.",
+      "resource_group": "reactions",
+      "detail_url": "/capabilities/reactions_list"
+    },
+    {
+      "name": "reactions_delete_all",
+      "description": "Remove all reactions from a message.",
+      "resource_group": "reactions",
+      "detail_url": "/capabilities/reactions_delete_all"
+    },
+    {
+      "name": "channels_get",
+      "description": "Retrieve a channel by its ID.",
+      "resource_group": "channels",
+      "detail_url": "/capabilities/channels_get"
+    },
+    {
+      "name": "channels_update",
+      "description": "Update a channel's settings (name, topic, position, permissions, etc).",
+      "resource_group": "channels",
+      "detail_url": "/capabilities/channels_update"
+    },
+    {
+      "name": "channels_delete",
+      "description": "Delete a channel or close a DM.",
+      "resource_group": "channels",
+      "detail_url": "/capabilities/channels_delete"
+    },
+    {
+      "name": "channels_typing",
+      "description": "Send a typing indicator in a channel.",
+      "resource_group": "channels",
+      "detail_url": "/capabilities/channels_typing"
+    },
+    {
+      "name": "channels_pins_list",
+      "description": "List all pinned messages in a channel.",
+      "resource_group": "channels",
+      "detail_url": "/capabilities/channels_pins_list"
+    },
+    {
+      "name": "channels_pins_add",
+      "description": "Pin a message in a channel (max 50 pins).",
+      "resource_group": "channels",
+      "detail_url": "/capabilities/channels_pins_add"
+    },
+    {
+      "name": "channels_pins_remove",
+      "description": "Unpin a message from a channel.",
+      "resource_group": "channels",
+      "detail_url": "/capabilities/channels_pins_remove"
+    },
+    {
+      "name": "guilds_get",
+      "description": "Retrieve a guild (server) by its ID.",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_get"
+    },
+    {
+      "name": "guilds_channels_list",
+      "description": "List all channels in a guild.",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_channels_list"
+    },
+    {
+      "name": "guilds_channels_create",
       "description": "Create a new channel in a guild.",
-      "detail_url": "/capabilities/create_channel"
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_channels_create"
     },
     {
-      "name": "add_reaction",
-      "description": "Add an emoji reaction to a message.",
-      "detail_url": "/capabilities/add_reaction"
+      "name": "guilds_members_list",
+      "description": "List members of a guild with pagination.",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_members_list"
     },
     {
-      "name": "list_guild_members",
-      "description": "Get members of a guild.",
-      "detail_url": "/capabilities/list_guild_members"
+      "name": "guilds_members_get",
+      "description": "Retrieve a specific guild member.",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_members_get"
     },
     {
-      "name": "create_thread",
-      "description": "Create a thread in a channel.",
-      "detail_url": "/capabilities/create_thread"
+      "name": "guilds_members_search",
+      "description": "Search for guild members by username or nickname.",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_members_search"
+    },
+    {
+      "name": "guilds_members_modify",
+      "description": "Modify a guild member's attributes (nickname, roles, mute, deaf).",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_members_modify"
+    },
+    {
+      "name": "guilds_members_remove",
+      "description": "Remove (kick) a member from a guild.",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_members_remove"
+    },
+    {
+      "name": "guilds_bans_list",
+      "description": "List all bans in a guild.",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_bans_list"
+    },
+    {
+      "name": "guilds_roles_add",
+      "description": "Add a role to a guild member.",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_roles_add"
+    },
+    {
+      "name": "guilds_roles_remove",
+      "description": "Remove a role from a guild member.",
+      "resource_group": "guilds",
+      "detail_url": "/capabilities/guilds_roles_remove"
+    },
+    {
+      "name": "threads_create_from_message",
+      "description": "Create a thread from an existing message.",
+      "resource_group": "threads",
+      "detail_url": "/capabilities/threads_create_from_message"
+    },
+    {
+      "name": "threads_create",
+      "description": "Create a new thread in a channel without a message.",
+      "resource_group": "threads",
+      "detail_url": "/capabilities/threads_create"
+    },
+    {
+      "name": "threads_join",
+      "description": "Join a thread.",
+      "resource_group": "threads",
+      "detail_url": "/capabilities/threads_join"
+    },
+    {
+      "name": "threads_leave",
+      "description": "Leave a thread.",
+      "resource_group": "threads",
+      "detail_url": "/capabilities/threads_leave"
+    },
+    {
+      "name": "threads_members_list",
+      "description": "List members of a thread.",
+      "resource_group": "threads",
+      "detail_url": "/capabilities/threads_members_list"
+    },
+    {
+      "name": "threads_active_list",
+      "description": "List all active threads in a guild.",
+      "resource_group": "threads",
+      "detail_url": "/capabilities/threads_active_list"
+    },
+    {
+      "name": "users_get_current",
+      "description": "Get the current bot user.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_get_current"
+    },
+    {
+      "name": "users_get",
+      "description": "Get a user by their ID.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_get"
+    },
+    {
+      "name": "users_create_dm",
+      "description": "Create a DM channel with a user.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/users_create_dm"
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "name": "files_list",
+  "description": "List all file attachments associated with a specific item in a vault.",
+  "endpoint": "/v1/vaults/{vaultUUID}/items/{itemUUID}/files",
+  "method": "GET",
+  "resource_group": "files",
+  "parameters": [
+    {
+      "name": "vaultUUID",
+      "type": "string",
+      "description": "UUID of the vault containing the item.",
+      "required": true,
+      "example": "hfnjvi6aymbsnfc2xeeoheizda"
+    },
+    {
+      "name": "itemUUID",
+      "type": "string",
+      "description": "UUID of the item to list files for.",
+      "required": true,
+      "example": "wepiqdxdzncjtnvmv5fegud4qy"
+    },
+    {
+      "name": "inline_content",
+      "type": "boolean",
+      "description": "If true, include base64-encoded file content inline in the response.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.1password.com/v1/vaults/hfnjvi6aymbsnfc2xeeoheizda/items/wepiqdxdzncjtnvmv5fegud4qy/files",
+    "headers": { "Authorization": "Bearer {token}" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "6lu2cjizrrehtobqp7sfez7fja",
+        "name": "certificate.pem",
+        "size": 1245,
+        "content_path": "/v1/vaults/hfnjvi6aymbsnfc2xeeoheizda/items/wepiqdxdzncjtnvmv5fegud4qy/files/6lu2cjizrrehtobqp7sfez7fja/content"
+      }
+    ]
+  },
+  "auth_scopes": ["vaults"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

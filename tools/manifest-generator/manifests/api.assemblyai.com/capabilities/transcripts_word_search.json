@@ -1,0 +1,69 @@
+{
+  "name": "transcripts_word_search",
+  "description": "Search for specific words or phrases in a transcript.",
+  "endpoint": "/v2/transcript/{transcript_id}/word-search",
+  "method": "GET",
+  "resource_group": "transcripts",
+  "parameters": [
+    {
+      "name": "transcript_id",
+      "type": "string",
+      "description": "Transcript ID.",
+      "required": true,
+      "example": "abc123"
+    },
+    {
+      "name": "words",
+      "type": "string",
+      "description": "Comma-separated words to search for.",
+      "required": true,
+      "example": "hello,welcome"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.assemblyai.com/v2/transcript/abc123/word-search?words=hello,welcome",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "abc123",
+      "total_count": 2,
+      "matches": [
+        {
+          "text": "hello",
+          "count": 1,
+          "timestamps": [
+            [
+              0,
+              500
+            ]
+          ],
+          "indexes": [
+            0
+          ]
+        },
+        {
+          "text": "welcome",
+          "count": 1,
+          "timestamps": [
+            [
+              600,
+              1200
+            ]
+          ],
+          "indexes": [
+            1
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

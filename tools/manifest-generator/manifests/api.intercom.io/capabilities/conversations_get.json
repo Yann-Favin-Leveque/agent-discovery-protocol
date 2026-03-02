@@ -1,0 +1,54 @@
+{
+  "name": "conversations_get",
+  "description": "Retrieve a conversation by ID with all its parts (messages, notes, assignments).",
+  "resource_group": "conversations",
+  "endpoint": "/conversations/{id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The conversation ID."
+    },
+    {
+      "name": "display_as",
+      "type": "string",
+      "required": false,
+      "description": "Set to 'plaintext' to get plain text bodies instead of HTML."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.intercom.io/conversations/123456",
+    "headers": {
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "conversation",
+      "id": "123456",
+      "title": "Billing question",
+      "state": "open",
+      "conversation_parts": {
+        "type": "conversation_part.list",
+        "conversation_parts": [
+          {
+            "type": "conversation_part",
+            "id": "part-1",
+            "part_type": "comment",
+            "body": "<p>I have a billing question</p>",
+            "author": {
+              "type": "user",
+              "id": "contact-abc"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

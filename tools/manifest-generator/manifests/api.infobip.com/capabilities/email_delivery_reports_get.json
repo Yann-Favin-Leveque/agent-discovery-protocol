@@ -1,0 +1,54 @@
+{
+  "name": "email_delivery_reports_get",
+  "description": "Retrieve delivery reports for previously sent emails including delivered, bounced, opened, clicked, complained, and unsubscribed statuses.",
+  "endpoint": "/email/1/reports",
+  "method": "GET",
+  "resource_group": "email",
+  "parameters": [
+    {
+      "name": "bulkId",
+      "type": "string",
+      "required": false,
+      "description": "Filter by the bulk ID from the send response."
+    },
+    {
+      "name": "messageId",
+      "type": "string",
+      "required": false,
+      "description": "Filter by a specific message ID."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of reports to return."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.infobip.com/email/1/reports?bulkId=email-bulk-12345",
+    "headers": {
+      "Authorization": "App {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "bulkId": "email-bulk-12345",
+          "messageId": "email-msg-12345",
+          "to": "user@example.com",
+          "sentAt": "2024-01-15T12:00:00.000+0000",
+          "doneAt": "2024-01-15T12:00:05.000+0000",
+          "status": { "groupName": "DELIVERED", "name": "DELIVERED_TO_HANDSET" },
+          "price": { "pricePerMessage": 0.001, "currency": "EUR" }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

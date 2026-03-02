@@ -1,0 +1,74 @@
+{
+  "name": "uploads_create",
+  "resource_group": "uploads",
+  "description": "Create a new upload in a vault.",
+  "endpoint": "/{account_id}/buckets/{project_id}/vaults/{vault_id}/uploads.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Account ID",
+      "example": 9999999
+    },
+    {
+      "name": "project_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Project ID",
+      "example": 2085958499
+    },
+    {
+      "name": "vault_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Vault ID",
+      "example": 5555555
+    },
+    {
+      "name": "attachable_sgid",
+      "type": "string",
+      "required": true,
+      "description": "SGID of the uploaded attachment",
+      "example": "BAh7CEkiCG..."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "HTML description",
+      "example": "<p>Latest mockup</p>"
+    },
+    {
+      "name": "base_name",
+      "type": "string",
+      "required": false,
+      "description": "New filename (without extension)",
+      "example": "final-mockup"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://3.basecampapi.com/9999999/buckets/2085958499/vaults/5555555/uploads.json",
+    "headers": {
+      "Authorization": "Bearer BC3_TOKEN",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApp (user@example.com)"
+    },
+    "body": {
+      "attachable_sgid": "BAh7CEkiCG...",
+      "description": "<p>Latest mockup</p>"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1069479701,
+      "title": "final-mockup.png"
+    }
+  }
+}

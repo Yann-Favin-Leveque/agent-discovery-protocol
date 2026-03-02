@@ -1,0 +1,104 @@
+{
+  "name": "comments_get",
+  "resource_group": "links_and_comments",
+  "description": "Retrieve the comment tree for a specific post, including nested replies. Returns the post data and a tree of comments with scores, authors, and timestamps.",
+  "endpoint": "/r/{subreddit}/comments/{article}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "subreddit",
+      "type": "string",
+      "description": "The name of the subreddit.",
+      "required": true,
+      "in": "path",
+      "example": "technology"
+    },
+    {
+      "name": "article",
+      "type": "string",
+      "description": "The ID of the post (without the t3_ prefix).",
+      "required": true,
+      "in": "path",
+      "example": "abc123"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "description": "Sort order for comments. One of: confidence, top, new, controversial, old, random, qa.",
+      "required": false,
+      "in": "query",
+      "example": "top"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of comments to return.",
+      "required": false,
+      "in": "query",
+      "example": 50
+    },
+    {
+      "name": "depth",
+      "type": "integer",
+      "description": "Maximum depth of comment tree to return.",
+      "required": false,
+      "in": "query",
+      "example": 5
+    },
+    {
+      "name": "comment",
+      "type": "string",
+      "description": "ID of a specific comment to use as the root of the tree.",
+      "required": false,
+      "in": "query",
+      "example": "def456"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://oauth.reddit.com/r/technology/comments/abc123?sort=top&limit=50",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "User-Agent": "AgentDiscovery/1.0"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "kind": "Listing",
+        "data": {
+          "children": [
+            {
+              "kind": "t3",
+              "data": {
+                "id": "abc123",
+                "title": "Post title",
+                "selftext": "Post body"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "Listing",
+        "data": {
+          "children": [
+            {
+              "kind": "t1",
+              "data": {
+                "id": "def456",
+                "author": "commenter1",
+                "body": "Great post!",
+                "score": 42,
+                "created_utc": 1709312400,
+                "replies": {}
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "auth_scopes": ["read"]
+}

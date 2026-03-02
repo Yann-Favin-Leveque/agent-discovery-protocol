@@ -1,0 +1,62 @@
+{
+  "name": "branches_list",
+  "description": "List branches for a repository.",
+  "resource_group": "branches",
+  "endpoint": "/repos/{owner}/{repo}/branches",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "protected",
+      "type": "boolean",
+      "required": false,
+      "description": "Filter to only protected branches."
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.github.com/repos/octocat/my-project/branches?per_page=20",
+    "headers": {
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "name": "main",
+        "commit": {
+          "sha": "abc123"
+        },
+        "protected": true
+      },
+      {
+        "name": "feature/dark-mode",
+        "commit": {
+          "sha": "def456"
+        },
+        "protected": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "spo2_summary_get",
+  "description": "Retrieve SpO2 blood oxygen saturation summary (avg, min, max).",
+  "resource_group": "spo2",
+  "endpoint": "/1/user/-/spo2/date/{date}.json",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "Date YYYY-MM-DD or {start}/{end}.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "oxygen_saturation"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/spo2/date/2025-01-15.json",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "dateTime": "2025-01-15",
+      "value": {
+        "avg": 96.5,
+        "min": 93.2,
+        "max": 98.1
+      }
+    }
+  }
+}

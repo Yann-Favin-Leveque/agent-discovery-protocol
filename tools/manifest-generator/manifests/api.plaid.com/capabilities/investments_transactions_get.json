@@ -1,0 +1,57 @@
+{
+  "name": "investments_transactions_get",
+  "description": "Retrieve investment transactions (buys, sells, dividends).",
+  "resource_group": "investments",
+  "endpoint": "/investments/transactions/get",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token."
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": true,
+      "description": "Start date YYYY-MM-DD."
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": true,
+      "description": "End date YYYY-MM-DD."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/investments/transactions/get",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc",
+      "start_date": "2024-01-01",
+      "end_date": "2024-08-15"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "investment_transactions": [
+        {
+          "type": "buy",
+          "amount": 5000.0,
+          "quantity": 33,
+          "price": 150.25,
+          "date": "2024-07-15",
+          "security_id": "sec_abc"
+        }
+      ],
+      "request_id": "abc"
+    }
+  }
+}

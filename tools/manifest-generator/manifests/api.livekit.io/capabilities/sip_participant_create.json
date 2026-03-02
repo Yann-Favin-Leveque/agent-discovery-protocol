@@ -1,0 +1,66 @@
+{
+  "name": "sip_participant_create",
+  "description": "Initiate an outbound SIP/PSTN call and connect it as a participant in a LiveKit room. Requires 'call' grant permission.",
+  "endpoint": "/twirp/livekit.SIP/CreateSIPParticipant",
+  "method": "POST",
+  "resource_group": "sip",
+  "parameters": [
+    {
+      "name": "sip_trunk_id",
+      "type": "string",
+      "required": true,
+      "description": "The outbound SIP trunk ID to use for the call."
+    },
+    {
+      "name": "sip_call_to",
+      "type": "string",
+      "required": true,
+      "description": "Phone number or SIP URI to call."
+    },
+    {
+      "name": "room_name",
+      "type": "string",
+      "required": true,
+      "description": "Room to connect the called participant to."
+    },
+    {
+      "name": "participant_identity",
+      "type": "string",
+      "required": false,
+      "description": "Identity for the SIP participant in the room."
+    },
+    {
+      "name": "participant_name",
+      "type": "string",
+      "required": false,
+      "description": "Display name for the SIP participant."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.SIP/CreateSIPParticipant",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "sip_trunk_id": "ST_outbound_01",
+      "sip_call_to": "+14155550300",
+      "room_name": "support-room",
+      "participant_identity": "phone-user-300",
+      "participant_name": "Phone Caller"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "participant_id": "PA_sip_01",
+      "participant_identity": "phone-user-300",
+      "sip_call_id": "call-id-abc123"
+    }
+  },
+  "auth_scopes": ["sipCall"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

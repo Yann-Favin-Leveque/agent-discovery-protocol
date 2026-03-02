@@ -1,0 +1,45 @@
+{
+  "name": "candidates_merge",
+  "resource_group": "Candidates",
+  "endpoint": "/v1/candidates/{id}/merge",
+  "method": "PUT",
+  "description": "Merge a duplicate candidate into a primary record.",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Candidate to merge (removed)."
+    },
+    {
+      "name": "primary_candidate_id",
+      "type": "integer",
+      "required": true,
+      "description": "Primary candidate to keep."
+    },
+    {
+      "name": "On-Behalf-Of",
+      "type": "integer",
+      "required": true,
+      "description": "User ID (header)."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://harvest.greenhouse.io/v1/candidates/17681600/merge",
+    "headers": {
+      "Authorization": "Basic dXNlcm5hbWU6",
+      "On-Behalf-Of": "4321",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "primary_candidate_id": 17681532
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "Candidates merged"
+    }
+  }
+}

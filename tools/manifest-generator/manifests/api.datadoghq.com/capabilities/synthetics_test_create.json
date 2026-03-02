@@ -1,0 +1,64 @@
+{
+  "name": "synthetics_test_create",
+  "description": "Create a new synthetic API or browser test.",
+  "resource_group": "synthetics",
+  "endpoint": "/api/v1/synthetics/tests/api",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Test name"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "description": "Test type: api or browser"
+    },
+    {
+      "name": "config",
+      "type": "object",
+      "required": true,
+      "description": "Test configuration with request and assertions"
+    },
+    {
+      "name": "locations",
+      "type": "array",
+      "required": true,
+      "description": "Test locations"
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "required": false,
+      "description": "Test options"
+    }
+  ],
+  "request_example": {
+    "name": "API Health",
+    "type": "api",
+    "config": {
+      "request": {
+        "method": "GET",
+        "url": "https://api.example.com/health"
+      },
+      "assertions": [
+        {
+          "type": "statusCode",
+          "operator": "is",
+          "target": 200
+        }
+      ]
+    },
+    "locations": [
+      "aws:us-east-1"
+    ]
+  },
+  "response_example": {
+    "public_id": "def-456",
+    "name": "API Health"
+  },
+  "auth_scopes": []
+}

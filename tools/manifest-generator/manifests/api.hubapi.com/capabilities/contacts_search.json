@@ -1,0 +1,80 @@
+{
+  "name": "contacts_search",
+  "description": "Search contacts using filters and query.",
+  "resource_group": "contacts",
+  "endpoint": "/crm/v3/objects/contacts/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "filterGroups",
+      "type": "array",
+      "required": false,
+      "description": "Filter groups with property filters."
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": false,
+      "description": "Text search query."
+    },
+    {
+      "name": "sorts",
+      "type": "array",
+      "required": false,
+      "description": "Sort criteria."
+    },
+    {
+      "name": "properties",
+      "type": "array",
+      "required": false,
+      "description": "Properties to return."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results."
+    },
+    {
+      "name": "after",
+      "type": "integer",
+      "required": false,
+      "description": "Pagination offset."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.hubapi.com/crm/v3/objects/contacts/search",
+    "body": {
+      "filterGroups": [
+        {
+          "filters": [
+            {
+              "propertyName": "email",
+              "operator": "CONTAINS_TOKEN",
+              "value": "example.com"
+            }
+          ]
+        }
+      ],
+      "properties": [
+        "email",
+        "firstname",
+        "lastname"
+      ],
+      "limit": 10
+    }
+  },
+  "response_example": {
+    "total": 5,
+    "results": [
+      {
+        "id": "101",
+        "properties": {
+          "email": "jane@example.com",
+          "firstname": "Jane"
+        }
+      }
+    ]
+  }
+}

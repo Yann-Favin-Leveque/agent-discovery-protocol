@@ -1,0 +1,84 @@
+{
+  "name": "prices_create",
+  "description": "Create a price for a product, defining amount, currency, and billing cycle.",
+  "resource_group": "prices",
+  "endpoint": "/prices",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "product_id",
+      "type": "string",
+      "description": "Product to attach price to.",
+      "required": true
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Price description.",
+      "required": true,
+      "example": "Monthly subscription"
+    },
+    {
+      "name": "unit_price",
+      "type": "object",
+      "description": "Price amount with amount and currency_code.",
+      "required": true,
+      "example": {
+        "amount": "1000",
+        "currency_code": "USD"
+      }
+    },
+    {
+      "name": "billing_cycle",
+      "type": "object",
+      "description": "Billing interval and frequency.",
+      "required": false,
+      "example": {
+        "interval": "month",
+        "frequency": 1
+      }
+    },
+    {
+      "name": "trial_period",
+      "type": "object",
+      "description": "Trial period before billing starts.",
+      "required": false
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Price type: standard or custom.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/prices",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "product_id": "pro_01h1vjes1y163xfj1rh1tkfb65",
+      "description": "Monthly",
+      "unit_price": {
+        "amount": "1000",
+        "currency_code": "USD"
+      },
+      "billing_cycle": {
+        "interval": "month",
+        "frequency": 1
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "pri_01h1vjes1y163xfj1rh1tkfb65",
+        "product_id": "pro_01h1vjes1y163xfj1rh1tkfb65",
+        "status": "active"
+      }
+    }
+  }
+}

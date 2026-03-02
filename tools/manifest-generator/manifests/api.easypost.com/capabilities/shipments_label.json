@@ -1,0 +1,44 @@
+{
+  "name": "shipments_label",
+  "description": "Convert a purchased label to a different format.",
+  "endpoint": "/v2/shipments/{id}/label",
+  "method": "GET",
+  "resource_group": "shipments",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Shipment ID.",
+      "required": true,
+      "example": "shp_abc123"
+    },
+    {
+      "name": "file_format",
+      "type": "string",
+      "description": "Target format: PDF, ZPL, or EPL2.",
+      "required": true,
+      "example": "PDF"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.easypost.com/v2/shipments/shp_abc123/label?file_format=PDF",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "shp_abc123",
+      "postage_label": {
+        "label_url": "https://easypost-files.s3.amazonaws.com/label.pdf",
+        "label_file_type": "application/pdf"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

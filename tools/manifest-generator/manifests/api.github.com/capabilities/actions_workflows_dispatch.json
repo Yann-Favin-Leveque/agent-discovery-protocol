@@ -1,0 +1,61 @@
+{
+  "name": "actions_workflows_dispatch",
+  "description": "Manually trigger a workflow_dispatch event for a workflow.",
+  "resource_group": "actions",
+  "endpoint": "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository owner."
+    },
+    {
+      "name": "repo",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repository name."
+    },
+    {
+      "name": "workflow_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workflow ID or filename (e.g., 'ci.yml')."
+    },
+    {
+      "name": "ref",
+      "type": "string",
+      "required": true,
+      "description": "Branch or tag to run the workflow on."
+    },
+    {
+      "name": "inputs",
+      "type": "object",
+      "required": false,
+      "description": "Key-value pairs of workflow input values."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.github.com/repos/octocat/my-project/actions/workflows/ci.yml/dispatches",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ghp_xxxxxxxxxxxx",
+      "Accept": "application/vnd.github+json"
+    },
+    "body": {
+      "ref": "main",
+      "inputs": {
+        "environment": "staging"
+      }
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": null
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "comments_create",
+  "description": "Create a comment on a file.",
+  "resource_group": "comments",
+  "endpoint": "/2.0/comments",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "item",
+      "type": "object",
+      "description": "Item with type=file and id.",
+      "required": true
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "description": "Comment text.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.box.com/2.0/comments",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "item": {
+        "type": "file",
+        "id": "12345"
+      },
+      "message": "Great file!"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "type": "comment",
+      "id": "comment123",
+      "message": "Great file!"
+    }
+  }
+}

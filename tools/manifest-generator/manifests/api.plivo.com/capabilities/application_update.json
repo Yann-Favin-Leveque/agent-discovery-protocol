@@ -1,0 +1,60 @@
+{
+  "name": "application_update",
+  "description": "Update an existing application.",
+  "resource_group": "application",
+  "endpoint": "/v1/Account/{auth_id}/Application/{app_id}/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "The application ID (path parameter).",
+      "required": true,
+      "example": "123456789"
+    },
+    {
+      "name": "app_name",
+      "type": "string",
+      "description": "Updated application name.",
+      "required": false,
+      "example": "Updated App"
+    },
+    {
+      "name": "answer_url",
+      "type": "string",
+      "description": "Updated answer URL.",
+      "required": false
+    },
+    {
+      "name": "message_url",
+      "type": "string",
+      "description": "Updated message URL.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Application/{app_id}/",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "app_name": "Updated App"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "message": "changed",
+      "api_id": "xxx"
+    }
+  }
+}

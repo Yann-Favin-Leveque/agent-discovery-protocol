@@ -1,0 +1,72 @@
+{
+  "name": "loyalty_accounts_adjust",
+  "description": "Add or subtract loyalty points from an account.",
+  "endpoint": "/v2/loyalty/accounts/{account_id}/adjust",
+  "method": "POST",
+  "resource_group": "loyalty",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "Loyalty account ID",
+      "required": true,
+      "example": "loyalty_abc"
+    },
+    {
+      "name": "idempotency_key",
+      "type": "string",
+      "description": "Unique key",
+      "required": true,
+      "example": "adjust-key"
+    },
+    {
+      "name": "adjust_points",
+      "type": "object",
+      "description": "Points adjustment",
+      "required": true,
+      "example": {
+        "points": 50,
+        "reason": "Bonus points"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/loyalty/accounts/loyalty_abc/adjust",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "idempotency_key": "adjust-key",
+      "adjust_points": {
+        "points": 50,
+        "reason": "Bonus points"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "event": {
+        "type": "ADJUST_POINTS",
+        "loyalty_account_id": "loyalty_abc"
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

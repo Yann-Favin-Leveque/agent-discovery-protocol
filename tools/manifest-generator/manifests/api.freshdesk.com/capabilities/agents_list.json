@@ -1,0 +1,24 @@
+{
+  "name": "agents_list",
+  "description": "List all agents in the helpdesk with their roles, groups, and availability status.",
+  "endpoint": "/api/v2/agents",
+  "method": "GET",
+  "resource_group": "agents",
+  "parameters": [
+    {"name": "email", "type": "string", "description": "Filter by agent email.", "required": false, "example": "agent@company.com"},
+    {"name": "state", "type": "string", "description": "Filter by state (fulltime, occasional).", "required": false, "example": "fulltime"},
+    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://yourdomain.freshdesk.com/api/v2/agents",
+    "headers": {"Authorization": "Basic base64(api_key:X)"},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{"id": 67890, "contact": {"name": "Alice Agent", "email": "alice@company.com"}, "available": true, "type": "fulltime", "group_ids": [1, 2]}]
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 80}
+}

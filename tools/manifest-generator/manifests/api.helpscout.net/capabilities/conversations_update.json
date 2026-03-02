@@ -1,0 +1,58 @@
+{
+  "name": "conversations_update",
+  "description": "Update a conversation's status, assignee, or subject.",
+  "endpoint": "/v2/conversations/{id}",
+  "method": "PATCH",
+  "resource_group": "conversations",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Conversation ID.",
+      "required": true,
+      "example": 123
+    },
+    {
+      "name": "op",
+      "type": "string",
+      "description": "Operation: replace, move.",
+      "required": true,
+      "example": "replace"
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "description": "Field path to update.",
+      "required": true,
+      "example": "/status"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "New value.",
+      "required": true,
+      "example": "closed"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.helpscout.net/v2/conversations/123",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "op": "replace",
+      "path": "/status",
+      "value": "closed"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

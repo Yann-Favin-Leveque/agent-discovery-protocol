@@ -1,0 +1,77 @@
+{
+  "name": "workflows_trigger",
+  "description": "Trigger a notification workflow for one or more recipients.",
+  "endpoint": "/v1/workflows/{key}/trigger",
+  "method": "POST",
+  "resource_group": "workflows",
+  "parameters": [
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Workflow key identifier.",
+      "required": true,
+      "example": "new-comment"
+    },
+    {
+      "name": "recipients",
+      "type": "array",
+      "description": "Recipient user IDs or objects.",
+      "required": true,
+      "example": [
+        "user_123",
+        "user_456"
+      ]
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Data payload available in workflow templates.",
+      "required": false,
+      "example": {
+        "comment_text": "Great work!",
+        "page_url": "https://example.com/page"
+      }
+    },
+    {
+      "name": "actor",
+      "type": "string",
+      "description": "The user who performed the action.",
+      "required": false,
+      "example": "user_789"
+    },
+    {
+      "name": "tenant",
+      "type": "string",
+      "description": "Tenant ID for multi-tenant apps.",
+      "required": false,
+      "example": "tenant_abc"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.knock.app/v1/workflows/new-comment/trigger",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "recipients": [
+        "user_123"
+      ],
+      "data": {
+        "comment_text": "Great work!"
+      },
+      "actor": "user_789"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "workflow_run_id": "wfr_abc123"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

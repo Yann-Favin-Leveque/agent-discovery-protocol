@@ -1,0 +1,43 @@
+{
+  "name": "issues_bulk_update",
+  "description": "Bulk update issues for a project.",
+  "resource_group": "issues",
+  "endpoint": "/projects/{organization_slug}/{project_slug}/issues/",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "organization_slug",
+      "type": "string",
+      "required": true,
+      "description": "Org slug."
+    },
+    {
+      "name": "project_slug",
+      "type": "string",
+      "required": true,
+      "description": "Project slug."
+    },
+    {
+      "name": "id",
+      "type": "array",
+      "required": false,
+      "description": "Issue IDs."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "New status."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://sentry.io/api/0/projects/my-org/my-project/issues/?id=1&id=2",
+    "body": {
+      "status": "resolved"
+    }
+  },
+  "response_example": {
+    "status": "resolved"
+  }
+}

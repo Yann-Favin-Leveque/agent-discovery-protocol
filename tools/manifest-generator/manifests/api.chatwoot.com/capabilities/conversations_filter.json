@@ -1,0 +1,24 @@
+{
+  "name": "conversations_filter",
+  "description": "Filter conversations using advanced criteria like custom attributes, labels, team, and date ranges.",
+  "endpoint": "/api/v1/accounts/{account_id}/conversations/filter",
+  "method": "POST",
+  "resource_group": "conversations",
+  "parameters": [
+    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
+    {"name": "payload", "type": "array", "description": "Array of filter conditions with attribute_key, filter_operator, values, and query_operator.", "required": true, "example": [{"attribute_key": "status", "filter_operator": "equal_to", "values": ["open"], "query_operator": "AND"}]},
+    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chatwoot.com/api/v1/accounts/1/conversations/filter",
+    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
+    "body": {"payload": [{"attribute_key": "status", "filter_operator": "equal_to", "values": ["open"], "query_operator": "AND"}, {"attribute_key": "assignee_id", "filter_operator": "equal_to", "values": [5]}]}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"meta": {"all_count": 10}, "payload": []}}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 250}
+}

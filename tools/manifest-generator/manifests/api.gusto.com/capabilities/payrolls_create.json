@@ -1,0 +1,19 @@
+{
+  "name": "payrolls_create",
+  "description": "Create an off-cycle payroll run for a company.",
+  "endpoint": "/v1/companies/{company_id}/payrolls",
+  "method": "POST",
+  "resource_group": "payrolls",
+  "parameters": [
+    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
+    {"name": "off_cycle", "type": "boolean", "description": "Whether this is an off-cycle payroll.", "required": true, "example": true},
+    {"name": "off_cycle_reason", "type": "string", "description": "Reason for off-cycle payroll (bonus, correction).", "required": false, "example": "bonus"},
+    {"name": "check_date", "type": "string", "description": "Date employees will be paid (YYYY-MM-DD).", "required": true, "example": "2024-09-25"},
+    {"name": "start_date", "type": "string", "description": "Pay period start date.", "required": true, "example": "2024-09-16"},
+    {"name": "end_date", "type": "string", "description": "Pay period end date.", "required": true, "example": "2024-09-25"}
+  ],
+  "request_example": {"method": "POST", "url": "https://api.gusto.com/v1/companies/7757616923531542/payrolls", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"off_cycle": true, "off_cycle_reason": "bonus", "check_date": "2024-09-25", "start_date": "2024-09-16", "end_date": "2024-09-25"}},
+  "response_example": {"status": 201, "body": {"payroll_uuid": "pay_790", "off_cycle": true, "check_date": "2024-09-25"}},
+  "auth_scopes": ["payrolls:write"],
+  "rate_limits": {"requests_per_minute": 60}
+}

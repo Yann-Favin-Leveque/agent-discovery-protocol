@@ -1,0 +1,75 @@
+{
+  "name": "conversations_list",
+  "description": "List all conversations across mailboxes with filtering by status, assignee, tag, and date.",
+  "endpoint": "/v2/conversations",
+  "method": "GET",
+  "resource_group": "conversations",
+  "parameters": [
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter: active, pending, closed, spam.",
+      "required": false,
+      "example": "active"
+    },
+    {
+      "name": "mailbox",
+      "type": "integer",
+      "description": "Filter by mailbox ID.",
+      "required": false,
+      "example": 12345
+    },
+    {
+      "name": "assignedTo",
+      "type": "integer",
+      "description": "Filter by assigned user ID.",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "description": "Filter by tag name.",
+      "required": false,
+      "example": "billing"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.helpscout.net/v2/conversations?status=active&page=1",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "_embedded": {
+        "conversations": [
+          {
+            "id": 123,
+            "number": 456,
+            "subject": "Help with billing",
+            "status": "active",
+            "mailboxId": 12345
+          }
+        ]
+      },
+      "page": {
+        "totalElements": 50,
+        "totalPages": 3
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

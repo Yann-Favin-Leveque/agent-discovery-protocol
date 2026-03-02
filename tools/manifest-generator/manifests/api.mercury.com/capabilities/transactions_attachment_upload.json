@@ -1,0 +1,23 @@
+{
+  "name": "transactions_attachment_upload",
+  "description": "Upload a file attachment (receipt, invoice, etc.) to a transaction.",
+  "endpoint": "/api/v1/transaction/attachment",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    { "name": "transactionId", "type": "string", "description": "The transaction to attach the file to", "required": true, "example": "txn_abc123" },
+    { "name": "file", "type": "file", "description": "The file to upload (PDF, image, etc.)", "required": true, "example": "receipt.pdf" }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mercury.com/api/v1/transaction/attachment",
+    "headers": { "Authorization": "Bearer {token}", "Content-Type": "multipart/form-data" },
+    "body": { "transactionId": "txn_abc123", "file": "<binary>" }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "id": "att_001", "transactionId": "txn_abc123", "fileName": "receipt.pdf" }
+  },
+  "auth_scopes": [],
+  "rate_limits": { "requests_per_minute": 30 }
+}

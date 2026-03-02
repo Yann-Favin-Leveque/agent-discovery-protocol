@@ -1,0 +1,61 @@
+{
+  "name": "indices_copy",
+  "description": "Copy an index including its records, settings, synonyms, or rules to a new or existing index.",
+  "endpoint": "/1/indexes/{indexName}/operation",
+  "method": "POST",
+  "resource_group": "indices",
+  "parameters": [
+    {
+      "name": "indexName",
+      "type": "string",
+      "description": "Name of the source index.",
+      "required": true,
+      "example": "products"
+    },
+    {
+      "name": "operation",
+      "type": "string",
+      "description": "Operation type: 'copy'.",
+      "required": true,
+      "example": "copy"
+    },
+    {
+      "name": "destination",
+      "type": "string",
+      "description": "Name of the destination index.",
+      "required": true,
+      "example": "products_backup"
+    },
+    {
+      "name": "scope",
+      "type": "array",
+      "description": "What to copy: 'settings', 'synonyms', 'rules'. Omit to copy everything.",
+      "required": false,
+      "example": ["settings", "synonyms"]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{APPLICATION_ID}.algolia.net/1/indexes/products/operation",
+    "headers": {
+      "x-algolia-application-id": "{APPLICATION_ID}",
+      "x-algolia-api-key": "{API_KEY}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "operation": "copy",
+      "destination": "products_backup"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "updatedAt": "2024-06-15T11:30:00.000Z",
+      "taskID": 688
+    }
+  },
+  "auth_scopes": ["addObject"],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

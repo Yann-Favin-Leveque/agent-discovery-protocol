@@ -1,0 +1,56 @@
+{
+  "name": "live_streams_update",
+  "resource_group": "live_streams",
+  "description": "Update a live stream configuration.",
+  "endpoint": "/video/v1/live-streams/{live_stream_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "live_stream_id",
+      "type": "string",
+      "required": true,
+      "description": "Live stream ID.",
+      "in": "path"
+    },
+    {
+      "name": "passthrough",
+      "type": "string",
+      "required": false,
+      "description": "Updated passthrough."
+    },
+    {
+      "name": "reconnect_window",
+      "type": "number",
+      "required": false,
+      "description": "Updated reconnect window."
+    },
+    {
+      "name": "low_latency",
+      "type": "boolean",
+      "required": false,
+      "description": "Toggle low latency."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.mux.com/video/v1/live-streams/stream_abc",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "passthrough": "my-stream-1",
+      "low_latency": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "stream_abc",
+        "passthrough": "my-stream-1",
+        "low_latency": true
+      }
+    }
+  }
+}

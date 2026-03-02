@@ -1,0 +1,26 @@
+{
+  "name": "taxes_create",
+  "description": "Create a new tax rate with name, percentage, and optional compound flag.",
+  "endpoint": "/accounting/account/{account_id}/taxes/taxes",
+  "method": "POST",
+  "resource_group": "taxes",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
+    {"name": "name", "type": "string", "description": "Tax name.", "required": true, "example": "GST"},
+    {"name": "amount", "type": "string", "description": "Tax percentage.", "required": true, "example": "5"},
+    {"name": "number", "type": "string", "description": "Tax registration number.", "required": false, "example": "RT 0002"},
+    {"name": "compound", "type": "boolean", "description": "Whether this tax compounds on other taxes.", "required": false, "example": false}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/taxes/taxes",
+    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha", "Content-Type": "application/json"},
+    "body": {"tax": {"name": "GST", "amount": "5", "number": "RT 0002"}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"response": {"result": {"tax": {"taxid": 2, "name": "GST", "amount": "5"}}}}
+  },
+  "auth_scopes": ["user:taxes:write"],
+  "rate_limits": {"requests_per_minute": 100}
+}

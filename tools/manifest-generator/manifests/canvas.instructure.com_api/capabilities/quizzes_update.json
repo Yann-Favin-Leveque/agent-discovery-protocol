@@ -1,0 +1,50 @@
+{
+  "name": "quizzes_update",
+  "description": "Update a quiz.",
+  "resource_group": "quizzes",
+  "endpoint": "/api/v1/courses/{course_id}/quizzes/{quiz_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "quiz_id",
+      "type": "integer",
+      "description": "Quiz ID.",
+      "required": true,
+      "example": 10001
+    },
+    {
+      "name": "quiz[title]",
+      "type": "string",
+      "description": "Updated title.",
+      "required": false,
+      "example": "Quiz 1 (Revised)"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/quizzes/10001",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "quiz": {
+        "title": "Quiz 1 (Revised)"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 10001,
+      "title": "Quiz 1 (Revised)"
+    }
+  }
+}

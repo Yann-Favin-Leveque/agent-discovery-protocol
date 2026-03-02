@@ -1,20 +1,21 @@
 {
   "name": "sign_in_anonymous",
-  "description": "Sign in anonymously without requiring any credentials. Creates a temporary anonymous user account with an ID token. The anonymous account can later be linked to a permanent email/password or social account to preserve the user's data.",
+  "description": "Sign in anonymously without credentials. Creates a temporary anonymous user that can later be linked to a permanent account.",
   "endpoint": "/accounts:signUp",
   "method": "POST",
+  "resource_group": "auth",
   "parameters": [
     {
       "name": "returnSecureToken",
       "type": "boolean",
-      "description": "Whether to return an ID and refresh token. Should always be true.",
+      "description": "Whether to return an ID and refresh token.",
       "required": true,
       "example": true
     }
   ],
   "request_example": {
     "method": "POST",
-    "url": "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=YOUR_API_KEY",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSy...",
     "headers": {
       "Content-Type": "application/json"
     },
@@ -25,10 +26,14 @@
   "response_example": {
     "status": 200,
     "body": {
-      "idToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
-      "refreshToken": "AMf-vBx9kD8...",
+      "idToken": "eyJhbGciOiJSUzI1NiIs...",
+      "refreshToken": "AEu4IL3...",
       "expiresIn": "3600",
-      "localId": "z9y8x7w6v5u43210"
+      "localId": "Anon1rJK0eY..."
     }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
   }
 }

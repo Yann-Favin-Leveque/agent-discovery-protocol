@@ -1,0 +1,50 @@
+{
+  "name": "repos_list",
+  "description": "List Git repositories in a project.",
+  "resource_group": "repositories",
+  "endpoint": "/{organization}/{project}/_apis/git/repositories",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "project",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://dev.azure.com/myorg/MyProject/_apis/git/repositories?api-version=7.1",
+    "headers": {
+      "Authorization": "Basic base64(user:pat)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "value": [
+        {
+          "id": "repo-guid",
+          "name": "MyProject",
+          "defaultBranch": "refs/heads/main",
+          "remoteUrl": "https://dev.azure.com/myorg/MyProject/_git/MyProject"
+        }
+      ],
+      "count": 1
+    }
+  }
+}

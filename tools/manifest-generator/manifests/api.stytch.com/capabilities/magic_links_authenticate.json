@@ -1,0 +1,70 @@
+{
+  "name": "magic_links_authenticate",
+  "resource_group": "magic_links",
+  "description": "Authenticate a magic link token. Returns session tokens and user details on success.",
+  "endpoint": "/v1/magic_links/authenticate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "description": "The magic link token."
+    },
+    {
+      "name": "session_token",
+      "type": "string",
+      "required": false,
+      "description": "Existing session token to extend."
+    },
+    {
+      "name": "session_jwt",
+      "type": "string",
+      "required": false,
+      "description": "Existing session JWT to extend."
+    },
+    {
+      "name": "session_duration_minutes",
+      "type": "integer",
+      "required": false,
+      "description": "Session lifetime in minutes."
+    },
+    {
+      "name": "session_custom_claims",
+      "type": "object",
+      "required": false,
+      "description": "Custom claims for the session."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stytch.com/v1/magic_links/authenticate",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "token": "magic-link-token-xyz",
+      "session_duration_minutes": 60
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "status_code": 200,
+      "user_id": "user-live-abc",
+      "user": {
+        "user_id": "user-live-abc",
+        "emails": [
+          {
+            "email": "alice@example.com",
+            "verified": true
+          }
+        ]
+      },
+      "session_token": "sess-token-xyz",
+      "session_jwt": "eyJhbGciOi..."
+    }
+  }
+}

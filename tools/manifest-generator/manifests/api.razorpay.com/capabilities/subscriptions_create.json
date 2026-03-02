@@ -1,0 +1,62 @@
+{
+  "name": "subscriptions_create",
+  "description": "Create a recurring subscription for a customer with a defined billing plan.",
+  "resource_group": "subscriptions",
+  "endpoint": "/v1/subscriptions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "plan_id",
+      "type": "string",
+      "description": "The plan ID.",
+      "required": true
+    },
+    {
+      "name": "total_count",
+      "type": "integer",
+      "description": "Total billing cycles.",
+      "required": true,
+      "example": 12
+    },
+    {
+      "name": "quantity",
+      "type": "integer",
+      "description": "Number of units.",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "customer_notify",
+      "type": "boolean",
+      "description": "Notify customer.",
+      "required": false
+    },
+    {
+      "name": "notes",
+      "type": "object",
+      "description": "Key-value notes.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.razorpay.com/v1/subscriptions",
+    "headers": {
+      "Authorization": "Basic {key_id}:{key_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "plan_id": "plan_DBJOWzybf0sJbb",
+      "total_count": 12,
+      "quantity": 1
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sub_DBJOWzybf0sJbb",
+      "plan_id": "plan_DBJOWzybf0sJbb",
+      "status": "created"
+    }
+  }
+}

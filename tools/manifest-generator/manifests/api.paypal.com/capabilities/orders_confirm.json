@@ -1,0 +1,44 @@
+{
+  "name": "orders_confirm",
+  "description": "Payer confirms their intent to pay for the order with their chosen payment source.",
+  "endpoint": "/v2/checkout/orders/{id}/confirm-payment-source",
+  "method": "POST",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Order ID",
+      "required": true,
+      "example": "ORDER_ID"
+    },
+    {
+      "name": "payment_source",
+      "type": "object",
+      "description": "Payment source details",
+      "required": true,
+      "example": {
+        "paypal": {
+          "experience_context": {}
+        }
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v2/checkout/orders/{id}/confirm-payment-source",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

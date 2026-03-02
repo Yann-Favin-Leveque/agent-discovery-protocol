@@ -1,19 +1,86 @@
 {
   "spec_version": "1.0",
   "name": "Mixpanel",
-  "description": "Mixpanel is a product analytics platform for tracking user interactions. Analyze events, user flows, funnels, retention, and cohorts to understand how people use your product.",
+  "description": "Mixpanel is a product analytics platform for tracking user interactions. Import events, query segmentation, funnels, and retention data, manage user profiles and cohorts, and export raw event data.",
   "base_url": "https://mixpanel.com/api",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Basic"
+    "prefix": "Basic",
+    "setup_url": "https://mixpanel.com/settings/project"
   },
   "capabilities": [
-    {"name": "track_event", "description": "Track a user event with properties for product analytics.", "detail_url": "/capabilities/track_event"},
-    {"name": "query_insights", "description": "Query insights data with event segmentation and filtering.", "detail_url": "/capabilities/query_insights"},
-    {"name": "get_funnel", "description": "Analyze a conversion funnel with multiple steps.", "detail_url": "/capabilities/get_funnel"},
-    {"name": "get_retention", "description": "Get user retention data over time periods.", "detail_url": "/capabilities/get_retention"},
-    {"name": "query_users", "description": "Query user profiles with property filters.", "detail_url": "/capabilities/query_users"},
-    {"name": "set_user_profile", "description": "Create or update a user profile with properties.", "detail_url": "/capabilities/set_user_profile"}
+    {
+      "name": "events_track",
+      "description": "Send a single event to Mixpanel for real-time tracking.",
+      "resource_group": "ingestion",
+      "detail_url": "/capabilities/events_track"
+    },
+    {
+      "name": "events_import",
+      "description": "Batch import historical events with validation and per-event error reporting.",
+      "resource_group": "ingestion",
+      "detail_url": "/capabilities/events_import"
+    },
+    {
+      "name": "profiles_set",
+      "description": "Set properties on a user profile, creating it if it does not exist.",
+      "resource_group": "ingestion",
+      "detail_url": "/capabilities/profiles_set"
+    },
+    {
+      "name": "profiles_set_once",
+      "description": "Set profile properties only if they have not been set before.",
+      "resource_group": "ingestion",
+      "detail_url": "/capabilities/profiles_set_once"
+    },
+    {
+      "name": "profiles_delete",
+      "description": "Permanently delete a user profile.",
+      "resource_group": "ingestion",
+      "detail_url": "/capabilities/profiles_delete"
+    },
+    {
+      "name": "query_segmentation",
+      "description": "Query event segmentation data with filtering, grouping, and time bucketing.",
+      "resource_group": "query",
+      "detail_url": "/capabilities/query_segmentation"
+    },
+    {
+      "name": "query_funnels",
+      "description": "Analyze a conversion funnel with multiple steps.",
+      "resource_group": "query",
+      "detail_url": "/capabilities/query_funnels"
+    },
+    {
+      "name": "query_retention",
+      "description": "Get user retention data over time periods.",
+      "resource_group": "query",
+      "detail_url": "/capabilities/query_retention"
+    },
+    {
+      "name": "query_engage",
+      "description": "Query user profiles with property filters and pagination.",
+      "resource_group": "query",
+      "detail_url": "/capabilities/query_engage"
+    },
+    {
+      "name": "cohorts_list",
+      "description": "List all saved cohorts in the project.",
+      "resource_group": "query",
+      "detail_url": "/capabilities/cohorts_list"
+    },
+    {
+      "name": "events_export",
+      "description": "Export raw event data for a date range.",
+      "resource_group": "export",
+      "detail_url": "/capabilities/events_export"
+    },
+    {
+      "name": "groups_set",
+      "description": "Set properties on a group profile.",
+      "resource_group": "ingestion",
+      "detail_url": "/capabilities/groups_set"
+    }
   ]
 }

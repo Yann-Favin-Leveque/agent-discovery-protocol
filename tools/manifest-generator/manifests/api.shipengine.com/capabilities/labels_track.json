@@ -1,0 +1,41 @@
+{
+  "name": "labels_track",
+  "description": "Retrieve tracking information for a label.",
+  "endpoint": "/v1/labels/{label_id}/track",
+  "method": "GET",
+  "resource_group": "labels",
+  "parameters": [
+    {
+      "name": "label_id",
+      "type": "string",
+      "description": "The label ID.",
+      "required": true,
+      "example": "se-label-123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.shipengine.com/v1/labels/se-label-123/track",
+    "headers": {
+      "API-Key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "tracking_number": "1Z999AA10123456784",
+      "status_code": "IT",
+      "status_description": "In Transit",
+      "events": [
+        {
+          "occurred_at": "2024-01-15T10:30:00Z",
+          "description": "Package departed facility"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

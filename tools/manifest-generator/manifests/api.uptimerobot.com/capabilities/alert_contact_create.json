@@ -1,0 +1,56 @@
+{
+  "name": "alert_contact_create",
+  "description": "Create a new alert contact for receiving downtime notifications via email, SMS, webhook, or integrations.",
+  "resource_group": "alert_contacts",
+  "endpoint": "/v2/newAlertContact",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Your UptimeRobot API key."
+    },
+    {
+      "name": "friendly_name",
+      "type": "string",
+      "required": true,
+      "description": "Display name for the alert contact."
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "required": true,
+      "description": "Contact type: 1 (SMS), 2 (email), 3 (Twitter DM), 4 (Boxcar), 5 (webhook), 6 (Pushbullet), 7 (Zapier), 11 (Slack)."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true,
+      "description": "Contact value (email address, phone number, webhook URL, etc.)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uptimerobot.com/v2/newAlertContact",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "api_key": "ur-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "friendly_name": "DevOps Email",
+      "type": 2,
+      "value": "devops@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stat": "ok",
+      "alertcontact": {
+        "id": "111223",
+        "status": 0
+      }
+    }
+  }
+}

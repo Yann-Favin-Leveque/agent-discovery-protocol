@@ -1,0 +1,55 @@
+{
+  "name": "rows_delete",
+  "resource_group": "rows",
+  "description": "Delete specified rows from a table.",
+  "endpoint": "/docs/{docId}/tables/{tableIdOrName}/rows",
+  "method": "DELETE",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Document ID",
+      "example": "AbCDeFGH"
+    },
+    {
+      "name": "tableIdOrName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Table ID or name",
+      "example": "grid-abc"
+    },
+    {
+      "name": "rowIds",
+      "type": "array",
+      "required": true,
+      "description": "Array of row IDs to delete",
+      "example": [
+        "i-abc",
+        "i-def"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://coda.io/apis/v1/docs/AbCDeFGH/tables/grid-abc/rows",
+    "headers": {
+      "Authorization": "Bearer CODA_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "rowIds": [
+        "i-abc",
+        "i-def"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "requestId": "req-ghi789"
+    }
+  }
+}

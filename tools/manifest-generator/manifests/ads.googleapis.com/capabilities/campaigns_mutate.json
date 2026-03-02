@@ -1,0 +1,52 @@
+{
+  "name": "campaigns_mutate",
+  "description": "Create, update, or remove campaigns.",
+  "resource_group": "campaigns",
+  "endpoint": "/v18/customers/{customerId}/campaigns:mutate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer ID.",
+      "required": true
+    },
+    {
+      "name": "operations",
+      "type": "array",
+      "description": "Array of create/update/remove operations.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://googleads.googleapis.com/v18/customers/1234567890/campaigns:mutate",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "developer-token": "{developer_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "operations": [
+        {
+          "create": {
+            "name": "New Campaign",
+            "advertisingChannelType": "SEARCH",
+            "status": "PAUSED",
+            "campaignBudget": "customers/1234567890/campaignBudgets/222"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "resourceName": "customers/1234567890/campaigns/333"
+        }
+      ]
+    }
+  }
+}

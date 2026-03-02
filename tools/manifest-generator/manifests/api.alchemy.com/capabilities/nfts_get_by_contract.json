@@ -1,0 +1,58 @@
+{
+  "name": "nfts_get_by_contract",
+  "description": "Retrieve all NFTs belonging to a specific contract or collection with pagination support.",
+  "endpoint": "/nft/v3/{apiKey}/getNFTsForContract",
+  "method": "GET",
+  "resource_group": "nft",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "contractAddress",
+      "type": "string",
+      "required": true,
+      "description": "NFT contract address."
+    },
+    {
+      "name": "withMetadata",
+      "type": "boolean",
+      "required": false,
+      "description": "Include metadata. Default false."
+    },
+    {
+      "name": "startToken",
+      "type": "string",
+      "required": false,
+      "description": "Token ID to start from for pagination."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of NFTs to return. Default 100."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://eth-mainnet.g.alchemy.com/nft/v3/{apiKey}/getNFTsForContract?contractAddress=0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D&withMetadata=true&limit=10",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "nfts": [
+        { "tokenId": "0", "name": "Bored Ape #0", "tokenType": "ERC721" },
+        { "tokenId": "1", "name": "Bored Ape #1", "tokenType": "ERC721" }
+      ],
+      "pageKey": "next_key_123"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

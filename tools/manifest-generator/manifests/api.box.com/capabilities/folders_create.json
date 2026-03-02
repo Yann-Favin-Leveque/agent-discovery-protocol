@@ -1,0 +1,43 @@
+{
+  "name": "folders_create",
+  "description": "Create a new subfolder inside a folder.",
+  "resource_group": "folders",
+  "endpoint": "/2.0/folders",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Folder name.",
+      "required": true
+    },
+    {
+      "name": "parent",
+      "type": "object",
+      "description": "Parent folder with id.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.box.com/2.0/folders",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "New Folder",
+      "parent": {
+        "id": "0"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "type": "folder",
+      "id": "67890",
+      "name": "New Folder"
+    }
+  }
+}

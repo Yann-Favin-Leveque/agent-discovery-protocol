@@ -1,0 +1,42 @@
+{
+  "name": "payment_intents_cancel",
+  "description": "Cancel a PaymentIntent.",
+  "endpoint": "/v1/payment_intents/{id}/cancel",
+  "method": "POST",
+  "resource_group": "payment_intents",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "PaymentIntent ID",
+      "required": true,
+      "example": "pi_abc123"
+    },
+    {
+      "name": "cancellation_reason",
+      "type": "string",
+      "description": "Reason: duplicate, fraudulent, requested_by_customer, abandoned",
+      "required": false,
+      "example": "requested_by_customer"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stripe.com/v1/payment_intents/pi_abc123/cancel",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx",
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "pi_abc123",
+      "status": "canceled"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

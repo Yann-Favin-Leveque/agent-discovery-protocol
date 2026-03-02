@@ -1,0 +1,46 @@
+{
+  "name": "auth_unlink_provider",
+  "resource_group": "provider_linking",
+  "description": "Unlink a provider from a user account.",
+  "endpoint": "/v1/accounts:update",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "idToken",
+      "type": "string",
+      "required": true,
+      "description": "Firebase ID token."
+    },
+    {
+      "name": "deleteProvider",
+      "type": "array",
+      "required": true,
+      "description": "Provider IDs to unlink (e.g. google.com, password)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyXXXXXX",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "idToken": "eyJhbGciOi...",
+      "deleteProvider": [
+        "google.com"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "localId": "uid123",
+      "email": "alice@example.com",
+      "providerUserInfo": [
+        {
+          "providerId": "password"
+        }
+      ]
+    }
+  }
+}

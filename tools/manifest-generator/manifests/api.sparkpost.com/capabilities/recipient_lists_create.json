@@ -1,0 +1,73 @@
+{
+  "name": "recipient_lists_create",
+  "description": "Create a stored recipient list for reuse across transmissions.",
+  "endpoint": "/api/v1/recipient-lists",
+  "method": "POST",
+  "resource_group": "recipient_lists",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Unique list ID",
+      "required": false,
+      "example": "my-list"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "List display name",
+      "required": true,
+      "example": "Newsletter Subscribers"
+    },
+    {
+      "name": "recipients",
+      "type": "array",
+      "description": "Array of recipient objects",
+      "required": true,
+      "example": [
+        {
+          "address": {
+            "email": "user@example.com",
+            "name": "User"
+          }
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/recipient-lists",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "my-list",
+      "name": "Newsletter Subscribers",
+      "recipients": [
+        {
+          "address": {
+            "email": "user@example.com"
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "total_rejected_recipients": 0,
+        "total_accepted_recipients": 1,
+        "id": "my-list",
+        "name": "Newsletter Subscribers"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

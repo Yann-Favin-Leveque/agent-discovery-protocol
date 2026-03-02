@@ -1,0 +1,55 @@
+{
+  "name": "graphql_query",
+  "resource_group": "graphql",
+  "description": "Execute GraphQL queries, mutations, and subscriptions against your Hasura endpoint.",
+  "endpoint": "/v1/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "query",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "GraphQL query or mutation string."
+    },
+    {
+      "name": "variables",
+      "type": "object",
+      "required": false,
+      "in": "body",
+      "description": "Variables for the query."
+    },
+    {
+      "name": "operationName",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Operation name if query contains multiple operations."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project}.hasura.app/v1/graphql",
+    "headers": {
+      "x-hasura-admin-secret": "{admin_secret}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "{ users { id name email } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "users": [
+          {
+            "id": 1,
+            "name": "John",
+            "email": "john@example.com"
+          }
+        ]
+      }
+    }
+  }
+}

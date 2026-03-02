@@ -1,0 +1,52 @@
+{
+  "name": "messenger_profile_set_persistent_menu",
+  "description": "Configure a persistent menu with navigation options that appears at the bottom of Messenger conversations.",
+  "endpoint": "/me/messenger_profile",
+  "method": "POST",
+  "resource_group": "messenger_profile",
+  "parameters": [
+    {
+      "name": "persistent_menu",
+      "type": "array",
+      "description": "Array of locale-specific menu objects, each with call_to_actions items.",
+      "required": true,
+      "example": [
+        {
+          "locale": "default",
+          "composer_input_disabled": false,
+          "call_to_actions": [
+            { "type": "postback", "title": "Help", "payload": "help" }
+          ]
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v18.0/me/messenger_profile",
+    "headers": {
+      "Authorization": "Bearer {page_access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "persistent_menu": [
+        {
+          "locale": "default",
+          "composer_input_disabled": false,
+          "call_to_actions": [
+            { "type": "postback", "title": "Help", "payload": "help" },
+            { "type": "web_url", "title": "Visit Website", "url": "https://example.com" }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "result": "success" }
+  },
+  "auth_scopes": ["pages_messaging"],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

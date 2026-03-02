@@ -1,0 +1,21 @@
+{
+  "name": "image_edit_replace_background",
+  "description": "Replace the background of an image with AI-generated content based on a text prompt while preserving the foreground subject.",
+  "resource_group": "edit",
+  "endpoint": "/v2beta/stable-image/edit/replace-background",
+  "method": "POST",
+  "parameters": [
+    {"name": "image", "type": "file", "required": true, "description": "The source image."},
+    {"name": "prompt", "type": "string", "required": true, "description": "Description of the new background."},
+    {"name": "negative_prompt", "type": "string", "required": false, "description": "What to exclude from the new background."},
+    {"name": "output_format", "type": "string", "required": false, "description": "Output format."},
+    {"name": "seed", "type": "integer", "required": false, "description": "Random seed."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.stability.ai/v2beta/stable-image/edit/replace-background",
+    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Accept": "image/*"},
+    "body": "multipart/form-data: image=@portrait.jpg&prompt='A tropical beach at sunset'"
+  },
+  "response_example": {"status": 200, "body": "Binary image with replaced background"}
+}

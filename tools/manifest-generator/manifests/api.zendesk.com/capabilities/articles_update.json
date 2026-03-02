@@ -1,0 +1,56 @@
+{
+  "name": "articles_update",
+  "description": "Update a Help Center article.",
+  "endpoint": "/api/v2/help_center/articles/{article_id}",
+  "method": "PUT",
+  "resource_group": "help_center",
+  "parameters": [
+    {
+      "name": "article_id",
+      "type": "integer",
+      "description": "Article ID",
+      "required": true,
+      "example": "1"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Updated title",
+      "required": false,
+      "example": "Updated Guide"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "Updated body",
+      "required": false,
+      "example": "<p>Updated...</p>"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{subdomain}.zendesk.com/api/v2/help_center/articles/{article_id}",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "article": {
+        "title": "Updated Guide"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "article": {
+        "id": 1,
+        "title": "Updated Guide"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

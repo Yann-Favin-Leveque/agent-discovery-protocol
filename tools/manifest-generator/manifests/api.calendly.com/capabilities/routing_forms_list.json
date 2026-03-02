@@ -1,0 +1,60 @@
+{
+  "name": "routing_forms_list",
+  "resource_group": "routing_forms",
+  "description": "List all routing forms for an organization.",
+  "endpoint": "/routing_forms",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "description": "Organization URI",
+      "example": "https://api.calendly.com/organizations/BBBB"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    },
+    {
+      "name": "page_token",
+      "type": "string",
+      "required": false,
+      "description": "Next page token",
+      "example": "abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.calendly.com/routing_forms?organization=https://api.calendly.com/organizations/BBBB",
+    "headers": {
+      "Authorization": "Bearer CALENDLY_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "collection": [
+        {
+          "uri": "https://api.calendly.com/routing_forms/SSSS",
+          "name": "Meeting Router",
+          "status": "published",
+          "questions": [
+            {
+              "uuid": "q1",
+              "name": "Department",
+              "type": "select"
+            }
+          ]
+        }
+      ],
+      "pagination": {
+        "count": 20,
+        "next_page_token": null
+      }
+    }
+  }
+}

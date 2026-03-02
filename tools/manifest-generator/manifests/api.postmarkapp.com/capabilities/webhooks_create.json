@@ -1,0 +1,49 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a new webhook.",
+  "resource_group": "webhooks",
+  "endpoint": "/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "Url",
+      "type": "string",
+      "description": "Webhook target URL.",
+      "required": true,
+      "example": "https://example.com/webhook"
+    },
+    {
+      "name": "MessageStream",
+      "type": "string",
+      "description": "Message stream.",
+      "required": false,
+      "example": "outbound"
+    },
+    {
+      "name": "Triggers",
+      "type": "object",
+      "description": "Event triggers.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/webhooks",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Url": "https://example.com/webhook",
+      "MessageStream": "outbound"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ID": 123,
+      "Url": "https://example.com/webhook"
+    }
+  }
+}

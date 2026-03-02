@@ -1,0 +1,23 @@
+{
+  "name": "time_entries_get",
+  "description": "Retrieve a single time entry by its ID.",
+  "endpoint": "/timetracking/business/{business_id}/time_entries/{time_entry_id}",
+  "method": "GET",
+  "resource_group": "time_entries",
+  "parameters": [
+    {"name": "business_id", "type": "string", "description": "The FreshBooks business ID.", "required": true, "example": "xB2yw"},
+    {"name": "time_entry_id", "type": "integer", "description": "The time entry ID.", "required": true, "example": 333}
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/timetracking/business/xB2yw/time_entries/333",
+    "headers": {"Authorization": "Bearer {token}"},
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"time_entry": {"id": 333, "client_id": 12345, "duration": 3600, "note": "Frontend development", "started_at": "2024-09-01T09:00:00Z", "is_logged": true}}
+  },
+  "auth_scopes": ["user:time_entries:read"],
+  "rate_limits": {"requests_per_minute": 100}
+}

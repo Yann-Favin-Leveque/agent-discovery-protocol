@@ -1,0 +1,64 @@
+{
+  "name": "webhook_subscribe",
+  "description": "Subscribe to document event webhooks. Receive notifications for document state changes.",
+  "resource_group": "webhook",
+  "endpoint": "/public/v1/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Webhook name.",
+      "in": "body"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "Callback URL.",
+      "in": "body"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "required": true,
+      "description": "Event types: document_state_changed, document_updated, document_deleted, recipient_completed, document_creation_failed.",
+      "in": "body"
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether the webhook is active (default true).",
+      "in": "body"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pandadoc.com/public/v1/webhooks",
+    "headers": {
+      "Authorization": "API-Key YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Doc completion",
+      "url": "https://example.com/webhook",
+      "events": [
+        "document_state_changed",
+        "recipient_completed"
+      ],
+      "active": true
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uuid": "wh-abc-123",
+      "name": "Doc completion",
+      "url": "https://example.com/webhook",
+      "active": true
+    }
+  }
+}

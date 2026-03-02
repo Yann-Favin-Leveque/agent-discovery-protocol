@@ -1,0 +1,22 @@
+{
+  "name": "push_publish",
+  "description": "Send a push notification directly to devices or client IDs without going through a channel.",
+  "resource_group": "push",
+  "endpoint": "/push/publish",
+  "method": "POST",
+  "parameters": [
+    {"name": "recipient", "type": "object", "description": "Target recipient (deviceId, clientId, or transportType).", "required": true, "example": {"clientId": "user1"}},
+    {"name": "notification", "type": "object", "description": "Push notification payload with title and body.", "required": true, "example": {"title": "Alert", "body": "New message"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.ably.io/push/publish",
+    "headers": {"Authorization": "Basic {base64_api_key}", "Content-Type": "application/json"},
+    "body": {
+      "recipient": {"clientId": "user1"},
+      "notification": {"title": "Alert", "body": "You have a new message"}
+    }
+  },
+  "response_example": {"status": 201, "body": {}},
+  "rate_limits": {"requests_per_minute": 1500}
+}

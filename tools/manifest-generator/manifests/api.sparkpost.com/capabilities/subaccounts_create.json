@@ -1,0 +1,65 @@
+{
+  "name": "subaccounts_create",
+  "description": "Create a new subaccount with its own API key for tenant isolation.",
+  "endpoint": "/api/v1/subaccounts",
+  "method": "POST",
+  "resource_group": "subaccounts",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Subaccount name",
+      "required": true,
+      "example": "Client A"
+    },
+    {
+      "name": "key_label",
+      "type": "string",
+      "description": "Label for the generated API key",
+      "required": true,
+      "example": "Client A Key"
+    },
+    {
+      "name": "key_grants",
+      "type": "array",
+      "description": "API permissions for the key",
+      "required": true,
+      "example": [
+        "smtp/inject",
+        "transmissions/read-write"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/subaccounts",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Client A",
+      "key_label": "Client A Key",
+      "key_grants": [
+        "smtp/inject",
+        "transmissions/read-write"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "subaccount_id": 123,
+        "key": "generated_api_key",
+        "label": "Client A Key"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

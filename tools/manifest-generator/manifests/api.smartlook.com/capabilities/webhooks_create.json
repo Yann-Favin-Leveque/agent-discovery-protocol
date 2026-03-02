@@ -1,0 +1,48 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook to receive real-time notifications for events like new sessions or visitor actions.",
+  "endpoint": "/api/v1/webhooks",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "description": "The URL to receive webhook payloads.",
+      "required": true,
+      "example": "https://example.com/webhooks/smartlook"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "Array of event types to subscribe to.",
+      "required": true,
+      "example": ["session.created", "visitor.identified"]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.eu.smartlook.cloud/api/v1/webhooks",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhooks/smartlook",
+      "events": ["session.created", "visitor.identified"]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "wh_abc123",
+      "url": "https://example.com/webhooks/smartlook",
+      "events": ["session.created", "visitor.identified"],
+      "created_at": "2024-01-20T10:00:00Z"
+    }
+  },
+  "auth_scopes": ["write"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

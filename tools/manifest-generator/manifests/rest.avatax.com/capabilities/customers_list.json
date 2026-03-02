@@ -1,0 +1,53 @@
+{
+  "name": "customers_list",
+  "description": "List customers for a company.",
+  "endpoint": "/api/v2/companies/{companyId}/customers",
+  "method": "GET",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "companyId",
+      "type": "integer",
+      "description": "Company ID.",
+      "required": true,
+      "example": 67890
+    },
+    {
+      "name": "$top",
+      "type": "integer",
+      "description": "Max results.",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "$skip",
+      "type": "integer",
+      "description": "Results to skip.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.avatax.com/api/v2/companies/67890/customers?$top=25",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "@recordsetCount": 10,
+      "value": [
+        {
+          "id": 111,
+          "customerCode": "CUST-001",
+          "name": "John Smith"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

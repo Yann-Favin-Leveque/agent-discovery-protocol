@@ -1,0 +1,41 @@
+{
+  "name": "timesheets_create",
+  "resource_group": "Timesheets",
+  "endpoint": "/rest/v2/timesheets",
+  "method": "POST",
+  "description": "Submit a timesheet entry for a contractor.",
+  "parameters": [
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "Timesheet details: contract_id, date_from, date_to, quantity, description."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.letsdeel.com/rest/v2/timesheets",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "contract_id": "ct-1",
+        "date_from": "2024-11-01",
+        "date_to": "2024-11-15",
+        "quantity": 80,
+        "description": "November first half"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "ts-1",
+        "status": "pending"
+      }
+    }
+  }
+}

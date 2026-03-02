@@ -1,0 +1,38 @@
+{
+  "name": "documents_remind",
+  "description": "Send a reminder notification to pending signers for a specific document.",
+  "endpoint": "/v1/document/remind",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "documentId",
+      "type": "string",
+      "required": true,
+      "description": "The document ID to send reminders for (query parameter)."
+    },
+    {
+      "name": "receiverEmails",
+      "type": "array",
+      "required": false,
+      "description": "Specific signer emails to remind. Reminds all pending signers if omitted."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.boldsign.com/v1/document/remind?documentId=doc_abc123def456",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-API-KEY": "{api_key}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

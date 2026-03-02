@@ -1,0 +1,46 @@
+{
+  "name": "media_get",
+  "resource_group": "media",
+  "description": "Retrieve detailed information about a specific media object including caption, media type, permalink, timestamp, and engagement metrics.",
+  "endpoint": "/{media_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "media_id",
+      "type": "string",
+      "description": "The ID of the media object.",
+      "required": true,
+      "in": "path",
+      "example": "17854360000000000"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Comma-separated list of fields to return.",
+      "required": false,
+      "in": "query",
+      "example": "id,caption,media_type,media_url,permalink,timestamp,like_count,comments_count,thumbnail_url"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.facebook.com/v21.0/17854360000000000?fields=id,caption,media_type,media_url,permalink,timestamp,like_count,comments_count",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "17854360000000000",
+      "caption": "Beautiful sunset at the beach",
+      "media_type": "IMAGE",
+      "media_url": "https://scontent.cdninstagram.com/...",
+      "permalink": "https://www.instagram.com/p/ABC123/",
+      "timestamp": "2024-03-01T15:30:00+0000",
+      "like_count": 245,
+      "comments_count": 18
+    }
+  },
+  "auth_scopes": ["instagram_basic"]
+}

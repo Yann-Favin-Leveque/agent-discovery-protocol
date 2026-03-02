@@ -1,0 +1,60 @@
+{
+  "name": "links_get",
+  "description": "Retrieve information about a specific short link by link ID, external ID, or domain+key combination.",
+  "endpoint": "/links/info",
+  "method": "GET",
+  "resource_group": "links",
+  "parameters": [
+    {
+      "name": "linkId",
+      "type": "string",
+      "description": "The unique link identifier.",
+      "required": false,
+      "example": "clux0rgak0001..."
+    },
+    {
+      "name": "externalId",
+      "type": "string",
+      "description": "Your internal database ID.",
+      "required": false,
+      "example": "123456"
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "The short link domain (use with key).",
+      "required": false,
+      "example": "dub.sh"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "The short link slug (use with domain).",
+      "required": false,
+      "example": "my-link"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.dub.co/links/info?linkId=clux0rgak0001",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "clux0rgak0001...",
+      "domain": "dub.sh",
+      "key": "my-link",
+      "url": "https://example.com",
+      "shortLink": "https://dub.sh/my-link",
+      "clicks": 42,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

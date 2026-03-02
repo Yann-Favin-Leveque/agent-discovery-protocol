@@ -1,0 +1,39 @@
+{
+  "name": "envvar_import",
+  "description": "Import multiple environment variables at once.",
+  "resource_group": "envvar",
+  "endpoint": "/api/v3/envvars/import",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "variables",
+      "type": "object",
+      "description": "Key-value pairs of environment variables.",
+      "required": true,
+      "example": {
+        "API_KEY": "sk_xxx",
+        "DB_URL": "postgres://..."
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.trigger.dev/api/v3/envvars/import",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "variables": {
+        "API_KEY": "sk_xxx",
+        "DB_URL": "postgres://..."
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "imported": 2
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Clerk",
-  "description": "Clerk is a user authentication and management platform for web and mobile applications. It provides APIs to create, read, update, and delete users, verify session tokens, and manage organizations. Use this to programmatically manage your application's user base, validate authentication sessions, and handle multi-tenant organization structures.",
+  "description": "Clerk is a user authentication and management platform for web and mobile applications. It provides a complete Backend API to create, read, update, and delete users, manage sessions, handle organizations and memberships, send invitations, control allowlists, and manage OAuth applications programmatically.",
   "base_url": "https://api.clerk.com",
   "auth": {
     "type": "api_key",
@@ -11,39 +11,334 @@
   },
   "capabilities": [
     {
-      "name": "list_users",
-      "description": "List all users in your Clerk application with filtering, sorting, and pagination support.",
-      "detail_url": "/capabilities/list_users"
+      "name": "users_list",
+      "resource_group": "users",
+      "description": "List all users with filtering by email, phone, username, external ID, and pagination support.",
+      "detail_url": "/capabilities/users_list"
     },
     {
-      "name": "get_user",
+      "name": "users_create",
+      "resource_group": "users",
+      "description": "Create a new user account with email, phone, username, password, or external credentials.",
+      "detail_url": "/capabilities/users_create"
+    },
+    {
+      "name": "users_get",
+      "resource_group": "users",
       "description": "Retrieve a single user's full profile by their Clerk user ID.",
-      "detail_url": "/capabilities/get_user"
+      "detail_url": "/capabilities/users_get"
     },
     {
-      "name": "create_user",
-      "description": "Create a new user account with email, phone, username, or external credentials.",
-      "detail_url": "/capabilities/create_user"
-    },
-    {
-      "name": "update_user",
+      "name": "users_update",
+      "resource_group": "users",
       "description": "Update an existing user's profile information, metadata, or authentication settings.",
-      "detail_url": "/capabilities/update_user"
+      "detail_url": "/capabilities/users_update"
     },
     {
-      "name": "delete_user",
-      "description": "Permanently delete a user and all their associated data from your Clerk application.",
-      "detail_url": "/capabilities/delete_user"
+      "name": "users_delete",
+      "resource_group": "users",
+      "description": "Permanently delete a user and all their associated data.",
+      "detail_url": "/capabilities/users_delete"
     },
     {
-      "name": "verify_session",
-      "description": "Verify a session token to confirm it is valid and retrieve the associated session details.",
-      "detail_url": "/capabilities/verify_session"
+      "name": "users_count",
+      "resource_group": "users",
+      "description": "Count total users matching optional filter criteria.",
+      "detail_url": "/capabilities/users_count"
     },
     {
-      "name": "list_organizations",
-      "description": "List all organizations in your Clerk application with pagination and filtering.",
-      "detail_url": "/capabilities/list_organizations"
+      "name": "users_ban",
+      "resource_group": "users",
+      "description": "Ban a user, preventing them from signing in.",
+      "detail_url": "/capabilities/users_ban"
+    },
+    {
+      "name": "users_unban",
+      "resource_group": "users",
+      "description": "Remove a ban from a user, re-enabling sign-in.",
+      "detail_url": "/capabilities/users_unban"
+    },
+    {
+      "name": "users_lock",
+      "resource_group": "users",
+      "description": "Lock a user account, triggering a lockout state.",
+      "detail_url": "/capabilities/users_lock"
+    },
+    {
+      "name": "users_unlock",
+      "resource_group": "users",
+      "description": "Unlock a previously locked user account.",
+      "detail_url": "/capabilities/users_unlock"
+    },
+    {
+      "name": "users_verify_password",
+      "resource_group": "users",
+      "description": "Verify a user's password without creating a session.",
+      "detail_url": "/capabilities/users_verify_password"
+    },
+    {
+      "name": "sessions_list",
+      "resource_group": "sessions",
+      "description": "List all sessions with optional filtering by client ID or user ID.",
+      "detail_url": "/capabilities/sessions_list"
+    },
+    {
+      "name": "sessions_get",
+      "resource_group": "sessions",
+      "description": "Retrieve a single session by its ID.",
+      "detail_url": "/capabilities/sessions_get"
+    },
+    {
+      "name": "sessions_revoke",
+      "resource_group": "sessions",
+      "description": "Revoke a session, effectively signing the user out of that session.",
+      "detail_url": "/capabilities/sessions_revoke"
+    },
+    {
+      "name": "sessions_verify",
+      "resource_group": "sessions",
+      "description": "Verify a session token to confirm validity and retrieve session details.",
+      "detail_url": "/capabilities/sessions_verify"
+    },
+    {
+      "name": "sessions_create_token",
+      "resource_group": "sessions",
+      "description": "Create a new JWT token for a session, optionally from a custom template.",
+      "detail_url": "/capabilities/sessions_create_token"
+    },
+    {
+      "name": "organizations_list",
+      "resource_group": "organizations",
+      "description": "List all organizations with pagination and optional filtering.",
+      "detail_url": "/capabilities/organizations_list"
+    },
+    {
+      "name": "organizations_create",
+      "resource_group": "organizations",
+      "description": "Create a new organization with a name and optional settings.",
+      "detail_url": "/capabilities/organizations_create"
+    },
+    {
+      "name": "organizations_get",
+      "resource_group": "organizations",
+      "description": "Retrieve a single organization by its ID or slug.",
+      "detail_url": "/capabilities/organizations_get"
+    },
+    {
+      "name": "organizations_update",
+      "resource_group": "organizations",
+      "description": "Update an existing organization's name, slug, or metadata.",
+      "detail_url": "/capabilities/organizations_update"
+    },
+    {
+      "name": "organizations_delete",
+      "resource_group": "organizations",
+      "description": "Delete an organization and all its associated data.",
+      "detail_url": "/capabilities/organizations_delete"
+    },
+    {
+      "name": "organization_memberships_list",
+      "resource_group": "organization_memberships",
+      "description": "List all memberships for a given organization.",
+      "detail_url": "/capabilities/organization_memberships_list"
+    },
+    {
+      "name": "organization_memberships_create",
+      "resource_group": "organization_memberships",
+      "description": "Add a user to an organization with a specified role.",
+      "detail_url": "/capabilities/organization_memberships_create"
+    },
+    {
+      "name": "organization_memberships_update",
+      "resource_group": "organization_memberships",
+      "description": "Update a membership's role within an organization.",
+      "detail_url": "/capabilities/organization_memberships_update"
+    },
+    {
+      "name": "organization_memberships_delete",
+      "resource_group": "organization_memberships",
+      "description": "Remove a user from an organization.",
+      "detail_url": "/capabilities/organization_memberships_delete"
+    },
+    {
+      "name": "organization_invitations_list",
+      "resource_group": "organization_invitations",
+      "description": "List pending invitations for an organization.",
+      "detail_url": "/capabilities/organization_invitations_list"
+    },
+    {
+      "name": "organization_invitations_create",
+      "resource_group": "organization_invitations",
+      "description": "Invite a user to an organization by email address.",
+      "detail_url": "/capabilities/organization_invitations_create"
+    },
+    {
+      "name": "organization_invitations_revoke",
+      "resource_group": "organization_invitations",
+      "description": "Revoke a pending organization invitation.",
+      "detail_url": "/capabilities/organization_invitations_revoke"
+    },
+    {
+      "name": "invitations_list",
+      "resource_group": "invitations",
+      "description": "List all application-level invitations with pagination.",
+      "detail_url": "/capabilities/invitations_list"
+    },
+    {
+      "name": "invitations_create",
+      "resource_group": "invitations",
+      "description": "Create and send an invitation to sign up for your application.",
+      "detail_url": "/capabilities/invitations_create"
+    },
+    {
+      "name": "invitations_revoke",
+      "resource_group": "invitations",
+      "description": "Revoke a pending application-level invitation.",
+      "detail_url": "/capabilities/invitations_revoke"
+    },
+    {
+      "name": "allowlist_list",
+      "resource_group": "allowlist",
+      "description": "List all identifiers on the application allowlist.",
+      "detail_url": "/capabilities/allowlist_list"
+    },
+    {
+      "name": "allowlist_create",
+      "resource_group": "allowlist",
+      "description": "Add an email or phone number to the application allowlist.",
+      "detail_url": "/capabilities/allowlist_create"
+    },
+    {
+      "name": "allowlist_delete",
+      "resource_group": "allowlist",
+      "description": "Remove an identifier from the application allowlist.",
+      "detail_url": "/capabilities/allowlist_delete"
+    },
+    {
+      "name": "clients_list",
+      "resource_group": "clients",
+      "description": "List all clients (browser/device sessions) with pagination.",
+      "detail_url": "/capabilities/clients_list"
+    },
+    {
+      "name": "clients_get",
+      "resource_group": "clients",
+      "description": "Retrieve a single client by its ID.",
+      "detail_url": "/capabilities/clients_get"
+    },
+    {
+      "name": "clients_verify",
+      "resource_group": "clients",
+      "description": "Verify a client token and return the client object.",
+      "detail_url": "/capabilities/clients_verify"
+    },
+    {
+      "name": "jwks_get",
+      "resource_group": "jwks",
+      "description": "Retrieve the JSON Web Key Set (JWKS) for verifying JWTs.",
+      "detail_url": "/capabilities/jwks_get"
+    },
+    {
+      "name": "jwt_templates_list",
+      "resource_group": "jwt_templates",
+      "description": "List all custom JWT templates configured for your instance.",
+      "detail_url": "/capabilities/jwt_templates_list"
+    },
+    {
+      "name": "jwt_templates_create",
+      "resource_group": "jwt_templates",
+      "description": "Create a new custom JWT template with specific claims.",
+      "detail_url": "/capabilities/jwt_templates_create"
+    },
+    {
+      "name": "jwt_templates_get",
+      "resource_group": "jwt_templates",
+      "description": "Retrieve a single JWT template by its ID.",
+      "detail_url": "/capabilities/jwt_templates_get"
+    },
+    {
+      "name": "jwt_templates_update",
+      "resource_group": "jwt_templates",
+      "description": "Update an existing JWT template.",
+      "detail_url": "/capabilities/jwt_templates_update"
+    },
+    {
+      "name": "jwt_templates_delete",
+      "resource_group": "jwt_templates",
+      "description": "Delete a JWT template.",
+      "detail_url": "/capabilities/jwt_templates_delete"
+    },
+    {
+      "name": "email_addresses_create",
+      "resource_group": "email_addresses",
+      "description": "Create a new email address for a user.",
+      "detail_url": "/capabilities/email_addresses_create"
+    },
+    {
+      "name": "email_addresses_get",
+      "resource_group": "email_addresses",
+      "description": "Retrieve a single email address by its ID.",
+      "detail_url": "/capabilities/email_addresses_get"
+    },
+    {
+      "name": "email_addresses_update",
+      "resource_group": "email_addresses",
+      "description": "Update an existing email address.",
+      "detail_url": "/capabilities/email_addresses_update"
+    },
+    {
+      "name": "email_addresses_delete",
+      "resource_group": "email_addresses",
+      "description": "Delete an email address from a user.",
+      "detail_url": "/capabilities/email_addresses_delete"
+    },
+    {
+      "name": "phone_numbers_create",
+      "resource_group": "phone_numbers",
+      "description": "Create a new phone number for a user.",
+      "detail_url": "/capabilities/phone_numbers_create"
+    },
+    {
+      "name": "phone_numbers_get",
+      "resource_group": "phone_numbers",
+      "description": "Retrieve a single phone number by its ID.",
+      "detail_url": "/capabilities/phone_numbers_get"
+    },
+    {
+      "name": "phone_numbers_update",
+      "resource_group": "phone_numbers",
+      "description": "Update an existing phone number.",
+      "detail_url": "/capabilities/phone_numbers_update"
+    },
+    {
+      "name": "phone_numbers_delete",
+      "resource_group": "phone_numbers",
+      "description": "Delete a phone number from a user.",
+      "detail_url": "/capabilities/phone_numbers_delete"
+    },
+    {
+      "name": "redirect_urls_list",
+      "resource_group": "redirect_urls",
+      "description": "List all configured redirect URLs for your instance.",
+      "detail_url": "/capabilities/redirect_urls_list"
+    },
+    {
+      "name": "redirect_urls_create",
+      "resource_group": "redirect_urls",
+      "description": "Add a new redirect URL to your instance's allowlist.",
+      "detail_url": "/capabilities/redirect_urls_create"
+    },
+    {
+      "name": "redirect_urls_get",
+      "resource_group": "redirect_urls",
+      "description": "Retrieve a single redirect URL by its ID.",
+      "detail_url": "/capabilities/redirect_urls_get"
+    },
+    {
+      "name": "redirect_urls_delete",
+      "resource_group": "redirect_urls",
+      "description": "Delete a redirect URL from your instance.",
+      "detail_url": "/capabilities/redirect_urls_delete"
     }
   ]
 }

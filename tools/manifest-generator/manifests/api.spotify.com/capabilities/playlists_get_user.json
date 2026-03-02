@@ -1,0 +1,46 @@
+{
+  "name": "playlists_get_user",
+  "description": "Get a specific user's public playlists.",
+  "resource_group": "playlists",
+  "endpoint": "/v1/users/{user_id}/playlists",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "The user's Spotify ID."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max items. Default: 20. Range: 1-50."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Index of first item. Default: 0."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.spotify.com/v1/users/smedjan/playlists?limit=10",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "abc",
+          "name": "Public Playlist"
+        }
+      ],
+      "total": 8
+    }
+  }
+}

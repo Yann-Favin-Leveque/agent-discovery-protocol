@@ -1,0 +1,46 @@
+{
+  "name": "alert_conditions_create",
+  "description": "Create a new NRQL alert condition.",
+  "resource_group": "alerts",
+  "endpoint": "/v2/alerts_nrql_conditions/policies/{policy_id}.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "policy_id",
+      "type": "integer",
+      "required": true,
+      "description": "Policy ID",
+      "location": "path"
+    },
+    {
+      "name": "nrql_condition",
+      "type": "object",
+      "required": true,
+      "description": "Condition with name, nrql query, terms, and type"
+    }
+  ],
+  "request_example": {
+    "nrql_condition": {
+      "name": "Error Spike",
+      "type": "static",
+      "nrql": {
+        "query": "SELECT count(*) FROM TransactionError WHERE appName = 'MyApp'"
+      },
+      "terms": [
+        {
+          "threshold": "10",
+          "operator": "above",
+          "priority": "critical",
+          "duration": "5"
+        }
+      ],
+      "enabled": true
+    }
+  },
+  "response_example": {
+    "nrql_condition": {
+      "id": 2
+    }
+  },
+  "auth_scopes": []
+}

@@ -1,0 +1,84 @@
+{
+  "name": "documents_fetch",
+  "description": "Fetch documents using a POST body with filters, fields selection, and pagination (alternative to GET).",
+  "endpoint": "/indexes/{indexUid}/documents/fetch",
+  "method": "POST",
+  "resource_group": "documents",
+  "parameters": [
+    {
+      "name": "indexUid",
+      "type": "string",
+      "description": "UID of the index.",
+      "required": true,
+      "example": "movies"
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Number of documents to skip.",
+      "required": false,
+      "example": 0
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of documents to return.",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "description": "Array of field names to display.",
+      "required": false,
+      "example": [
+        "id",
+        "title"
+      ]
+    },
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "Filter expression.",
+      "required": false,
+      "example": "genre = 'action'"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.meilisearch.com/indexes/movies/documents/fetch",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "offset": 0,
+      "limit": 20,
+      "fields": [
+        "id",
+        "title"
+      ],
+      "filter": "genre = 'action'"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "id": 1,
+          "title": "The Matrix"
+        }
+      ],
+      "offset": 0,
+      "limit": 20,
+      "total": 50
+    }
+  },
+  "auth_scopes": [
+    "documents.get"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

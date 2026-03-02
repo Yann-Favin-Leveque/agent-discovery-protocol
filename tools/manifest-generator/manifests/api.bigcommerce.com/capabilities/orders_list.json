@@ -1,0 +1,65 @@
+{
+  "name": "orders_list",
+  "description": "Retrieve a paginated list of orders with filtering by status, customer ID, and date ranges.",
+  "resource_group": "orders",
+  "endpoint": "/v2/orders",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "status_id",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by order status ID."
+    },
+    {
+      "name": "customer_id",
+      "type": "integer",
+      "required": false,
+      "description": "Filter by customer ID."
+    },
+    {
+      "name": "min_date_created",
+      "type": "string",
+      "required": false,
+      "description": "Orders created after this date (RFC 2822)."
+    },
+    {
+      "name": "max_date_created",
+      "type": "string",
+      "required": false,
+      "description": "Orders created before this date."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (max 250)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bigcommerce.com/stores/{store_hash}/v2/orders?limit=10",
+    "headers": {
+      "X-Auth-Token": "{api_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 100,
+        "status": "Completed",
+        "subtotal_ex_tax": "79.95",
+        "total_inc_tax": "89.99",
+        "items_total": 2,
+        "customer_id": 1
+      }
+    ]
+  }
+}

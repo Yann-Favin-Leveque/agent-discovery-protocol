@@ -1,0 +1,81 @@
+{
+  "name": "playlists_list",
+  "description": "Retrieve playlists owned by a channel or by ID.",
+  "endpoint": "/youtube/v3/playlists",
+  "method": "GET",
+  "resource_group": "playlists",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts (snippet, contentDetails, status)",
+      "required": true,
+      "example": "snippet,contentDetails"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Comma-separated playlist IDs",
+      "required": false,
+      "example": "PL_playlist_id"
+    },
+    {
+      "name": "channelId",
+      "type": "string",
+      "description": "Channel ID to list playlists for",
+      "required": false,
+      "example": "UC_channel_id"
+    },
+    {
+      "name": "mine",
+      "type": "boolean",
+      "description": "Return authenticated user's playlists",
+      "required": false,
+      "example": "true"
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results (1-50)",
+      "required": false,
+      "example": "25"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/playlists",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "PL_playlist_id",
+          "snippet": {
+            "title": "My Playlist"
+          },
+          "contentDetails": {
+            "itemCount": 10
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.readonly"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

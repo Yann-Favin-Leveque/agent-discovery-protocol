@@ -1,0 +1,45 @@
+{
+  "name": "categories_create",
+  "description": "Create a new product category.",
+  "resource_group": "categories",
+  "endpoint": "/catalog/categories",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Category name.",
+      "example": "New Category"
+    },
+    {
+      "name": "parent_id",
+      "type": "integer",
+      "required": true,
+      "description": "Parent category ID (0 for root).",
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.bigcommerce.com/stores/{store_hash}/v3/catalog/categories",
+    "headers": {
+      "X-Auth-Token": "{api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "New Category",
+      "parent_id": 0
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": 19,
+        "name": "New Category",
+        "parent_id": 0
+      }
+    }
+  }
+}

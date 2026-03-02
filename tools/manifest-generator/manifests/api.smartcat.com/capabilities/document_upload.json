@@ -1,0 +1,48 @@
+{
+  "name": "document_upload",
+  "description": "Upload one or more documents to an existing translation project. Supports 280+ file formats including Office documents, JSON, HTML, XLIFF, and more.",
+  "resource_group": "documents",
+  "endpoint": "/api/integration/v1/project/document",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "location": "query",
+      "description": "The project ID to upload documents to."
+    },
+    {
+      "name": "files",
+      "type": "file",
+      "required": true,
+      "location": "formData",
+      "description": "The document file(s) to upload. Use multipart/form-data."
+    },
+    {
+      "name": "documentModel",
+      "type": "object",
+      "required": false,
+      "location": "formData",
+      "description": "JSON configuration for the documents (can be empty {})."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://smartcat.com/api/integration/v1/project/document?projectId=project-uuid-123",
+    "headers": {
+      "Authorization": "Basic {base64(accountId:apiKey)}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with document file(s) and optional JSON configuration"
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "documentId": "doc-uuid-456",
+        "name": "homepage.json"
+      }
+    ]
+  }
+}

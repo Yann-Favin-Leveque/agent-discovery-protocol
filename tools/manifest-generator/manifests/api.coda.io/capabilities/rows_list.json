@@ -1,0 +1,100 @@
+{
+  "name": "rows_list",
+  "resource_group": "rows",
+  "description": "List rows from a table with optional filtering, sorting, and pagination.",
+  "endpoint": "/docs/{docId}/tables/{tableIdOrName}/rows",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Document ID",
+      "example": "AbCDeFGH"
+    },
+    {
+      "name": "tableIdOrName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Table ID or name",
+      "example": "grid-abc"
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": false,
+      "description": "Filter formula",
+      "example": "Status:\"In Progress\""
+    },
+    {
+      "name": "sortBy",
+      "type": "string",
+      "required": false,
+      "description": "Sort order (column:direction)",
+      "example": "natural"
+    },
+    {
+      "name": "useColumnNames",
+      "type": "boolean",
+      "required": false,
+      "description": "Use column names as keys",
+      "example": true
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results",
+      "example": 25
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token",
+      "example": "eyJsaW1pd"
+    },
+    {
+      "name": "valueFormat",
+      "type": "string",
+      "required": false,
+      "description": "Value format (simple, simpleWithArrays, rich)",
+      "example": "simple"
+    },
+    {
+      "name": "visibleOnly",
+      "type": "boolean",
+      "required": false,
+      "description": "Only visible columns",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://coda.io/apis/v1/docs/AbCDeFGH/tables/grid-abc/rows?useColumnNames=true&limit=25",
+    "headers": {
+      "Authorization": "Bearer CODA_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "i-abc",
+          "type": "row",
+          "name": "Build dashboard",
+          "index": 1,
+          "values": {
+            "Task Name": "Build dashboard",
+            "Status": "In Progress",
+            "Assignee": "John"
+          }
+        }
+      ],
+      "nextPageToken": null
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "text_translate",
+  "description": "Translate one or more text strings between languages with optional formality, glossary, context, and model quality settings. Maximum 50 texts and 128 KiB per request.",
+  "resource_group": "translate",
+  "endpoint": "/v2/translate",
+  "method": "POST",
+  "parameters": [
+    {"name": "text", "type": "array", "required": true, "description": "Array of text strings to translate (max 50)."},
+    {"name": "target_lang", "type": "string", "required": true, "description": "Target language code (e.g. 'DE', 'FR', 'ES', 'EN-US')."},
+    {"name": "source_lang", "type": "string", "required": false, "description": "Source language code. Auto-detected if omitted."},
+    {"name": "formality", "type": "string", "required": false, "description": "Formality level: 'default', 'more', 'less', 'prefer_more', 'prefer_less'."},
+    {"name": "glossary_id", "type": "string", "required": false, "description": "Glossary ID for consistent terminology (requires source_lang)."},
+    {"name": "context", "type": "string", "required": false, "description": "Additional context to influence translation quality."},
+    {"name": "model_type", "type": "string", "required": false, "description": "Model: 'latency_optimized', 'quality_optimized', 'prefer_quality_optimized'."},
+    {"name": "split_sentences", "type": "string", "required": false, "description": "Sentence splitting: '0', '1', 'nonewlines'."},
+    {"name": "preserve_formatting", "type": "boolean", "required": false, "description": "Preserve original formatting conventions."},
+    {"name": "tag_handling", "type": "string", "required": false, "description": "Tag handling: 'xml' or 'html'."},
+    {"name": "show_billed_characters", "type": "boolean", "required": false, "description": "Include billed character count in response."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.deepl.com/v2/translate",
+    "headers": {"Authorization": "DeepL-Auth-Key your-api-key-here", "Content-Type": "application/json"},
+    "body": {"text": ["Hello, how are you?", "The weather is nice today."], "target_lang": "DE", "formality": "more"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "translations": [
+        {"detected_source_language": "EN", "text": "Hallo, wie geht es Ihnen?"},
+        {"detected_source_language": "EN", "text": "Das Wetter ist heute schoen."}
+      ]
+    }
+  }
+}

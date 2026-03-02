@@ -1,0 +1,58 @@
+{
+  "name": "entries_create",
+  "description": "Create a new content entry for a specific collection type. Provide field values as a data object matching the content type schema.",
+  "resource_group": "entries",
+  "endpoint": "/api/{pluralApiId}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "pluralApiId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The pluralized API ID of the collection type (e.g., 'articles')."
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "location": "body",
+      "description": "An object containing the field values for the new entry. Fields must match the content type schema."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.strapi.io/api/articles",
+    "headers": {
+      "Authorization": "Bearer your-strapi-api-token",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "title": "New Article",
+        "slug": "new-article",
+        "content": "Article content goes here...",
+        "category": "technology"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": 10,
+        "documentId": "f6g7h8i9j0",
+        "attributes": {
+          "title": "New Article",
+          "slug": "new-article",
+          "content": "Article content goes here...",
+          "category": "technology",
+          "publishedAt": null,
+          "createdAt": "2026-03-01T12:00:00.000Z",
+          "updatedAt": "2026-03-01T12:00:00.000Z"
+        }
+      },
+      "meta": {}
+    }
+  }
+}

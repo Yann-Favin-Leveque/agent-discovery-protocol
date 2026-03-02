@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Statuspage",
-  "description": "Statuspage by Atlassian provides public and private status pages for communicating real-time service availability. Manage incidents, update component statuses, and notify subscribers when issues arise or are resolved.",
+  "description": "Statuspage by Atlassian provides public and private status pages for communicating real-time service availability. Manage pages, components, incidents (realtime, scheduled, historical), subscribers, and metrics through a comprehensive REST API.",
   "base_url": "https://api.statuspage.io",
   "auth": {
     "type": "api_key",
@@ -11,39 +11,64 @@
   },
   "capabilities": [
     {
-      "name": "list_pages",
-      "description": "List all status pages in your organization, including their name, URL, and branding configuration.",
-      "detail_url": "/capabilities/list_pages"
+      "name": "pages_list",
+      "description": "List all status pages in your organization with their name, URL, subdomain, and branding configuration.",
+      "resource_group": "pages",
+      "detail_url": "/capabilities/pages_list"
     },
     {
-      "name": "list_components",
-      "description": "List all components on a status page. Components represent individual services or systems whose status is tracked independently.",
-      "detail_url": "/capabilities/list_components"
+      "name": "components_list",
+      "description": "List all components on a status page. Components represent individual services whose status is tracked independently.",
+      "resource_group": "components",
+      "detail_url": "/capabilities/components_list"
     },
     {
-      "name": "update_component_status",
+      "name": "component_update",
       "description": "Update the operational status of a specific component (operational, degraded_performance, partial_outage, major_outage, under_maintenance).",
-      "detail_url": "/capabilities/update_component_status"
+      "resource_group": "components",
+      "detail_url": "/capabilities/component_update"
     },
     {
-      "name": "list_incidents",
-      "description": "List all incidents on a status page, including their current status, affected components, and update history.",
-      "detail_url": "/capabilities/list_incidents"
+      "name": "incidents_list",
+      "description": "List all incidents on a status page including their current status, affected components, and update history.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_list"
     },
     {
-      "name": "create_incident",
-      "description": "Create a new incident on a status page to communicate an ongoing issue. Specify affected components, severity, and an initial status update message.",
-      "detail_url": "/capabilities/create_incident"
+      "name": "incidents_list_unresolved",
+      "description": "List only unresolved incidents on a status page, filtering out resolved ones.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_list_unresolved"
     },
     {
-      "name": "update_incident",
-      "description": "Update an existing incident with a new status, message, or affected component changes. Use this to post progress updates or resolve incidents.",
-      "detail_url": "/capabilities/update_incident"
+      "name": "incidents_list_scheduled",
+      "description": "List only scheduled maintenance incidents on a status page.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incidents_list_scheduled"
     },
     {
-      "name": "list_subscribers",
-      "description": "List all subscribers to a status page who receive notifications about incidents and maintenance events.",
-      "detail_url": "/capabilities/list_subscribers"
+      "name": "incident_create",
+      "description": "Create a new realtime incident on a status page to communicate an ongoing issue with affected components, severity, and notification options.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incident_create"
+    },
+    {
+      "name": "incident_update",
+      "description": "Update an existing incident with a new status, message, or affected component changes. Post progress updates or resolve incidents.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incident_update"
+    },
+    {
+      "name": "incident_delete",
+      "description": "Permanently delete an existing incident from a status page.",
+      "resource_group": "incidents",
+      "detail_url": "/capabilities/incident_delete"
+    },
+    {
+      "name": "subscribers_list",
+      "description": "List all subscribers to a status page who receive notifications about incidents and maintenance events via email, SMS, Slack, or webhook.",
+      "resource_group": "subscribers",
+      "detail_url": "/capabilities/subscribers_list"
     }
   ]
 }

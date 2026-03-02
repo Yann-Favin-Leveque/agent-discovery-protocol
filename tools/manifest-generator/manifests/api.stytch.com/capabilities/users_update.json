@@ -1,0 +1,62 @@
+{
+  "name": "users_update",
+  "resource_group": "users",
+  "description": "Update a user's name, metadata, or attributes.",
+  "endpoint": "/v1/users/{user_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID.",
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "object",
+      "required": false,
+      "description": "Updated name."
+    },
+    {
+      "name": "trusted_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Trusted metadata."
+    },
+    {
+      "name": "untrusted_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Untrusted metadata."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.stytch.com/v1/users/user-live-abc",
+    "headers": {
+      "Authorization": "Basic base64(project_id:secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": {
+        "first_name": "Alice",
+        "last_name": "Smith"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "request_id": "req-abc",
+      "user_id": "user-live-abc",
+      "user": {
+        "user_id": "user-live-abc",
+        "name": {
+          "first_name": "Alice",
+          "last_name": "Smith"
+        }
+      }
+    }
+  }
+}

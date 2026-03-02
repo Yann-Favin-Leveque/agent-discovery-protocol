@@ -1,0 +1,48 @@
+{
+  "name": "users_merge",
+  "description": "Merge two end users into one.",
+  "endpoint": "/api/v2/users/{user_id}/merge",
+  "method": "PUT",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "integer",
+      "description": "Source user ID",
+      "required": true,
+      "example": "123"
+    },
+    {
+      "name": "target_user_id",
+      "type": "integer",
+      "description": "Target user ID",
+      "required": true,
+      "example": "456"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{subdomain}.zendesk.com/api/v2/users/{user_id}/merge",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user": {
+        "id": 456
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": 456
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

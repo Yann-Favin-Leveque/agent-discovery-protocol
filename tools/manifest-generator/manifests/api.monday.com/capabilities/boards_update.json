@@ -1,0 +1,39 @@
+{
+  "name": "boards_update",
+  "description": "Update a board's properties.",
+  "resource_group": "boards",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "board_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Board ID"
+    },
+    {
+      "name": "board_attribute",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Attribute to update (name, description, communication)"
+    },
+    {
+      "name": "new_value",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "New value"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "mutation { update_board (board_id: 123, board_attribute: name, new_value: \"Updated Name\") { id } }"
+  }
+}

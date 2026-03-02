@@ -1,0 +1,27 @@
+{
+  "name": "sleep_log_list",
+  "description": "Retrieve a paginated list of a user's sleep log entries before or after a given date.",
+  "resource_group": "sleep",
+  "endpoint": "/1.2/user/-/sleep/list.json",
+  "method": "GET",
+  "parameters": [
+    { "name": "beforeDate", "type": "string", "required": false, "description": "Return entries before this date (YYYY-MM-DD). Mutually exclusive with afterDate.", "in": "query" },
+    { "name": "afterDate", "type": "string", "required": false, "description": "Return entries after this date (YYYY-MM-DD). Mutually exclusive with beforeDate.", "in": "query" },
+    { "name": "sort", "type": "string", "required": true, "description": "Sort order: 'asc' or 'desc'.", "in": "query" },
+    { "name": "limit", "type": "integer", "required": true, "description": "Number of entries to return (max 100).", "in": "query" },
+    { "name": "offset", "type": "integer", "required": false, "description": "Offset for pagination.", "in": "query" }
+  ],
+  "auth_scopes": ["sleep"],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1.2/user/-/sleep/list.json?afterDate=2025-01-01&sort=desc&limit=10",
+    "headers": { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9..." }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sleep": [{ "logId": 41234567, "dateOfSleep": "2025-01-15", "duration": 28020000, "efficiency": 90 }],
+      "pagination": { "next": "" }
+    }
+  }
+}

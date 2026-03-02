@@ -1,0 +1,74 @@
+{
+  "name": "projects_create",
+  "description": "Create a new team project.",
+  "resource_group": "projects",
+  "endpoint": "/{organization}/_apis/projects",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Organization."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Project name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Description."
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "required": false,
+      "description": "private or public."
+    },
+    {
+      "name": "capabilities",
+      "type": "object",
+      "required": true,
+      "description": "Object with versioncontrol and processTemplate."
+    },
+    {
+      "name": "api-version",
+      "type": "string",
+      "required": true,
+      "description": "API version."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://dev.azure.com/myorg/_apis/projects?api-version=7.1",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Basic base64(user:pat)"
+    },
+    "body": {
+      "name": "NewProject",
+      "description": "A new project",
+      "visibility": "private",
+      "capabilities": {
+        "versioncontrol": {
+          "sourceControlType": "Git"
+        },
+        "processTemplate": {
+          "templateTypeId": "6b724908-ef14-45cf-84f8-768b5384da45"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "id": "op-guid",
+      "status": "queued"
+    }
+  }
+}

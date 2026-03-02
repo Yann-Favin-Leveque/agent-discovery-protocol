@@ -1,0 +1,54 @@
+{
+  "name": "users_create",
+  "description": "Create a new user on the Zoom account. Specify action type (create, autoCreate, custCreate, ssoCreate) and user details.",
+  "endpoint": "/users",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "action",
+      "type": "string",
+      "description": "User creation action: create, autoCreate, custCreate, or ssoCreate.",
+      "required": true,
+      "example": "create"
+    },
+    {
+      "name": "user_info",
+      "type": "object",
+      "description": "User info object with email, type (1=basic, 2=licensed, 3=on-prem), first_name, last_name.",
+      "required": true,
+      "example": {"email": "jane@example.com", "type": 2, "first_name": "Jane", "last_name": "Doe"}
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.zoom.us/v2/users",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "action": "create",
+      "user_info": {
+        "email": "jane@example.com",
+        "type": 2,
+        "first_name": "Jane",
+        "last_name": "Doe"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "user123",
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "jane@example.com",
+      "type": 2
+    }
+  },
+  "auth_scopes": ["user:write:admin"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

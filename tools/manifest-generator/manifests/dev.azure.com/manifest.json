@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
-  "name": "Azure DevOps",
-  "description": "Azure DevOps provides CI/CD pipelines, Git repositories, work item tracking, and project management for software development teams. Use this API to manage projects, create and query work items, trigger pipeline runs, manage repositories, and create pull requests across your Azure DevOps organization.",
+  "name": "Azure DevOps REST API",
+  "description": "Azure DevOps provides CI/CD pipelines, Git repositories, work item tracking, and project management for software development teams. Use this API to manage projects, create and query work items, trigger pipeline runs, manage repositories, pull requests, and build definitions across your Azure DevOps organization.",
   "base_url": "https://dev.azure.com",
   "auth": {
     "type": "api_key",
@@ -11,39 +11,82 @@
   },
   "capabilities": [
     {
-      "name": "list_projects",
-      "description": "List all projects in an Azure DevOps organization. Returns project names, IDs, descriptions, and state.",
-      "detail_url": "/capabilities/list_projects"
+      "name": "projects_list",
+      "resource_group": "projects",
+      "description": "List all projects in an Azure DevOps organization.",
+      "detail_url": "/capabilities/projects_list"
     },
     {
-      "name": "create_work_item",
-      "description": "Create a new work item (bug, task, user story, epic, feature) in a project. Uses JSON Patch operations to set fields like title, description, assigned to, and priority.",
-      "detail_url": "/capabilities/create_work_item"
+      "name": "projects_get",
+      "resource_group": "projects",
+      "description": "Get a specific project by name or ID.",
+      "detail_url": "/capabilities/projects_get"
     },
     {
-      "name": "list_work_items_by_query",
-      "description": "Run a Work Item Query Language (WIQL) query to find work items matching specific criteria such as state, assigned user, type, or iteration path.",
-      "detail_url": "/capabilities/list_work_items_by_query"
+      "name": "projects_create",
+      "resource_group": "projects",
+      "description": "Create a new team project.",
+      "detail_url": "/capabilities/projects_create"
     },
     {
-      "name": "list_repositories",
-      "description": "List all Git repositories within a project. Returns repo names, IDs, default branches, and URLs.",
-      "detail_url": "/capabilities/list_repositories"
+      "name": "work_items_get",
+      "resource_group": "work_items",
+      "description": "Get a work item by ID.",
+      "detail_url": "/capabilities/work_items_get"
     },
     {
-      "name": "list_pipelines",
-      "description": "List all pipelines defined in a project. Returns pipeline names, IDs, and folder paths.",
-      "detail_url": "/capabilities/list_pipelines"
+      "name": "work_items_create",
+      "resource_group": "work_items",
+      "description": "Create a new work item using JSON Patch operations.",
+      "detail_url": "/capabilities/work_items_create"
     },
     {
-      "name": "run_pipeline",
-      "description": "Trigger a pipeline run, optionally specifying a branch, variables, or template parameters. Returns the run ID and status.",
-      "detail_url": "/capabilities/run_pipeline"
+      "name": "work_items_update",
+      "resource_group": "work_items",
+      "description": "Update a work item using JSON Patch operations.",
+      "detail_url": "/capabilities/work_items_update"
     },
     {
-      "name": "create_pull_request",
-      "description": "Create a pull request in a Git repository. Specify source and target branches, title, description, and optional reviewers.",
-      "detail_url": "/capabilities/create_pull_request"
+      "name": "work_items_query",
+      "resource_group": "work_items",
+      "description": "Run a WIQL query to find work items.",
+      "detail_url": "/capabilities/work_items_query"
+    },
+    {
+      "name": "work_items_delete",
+      "resource_group": "work_items",
+      "description": "Delete a work item.",
+      "detail_url": "/capabilities/work_items_delete"
+    },
+    {
+      "name": "repos_list",
+      "resource_group": "repositories",
+      "description": "List Git repositories in a project.",
+      "detail_url": "/capabilities/repos_list"
+    },
+    {
+      "name": "pull_requests_list",
+      "resource_group": "pull_requests",
+      "description": "List pull requests in a repository.",
+      "detail_url": "/capabilities/pull_requests_list"
+    },
+    {
+      "name": "pull_requests_create",
+      "resource_group": "pull_requests",
+      "description": "Create a pull request.",
+      "detail_url": "/capabilities/pull_requests_create"
+    },
+    {
+      "name": "pipelines_list",
+      "resource_group": "pipelines",
+      "description": "List pipelines in a project.",
+      "detail_url": "/capabilities/pipelines_list"
+    },
+    {
+      "name": "pipelines_run",
+      "resource_group": "pipelines",
+      "description": "Trigger a pipeline run.",
+      "detail_url": "/capabilities/pipelines_run"
     }
   ]
 }

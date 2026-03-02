@@ -1,0 +1,48 @@
+{
+  "name": "orders_capture",
+  "description": "Capture payment for an approved order. Finalizes the transaction and moves funds.",
+  "endpoint": "/v2/checkout/orders/{id}/capture",
+  "method": "POST",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Order ID",
+      "required": true,
+      "example": "ORDER_ID"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api-m.paypal.com/v2/checkout/orders/{id}/capture",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ORDER_ID",
+      "status": "COMPLETED",
+      "purchase_units": [
+        {
+          "payments": {
+            "captures": [
+              {
+                "id": "CAPTURE_ID",
+                "status": "COMPLETED"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
+}

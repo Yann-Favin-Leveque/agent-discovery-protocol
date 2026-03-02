@@ -1,0 +1,43 @@
+{
+  "name": "webhooks_get",
+  "description": "Retrieve a specific webhook configuration.",
+  "endpoint": "/api/v1/webhooks/{id}",
+  "method": "GET",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Webhook ID",
+      "required": true,
+      "example": "webhook-123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.sparkpost.com/api/v1/webhooks/webhook-123",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "id": "webhook-123",
+        "name": "My Webhook",
+        "target": "https://example.com/webhook",
+        "events": [
+          "delivery",
+          "bounce"
+        ]
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

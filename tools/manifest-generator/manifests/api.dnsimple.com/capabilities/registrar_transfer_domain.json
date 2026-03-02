@@ -1,0 +1,56 @@
+{
+  "name": "registrar_transfer_domain",
+  "description": "Transfer a domain from another registrar.",
+  "resource_group": "registrar",
+  "endpoint": "/{account}/registrar/domains/{domain}/transfers",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "required": true,
+      "description": "Domain name."
+    },
+    {
+      "name": "registrant_id",
+      "type": "integer",
+      "required": true,
+      "description": "Contact ID."
+    },
+    {
+      "name": "auth_code",
+      "type": "string",
+      "required": false,
+      "description": "Authorization code from current registrar."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dnsimple.com/v2/1010/registrar/domains/example.com/transfers",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "registrant_id": 1,
+      "auth_code": "abc123"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": 1,
+        "domain_id": 1,
+        "registrant_id": 1,
+        "state": "transferring"
+      }
+    }
+  }
+}

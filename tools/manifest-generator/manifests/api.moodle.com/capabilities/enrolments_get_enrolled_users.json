@@ -1,0 +1,23 @@
+{
+  "name": "enrolments_get_enrolled_users",
+  "description": "Get all users enrolled in a specific course.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_enrol_get_enrolled_users",
+  "method": "POST",
+  "resource_group": "enrolments",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "courseid", "type": "integer", "description": "The course ID", "required": true, "example": 5 }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_enrol_get_enrolled_users&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "courseid": 5 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{ "id": 42, "username": "jdoe", "firstname": "John", "lastname": "Doe", "roles": [{ "roleid": 5, "shortname": "student" }] }]
+  },
+  "auth_scopes": ["core_enrol_get_enrolled_users"],
+  "rate_limits": { "requests_per_minute": 120 }
+}

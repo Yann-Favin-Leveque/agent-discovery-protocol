@@ -1,0 +1,24 @@
+{
+  "name": "flags_copy",
+  "description": "Copy a feature flag's configuration from one environment to another.",
+  "resource_group": "flags",
+  "endpoint": "/flags/{projectKey}/{flagKey}/copy",
+  "method": "POST",
+  "parameters": [
+    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
+    {"name": "flagKey", "type": "string", "description": "The feature flag key.", "required": true, "example": "new-checkout"},
+    {"name": "source", "type": "object", "description": "Source environment.", "required": true, "example": {"key": "staging"}},
+    {"name": "target", "type": "object", "description": "Target environment.", "required": true, "example": {"key": "production"}}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.launchdarkly.com/api/v2/flags/my-project/new-checkout/copy",
+    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
+    "body": {"source": {"key": "staging"}, "target": {"key": "production"}}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"key": "new-checkout", "environments": {"production": {"on": true}}}
+  },
+  "rate_limits": {"requests_per_minute": 120}
+}

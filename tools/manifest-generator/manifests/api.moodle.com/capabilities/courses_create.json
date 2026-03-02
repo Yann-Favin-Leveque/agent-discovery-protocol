@@ -1,0 +1,26 @@
+{
+  "name": "courses_create",
+  "description": "Create one or more new courses in Moodle.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_course_create_courses",
+  "method": "POST",
+  "resource_group": "courses",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "courses[0][fullname]", "type": "string", "description": "Full course name", "required": true, "example": "Introduction to Physics" },
+    { "name": "courses[0][shortname]", "type": "string", "description": "Short course name", "required": true, "example": "PHYS101" },
+    { "name": "courses[0][categoryid]", "type": "integer", "description": "Category ID to place the course in", "required": true, "example": 2 },
+    { "name": "courses[0][summary]", "type": "string", "description": "Course summary/description", "required": false, "example": "An introductory course covering mechanics, thermodynamics, and waves." }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_course_create_courses&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": { "courses[0][fullname]": "Introduction to Physics", "courses[0][shortname]": "PHYS101", "courses[0][categoryid]": 2 }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{ "id": 5, "shortname": "PHYS101" }]
+  },
+  "auth_scopes": ["core_course_create_courses"],
+  "rate_limits": { "requests_per_minute": 30 }
+}

@@ -1,0 +1,101 @@
+{
+  "name": "message_list",
+  "description": "Retrieve a list of all messages with optional filtering by direction, state, type, and time.",
+  "resource_group": "message",
+  "endpoint": "/v1/Account/{auth_id}/Message/",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "subaccount",
+      "type": "string",
+      "description": "Filter by subaccount auth ID.",
+      "required": false
+    },
+    {
+      "name": "message_direction",
+      "type": "string",
+      "description": "Filter: inbound or outbound.",
+      "required": false,
+      "example": "outbound"
+    },
+    {
+      "name": "message_state",
+      "type": "string",
+      "description": "Filter: queued, sent, failed, delivered, undelivered, received, rejected.",
+      "required": false,
+      "example": "delivered"
+    },
+    {
+      "name": "message_type",
+      "type": "string",
+      "description": "Filter: sms, mms, whatsapp.",
+      "required": false,
+      "example": "sms"
+    },
+    {
+      "name": "message_time__gt",
+      "type": "string",
+      "description": "Messages after this time (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "message_time__lt",
+      "type": "string",
+      "description": "Messages before this time (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "error_code",
+      "type": "integer",
+      "description": "Filter by error code.",
+      "required": false
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Results per page (max 20).",
+      "required": false,
+      "example": 20
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Pagination offset.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Message/?limit=5&message_direction=outbound",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "meta": {
+        "limit": 5,
+        "offset": 0,
+        "total_count": 100
+      },
+      "objects": [
+        {
+          "message_uuid": "db3ce55a-7f1d-11e1-8ea7-1231380bc196",
+          "from_number": "+14151234567",
+          "to_number": "+14157654321",
+          "message_state": "delivered"
+        }
+      ]
+    }
+  }
+}

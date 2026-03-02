@@ -1,0 +1,50 @@
+{
+  "name": "pages_update",
+  "description": "Update a wiki page.",
+  "resource_group": "pages",
+  "endpoint": "/api/v1/courses/{course_id}/pages/{url_or_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "course_id",
+      "type": "integer",
+      "description": "Course ID.",
+      "required": true,
+      "example": 1234
+    },
+    {
+      "name": "url_or_id",
+      "type": "string",
+      "description": "Page URL slug.",
+      "required": true,
+      "example": "syllabus"
+    },
+    {
+      "name": "wiki_page[body]",
+      "type": "string",
+      "description": "Updated body.",
+      "required": false,
+      "example": "<h1>Updated Syllabus</h1>"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://canvas.instructure.com/api/v1/courses/1234/pages/syllabus",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "wiki_page": {
+        "body": "<h1>Updated Syllabus</h1>"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page_id": 11001,
+      "title": "Syllabus"
+    }
+  }
+}

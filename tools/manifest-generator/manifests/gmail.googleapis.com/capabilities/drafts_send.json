@@ -1,0 +1,47 @@
+{
+  "name": "drafts_send",
+  "description": "Sends the specified existing draft to the recipients.",
+  "resource_group": "drafts",
+  "endpoint": "/gmail/v1/users/{userId}/drafts/send",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The ID of the draft to send.",
+      "required": true,
+      "example": "r123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/drafts/send",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "r123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "18e2abc999",
+      "threadId": "18e2abc999",
+      "labelIds": [
+        "SENT"
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.compose"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "name": "egress_track_composite_start",
+  "description": "Start recording specific audio and video tracks from a participant as a composite output to file or stream.",
+  "endpoint": "/twirp/livekit.Egress/StartTrackCompositeEgress",
+  "method": "POST",
+  "resource_group": "egress",
+  "parameters": [
+    {
+      "name": "room_name",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room."
+    },
+    {
+      "name": "audio_track_id",
+      "type": "string",
+      "required": false,
+      "description": "SID of the audio track to record."
+    },
+    {
+      "name": "video_track_id",
+      "type": "string",
+      "required": false,
+      "description": "SID of the video track to record."
+    },
+    {
+      "name": "file_outputs",
+      "type": "array",
+      "required": false,
+      "description": "File output configurations."
+    },
+    {
+      "name": "stream_outputs",
+      "type": "array",
+      "required": false,
+      "description": "RTMP stream output configurations."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.Egress/StartTrackCompositeEgress",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room_name": "interview-room-42",
+      "audio_track_id": "TR_audio_01",
+      "video_track_id": "TR_video_01",
+      "file_outputs": [{ "filepath": "recordings/track-composite.mp4" }]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "egress_id": "EG_track_comp_01",
+      "room_name": "interview-room-42",
+      "status": "EGRESS_STARTING"
+    }
+  },
+  "auth_scopes": ["roomRecord"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

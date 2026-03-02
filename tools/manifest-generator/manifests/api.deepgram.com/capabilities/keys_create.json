@@ -1,0 +1,28 @@
+{
+  "name": "keys_create",
+  "description": "Create a new API key for a project with specified scopes.",
+  "resource_group": "keys",
+  "endpoint": "/v1/projects/{project_id}/keys",
+  "method": "POST",
+  "parameters": [
+    {"name": "project_id", "type": "string", "description": "Project identifier.", "required": true, "example": "proj_abc123"},
+    {"name": "comment", "type": "string", "description": "Descriptive label for the key.", "required": true, "example": "Production API Key"},
+    {"name": "scopes", "type": "array", "description": "Permission scopes (member, admin, owner).", "required": true, "example": ["member"]}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.deepgram.com/v1/projects/proj_abc123/keys",
+    "headers": {"Authorization": "Token {api_key}", "Content-Type": "application/json"},
+    "body": {"comment": "Production API Key", "scopes": ["member"]}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "api_key_id": "key_new123",
+      "key": "dg_live_xxxxx",
+      "comment": "Production API Key",
+      "scopes": ["member"]
+    }
+  },
+  "rate_limits": {"requests_per_minute": 100}
+}

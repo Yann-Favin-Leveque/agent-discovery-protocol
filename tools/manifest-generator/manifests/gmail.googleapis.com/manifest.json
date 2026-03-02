@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Gmail API",
-  "description": "The Gmail API lets you view and manage Gmail mailbox data like threads, messages, and labels.",
+  "description": "Read, send, and manage email messages, threads, labels, drafts, and settings in Gmail mailboxes.",
   "base_url": "https://gmail.googleapis.com",
   "auth": {
     "type": "oauth2",
@@ -10,76 +10,364 @@
     "scopes": [
       "https://mail.google.com/",
       "https://www.googleapis.com/auth/gmail.readonly",
-      "https://www.googleapis.com/auth/gmail.addons.current.message.action",
-      "https://www.googleapis.com/auth/gmail.addons.current.action.compose",
-      "https://www.googleapis.com/auth/gmail.modify",
       "https://www.googleapis.com/auth/gmail.send",
-      "https://www.googleapis.com/auth/gmail.settings.sharing",
       "https://www.googleapis.com/auth/gmail.compose",
-      "https://www.googleapis.com/auth/gmail.addons.current.message.readonly",
-      "https://www.googleapis.com/auth/gmail.settings.basic"
+      "https://www.googleapis.com/auth/gmail.modify",
+      "https://www.googleapis.com/auth/gmail.insert",
+      "https://www.googleapis.com/auth/gmail.labels",
+      "https://www.googleapis.com/auth/gmail.metadata",
+      "https://www.googleapis.com/auth/gmail.settings.basic",
+      "https://www.googleapis.com/auth/gmail.settings.sharing"
     ]
   },
   "capabilities": [
     {
-      "name": "users",
-      "description": "Manage users — set up or update a push notification watch on the given user mailbox, stop receiving push notifications for the given user mailbox, gets the current user's gmail profile. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users"
+      "name": "users_getProfile",
+      "description": "Gets the current user's Gmail profile including email address, message and thread counts.",
+      "detail_url": "/capabilities/users_getProfile",
+      "resource_group": "users"
     },
     {
-      "name": "users_threads",
-      "description": "Manage users threads — moves the specified thread to the trash. any messages that belong to the thread are also moved to the trash, modifies the labels applied to the thread. this applies to all messages in the thread, removes the specified thread from the trash. any messages that belong to the thread are also removed from the trash. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_threads"
+      "name": "users_watch",
+      "description": "Sets up or updates a push notification watch on the given user mailbox via Cloud Pub/Sub.",
+      "detail_url": "/capabilities/users_watch",
+      "resource_group": "users"
     },
     {
-      "name": "users_history",
-      "description": "Manage users history — lists the history of all changes to the given mailbox. history results are returned in chronological order (increasing `historyid`). Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_history"
+      "name": "users_stop",
+      "description": "Stops receiving push notifications for the given user mailbox.",
+      "detail_url": "/capabilities/users_stop",
+      "resource_group": "users"
     },
     {
-      "name": "users_messages",
-      "description": "Manage users messages — modifies the labels on the specified messages, sends the specified message to the recipients in the `to`, `cc`, and `bcc` headers. for example usage, see [sending email](https://developers.google.com/workspace/gmail/api/guides/sending), directly inserts a message into only this user's mailbox similar to `imap append`, bypassing most scanning and classification. does not send a message. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_messages"
+      "name": "messages_list",
+      "description": "Lists the messages in the user's mailbox.",
+      "detail_url": "/capabilities/messages_list",
+      "resource_group": "messages"
     },
     {
-      "name": "users_messages_attachments",
-      "description": "Manage users messages attachments — gets the specified message attachment. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_messages_attachments"
+      "name": "messages_get",
+      "description": "Gets the specified message by ID including headers, body, and metadata.",
+      "detail_url": "/capabilities/messages_get",
+      "resource_group": "messages"
     },
     {
-      "name": "users_labels",
-      "description": "Manage users labels — creates a new label, updates the specified label, lists all labels in the user's mailbox. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_labels"
+      "name": "messages_send",
+      "description": "Sends the specified message to the recipients in the To, Cc, and Bcc headers.",
+      "detail_url": "/capabilities/messages_send",
+      "resource_group": "messages"
     },
     {
-      "name": "users_settings",
-      "description": "Manage users settings — updates the auto-forwarding setting for the specified account. a verified forwarding address must be specified when auto-forwarding is enabled. this method is only available to service account clients that have been delegated domain-wide authority, updates language settings. if successful, the return object contains the `displaylanguage` that was saved for the user, which may differ from the value passed into the request. this is because the requested `displaylanguage` may not be directly supported by gmail but have a close variant that is, and so the variant may be chosen and saved instead, updates vacation responder settings. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_settings"
+      "name": "messages_insert",
+      "description": "Directly inserts a message into the mailbox bypassing most scanning and classification.",
+      "detail_url": "/capabilities/messages_insert",
+      "resource_group": "messages"
     },
     {
-      "name": "users_settings_cse_identities",
-      "description": "Manage users settings cse identities — creates and configures a client-side encryption identity that's authorized to send mail from the user account. google publishes the s/mime certificate to a shared domain-wide directory so that people within a google workspace organization can encrypt and send mail to the identity. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured, lists the client-side encrypted identities for an authenticated user. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured, retrieves a client-side encryption identity configuration. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_settings_cse_identities"
+      "name": "messages_delete",
+      "description": "Immediately and permanently deletes the specified message.",
+      "detail_url": "/capabilities/messages_delete",
+      "resource_group": "messages"
     },
     {
-      "name": "users_settings_cse_keypairs",
-      "description": "Manage users settings cse keypairs — creates and uploads a client-side encryption s/mime public key certificate chain and private key metadata for the authenticated user. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured, turns on a client-side encryption key pair that was turned off. the key pair becomes active again for any associated client-side encryption identities. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured, turns off a client-side encryption key pair. the authenticated user can no longer use the key pair to decrypt incoming cse message texts or sign outgoing cse mail. to regain access, use the enablecsekeypair to turn on the key pair. after 30 days, you can permanently delete the key pair by using the obliteratecsekeypair method. for administrators managing identities and keypairs for users in their organization, requests require authorization with a [service account](https://developers.google.com/identity/protocols/oauth2serviceaccount) that has [domain-wide delegation authority](https://developers.google.com/identity/protocols/oauth2serviceaccount#delegatingauthority) to impersonate users with the `https://www.googleapis.com/auth/gmail.settings.basic` scope. for users managing their own identities and keypairs, requests require [hardware key encryption](https://support.google.com/a/answer/14153163) turned on and configured. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_settings_cse_keypairs"
+      "name": "messages_trash",
+      "description": "Moves the specified message to the trash.",
+      "detail_url": "/capabilities/messages_trash",
+      "resource_group": "messages"
     },
     {
-      "name": "users_settings_forwarding_addresses",
-      "description": "Manage users settings forwardingaddresses — creates a forwarding address. if ownership verification is required, a message will be sent to the recipient and the resource's verification status will be set to `pending`; otherwise, the resource will be created with verification status set to `accepted`. this method is only available to service account clients that have been delegated domain-wide authority, lists the forwarding addresses for the specified account, gets the specified forwarding address. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_settings_forwarding_addresses"
+      "name": "messages_untrash",
+      "description": "Removes the specified message from the trash.",
+      "detail_url": "/capabilities/messages_untrash",
+      "resource_group": "messages"
     },
     {
-      "name": "users_settings_delegates",
-      "description": "Manage users settings delegates — adds a delegate with its verification status set directly to `accepted`, without sending any verification email. the delegate user must be a member of the same google workspace organization as the delegator user. gmail imposes limitations on the number of delegates and delegators each user in a google workspace organization can have. these limits depend on your organization, but in general each user can have up to 25 delegates and up to 10 delegators. note that a delegate user must be referred to by their primary email address, and not an email alias. also note that when a new delegate is created, there may be up to a one minute delay before the new delegate is available for use. this method is only available to service account clients that have been delegated domain-wide authority, lists the delegates for the specified account. this method is only available to service account clients that have been delegated domain-wide authority, gets the specified delegate. note that a delegate user must be referred to by their primary email address, and not an email alias. this method is only available to service account clients that have been delegated domain-wide authority. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_settings_delegates"
+      "name": "messages_modify",
+      "description": "Modifies the labels on the specified message by adding or removing label IDs.",
+      "detail_url": "/capabilities/messages_modify",
+      "resource_group": "messages"
     },
     {
-      "name": "users_settings_send_as",
-      "description": "Manage users settings sendas — creates a custom \"from\" send-as alias. if an smtp msa is specified, gmail will attempt to connect to the smtp service to validate the configuration before creating the alias. if ownership verification is required for the alias, a message will be sent to the email address and the resource's verification status will be set to `pending`; otherwise, the resource will be created with verification status set to `accepted`. if a signature is provided, gmail will sanitize the html before saving it with the alias. this method is only available to service account clients that have been delegated domain-wide authority, sends a verification email to the specified send-as alias address. the verification status must be `pending`. this method is only available to service account clients that have been delegated domain-wide authority, updates a send-as alias. if a signature is provided, gmail will sanitize the html before saving it with the alias. addresses other than the primary address for the account can only be updated by service account clients that have been delegated domain-wide authority. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/users_settings_send_as"
+      "name": "messages_batchDelete",
+      "description": "Permanently deletes many messages by message ID.",
+      "detail_url": "/capabilities/messages_batchDelete",
+      "resource_group": "messages"
+    },
+    {
+      "name": "messages_batchModify",
+      "description": "Modifies the labels on many messages at once.",
+      "detail_url": "/capabilities/messages_batchModify",
+      "resource_group": "messages"
+    },
+    {
+      "name": "messages_import",
+      "description": "Imports a message into the mailbox with standard email classification, similar to SMTP receiving.",
+      "detail_url": "/capabilities/messages_import",
+      "resource_group": "messages"
+    },
+    {
+      "name": "messages_attachments_get",
+      "description": "Gets the specified message attachment by its ID.",
+      "detail_url": "/capabilities/messages_attachments_get",
+      "resource_group": "messages"
+    },
+    {
+      "name": "threads_list",
+      "description": "Lists the threads in the user's mailbox with optional search filtering.",
+      "detail_url": "/capabilities/threads_list",
+      "resource_group": "threads"
+    },
+    {
+      "name": "threads_get",
+      "description": "Gets the specified thread including all messages in it.",
+      "detail_url": "/capabilities/threads_get",
+      "resource_group": "threads"
+    },
+    {
+      "name": "threads_delete",
+      "description": "Immediately and permanently deletes the specified thread.",
+      "detail_url": "/capabilities/threads_delete",
+      "resource_group": "threads"
+    },
+    {
+      "name": "threads_trash",
+      "description": "Moves the specified thread to the trash.",
+      "detail_url": "/capabilities/threads_trash",
+      "resource_group": "threads"
+    },
+    {
+      "name": "threads_untrash",
+      "description": "Removes the specified thread from the trash.",
+      "detail_url": "/capabilities/threads_untrash",
+      "resource_group": "threads"
+    },
+    {
+      "name": "threads_modify",
+      "description": "Modifies the labels applied to the thread.",
+      "detail_url": "/capabilities/threads_modify",
+      "resource_group": "threads"
+    },
+    {
+      "name": "labels_list",
+      "description": "Lists all labels in the user's mailbox.",
+      "detail_url": "/capabilities/labels_list",
+      "resource_group": "labels"
+    },
+    {
+      "name": "labels_get",
+      "description": "Gets the specified label by ID.",
+      "detail_url": "/capabilities/labels_get",
+      "resource_group": "labels"
+    },
+    {
+      "name": "labels_create",
+      "description": "Creates a new label in the user's mailbox.",
+      "detail_url": "/capabilities/labels_create",
+      "resource_group": "labels"
+    },
+    {
+      "name": "labels_update",
+      "description": "Updates the specified label.",
+      "detail_url": "/capabilities/labels_update",
+      "resource_group": "labels"
+    },
+    {
+      "name": "labels_patch",
+      "description": "Patches the specified label with partial updates.",
+      "detail_url": "/capabilities/labels_patch",
+      "resource_group": "labels"
+    },
+    {
+      "name": "labels_delete",
+      "description": "Immediately and permanently deletes the specified label.",
+      "detail_url": "/capabilities/labels_delete",
+      "resource_group": "labels"
+    },
+    {
+      "name": "history_list",
+      "description": "Lists the history of all changes to the given mailbox.",
+      "detail_url": "/capabilities/history_list",
+      "resource_group": "history"
+    },
+    {
+      "name": "drafts_list",
+      "description": "Lists the drafts in the user's mailbox.",
+      "detail_url": "/capabilities/drafts_list",
+      "resource_group": "drafts"
+    },
+    {
+      "name": "drafts_get",
+      "description": "Gets the specified draft including the message content.",
+      "detail_url": "/capabilities/drafts_get",
+      "resource_group": "drafts"
+    },
+    {
+      "name": "drafts_create",
+      "description": "Creates a new draft with the DRAFT label.",
+      "detail_url": "/capabilities/drafts_create",
+      "resource_group": "drafts"
+    },
+    {
+      "name": "drafts_update",
+      "description": "Replaces a draft's content with new content.",
+      "detail_url": "/capabilities/drafts_update",
+      "resource_group": "drafts"
+    },
+    {
+      "name": "drafts_delete",
+      "description": "Immediately and permanently deletes the specified draft.",
+      "detail_url": "/capabilities/drafts_delete",
+      "resource_group": "drafts"
+    },
+    {
+      "name": "drafts_send",
+      "description": "Sends the specified existing draft to the recipients.",
+      "detail_url": "/capabilities/drafts_send",
+      "resource_group": "drafts"
+    },
+    {
+      "name": "settings_getAutoForwarding",
+      "description": "Gets the auto-forwarding setting for the specified account.",
+      "detail_url": "/capabilities/settings_getAutoForwarding",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_updateAutoForwarding",
+      "description": "Updates the auto-forwarding setting for the specified account.",
+      "detail_url": "/capabilities/settings_updateAutoForwarding",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_getVacation",
+      "description": "Gets vacation responder settings.",
+      "detail_url": "/capabilities/settings_getVacation",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_updateVacation",
+      "description": "Updates vacation responder settings.",
+      "detail_url": "/capabilities/settings_updateVacation",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_getLanguage",
+      "description": "Gets language settings for the specified account.",
+      "detail_url": "/capabilities/settings_getLanguage",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_updateLanguage",
+      "description": "Updates language settings for the specified account.",
+      "detail_url": "/capabilities/settings_updateLanguage",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_filters_list",
+      "description": "Lists the message filters of the specified account.",
+      "detail_url": "/capabilities/settings_filters_list",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_filters_get",
+      "description": "Gets a specific message filter by ID.",
+      "detail_url": "/capabilities/settings_filters_get",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_filters_create",
+      "description": "Creates a message filter.",
+      "detail_url": "/capabilities/settings_filters_create",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_filters_delete",
+      "description": "Deletes a message filter by ID.",
+      "detail_url": "/capabilities/settings_filters_delete",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_forwardingAddresses_list",
+      "description": "Lists the forwarding addresses for the specified account.",
+      "detail_url": "/capabilities/settings_forwardingAddresses_list",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_forwardingAddresses_get",
+      "description": "Gets the specified forwarding address.",
+      "detail_url": "/capabilities/settings_forwardingAddresses_get",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_forwardingAddresses_create",
+      "description": "Creates a forwarding address.",
+      "detail_url": "/capabilities/settings_forwardingAddresses_create",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_forwardingAddresses_delete",
+      "description": "Deletes the specified forwarding address.",
+      "detail_url": "/capabilities/settings_forwardingAddresses_delete",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_sendAs_list",
+      "description": "Lists the send-as aliases for the specified account.",
+      "detail_url": "/capabilities/settings_sendAs_list",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_sendAs_get",
+      "description": "Gets the specified send-as alias.",
+      "detail_url": "/capabilities/settings_sendAs_get",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_sendAs_create",
+      "description": "Creates a custom 'from' send-as alias.",
+      "detail_url": "/capabilities/settings_sendAs_create",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_sendAs_update",
+      "description": "Updates a send-as alias.",
+      "detail_url": "/capabilities/settings_sendAs_update",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_sendAs_delete",
+      "description": "Deletes the specified send-as alias.",
+      "detail_url": "/capabilities/settings_sendAs_delete",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_sendAs_verify",
+      "description": "Sends a verification email to the specified send-as alias address.",
+      "detail_url": "/capabilities/settings_sendAs_verify",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_delegates_list",
+      "description": "Lists the delegates for the specified account.",
+      "detail_url": "/capabilities/settings_delegates_list",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_delegates_get",
+      "description": "Gets the specified delegate.",
+      "detail_url": "/capabilities/settings_delegates_get",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_delegates_create",
+      "description": "Adds a delegate with verification status set to accepted.",
+      "detail_url": "/capabilities/settings_delegates_create",
+      "resource_group": "settings"
+    },
+    {
+      "name": "settings_delegates_delete",
+      "description": "Removes the specified delegate and revokes access.",
+      "detail_url": "/capabilities/settings_delegates_delete",
+      "resource_group": "settings"
     }
   ]
 }

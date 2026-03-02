@@ -1,0 +1,68 @@
+{
+  "name": "photo_publish",
+  "resource_group": "publishing",
+  "description": "Publish a photo to the authenticated user's Instagram feed. This is a two-step process: first create a container, then publish it.",
+  "endpoint": "/{user_id}/media",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "The Instagram user ID.",
+      "required": true,
+      "in": "path",
+      "example": "17841400000000000"
+    },
+    {
+      "name": "image_url",
+      "type": "string",
+      "description": "The public URL of the image to publish. Must be JPEG format.",
+      "required": true,
+      "in": "body",
+      "example": "https://example.com/photo.jpg"
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "description": "The caption for the photo. Supports hashtags and @mentions.",
+      "required": false,
+      "in": "body",
+      "example": "Beautiful day! #sunshine #nature"
+    },
+    {
+      "name": "location_id",
+      "type": "string",
+      "description": "The ID of a Facebook Page location to tag.",
+      "required": false,
+      "in": "body",
+      "example": "123456789"
+    },
+    {
+      "name": "user_tags",
+      "type": "array",
+      "description": "Array of user tags with x/y coordinates. Each tag has username, x (0-1), y (0-1).",
+      "required": false,
+      "in": "body",
+      "example": [{"username": "otheruser", "x": 0.5, "y": 0.5}]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://graph.facebook.com/v21.0/17841400000000000/media",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "image_url": "https://example.com/photo.jpg",
+      "caption": "Beautiful day! #sunshine #nature"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "17854360000000003"
+    }
+  },
+  "auth_scopes": ["instagram_content_publish"]
+}

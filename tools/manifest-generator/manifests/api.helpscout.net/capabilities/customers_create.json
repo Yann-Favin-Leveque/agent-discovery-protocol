@@ -1,0 +1,61 @@
+{
+  "name": "customers_create",
+  "description": "Create a new customer profile.",
+  "endpoint": "/v2/customers",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "firstName",
+      "type": "string",
+      "description": "First name.",
+      "required": true,
+      "example": "Jane"
+    },
+    {
+      "name": "lastName",
+      "type": "string",
+      "description": "Last name.",
+      "required": true,
+      "example": "Smith"
+    },
+    {
+      "name": "emails",
+      "type": "array",
+      "description": "Email addresses.",
+      "required": false,
+      "example": [
+        {
+          "type": "work",
+          "value": "jane@example.com"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.helpscout.net/v2/customers",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "emails": [
+        {
+          "type": "work",
+          "value": "jane@example.com"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

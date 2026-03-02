@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Oura Ring",
-  "description": "Oura Ring is a health and wellness wearable that tracks sleep, activity, readiness, and vital signs. The API provides access to daily summaries, detailed sleep stages, heart rate data, workout sessions, and personal biometric information collected by the ring.",
+  "description": "Oura Ring is a health and wellness wearable that tracks sleep, activity, readiness, heart rate, HRV, stress, SpO2, and body temperature. The API v2 provides access to daily summaries, detailed sleep sessions, heart rate data, workout sessions, tags, and personal biometric information.",
   "base_url": "https://api.ouraring.com",
   "auth": {
     "type": "oauth2",
@@ -13,39 +13,124 @@
   },
   "capabilities": [
     {
-      "name": "get_daily_sleep",
-      "description": "Retrieve daily sleep summaries including total sleep duration, efficiency, latency, and sleep score for a date range.",
-      "detail_url": "/capabilities/get_daily_sleep"
+      "name": "daily_sleep_list",
+      "description": "Retrieve daily sleep score summaries for a date range.",
+      "resource_group": "daily",
+      "detail_url": "/capabilities/daily_sleep_list"
     },
     {
-      "name": "get_daily_activity",
-      "description": "Retrieve daily activity summaries including steps, calories burned, active time, and activity score for a date range.",
-      "detail_url": "/capabilities/get_daily_activity"
+      "name": "daily_activity_list",
+      "description": "Retrieve daily activity score summaries for a date range.",
+      "resource_group": "daily",
+      "detail_url": "/capabilities/daily_activity_list"
     },
     {
-      "name": "get_daily_readiness",
-      "description": "Retrieve daily readiness scores that indicate how recovered and prepared the user's body is, based on sleep, HRV, and temperature.",
-      "detail_url": "/capabilities/get_daily_readiness"
+      "name": "daily_readiness_list",
+      "description": "Retrieve daily readiness scores for a date range.",
+      "resource_group": "daily",
+      "detail_url": "/capabilities/daily_readiness_list"
     },
     {
-      "name": "get_heart_rate",
-      "description": "Retrieve continuous heart rate measurements recorded by the ring throughout the day and night.",
-      "detail_url": "/capabilities/get_heart_rate"
+      "name": "daily_stress_list",
+      "description": "Retrieve daily stress data for a date range.",
+      "resource_group": "daily",
+      "detail_url": "/capabilities/daily_stress_list"
     },
     {
-      "name": "get_sleep_sessions",
-      "description": "Retrieve detailed sleep session data including sleep stages (deep, REM, light, awake), heart rate, HRV, and movement during each sleep period.",
-      "detail_url": "/capabilities/get_sleep_sessions"
+      "name": "daily_spo2_list",
+      "description": "Retrieve daily SpO2 (blood oxygen) averages for a date range.",
+      "resource_group": "daily",
+      "detail_url": "/capabilities/daily_spo2_list"
     },
     {
-      "name": "get_workouts",
-      "description": "Retrieve workout sessions detected or logged by the user, including activity type, duration, calories, and intensity metrics.",
-      "detail_url": "/capabilities/get_workouts"
+      "name": "daily_resilience_list",
+      "description": "Retrieve daily resilience data for a date range.",
+      "resource_group": "daily",
+      "detail_url": "/capabilities/daily_resilience_list"
     },
     {
-      "name": "get_personal_info",
-      "description": "Retrieve the user's personal profile information including age, weight, height, and biological sex as configured in their Oura account.",
-      "detail_url": "/capabilities/get_personal_info"
+      "name": "sleep_list",
+      "description": "Retrieve detailed sleep session data with stages, HR, HRV, and movement.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_list"
+    },
+    {
+      "name": "sleep_time_list",
+      "description": "Retrieve recommended sleep time windows.",
+      "resource_group": "sleep",
+      "detail_url": "/capabilities/sleep_time_list"
+    },
+    {
+      "name": "heart_rate_list",
+      "description": "Retrieve continuous heart rate measurements.",
+      "resource_group": "heart_rate",
+      "detail_url": "/capabilities/heart_rate_list"
+    },
+    {
+      "name": "workout_list",
+      "description": "Retrieve workout sessions with activity type, duration, and intensity.",
+      "resource_group": "workout",
+      "detail_url": "/capabilities/workout_list"
+    },
+    {
+      "name": "session_list",
+      "description": "Retrieve rest and relaxation sessions (meditation, breathing, nap).",
+      "resource_group": "session",
+      "detail_url": "/capabilities/session_list"
+    },
+    {
+      "name": "tag_list",
+      "description": "Retrieve user-created tags and annotations.",
+      "resource_group": "tag",
+      "detail_url": "/capabilities/tag_list"
+    },
+    {
+      "name": "enhanced_tag_list",
+      "description": "Retrieve enhanced tags with additional metadata.",
+      "resource_group": "tag",
+      "detail_url": "/capabilities/enhanced_tag_list"
+    },
+    {
+      "name": "personal_info_get",
+      "description": "Retrieve the user's personal profile information.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/personal_info_get"
+    },
+    {
+      "name": "ring_configuration_list",
+      "description": "Retrieve ring configuration and setup details.",
+      "resource_group": "user",
+      "detail_url": "/capabilities/ring_configuration_list"
+    },
+    {
+      "name": "rest_mode_period_list",
+      "description": "Retrieve rest mode period data.",
+      "resource_group": "daily",
+      "detail_url": "/capabilities/rest_mode_period_list"
+    },
+    {
+      "name": "daily_cardiovascular_age_list",
+      "description": "Retrieve estimated cardiovascular age data.",
+      "resource_group": "daily",
+      "detail_url": "/capabilities/daily_cardiovascular_age_list"
+    },
+    {
+      "name": "webhook_subscription_create",
+      "description": "Create a webhook subscription for data updates.",
+      "resource_group": "webhook",
+      "detail_url": "/capabilities/webhook_subscription_create"
+    },
+    {
+      "name": "webhook_subscription_list",
+      "description": "List active webhook subscriptions.",
+      "resource_group": "webhook",
+      "detail_url": "/capabilities/webhook_subscription_list"
+    },
+    {
+      "name": "webhook_subscription_delete",
+      "description": "Delete a webhook subscription.",
+      "resource_group": "webhook",
+      "detail_url": "/capabilities/webhook_subscription_delete"
     }
   ]
 }

@@ -1,0 +1,45 @@
+{
+  "name": "batches_create",
+  "description": "Create a new batch for bulk shipment processing.",
+  "endpoint": "/v2/batches",
+  "method": "POST",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "shipments",
+      "type": "array",
+      "description": "Array of shipment objects or IDs.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/batches",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "batch": {
+        "shipments": [
+          {
+            "id": "shp_abc123"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "batch_abc123",
+      "object": "Batch",
+      "state": "creating",
+      "num_shipments": 1
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

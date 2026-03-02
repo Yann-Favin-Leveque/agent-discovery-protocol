@@ -1,0 +1,94 @@
+{
+  "name": "chromium_screenshot_url",
+  "description": "Take a screenshot of a web page URL using Chromium. Supports PNG, JPEG, and WebP formats with configurable viewport size and quality.",
+  "resource_group": "chromium",
+  "endpoint": "/forms/chromium/screenshot/url",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "location": "formData",
+      "description": "URL of the page to screenshot."
+    },
+    {
+      "name": "width",
+      "type": "integer",
+      "required": false,
+      "location": "formData",
+      "description": "Device screen width in pixels. Default: 800."
+    },
+    {
+      "name": "height",
+      "type": "integer",
+      "required": false,
+      "location": "formData",
+      "description": "Device screen height in pixels. Default: 600."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Image format: 'png', 'jpeg', or 'webp'. Default: 'png'."
+    },
+    {
+      "name": "quality",
+      "type": "integer",
+      "required": false,
+      "location": "formData",
+      "description": "Compression quality 0-100 (JPEG/WebP). Default: 100."
+    },
+    {
+      "name": "clip",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Clip screenshot to device dimensions. Default: false."
+    },
+    {
+      "name": "waitDelay",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Duration to wait before screenshot (e.g., '5s')."
+    },
+    {
+      "name": "waitForSelector",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "CSS selector that must be visible."
+    },
+    {
+      "name": "cookies",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "JSON array of cookie objects."
+    },
+    {
+      "name": "userAgent",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Custom User-Agent header."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "http://localhost:3000/forms/chromium/screenshot/url",
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with url=https://example.com, width=1280, height=720, format=jpeg"
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "image/jpeg"
+    },
+    "body": "<binary image content>"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "text_detect",
+  "description": "Detect the language of one or more text strings. Returns detected language codes and character counts.",
+  "resource_group": "detect",
+  "endpoint": "/v1/detect/text",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "texts",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of text strings to detect the language of."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.lecto.ai/v1/detect/text",
+    "headers": {
+      "X-API-Key": "your-lecto-api-key",
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "texts": ["Bonjour le monde", "Hola mundo"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "detections": [
+        { "detected_language": "fr" },
+        { "detected_language": "es" }
+      ],
+      "character_count": 28
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "dns_settings_update",
+  "description": "Modify DNS settings for a zone including nameserver type and secondary DNS overrides.",
+  "endpoint": "/zones/{zone_id}/dns_settings",
+  "method": "PATCH",
+  "resource_group": "dns_settings",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    },
+    {
+      "name": "foundation_dns",
+      "type": "boolean",
+      "description": "Enable Foundation DNS (advanced DNS).",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "multi_provider",
+      "type": "boolean",
+      "description": "Enable multi-provider DNS.",
+      "required": false,
+      "example": false
+    },
+    {
+      "name": "secondary_overrides",
+      "type": "boolean",
+      "description": "Allow secondary DNS to override primary.",
+      "required": false,
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_settings",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "multi_provider": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "foundation_dns": false,
+        "multi_provider": true,
+        "secondary_overrides": false
+      }
+    }
+  },
+  "auth_scopes": ["dns_records:edit"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

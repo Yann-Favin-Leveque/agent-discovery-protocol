@@ -1,0 +1,61 @@
+{
+  "name": "transcription_transcribe",
+  "description": "Transcribe pre-recorded audio from a URL or file upload. Supports 100+ languages, speaker diarization, punctuation, sentiment analysis, entity detection, and more.",
+  "resource_group": "transcription",
+  "endpoint": "/v1/listen",
+  "method": "POST",
+  "parameters": [
+    {"name": "url", "type": "string", "description": "URL of audio/video file to transcribe.", "required": false, "example": "https://example.com/audio.wav"},
+    {"name": "model", "type": "string", "description": "AI model to use (nova-3, nova-2, enhanced, base).", "required": false, "example": "nova-3"},
+    {"name": "language", "type": "string", "description": "BCP-47 language tag for the audio.", "required": false, "example": "en"},
+    {"name": "punctuate", "type": "boolean", "description": "Add punctuation and capitalization to transcript.", "required": false, "example": true},
+    {"name": "diarize", "type": "boolean", "description": "Recognize speaker changes in the audio.", "required": false, "example": false},
+    {"name": "smart_format", "type": "boolean", "description": "Apply formatting improvements for readability.", "required": false, "example": true},
+    {"name": "summarize", "type": "boolean", "description": "Generate a summary of the transcript.", "required": false, "example": false},
+    {"name": "detect_entities", "type": "boolean", "description": "Extract named entities from the transcript.", "required": false, "example": false},
+    {"name": "sentiment", "type": "boolean", "description": "Analyze sentiment throughout the transcript.", "required": false, "example": false},
+    {"name": "topics", "type": "boolean", "description": "Detect topics discussed in the audio.", "required": false, "example": false},
+    {"name": "intents", "type": "boolean", "description": "Recognize speaker intents.", "required": false, "example": false},
+    {"name": "callback", "type": "string", "description": "URL for async callback with results.", "required": false},
+    {"name": "keywords", "type": "string", "description": "Comma-separated keywords to boost recognition.", "required": false}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.deepgram.com/v1/listen?model=nova-3&punctuate=true&diarize=true",
+    "headers": {
+      "Authorization": "Token {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/audio.wav"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "metadata": {
+        "request_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "created": "2024-01-15T10:30:00.000Z",
+        "duration": 120.5,
+        "channels": 1,
+        "models": ["nova-3"]
+      },
+      "results": {
+        "channels": [
+          {
+            "alternatives": [
+              {
+                "transcript": "Hello, welcome to the meeting. Today we will discuss...",
+                "confidence": 0.95,
+                "words": [
+                  {"word": "Hello", "start": 0.0, "end": 0.5, "confidence": 0.99}
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rate_limits": {"requests_per_minute": 100}
+}

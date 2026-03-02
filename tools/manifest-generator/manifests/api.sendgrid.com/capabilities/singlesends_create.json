@@ -1,0 +1,56 @@
+{
+  "name": "singlesends_create",
+  "description": "Create a new Single Send campaign.",
+  "resource_group": "singlesends",
+  "endpoint": "/v3/marketing/singlesends",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Campaign name.",
+      "required": true,
+      "example": "March Newsletter"
+    },
+    {
+      "name": "send_to",
+      "type": "object",
+      "description": "Recipient targeting config.",
+      "required": true
+    },
+    {
+      "name": "email_config",
+      "type": "object",
+      "description": "Email configuration (subject, sender, template).",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sendgrid.com/v3/marketing/singlesends",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "March Newsletter",
+      "send_to": {
+        "list_ids": [
+          "list-123"
+        ]
+      },
+      "email_config": {
+        "subject": "March News",
+        "sender_id": 123
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "ss-123",
+      "name": "March Newsletter",
+      "status": "draft"
+    }
+  }
+}

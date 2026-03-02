@@ -1,0 +1,47 @@
+{
+  "name": "redirect_flows_complete",
+  "description": "Complete a redirect flow after customer authorization.",
+  "resource_group": "redirect_flows",
+  "endpoint": "/redirect_flows/{id}/actions/complete",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Redirect flow ID.",
+      "required": true
+    },
+    {
+      "name": "session_token",
+      "type": "string",
+      "description": "The same session token used to create the flow.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/redirect_flows/RE000123/actions/complete",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "data": {
+        "session_token": "abc123"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "redirect_flows": {
+        "id": "RE000123",
+        "links": {
+          "customer": "CU000123",
+          "mandate": "MD000123"
+        }
+      }
+    }
+  }
+}

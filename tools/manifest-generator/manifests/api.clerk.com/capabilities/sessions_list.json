@@ -1,0 +1,60 @@
+{
+  "name": "sessions_list",
+  "resource_group": "sessions",
+  "description": "List all sessions with optional filtering by client ID or user ID.",
+  "endpoint": "/v1/sessions",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "client_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by client ID."
+    },
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": false,
+      "description": "Filter by user ID."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by status: active, revoked, ended, expired, removed, abandoned."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results. Default 10, max 500."
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "required": false,
+      "description": "Offset for pagination."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clerk.com/v1/sessions?user_id=user_2abc123&status=active",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "sess_abc123",
+        "object": "session",
+        "user_id": "user_2abc123",
+        "client_id": "client_xyz",
+        "status": "active",
+        "last_active_at": 1702742000000,
+        "created_at": 1702656000000
+      }
+    ]
+  }
+}

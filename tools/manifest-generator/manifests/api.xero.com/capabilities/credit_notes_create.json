@@ -1,0 +1,57 @@
+{
+  "name": "credit_notes_create",
+  "description": "Create a credit note.",
+  "resource_group": "credit_notes",
+  "endpoint": "/CreditNotes",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "CreditNotes",
+      "type": "array",
+      "required": true,
+      "description": "Array of CreditNote objects."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.transactions"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.xero.com/api.xro/2.0/CreditNotes",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "CreditNotes": [
+        {
+          "Type": "ACCRECCREDIT",
+          "Contact": {
+            "Name": "Acme Corp"
+          },
+          "LineItems": [
+            {
+              "Description": "Refund",
+              "Quantity": 1,
+              "UnitAmount": 200.0,
+              "AccountCode": "200"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "CreditNotes": [
+        {
+          "CreditNoteID": "cn-new",
+          "Total": 200.0,
+          "Status": "DRAFT"
+        }
+      ]
+    }
+  }
+}

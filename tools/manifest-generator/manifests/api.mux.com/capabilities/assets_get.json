@@ -1,0 +1,53 @@
+{
+  "name": "assets_get",
+  "resource_group": "assets",
+  "description": "Get detailed information about a video asset.",
+  "endpoint": "/video/v1/assets/{asset_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "asset_id",
+      "type": "string",
+      "required": true,
+      "description": "Asset ID.",
+      "in": "path"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mux.com/video/v1/assets/asset_abc123",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "asset_abc123",
+        "status": "ready",
+        "duration": 120.5,
+        "max_stored_resolution": "HD",
+        "max_stored_frame_rate": 30,
+        "aspect_ratio": "16:9",
+        "playback_ids": [
+          {
+            "id": "playback_xyz",
+            "policy": "public"
+          }
+        ],
+        "tracks": [
+          {
+            "type": "video",
+            "max_width": 1920,
+            "max_height": 1080
+          },
+          {
+            "type": "audio",
+            "max_channels": 2
+          }
+        ]
+      }
+    }
+  }
+}

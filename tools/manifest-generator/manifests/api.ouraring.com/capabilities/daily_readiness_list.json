@@ -1,0 +1,66 @@
+{
+  "name": "daily_readiness_list",
+  "description": "Retrieve daily readiness scores indicating recovery level based on sleep, HRV, body temperature for a date range. Supports pagination with next_token.",
+  "resource_group": "daily",
+  "endpoint": "/v2/usercollection/daily_readiness",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "string",
+      "required": false,
+      "description": "Start date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "required": false,
+      "description": "End date YYYY-MM-DD.",
+      "in": "query"
+    },
+    {
+      "name": "next_token",
+      "type": "string",
+      "required": false,
+      "description": "Pagination token from previous response.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [
+    "readiness"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.ouraring.com/v2/usercollection/daily_readiness?start_date=2025-01-10&end_date=2025-01-15",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "abc-789",
+          "day": "2025-01-15",
+          "score": 78,
+          "temperature_deviation": 0.1,
+          "temperature_trend_deviation": 0.05,
+          "timestamp": "2025-01-15T00:00:00+00:00",
+          "contributors": {
+            "activity_balance": 82,
+            "body_temperature": 90,
+            "hrv_balance": 72,
+            "previous_day_activity": 85,
+            "previous_night": 80,
+            "recovery_index": 75,
+            "resting_heart_rate": 88,
+            "sleep_balance": 76
+          }
+        }
+      ],
+      "next_token": null
+    }
+  }
+}

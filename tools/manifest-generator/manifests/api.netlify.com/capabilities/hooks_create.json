@@ -1,0 +1,54 @@
+{
+  "name": "hooks_create",
+  "description": "Create a notification webhook for a site.",
+  "endpoint": "/api/v1/sites/{site_id}/hooks",
+  "method": "POST",
+  "resource_group": "hooks",
+  "parameters": [
+    {
+      "name": "site_id",
+      "type": "string",
+      "description": "Site ID",
+      "required": true,
+      "example": "site_abc"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Hook type (url, email, slack)",
+      "required": true,
+      "example": "url"
+    },
+    {
+      "name": "event",
+      "type": "string",
+      "description": "Event to trigger on (deploy_building, deploy_created, etc.)",
+      "required": true,
+      "example": "deploy_created"
+    },
+    {
+      "name": "data.url",
+      "type": "string",
+      "description": "Webhook URL",
+      "required": true,
+      "example": "https://myapp.com/webhook"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.netlify.com/api/v1/sites/{site_id}/hooks",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

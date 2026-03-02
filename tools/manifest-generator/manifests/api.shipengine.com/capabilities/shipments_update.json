@@ -1,0 +1,66 @@
+{
+  "name": "shipments_update",
+  "description": "Update an existing shipment's details.",
+  "endpoint": "/v1/shipments/{shipment_id}",
+  "method": "PUT",
+  "resource_group": "shipments",
+  "parameters": [
+    {
+      "name": "shipment_id",
+      "type": "string",
+      "description": "The shipment ID.",
+      "required": true,
+      "example": "se-1234567"
+    },
+    {
+      "name": "ship_to",
+      "type": "object",
+      "description": "Updated destination address.",
+      "required": false
+    },
+    {
+      "name": "ship_from",
+      "type": "object",
+      "description": "Updated origin address.",
+      "required": false
+    },
+    {
+      "name": "packages",
+      "type": "array",
+      "description": "Updated package details.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.shipengine.com/v1/shipments/se-1234567",
+    "headers": {
+      "API-Key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ship_to": {
+        "name": "Jane Doe",
+        "address_line1": "456 Oak Ave",
+        "city_locality": "Portland",
+        "state_province": "OR",
+        "postal_code": "97201",
+        "country_code": "US"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "shipment_id": "se-1234567",
+      "shipment_status": "pending",
+      "ship_to": {
+        "name": "Jane Doe"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

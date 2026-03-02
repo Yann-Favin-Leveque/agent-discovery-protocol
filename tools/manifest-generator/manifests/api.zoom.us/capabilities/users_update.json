@@ -1,0 +1,72 @@
+{
+  "name": "users_update",
+  "description": "Update a user profile including name, type, department, timezone, vanity name, and other settings.",
+  "endpoint": "/users/{userId}",
+  "method": "PATCH",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email.",
+      "required": true,
+      "example": "user123"
+    },
+    {
+      "name": "first_name",
+      "type": "string",
+      "description": "Updated first name.",
+      "required": false,
+      "example": "Jane"
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "description": "Updated last name.",
+      "required": false,
+      "example": "Smith"
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "description": "User type: 1 (basic), 2 (licensed), 3 (on-prem).",
+      "required": false,
+      "example": 2
+    },
+    {
+      "name": "dept",
+      "type": "string",
+      "description": "Department name.",
+      "required": false,
+      "example": "Engineering"
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "description": "User timezone.",
+      "required": false,
+      "example": "America/New_York"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.zoom.us/v2/users/user123",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "dept": "Engineering"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": ["user:write"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

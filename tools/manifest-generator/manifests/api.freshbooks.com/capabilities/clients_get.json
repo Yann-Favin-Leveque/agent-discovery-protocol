@@ -1,0 +1,56 @@
+{
+  "name": "clients_get",
+  "description": "Retrieve a single client's details including contact info and billing address.",
+  "endpoint": "/accounting/account/{account_id}/users/clients/{client_id}",
+  "method": "GET",
+  "resource_group": "clients",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw"
+    },
+    {
+      "name": "client_id",
+      "type": "integer",
+      "description": "The client ID.",
+      "required": true,
+      "example": 12345
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/users/clients/12345",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "response": {
+        "result": {
+          "client": {
+            "id": 12345,
+            "fname": "John",
+            "lname": "Doe",
+            "email": "john@example.com",
+            "organization": "Acme Corp",
+            "p_street": "123 Main St",
+            "p_city": "New York",
+            "p_country": "United States"
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": ["user:clients:read"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

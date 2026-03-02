@@ -1,0 +1,96 @@
+{
+  "name": "keys_create",
+  "description": "Create a new API key with specified actions, indexes, and optional expiration.",
+  "endpoint": "/keys",
+  "method": "POST",
+  "resource_group": "keys",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Human-readable name for the key.",
+      "required": false,
+      "example": "My Search Key"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description of the key's purpose.",
+      "required": false,
+      "example": "Key for frontend search"
+    },
+    {
+      "name": "actions",
+      "type": "array",
+      "description": "Array of permitted actions (e.g., 'search', 'documents.add', 'indexes.create', '*').",
+      "required": true,
+      "example": [
+        "search"
+      ]
+    },
+    {
+      "name": "indexes",
+      "type": "array",
+      "description": "Array of index UIDs this key can access ('*' for all).",
+      "required": true,
+      "example": [
+        "movies"
+      ]
+    },
+    {
+      "name": "expiresAt",
+      "type": "string",
+      "description": "Expiration date in ISO 8601 format, or null for no expiration.",
+      "required": true,
+      "example": "2025-01-01T00:00:00Z"
+    },
+    {
+      "name": "uid",
+      "type": "string",
+      "description": "Custom UUID for the key.",
+      "required": false,
+      "example": "abc-123-def"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.meilisearch.com/keys",
+    "headers": {
+      "Authorization": "Bearer MASTER_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "My Search Key",
+      "actions": [
+        "search"
+      ],
+      "indexes": [
+        "movies"
+      ],
+      "expiresAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uid": "abc-123",
+      "name": "My Search Key",
+      "key": "abc123...",
+      "actions": [
+        "search"
+      ],
+      "indexes": [
+        "movies"
+      ],
+      "expiresAt": "2025-01-01T00:00:00Z",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  },
+  "auth_scopes": [
+    "keys.create"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

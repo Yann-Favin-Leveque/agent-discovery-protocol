@@ -1,0 +1,32 @@
+{
+  "name": "activity_intraday_get",
+  "description": "Retrieve intraday time series data for activity metrics at 1-min, 5-min, or 15-min intervals for a specific date. Requires personal-type application or approved intraday access.",
+  "resource_group": "activity",
+  "endpoint": "/1/user/-/activities/{resource-path}/date/{date}/1d/{detail-level}.json",
+  "method": "GET",
+  "parameters": [
+    { "name": "resource-path", "type": "string", "required": true, "description": "The activity resource: 'steps', 'calories', 'distance', 'floors'.", "in": "path" },
+    { "name": "date", "type": "string", "required": true, "description": "The date in YYYY-MM-DD format.", "in": "path" },
+    { "name": "detail-level", "type": "string", "required": true, "description": "Detail level: '1min', '5min', or '15min'.", "in": "path" }
+  ],
+  "auth_scopes": ["activity"],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.fitbit.com/1/user/-/activities/steps/date/2025-01-15/1d/15min.json",
+    "headers": { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9..." }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "activities-steps-intraday": {
+        "dataset": [
+          { "time": "08:00:00", "value": 45 },
+          { "time": "08:15:00", "value": 120 },
+          { "time": "08:30:00", "value": 87 }
+        ],
+        "datasetInterval": 15,
+        "datasetType": "minute"
+      }
+    }
+  }
+}

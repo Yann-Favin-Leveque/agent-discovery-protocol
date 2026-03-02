@@ -1,0 +1,80 @@
+{
+  "name": "bills_create",
+  "description": "Create a new bill (accounts payable) from a vendor with line items and due date.",
+  "endpoint": "/v3/company/{realmId}/bill",
+  "method": "POST",
+  "resource_group": "bills",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "VendorRef",
+      "type": "object",
+      "description": "Vendor reference",
+      "required": true,
+      "example": {
+        "value": "40"
+      }
+    },
+    {
+      "name": "Line",
+      "type": "array",
+      "description": "Bill line items",
+      "required": true,
+      "example": [
+        {
+          "Amount": 200.0,
+          "DetailType": "AccountBasedExpenseLineDetail"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/bill?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "VendorRef": {
+        "value": "40"
+      },
+      "Line": [
+        {
+          "Amount": 200.0,
+          "DetailType": "AccountBasedExpenseLineDetail",
+          "AccountBasedExpenseLineDetail": {
+            "AccountRef": {
+              "value": "7"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Bill": {
+        "Id": "25",
+        "VendorRef": {
+          "value": "40"
+        },
+        "TotalAmt": 200.0,
+        "Balance": 200.0
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "name": "transactional_emails_send",
+  "description": "Send a transactional email.",
+  "resource_group": "transactional_emails",
+  "endpoint": "/smtp/email",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "sender",
+      "type": "object",
+      "description": "Sender with name and email.",
+      "required": true
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "description": "Recipients with email and name.",
+      "required": true
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Email subject.",
+      "required": true
+    },
+    {
+      "name": "htmlContent",
+      "type": "string",
+      "description": "HTML content.",
+      "required": true
+    },
+    {
+      "name": "templateId",
+      "type": "integer",
+      "description": "Template ID instead of content.",
+      "required": false
+    },
+    {
+      "name": "params",
+      "type": "object",
+      "description": "Template parameters.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.brevo.com/v3/smtp/email",
+    "headers": {
+      "api-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "sender": {
+        "name": "My App",
+        "email": "noreply@example.com"
+      },
+      "to": [
+        {
+          "email": "john@example.com",
+          "name": "John"
+        }
+      ],
+      "subject": "Order Confirmation",
+      "htmlContent": "<p>Your order is confirmed!</p>"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "messageId": "<msg-id@smtp-relay.brevo.com>"
+    }
+  }
+}

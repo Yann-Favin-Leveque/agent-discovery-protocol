@@ -1,0 +1,58 @@
+{
+  "name": "people_list",
+  "description": "List all people profiles in your Crisp people database with pagination.",
+  "endpoint": "/v1/website/{website_id}/people/{page_number}",
+  "method": "GET",
+  "resource_group": "people",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    },
+    {
+      "name": "page_number",
+      "type": "integer",
+      "description": "Page number for pagination (starts at 1).",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "search_query",
+      "type": "string",
+      "description": "Full-text search query to filter people.",
+      "required": false,
+      "example": "john@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/people/1",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "people_id": "c7b72a68-be91-4e29-b6a0-efbb3b72ed1b",
+          "email": "john@example.com",
+          "person": {
+            "nickname": "John Doe"
+          },
+          "created_at": "2024-01-15T08:00:00.000Z"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["website:people:profiles"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

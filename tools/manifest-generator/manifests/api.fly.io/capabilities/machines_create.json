@@ -1,0 +1,69 @@
+{
+  "name": "machines_create",
+  "description": "Create and start a new Fly Machine.",
+  "resource_group": "machines",
+  "endpoint": "/v1/apps/{app_name}/machines",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_name",
+      "type": "string",
+      "required": true,
+      "description": "App name."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Machine name."
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "required": false,
+      "description": "Region (iad, lhr, sin, etc)."
+    },
+    {
+      "name": "config",
+      "type": "object",
+      "required": true,
+      "description": "Config: image, guest (cpus, memory_mb), services, env, restart policy."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.machines.dev/v1/apps/my-app/machines",
+    "body": {
+      "name": "web-1",
+      "region": "iad",
+      "config": {
+        "image": "my-org/app:latest",
+        "guest": {
+          "cpus": 1,
+          "memory_mb": 256
+        },
+        "services": [
+          {
+            "ports": [
+              {
+                "port": 443,
+                "handlers": [
+                  "tls",
+                  "http"
+                ]
+              }
+            ],
+            "protocol": "tcp",
+            "internal_port": 8080
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "id": "mach-new",
+    "name": "web-1",
+    "state": "created",
+    "region": "iad"
+  }
+}

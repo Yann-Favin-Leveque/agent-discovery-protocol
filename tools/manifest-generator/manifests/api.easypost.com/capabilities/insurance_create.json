@@ -1,0 +1,71 @@
+{
+  "name": "insurance_create",
+  "description": "Create standalone insurance for a shipment.",
+  "endpoint": "/v2/insurances",
+  "method": "POST",
+  "resource_group": "insurance",
+  "parameters": [
+    {
+      "name": "tracking_code",
+      "type": "string",
+      "description": "Tracking code for the shipment.",
+      "required": true,
+      "example": "1Z999AA10123456784"
+    },
+    {
+      "name": "carrier",
+      "type": "string",
+      "description": "Carrier name.",
+      "required": true,
+      "example": "UPS"
+    },
+    {
+      "name": "amount",
+      "type": "string",
+      "description": "Insurance coverage amount in USD (max $5000).",
+      "required": true,
+      "example": "100.00"
+    },
+    {
+      "name": "to_address",
+      "type": "object",
+      "description": "Destination address.",
+      "required": false
+    },
+    {
+      "name": "from_address",
+      "type": "object",
+      "description": "Origin address.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.easypost.com/v2/insurances",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "insurance": {
+        "tracking_code": "1Z999AA10123456784",
+        "carrier": "UPS",
+        "amount": "100.00"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "ins_abc123",
+      "object": "Insurance",
+      "tracking_code": "1Z999AA10123456784",
+      "amount": "100.00",
+      "status": "pending"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

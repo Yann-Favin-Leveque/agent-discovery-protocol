@@ -1,0 +1,51 @@
+{
+  "name": "campaigns_update",
+  "description": "Update a campaign's settings before sending.",
+  "endpoint": "/3.0/campaigns/{campaign_id}",
+  "method": "PATCH",
+  "resource_group": "campaigns",
+  "parameters": [
+    {
+      "name": "campaign_id",
+      "type": "string",
+      "description": "Campaign ID.",
+      "required": true,
+      "example": "camp123"
+    },
+    {
+      "name": "settings",
+      "type": "object",
+      "description": "Updated settings.",
+      "required": false,
+      "example": {
+        "subject_line": "Updated Subject"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://us1.api.mailchimp.com/3.0/campaigns/camp123",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "settings": {
+        "subject_line": "Updated Subject"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "camp123",
+      "settings": {
+        "subject_line": "Updated Subject"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

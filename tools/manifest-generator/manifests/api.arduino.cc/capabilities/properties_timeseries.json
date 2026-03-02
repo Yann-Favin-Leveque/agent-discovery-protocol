@@ -1,0 +1,55 @@
+{
+  "name": "properties_timeseries",
+  "description": "Get historical time-series data.",
+  "resource_group": "properties",
+  "endpoint": "/iot/v2/things/{thingId}/properties/{propertyId}/timeseries",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "thingId",
+      "type": "string",
+      "description": "Thing ID.",
+      "required": true
+    },
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "Property ID.",
+      "required": true
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "description": "ISO 8601 start date.",
+      "required": true
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "ISO 8601 end date.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api2.arduino.cc/iot/v2/things/thing_1/properties/prop_1/timeseries?from=2024-06-01T00:00:00Z&to=2024-06-02T00:00:00Z",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "time": "2024-06-01T10:00:00Z",
+          "value": 22.5
+        },
+        {
+          "time": "2024-06-01T11:00:00Z",
+          "value": 23.1
+        }
+      ]
+    }
+  }
+}

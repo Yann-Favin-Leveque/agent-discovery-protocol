@@ -1,0 +1,79 @@
+{
+  "name": "admin_users_create",
+  "resource_group": "admin",
+  "description": "Create a new user (admin only). Can set email_confirm to skip verification.",
+  "endpoint": "/admin/users",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "User email."
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "required": false,
+      "description": "User phone."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "description": "User password."
+    },
+    {
+      "name": "email_confirm",
+      "type": "boolean",
+      "required": false,
+      "description": "Auto-confirm email. Default false."
+    },
+    {
+      "name": "phone_confirm",
+      "type": "boolean",
+      "required": false,
+      "description": "Auto-confirm phone. Default false."
+    },
+    {
+      "name": "user_metadata",
+      "type": "object",
+      "required": false,
+      "description": "User metadata."
+    },
+    {
+      "name": "app_metadata",
+      "type": "object",
+      "required": false,
+      "description": "App metadata (roles, etc)."
+    },
+    {
+      "name": "ban_duration",
+      "type": "string",
+      "required": false,
+      "description": "Duration to ban user (e.g. 24h, none)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://myproject.supabase.co/auth/v1/admin/users",
+    "headers": {
+      "apikey": "your-anon-key",
+      "Authorization": "Bearer your-service-role-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "bob@example.com",
+      "password": "securePass!",
+      "email_confirm": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-here",
+      "email": "bob@example.com",
+      "email_confirmed_at": "2024-01-15T10:30:00Z"
+    }
+  }
+}

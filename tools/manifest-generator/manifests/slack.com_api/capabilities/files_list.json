@@ -1,0 +1,71 @@
+{
+  "name": "files_list",
+  "resource_group": "files",
+  "description": "List files shared in the workspace.",
+  "endpoint": "/files.list",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "channel",
+      "type": "string",
+      "required": false,
+      "description": "Filter by channel ID",
+      "example": "C1234567890"
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": false,
+      "description": "Filter by user ID",
+      "example": "U1234567890"
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "required": false,
+      "description": "Filter by file types",
+      "example": "images"
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page",
+      "example": 20
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number",
+      "example": 1
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://slack.com/api/files.list?channel=C1234567890&count=20",
+    "headers": {
+      "Authorization": "Bearer xoxb-xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "files": [
+        {
+          "id": "F1234567890",
+          "name": "report.txt",
+          "title": "Monthly Report",
+          "size": 1024
+        }
+      ],
+      "paging": {
+        "count": 20,
+        "total": 1,
+        "page": 1,
+        "pages": 1
+      }
+    }
+  }
+}

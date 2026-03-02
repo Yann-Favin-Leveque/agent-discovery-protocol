@@ -1,0 +1,56 @@
+{
+  "name": "audit_log_events_create",
+  "resource_group": "audit_logs",
+  "description": "Create an audit log event to track user activity for compliance.",
+  "endpoint": "/audit_logs/events",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "organization_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization ID."
+    },
+    {
+      "name": "event",
+      "type": "object",
+      "required": true,
+      "description": "Event object with action, occurred_at, actor, targets, metadata."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.workos.com/audit_logs/events",
+    "headers": {
+      "Authorization": "Bearer sk_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "organization_id": "org_abc",
+      "event": {
+        "action": "user.signed_in",
+        "occurred_at": "2024-01-15T10:30:00Z",
+        "actor": {
+          "id": "user_abc",
+          "name": "Alice",
+          "type": "user"
+        },
+        "targets": [
+          {
+            "id": "team_abc",
+            "type": "team"
+          }
+        ],
+        "metadata": {
+          "ip_address": "192.168.1.1"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "success": true
+    }
+  }
+}

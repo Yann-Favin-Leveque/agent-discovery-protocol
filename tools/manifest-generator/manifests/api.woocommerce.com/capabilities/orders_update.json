@@ -1,0 +1,45 @@
+{
+  "name": "orders_update",
+  "description": "Update an order status, note, or addresses.",
+  "resource_group": "orders",
+  "endpoint": "/orders/{id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "Order ID."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "New order status."
+    },
+    {
+      "name": "customer_note",
+      "type": "string",
+      "required": false,
+      "description": "Customer note."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{store}/wp-json/wc/v3/orders/727",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "completed"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": 727,
+      "status": "completed"
+    }
+  }
+}

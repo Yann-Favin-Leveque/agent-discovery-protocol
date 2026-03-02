@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "UploadThing",
-  "description": "UploadThing is a file upload service designed for modern web apps. It handles file uploads, storage, and delivery with built-in support for presigned URLs, access control, and file management.",
+  "description": "UploadThing is a file upload service for modern web apps. It handles file uploads from server or URLs, file listing, deletion, renaming, signed URL generation, and access control management via a simple REST API.",
   "base_url": "https://api.uploadthing.com",
   "auth": {
     "type": "api_key",
@@ -11,39 +11,52 @@
   },
   "capabilities": [
     {
-      "name": "upload_files",
-      "description": "Upload one or more files directly to UploadThing from your server. Returns file URLs and metadata after successful upload.",
-      "detail_url": "/capabilities/upload_files"
+      "name": "files_upload",
+      "resource_group": "files",
+      "description": "Upload files directly from your server. Generates presigned URLs and uploads to storage.",
+      "detail_url": "/capabilities/files_upload"
     },
     {
-      "name": "upload_files_from_url",
-      "description": "Upload files by providing external URLs. UploadThing will fetch and store the files, useful for migrating content or importing from other services.",
-      "detail_url": "/capabilities/upload_files_from_url"
+      "name": "files_upload_from_url",
+      "resource_group": "files",
+      "description": "Upload files by providing external URLs. UploadThing fetches and stores them.",
+      "detail_url": "/capabilities/files_upload_from_url"
     },
     {
-      "name": "list_files",
-      "description": "Retrieve a paginated list of all uploaded files with their metadata including size, type, URL, and upload date.",
-      "detail_url": "/capabilities/list_files"
+      "name": "files_list",
+      "resource_group": "files",
+      "description": "List all uploaded files with pagination.",
+      "detail_url": "/capabilities/files_list"
     },
     {
-      "name": "delete_files",
-      "description": "Delete one or more files by their file key or custom ID. Permanently removes the files from storage.",
-      "detail_url": "/capabilities/delete_files"
+      "name": "files_delete",
+      "resource_group": "files",
+      "description": "Delete one or more files by file key or custom ID.",
+      "detail_url": "/capabilities/files_delete"
     },
     {
-      "name": "rename_files",
-      "description": "Rename one or more uploaded files. Updates the file name metadata without changing the file key or URL.",
-      "detail_url": "/capabilities/rename_files"
+      "name": "files_rename",
+      "resource_group": "files",
+      "description": "Rename one or more uploaded files.",
+      "detail_url": "/capabilities/files_rename"
     },
     {
-      "name": "get_signed_url",
-      "description": "Generate a time-limited presigned URL for accessing a private file. Useful for granting temporary access to protected content.",
-      "detail_url": "/capabilities/get_signed_url"
+      "name": "files_get_signed_url",
+      "resource_group": "files",
+      "description": "Generate a time-limited signed URL for accessing a private file.",
+      "detail_url": "/capabilities/files_get_signed_url"
     },
     {
-      "name": "update_acl",
-      "description": "Change the access control level of a file between public-read and private. Controls whether the file is publicly accessible or requires signed URLs.",
-      "detail_url": "/capabilities/update_acl"
+      "name": "files_update_acl",
+      "resource_group": "files",
+      "description": "Change file access control between public-read and private.",
+      "detail_url": "/capabilities/files_update_acl"
+    },
+    {
+      "name": "files_get_usage",
+      "resource_group": "usage",
+      "description": "Get current storage usage and limits for your UploadThing app.",
+      "detail_url": "/capabilities/files_get_usage"
     }
   ]
 }

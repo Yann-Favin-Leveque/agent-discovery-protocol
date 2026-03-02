@@ -1,0 +1,61 @@
+{
+  "name": "datasource_entries_list",
+  "description": "List entries from a datasource by slug. Returns key-value pairs.",
+  "endpoint": "/v2/cdn/datasource_entries",
+  "method": "GET",
+  "resource_group": "datasources",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "description": "API token",
+      "required": true,
+      "example": "your-token"
+    },
+    {
+      "name": "datasource",
+      "type": "string",
+      "description": "Datasource slug",
+      "required": true,
+      "example": "colors"
+    },
+    {
+      "name": "dimension",
+      "type": "string",
+      "description": "Dimension for localized entries",
+      "required": false,
+      "example": "en"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.storyblok.com/v2/cdn/datasource_entries?token=your-token&datasource=colors",
+    "headers": {
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "datasource_entries": [
+        {
+          "id": 1,
+          "name": "Red",
+          "value": "#FF0000"
+        },
+        {
+          "id": 2,
+          "name": "Blue",
+          "value": "#0000FF"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

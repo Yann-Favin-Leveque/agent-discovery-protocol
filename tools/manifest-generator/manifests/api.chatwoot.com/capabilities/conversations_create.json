@@ -1,0 +1,28 @@
+{
+  "name": "conversations_create",
+  "description": "Create a new conversation with a contact in a specific inbox.",
+  "endpoint": "/api/v1/accounts/{account_id}/conversations",
+  "method": "POST",
+  "resource_group": "conversations",
+  "parameters": [
+    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
+    {"name": "source_id", "type": "string", "description": "Contact source identifier for the inbox.", "required": true, "example": "contact_inbox_id_123"},
+    {"name": "inbox_id", "type": "integer", "description": "Inbox to create conversation in.", "required": true, "example": 1},
+    {"name": "contact_id", "type": "integer", "description": "Contact ID.", "required": false, "example": 42},
+    {"name": "message", "type": "object", "description": "Initial message content.", "required": false, "example": {"content": "Hello, how can I help?"}},
+    {"name": "status", "type": "string", "description": "Initial status.", "required": false, "example": "open"},
+    {"name": "assignee_id", "type": "integer", "description": "Assign to a specific agent.", "required": false, "example": 5}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.chatwoot.com/api/v1/accounts/1/conversations",
+    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
+    "body": {"source_id": "contact_inbox_id_123", "inbox_id": 1, "contact_id": 42, "message": {"content": "Hello!"}, "status": "open"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"id": 102, "inbox_id": 1, "status": "open", "contact_id": 42}
+  },
+  "auth_scopes": [],
+  "rate_limits": {"requests_per_minute": 250}
+}

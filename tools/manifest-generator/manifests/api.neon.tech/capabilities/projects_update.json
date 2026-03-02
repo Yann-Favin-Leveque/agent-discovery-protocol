@@ -1,0 +1,45 @@
+{
+  "name": "projects_update",
+  "resource_group": "projects",
+  "description": "Update project settings.",
+  "endpoint": "/projects/{project_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "project_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Neon project ID."
+    },
+    {
+      "name": "project",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Fields to update."
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://console.neon.tech/api/v2/projects/proj-abc123",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "project": {
+        "name": "renamed"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "project": {
+        "id": "proj-abc123",
+        "name": "renamed"
+      }
+    }
+  }
+}

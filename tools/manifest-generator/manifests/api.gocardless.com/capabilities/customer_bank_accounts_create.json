@@ -1,0 +1,79 @@
+{
+  "name": "customer_bank_accounts_create",
+  "description": "Create a customer bank account for direct debit collection.",
+  "resource_group": "customer_bank_accounts",
+  "endpoint": "/customer_bank_accounts",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_number",
+      "type": "string",
+      "description": "Bank account number.",
+      "required": false
+    },
+    {
+      "name": "branch_code",
+      "type": "string",
+      "description": "Sort code or branch code.",
+      "required": false
+    },
+    {
+      "name": "iban",
+      "type": "string",
+      "description": "IBAN for SEPA.",
+      "required": false
+    },
+    {
+      "name": "country_code",
+      "type": "string",
+      "description": "Country code.",
+      "required": true
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Currency.",
+      "required": false
+    },
+    {
+      "name": "account_holder_name",
+      "type": "string",
+      "description": "Name on the account.",
+      "required": true
+    },
+    {
+      "name": "links[customer]",
+      "type": "string",
+      "description": "Customer ID.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/customer_bank_accounts",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "customer_bank_accounts": {
+        "account_holder_name": "John Doe",
+        "account_number": "55779911",
+        "branch_code": "200000",
+        "country_code": "GB",
+        "links": {
+          "customer": "CU000123"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "customer_bank_accounts": {
+        "id": "BA000123"
+      }
+    }
+  }
+}

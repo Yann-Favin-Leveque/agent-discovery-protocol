@@ -1,0 +1,48 @@
+{
+  "name": "workflows_signer_update",
+  "description": "Update a signer.",
+  "resource_group": "workflows",
+  "endpoint": "/public/api/v1/workflows/{workflowId}/signers/{signerId}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "workflowId",
+      "type": "string",
+      "description": "Workflow ID.",
+      "required": true,
+      "example": "wf_001"
+    },
+    {
+      "name": "signerId",
+      "type": "string",
+      "description": "Signer ID.",
+      "required": true,
+      "example": "sig_001"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "New email.",
+      "required": false,
+      "example": "new@acme.com"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.ironclad.com/public/api/v1/workflows/wf_001/signers/sig_001",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "email": "new@acme.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "sig_001",
+      "email": "new@acme.com"
+    }
+  }
+}

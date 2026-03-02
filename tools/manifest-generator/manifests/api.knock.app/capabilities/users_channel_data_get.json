@@ -1,0 +1,45 @@
+{
+  "name": "users_channel_data_get",
+  "description": "Get channel-specific data for a user (e.g., push tokens).",
+  "endpoint": "/v1/users/{user_id}/channel_data/{channel_id}",
+  "method": "GET",
+  "resource_group": "channel_data",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "User ID.",
+      "required": true,
+      "example": "user_123"
+    },
+    {
+      "name": "channel_id",
+      "type": "string",
+      "description": "Channel ID.",
+      "required": true,
+      "example": "apns-channel"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.knock.app/v1/users/user_123/channel_data/apns-channel",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "channel_id": "apns-channel",
+      "data": {
+        "tokens": [
+          "device_token_abc"
+        ]
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

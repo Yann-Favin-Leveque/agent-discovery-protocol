@@ -1,0 +1,80 @@
+{
+  "name": "transactions_create",
+  "description": "Record a financial transaction (income or expense).",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "transactions",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    },
+    {
+      "name": "externalId",
+      "type": "string",
+      "description": "External transaction reference",
+      "required": false,
+      "example": "txn_123"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "description": "Transaction date (YYYY-MM-DD)",
+      "required": true,
+      "example": "2024-01-15"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Transaction description",
+      "required": true,
+      "example": "Office supplies"
+    },
+    {
+      "name": "amount",
+      "type": "string",
+      "description": "Transaction amount",
+      "required": true,
+      "example": "50.00"
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "Account ID for the transaction",
+      "required": true,
+      "example": "QWNjb3VudDo6..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: MoneyTransactionCreateInput!) { moneyTransactionCreate(input: $input) { transaction { id } didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "moneyTransactionCreate": {
+          "transaction": {
+            "id": "VHJhbnNhY3Rpb246..."
+          },
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "live_broadcasts_insert",
+  "description": "Create a new live broadcast.",
+  "endpoint": "/youtube/v3/liveBroadcasts",
+  "method": "POST",
+  "resource_group": "live_broadcasts",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,contentDetails,status"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://youtube.googleapis.com/youtube/v3/liveBroadcasts",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "snippet": {
+        "title": "My Live Stream",
+        "scheduledStartTime": "2024-06-01T18:00:00Z"
+      },
+      "contentDetails": {
+        "enableAutoStart": true
+      },
+      "status": {
+        "privacyStatus": "public"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "broadcast_new",
+      "snippet": {
+        "title": "My Live Stream"
+      }
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

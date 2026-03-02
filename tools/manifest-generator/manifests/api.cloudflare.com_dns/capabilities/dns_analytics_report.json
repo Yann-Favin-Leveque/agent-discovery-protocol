@@ -1,0 +1,66 @@
+{
+  "name": "dns_analytics_report",
+  "description": "Retrieve summarized DNS query analytics and metrics for a zone including query counts, response codes, and record types.",
+  "endpoint": "/zones/{zone_id}/dns_analytics/report",
+  "method": "GET",
+  "resource_group": "dns_analytics",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "The zone ID.",
+      "required": true,
+      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "description": "Start date/time in ISO 8601 format.",
+      "required": false,
+      "example": "2024-01-01T00:00:00Z"
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "description": "End date/time in ISO 8601 format.",
+      "required": false,
+      "example": "2024-01-31T23:59:59Z"
+    },
+    {
+      "name": "metrics",
+      "type": "string",
+      "description": "Comma-separated metrics: queryCount, uncachedCount, staleCount, responseTimeAvg.",
+      "required": false,
+      "example": "queryCount,responseTimeAvg"
+    },
+    {
+      "name": "dimensions",
+      "type": "string",
+      "description": "Comma-separated dimensions: queryType, responseCode, queryName, coloName.",
+      "required": false,
+      "example": "queryType"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.cloudflare.com/client/v4/zones/023e105f4ecef8ad9ca31a8372d0c353/dns_analytics/report?since=2024-01-01T00:00:00Z&until=2024-01-31T23:59:59Z&metrics=queryCount",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "totals": {"queryCount": 1500000},
+        "min": {"queryCount": 100},
+        "max": {"queryCount": 50000}
+      }
+    }
+  },
+  "auth_scopes": ["analytics:read"],
+  "rate_limits": {
+    "requests_per_minute": 1200
+  }
+}

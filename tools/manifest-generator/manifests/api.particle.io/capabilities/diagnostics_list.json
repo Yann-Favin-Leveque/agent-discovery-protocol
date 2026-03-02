@@ -1,0 +1,45 @@
+{
+  "name": "diagnostics_list",
+  "description": "Get historical diagnostics.",
+  "resource_group": "diagnostics",
+  "endpoint": "/v1/diagnostics/{deviceId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "deviceId",
+      "type": "string",
+      "description": "Device ID.",
+      "required": true
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "ISO 8601 start date.",
+      "required": false
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "ISO 8601 end date.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.particle.io/v1/diagnostics/abc123",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "diagnostics": [
+        {
+          "timestamp": "2024-06-01T10:00:00Z",
+          "signalStrength": -65
+        }
+      ]
+    }
+  }
+}

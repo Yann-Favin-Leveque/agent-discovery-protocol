@@ -1,0 +1,44 @@
+{
+  "name": "forms_get",
+  "description": "Retrieve details of a specific form including fields, configuration, and submission settings.",
+  "endpoint": "/marketing/v3/forms/{formId}",
+  "method": "GET",
+  "resource_group": "forms",
+  "parameters": [
+    {
+      "name": "formId",
+      "type": "string",
+      "description": "The form ID.",
+      "required": true,
+      "example": "form_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.hubspot.com/marketing/v3/forms/form_abc123",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "form_abc123",
+      "name": "Newsletter Signup",
+      "formType": "hubspot",
+      "fieldGroups": [
+        {
+          "groupType": "default_group",
+          "fields": [
+            { "name": "email", "label": "Email", "type": "string", "fieldType": "text", "required": true }
+          ]
+        }
+      ],
+      "createdAt": "2024-01-15T10:00:00Z"
+    }
+  },
+  "auth_scopes": ["forms"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

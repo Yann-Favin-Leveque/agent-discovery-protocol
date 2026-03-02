@@ -1,0 +1,56 @@
+{
+  "name": "functions_action",
+  "resource_group": "functions",
+  "description": "Execute a Convex action function that can call external services.",
+  "endpoint": "/api/action",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Function path (e.g., 'actions:sendEmail')."
+    },
+    {
+      "name": "args",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Named arguments."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Output format."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{deployment}.convex.cloud/api/action",
+    "headers": {
+      "Authorization": "Convex {deploy_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "path": "actions:sendEmail",
+      "args": {
+        "to": "user@example.com",
+        "subject": "Hello"
+      },
+      "format": "json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "value": {
+        "sent": true
+      },
+      "logLines": []
+    }
+  }
+}

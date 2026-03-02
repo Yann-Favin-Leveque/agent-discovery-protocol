@@ -1,0 +1,44 @@
+{
+  "name": "item_webhook_update",
+  "description": "Update the webhook URL for an Item.",
+  "resource_group": "items",
+  "endpoint": "/item/webhook/update",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token."
+    },
+    {
+      "name": "webhook",
+      "type": "string",
+      "required": true,
+      "description": "The new webhook URL."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/item/webhook/update",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc",
+      "webhook": "https://example.com/webhook"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "item": {
+        "item_id": "item_abc",
+        "webhook": "https://example.com/webhook"
+      },
+      "request_id": "abc"
+    }
+  }
+}

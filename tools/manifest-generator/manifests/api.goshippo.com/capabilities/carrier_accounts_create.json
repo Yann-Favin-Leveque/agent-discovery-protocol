@@ -1,0 +1,56 @@
+{
+  "name": "carrier_accounts_create",
+  "description": "Connect a new carrier account.",
+  "endpoint": "/carrier_accounts",
+  "method": "POST",
+  "resource_group": "carrier_accounts",
+  "parameters": [
+    {
+      "name": "carrier",
+      "type": "string",
+      "description": "Carrier code (usps, ups, fedex, etc.).",
+      "required": true,
+      "example": "ups"
+    },
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "Carrier account number.",
+      "required": true
+    },
+    {
+      "name": "parameters",
+      "type": "object",
+      "description": "Carrier-specific credentials.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.goshippo.com/carrier_accounts",
+    "headers": {
+      "Authorization": "ShippoToken {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "carrier": "ups",
+      "account_id": "123456",
+      "parameters": {
+        "account_number": "123456"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "object_id": "carrier_abc123",
+      "carrier": "ups",
+      "account_id": "123456",
+      "active": true
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "name": "email_send",
+  "description": "Send a single email or batch of emails with HTML/text content, attachments, tracking options, and template support.",
+  "endpoint": "/email/3/send",
+  "method": "POST",
+  "resource_group": "email",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "Sender email address (must be a verified domain)."
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "required": true,
+      "description": "Comma-separated list of recipient email addresses."
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "required": true,
+      "description": "Email subject line."
+    },
+    {
+      "name": "html",
+      "type": "string",
+      "required": false,
+      "description": "HTML body of the email."
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "required": false,
+      "description": "Plain text body of the email."
+    },
+    {
+      "name": "cc",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated CC recipient email addresses."
+    },
+    {
+      "name": "bcc",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated BCC recipient email addresses."
+    },
+    {
+      "name": "replyTo",
+      "type": "string",
+      "required": false,
+      "description": "Reply-to email address."
+    },
+    {
+      "name": "notifyUrl",
+      "type": "string",
+      "required": false,
+      "description": "Webhook URL for delivery report notifications."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.infobip.com/email/3/send",
+    "headers": {
+      "Content-Type": "multipart/form-data",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "from": "noreply@example.com",
+      "to": "user@example.com",
+      "subject": "Your Order Confirmation",
+      "html": "<h1>Order Confirmed</h1><p>Your order #12345 has been placed successfully.</p>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "bulkId": "email-bulk-12345",
+      "messages": [
+        {
+          "to": "user@example.com",
+          "messageId": "email-msg-12345",
+          "status": { "groupId": 1, "groupName": "PENDING", "name": "PENDING_ACCEPTED" }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

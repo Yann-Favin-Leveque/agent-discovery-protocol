@@ -1,0 +1,57 @@
+{
+  "name": "issues_get",
+  "description": "Get detailed information about a specific issue.",
+  "resource_group": "issues",
+  "endpoint": "/rest/orgs/{org_id}/issues/{issue_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "org_id",
+      "type": "string",
+      "required": true,
+      "description": "Organization UUID."
+    },
+    {
+      "name": "issue_id",
+      "type": "string",
+      "required": true,
+      "description": "Issue UUID."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "API version date."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.snyk.io/rest/orgs/org-uuid/issues/issue-uuid?version=2024-06-21",
+    "headers": {
+      "Authorization": "token <api_token>"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "issue-uuid",
+        "type": "issue",
+        "attributes": {
+          "title": "Prototype Pollution",
+          "severity": "high",
+          "description": "Detailed description of the vulnerability",
+          "coordinates": [
+            {
+              "remedies": [
+                {
+                  "description": "Upgrade to version 2.0.0"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "reports_create",
+  "description": "Create a new background check or watchlist screening report for an individual.",
+  "resource_group": "reports",
+  "endpoint": "/reports",
+  "method": "POST",
+  "parameters": [
+    {"name": "report-template-id", "type": "string", "description": "The report template ID to use.", "required": true, "example": "rpttmpl_abc123"},
+    {"name": "reference-id", "type": "string", "description": "Your internal reference ID.", "required": false, "example": "user_12345"},
+    {"name": "account-id", "type": "string", "description": "Account ID to associate with.", "required": false},
+    {"name": "fields", "type": "object", "description": "Input fields such as name, date of birth, SSN for the report.", "required": false}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://withpersona.com/api/v1/reports",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json", "Persona-Version": "2023-01-05"},
+    "body": {"data": {"attributes": {"report-template-id": "rpttmpl_abc123", "reference-id": "user_12345"}}}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"data": {"type": "report", "id": "rep_abc123", "attributes": {"status": "pending", "created-at": "2024-01-15T10:30:00.000Z"}}}
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

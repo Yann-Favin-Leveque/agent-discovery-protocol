@@ -1,0 +1,39 @@
+{
+  "name": "features_get",
+  "description": "Retrieve usage analytics for a specific tracked feature including click counts and unique visitors.",
+  "endpoint": "/v1/feature/{feature_id}",
+  "method": "GET",
+  "resource_group": "features",
+  "parameters": [
+    {
+      "name": "feature_id",
+      "type": "string",
+      "description": "The feature ID.",
+      "required": true,
+      "example": "feat_abc123"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://app.pendo.io/api/v1/feature/feat_abc123",
+    "headers": {
+      "x-pendo-integration-key": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "feat_abc123",
+      "name": "Export Button",
+      "pageId": "page_xyz",
+      "elementPath": "button#export",
+      "numClicks": 5000,
+      "numVisitors": 1200,
+      "createdAt": 1705747200000
+    }
+  },
+  "auth_scopes": ["feature"],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

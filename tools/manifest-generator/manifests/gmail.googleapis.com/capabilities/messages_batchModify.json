@@ -1,0 +1,66 @@
+{
+  "name": "messages_batchModify",
+  "description": "Modifies the labels on many messages at once.",
+  "resource_group": "messages",
+  "endpoint": "/gmail/v1/users/{userId}/messages/batchModify",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "ids",
+      "type": "array",
+      "description": "The list of message IDs to modify.",
+      "required": true,
+      "example": [
+        "18e2abc123"
+      ]
+    },
+    {
+      "name": "addLabelIds",
+      "type": "array",
+      "description": "Label IDs to add.",
+      "required": false,
+      "example": [
+        "STARRED"
+      ]
+    },
+    {
+      "name": "removeLabelIds",
+      "type": "array",
+      "description": "Label IDs to remove.",
+      "required": false,
+      "example": [
+        "UNREAD"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/messages/batchModify",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ids": [
+        "18e2abc123"
+      ],
+      "addLabelIds": [
+        "STARRED"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.modify"
+  ]
+}

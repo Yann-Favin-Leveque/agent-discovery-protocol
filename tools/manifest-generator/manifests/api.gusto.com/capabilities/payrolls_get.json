@@ -1,0 +1,15 @@
+{
+  "name": "payrolls_get",
+  "description": "Retrieve a specific payroll run by ID with employee earnings and deductions.",
+  "endpoint": "/v1/companies/{company_id}/payrolls/{payroll_id}",
+  "method": "GET",
+  "resource_group": "payrolls",
+  "parameters": [
+    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
+    {"name": "payroll_id", "type": "string", "description": "The payroll UUID.", "required": true, "example": "pay_789"}
+  ],
+  "request_example": {"method": "GET", "url": "https://api.gusto.com/v1/companies/7757616923531542/payrolls/pay_789", "headers": {"Authorization": "Bearer {token}"}, "body": {}},
+  "response_example": {"status": 200, "body": {"payroll_uuid": "pay_789", "pay_period": {"start_date": "2024-09-01", "end_date": "2024-09-15"}, "check_date": "2024-09-20", "employee_compensations": [{"employee_uuid": "emp_123", "gross_pay": "5000.00", "net_pay": "3800.00"}]}},
+  "auth_scopes": ["payrolls:read"],
+  "rate_limits": {"requests_per_minute": 60}
+}

@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Supabase Auth",
-  "description": "Supabase Auth REST API for user authentication and management. Sign up and sign in users with email/password or magic links, manage sessions with JWT tokens, handle password resets, and retrieve or update user profiles. Built on GoTrue.",
+  "description": "Supabase Auth REST API (GoTrue) for user authentication and management. Sign up and sign in users with email/password, magic links, OTP, or OAuth providers. Manage sessions with JWT tokens, handle password resets, verify OTP codes, and administer users. Supports both client-side and admin (service_role) operations.",
   "base_url": "https://your-project.supabase.co/auth/v1",
   "auth": {
     "type": "api_key",
@@ -12,43 +12,99 @@
   "capabilities": [
     {
       "name": "sign_up",
-      "description": "Create a new user account with email and password. Returns the user object and a session with access and refresh tokens.",
-      "detail_url": "/capabilities/sign_up"
+      "description": "Create a new user account with email/password or phone/password.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/sign_up",
+      "resource_group": "auth"
     },
     {
       "name": "sign_in_password",
-      "description": "Sign in an existing user with email and password. Returns a session with JWT access token and refresh token.",
-      "detail_url": "/capabilities/sign_in_password"
+      "description": "Sign in with email/password or phone/password.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/sign_in_password",
+      "resource_group": "auth"
     },
     {
       "name": "sign_in_otp",
-      "description": "Send a magic link or OTP code to the user's email or phone number for passwordless authentication.",
-      "detail_url": "/capabilities/sign_in_otp"
+      "description": "Send a magic link or OTP for passwordless authentication.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/sign_in_otp",
+      "resource_group": "auth"
     },
     {
-      "name": "refresh_token",
-      "description": "Exchange a refresh token for a new access token and refresh token pair. Use this to maintain user sessions without re-authentication.",
-      "detail_url": "/capabilities/refresh_token"
+      "name": "verify_otp",
+      "description": "Verify an OTP code or token hash to complete authentication.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/verify_otp",
+      "resource_group": "auth"
     },
     {
-      "name": "get_user",
-      "description": "Retrieve the currently authenticated user's profile using their JWT access token. Returns email, metadata, and identity providers.",
-      "detail_url": "/capabilities/get_user"
-    },
-    {
-      "name": "update_user",
-      "description": "Update the authenticated user's profile attributes including email, password, phone, and custom user metadata.",
-      "detail_url": "/capabilities/update_user"
+      "name": "sign_in_oauth",
+      "description": "Initiate OAuth sign-in with a third-party provider.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/sign_in_oauth",
+      "resource_group": "auth"
     },
     {
       "name": "sign_out",
-      "description": "Sign out the currently authenticated user by invalidating their JWT token on the server side.",
-      "detail_url": "/capabilities/sign_out"
+      "description": "Sign out the authenticated user by invalidating their token.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/sign_out",
+      "resource_group": "auth"
     },
     {
       "name": "send_password_reset",
-      "description": "Send a password reset email to the specified email address. The email contains a link that redirects the user to reset their password.",
-      "detail_url": "/capabilities/send_password_reset"
+      "description": "Send a password reset email with a recovery link.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/send_password_reset",
+      "resource_group": "auth"
+    },
+    {
+      "name": "resend_otp",
+      "description": "Resend an OTP or confirmation email/SMS.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/resend_otp",
+      "resource_group": "auth"
+    },
+    {
+      "name": "refresh_token",
+      "description": "Exchange a refresh token for a new access and refresh token pair.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/refresh_token",
+      "resource_group": "tokens"
+    },
+    {
+      "name": "get_user",
+      "description": "Retrieve the authenticated user's profile and metadata.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/get_user",
+      "resource_group": "users"
+    },
+    {
+      "name": "update_user",
+      "description": "Update the authenticated user's email, password, phone, or metadata.",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/update_user",
+      "resource_group": "users"
+    },
+    {
+      "name": "invite_user",
+      "description": "Send an invitation email to a new user (admin only).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/invite_user",
+      "resource_group": "admin"
+    },
+    {
+      "name": "admin_users_list",
+      "description": "List all users in the project (admin only).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/admin_users_list",
+      "resource_group": "admin"
+    },
+    {
+      "name": "admin_user_get",
+      "description": "Retrieve a specific user by ID (admin only).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/admin_user_get",
+      "resource_group": "admin"
+    },
+    {
+      "name": "admin_user_update",
+      "description": "Update a user's attributes including ban status and role (admin only).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/admin_user_update",
+      "resource_group": "admin"
+    },
+    {
+      "name": "admin_user_delete",
+      "description": "Delete a user account permanently (admin only).",
+      "detail_url": "https://agent-dns.dev/api/services/api.supabase.io_auth/capabilities/admin_user_delete",
+      "resource_group": "admin"
     }
   ]
 }

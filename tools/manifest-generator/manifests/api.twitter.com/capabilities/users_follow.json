@@ -1,0 +1,46 @@
+{
+  "name": "users_follow",
+  "description": "Follow a user.",
+  "resource_group": "users",
+  "endpoint": "/2/users/{id}/following",
+  "method": "POST",
+  "auth_scopes": [
+    "users.read",
+    "tweet.read",
+    "follows.write"
+  ],
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Authenticated user ID."
+    },
+    {
+      "name": "target_user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID to follow."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.twitter.com/2/users/123456/following",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "target_user_id": "789012"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "following": true,
+        "pending_follow": false
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "conversations_list",
+  "description": "List conversations across all inboxes with filtering by status, assignee, and tags.",
+  "endpoint": "/conversations",
+  "method": "GET",
+  "resource_group": "conversations",
+  "parameters": [
+    {"name": "q", "type": "string", "description": "Search query to filter conversations.", "required": false, "example": "billing"},
+    {"name": "page_token", "type": "string", "description": "Token for pagination.", "required": false, "example": "abc123"},
+    {"name": "limit", "type": "integer", "description": "Max results per page (default 50).", "required": false, "example": 25}
+  ],
+  "request_example": {"method": "GET", "url": "https://api2.frontapp.com/conversations?limit=25", "headers": {"Authorization": "Bearer {token}"}, "body": {}},
+  "response_example": {"status": 200, "body": {"_results": [{"id": "cnv_abc123", "subject": "Billing question", "status": "assigned", "assignee": {"id": "tea_123", "email": "alice@company.com"}, "created_at": 1693560000, "tags": [{"id": "tag_1", "name": "billing"}]}], "_pagination": {"next": "https://api2.frontapp.com/conversations?page_token=xyz"}}},
+  "auth_scopes": ["shared:conversations.read"],
+  "rate_limits": {"requests_per_minute": 120}
+}

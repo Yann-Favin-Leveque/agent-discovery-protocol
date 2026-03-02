@@ -1,19 +1,194 @@
 {
   "spec_version": "1.0",
   "name": "Freshsales",
-  "description": "Freshsales is a CRM by Freshworks for sales teams. Manage contacts, accounts, deals, and sales activities with AI-powered lead scoring, built-in phone, and email tracking.",
+  "description": "Freshsales is a CRM by Freshworks for sales teams. Manage contacts, accounts, deals, notes, tasks, appointments, and sales activities with AI-powered lead scoring.",
   "base_url": "https://domain.freshsales.io/api",
   "auth": {
     "type": "api_key",
     "header": "Authorization",
-    "prefix": "Token token="
+    "prefix": "Token token=",
+    "setup_url": "https://domain.freshsales.io/personal-settings/api-settings"
   },
   "capabilities": [
-    {"name": "search_contacts", "description": "Search for contacts by name, email, phone, or custom fields.", "detail_url": "/capabilities/search_contacts"},
-    {"name": "create_contact", "description": "Create a new contact with personal and business information.", "detail_url": "/capabilities/create_contact"},
-    {"name": "list_deals", "description": "List deals with filtering by pipeline stage and owner.", "detail_url": "/capabilities/list_deals"},
-    {"name": "create_deal", "description": "Create a new deal with amount, expected close date, and pipeline stage.", "detail_url": "/capabilities/create_deal"},
-    {"name": "create_note", "description": "Add a note to a contact, account, or deal.", "detail_url": "/capabilities/create_note"},
-    {"name": "list_accounts", "description": "List all accounts (companies) with optional search and filtering.", "detail_url": "/capabilities/list_accounts"}
+    {
+      "name": "contacts_create",
+      "resource_group": "contacts",
+      "description": "Create a new contact.",
+      "detail_url": "/capabilities/contacts_create"
+    },
+    {
+      "name": "contacts_get",
+      "resource_group": "contacts",
+      "description": "Get a contact by ID.",
+      "detail_url": "/capabilities/contacts_get"
+    },
+    {
+      "name": "contacts_update",
+      "resource_group": "contacts",
+      "description": "Update a contact.",
+      "detail_url": "/capabilities/contacts_update"
+    },
+    {
+      "name": "contacts_delete",
+      "resource_group": "contacts",
+      "description": "Delete a contact.",
+      "detail_url": "/capabilities/contacts_delete"
+    },
+    {
+      "name": "contacts_list",
+      "resource_group": "contacts",
+      "description": "List contacts from a view.",
+      "detail_url": "/capabilities/contacts_list"
+    },
+    {
+      "name": "contacts_upsert",
+      "resource_group": "contacts",
+      "description": "Create or update a contact based on unique identifier.",
+      "detail_url": "/capabilities/contacts_upsert"
+    },
+    {
+      "name": "contacts_search",
+      "resource_group": "contacts",
+      "description": "Search across entities.",
+      "detail_url": "/capabilities/contacts_search"
+    },
+    {
+      "name": "accounts_create",
+      "resource_group": "accounts",
+      "description": "Create a sales account.",
+      "detail_url": "/capabilities/accounts_create"
+    },
+    {
+      "name": "accounts_get",
+      "resource_group": "accounts",
+      "description": "Get a sales account by ID.",
+      "detail_url": "/capabilities/accounts_get"
+    },
+    {
+      "name": "accounts_update",
+      "resource_group": "accounts",
+      "description": "Update a sales account.",
+      "detail_url": "/capabilities/accounts_update"
+    },
+    {
+      "name": "accounts_delete",
+      "resource_group": "accounts",
+      "description": "Delete a sales account.",
+      "detail_url": "/capabilities/accounts_delete"
+    },
+    {
+      "name": "accounts_list",
+      "resource_group": "accounts",
+      "description": "List accounts from a view.",
+      "detail_url": "/capabilities/accounts_list"
+    },
+    {
+      "name": "deals_create",
+      "resource_group": "deals",
+      "description": "Create a deal.",
+      "detail_url": "/capabilities/deals_create"
+    },
+    {
+      "name": "deals_get",
+      "resource_group": "deals",
+      "description": "Get a deal by ID.",
+      "detail_url": "/capabilities/deals_get"
+    },
+    {
+      "name": "deals_update",
+      "resource_group": "deals",
+      "description": "Update a deal.",
+      "detail_url": "/capabilities/deals_update"
+    },
+    {
+      "name": "deals_delete",
+      "resource_group": "deals",
+      "description": "Delete a deal.",
+      "detail_url": "/capabilities/deals_delete"
+    },
+    {
+      "name": "deals_list",
+      "resource_group": "deals",
+      "description": "List deals from a view.",
+      "detail_url": "/capabilities/deals_list"
+    },
+    {
+      "name": "notes_create",
+      "resource_group": "notes",
+      "description": "Create a note on a record.",
+      "detail_url": "/capabilities/notes_create"
+    },
+    {
+      "name": "notes_update",
+      "resource_group": "notes",
+      "description": "Update a note.",
+      "detail_url": "/capabilities/notes_update"
+    },
+    {
+      "name": "notes_delete",
+      "resource_group": "notes",
+      "description": "Delete a note.",
+      "detail_url": "/capabilities/notes_delete"
+    },
+    {
+      "name": "tasks_create",
+      "resource_group": "tasks",
+      "description": "Create a task.",
+      "detail_url": "/capabilities/tasks_create"
+    },
+    {
+      "name": "tasks_get",
+      "resource_group": "tasks",
+      "description": "Get a task by ID.",
+      "detail_url": "/capabilities/tasks_get"
+    },
+    {
+      "name": "tasks_update",
+      "resource_group": "tasks",
+      "description": "Update a task.",
+      "detail_url": "/capabilities/tasks_update"
+    },
+    {
+      "name": "tasks_delete",
+      "resource_group": "tasks",
+      "description": "Delete a task.",
+      "detail_url": "/capabilities/tasks_delete"
+    },
+    {
+      "name": "appointments_create",
+      "resource_group": "appointments",
+      "description": "Create an appointment.",
+      "detail_url": "/capabilities/appointments_create"
+    },
+    {
+      "name": "appointments_get",
+      "resource_group": "appointments",
+      "description": "Get an appointment.",
+      "detail_url": "/capabilities/appointments_get"
+    },
+    {
+      "name": "appointments_update",
+      "resource_group": "appointments",
+      "description": "Update an appointment.",
+      "detail_url": "/capabilities/appointments_update"
+    },
+    {
+      "name": "appointments_delete",
+      "resource_group": "appointments",
+      "description": "Delete an appointment.",
+      "detail_url": "/capabilities/appointments_delete"
+    },
+    {
+      "name": "sales_activities_create",
+      "resource_group": "sales_activities",
+      "description": "Create a sales activity.",
+      "detail_url": "/capabilities/sales_activities_create"
+    },
+    {
+      "name": "sales_activities_list",
+      "resource_group": "sales_activities",
+      "description": "List sales activities.",
+      "detail_url": "/capabilities/sales_activities_list"
+    }
   ]
 }

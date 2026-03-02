@@ -1,0 +1,52 @@
+{
+  "name": "suppression_list_create_or_update",
+  "description": "Add or update a single suppression entry for a recipient.",
+  "endpoint": "/api/v1/suppression-list/{recipient}",
+  "method": "PUT",
+  "resource_group": "suppression_list",
+  "parameters": [
+    {
+      "name": "recipient",
+      "type": "string",
+      "description": "Email address",
+      "required": true,
+      "example": "user@example.com"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "transactional or non_transactional",
+      "required": true,
+      "example": "transactional"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Reason for suppression",
+      "required": false,
+      "example": "User requested opt-out"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sparkpost.com/api/v1/suppression-list/user@example.com",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "transactional",
+      "description": "User requested opt-out"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

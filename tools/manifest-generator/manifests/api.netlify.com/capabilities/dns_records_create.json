@@ -1,0 +1,58 @@
+{
+  "name": "dns_records_create",
+  "description": "Create a new DNS record in a zone.",
+  "endpoint": "/api/v1/dns_zones/{zone_id}/records",
+  "method": "POST",
+  "resource_group": "dns",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "description": "DNS zone ID",
+      "required": true,
+      "example": "zone_123"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Record type (A, AAAA, CNAME, MX, TXT)",
+      "required": true,
+      "example": "A"
+    },
+    {
+      "name": "hostname",
+      "type": "string",
+      "description": "Hostname",
+      "required": true,
+      "example": "www"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Record value",
+      "required": true,
+      "example": "203.0.113.1"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.netlify.com/api/v1/dns_zones/{zone_id}/records",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "A",
+      "hostname": "www",
+      "value": "203.0.113.1"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

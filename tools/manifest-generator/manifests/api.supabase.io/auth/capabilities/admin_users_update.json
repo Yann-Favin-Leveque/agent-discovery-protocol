@@ -1,0 +1,81 @@
+{
+  "name": "admin_users_update",
+  "resource_group": "admin",
+  "description": "Update a user's profile, email, password, or metadata (admin only).",
+  "endpoint": "/admin/users/{user_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "The user UUID.",
+      "in": "path"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "New email."
+    },
+    {
+      "name": "phone",
+      "type": "string",
+      "required": false,
+      "description": "New phone."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "description": "New password."
+    },
+    {
+      "name": "email_confirm",
+      "type": "boolean",
+      "required": false,
+      "description": "Confirm email."
+    },
+    {
+      "name": "user_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Updated user metadata."
+    },
+    {
+      "name": "app_metadata",
+      "type": "object",
+      "required": false,
+      "description": "Updated app metadata."
+    },
+    {
+      "name": "ban_duration",
+      "type": "string",
+      "required": false,
+      "description": "Ban duration or 'none' to unban."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://myproject.supabase.co/auth/v1/admin/users/uuid-here",
+    "headers": {
+      "apikey": "your-anon-key",
+      "Authorization": "Bearer your-service-role-key",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "app_metadata": {
+        "role": "admin"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-here",
+      "app_metadata": {
+        "role": "admin"
+      }
+    }
+  }
+}

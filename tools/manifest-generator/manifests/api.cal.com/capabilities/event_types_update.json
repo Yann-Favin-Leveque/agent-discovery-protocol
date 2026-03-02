@@ -1,0 +1,55 @@
+{
+  "name": "event_types_update",
+  "resource_group": "event_types",
+  "description": "Update an existing event type's settings.",
+  "endpoint": "/v2/event-types/{eventTypeId}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "eventTypeId",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Event type ID",
+      "example": 789
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Updated title",
+      "example": "45 Minute Meeting"
+    },
+    {
+      "name": "lengthInMinutes",
+      "type": "integer",
+      "required": false,
+      "description": "Updated duration",
+      "example": 45
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.cal.com/v2/event-types/789",
+    "headers": {
+      "Authorization": "Bearer cal_live_xxxx",
+      "Content-Type": "application/json",
+      "cal-api-version": "2024-08-13"
+    },
+    "body": {
+      "title": "45 Minute Meeting",
+      "lengthInMinutes": 45
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "data": {
+        "id": 789,
+        "title": "45 Minute Meeting",
+        "length": 45
+      }
+    }
+  }
+}

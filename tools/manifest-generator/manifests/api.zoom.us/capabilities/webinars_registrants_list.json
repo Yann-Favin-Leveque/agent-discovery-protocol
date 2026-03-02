@@ -1,0 +1,65 @@
+{
+  "name": "webinars_registrants_list",
+  "description": "List all registrants for a webinar. Returns registrant details, status, and registration time with pagination.",
+  "endpoint": "/webinars/{webinarId}/registrants",
+  "method": "GET",
+  "resource_group": "webinars",
+  "parameters": [
+    {
+      "name": "webinarId",
+      "type": "integer",
+      "description": "The webinar ID.",
+      "required": true,
+      "example": 9876543210
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status: pending, approved, or denied.",
+      "required": false,
+      "example": "approved"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of records per page (max 300).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "next_page_token",
+      "type": "string",
+      "description": "Token for next page.",
+      "required": false,
+      "example": ""
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/webinars/9876543210/registrants?status=approved",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page_size": 30,
+      "total_records": 50,
+      "registrants": [
+        {
+          "id": "reg1",
+          "email": "attendee@example.com",
+          "first_name": "Bob",
+          "last_name": "Jones",
+          "status": "approved",
+          "create_time": "2024-01-20T10:00:00Z"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["webinar:read"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

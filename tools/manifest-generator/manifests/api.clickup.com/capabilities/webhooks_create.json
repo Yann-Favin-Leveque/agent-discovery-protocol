@@ -1,0 +1,40 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook.",
+  "resource_group": "webhooks",
+  "endpoint": "/api/v2/team/{team_id}/webhook",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "team_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Team/workspace ID"
+    },
+    {
+      "name": "endpoint",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Webhook URL"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Events to subscribe to"
+    }
+  ],
+  "auth_scopes": [
+    "default"
+  ],
+  "request_example": {
+    "endpoint": "https://example.com/webhook",
+    "events": [
+      "taskCreated",
+      "taskUpdated"
+    ]
+  }
+}

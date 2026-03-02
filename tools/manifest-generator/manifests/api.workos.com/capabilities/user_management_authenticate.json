@@ -1,0 +1,77 @@
+{
+  "name": "user_management_authenticate",
+  "resource_group": "user_management",
+  "description": "Authenticate a user with password, magic auth, or OAuth code.",
+  "endpoint": "/user_management/authenticate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "grant_type",
+      "type": "string",
+      "required": true,
+      "description": "Type: password, authorization_code, magic_auth."
+    },
+    {
+      "name": "client_id",
+      "type": "string",
+      "required": true,
+      "description": "WorkOS client ID."
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": false,
+      "description": "Email (for password grant)."
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "description": "Password (for password grant)."
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "required": false,
+      "description": "Auth code (for authorization_code grant)."
+    },
+    {
+      "name": "ip_address",
+      "type": "string",
+      "required": false,
+      "description": "Client IP for rate limiting."
+    },
+    {
+      "name": "user_agent",
+      "type": "string",
+      "required": false,
+      "description": "Client user agent."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.workos.com/user_management/authenticate",
+    "headers": {
+      "Authorization": "Bearer sk_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "grant_type": "password",
+      "client_id": "client_xxx",
+      "email": "alice@example.com",
+      "password": "securePass!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": "user_abc",
+        "email": "alice@example.com",
+        "first_name": "Alice"
+      },
+      "access_token": "eyJhbGciOi...",
+      "refresh_token": "refresh-token-xyz"
+    }
+  }
+}

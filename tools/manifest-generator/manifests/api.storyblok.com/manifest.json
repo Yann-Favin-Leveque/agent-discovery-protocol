@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Storyblok",
-  "description": "Storyblok is a headless CMS with a visual editor that allows content teams to manage structured content across websites, apps, and digital products. Use this API to create, read, update, and delete stories (content entries), manage reusable components (content type schemas), and access datasource key-value entries for dropdowns and configuration.",
+  "description": "Storyblok is a headless CMS with a visual editor. Use the Content Delivery API to fetch stories and the Management API to create, update, delete stories, manage components, datasources, assets, webhooks, and releases.",
   "base_url": "https://api.storyblok.com",
   "auth": {
     "type": "api_key",
@@ -10,39 +10,190 @@
   },
   "capabilities": [
     {
-      "name": "get_story",
-      "description": "Retrieve a single content story by its slug or numeric ID. Returns the full content payload including all nested components and metadata.",
-      "detail_url": "/capabilities/get_story"
+      "name": "stories_get",
+      "description": "Retrieve a single story by its slug or numeric ID with all nested components.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/stories_get",
+      "resource_group": "stories"
     },
     {
-      "name": "list_stories",
-      "description": "List and filter stories in a space. Supports pagination, filtering by content type, folder, tag, and full-text search. Returns an array of story objects.",
-      "detail_url": "/capabilities/list_stories"
+      "name": "stories_list",
+      "description": "List and filter stories with pagination, search, and sorting options.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/stories_list",
+      "resource_group": "stories"
     },
     {
-      "name": "create_story",
-      "description": "Create a new content story in the space. Requires a name, slug, and content object matching the component schema.",
-      "detail_url": "/capabilities/create_story"
+      "name": "stories_create",
+      "description": "Create a new story in the space with content matching the component schema.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/stories_create",
+      "resource_group": "stories"
     },
     {
-      "name": "update_story",
-      "description": "Update an existing story's content, name, slug, or metadata. Requires the story ID and the updated fields.",
-      "detail_url": "/capabilities/update_story"
+      "name": "stories_update",
+      "description": "Update an existing story's content, name, slug, or metadata.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/stories_update",
+      "resource_group": "stories"
     },
     {
-      "name": "delete_story",
-      "description": "Permanently delete a story by its ID. This action cannot be undone.",
-      "detail_url": "/capabilities/delete_story"
+      "name": "stories_delete",
+      "description": "Permanently delete a story by its ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/stories_delete",
+      "resource_group": "stories"
     },
     {
-      "name": "list_components",
-      "description": "List all component definitions (content type schemas) in the space. Components define the structure and fields available when creating stories.",
-      "detail_url": "/capabilities/list_components"
+      "name": "stories_publish",
+      "description": "Publish a story to make it available via the Content Delivery API.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/stories_publish",
+      "resource_group": "stories"
     },
     {
-      "name": "get_datasource",
-      "description": "Retrieve entries from a datasource by its slug. Datasources are key-value collections used for dropdowns, configuration, and reusable option lists.",
-      "detail_url": "/capabilities/get_datasource"
+      "name": "stories_unpublish",
+      "description": "Unpublish a story to remove it from the Content Delivery API.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/stories_unpublish",
+      "resource_group": "stories"
+    },
+    {
+      "name": "components_list",
+      "description": "List all component definitions (content type schemas) in the space.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/components_list",
+      "resource_group": "components"
+    },
+    {
+      "name": "components_get",
+      "description": "Retrieve a specific component definition by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/components_get",
+      "resource_group": "components"
+    },
+    {
+      "name": "components_create",
+      "description": "Create a new component definition (content type schema).",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/components_create",
+      "resource_group": "components"
+    },
+    {
+      "name": "components_update",
+      "description": "Update a component definition.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/components_update",
+      "resource_group": "components"
+    },
+    {
+      "name": "components_delete",
+      "description": "Delete a component definition.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/components_delete",
+      "resource_group": "components"
+    },
+    {
+      "name": "datasources_list",
+      "description": "List all datasources in the space.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/datasources_list",
+      "resource_group": "datasources"
+    },
+    {
+      "name": "datasource_entries_list",
+      "description": "List entries from a datasource by slug. Returns key-value pairs.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/datasource_entries_list",
+      "resource_group": "datasources"
+    },
+    {
+      "name": "datasources_create",
+      "description": "Create a new datasource.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/datasources_create",
+      "resource_group": "datasources"
+    },
+    {
+      "name": "datasource_entries_create",
+      "description": "Create a new entry in a datasource.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/datasource_entries_create",
+      "resource_group": "datasources"
+    },
+    {
+      "name": "tags_list",
+      "description": "List all tags used across stories in the space.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/tags_list",
+      "resource_group": "tags"
+    },
+    {
+      "name": "links_list",
+      "description": "Retrieve all links (story references) in the space for building navigation.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/links_list",
+      "resource_group": "links"
+    },
+    {
+      "name": "spaces_get",
+      "description": "Retrieve information about the current space.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/spaces_get",
+      "resource_group": "spaces"
+    },
+    {
+      "name": "assets_list",
+      "description": "List all assets in the space.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/assets_list",
+      "resource_group": "assets"
+    },
+    {
+      "name": "assets_get",
+      "description": "Retrieve a specific asset by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/assets_get",
+      "resource_group": "assets"
+    },
+    {
+      "name": "assets_create",
+      "description": "Upload a new asset (image or file) to the space. Returns a signed upload URL.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/assets_create",
+      "resource_group": "assets"
+    },
+    {
+      "name": "assets_delete",
+      "description": "Delete an asset from the space.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/assets_delete",
+      "resource_group": "assets"
+    },
+    {
+      "name": "asset_folders_list",
+      "description": "List all asset folders in the space.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/asset_folders_list",
+      "resource_group": "asset_folders"
+    },
+    {
+      "name": "asset_folders_create",
+      "description": "Create a new asset folder.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/asset_folders_create",
+      "resource_group": "asset_folders"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List all webhooks configured for the space.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/webhooks_list",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a new webhook for content change notifications.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/webhooks_create",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/webhooks_delete",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "releases_list",
+      "description": "List all content releases in the space.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/releases_list",
+      "resource_group": "releases"
+    },
+    {
+      "name": "releases_create",
+      "description": "Create a new content release for grouping story changes.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/releases_create",
+      "resource_group": "releases"
+    },
+    {
+      "name": "releases_delete",
+      "description": "Delete a content release.",
+      "detail_url": "https://agent-dns.dev/api/services/api.storyblok.com/capabilities/releases_delete",
+      "resource_group": "releases"
     }
   ]
 }

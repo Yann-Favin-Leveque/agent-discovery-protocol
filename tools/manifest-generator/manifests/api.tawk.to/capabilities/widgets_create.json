@@ -1,0 +1,54 @@
+{
+  "name": "widgets_create",
+  "description": "Create a new chat widget configuration for a property.",
+  "endpoint": "/v1/property/{propertyId}/widget",
+  "method": "POST",
+  "resource_group": "widgets",
+  "parameters": [
+    {
+      "name": "propertyId",
+      "type": "string",
+      "description": "The property ID",
+      "required": true,
+      "example": "property_id_123"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Widget name",
+      "required": true,
+      "example": "Support Widget"
+    },
+    {
+      "name": "siteUrl",
+      "type": "string",
+      "description": "URL of the site to embed on",
+      "required": true,
+      "example": "https://example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.tawk.to/v1/property/property_id_123/widget",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Support Widget",
+      "siteUrl": "https://example.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "widget_001",
+      "name": "Support Widget",
+      "embedCode": "<script>...</script>"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

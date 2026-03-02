@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "ClickUp",
-  "description": "ClickUp is an all-in-one project management and productivity platform. It provides a REST API to manage workspaces, spaces, folders, lists, tasks, and comments. Supports rich task features like custom fields, time tracking, dependencies, and automations.",
+  "description": "ClickUp is an all-in-one project management platform. The REST API provides full CRUD for tasks, lists, folders, spaces, comments, goals, key results, tags, custom fields, time tracking, views, webhooks, checklists, dependencies, and members.",
   "base_url": "https://api.clickup.com",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,418 @@
   },
   "capabilities": [
     {
-      "name": "create_task",
-      "description": "Create a new task in a list with title, description, assignees, priority, due date, and custom fields.",
-      "detail_url": "/capabilities/create_task"
+      "name": "user_get",
+      "description": "Get the authenticated user.",
+      "resource_group": "users",
+      "detail_url": "/capabilities/user_get"
     },
     {
-      "name": "get_tasks",
-      "description": "Retrieve tasks from a list with filtering by status, assignee, due date, and more.",
-      "detail_url": "/capabilities/get_tasks"
+      "name": "teams_list",
+      "description": "Get authorized workspaces (teams).",
+      "resource_group": "teams",
+      "detail_url": "/capabilities/teams_list"
     },
     {
-      "name": "update_task",
-      "description": "Update properties of an existing task such as name, status, priority, or assignees.",
-      "detail_url": "/capabilities/update_task"
+      "name": "tasks_list",
+      "description": "Get tasks from a list.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_list"
     },
     {
-      "name": "create_list",
-      "description": "Create a new list in a folder or as a folderless list in a space.",
-      "detail_url": "/capabilities/create_list"
+      "name": "tasks_create",
+      "description": "Create a new task in a list.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_create"
     },
     {
-      "name": "get_spaces",
-      "description": "Retrieve all spaces in a workspace/team, including their settings and enabled features.",
-      "detail_url": "/capabilities/get_spaces"
+      "name": "tasks_get",
+      "description": "Get a task by ID.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_get"
     },
     {
-      "name": "create_comment",
-      "description": "Add a comment to a task, with support for mentions and rich text formatting.",
-      "detail_url": "/capabilities/create_comment"
+      "name": "tasks_update",
+      "description": "Update a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_update"
+    },
+    {
+      "name": "tasks_delete",
+      "description": "Delete a task.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_delete"
+    },
+    {
+      "name": "tasks_filtered_list",
+      "description": "Get filtered tasks across a workspace.",
+      "resource_group": "tasks",
+      "detail_url": "/capabilities/tasks_filtered_list"
+    },
+    {
+      "name": "lists_get_from_folder",
+      "description": "Get lists in a folder.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_get_from_folder"
+    },
+    {
+      "name": "lists_create_in_folder",
+      "description": "Create a list in a folder.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_create_in_folder"
+    },
+    {
+      "name": "lists_get_folderless",
+      "description": "Get folderless lists in a space.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_get_folderless"
+    },
+    {
+      "name": "lists_create_folderless",
+      "description": "Create a folderless list in a space.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_create_folderless"
+    },
+    {
+      "name": "lists_get",
+      "description": "Get a list by ID.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_get"
+    },
+    {
+      "name": "lists_update",
+      "description": "Update a list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_update"
+    },
+    {
+      "name": "lists_delete",
+      "description": "Delete a list.",
+      "resource_group": "lists",
+      "detail_url": "/capabilities/lists_delete"
+    },
+    {
+      "name": "folders_list",
+      "description": "Get folders in a space.",
+      "resource_group": "folders",
+      "detail_url": "/capabilities/folders_list"
+    },
+    {
+      "name": "folders_create",
+      "description": "Create a folder in a space.",
+      "resource_group": "folders",
+      "detail_url": "/capabilities/folders_create"
+    },
+    {
+      "name": "folders_get",
+      "description": "Get a folder by ID.",
+      "resource_group": "folders",
+      "detail_url": "/capabilities/folders_get"
+    },
+    {
+      "name": "folders_update",
+      "description": "Update a folder.",
+      "resource_group": "folders",
+      "detail_url": "/capabilities/folders_update"
+    },
+    {
+      "name": "folders_delete",
+      "description": "Delete a folder.",
+      "resource_group": "folders",
+      "detail_url": "/capabilities/folders_delete"
+    },
+    {
+      "name": "spaces_list",
+      "description": "Get spaces in a workspace.",
+      "resource_group": "spaces",
+      "detail_url": "/capabilities/spaces_list"
+    },
+    {
+      "name": "spaces_create",
+      "description": "Create a space.",
+      "resource_group": "spaces",
+      "detail_url": "/capabilities/spaces_create"
+    },
+    {
+      "name": "spaces_get",
+      "description": "Get a space by ID.",
+      "resource_group": "spaces",
+      "detail_url": "/capabilities/spaces_get"
+    },
+    {
+      "name": "spaces_update",
+      "description": "Update a space.",
+      "resource_group": "spaces",
+      "detail_url": "/capabilities/spaces_update"
+    },
+    {
+      "name": "spaces_delete",
+      "description": "Delete a space.",
+      "resource_group": "spaces",
+      "detail_url": "/capabilities/spaces_delete"
+    },
+    {
+      "name": "task_comments_list",
+      "description": "Get comments on a task.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/task_comments_list"
+    },
+    {
+      "name": "task_comments_create",
+      "description": "Create a comment on a task.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/task_comments_create"
+    },
+    {
+      "name": "list_comments_list",
+      "description": "Get comments on a list.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/list_comments_list"
+    },
+    {
+      "name": "list_comments_create",
+      "description": "Create a comment on a list.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/list_comments_create"
+    },
+    {
+      "name": "comments_update",
+      "description": "Update a comment.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_update"
+    },
+    {
+      "name": "comments_delete",
+      "description": "Delete a comment.",
+      "resource_group": "comments",
+      "detail_url": "/capabilities/comments_delete"
+    },
+    {
+      "name": "goals_list",
+      "description": "Get goals in a workspace.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_list"
+    },
+    {
+      "name": "goals_create",
+      "description": "Create a goal.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_create"
+    },
+    {
+      "name": "goals_get",
+      "description": "Get a goal by ID.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_get"
+    },
+    {
+      "name": "goals_update",
+      "description": "Update a goal.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_update"
+    },
+    {
+      "name": "goals_delete",
+      "description": "Delete a goal.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/goals_delete"
+    },
+    {
+      "name": "key_results_create",
+      "description": "Create a key result for a goal.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/key_results_create"
+    },
+    {
+      "name": "key_results_update",
+      "description": "Update a key result.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/key_results_update"
+    },
+    {
+      "name": "key_results_delete",
+      "description": "Delete a key result.",
+      "resource_group": "goals",
+      "detail_url": "/capabilities/key_results_delete"
+    },
+    {
+      "name": "tags_list",
+      "description": "Get tags in a space.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_list"
+    },
+    {
+      "name": "tags_create",
+      "description": "Create a tag in a space.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_create"
+    },
+    {
+      "name": "tags_update",
+      "description": "Update a space tag.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_update"
+    },
+    {
+      "name": "tags_delete",
+      "description": "Delete a space tag.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/tags_delete"
+    },
+    {
+      "name": "task_tags_add",
+      "description": "Add a tag to a task.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/task_tags_add"
+    },
+    {
+      "name": "task_tags_remove",
+      "description": "Remove a tag from a task.",
+      "resource_group": "tags",
+      "detail_url": "/capabilities/task_tags_remove"
+    },
+    {
+      "name": "custom_fields_list",
+      "description": "Get custom fields for a list.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_list"
+    },
+    {
+      "name": "custom_fields_set",
+      "description": "Set a custom field value on a task.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_set"
+    },
+    {
+      "name": "custom_fields_remove",
+      "description": "Remove a custom field value from a task.",
+      "resource_group": "custom_fields",
+      "detail_url": "/capabilities/custom_fields_remove"
+    },
+    {
+      "name": "time_entries_list",
+      "description": "Get time entries in a workspace.",
+      "resource_group": "time_tracking",
+      "detail_url": "/capabilities/time_entries_list"
+    },
+    {
+      "name": "time_entries_create",
+      "description": "Create a time entry.",
+      "resource_group": "time_tracking",
+      "detail_url": "/capabilities/time_entries_create"
+    },
+    {
+      "name": "time_entries_get",
+      "description": "Get a time entry by ID.",
+      "resource_group": "time_tracking",
+      "detail_url": "/capabilities/time_entries_get"
+    },
+    {
+      "name": "time_entries_update",
+      "description": "Update a time entry.",
+      "resource_group": "time_tracking",
+      "detail_url": "/capabilities/time_entries_update"
+    },
+    {
+      "name": "time_entries_delete",
+      "description": "Delete a time entry.",
+      "resource_group": "time_tracking",
+      "detail_url": "/capabilities/time_entries_delete"
+    },
+    {
+      "name": "views_list_workspace",
+      "description": "Get workspace-level views.",
+      "resource_group": "views",
+      "detail_url": "/capabilities/views_list_workspace"
+    },
+    {
+      "name": "views_get",
+      "description": "Get a view by ID.",
+      "resource_group": "views",
+      "detail_url": "/capabilities/views_get"
+    },
+    {
+      "name": "views_get_tasks",
+      "description": "Get tasks from a view.",
+      "resource_group": "views",
+      "detail_url": "/capabilities/views_get_tasks"
+    },
+    {
+      "name": "views_delete",
+      "description": "Delete a view.",
+      "resource_group": "views",
+      "detail_url": "/capabilities/views_delete"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "Get webhooks for a workspace.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_list"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_create"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_update"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook.",
+      "resource_group": "webhooks",
+      "detail_url": "/capabilities/webhooks_delete"
+    },
+    {
+      "name": "checklists_create",
+      "description": "Create a checklist on a task.",
+      "resource_group": "checklists",
+      "detail_url": "/capabilities/checklists_create"
+    },
+    {
+      "name": "checklists_update",
+      "description": "Update a checklist.",
+      "resource_group": "checklists",
+      "detail_url": "/capabilities/checklists_update"
+    },
+    {
+      "name": "checklists_delete",
+      "description": "Delete a checklist.",
+      "resource_group": "checklists",
+      "detail_url": "/capabilities/checklists_delete"
+    },
+    {
+      "name": "checklist_items_create",
+      "description": "Create a checklist item.",
+      "resource_group": "checklists",
+      "detail_url": "/capabilities/checklist_items_create"
+    },
+    {
+      "name": "dependencies_add",
+      "description": "Add a dependency to a task.",
+      "resource_group": "dependencies",
+      "detail_url": "/capabilities/dependencies_add"
+    },
+    {
+      "name": "dependencies_delete",
+      "description": "Remove a dependency.",
+      "resource_group": "dependencies",
+      "detail_url": "/capabilities/dependencies_delete"
+    },
+    {
+      "name": "task_members_list",
+      "description": "Get members assigned to a task.",
+      "resource_group": "members",
+      "detail_url": "/capabilities/task_members_list"
+    },
+    {
+      "name": "list_members_list",
+      "description": "Get members with access to a list.",
+      "resource_group": "members",
+      "detail_url": "/capabilities/list_members_list"
     }
   ]
 }

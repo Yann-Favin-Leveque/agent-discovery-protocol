@@ -1,0 +1,79 @@
+{
+  "name": "rows_update",
+  "resource_group": "rows",
+  "description": "Update a specific row's cell values.",
+  "endpoint": "/docs/{docId}/tables/{tableIdOrName}/rows/{rowIdOrName}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Document ID",
+      "example": "AbCDeFGH"
+    },
+    {
+      "name": "tableIdOrName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Table ID or name",
+      "example": "grid-abc"
+    },
+    {
+      "name": "rowIdOrName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Row ID",
+      "example": "i-abc"
+    },
+    {
+      "name": "row",
+      "type": "object",
+      "required": true,
+      "description": "Row object with cells to update",
+      "example": {
+        "cells": [
+          {
+            "column": "Status",
+            "value": "Done"
+          }
+        ]
+      }
+    },
+    {
+      "name": "disableParsing",
+      "type": "boolean",
+      "required": false,
+      "description": "Disable formula parsing",
+      "example": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://coda.io/apis/v1/docs/AbCDeFGH/tables/grid-abc/rows/i-abc",
+    "headers": {
+      "Authorization": "Bearer CODA_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "row": {
+        "cells": [
+          {
+            "column": "Status",
+            "value": "Done"
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "id": "i-abc",
+      "requestId": "req-def456"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "functions_mutation",
+  "resource_group": "functions",
+  "description": "Execute a Convex mutation function that can read and write data.",
+  "endpoint": "/api/mutation",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "Function path (e.g., 'messages:send')."
+    },
+    {
+      "name": "args",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Named arguments."
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "required": false,
+      "in": "body",
+      "description": "Output format."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{deployment}.convex.cloud/api/mutation",
+    "headers": {
+      "Authorization": "Convex {deploy_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "path": "messages:send",
+      "args": {
+        "body": "Hello!",
+        "author": "User"
+      },
+      "format": "json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "status": "success",
+      "value": null,
+      "logLines": []
+    }
+  }
+}

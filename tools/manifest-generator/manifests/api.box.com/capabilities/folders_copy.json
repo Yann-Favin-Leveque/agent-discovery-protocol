@@ -1,0 +1,48 @@
+{
+  "name": "folders_copy",
+  "description": "Create a copy of a folder.",
+  "resource_group": "folders",
+  "endpoint": "/2.0/folders/{folder_id}/copy",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "folder_id",
+      "type": "string",
+      "description": "The folder ID.",
+      "required": true
+    },
+    {
+      "name": "parent",
+      "type": "object",
+      "description": "Destination parent folder.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Name for the copy.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.box.com/2.0/folders/67890/copy",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "parent": {
+        "id": "0"
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "type": "folder",
+      "id": "11111",
+      "name": "Renamed Folder"
+    }
+  }
+}

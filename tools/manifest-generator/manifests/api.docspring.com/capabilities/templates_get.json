@@ -1,0 +1,50 @@
+{
+  "name": "templates_get",
+  "description": "Retrieve details and field definitions of a specific template, including all fillable field names, types, and validation rules.",
+  "resource_group": "templates",
+  "endpoint": "/api/v1/templates/{template_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "template_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The unique template ID."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.docspring.com/api/v1/templates/tpl_abc123",
+    "headers": {
+      "Authorization": "Basic {base64(token_id:token_secret)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "tpl_abc123",
+      "name": "Invoice Template",
+      "status": "active",
+      "fields": [
+        {
+          "name": "invoice_number",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "customer_name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "amount",
+          "type": "string",
+          "required": false
+        }
+      ],
+      "created_at": "2026-03-01T12:00:00.000Z",
+      "updated_at": "2026-03-01T12:00:00.000Z"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "application_update",
+  "description": "Update an existing application (full replacement).",
+  "resource_group": "application",
+  "endpoint": "/api/v1/app/{app_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Application name.",
+      "required": true,
+      "example": "Updated App"
+    },
+    {
+      "name": "rateLimit",
+      "type": "integer",
+      "description": "Rate limit.",
+      "required": false
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.svix.com/api/v1/app/app_123",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Updated App"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "app_abc123",
+      "uid": "app_123",
+      "name": "Updated App"
+    }
+  }
+}

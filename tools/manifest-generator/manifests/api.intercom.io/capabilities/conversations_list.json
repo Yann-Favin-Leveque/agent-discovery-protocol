@@ -1,0 +1,57 @@
+{
+  "name": "conversations_list",
+  "description": "List all conversations with pagination and optional admin assignee filtering.",
+  "resource_group": "conversations",
+  "endpoint": "/conversations",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page (max 150). Default 20."
+    },
+    {
+      "name": "starting_after",
+      "type": "string",
+      "required": false,
+      "description": "Cursor for next page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.intercom.io/conversations?per_page=20",
+    "headers": {
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "conversation.list",
+      "conversations": [
+        {
+          "type": "conversation",
+          "id": "123456",
+          "title": "Billing question",
+          "state": "open",
+          "admin_assignee_id": "admin-1",
+          "contacts": {
+            "contacts": [
+              {
+                "id": "contact-abc"
+              }
+            ]
+          },
+          "created_at": 1740787200
+        }
+      ],
+      "pages": {
+        "type": "pages",
+        "per_page": 20,
+        "total_pages": 5
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "contacts_upsert",
+  "description": "Create or update a contact based on unique identifier.",
+  "resource_group": "contacts",
+  "endpoint": "/contacts/upsert",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "unique_identifier",
+      "type": "object",
+      "required": true,
+      "description": "Unique field: {email: value} or custom field."
+    },
+    {
+      "name": "contact",
+      "type": "object",
+      "required": true,
+      "description": "Contact data."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://domain.freshsales.io/api/contacts/upsert",
+    "body": {
+      "unique_identifier": {
+        "email": "jane@example.com"
+      },
+      "contact": {
+        "first_name": "Jane",
+        "last_name": "Doe",
+        "job_title": "Director"
+      }
+    }
+  },
+  "response_example": {
+    "contact": {
+      "id": 1,
+      "first_name": "Jane",
+      "job_title": "Director"
+    }
+  }
+}

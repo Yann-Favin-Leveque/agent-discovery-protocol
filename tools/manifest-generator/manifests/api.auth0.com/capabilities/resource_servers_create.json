@@ -1,0 +1,26 @@
+{
+  "name": "resource_servers_create",
+  "description": "Register a new API resource server with its identifier and scopes.",
+  "endpoint": "/api/v2/resource-servers",
+  "method": "POST",
+  "resource_group": "resource_servers",
+  "parameters": [
+    {"name": "name", "type": "string", "description": "API name.", "required": true, "example": "My API"},
+    {"name": "identifier", "type": "string", "description": "API audience identifier (usually a URL).", "required": true, "example": "https://api.example.com"},
+    {"name": "scopes", "type": "array", "description": "Available scopes/permissions.", "required": false, "example": [{"value": "read:data", "description": "Read data"}]},
+    {"name": "signing_alg", "type": "string", "description": "Token signing algorithm (RS256 or HS256).", "required": false, "example": "RS256"},
+    {"name": "token_lifetime", "type": "integer", "description": "Access token lifetime in seconds.", "required": false, "example": 86400}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://YOUR_DOMAIN.auth0.com/api/v2/resource-servers",
+    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
+    "body": {"name": "My API", "identifier": "https://api.example.com", "scopes": [{"value": "read:data", "description": "Read data"}]}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": "rs_xyz789", "name": "My API", "identifier": "https://api.example.com"}
+  },
+  "auth_scopes": ["create:resource_servers"],
+  "rate_limits": {"requests_per_minute": 50}
+}

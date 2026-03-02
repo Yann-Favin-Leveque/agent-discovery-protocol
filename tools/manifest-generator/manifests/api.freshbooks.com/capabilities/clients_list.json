@@ -1,0 +1,82 @@
+{
+  "name": "clients_list",
+  "description": "List all clients for an account with optional filtering by name, email, or organization.",
+  "endpoint": "/accounting/account/{account_id}/users/clients",
+  "method": "GET",
+  "resource_group": "clients",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination.",
+      "required": false,
+      "example": 1
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Number of results per page (max 100).",
+      "required": false,
+      "example": 25
+    },
+    {
+      "name": "search[email]",
+      "type": "string",
+      "description": "Filter clients by email address.",
+      "required": false,
+      "example": "john@example.com"
+    },
+    {
+      "name": "search[organization]",
+      "type": "string",
+      "description": "Filter clients by organization name.",
+      "required": false,
+      "example": "Acme Corp"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/users/clients?page=1&per_page=25",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha",
+      "Content-Type": "application/json"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "response": {
+        "result": {
+          "clients": [
+            {
+              "id": 12345,
+              "fname": "John",
+              "lname": "Doe",
+              "email": "john@example.com",
+              "organization": "Acme Corp",
+              "p_city": "New York",
+              "p_country": "United States"
+            }
+          ],
+          "page": 1,
+          "pages": 5,
+          "per_page": 25,
+          "total": 120
+        }
+      }
+    }
+  },
+  "auth_scopes": ["user:clients:read"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "machines_update",
+  "description": "Update a Machine's configuration.",
+  "resource_group": "machines",
+  "endpoint": "/v1/apps/{app_name}/machines/{machine_id}",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "app_name",
+      "type": "string",
+      "required": true,
+      "description": "App name."
+    },
+    {
+      "name": "machine_id",
+      "type": "string",
+      "required": true,
+      "description": "Machine ID."
+    },
+    {
+      "name": "config",
+      "type": "object",
+      "required": true,
+      "description": "Updated config."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.machines.dev/v1/apps/my-app/machines/mach-abc",
+    "body": {
+      "config": {
+        "image": "my-org/app:v2",
+        "guest": {
+          "cpus": 2,
+          "memory_mb": 512
+        }
+      }
+    }
+  },
+  "response_example": {
+    "id": "mach-abc",
+    "state": "created",
+    "config": {
+      "image": "my-org/app:v2"
+    }
+  }
+}

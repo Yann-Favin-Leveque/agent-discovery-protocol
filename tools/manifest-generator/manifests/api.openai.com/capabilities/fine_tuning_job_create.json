@@ -1,0 +1,66 @@
+{
+  "name": "fine_tuning_job_create",
+  "description": "Create a fine-tuning job to customize a model with your training data.",
+  "resource_group": "fine_tuning",
+  "endpoint": "/v1/fine_tuning/jobs",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "training_file",
+      "type": "string",
+      "required": true,
+      "description": "The ID of an uploaded file containing training data (JSONL format)."
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "The base model to fine-tune (e.g. 'gpt-4o-mini-2024-07-18', 'gpt-3.5-turbo')."
+    },
+    {
+      "name": "validation_file",
+      "type": "string",
+      "required": false,
+      "description": "The ID of an uploaded validation data file."
+    },
+    {
+      "name": "hyperparameters",
+      "type": "object",
+      "required": false,
+      "description": "Hyperparameters for fine-tuning: n_epochs, batch_size, learning_rate_multiplier."
+    },
+    {
+      "name": "suffix",
+      "type": "string",
+      "required": false,
+      "description": "A string of up to 18 characters added to the fine-tuned model name."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.openai.com/v1/fine_tuning/jobs",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "training_file": "file-abc123",
+      "model": "gpt-4o-mini-2024-07-18",
+      "suffix": "my-custom-model"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "fine_tuning.job",
+      "id": "ftjob-abc123",
+      "model": "gpt-4o-mini-2024-07-18",
+      "created_at": 1709164800,
+      "status": "validating_files",
+      "training_file": "file-abc123",
+      "hyperparameters": {
+        "n_epochs": "auto"
+      }
+    }
+  }
+}

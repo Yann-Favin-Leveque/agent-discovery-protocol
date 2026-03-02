@@ -1,0 +1,43 @@
+{
+  "name": "bookmarks_create",
+  "description": "Bookmark a tweet.",
+  "resource_group": "bookmarks",
+  "endpoint": "/2/users/{id}/bookmarks",
+  "method": "POST",
+  "auth_scopes": [
+    "bookmark.write"
+  ],
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Authenticated user ID."
+    },
+    {
+      "name": "tweet_id",
+      "type": "string",
+      "required": true,
+      "description": "Tweet ID to bookmark."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.twitter.com/2/users/123456/bookmarks",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tweet_id": "1234567890123456789"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "bookmarked": true
+      }
+    }
+  }
+}

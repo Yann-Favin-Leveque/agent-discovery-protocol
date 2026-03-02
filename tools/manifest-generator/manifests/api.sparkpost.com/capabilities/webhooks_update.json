@@ -1,0 +1,47 @@
+{
+  "name": "webhooks_update",
+  "description": "Update a webhook configuration including target URL and event types.",
+  "endpoint": "/api/v1/webhooks/{id}",
+  "method": "PUT",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Webhook ID",
+      "required": true,
+      "example": "webhook-123"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.sparkpost.com/api/v1/webhooks/webhook-123",
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Updated Webhook",
+      "events": [
+        "delivery",
+        "bounce",
+        "open",
+        "click"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "id": "webhook-123"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

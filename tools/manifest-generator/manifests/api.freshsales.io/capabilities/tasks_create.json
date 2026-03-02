@@ -1,0 +1,58 @@
+{
+  "name": "tasks_create",
+  "description": "Create a task.",
+  "resource_group": "tasks",
+  "endpoint": "/tasks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Task title."
+    },
+    {
+      "name": "due_date",
+      "type": "string",
+      "required": true,
+      "description": "Due date YYYY-MM-DD."
+    },
+    {
+      "name": "owner_id",
+      "type": "integer",
+      "required": false,
+      "description": "Owner user ID."
+    },
+    {
+      "name": "targetable_type",
+      "type": "string",
+      "required": false,
+      "description": "Type: Contact, SalesAccount, Deal."
+    },
+    {
+      "name": "targetable_id",
+      "type": "integer",
+      "required": false,
+      "description": "Record ID."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://domain.freshsales.io/api/tasks",
+    "body": {
+      "task": {
+        "title": "Follow up",
+        "due_date": "2026-01-22",
+        "targetable_type": "Contact",
+        "targetable_id": 1
+      }
+    }
+  },
+  "response_example": {
+    "task": {
+      "id": 1,
+      "title": "Follow up",
+      "due_date": "2026-01-22"
+    }
+  }
+}

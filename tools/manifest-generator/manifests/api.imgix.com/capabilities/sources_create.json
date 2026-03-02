@@ -1,0 +1,52 @@
+{
+  "name": "sources_create",
+  "resource_group": "sources",
+  "description": "Create and deploy a new imgix source.",
+  "endpoint": "/api/v1/sources",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "data",
+      "type": "object",
+      "required": true,
+      "description": "JSON:API source object with type, attributes (name, deployment)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.imgix.com/api/v1/sources",
+    "headers": {
+      "Authorization": "Bearer imgix-api-key",
+      "Content-Type": "application/vnd.api+json"
+    },
+    "body": {
+      "data": {
+        "type": "sources",
+        "attributes": {
+          "name": "My New Source",
+          "deployment": {
+            "type": "s3",
+            "imgix_subdomains": [
+              "my-new-source"
+            ],
+            "s3_bucket": "my-bucket",
+            "s3_prefix": "images/"
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "source-id",
+        "type": "sources",
+        "attributes": {
+          "name": "My New Source",
+          "deployment_status": "deploying"
+        }
+      }
+    }
+  }
+}

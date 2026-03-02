@@ -1,0 +1,58 @@
+{
+  "name": "conversions_upload",
+  "description": "Upload offline conversion data.",
+  "resource_group": "conversions",
+  "endpoint": "/v18/customers/{customerId}:uploadClickConversions",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer ID.",
+      "required": true
+    },
+    {
+      "name": "conversions",
+      "type": "array",
+      "description": "Array of conversion objects.",
+      "required": true
+    },
+    {
+      "name": "partialFailure",
+      "type": "boolean",
+      "description": "Allow partial failures.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://googleads.googleapis.com/v18/customers/1234567890:uploadClickConversions",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "developer-token": "{developer_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "conversions": [
+        {
+          "gclid": "abc123",
+          "conversionAction": "customers/1234567890/conversionActions/456",
+          "conversionDateTime": "2024-06-15 10:00:00+00:00",
+          "conversionValue": 100.0
+        }
+      ],
+      "partialFailure": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "gclid": "abc123"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "message_get",
+  "description": "Retrieve a specific email message by ID including full body, headers, and attachments.",
+  "resource_group": "message",
+  "endpoint": "/v3/grants/{grant_id}/messages/{message_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "grant_id",
+      "type": "string",
+      "description": "Grant ID, email, or 'me' (path parameter).",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "message_id",
+      "type": "string",
+      "description": "Message ID (path parameter).",
+      "required": true,
+      "example": "msg_abc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.us.nylas.com/v3/grants/me/messages/msg_abc",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "id": "msg_abc",
+        "subject": "Hello",
+        "from": [
+          {
+            "name": "John",
+            "email": "john@example.com"
+          }
+        ],
+        "to": [
+          {
+            "name": "Jane",
+            "email": "jane@example.com"
+          }
+        ],
+        "body": "<p>Hello World</p>",
+        "date": 1704067200
+      }
+    }
+  }
+}

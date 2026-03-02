@@ -1,0 +1,71 @@
+{
+  "name": "customers_create",
+  "description": "Create a new customer record for a business.",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "resource_group": "customers",
+  "parameters": [
+    {
+      "name": "businessId",
+      "type": "string",
+      "description": "Business ID",
+      "required": true,
+      "example": "QnVzaW5lc3M6..."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Customer name",
+      "required": true,
+      "example": "Jane Smith"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Customer email",
+      "required": false,
+      "example": "jane@example.com"
+    },
+    {
+      "name": "address",
+      "type": "object",
+      "description": "Customer address object",
+      "required": false,
+      "example": {
+        "city": "Toronto",
+        "province": "ON",
+        "country": "CA"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://gql.waveapps.com/graphql",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "query": "mutation ($input: CustomerCreateInput!) { customerCreate(input: $input) { customer { id name email } didSucceed inputErrors { path message } } }"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {
+        "customerCreate": {
+          "customer": {
+            "id": "Q3VzdG9tZXI6...",
+            "name": "Jane Smith"
+          },
+          "didSucceed": true,
+          "inputErrors": []
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "comments_create",
+  "description": "Add a comment to an issue.",
+  "resource_group": "comments",
+  "endpoint": "/graphql",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "issueId",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Issue ID"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "Comment body in Markdown"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write",
+    "issues:create",
+    "issues:write"
+  ],
+  "request_example": {
+    "query": "mutation { commentCreate(input: { issueId: \"issue-id\", body: \"Looks good, merging now.\" }) { success comment { id body } } }"
+  }
+}

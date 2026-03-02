@@ -1,0 +1,51 @@
+{
+  "name": "packages_publish",
+  "description": "Publish a new version of a package.",
+  "resource_group": "packages",
+  "endpoint": "/{package}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "package",
+      "type": "string",
+      "required": true,
+      "description": "Package name."
+    },
+    {
+      "name": "_attachments",
+      "type": "object",
+      "required": true,
+      "description": "Tarball attachment."
+    },
+    {
+      "name": "versions",
+      "type": "object",
+      "required": true,
+      "description": "Version metadata with package.json fields."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://registry.npmjs.org/my-package",
+    "body": {
+      "name": "my-package",
+      "versions": {
+        "1.0.0": {
+          "name": "my-package",
+          "version": "1.0.0"
+        }
+      },
+      "_attachments": {
+        "my-package-1.0.0.tgz": {
+          "content_type": "application/octet-stream",
+          "data": "base64..."
+        }
+      }
+    }
+  },
+  "response_example": {
+    "ok": true,
+    "id": "my-package",
+    "rev": "1-abc123"
+  }
+}

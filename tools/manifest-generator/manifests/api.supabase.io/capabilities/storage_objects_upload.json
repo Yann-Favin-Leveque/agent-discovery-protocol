@@ -1,0 +1,57 @@
+{
+  "name": "storage_objects_upload",
+  "description": "Upload a file to a storage bucket.",
+  "endpoint": "/storage/v1/object/{bucket_id}/{path}",
+  "method": "POST",
+  "resource_group": "storage",
+  "parameters": [
+    {
+      "name": "bucket_id",
+      "type": "string",
+      "description": "Bucket ID",
+      "required": true,
+      "example": "avatars"
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "description": "File path within the bucket",
+      "required": true,
+      "example": "user123/avatar.png"
+    },
+    {
+      "name": "file",
+      "type": "binary",
+      "description": "File content",
+      "required": true,
+      "example": "(binary data)"
+    },
+    {
+      "name": "Content-Type",
+      "type": "string",
+      "description": "File MIME type",
+      "required": true,
+      "example": "image/png"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/storage/v1/object/avatars/user123/avatar.png",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {user_token}",
+      "Content-Type": "image/png"
+    },
+    "body": "(binary file data)"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Key": "avatars/user123/avatar.png"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

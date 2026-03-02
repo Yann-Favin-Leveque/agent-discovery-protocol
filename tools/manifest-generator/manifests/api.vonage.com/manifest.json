@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Vonage Communications API",
-  "description": "Vonage provides a unified communications platform for sending SMS messages, WhatsApp messages, making voice calls, and verifying phone numbers. Use this API to programmatically send notifications, implement two-factor authentication, manage phone numbers, and build communication workflows across multiple channels.",
+  "description": "Vonage provides a unified communications platform for sending SMS messages, WhatsApp messages, making voice calls, verifying phone numbers, and performing number insight lookups. Use this API to programmatically send notifications, implement two-factor authentication, manage phone numbers, and build communication workflows across multiple channels.",
   "base_url": "https://api.vonage.com",
   "auth": {
     "type": "api_key",
@@ -11,39 +11,196 @@
   },
   "capabilities": [
     {
-      "name": "send_sms",
-      "description": "Send an SMS text message to a phone number. Specify the recipient number, sender ID or number, and the message text. Returns a message UUID for tracking delivery status.",
-      "detail_url": "/capabilities/send_sms"
+      "name": "messages_send",
+      "resource_group": "messages",
+      "description": "Send a message via SMS, MMS, WhatsApp, Facebook Messenger, or Viber using the Messages API v1. Specify channel, message type, recipient, and content.",
+      "detail_url": "/capabilities/messages_send"
     },
     {
-      "name": "send_whatsapp_message",
-      "description": "Send a WhatsApp message to a phone number. Supports text messages sent through the WhatsApp Business channel. Requires a WhatsApp-enabled Vonage number or approved WhatsApp Business Account.",
-      "detail_url": "/capabilities/send_whatsapp_message"
+      "name": "messages_get",
+      "resource_group": "messages",
+      "description": "Retrieve the status and details of a previously sent message by its UUID.",
+      "detail_url": "/capabilities/messages_get"
     },
     {
-      "name": "make_voice_call",
-      "description": "Initiate an outbound voice call to a phone number. Configure the call with an answer URL that provides call instructions (NCCO) or connect to another number. Returns a call UUID for call management.",
-      "detail_url": "/capabilities/make_voice_call"
+      "name": "verify_request_create",
+      "resource_group": "verify",
+      "description": "Start a verification request by sending a code to a user via SMS, WhatsApp, voice, or email using Verify v2.",
+      "detail_url": "/capabilities/verify_request_create"
     },
     {
-      "name": "verify_start",
-      "description": "Start a phone number verification by sending a one-time code via SMS or voice call. Used for two-factor authentication and phone number confirmation. Returns a request_id needed to check the code.",
-      "detail_url": "/capabilities/verify_start"
+      "name": "verify_request_check",
+      "resource_group": "verify",
+      "description": "Check a user-submitted code against an active Verify v2 request to confirm their identity.",
+      "detail_url": "/capabilities/verify_request_check"
     },
     {
-      "name": "verify_check",
-      "description": "Check a verification code submitted by the user against an active verification request. Pass the request_id from verify_start and the code the user entered. Returns whether the code is valid.",
-      "detail_url": "/capabilities/verify_check"
+      "name": "verify_request_cancel",
+      "resource_group": "verify",
+      "description": "Cancel an in-progress Verify v2 request before it completes all workflow steps.",
+      "detail_url": "/capabilities/verify_request_cancel"
     },
     {
-      "name": "list_numbers",
-      "description": "List all phone numbers currently owned by your Vonage account. Returns details including the number, country, type (mobile/landline), and any associated applications or webhooks.",
-      "detail_url": "/capabilities/list_numbers"
+      "name": "verify_request_get",
+      "resource_group": "verify",
+      "description": "Retrieve the current status and details of a Verify v2 request by its request_id.",
+      "detail_url": "/capabilities/verify_request_get"
     },
     {
-      "name": "search_available_numbers",
-      "description": "Search for available phone numbers that can be purchased in a specific country. Filter by number type, features (SMS, voice), and pattern matching. Returns a list of numbers with pricing.",
-      "detail_url": "/capabilities/search_available_numbers"
+      "name": "voice_calls_create",
+      "resource_group": "voice",
+      "description": "Create an outbound voice call to a phone number or SIP endpoint. Configure answer URL with NCCO for call flow.",
+      "detail_url": "/capabilities/voice_calls_create"
+    },
+    {
+      "name": "voice_calls_list",
+      "resource_group": "voice",
+      "description": "List all voice calls associated with your Vonage application, with optional filtering by status and date range.",
+      "detail_url": "/capabilities/voice_calls_list"
+    },
+    {
+      "name": "voice_calls_get",
+      "resource_group": "voice",
+      "description": "Retrieve detailed information about a specific voice call by its UUID.",
+      "detail_url": "/capabilities/voice_calls_get"
+    },
+    {
+      "name": "voice_calls_update",
+      "resource_group": "voice",
+      "description": "Modify an in-progress call by transferring it to a new NCCO, muting, unmuting, earmuffing, or hanging up.",
+      "detail_url": "/capabilities/voice_calls_update"
+    },
+    {
+      "name": "voice_calls_stream_create",
+      "resource_group": "voice",
+      "description": "Stream an audio file into an active voice call.",
+      "detail_url": "/capabilities/voice_calls_stream_create"
+    },
+    {
+      "name": "voice_calls_stream_delete",
+      "resource_group": "voice",
+      "description": "Stop streaming audio into an active voice call.",
+      "detail_url": "/capabilities/voice_calls_stream_delete"
+    },
+    {
+      "name": "voice_calls_talk_create",
+      "resource_group": "voice",
+      "description": "Play text-to-speech into an active voice call.",
+      "detail_url": "/capabilities/voice_calls_talk_create"
+    },
+    {
+      "name": "voice_calls_talk_delete",
+      "resource_group": "voice",
+      "description": "Stop text-to-speech playback in an active voice call.",
+      "detail_url": "/capabilities/voice_calls_talk_delete"
+    },
+    {
+      "name": "voice_calls_dtmf_create",
+      "resource_group": "voice",
+      "description": "Send DTMF tones into an active voice call.",
+      "detail_url": "/capabilities/voice_calls_dtmf_create"
+    },
+    {
+      "name": "numbers_list",
+      "resource_group": "numbers",
+      "description": "List all phone numbers currently owned by your Vonage account with optional filtering by country, pattern, or search pattern.",
+      "detail_url": "/capabilities/numbers_list"
+    },
+    {
+      "name": "numbers_search",
+      "resource_group": "numbers",
+      "description": "Search for available phone numbers to purchase, filtered by country, type, features, and pattern.",
+      "detail_url": "/capabilities/numbers_search"
+    },
+    {
+      "name": "numbers_buy",
+      "resource_group": "numbers",
+      "description": "Purchase an available phone number for your Vonage account.",
+      "detail_url": "/capabilities/numbers_buy"
+    },
+    {
+      "name": "numbers_cancel",
+      "resource_group": "numbers",
+      "description": "Cancel (release) a phone number from your Vonage account.",
+      "detail_url": "/capabilities/numbers_cancel"
+    },
+    {
+      "name": "numbers_update",
+      "resource_group": "numbers",
+      "description": "Update the configuration of a phone number, such as linking it to an application or setting webhook URLs.",
+      "detail_url": "/capabilities/numbers_update"
+    },
+    {
+      "name": "number_insight_basic_get",
+      "resource_group": "number_insight",
+      "description": "Get basic information about a phone number including country, international format, and national format.",
+      "detail_url": "/capabilities/number_insight_basic_get"
+    },
+    {
+      "name": "number_insight_standard_get",
+      "resource_group": "number_insight",
+      "description": "Get standard information about a phone number including carrier, porting status, and roaming information.",
+      "detail_url": "/capabilities/number_insight_standard_get"
+    },
+    {
+      "name": "number_insight_advanced_get",
+      "resource_group": "number_insight",
+      "description": "Get advanced information about a phone number including reachability, validity, and real-time data.",
+      "detail_url": "/capabilities/number_insight_advanced_get"
+    },
+    {
+      "name": "applications_list",
+      "resource_group": "applications",
+      "description": "List all Vonage applications in your account. Applications configure how Vonage interacts with your webhooks for voice, messages, and other features.",
+      "detail_url": "/capabilities/applications_list"
+    },
+    {
+      "name": "applications_create",
+      "resource_group": "applications",
+      "description": "Create a new Vonage application with capabilities configuration for voice, messages, RTC, and VBC.",
+      "detail_url": "/capabilities/applications_create"
+    },
+    {
+      "name": "applications_get",
+      "resource_group": "applications",
+      "description": "Retrieve detailed information about a specific Vonage application by its ID.",
+      "detail_url": "/capabilities/applications_get"
+    },
+    {
+      "name": "applications_update",
+      "resource_group": "applications",
+      "description": "Update an existing Vonage application's name, capabilities, or webhook configuration.",
+      "detail_url": "/capabilities/applications_update"
+    },
+    {
+      "name": "applications_delete",
+      "resource_group": "applications",
+      "description": "Delete a Vonage application by its ID. This cannot be undone.",
+      "detail_url": "/capabilities/applications_delete"
+    },
+    {
+      "name": "subaccounts_list",
+      "resource_group": "subaccounts",
+      "description": "List all subaccounts belonging to your primary Vonage account.",
+      "detail_url": "/capabilities/subaccounts_list"
+    },
+    {
+      "name": "subaccounts_create",
+      "resource_group": "subaccounts",
+      "description": "Create a new subaccount under your primary Vonage account for billing and permission isolation.",
+      "detail_url": "/capabilities/subaccounts_create"
+    },
+    {
+      "name": "subaccounts_get",
+      "resource_group": "subaccounts",
+      "description": "Retrieve details of a specific subaccount by its API key.",
+      "detail_url": "/capabilities/subaccounts_get"
+    },
+    {
+      "name": "subaccounts_update",
+      "resource_group": "subaccounts",
+      "description": "Update a subaccount's name, status (active/suspended), or usage limits.",
+      "detail_url": "/capabilities/subaccounts_update"
     }
   ]
 }

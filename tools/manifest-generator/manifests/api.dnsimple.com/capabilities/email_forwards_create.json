@@ -1,0 +1,55 @@
+{
+  "name": "email_forwards_create",
+  "description": "Create a new email forward for a domain.",
+  "resource_group": "email_forwards",
+  "endpoint": "/{account}/domains/{domain}/email_forwards",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "required": true,
+      "description": "Domain name."
+    },
+    {
+      "name": "alias_name",
+      "type": "string",
+      "required": true,
+      "description": "Email alias name."
+    },
+    {
+      "name": "destination_email",
+      "type": "string",
+      "required": true,
+      "description": "Destination email."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dnsimple.com/v2/1010/domains/example.com/email_forwards",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "alias_name": "info",
+      "destination_email": "john@gmail.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": 2,
+        "alias_email": "info@example.com",
+        "destination_email": "john@gmail.com"
+      }
+    }
+  }
+}

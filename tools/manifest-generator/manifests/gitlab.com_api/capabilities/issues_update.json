@@ -1,0 +1,83 @@
+{
+  "name": "issues_update",
+  "description": "Update an issue's attributes, state, or assignments.",
+  "resource_group": "issues",
+  "endpoint": "/projects/{id}/issues/{issue_iid}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Project ID or path."
+    },
+    {
+      "name": "issue_iid",
+      "type": "integer",
+      "required": true,
+      "location": "path",
+      "description": "Issue IID."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "description": "Updated title."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Updated description."
+    },
+    {
+      "name": "state_event",
+      "type": "string",
+      "required": false,
+      "description": "close or reopen."
+    },
+    {
+      "name": "labels",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated labels."
+    },
+    {
+      "name": "assignee_ids",
+      "type": "array",
+      "required": false,
+      "description": "New assignees."
+    },
+    {
+      "name": "weight",
+      "type": "integer",
+      "required": false,
+      "description": "Updated weight."
+    },
+    {
+      "name": "due_date",
+      "type": "string",
+      "required": false,
+      "description": "Updated due date."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://gitlab.com/api/v4/projects/123/issues/10",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer glpat-xxxxxxxxxxxx"
+    },
+    "body": {
+      "state_event": "close"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "iid": 10,
+      "state": "closed"
+    }
+  }
+}

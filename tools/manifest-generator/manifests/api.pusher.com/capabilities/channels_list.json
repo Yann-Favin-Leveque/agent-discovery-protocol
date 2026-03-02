@@ -1,0 +1,46 @@
+{
+  "name": "channels_list",
+  "description": "Get a list of active (occupied) channels in your Pusher app. Optionally filter by channel name prefix and request user count for presence channels.",
+  "resource_group": "channels",
+  "endpoint": "/apps/{app_id}/channels",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Your Pusher app ID."
+    },
+    {
+      "name": "filter_by_prefix",
+      "type": "string",
+      "required": false,
+      "description": "Filter channels by name prefix (e.g., 'presence-', 'private-chat-')."
+    },
+    {
+      "name": "info",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated attributes: 'user_count' (presence channels), 'subscription_count'."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.pusherapp.com/apps/123456/channels?filter_by_prefix=presence-&info=user_count",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "channels": {
+        "presence-chat-room-1": {
+          "user_count": 5
+        },
+        "presence-chat-room-2": {
+          "user_count": 12
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "name": "file_requests_create",
+  "description": "Create a file request for others to upload files to your Dropbox.",
+  "resource_group": "file_requests",
+  "endpoint": "/2/file_requests/create",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Title of the file request.",
+      "required": true
+    },
+    {
+      "name": "destination",
+      "type": "string",
+      "description": "Destination folder path.",
+      "required": true
+    },
+    {
+      "name": "deadline",
+      "type": "object",
+      "description": "Optional deadline.",
+      "required": false
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "description": "Whether the request is open.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/file_requests/create",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Submit homework",
+      "destination": "/submissions"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "abc123",
+      "url": "https://www.dropbox.com/request/abc123",
+      "title": "Submit homework"
+    }
+  }
+}

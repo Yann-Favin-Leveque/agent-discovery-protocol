@@ -1,0 +1,40 @@
+{
+  "name": "webhooks_create",
+  "description": "Create a webhook and associated subscriptions.",
+  "resource_group": "webhooks",
+  "endpoint": "/webhooks",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "target_url",
+      "type": "string",
+      "required": true,
+      "description": "URL to send events to"
+    },
+    {
+      "name": "subscriptions",
+      "type": "array",
+      "required": true,
+      "description": "Event subscriptions"
+    }
+  ],
+  "request_example": {
+    "target_url": "https://example.com/hook",
+    "subscriptions": [
+      {
+        "event_type": "record.created",
+        "filter": {
+          "object": "people"
+        }
+      }
+    ]
+  },
+  "response_example": {
+    "data": {
+      "id": {
+        "webhook_id": "whk_456"
+      }
+    }
+  },
+  "auth_scopes": []
+}

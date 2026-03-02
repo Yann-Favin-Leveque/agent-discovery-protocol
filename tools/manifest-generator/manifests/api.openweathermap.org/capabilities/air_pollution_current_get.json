@@ -1,0 +1,62 @@
+{
+  "name": "air_pollution_current_get",
+  "description": "Get current air quality data including AQI (1-5 scale) and pollutant concentrations: CO, NO, NO2, O3, SO2, PM2.5, PM10, NH3.",
+  "resource_group": "air_pollution",
+  "endpoint": "/data/2.5/air_pollution",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "lat",
+      "type": "number",
+      "required": true,
+      "description": "Latitude.",
+      "in": "query"
+    },
+    {
+      "name": "lon",
+      "type": "number",
+      "required": true,
+      "description": "Longitude.",
+      "in": "query"
+    },
+    {
+      "name": "appid",
+      "type": "string",
+      "required": true,
+      "description": "API key.",
+      "in": "query"
+    }
+  ],
+  "auth_scopes": [],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openweathermap.org/data/2.5/air_pollution?lat=48.8566&lon=2.3522&appid=YOUR_API_KEY"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "coord": {
+        "lon": 2.35,
+        "lat": 48.86
+      },
+      "list": [
+        {
+          "dt": 1705312200,
+          "main": {
+            "aqi": 2
+          },
+          "components": {
+            "co": 230.31,
+            "no": 0.57,
+            "no2": 15.84,
+            "o3": 68.78,
+            "so2": 3.58,
+            "pm2_5": 8.92,
+            "pm10": 12.46,
+            "nh3": 1.21
+          }
+        }
+      ]
+    }
+  }
+}

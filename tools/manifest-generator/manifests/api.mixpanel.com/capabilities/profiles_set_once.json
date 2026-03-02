@@ -1,0 +1,38 @@
+{
+  "name": "profiles_set_once",
+  "description": "Set profile properties only if they have not been set before.",
+  "resource_group": "ingestion",
+  "endpoint": "/engage#profile-set-once",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "$distinct_id",
+      "type": "string",
+      "required": true,
+      "description": "User identifier"
+    },
+    {
+      "name": "$token",
+      "type": "string",
+      "required": true,
+      "description": "Project token"
+    },
+    {
+      "name": "$set_once",
+      "type": "object",
+      "required": true,
+      "description": "Properties to set if not already set"
+    }
+  ],
+  "request_example": {
+    "$distinct_id": "user_123",
+    "$token": "YOUR_TOKEN",
+    "$set_once": {
+      "first_login": "2025-01-01"
+    }
+  },
+  "response_example": {
+    "status": 1
+  },
+  "auth_scopes": []
+}

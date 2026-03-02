@@ -1,0 +1,50 @@
+{
+  "name": "visitors_update_metadata",
+  "description": "Create or update custom metadata values on a visitor record.",
+  "endpoint": "/v1/metadata/visitor/custom/value",
+  "method": "POST",
+  "resource_group": "visitors",
+  "parameters": [
+    {
+      "name": "visitorId",
+      "type": "string",
+      "description": "The visitor/user ID to update metadata for.",
+      "required": true,
+      "example": "user_123"
+    },
+    {
+      "name": "values",
+      "type": "object",
+      "description": "Key-value pairs of metadata to set.",
+      "required": true,
+      "example": { "plan": "enterprise", "role": "admin", "company_size": 500 }
+    },
+    {
+      "name": "create",
+      "type": "boolean",
+      "description": "If true, create metadata fields that do not exist.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://app.pendo.io/api/v1/metadata/visitor/custom/value?create=true",
+    "headers": {
+      "x-pendo-integration-key": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "visitorId": "user_123",
+      "values": { "plan": "enterprise", "role": "admin", "company_size": 500 }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
+  "auth_scopes": ["metadata"],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

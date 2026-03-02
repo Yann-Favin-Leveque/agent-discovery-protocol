@@ -1,0 +1,45 @@
+{
+  "name": "status_reblog",
+  "resource_group": "statuses",
+  "description": "Boost (reblog) a status to share with your followers.",
+  "endpoint": "/api/v1/statuses/{id}/reblog",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Status ID.",
+      "required": true,
+      "in": "path",
+      "example": "109876543210"
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "description": "Visibility of reblog: public, unlisted, private.",
+      "required": false,
+      "in": "body",
+      "example": "public"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://mastodon.social/api/v1/statuses/109876543210/reblog",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "109876543212",
+      "reblog": {
+        "id": "109876543210",
+        "content": "<p>Original</p>"
+      }
+    }
+  },
+  "auth_scopes": [
+    "write:statuses"
+  ]
+}

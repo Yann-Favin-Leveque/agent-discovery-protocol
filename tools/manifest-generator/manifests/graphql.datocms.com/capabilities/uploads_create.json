@@ -1,0 +1,95 @@
+{
+  "name": "uploads_create",
+  "description": "Create a new upload (media asset) in the DatoCMS media library. The upload process involves first requesting an upload URL, uploading the file to that URL, then creating the upload record.",
+  "resource_group": "uploads",
+  "endpoint": "/uploads",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "data.attributes.path",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "The upload path obtained from the upload request endpoint."
+    },
+    {
+      "name": "data.attributes.copyright",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Copyright attribution."
+    },
+    {
+      "name": "data.attributes.author",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Author/creator name."
+    },
+    {
+      "name": "data.attributes.notes",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Additional notes about the asset."
+    },
+    {
+      "name": "data.attributes.tags",
+      "type": "array",
+      "required": false,
+      "location": "body",
+      "description": "Array of string tags for organizing assets."
+    },
+    {
+      "name": "data.attributes.default_field_metadata",
+      "type": "object",
+      "required": false,
+      "location": "body",
+      "description": "Default metadata per locale: { 'en': { alt: '...', title: '...' } }."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://site-api.datocms.com/uploads",
+    "headers": {
+      "Authorization": "Bearer your-datocms-api-token",
+      "Content-Type": "application/vnd.api+json",
+      "Accept": "application/json",
+      "X-Api-Version": "3"
+    },
+    "body": {
+      "data": {
+        "type": "upload",
+        "attributes": {
+          "path": "uploaded-file-path-from-presigned-url",
+          "author": "Jane Doe",
+          "copyright": "2026 Example Corp",
+          "tags": ["hero", "banner"],
+          "default_field_metadata": {
+            "en": { "alt": "Banner image", "title": "Hero Banner" }
+          }
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "type": "upload",
+        "id": "newUploadId",
+        "attributes": {
+          "filename": "banner.jpg",
+          "url": "https://www.datocms-assets.com/12345/banner.jpg",
+          "size": 500000,
+          "width": 1920,
+          "height": 600,
+          "is_image": true,
+          "mime_type": "image/jpeg",
+          "tags": ["hero", "banner"],
+          "created_at": "2026-03-01T12:00:00.000Z"
+        }
+      }
+    }
+  }
+}

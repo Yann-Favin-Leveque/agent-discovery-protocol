@@ -1,0 +1,63 @@
+{
+  "name": "call_record",
+  "description": "Start recording on a live call.",
+  "resource_group": "call",
+  "endpoint": "/v1/Account/{auth_id}/Call/{call_uuid}/Record/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "auth_id",
+      "type": "string",
+      "description": "Plivo Auth ID (path parameter).",
+      "required": true,
+      "example": "MAXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "call_uuid",
+      "type": "string",
+      "description": "The call UUID (path parameter).",
+      "required": true,
+      "example": "abc-123-def-456"
+    },
+    {
+      "name": "time_limit",
+      "type": "integer",
+      "description": "Max recording duration in seconds.",
+      "required": false,
+      "example": 60
+    },
+    {
+      "name": "file_format",
+      "type": "string",
+      "description": "Recording format: mp3 or wav.",
+      "required": false,
+      "example": "mp3"
+    },
+    {
+      "name": "callback_url",
+      "type": "string",
+      "description": "URL to receive recording callback.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.plivo.com/v1/Account/{auth_id}/Call/{call_uuid}/Record/",
+    "headers": {
+      "Authorization": "Basic {base64(auth_id:auth_token)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "time_limit": 60,
+      "file_format": "mp3"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "message": "call recording started",
+      "url": "https://s3.amazonaws.com/recordings_2013/abc.mp3",
+      "api_id": "xxx"
+    }
+  }
+}

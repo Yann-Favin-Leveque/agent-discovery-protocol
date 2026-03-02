@@ -1,0 +1,57 @@
+{
+  "name": "edge_functions_invoke",
+  "description": "Invoke a Supabase Edge Function by name.",
+  "endpoint": "/functions/v1/{function_name}",
+  "method": "POST",
+  "resource_group": "edge_functions",
+  "parameters": [
+    {
+      "name": "function_name",
+      "type": "string",
+      "description": "Edge function name",
+      "required": true,
+      "example": "send-email"
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "Request body passed to the function",
+      "required": false,
+      "example": {
+        "to": "user@example.com",
+        "subject": "Hello"
+      }
+    },
+    {
+      "name": "Authorization",
+      "type": "string",
+      "description": "Bearer token for auth context",
+      "required": false,
+      "example": "Bearer eyJ..."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/functions/v1/send-email",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "to": "user@example.com",
+      "subject": "Hello"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "message": "Email sent"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

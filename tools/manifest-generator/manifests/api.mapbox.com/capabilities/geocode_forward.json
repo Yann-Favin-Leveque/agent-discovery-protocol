@@ -1,0 +1,102 @@
+{
+  "name": "geocode_forward",
+  "description": "Convert a text address or place name into geographic coordinates. Returns ranked results.",
+  "endpoint": "/search/geocode/v6/forward",
+  "method": "GET",
+  "resource_group": "geocoding",
+  "parameters": [
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Place name or address to look up (max 256 chars).",
+      "required": true,
+      "example": "1600 Pennsylvania Ave, Washington DC"
+    },
+    {
+      "name": "access_token",
+      "type": "string",
+      "description": "Mapbox access token.",
+      "required": true,
+      "example": "pk.xxx"
+    },
+    {
+      "name": "autocomplete",
+      "type": "boolean",
+      "description": "Enable prefix matching.",
+      "required": false,
+      "example": true
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "description": "ISO 3166 country codes to limit results.",
+      "required": false,
+      "example": "US"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "IETF language tag for results.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (1-10).",
+      "required": false,
+      "example": 5
+    },
+    {
+      "name": "proximity",
+      "type": "string",
+      "description": "Bias results near coordinates (lng,lat) or 'ip'.",
+      "required": false,
+      "example": "-77.0365,38.8977"
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Filter by feature type (country,region,place,address,etc).",
+      "required": false,
+      "example": "address"
+    },
+    {
+      "name": "bbox",
+      "type": "string",
+      "description": "Bounding box to limit results.",
+      "required": false,
+      "example": "-77.1,38.8,-76.9,39.0"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mapbox.com/search/geocode/v6/forward?q=1600+Pennsylvania+Ave&access_token=pk.xxx&limit=1",
+    "headers": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -77.0365,
+              38.8977
+            ]
+          },
+          "properties": {
+            "full_address": "1600 Pennsylvania Ave NW, Washington, DC 20500"
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

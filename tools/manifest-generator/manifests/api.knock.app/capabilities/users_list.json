@@ -1,0 +1,49 @@
+{
+  "name": "users_list",
+  "description": "List all users in the environment.",
+  "endpoint": "/v1/users",
+  "method": "GET",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Cursor for pagination.",
+      "required": false,
+      "example": "cursor_abc"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.knock.app/v1/users?page_size=50",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "id": "user_123",
+          "name": "John Doe",
+          "email": "john@example.com"
+        }
+      ],
+      "page_info": {
+        "after": "cursor_xyz"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

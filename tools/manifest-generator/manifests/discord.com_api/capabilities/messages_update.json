@@ -1,0 +1,58 @@
+{
+  "name": "messages_update",
+  "resource_group": "messages",
+  "description": "Edit a previously sent message.",
+  "endpoint": "/v10/channels/{channel_id}/messages/{message_id}",
+  "method": "PATCH",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Channel ID",
+      "example": "123456789012345678"
+    },
+    {
+      "name": "message_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Message ID to edit",
+      "example": "111111111111111111"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": false,
+      "description": "Updated message content",
+      "example": "Updated message!"
+    },
+    {
+      "name": "embeds",
+      "type": "array",
+      "required": false,
+      "description": "Updated embeds",
+      "example": []
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://discord.com/api/v10/channels/123456789012345678/messages/111111111111111111",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "content": "Updated message!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "111111111111111111",
+      "content": "Updated message!",
+      "edited_timestamp": "2025-03-15T10:05:00.000000+00:00"
+    }
+  }
+}

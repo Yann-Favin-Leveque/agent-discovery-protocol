@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "Help Scout",
-  "description": "Help Scout is a customer support platform built around shared email inboxes. The Mailbox API lets you manage conversations, customers, mailboxes, and teams. It is designed for support teams that want an email-like experience with collaboration features, saved replies, and customer profiles.",
+  "description": "Help Scout is a customer support platform built around shared email inboxes. The Mailbox API lets you manage conversations, customers, mailboxes, users, teams, tags, workflows, webhooks, and access detailed reports.",
   "base_url": "https://api.helpscout.net",
   "auth": {
     "type": "oauth2",
@@ -13,39 +13,262 @@
   },
   "capabilities": [
     {
-      "name": "list_conversations",
-      "description": "Retrieve all conversations across your mailboxes with filtering by status, assignee, tag, and date range.",
-      "detail_url": "/capabilities/list_conversations"
+      "name": "conversations_list",
+      "description": "List all conversations across mailboxes with filtering by status, assignee, tag, and date.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/conversations_list",
+      "resource_group": "conversations"
     },
     {
-      "name": "create_conversation",
-      "description": "Create a new customer conversation in a mailbox. Starts a new support thread with an initial message.",
-      "detail_url": "/capabilities/create_conversation"
+      "name": "conversations_get",
+      "description": "Retrieve a specific conversation by ID with all its details.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/conversations_get",
+      "resource_group": "conversations"
     },
     {
-      "name": "reply_to_conversation",
-      "description": "Send a reply to an existing conversation. The reply is delivered to the customer via email.",
-      "detail_url": "/capabilities/reply_to_conversation"
+      "name": "conversations_create",
+      "description": "Create a new conversation in a mailbox with an initial thread.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/conversations_create",
+      "resource_group": "conversations"
     },
     {
-      "name": "list_customers",
-      "description": "Retrieve all customer records with their email addresses, phone numbers, and associated conversations.",
-      "detail_url": "/capabilities/list_customers"
+      "name": "conversations_update",
+      "description": "Update a conversation's status, assignee, or subject.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/conversations_update",
+      "resource_group": "conversations"
     },
     {
-      "name": "create_customer",
-      "description": "Create a new customer profile with contact details. Customers are automatically linked to conversations by email.",
-      "detail_url": "/capabilities/create_customer"
+      "name": "conversations_delete",
+      "description": "Permanently delete a conversation.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/conversations_delete",
+      "resource_group": "conversations"
     },
     {
-      "name": "list_mailboxes",
-      "description": "Retrieve all mailboxes (shared inboxes) in your Help Scout account with their configuration and folder counts.",
-      "detail_url": "/capabilities/list_mailboxes"
+      "name": "threads_list",
+      "description": "List all threads in a conversation.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/threads_list",
+      "resource_group": "threads"
     },
     {
-      "name": "update_conversation",
-      "description": "Update a conversation's status, assignee, tags, or custom fields. Used to triage and route conversations.",
-      "detail_url": "/capabilities/update_conversation"
+      "name": "threads_create_reply",
+      "description": "Send a reply to a conversation. The reply is delivered to the customer via email.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/threads_create_reply",
+      "resource_group": "threads"
+    },
+    {
+      "name": "threads_create_note",
+      "description": "Add an internal note to a conversation visible only to agents.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/threads_create_note",
+      "resource_group": "threads"
+    },
+    {
+      "name": "conversations_update_tags",
+      "description": "Update the tags on a conversation.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/conversations_update_tags",
+      "resource_group": "conversations"
+    },
+    {
+      "name": "conversations_update_custom_fields",
+      "description": "Update custom field values on a conversation.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/conversations_update_custom_fields",
+      "resource_group": "conversations"
+    },
+    {
+      "name": "customers_list",
+      "description": "List all customers with their contact information.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/customers_list",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_get",
+      "description": "Retrieve a specific customer by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/customers_get",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_create",
+      "description": "Create a new customer profile.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/customers_create",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_update",
+      "description": "Update a customer's profile information.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/customers_update",
+      "resource_group": "customers"
+    },
+    {
+      "name": "customers_delete",
+      "description": "Delete a customer by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/customers_delete",
+      "resource_group": "customers"
+    },
+    {
+      "name": "mailboxes_list",
+      "description": "List all mailboxes (shared inboxes) in your account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/mailboxes_list",
+      "resource_group": "mailboxes"
+    },
+    {
+      "name": "mailboxes_get",
+      "description": "Retrieve a specific mailbox by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/mailboxes_get",
+      "resource_group": "mailboxes"
+    },
+    {
+      "name": "mailboxes_folders_list",
+      "description": "List all folders in a mailbox.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/mailboxes_folders_list",
+      "resource_group": "mailboxes"
+    },
+    {
+      "name": "mailboxes_custom_fields_list",
+      "description": "List custom fields configured for a mailbox.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/mailboxes_custom_fields_list",
+      "resource_group": "mailboxes"
+    },
+    {
+      "name": "users_list",
+      "description": "List all users in your Help Scout account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/users_list",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_get",
+      "description": "Retrieve a specific user by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/users_get",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_me",
+      "description": "Retrieve the currently authenticated user's profile.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/users_me",
+      "resource_group": "users"
+    },
+    {
+      "name": "teams_list",
+      "description": "List all teams in your account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/teams_list",
+      "resource_group": "teams"
+    },
+    {
+      "name": "teams_members_list",
+      "description": "List all members of a specific team.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/teams_members_list",
+      "resource_group": "teams"
+    },
+    {
+      "name": "tags_list",
+      "description": "List all tags in your Help Scout account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/tags_list",
+      "resource_group": "tags"
+    },
+    {
+      "name": "webhooks_list",
+      "description": "List all webhook subscriptions.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/webhooks_list",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_create",
+      "description": "Create a new webhook subscription for event notifications.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/webhooks_create",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_get",
+      "description": "Retrieve a specific webhook by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/webhooks_get",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_update",
+      "description": "Update a webhook subscription.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/webhooks_update",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "webhooks_delete",
+      "description": "Delete a webhook subscription.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/webhooks_delete",
+      "resource_group": "webhooks"
+    },
+    {
+      "name": "workflows_list",
+      "description": "List all workflows in your account.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/workflows_list",
+      "resource_group": "workflows"
+    },
+    {
+      "name": "workflows_run",
+      "description": "Run a manual workflow on specified conversations.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/workflows_run",
+      "resource_group": "workflows"
+    },
+    {
+      "name": "workflows_update_status",
+      "description": "Activate or deactivate a workflow.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/workflows_update_status",
+      "resource_group": "workflows"
+    },
+    {
+      "name": "reports_company",
+      "description": "Retrieve overall company performance report for a date range.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/reports_company",
+      "resource_group": "reports"
+    },
+    {
+      "name": "reports_conversations",
+      "description": "Retrieve conversation statistics report.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/reports_conversations",
+      "resource_group": "reports"
+    },
+    {
+      "name": "reports_productivity",
+      "description": "Retrieve productivity metrics including first response and resolution times.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/reports_productivity",
+      "resource_group": "reports"
+    },
+    {
+      "name": "reports_happiness",
+      "description": "Retrieve customer satisfaction (happiness) ratings report.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/reports_happiness",
+      "resource_group": "reports"
+    },
+    {
+      "name": "organizations_list",
+      "description": "List all organizations.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/organizations_list",
+      "resource_group": "organizations"
+    },
+    {
+      "name": "organizations_get",
+      "description": "Retrieve a specific organization by ID.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/organizations_get",
+      "resource_group": "organizations"
+    },
+    {
+      "name": "organizations_create",
+      "description": "Create a new organization.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/organizations_create",
+      "resource_group": "organizations"
+    },
+    {
+      "name": "organizations_update",
+      "description": "Update an organization.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/organizations_update",
+      "resource_group": "organizations"
+    },
+    {
+      "name": "organizations_delete",
+      "description": "Delete an organization.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/organizations_delete",
+      "resource_group": "organizations"
+    },
+    {
+      "name": "saved_replies_list",
+      "description": "List all saved replies for a mailbox.",
+      "detail_url": "https://agent-dns.dev/api/services/api.helpscout.net/capabilities/saved_replies_list",
+      "resource_group": "saved_replies"
     }
   ]
 }

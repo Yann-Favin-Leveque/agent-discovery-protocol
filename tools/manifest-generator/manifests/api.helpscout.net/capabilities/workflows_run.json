@@ -1,0 +1,48 @@
+{
+  "name": "workflows_run",
+  "description": "Run a manual workflow on specified conversations.",
+  "endpoint": "/v2/workflows/{id}/run",
+  "method": "POST",
+  "resource_group": "workflows",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "integer",
+      "description": "Workflow ID.",
+      "required": true,
+      "example": 1
+    },
+    {
+      "name": "conversationIds",
+      "type": "array",
+      "description": "Conversation IDs to run the workflow on.",
+      "required": true,
+      "example": [
+        123,
+        456
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.helpscout.net/v2/workflows/1/run",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "conversationIds": [
+        123,
+        456
+      ]
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 200
+  }
+}

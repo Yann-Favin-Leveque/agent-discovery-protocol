@@ -1,0 +1,70 @@
+{
+  "name": "marketing_events_update",
+  "description": "Update an existing marketing event's details such as name, dates, or description.",
+  "endpoint": "/marketing/v3/marketing-events/events/{externalEventId}",
+  "method": "PATCH",
+  "resource_group": "marketing_events",
+  "parameters": [
+    {
+      "name": "externalEventId",
+      "type": "string",
+      "description": "The external event identifier.",
+      "required": true,
+      "example": "ext_event_001"
+    },
+    {
+      "name": "externalAccountId",
+      "type": "string",
+      "description": "The external account identifier.",
+      "required": true,
+      "example": "acct_001"
+    },
+    {
+      "name": "eventName",
+      "type": "string",
+      "description": "Updated event name.",
+      "required": false,
+      "example": "Product Launch Webinar 2024 - Updated"
+    },
+    {
+      "name": "startDateTime",
+      "type": "string",
+      "description": "Updated start date (ISO 8601).",
+      "required": false,
+      "example": "2024-03-20T14:00:00Z"
+    },
+    {
+      "name": "endDateTime",
+      "type": "string",
+      "description": "Updated end date (ISO 8601).",
+      "required": false,
+      "example": "2024-03-20T15:30:00Z"
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.hubspot.com/marketing/v3/marketing-events/events/ext_event_001?externalAccountId=acct_001",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "eventName": "Product Launch Webinar 2024 - Updated",
+      "startDateTime": "2024-03-20T14:00:00Z",
+      "endDateTime": "2024-03-20T15:30:00Z"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "12345",
+      "eventName": "Product Launch Webinar 2024 - Updated",
+      "startDateTime": "2024-03-20T14:00:00Z",
+      "endDateTime": "2024-03-20T15:30:00Z"
+    }
+  },
+  "auth_scopes": ["marketing-events"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

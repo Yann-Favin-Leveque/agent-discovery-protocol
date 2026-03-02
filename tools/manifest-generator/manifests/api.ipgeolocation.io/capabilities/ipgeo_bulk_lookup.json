@@ -1,0 +1,79 @@
+{
+  "name": "ipgeo_bulk_lookup",
+  "description": "Look up geographic locations for up to 50,000 IP addresses in a single POST request.",
+  "endpoint": "/v3/ipgeo-bulk",
+  "method": "POST",
+  "resource_group": "geolocation",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "description": "Your API key.",
+      "required": true,
+      "example": "YOUR_API_KEY"
+    },
+    {
+      "name": "ips",
+      "type": "array",
+      "description": "Array of IP addresses to look up.",
+      "required": true,
+      "example": [
+        "8.8.8.8",
+        "1.1.1.1"
+      ]
+    },
+    {
+      "name": "lang",
+      "type": "string",
+      "description": "Response language.",
+      "required": false,
+      "example": "en"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "description": "Fields to return.",
+      "required": false,
+      "example": "geo"
+    },
+    {
+      "name": "include",
+      "type": "string",
+      "description": "Extra modules to include.",
+      "required": false,
+      "example": "security"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.ipgeolocation.io/v3/ipgeo-bulk?apiKey=YOUR_API_KEY",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ips": [
+        "8.8.8.8",
+        "1.1.1.1"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "ip": "8.8.8.8",
+        "country_name": "United States",
+        "city": "Mountain View"
+      },
+      {
+        "ip": "1.1.1.1",
+        "country_name": "Australia",
+        "city": "Sydney"
+      }
+    ]
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

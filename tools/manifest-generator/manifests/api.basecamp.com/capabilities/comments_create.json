@@ -1,0 +1,59 @@
+{
+  "name": "comments_create",
+  "resource_group": "comments",
+  "description": "Add a comment to any recording (message, todo, etc).",
+  "endpoint": "/{account_id}/buckets/{project_id}/recordings/{recording_id}/comments.json",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Account ID",
+      "example": 9999999
+    },
+    {
+      "name": "project_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Project ID",
+      "example": 2085958499
+    },
+    {
+      "name": "recording_id",
+      "type": "integer",
+      "required": true,
+      "in": "path",
+      "description": "Recording ID",
+      "example": 1069479300
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "required": true,
+      "description": "HTML comment body",
+      "example": "<p>Looks good to me!</p>"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://3.basecampapi.com/9999999/buckets/2085958499/recordings/1069479300/comments.json",
+    "headers": {
+      "Authorization": "Bearer BC3_TOKEN",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApp (user@example.com)"
+    },
+    "body": {
+      "content": "<p>Looks good to me!</p>"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1069479401,
+      "content": "<p>Looks good to me!</p>"
+    }
+  }
+}

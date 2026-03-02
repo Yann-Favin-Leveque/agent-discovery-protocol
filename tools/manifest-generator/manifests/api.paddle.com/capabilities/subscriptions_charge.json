@@ -1,0 +1,52 @@
+{
+  "name": "subscriptions_charge",
+  "description": "Create a one-time charge on an existing subscription.",
+  "resource_group": "subscriptions",
+  "endpoint": "/subscriptions/{subscription_id}/charge",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "subscription_id",
+      "type": "string",
+      "description": "The subscription ID.",
+      "required": true
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Items to charge for.",
+      "required": true
+    },
+    {
+      "name": "effective_from",
+      "type": "string",
+      "description": "When to charge: immediately or next_billing_period.",
+      "required": true
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.paddle.com/subscriptions/sub_01h1vjes1y163xfj1rh1tkfb65/charge",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "items": [
+        {
+          "price_id": "pri_01h1vjes1y163xfj1rh1tkfb65",
+          "quantity": 1
+        }
+      ],
+      "effective_from": "immediately"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "sub_01h1vjes1y163xfj1rh1tkfb65"
+      }
+    }
+  }
+}

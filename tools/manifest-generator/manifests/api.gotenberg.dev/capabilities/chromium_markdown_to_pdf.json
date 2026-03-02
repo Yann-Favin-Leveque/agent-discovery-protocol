@@ -1,0 +1,87 @@
+{
+  "name": "chromium_markdown_to_pdf",
+  "description": "Convert Markdown files to a PDF document. Requires an HTML wrapper (index.html) and one or more .md files. The Markdown is rendered within the HTML wrapper using Chromium.",
+  "resource_group": "chromium",
+  "endpoint": "/forms/chromium/convert/markdown",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "index.html",
+      "type": "file",
+      "required": true,
+      "location": "formData",
+      "description": "HTML wrapper file that includes the Markdown content."
+    },
+    {
+      "name": "*.md",
+      "type": "file",
+      "required": true,
+      "location": "formData",
+      "description": "One or more Markdown files to convert."
+    },
+    {
+      "name": "paperWidth",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Paper width. Default: 8.5."
+    },
+    {
+      "name": "paperHeight",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Paper height. Default: 11."
+    },
+    {
+      "name": "landscape",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Landscape orientation. Default: false."
+    },
+    {
+      "name": "printBackground",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Include background graphics. Default: false."
+    },
+    {
+      "name": "waitDelay",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Duration to wait before converting."
+    },
+    {
+      "name": "pdfa",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "PDF/A standard."
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "JSON XMP metadata."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "http://localhost:3000/forms/chromium/convert/markdown",
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with index.html and readme.md files"
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/pdf"
+    },
+    "body": "<binary PDF content>"
+  }
+}

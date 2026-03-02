@@ -1,0 +1,106 @@
+{
+  "name": "batches_send",
+  "description": "Send an SMS message or batch of messages to one or more recipients. Messages are queued and sent at the rate limit in FIFO order. Long messages are automatically split into multiple parts.",
+  "endpoint": "/xms/v1/{service_plan_id}/batches",
+  "method": "POST",
+  "resource_group": "batches",
+  "parameters": [
+    {
+      "name": "service_plan_id",
+      "type": "string",
+      "required": true,
+      "description": "Your Sinch service plan ID (path parameter)."
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "required": true,
+      "description": "Array of recipient phone numbers in E.164 format or group IDs."
+    },
+    {
+      "name": "from",
+      "type": "string",
+      "required": true,
+      "description": "Sender number in E.164 format. Must be a number associated with your account."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "description": "The message body text. Supports parameterization with ${parameter_key}."
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Message type: 'mt_text' (default) or 'mt_binary'.",
+      "example": "mt_text"
+    },
+    {
+      "name": "delivery_report",
+      "type": "string",
+      "required": false,
+      "description": "Delivery report type: 'none', 'summary', 'full', or 'per_recipient'."
+    },
+    {
+      "name": "send_at",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 datetime for scheduled sending."
+    },
+    {
+      "name": "expire_at",
+      "type": "string",
+      "required": false,
+      "description": "ISO 8601 datetime when the message expires if not yet delivered."
+    },
+    {
+      "name": "callback_url",
+      "type": "string",
+      "required": false,
+      "description": "Override webhook URL for delivery report callbacks."
+    },
+    {
+      "name": "parameters",
+      "type": "object",
+      "required": false,
+      "description": "Key-value pairs for message body parameterization per recipient."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://us.sms.api.sinch.com/xms/v1/{service_plan_id}/batches",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {api_token}"
+    },
+    "body": {
+      "from": "12015550145",
+      "to": ["14155550123", "14155550124"],
+      "body": "Hello ${name}, your code is ${code}.",
+      "delivery_report": "full",
+      "parameters": {
+        "name": { "14155550123": "John", "14155550124": "Jane" },
+        "code": { "14155550123": "1234", "14155550124": "5678" }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "batch-id-01HXYZ",
+      "to": ["14155550123", "14155550124"],
+      "from": "12015550145",
+      "body": "Hello ${name}, your code is ${code}.",
+      "type": "mt_text",
+      "created_at": "2024-01-15T12:00:00.000Z",
+      "modified_at": "2024-01-15T12:00:00.000Z",
+      "delivery_report": "full",
+      "canceled": false
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

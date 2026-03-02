@@ -1,0 +1,95 @@
+{
+  "name": "orders_create",
+  "description": "Create a new order with line items, taxes, and discounts.",
+  "endpoint": "/v2/orders",
+  "method": "POST",
+  "resource_group": "orders",
+  "parameters": [
+    {
+      "name": "location_id",
+      "type": "string",
+      "description": "Location for the order",
+      "required": true,
+      "example": "LOCATION_ID"
+    },
+    {
+      "name": "idempotency_key",
+      "type": "string",
+      "description": "Unique key",
+      "required": true,
+      "example": "order-key-123"
+    },
+    {
+      "name": "order",
+      "type": "object",
+      "description": "Order object with line items",
+      "required": true,
+      "example": {
+        "location_id": "LOCATION_ID",
+        "line_items": [
+          {
+            "name": "Item",
+            "quantity": "1",
+            "base_price_money": {
+              "amount": 500,
+              "currency": "USD"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://connect.squareup.com/v2/orders",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "idempotency_key": "order-key-123",
+      "order": {
+        "location_id": "LOCATION_ID",
+        "line_items": [
+          {
+            "name": "Item",
+            "quantity": "1",
+            "base_price_money": {
+              "amount": 500,
+              "currency": "USD"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "order": {
+        "id": "order_abc",
+        "location_id": "LOCATION_ID",
+        "state": "OPEN",
+        "total_money": {
+          "amount": 500,
+          "currency": "USD"
+        }
+      }
+    }
+  },
+  "auth_scopes": [
+    "PAYMENTS_WRITE",
+    "PAYMENTS_READ",
+    "CUSTOMERS_WRITE",
+    "CUSTOMERS_READ",
+    "ORDERS_WRITE",
+    "ORDERS_READ",
+    "ITEMS_WRITE",
+    "ITEMS_READ",
+    "INVOICES_WRITE",
+    "INVOICES_READ"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
+}

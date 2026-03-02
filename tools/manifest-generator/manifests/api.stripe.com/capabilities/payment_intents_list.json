@@ -1,0 +1,55 @@
+{
+  "name": "payment_intents_list",
+  "description": "List PaymentIntents with optional filtering.",
+  "endpoint": "/v1/payment_intents",
+  "method": "GET",
+  "resource_group": "payment_intents",
+  "parameters": [
+    {
+      "name": "customer",
+      "type": "string",
+      "description": "Filter by customer ID",
+      "required": false,
+      "example": "cus_abc123"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results (1-100)",
+      "required": false,
+      "example": 10
+    },
+    {
+      "name": "starting_after",
+      "type": "string",
+      "description": "Cursor for pagination",
+      "required": false,
+      "example": "pi_abc122"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.stripe.com/v1/payment_intents?customer=cus_abc123&limit=10",
+    "headers": {
+      "Authorization": "Bearer sk_test_xxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "id": "pi_abc123",
+          "amount": 2000,
+          "status": "succeeded"
+        }
+      ],
+      "has_more": false
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

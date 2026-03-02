@@ -1,0 +1,20 @@
+{
+  "name": "inquiries_resume",
+  "description": "Generate a one-time resume URL for an incomplete inquiry so the individual can continue the verification flow.",
+  "resource_group": "inquiries",
+  "endpoint": "/inquiries/{inquiry_id}/resume",
+  "method": "POST",
+  "parameters": [
+    {"name": "inquiry_id", "type": "string", "description": "The inquiry ID to resume.", "required": true, "example": "inq_abc123"}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://withpersona.com/api/v1/inquiries/inq_abc123/resume",
+    "headers": {"Authorization": "Bearer {api_key}", "Persona-Version": "2023-01-05"}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"type": "inquiry", "id": "inq_abc123", "attributes": {"status": "pending"}, "meta": {"session-token": "sess_abc123"}}}
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

@@ -1,0 +1,185 @@
+{
+  "name": "chromium_url_to_pdf",
+  "description": "Convert a web page at a given URL to a PDF document using Chromium. Supports custom paper size, margins, headers/footers, page ranges, JavaScript wait conditions, cookies, custom HTTP headers, PDF/A compliance, and encryption.",
+  "resource_group": "chromium",
+  "endpoint": "/forms/chromium/convert/url",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "location": "formData",
+      "description": "URL of the page to convert into PDF."
+    },
+    {
+      "name": "paperWidth",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Paper width. Default: 8.5."
+    },
+    {
+      "name": "paperHeight",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Paper height. Default: 11."
+    },
+    {
+      "name": "marginTop",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Top margin. Default: 0.39."
+    },
+    {
+      "name": "marginBottom",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Bottom margin. Default: 0.39."
+    },
+    {
+      "name": "marginLeft",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Left margin. Default: 0.39."
+    },
+    {
+      "name": "marginRight",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Right margin. Default: 0.39."
+    },
+    {
+      "name": "landscape",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Landscape orientation. Default: false."
+    },
+    {
+      "name": "printBackground",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Include background graphics. Default: false."
+    },
+    {
+      "name": "scale",
+      "type": "number",
+      "required": false,
+      "location": "formData",
+      "description": "Page zoom factor. Default: 1.0."
+    },
+    {
+      "name": "singlePage",
+      "type": "boolean",
+      "required": false,
+      "location": "formData",
+      "description": "Force all content onto one long page. Default: false."
+    },
+    {
+      "name": "emulatedMediaType",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "'screen' or 'print'. Default: 'print'."
+    },
+    {
+      "name": "waitDelay",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Duration to wait before converting (e.g., '5s')."
+    },
+    {
+      "name": "waitForExpression",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "JavaScript expression that must return true."
+    },
+    {
+      "name": "waitForSelector",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "CSS selector that must be visible before converting."
+    },
+    {
+      "name": "cookies",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "JSON array of cookie objects for authentication."
+    },
+    {
+      "name": "extraHttpHeaders",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "JSON object of custom HTTP headers."
+    },
+    {
+      "name": "userAgent",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Custom User-Agent header."
+    },
+    {
+      "name": "nativePageRanges",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Page ranges (e.g., '1-5, 8')."
+    },
+    {
+      "name": "pdfa",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "PDF/A standard: 'PDF/A-1b', 'PDF/A-2b', 'PDF/A-3b'."
+    },
+    {
+      "name": "metadata",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "JSON XMP metadata."
+    },
+    {
+      "name": "userPassword",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Password to open PDF."
+    },
+    {
+      "name": "ownerPassword",
+      "type": "string",
+      "required": false,
+      "location": "formData",
+      "description": "Password for permissions."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "http://localhost:3000/forms/chromium/convert/url",
+    "headers": {
+      "Content-Type": "multipart/form-data"
+    },
+    "body": "FormData with url=https://example.com, printBackground=true, landscape=false"
+  },
+  "response_example": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/pdf"
+    },
+    "body": "<binary PDF content>"
+  }
+}

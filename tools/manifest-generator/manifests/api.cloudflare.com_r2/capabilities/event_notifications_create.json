@@ -1,0 +1,45 @@
+{
+  "name": "event_notifications_create",
+  "description": "Create event notification rules for a bucket.",
+  "resource_group": "event_notifications",
+  "endpoint": "/accounts/{account_id}/event_notifications/r2/{bucket_name}/configuration/queues/{queue_id}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "account_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Cloudflare account identifier"
+    },
+    {
+      "name": "bucket_name",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Name of the R2 bucket"
+    },
+    {
+      "name": "queue_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Queue identifier for notifications"
+    }
+  ],
+  "auth_scopes": [
+    "read",
+    "write"
+  ],
+  "request_example": {
+    "rules": [
+      {
+        "actions": [
+          "PutObject",
+          "DeleteObject"
+        ],
+        "prefix": "uploads/"
+      }
+    ]
+  }
+}

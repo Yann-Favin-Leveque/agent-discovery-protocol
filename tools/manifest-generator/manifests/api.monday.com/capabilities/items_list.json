@@ -1,0 +1,39 @@
+{
+  "name": "items_list",
+  "description": "Get items from a board.",
+  "resource_group": "items",
+  "endpoint": "/",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "board_id",
+      "type": "integer",
+      "required": true,
+      "location": "body",
+      "description": "Board ID"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "location": "body",
+      "description": "Max items to return"
+    },
+    {
+      "name": "group_id",
+      "type": "string",
+      "required": false,
+      "location": "body",
+      "description": "Filter by group ID"
+    }
+  ],
+  "auth_scopes": [
+    "boards:read",
+    "boards:write",
+    "workspaces:read",
+    "workspaces:write"
+  ],
+  "request_example": {
+    "query": "{ boards (ids: [123]) { items_page (limit: 50) { cursor items { id name column_values { id text value } } } } }"
+  }
+}

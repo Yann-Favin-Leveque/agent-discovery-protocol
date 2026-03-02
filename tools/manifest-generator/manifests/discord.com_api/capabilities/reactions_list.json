@@ -1,0 +1,57 @@
+{
+  "name": "reactions_list",
+  "resource_group": "reactions",
+  "description": "Get users who reacted with a specific emoji on a message.",
+  "endpoint": "/v10/channels/{channel_id}/messages/{message_id}/reactions/{emoji}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "channel_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Channel ID",
+      "example": "123456789012345678"
+    },
+    {
+      "name": "message_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Message ID",
+      "example": "111111111111111111"
+    },
+    {
+      "name": "emoji",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "URL-encoded emoji",
+      "example": "%F0%9F%91%8D"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max users to return (1-100)",
+      "example": 25
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://discord.com/api/v10/channels/123456789012345678/messages/111111111111111111/reactions/%F0%9F%91%8D?limit=25",
+    "headers": {
+      "Authorization": "Bot BOT_TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": "333333333333333333",
+        "username": "User1",
+        "avatar": "abc123"
+      }
+    ]
+  }
+}

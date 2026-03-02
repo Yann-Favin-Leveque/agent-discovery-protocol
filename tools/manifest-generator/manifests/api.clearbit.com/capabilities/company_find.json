@@ -1,0 +1,71 @@
+{
+  "name": "company_find",
+  "description": "Look up a company by domain to retrieve firmographic data, social profiles, and technology stack.",
+  "endpoint": "/v2/companies/find",
+  "method": "GET",
+  "resource_group": "enrichment",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Company domain to look up.",
+      "required": true,
+      "example": "clearbit.com"
+    },
+    {
+      "name": "webhook_url",
+      "type": "string",
+      "description": "URL for async webhook delivery.",
+      "required": false
+    },
+    {
+      "name": "webhook_id",
+      "type": "string",
+      "description": "Custom ID included in webhook payload.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.clearbit.com/v2/companies/find?domain=clearbit.com",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "comp_abc123",
+      "name": "Clearbit",
+      "domain": "clearbit.com",
+      "category": {
+        "sector": "Technology",
+        "industryGroup": "Software",
+        "industry": "Internet Software & Services"
+      },
+      "metrics": {
+        "raised": 63000000,
+        "employees": 170,
+        "employeesRange": "51-250",
+        "annualRevenue": null
+      },
+      "location": "San Francisco, CA, USA",
+      "tech": [
+        "google-analytics",
+        "mixpanel",
+        "stripe"
+      ],
+      "twitter": {
+        "handle": "clearaborit",
+        "followers": 5000
+      },
+      "linkedin": {
+        "handle": "clearbit"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

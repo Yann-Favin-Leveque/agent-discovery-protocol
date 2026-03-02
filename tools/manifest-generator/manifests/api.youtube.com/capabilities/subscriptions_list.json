@@ -1,0 +1,87 @@
+{
+  "name": "subscriptions_list",
+  "description": "List channel subscriptions.",
+  "endpoint": "/youtube/v3/subscriptions",
+  "method": "GET",
+  "resource_group": "subscriptions",
+  "parameters": [
+    {
+      "name": "part",
+      "type": "string",
+      "description": "Resource parts",
+      "required": true,
+      "example": "snippet,contentDetails"
+    },
+    {
+      "name": "mine",
+      "type": "boolean",
+      "description": "Return authenticated user's subscriptions",
+      "required": false,
+      "example": "true"
+    },
+    {
+      "name": "channelId",
+      "type": "string",
+      "description": "Channel ID",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "forChannelId",
+      "type": "string",
+      "description": "Check subscription to specific channels",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "maxResults",
+      "type": "integer",
+      "description": "Max results (0-50)",
+      "required": false,
+      "example": "25"
+    },
+    {
+      "name": "pageToken",
+      "type": "string",
+      "description": "Pagination token",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort (alphabetical, relevance, unread)",
+      "required": false,
+      "example": "relevance"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://youtube.googleapis.com/youtube/v3/subscriptions",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "items": [
+        {
+          "snippet": {
+            "title": "Subscribed Channel",
+            "resourceId": {
+              "channelId": "UC_sub_id"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/youtube.readonly"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

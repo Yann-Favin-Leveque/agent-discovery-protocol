@@ -1,0 +1,94 @@
+{
+  "name": "voice_calls_create",
+  "description": "Create an outbound voice call to a phone number, SIP, or WebSocket endpoint. Provide an answer_url that returns an NCCO (Nexmo Call Control Object) defining the call flow, or specify NCCO actions inline.",
+  "resource_group": "voice",
+  "endpoint": "/v1/calls",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "to",
+      "type": "array",
+      "required": true,
+      "description": "Array of destination objects. Each has 'type' ('phone', 'sip', 'websocket') and 'number' or 'uri'."
+    },
+    {
+      "name": "from",
+      "type": "object",
+      "required": true,
+      "description": "Caller ID object with 'type' ('phone') and 'number' (your Vonage number in E.164 format)."
+    },
+    {
+      "name": "answer_url",
+      "type": "array",
+      "required": false,
+      "description": "Array of URLs returning NCCO JSON for the call flow. Required if ncco is not provided."
+    },
+    {
+      "name": "ncco",
+      "type": "array",
+      "required": false,
+      "description": "Inline NCCO actions array. Use instead of answer_url for simple call flows."
+    },
+    {
+      "name": "answer_method",
+      "type": "string",
+      "required": false,
+      "description": "HTTP method for answer_url. 'GET' (default) or 'POST'."
+    },
+    {
+      "name": "event_url",
+      "type": "array",
+      "required": false,
+      "description": "URLs for call event webhooks (started, ringing, answered, completed)."
+    },
+    {
+      "name": "machine_detection",
+      "type": "string",
+      "required": false,
+      "description": "Answering machine detection mode: 'continue' or 'hangup'."
+    },
+    {
+      "name": "length_timer",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum call length in seconds (1-7200). Default 7200."
+    },
+    {
+      "name": "ringing_timer",
+      "type": "integer",
+      "required": false,
+      "description": "Ringing timeout in seconds before giving up (1-120). Default 60."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.vonage.com/v1/calls",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."
+    },
+    "body": {
+      "to": [{ "type": "phone", "number": "14155550123" }],
+      "from": { "type": "phone", "number": "12015550145" },
+      "ncco": [
+        {
+          "action": "talk",
+          "text": "Hello, your appointment is confirmed for tomorrow at 3 PM.",
+          "language": "en-US",
+          "style": 0
+        }
+      ],
+      "event_url": ["https://example.com/webhooks/events"],
+      "length_timer": 120
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uuid": "63f61863-4a51-4f6b-86e1-46edebcf9356",
+      "conversation_uuid": "CON-f972836a-550f-45fa-956c-12a2ab5b7d22",
+      "status": "started",
+      "direction": "outbound"
+    }
+  }
+}

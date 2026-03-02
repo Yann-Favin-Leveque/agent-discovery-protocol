@@ -1,0 +1,63 @@
+{
+  "name": "commits_list",
+  "description": "List commits for a repository.",
+  "resource_group": "commits",
+  "endpoint": "/repositories/{workspace}/{repo_slug}/commits",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "workspace",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Workspace."
+    },
+    {
+      "name": "repo_slug",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Repo slug."
+    },
+    {
+      "name": "include",
+      "type": "string",
+      "required": false,
+      "description": "Branch to include."
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "required": false,
+      "description": "File path filter."
+    },
+    {
+      "name": "pagelen",
+      "type": "integer",
+      "required": false,
+      "description": "Results per page."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.bitbucket.org/2.0/repositories/myworkspace/my-project/commits?include=main&pagelen=10",
+    "headers": {
+      "Authorization": "Bearer oauth-token"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "values": [
+        {
+          "hash": "abc123",
+          "message": "fix: resolve login issue",
+          "date": "2026-02-28T10:00:00+00:00",
+          "author": {
+            "raw": "Jane <jane@example.com>"
+          }
+        }
+      ]
+    }
+  }
+}

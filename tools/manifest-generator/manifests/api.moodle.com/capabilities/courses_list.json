@@ -1,0 +1,23 @@
+{
+  "name": "courses_list",
+  "description": "Retrieve all courses available on the Moodle site.",
+  "endpoint": "/webservice/rest/server.php?wsfunction=core_course_get_courses",
+  "method": "POST",
+  "resource_group": "courses",
+  "parameters": [
+    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
+    { "name": "options[ids][0]", "type": "integer", "description": "Optional course ID filter", "required": false, "example": 5 }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_course_get_courses&moodlewsrestformat=json",
+    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [{ "id": 5, "fullname": "Introduction to Physics", "shortname": "PHYS101", "categoryid": 2, "summary": "Introductory physics course" }]
+  },
+  "auth_scopes": ["core_course_get_courses"],
+  "rate_limits": { "requests_per_minute": 120 }
+}

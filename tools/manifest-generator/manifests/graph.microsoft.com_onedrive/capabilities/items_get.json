@@ -1,0 +1,45 @@
+{
+  "name": "items_get",
+  "description": "Get a DriveItem resource by ID.",
+  "resource_group": "items",
+  "endpoint": "/v1.0/me/drive/items/{item-id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "item-id",
+      "type": "string",
+      "description": "The item ID.",
+      "required": true
+    },
+    {
+      "name": "$select",
+      "type": "string",
+      "description": "Properties to select.",
+      "required": false
+    },
+    {
+      "name": "$expand",
+      "type": "string",
+      "description": "Relationships to expand (e.g. children).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://graph.microsoft.com/v1.0/me/drive/items/item123",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "item123",
+      "name": "document.pdf",
+      "size": 123456,
+      "file": {
+        "mimeType": "application/pdf"
+      }
+    }
+  }
+}

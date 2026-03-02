@@ -1,0 +1,73 @@
+{
+  "name": "monitor_edit",
+  "description": "Edit an existing monitor's settings including URL, friendly name, monitoring interval, and alert contacts.",
+  "resource_group": "monitors",
+  "endpoint": "/v2/editMonitor",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "api_key",
+      "type": "string",
+      "required": true,
+      "description": "Your UptimeRobot API key."
+    },
+    {
+      "name": "id",
+      "type": "integer",
+      "required": true,
+      "description": "The ID of the monitor to edit."
+    },
+    {
+      "name": "friendly_name",
+      "type": "string",
+      "required": false,
+      "description": "Updated display name for the monitor."
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": false,
+      "description": "Updated URL or IP to monitor."
+    },
+    {
+      "name": "interval",
+      "type": "integer",
+      "required": false,
+      "description": "Updated monitoring interval in seconds."
+    },
+    {
+      "name": "status",
+      "type": "integer",
+      "required": false,
+      "description": "Set to 0 to pause or 1 to resume."
+    },
+    {
+      "name": "alert_contacts",
+      "type": "string",
+      "required": false,
+      "description": "Updated alert contact IDs and thresholds."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.uptimerobot.com/v2/editMonitor",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "api_key": "ur-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "id": 12345678,
+      "friendly_name": "My Website (Updated)",
+      "interval": 60
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "stat": "ok",
+      "monitor": {
+        "id": 12345678
+      }
+    }
+  }
+}

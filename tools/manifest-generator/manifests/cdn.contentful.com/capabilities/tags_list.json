@@ -1,0 +1,59 @@
+{
+  "name": "tags_list",
+  "description": "Retrieve all public tags in a space environment. Tags are used to organize and categorize content entries.",
+  "endpoint": "/spaces/{space_id}/environments/{environment_id}/tags",
+  "method": "GET",
+  "resource_group": "tags",
+  "parameters": [
+    {
+      "name": "space_id",
+      "type": "string",
+      "description": "The space ID.",
+      "required": true,
+      "example": "cfexampleapi"
+    },
+    {
+      "name": "environment_id",
+      "type": "string",
+      "description": "The environment ID.",
+      "required": true,
+      "example": "master"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of results.",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "skip",
+      "type": "integer",
+      "description": "Number of results to skip.",
+      "required": false,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/tags",
+    "headers": {
+      "Authorization": "Bearer {access_token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sys": {"type": "Array"},
+      "total": 3,
+      "items": [
+        {"sys": {"id": "featured", "type": "Tag"}, "name": "Featured"},
+        {"sys": {"id": "published", "type": "Tag"}, "name": "Published"}
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 78
+  }
+}

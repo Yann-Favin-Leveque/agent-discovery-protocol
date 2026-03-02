@@ -1,0 +1,31 @@
+{
+  "name": "message_batch_cancel",
+  "description": "Cancel an in-progress message batch. Already completed requests within the batch are not affected.",
+  "resource_group": "message_batches",
+  "endpoint": "/v1/messages/batches/{batch_id}/cancel",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "batch_id",
+      "type": "string",
+      "required": true,
+      "description": "The ID of the message batch to cancel."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.anthropic.com/v1/messages/batches/batch_abc123/cancel",
+    "headers": {
+      "x-api-key": "sk-ant-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "anthropic-version": "2023-06-01"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "batch_abc123",
+      "type": "message_batch",
+      "processing_status": "canceling"
+    }
+  }
+}

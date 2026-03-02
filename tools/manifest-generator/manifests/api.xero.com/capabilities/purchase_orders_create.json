@@ -1,0 +1,56 @@
+{
+  "name": "purchase_orders_create",
+  "description": "Create a purchase order.",
+  "resource_group": "purchase_orders",
+  "endpoint": "/PurchaseOrders",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "PurchaseOrders",
+      "type": "array",
+      "required": true,
+      "description": "Array of PurchaseOrder objects."
+    }
+  ],
+  "auth_scopes": [
+    "accounting.transactions"
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.xero.com/api.xro/2.0/PurchaseOrders",
+    "headers": {
+      "Authorization": "Bearer ACCESS_TOKEN",
+      "xero-tenant-id": "TENANT_ID",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "PurchaseOrders": [
+        {
+          "Contact": {
+            "Name": "Supplier Inc"
+          },
+          "LineItems": [
+            {
+              "Description": "Materials",
+              "Quantity": 100,
+              "UnitAmount": 50.0,
+              "AccountCode": "300"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "PurchaseOrders": [
+        {
+          "PurchaseOrderID": "po-new",
+          "Total": 5000.0,
+          "Status": "DRAFT"
+        }
+      ]
+    }
+  }
+}

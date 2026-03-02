@@ -1,0 +1,62 @@
+{
+  "name": "refunds_update",
+  "description": "Update an existing refund transaction.",
+  "endpoint": "/v2/transactions/refunds/{transaction_id}",
+  "method": "PUT",
+  "resource_group": "refunds",
+  "parameters": [
+    {
+      "name": "transaction_id",
+      "type": "string",
+      "description": "Refund transaction ID.",
+      "required": true,
+      "example": "321-refund"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Updated amount.",
+      "required": false
+    },
+    {
+      "name": "shipping",
+      "type": "number",
+      "description": "Updated shipping.",
+      "required": false
+    },
+    {
+      "name": "sales_tax",
+      "type": "number",
+      "description": "Updated tax.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.taxjar.com/v2/transactions/refunds/321-refund",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "transaction_id": "321-refund",
+      "amount": -10.0,
+      "shipping": -1.0,
+      "sales_tax": -0.91
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "refund": {
+        "transaction_id": "321-refund",
+        "amount": "-10.00",
+        "sales_tax": "-0.91"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

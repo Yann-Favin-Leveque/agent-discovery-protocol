@@ -1,0 +1,84 @@
+{
+  "name": "products_list",
+  "description": "Retrieve a paginated list of products.",
+  "resource_group": "products",
+  "endpoint": "/products",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Items per page (max 100, default 10)."
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Current page."
+    },
+    {
+      "name": "search",
+      "type": "string",
+      "required": false,
+      "description": "Search by product name."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter: draft, pending, private, publish, any."
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "required": false,
+      "description": "Filter by category ID."
+    },
+    {
+      "name": "sku",
+      "type": "string",
+      "required": false,
+      "description": "Filter by SKU."
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "required": false,
+      "description": "Filter by tag ID."
+    },
+    {
+      "name": "orderby",
+      "type": "string",
+      "required": false,
+      "description": "Sort by: date, id, title, slug, price, popularity, rating."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://{store}/wp-json/wc/v3/products?per_page=10",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "id": 794,
+        "name": "Premium Quality",
+        "slug": "premium-quality",
+        "type": "simple",
+        "status": "publish",
+        "price": "21.99",
+        "regular_price": "21.99",
+        "categories": [
+          {
+            "id": 9,
+            "name": "Clothing"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,50 +1,135 @@
 {
   "spec_version": "1.0",
   "name": "Reddit",
-  "description": "Reddit is a social news aggregation and discussion platform organized into topic-based communities called subreddits. The API allows agents to browse posts, submit content, read and post comments, vote, and search across millions of communities.",
+  "description": "Reddit is a social news aggregation and discussion platform organized into topic-based communities called subreddits. The API allows agents to browse posts, submit content, read and post comments, vote, manage subreddits, handle private messages, and search across millions of communities.",
   "base_url": "https://oauth.reddit.com",
   "auth": {
     "type": "oauth2",
     "authorization_url": "https://www.reddit.com/api/v1/authorize",
     "token_url": "https://www.reddit.com/api/v1/access_token",
-    "scopes": ["read", "submit", "identity"],
+    "scopes": ["read", "submit", "vote", "identity", "edit", "history", "privatemessages", "subscribe", "save", "flair", "report", "mysubreddits"],
     "setup_url": "https://www.reddit.com/prefs/apps"
   },
   "capabilities": [
     {
-      "name": "get_subreddit_posts",
+      "name": "subreddit_posts_list",
+      "resource_group": "listings",
       "description": "Fetch a listing of posts from a specific subreddit, sorted by hot, new, top, or rising.",
-      "detail_url": "/capabilities/get_subreddit_posts"
+      "detail_url": "/capabilities/subreddit_posts_list"
     },
     {
-      "name": "search_posts",
+      "name": "subreddit_about_get",
+      "resource_group": "subreddits",
+      "description": "Retrieve detailed information about a specific subreddit including description, rules, subscriber count, and settings.",
+      "detail_url": "/capabilities/subreddit_about_get"
+    },
+    {
+      "name": "posts_search",
+      "resource_group": "search",
       "description": "Search Reddit for posts matching a query, optionally restricted to a specific subreddit.",
-      "detail_url": "/capabilities/search_posts"
+      "detail_url": "/capabilities/posts_search"
     },
     {
-      "name": "submit_post",
+      "name": "post_submit",
+      "resource_group": "links_and_comments",
       "description": "Submit a new text or link post to a subreddit on behalf of the authenticated user.",
-      "detail_url": "/capabilities/submit_post"
+      "detail_url": "/capabilities/post_submit"
     },
     {
-      "name": "get_comments",
+      "name": "comments_get",
+      "resource_group": "links_and_comments",
       "description": "Retrieve the comment tree for a specific post, including nested replies.",
-      "detail_url": "/capabilities/get_comments"
+      "detail_url": "/capabilities/comments_get"
     },
     {
-      "name": "post_comment",
+      "name": "comment_post",
+      "resource_group": "links_and_comments",
       "description": "Post a new comment on a post or reply to an existing comment.",
-      "detail_url": "/capabilities/post_comment"
+      "detail_url": "/capabilities/comment_post"
     },
     {
-      "name": "vote",
+      "name": "vote_cast",
+      "resource_group": "links_and_comments",
       "description": "Cast an upvote, downvote, or remove a vote on a post or comment.",
-      "detail_url": "/capabilities/vote"
+      "detail_url": "/capabilities/vote_cast"
     },
     {
-      "name": "get_user_info",
-      "description": "Retrieve profile information for the currently authenticated user or a specified username.",
-      "detail_url": "/capabilities/get_user_info"
+      "name": "post_save",
+      "resource_group": "links_and_comments",
+      "description": "Save or unsave a post or comment to the authenticated user's saved list.",
+      "detail_url": "/capabilities/post_save"
+    },
+    {
+      "name": "post_delete",
+      "resource_group": "links_and_comments",
+      "description": "Delete a post or comment authored by the authenticated user.",
+      "detail_url": "/capabilities/post_delete"
+    },
+    {
+      "name": "post_edit",
+      "resource_group": "links_and_comments",
+      "description": "Edit the text body of a self post or comment authored by the authenticated user.",
+      "detail_url": "/capabilities/post_edit"
+    },
+    {
+      "name": "post_hide",
+      "resource_group": "links_and_comments",
+      "description": "Hide or unhide a post from the authenticated user's listings.",
+      "detail_url": "/capabilities/post_hide"
+    },
+    {
+      "name": "user_me_get",
+      "resource_group": "account",
+      "description": "Retrieve the identity and profile information of the currently authenticated user.",
+      "detail_url": "/capabilities/user_me_get"
+    },
+    {
+      "name": "user_about_get",
+      "resource_group": "users",
+      "description": "Retrieve public profile information for a specified Reddit username.",
+      "detail_url": "/capabilities/user_about_get"
+    },
+    {
+      "name": "user_overview_get",
+      "resource_group": "users",
+      "description": "Fetch a listing of a user's recent posts and comments.",
+      "detail_url": "/capabilities/user_overview_get"
+    },
+    {
+      "name": "subreddits_mine_list",
+      "resource_group": "subreddits",
+      "description": "List subreddits the authenticated user has subscribed to, is a moderator of, or contributes to.",
+      "detail_url": "/capabilities/subreddits_mine_list"
+    },
+    {
+      "name": "subreddit_subscribe",
+      "resource_group": "subreddits",
+      "description": "Subscribe to or unsubscribe from a subreddit.",
+      "detail_url": "/capabilities/subreddit_subscribe"
+    },
+    {
+      "name": "messages_inbox_get",
+      "resource_group": "messages",
+      "description": "Retrieve the authenticated user's inbox messages including comment replies and private messages.",
+      "detail_url": "/capabilities/messages_inbox_get"
+    },
+    {
+      "name": "message_compose",
+      "resource_group": "messages",
+      "description": "Send a private message to another Reddit user.",
+      "detail_url": "/capabilities/message_compose"
+    },
+    {
+      "name": "frontpage_best_list",
+      "resource_group": "listings",
+      "description": "Fetch a listing of the best posts from the authenticated user's front page.",
+      "detail_url": "/capabilities/frontpage_best_list"
+    },
+    {
+      "name": "post_report",
+      "resource_group": "links_and_comments",
+      "description": "Report a post or comment for violating subreddit or site-wide rules.",
+      "detail_url": "/capabilities/post_report"
     }
   ]
 }

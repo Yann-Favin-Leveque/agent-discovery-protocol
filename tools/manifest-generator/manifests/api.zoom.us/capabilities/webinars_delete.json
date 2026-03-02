@@ -1,0 +1,45 @@
+{
+  "name": "webinars_delete",
+  "description": "Delete a scheduled webinar. Optionally cancel a specific occurrence of a recurring webinar.",
+  "endpoint": "/webinars/{webinarId}",
+  "method": "DELETE",
+  "resource_group": "webinars",
+  "parameters": [
+    {
+      "name": "webinarId",
+      "type": "integer",
+      "description": "The webinar ID to delete.",
+      "required": true,
+      "example": 9876543210
+    },
+    {
+      "name": "occurrence_id",
+      "type": "string",
+      "description": "Occurrence ID to delete a specific recurring instance.",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "cancel_webinar_reminder",
+      "type": "boolean",
+      "description": "Send cancellation email to registrants.",
+      "required": false,
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.zoom.us/v2/webinars/9876543210?cancel_webinar_reminder=true",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": ["webinar:write"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

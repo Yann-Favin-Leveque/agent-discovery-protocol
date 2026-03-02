@@ -1,0 +1,43 @@
+{
+  "name": "sharing_create_shared_link",
+  "description": "Create a shared link for a file or folder.",
+  "resource_group": "sharing",
+  "endpoint": "/2/sharing/create_shared_link_with_settings",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "path",
+      "type": "string",
+      "description": "File or folder path.",
+      "required": true
+    },
+    {
+      "name": "settings",
+      "type": "object",
+      "description": "Link settings (requested_visibility, link_password, expires).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "path": "/test/file.txt",
+      "settings": {
+        "requested_visibility": "public"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "url": "https://www.dropbox.com/s/abc123/file.txt?dl=0",
+      "name": "file.txt",
+      "path_lower": "/test/file.txt"
+    }
+  }
+}

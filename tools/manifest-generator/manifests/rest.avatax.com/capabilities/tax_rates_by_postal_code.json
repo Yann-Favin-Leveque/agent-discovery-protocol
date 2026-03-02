@@ -1,0 +1,47 @@
+{
+  "name": "tax_rates_by_postal_code",
+  "description": "Get tax rates by postal code.",
+  "endpoint": "/api/v2/taxrates/bypostalcode",
+  "method": "GET",
+  "resource_group": "tax_rates",
+  "parameters": [
+    {
+      "name": "country",
+      "type": "string",
+      "description": "Country code.",
+      "required": true,
+      "example": "US"
+    },
+    {
+      "name": "postalCode",
+      "type": "string",
+      "description": "Postal code.",
+      "required": true,
+      "example": "78756"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://rest.avatax.com/api/v2/taxrates/bypostalcode?country=US&postalCode=78756",
+    "headers": {
+      "Authorization": "Basic {base64_credentials}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "totalRate": 0.0825,
+      "rates": [
+        {
+          "rate": 0.0625,
+          "name": "TX STATE TAX",
+          "type": "State"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

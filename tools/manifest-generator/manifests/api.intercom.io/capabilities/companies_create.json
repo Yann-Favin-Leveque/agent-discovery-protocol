@@ -1,0 +1,82 @@
+{
+  "name": "companies_create",
+  "description": "Create or update a company. If a company with the same company_id exists, it is updated.",
+  "resource_group": "companies",
+  "endpoint": "/companies",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "company_id",
+      "type": "string",
+      "required": true,
+      "description": "Your unique identifier for the company."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "Company name."
+    },
+    {
+      "name": "plan",
+      "type": "string",
+      "required": false,
+      "description": "Plan name the company is on."
+    },
+    {
+      "name": "monthly_spend",
+      "type": "number",
+      "required": false,
+      "description": "Monthly spend in dollars."
+    },
+    {
+      "name": "size",
+      "type": "integer",
+      "required": false,
+      "description": "Number of employees."
+    },
+    {
+      "name": "website",
+      "type": "string",
+      "required": false,
+      "description": "Company website URL."
+    },
+    {
+      "name": "industry",
+      "type": "string",
+      "required": false,
+      "description": "Industry."
+    },
+    {
+      "name": "custom_attributes",
+      "type": "object",
+      "required": false,
+      "description": "Custom attributes."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.intercom.io/companies",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer dG9rOjEyMzQ1Njc4OTBhYmNkZWY=",
+      "Intercom-Version": "2.11"
+    },
+    "body": {
+      "company_id": "acme-corp",
+      "name": "Acme Corp",
+      "plan": "Enterprise",
+      "monthly_spend": 2500,
+      "industry": "Technology"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "type": "company",
+      "id": "company-1",
+      "company_id": "acme-corp",
+      "name": "Acme Corp"
+    }
+  }
+}

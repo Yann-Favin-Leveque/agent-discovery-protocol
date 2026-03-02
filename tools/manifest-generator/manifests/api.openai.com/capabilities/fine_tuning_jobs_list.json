@@ -1,0 +1,44 @@
+{
+  "name": "fine_tuning_jobs_list",
+  "description": "List all fine-tuning jobs in your organization with their status and configuration.",
+  "resource_group": "fine_tuning",
+  "endpoint": "/v1/fine_tuning/jobs",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "after",
+      "type": "string",
+      "required": false,
+      "description": "Cursor for pagination. Returns jobs created after this job ID."
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of jobs to retrieve (default 20)."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.openai.com/v1/fine_tuning/jobs?limit=10",
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "object": "list",
+      "data": [
+        {
+          "object": "fine_tuning.job",
+          "id": "ftjob-abc123",
+          "model": "gpt-4o-mini-2024-07-18",
+          "status": "succeeded",
+          "fine_tuned_model": "ft:gpt-4o-mini-2024-07-18:org:my-custom-model:abc123",
+          "created_at": 1709164800
+        }
+      ]
+    }
+  }
+}

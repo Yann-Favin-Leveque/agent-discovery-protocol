@@ -1,0 +1,65 @@
+{
+  "name": "files_list_names",
+  "description": "List file names in a bucket.",
+  "resource_group": "files",
+  "endpoint": "/b2api/v3/b2_list_file_names",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "The bucket ID.",
+      "required": true
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "description": "File name prefix filter.",
+      "required": false
+    },
+    {
+      "name": "delimiter",
+      "type": "string",
+      "description": "Delimiter for folder-like listing.",
+      "required": false
+    },
+    {
+      "name": "maxFileCount",
+      "type": "integer",
+      "description": "Max files to return (1-10000).",
+      "required": false,
+      "example": 100
+    },
+    {
+      "name": "startFileName",
+      "type": "string",
+      "description": "Start listing from this file name.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_list_file_names",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "bucketId": "bucket123",
+      "maxFileCount": 100
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "files": [
+        {
+          "fileId": "file123",
+          "fileName": "test/file.txt",
+          "contentLength": 1234
+        }
+      ],
+      "nextFileName": null
+    }
+  }
+}

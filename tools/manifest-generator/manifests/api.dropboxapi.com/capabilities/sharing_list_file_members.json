@@ -1,0 +1,47 @@
+{
+  "name": "sharing_list_file_members",
+  "description": "List members who have access to a shared file.",
+  "resource_group": "sharing",
+  "endpoint": "/2/sharing/list_file_members",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "file",
+      "type": "string",
+      "description": "File ID.",
+      "required": true
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Max results.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.dropboxapi.com/2/sharing/list_file_members",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "file": "id:abc123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "users": [
+        {
+          "user": {
+            "email": "john@example.com"
+          },
+          "access_type": {
+            ".tag": "owner"
+          }
+        }
+      ]
+    }
+  }
+}

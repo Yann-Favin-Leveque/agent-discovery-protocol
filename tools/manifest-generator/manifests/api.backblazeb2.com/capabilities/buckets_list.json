@@ -1,0 +1,56 @@
+{
+  "name": "buckets_list",
+  "description": "List all buckets in your account.",
+  "resource_group": "buckets",
+  "endpoint": "/b2api/v3/b2_list_buckets",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "Your account ID.",
+      "required": true
+    },
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "Filter by bucket ID.",
+      "required": false
+    },
+    {
+      "name": "bucketName",
+      "type": "string",
+      "description": "Filter by bucket name.",
+      "required": false
+    },
+    {
+      "name": "bucketTypes",
+      "type": "array",
+      "description": "Filter by types.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "{apiUrl}/b2api/v3/b2_list_buckets",
+    "headers": {
+      "Authorization": "{authorizationToken}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "accountId": "abc123"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "buckets": [
+        {
+          "bucketId": "bucket123",
+          "bucketName": "my-bucket",
+          "bucketType": "allPrivate"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "invoices_update",
+  "description": "Update an existing invoice's details, line items, or status.",
+  "endpoint": "/accounting/account/{account_id}/invoices/invoices/{invoice_id}",
+  "method": "PUT",
+  "resource_group": "invoices",
+  "parameters": [
+    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
+    {"name": "invoice_id", "type": "integer", "description": "The invoice ID to update.", "required": true, "example": 67890},
+    {"name": "notes", "type": "string", "description": "Updated notes.", "required": false, "example": "Updated payment terms."},
+    {"name": "lines", "type": "array", "description": "Updated line items.", "required": false, "example": []}
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.freshbooks.com/accounting/account/xB2yw/invoices/invoices/67890",
+    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha", "Content-Type": "application/json"},
+    "body": {"invoice": {"notes": "Updated payment terms."}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"response": {"result": {"invoice": {"id": 67890, "invoice_number": "0002", "notes": "Updated payment terms."}}}}
+  },
+  "auth_scopes": ["user:invoices:write"],
+  "rate_limits": {"requests_per_minute": 100}
+}

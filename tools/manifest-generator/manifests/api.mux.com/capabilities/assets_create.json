@@ -1,0 +1,93 @@
+{
+  "name": "assets_create",
+  "resource_group": "assets",
+  "description": "Create a new video asset from a URL. Mux transcodes it into adaptive streaming formats.",
+  "endpoint": "/video/v1/assets",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "input",
+      "type": "array",
+      "required": true,
+      "description": "Array of input objects with url field."
+    },
+    {
+      "name": "playback_policy",
+      "type": "array",
+      "required": false,
+      "description": "Playback policies: public or signed."
+    },
+    {
+      "name": "encoding_tier",
+      "type": "string",
+      "required": false,
+      "description": "Encoding tier: smart or baseline."
+    },
+    {
+      "name": "normalize_audio",
+      "type": "boolean",
+      "required": false,
+      "description": "Normalize audio loudness."
+    },
+    {
+      "name": "mp4_support",
+      "type": "string",
+      "required": false,
+      "description": "MP4 support: none, standard, capped-1080p, audio-only."
+    },
+    {
+      "name": "master_access",
+      "type": "string",
+      "required": false,
+      "description": "Master access: none or temporary."
+    },
+    {
+      "name": "test",
+      "type": "boolean",
+      "required": false,
+      "description": "Create as test asset (watermarked, free)."
+    },
+    {
+      "name": "passthrough",
+      "type": "string",
+      "required": false,
+      "description": "Custom metadata passthrough string."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mux.com/video/v1/assets",
+    "headers": {
+      "Authorization": "Basic base64(token_id:token_secret)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "input": [
+        {
+          "url": "https://example.com/video.mp4"
+        }
+      ],
+      "playback_policy": [
+        "public"
+      ],
+      "encoding_tier": "smart"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "data": {
+        "id": "asset_abc123",
+        "status": "preparing",
+        "playback_ids": [
+          {
+            "id": "playback_xyz",
+            "policy": "public"
+          }
+        ],
+        "created_at": "2024-01-15T10:30:00Z",
+        "encoding_tier": "smart"
+      }
+    }
+  }
+}

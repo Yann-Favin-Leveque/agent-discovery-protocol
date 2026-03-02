@@ -1,0 +1,38 @@
+{
+  "name": "messages_get",
+  "description": "Retrieve a stored message by its storage key.",
+  "resource_group": "messages",
+  "endpoint": "/v3/domains/{domain}/messages/{storage_key}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun domain.",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "storage_key",
+      "type": "string",
+      "description": "The message storage key from events.",
+      "required": true,
+      "example": "eyJwI..."
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.mailgun.com/v3/domains/mg.example.com/messages/eyJwI...",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "from": "sender@mg.example.com",
+      "subject": "Hello",
+      "body-html": "<h1>Hello</h1>"
+    }
+  }
+}

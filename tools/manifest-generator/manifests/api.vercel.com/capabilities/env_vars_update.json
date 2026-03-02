@@ -1,0 +1,61 @@
+{
+  "name": "env_vars_update",
+  "description": "Edit an existing environment variable.",
+  "endpoint": "/v9/projects/{idOrName}/env/{id}",
+  "method": "PATCH",
+  "resource_group": "environment",
+  "parameters": [
+    {
+      "name": "idOrName",
+      "type": "string",
+      "description": "Project ID or name",
+      "required": true,
+      "example": "my-app"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Environment variable ID",
+      "required": true,
+      "example": "env_123"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "New value",
+      "required": false,
+      "example": "postgres://new-host/db"
+    },
+    {
+      "name": "target",
+      "type": "array",
+      "description": "Updated target environments",
+      "required": false,
+      "example": [
+        "production"
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://api.vercel.com/v9/projects/my-app/env/env_123",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "value": "postgres://new-host/db"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "key": "DATABASE_URL",
+      "value": "postgres://new-host/db"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

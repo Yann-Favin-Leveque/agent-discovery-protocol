@@ -1,0 +1,76 @@
+{
+  "name": "deposits_create",
+  "description": "Record a bank deposit for undeposited funds or direct deposits.",
+  "endpoint": "/v3/company/{realmId}/deposit",
+  "method": "POST",
+  "resource_group": "deposits",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "DepositToAccountRef",
+      "type": "object",
+      "description": "Bank account",
+      "required": true,
+      "example": {
+        "value": "35"
+      }
+    },
+    {
+      "name": "Line",
+      "type": "array",
+      "description": "Deposit lines",
+      "required": true,
+      "example": [
+        {
+          "Amount": 300.0,
+          "DetailType": "DepositLineDetail"
+        }
+      ]
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/deposit?minorversion=65",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "DepositToAccountRef": {
+        "value": "35"
+      },
+      "Line": [
+        {
+          "Amount": 300.0,
+          "DetailType": "DepositLineDetail",
+          "DepositLineDetail": {
+            "AccountRef": {
+              "value": "4"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Deposit": {
+        "Id": "18",
+        "TotalAmt": 300.0
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

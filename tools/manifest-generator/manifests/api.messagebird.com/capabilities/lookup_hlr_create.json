@@ -1,0 +1,22 @@
+{
+  "name": "lookup_hlr_create",
+  "description": "Create an HLR (Home Location Register) lookup for real-time network availability and roaming information.",
+  "resource_group": "lookup",
+  "endpoint": "/lookup/{phoneNumber}/hlr",
+  "method": "POST",
+  "parameters": [
+    {"name": "phoneNumber", "type": "string", "required": true, "location": "path", "description": "Phone number in international format."},
+    {"name": "reference", "type": "string", "required": false, "description": "Client reference for tracking."},
+    {"name": "reportUrl", "type": "string", "required": false, "description": "Webhook URL for the HLR result."}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://rest.messagebird.com/lookup/31612345678/hlr",
+    "headers": {"Content-Type": "application/json", "Authorization": "AccessKey live_abc123xyz"},
+    "body": {"reference": "hlr-check-001"}
+  },
+  "response_example": {
+    "status": 201,
+    "body": {"id": "hlr-id-456", "network": null, "reference": "hlr-check-001", "status": "sent", "createdDatetime": "2026-03-01T12:00:00+00:00"}
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "name": "availability_query",
+  "description": "Find available time slots across multiple participants' calendars within specified time windows. Supports grouping with 'all required' or 'minimum N', buffer times, and configurable slot intervals.",
+  "endpoint": "/v1/availability",
+  "method": "POST",
+  "resource_group": "scheduling",
+  "parameters": [
+    {
+      "name": "participants",
+      "type": "array",
+      "required": true,
+      "description": "Groups of participants with 'members' (array of {sub: Cronofy account ID}) and 'required' ('all' or integer minimum)."
+    },
+    {
+      "name": "required_duration",
+      "type": "object",
+      "required": true,
+      "description": "Minimum meeting duration with 'minutes' field (e.g., {minutes: 30})."
+    },
+    {
+      "name": "query_periods",
+      "type": "array",
+      "required": true,
+      "description": "Time windows to search within. Array of {start, end} ISO 8601 datetime pairs. Max 50 periods, 35 days."
+    },
+    {
+      "name": "response_format",
+      "type": "string",
+      "required": false,
+      "description": "Result format: 'periods' (default), 'slots', or 'overlapping_slots'."
+    },
+    {
+      "name": "buffer",
+      "type": "object",
+      "required": false,
+      "description": "Buffer time with 'before' and 'after' duration objects."
+    },
+    {
+      "name": "start_interval",
+      "type": "object",
+      "required": false,
+      "description": "Slot granularity: {minutes: 5|10|15|20|30|60}."
+    },
+    {
+      "name": "max_results",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum results to return (1-512, default 20)."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cronofy.com/v1/availability",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {api_key}"
+    },
+    "body": {
+      "participants": [
+        {
+          "members": [
+            { "sub": "acc_5ba21743f408617d1269ea1e" },
+            { "sub": "acc_64b17d868090ea21640c914c" }
+          ],
+          "required": "all"
+        }
+      ],
+      "required_duration": { "minutes": 30 },
+      "query_periods": [
+        { "start": "2024-01-20T09:00:00Z", "end": "2024-01-20T18:00:00Z" }
+      ],
+      "response_format": "slots",
+      "start_interval": { "minutes": 15 },
+      "max_results": 10
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "available_slots": [
+        {
+          "start": "2024-01-20T10:00:00Z",
+          "end": "2024-01-20T10:30:00Z",
+          "participants": [
+            { "sub": "acc_5ba21743f408617d1269ea1e" },
+            { "sub": "acc_64b17d868090ea21640c914c" }
+          ]
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["read_free_busy"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

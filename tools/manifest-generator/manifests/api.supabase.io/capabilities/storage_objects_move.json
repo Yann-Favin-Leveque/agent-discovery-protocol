@@ -1,0 +1,54 @@
+{
+  "name": "storage_objects_move",
+  "description": "Move or rename a file within or between buckets.",
+  "endpoint": "/storage/v1/object/move",
+  "method": "POST",
+  "resource_group": "storage",
+  "parameters": [
+    {
+      "name": "bucketId",
+      "type": "string",
+      "description": "Source bucket",
+      "required": true,
+      "example": "avatars"
+    },
+    {
+      "name": "sourceKey",
+      "type": "string",
+      "description": "Source path",
+      "required": true,
+      "example": "user123/old-avatar.png"
+    },
+    {
+      "name": "destinationKey",
+      "type": "string",
+      "description": "Destination path",
+      "required": true,
+      "example": "user123/avatar.png"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{project_ref}.supabase.co/storage/v1/object/move",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer {anon_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "bucketId": "avatars",
+      "sourceKey": "user123/old-avatar.png",
+      "destinationKey": "user123/avatar.png"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "Successfully moved"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

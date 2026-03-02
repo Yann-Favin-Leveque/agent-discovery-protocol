@@ -1,0 +1,65 @@
+{
+  "name": "users_create",
+  "description": "Create a new user.",
+  "endpoint": "/api/v2/users",
+  "method": "POST",
+  "resource_group": "users",
+  "parameters": [
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Full name",
+      "required": true,
+      "example": "John Doe"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Email",
+      "required": true,
+      "example": "john@example.com"
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "description": "Role (end-user, agent, admin)",
+      "required": false,
+      "example": "end-user"
+    },
+    {
+      "name": "organization_id",
+      "type": "integer",
+      "description": "Organization ID",
+      "required": false,
+      "example": "1"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://{subdomain}.zendesk.com/api/v2/users",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "role": "end-user"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "user": {
+        "id": 789,
+        "name": "John Doe"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 400
+  }
+}

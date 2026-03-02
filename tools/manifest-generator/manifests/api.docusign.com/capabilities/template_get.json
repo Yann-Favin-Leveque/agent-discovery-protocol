@@ -1,0 +1,57 @@
+{
+  "name": "template_get",
+  "description": "Retrieve the full details of a specific template including documents, recipients, and tabs.",
+  "resource_group": "template",
+  "endpoint": "/v2.1/accounts/{accountId}/templates/{templateId}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "required": true,
+      "description": "Account ID.",
+      "in": "path"
+    },
+    {
+      "name": "templateId",
+      "type": "string",
+      "required": true,
+      "description": "Template ID.",
+      "in": "path"
+    }
+  ],
+  "auth_scopes": [
+    "signature"
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://demo.docusign.net/restapi/v2.1/accounts/abc123/templates/tmpl-abc-123",
+    "headers": {
+      "Authorization": "Bearer TOKEN"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "templateId": "tmpl-abc-123",
+      "name": "Standard NDA",
+      "description": "Non-disclosure agreement template",
+      "documents": [
+        {
+          "documentId": "1",
+          "name": "NDA.pdf",
+          "pages": "2"
+        }
+      ],
+      "recipients": {
+        "signers": [
+          {
+            "roleName": "Signer",
+            "recipientId": "1",
+            "routingOrder": "1"
+          }
+        ]
+      }
+    }
+  }
+}

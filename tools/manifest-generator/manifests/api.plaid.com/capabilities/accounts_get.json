@@ -1,0 +1,53 @@
+{
+  "name": "accounts_get",
+  "description": "Retrieve all accounts for a linked Item including balances.",
+  "resource_group": "accounts",
+  "endpoint": "/accounts/get",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "access_token",
+      "type": "string",
+      "required": true,
+      "description": "The access token."
+    },
+    {
+      "name": "options",
+      "type": "object",
+      "required": false,
+      "description": "Options with account_ids filter."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://production.plaid.com/accounts/get",
+    "headers": {
+      "Content-Type": "application/json",
+      "PLAID-CLIENT-ID": "your_client_id",
+      "PLAID-SECRET": "your_secret"
+    },
+    "body": {
+      "access_token": "access-production-abc"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "accounts": [
+        {
+          "account_id": "acc_abc",
+          "name": "Checking",
+          "type": "depository",
+          "subtype": "checking",
+          "balances": {
+            "available": 1200.5,
+            "current": 1250.0,
+            "currency": "USD"
+          },
+          "mask": "1234"
+        }
+      ],
+      "request_id": "abc"
+    }
+  }
+}

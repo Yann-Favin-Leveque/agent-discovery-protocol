@@ -1,0 +1,77 @@
+{
+  "name": "egress_room_composite_start",
+  "description": "Start recording or streaming an entire room as a composite video/audio layout to file storage, RTMP stream, or HLS segments.",
+  "endpoint": "/twirp/livekit.Egress/StartRoomCompositeEgress",
+  "method": "POST",
+  "resource_group": "egress",
+  "parameters": [
+    {
+      "name": "room_name",
+      "type": "string",
+      "required": true,
+      "description": "Name of the room to record."
+    },
+    {
+      "name": "layout",
+      "type": "string",
+      "required": false,
+      "description": "Layout template for the composite (e.g., 'grid', 'speaker')."
+    },
+    {
+      "name": "audio_only",
+      "type": "boolean",
+      "required": false,
+      "description": "Record only audio."
+    },
+    {
+      "name": "video_only",
+      "type": "boolean",
+      "required": false,
+      "description": "Record only video."
+    },
+    {
+      "name": "file_outputs",
+      "type": "array",
+      "required": false,
+      "description": "Array of file output configurations with filepath and S3/GCS/Azure storage settings."
+    },
+    {
+      "name": "stream_outputs",
+      "type": "array",
+      "required": false,
+      "description": "Array of RTMP stream output configurations with URLs."
+    },
+    {
+      "name": "segment_outputs",
+      "type": "array",
+      "required": false,
+      "description": "Array of HLS segment output configurations."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://your-livekit-host.livekit.cloud/twirp/livekit.Egress/StartRoomCompositeEgress",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer {access_token}"
+    },
+    "body": {
+      "room_name": "interview-room-42",
+      "layout": "grid",
+      "file_outputs": [{ "filepath": "recordings/interview-42.mp4", "s3": { "bucket": "my-recordings", "region": "us-east-1" } }]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "egress_id": "EG_abc123",
+      "room_name": "interview-room-42",
+      "status": "EGRESS_STARTING",
+      "started_at": 1705313800
+    }
+  },
+  "auth_scopes": ["roomRecord"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

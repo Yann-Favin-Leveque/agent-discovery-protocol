@@ -1,84 +1,80 @@
 {
   "name": "geocode_address",
-  "description": "Convert a human-readable address into geographic coordinates (latitude and longitude) and structured address components. Supports full addresses, partial addresses, and place names.",
+  "description": "Convert a human-readable address into geographic coordinates (latitude/longitude) and structured address components.",
   "endpoint": "/maps/api/geocode/json",
   "method": "GET",
+  "resource_group": "geocoding",
   "parameters": [
     {
       "name": "address",
       "type": "string",
-      "description": "The street address or place name to geocode.",
+      "description": "The street address or plus code to geocode.",
       "required": true,
       "example": "1600 Amphitheatre Parkway, Mountain View, CA"
     },
     {
+      "name": "key",
+      "type": "string",
+      "description": "Google Maps API key.",
+      "required": true,
+      "example": "AIzaSy..."
+    },
+    {
       "name": "components",
       "type": "string",
-      "description": "Component filter for narrowing results, pipe-separated (e.g., 'country:US|postal_code:94043').",
+      "description": "Component filter with pipe-separated component:value pairs (e.g., country:US).",
       "required": false,
       "example": "country:US"
     },
     {
       "name": "bounds",
       "type": "string",
-      "description": "Bounding box to bias results, format: 'south,west|north,east'.",
+      "description": "Bounding box to bias results (south,west|north,east).",
       "required": false,
-      "example": "34.0,-118.5|34.1,-118.4"
+      "example": "34.172684,-118.604794|34.236144,-118.500938"
     },
     {
       "name": "language",
       "type": "string",
-      "description": "Language code for returned results (e.g., 'en', 'fr', 'ja').",
+      "description": "Language for results (e.g., en, fr, de).",
       "required": false,
       "example": "en"
     },
     {
       "name": "region",
       "type": "string",
-      "description": "Region bias as a ccTLD two-character code (e.g., 'us', 'uk').",
+      "description": "Region bias as ccTLD two-character code.",
       "required": false,
       "example": "us"
     }
   ],
   "request_example": {
     "method": "GET",
-    "url": "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key={api_key}",
+    "url": "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSy...",
     "headers": {}
   },
   "response_example": {
     "status": 200,
     "body": {
-      "status": "OK",
       "results": [
         {
           "formatted_address": "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA",
           "geometry": {
-            "location": {
-              "lat": 37.4224764,
-              "lng": -122.0842499
-            },
+            "location": {"lat": 37.4224764, "lng": -122.0842499},
             "location_type": "ROOFTOP"
           },
+          "place_id": "ChIJ2eUgeAK6j4ARbn5u_wAGqWA",
           "address_components": [
-            {
-              "long_name": "1600",
-              "short_name": "1600",
-              "types": ["street_number"]
-            },
-            {
-              "long_name": "Amphitheatre Parkway",
-              "short_name": "Amphitheatre Pkwy",
-              "types": ["route"]
-            },
-            {
-              "long_name": "Mountain View",
-              "short_name": "Mountain View",
-              "types": ["locality", "political"]
-            }
-          ],
-          "place_id": "ChIJ2eUgeAK6j4ARbn5u_wAGqWA"
+            {"long_name": "1600", "short_name": "1600", "types": ["street_number"]},
+            {"long_name": "Amphitheatre Parkway", "short_name": "Amphitheatre Pkwy", "types": ["route"]}
+          ]
         }
-      ]
+      ],
+      "status": "OK"
     }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 3000
   }
 }

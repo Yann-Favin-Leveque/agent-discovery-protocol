@@ -1,7 +1,7 @@
 {
   "spec_version": "1.0",
   "name": "UptimeRobot",
-  "description": "UptimeRobot monitors website and API uptime by checking endpoints at regular intervals and alerting on downtime. Create, manage, and query monitors for HTTP, keyword, ping, and port checks. Note: all API requests use POST method, and the API key is passed in the request body rather than in headers.",
+  "description": "UptimeRobot monitors website and API uptime by checking endpoints at regular intervals and alerting on downtime. Create, manage, and query monitors for HTTP, keyword, ping, and port checks. All API requests use POST method with the API key in the request body.",
   "base_url": "https://api.uptimerobot.com",
   "auth": {
     "type": "api_key",
@@ -11,34 +11,58 @@
   },
   "capabilities": [
     {
-      "name": "get_monitors",
-      "description": "Retrieve all monitors with their current status, uptime ratios, response times, and optional log history. The API key must be included in the POST body.",
-      "detail_url": "/capabilities/get_monitors"
+      "name": "monitors_get",
+      "description": "Retrieve all monitors with their current status, uptime ratios, response times, and optional log history.",
+      "resource_group": "monitors",
+      "detail_url": "/capabilities/monitors_get"
     },
     {
-      "name": "create_monitor",
+      "name": "monitor_create",
       "description": "Create a new uptime monitor for a URL or IP address. Supports HTTP(s), keyword, ping, and port monitor types.",
-      "detail_url": "/capabilities/create_monitor"
+      "resource_group": "monitors",
+      "detail_url": "/capabilities/monitor_create"
     },
     {
-      "name": "edit_monitor",
+      "name": "monitor_edit",
       "description": "Edit an existing monitor's settings including URL, friendly name, monitoring interval, and alert contacts.",
-      "detail_url": "/capabilities/edit_monitor"
+      "resource_group": "monitors",
+      "detail_url": "/capabilities/monitor_edit"
     },
     {
-      "name": "delete_monitor",
+      "name": "monitor_delete",
       "description": "Permanently delete an existing monitor by its ID.",
-      "detail_url": "/capabilities/delete_monitor"
+      "resource_group": "monitors",
+      "detail_url": "/capabilities/monitor_delete"
     },
     {
-      "name": "get_alert_contacts",
+      "name": "monitor_reset",
+      "description": "Reset a monitor's statistics, clearing all collected uptime data and response times.",
+      "resource_group": "monitors",
+      "detail_url": "/capabilities/monitor_reset"
+    },
+    {
+      "name": "alert_contacts_get",
       "description": "List all alert contacts configured in the account, including email, SMS, webhook, and integration contacts.",
-      "detail_url": "/capabilities/get_alert_contacts"
+      "resource_group": "alert_contacts",
+      "detail_url": "/capabilities/alert_contacts_get"
     },
     {
-      "name": "get_account_details",
+      "name": "alert_contact_create",
+      "description": "Create a new alert contact for receiving downtime notifications via email, SMS, webhook, or integrations.",
+      "resource_group": "alert_contacts",
+      "detail_url": "/capabilities/alert_contact_create"
+    },
+    {
+      "name": "alert_contact_delete",
+      "description": "Delete an existing alert contact by its ID.",
+      "resource_group": "alert_contacts",
+      "detail_url": "/capabilities/alert_contact_delete"
+    },
+    {
+      "name": "account_details_get",
       "description": "Retrieve account information including plan type, monitor limits, and usage statistics.",
-      "detail_url": "/capabilities/get_account_details"
+      "resource_group": "account",
+      "detail_url": "/capabilities/account_details_get"
     }
   ]
 }

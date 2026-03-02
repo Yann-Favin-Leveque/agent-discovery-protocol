@@ -1,0 +1,60 @@
+{
+  "name": "auth_update_user",
+  "description": "Update the currently authenticated user's email, password, or metadata.",
+  "endpoint": "/auth/v1/user",
+  "method": "PUT",
+  "resource_group": "auth",
+  "parameters": [
+    {
+      "name": "email",
+      "type": "string",
+      "description": "New email address",
+      "required": false,
+      "example": "newemail@example.com"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "description": "New password",
+      "required": false,
+      "example": "newSecurePassword"
+    },
+    {
+      "name": "data",
+      "type": "object",
+      "description": "Updated user metadata",
+      "required": false,
+      "example": {
+        "name": "Jane Doe"
+      }
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://{project_ref}.supabase.co/auth/v1/user",
+    "headers": {
+      "apikey": "{anon_key}",
+      "Authorization": "Bearer eyJ...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": {
+        "name": "Jane Doe"
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "uuid-123",
+      "email": "user@example.com",
+      "user_metadata": {
+        "name": "Jane Doe"
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

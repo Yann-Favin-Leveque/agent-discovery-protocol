@@ -1,0 +1,61 @@
+{
+  "name": "sso_profile_get",
+  "resource_group": "sso",
+  "description": "Exchange an authorization code for user profile and access token after SSO callback.",
+  "endpoint": "/sso/token",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "client_id",
+      "type": "string",
+      "required": true,
+      "description": "WorkOS client ID."
+    },
+    {
+      "name": "client_secret",
+      "type": "string",
+      "required": true,
+      "description": "WorkOS API key."
+    },
+    {
+      "name": "grant_type",
+      "type": "string",
+      "required": true,
+      "description": "Must be 'authorization_code'."
+    },
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "Authorization code from SSO callback."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.workos.com/sso/token",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "client_id": "client_xxx",
+      "client_secret": "sk_xxx",
+      "grant_type": "authorization_code",
+      "code": "auth-code-xyz"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "access_token": "access-token-xyz",
+      "profile": {
+        "id": "prof_abc",
+        "connection_id": "conn_abc",
+        "organization_id": "org_abc",
+        "email": "alice@acme.com",
+        "first_name": "Alice",
+        "last_name": "Johnson",
+        "idp_id": "12345"
+      }
+    }
+  }
+}

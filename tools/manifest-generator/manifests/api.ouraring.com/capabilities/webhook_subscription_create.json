@@ -1,0 +1,59 @@
+{
+  "name": "webhook_subscription_create",
+  "description": "Create a webhook subscription to receive real-time notifications when new Oura data is available.",
+  "resource_group": "webhook",
+  "endpoint": "/v2/webhook/subscription",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "callback_url",
+      "type": "string",
+      "required": true,
+      "description": "Your webhook callback URL."
+    },
+    {
+      "name": "verification_token",
+      "type": "string",
+      "required": true,
+      "description": "Token for webhook verification."
+    },
+    {
+      "name": "event_type",
+      "type": "string",
+      "required": true,
+      "description": "Event type to subscribe to."
+    },
+    {
+      "name": "data_type",
+      "type": "string",
+      "required": true,
+      "description": "Data type: tag, enhanced_tag, workout, session, sleep, daily_sleep, daily_readiness, daily_activity, daily_spo2, daily_stress."
+    }
+  ],
+  "auth_scopes": [
+    "personal"
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.ouraring.com/v2/webhook/subscription",
+    "headers": {
+      "Authorization": "Bearer TOKEN",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "callback_url": "https://example.com/webhook",
+      "verification_token": "abc123",
+      "event_type": "create",
+      "data_type": "daily_activity"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "wh-123",
+      "callback_url": "https://example.com/webhook",
+      "event_type": "create",
+      "data_type": "daily_activity"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "name": "phone_numbers_create",
+  "resource_group": "phone_numbers",
+  "description": "Create a new phone number for a user.",
+  "endpoint": "/v1/phone_numbers",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "required": true,
+      "description": "User ID."
+    },
+    {
+      "name": "phone_number",
+      "type": "string",
+      "required": true,
+      "description": "Phone number in E.164 format."
+    },
+    {
+      "name": "verified",
+      "type": "boolean",
+      "required": false,
+      "description": "Mark as verified."
+    },
+    {
+      "name": "primary",
+      "type": "boolean",
+      "required": false,
+      "description": "Set as primary."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.clerk.com/v1/phone_numbers",
+    "headers": {
+      "Authorization": "Bearer sk_live_xxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "user_id": "user_2abc123",
+      "phone_number": "+15551234567",
+      "verified": true
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "phn_abc",
+      "object": "phone_number",
+      "phone_number": "+15551234567",
+      "verification": {
+        "status": "verified"
+      }
+    }
+  }
+}

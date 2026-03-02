@@ -1,0 +1,48 @@
+{
+  "name": "users_preferences_get",
+  "description": "Get notification preferences for a user.",
+  "endpoint": "/v1/users/{user_id}/preferences/{id}",
+  "method": "GET",
+  "resource_group": "preferences",
+  "parameters": [
+    {
+      "name": "user_id",
+      "type": "string",
+      "description": "User ID.",
+      "required": true,
+      "example": "user_123"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Preference set ID (use 'default').",
+      "required": true,
+      "example": "default"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.knock.app/v1/users/user_123/preferences/default",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "default",
+      "categories": {
+        "marketing": {
+          "channel_types": {
+            "email": true,
+            "push": false
+          }
+        }
+      }
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

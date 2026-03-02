@@ -1,0 +1,78 @@
+{
+  "name": "meetings_list",
+  "description": "List all scheduled and live meetings for a specified user. Returns meeting IDs, topics, start times, durations, and statuses with pagination support.",
+  "endpoint": "/users/{userId}/meetings",
+  "method": "GET",
+  "resource_group": "meetings",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user ID or email address. Use 'me' for the authenticated user.",
+      "required": true,
+      "example": "me"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Meeting type filter: scheduled, live, upcoming, upcoming_meetings, previous_meetings.",
+      "required": false,
+      "example": "scheduled"
+    },
+    {
+      "name": "page_size",
+      "type": "integer",
+      "description": "Number of records per page (max 300).",
+      "required": false,
+      "example": 30
+    },
+    {
+      "name": "next_page_token",
+      "type": "string",
+      "description": "Pagination token for fetching the next page of results.",
+      "required": false,
+      "example": ""
+    },
+    {
+      "name": "page_number",
+      "type": "integer",
+      "description": "Page number of results (deprecated, use next_page_token).",
+      "required": false,
+      "example": 1
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.zoom.us/v2/users/me/meetings?type=scheduled&page_size=30",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "page_count": 1,
+      "page_number": 1,
+      "page_size": 30,
+      "total_records": 2,
+      "meetings": [
+        {
+          "uuid": "abc123",
+          "id": 1234567890,
+          "host_id": "abcdefg",
+          "topic": "Weekly Standup",
+          "type": 2,
+          "start_time": "2024-01-15T10:00:00Z",
+          "duration": 30,
+          "timezone": "America/New_York",
+          "join_url": "https://zoom.us/j/1234567890",
+          "status": "waiting"
+        }
+      ]
+    }
+  },
+  "auth_scopes": ["meeting:read"],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "inquiries_update",
+  "description": "Update fields on an existing inquiry such as reference ID or note.",
+  "resource_group": "inquiries",
+  "endpoint": "/inquiries/{inquiry_id}",
+  "method": "PATCH",
+  "parameters": [
+    {"name": "inquiry_id", "type": "string", "description": "The inquiry ID.", "required": true, "example": "inq_abc123"},
+    {"name": "reference-id", "type": "string", "description": "Updated reference ID.", "required": false},
+    {"name": "note", "type": "string", "description": "Updated internal note.", "required": false}
+  ],
+  "request_example": {
+    "method": "PATCH",
+    "url": "https://withpersona.com/api/v1/inquiries/inq_abc123",
+    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json", "Persona-Version": "2023-01-05"},
+    "body": {"data": {"attributes": {"note": "Updated note for inquiry"}}}
+  },
+  "response_example": {
+    "status": 200,
+    "body": {"data": {"type": "inquiry", "id": "inq_abc123", "attributes": {"status": "approved", "note": "Updated note for inquiry"}}}
+  },
+  "rate_limits": {"requests_per_minute": 300}
+}

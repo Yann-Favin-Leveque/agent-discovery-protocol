@@ -1,0 +1,52 @@
+{
+  "name": "billing_requests_create",
+  "description": "Create a billing request to set up mandates or collect instant payments.",
+  "resource_group": "billing_requests",
+  "endpoint": "/billing_requests",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "mandate_request",
+      "type": "object",
+      "description": "Mandate request details.",
+      "required": false
+    },
+    {
+      "name": "payment_request",
+      "type": "object",
+      "description": "Payment request details.",
+      "required": false
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Key-value metadata.",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gocardless.com/billing_requests",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json",
+      "GoCardless-Version": "2015-07-06"
+    },
+    "body": {
+      "billing_requests": {
+        "mandate_request": {
+          "scheme": "bacs"
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "billing_requests": {
+        "id": "BRQ000123",
+        "status": "pending"
+      }
+    }
+  }
+}

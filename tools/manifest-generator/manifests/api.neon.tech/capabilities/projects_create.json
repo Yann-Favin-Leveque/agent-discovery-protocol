@@ -1,0 +1,40 @@
+{
+  "name": "projects_create",
+  "resource_group": "projects",
+  "description": "Create a new Neon project with optional region and PostgreSQL version.",
+  "endpoint": "/projects",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "project",
+      "type": "object",
+      "required": true,
+      "in": "body",
+      "description": "Project config: name, region_id, pg_version."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://console.neon.tech/api/v2/projects",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "project": {
+        "name": "my-project",
+        "region_id": "aws-us-east-1",
+        "pg_version": 16
+      }
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "project": {
+        "id": "proj-abc123",
+        "name": "my-project"
+      }
+    }
+  }
+}

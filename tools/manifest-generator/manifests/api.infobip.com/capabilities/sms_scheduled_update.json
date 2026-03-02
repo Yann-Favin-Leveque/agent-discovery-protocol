@@ -1,0 +1,43 @@
+{
+  "name": "sms_scheduled_update",
+  "description": "Update the status of a previously scheduled SMS message batch. Can be used to cancel or pause scheduled messages.",
+  "endpoint": "/sms/1/bulks/status",
+  "method": "PUT",
+  "resource_group": "sms",
+  "parameters": [
+    {
+      "name": "bulkId",
+      "type": "string",
+      "required": true,
+      "description": "The bulk ID of the scheduled message batch (query parameter)."
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "description": "New status for the bulk. Allowed values: 'PENDING', 'PAUSED', 'PROCESSING', 'CANCELED'."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.infobip.com/sms/1/bulks/status?bulkId=2034072219640523072",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "App {api_key}"
+    },
+    "body": {
+      "status": "CANCELED"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "bulkId": "2034072219640523072",
+      "status": "CANCELED"
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 1000
+  }
+}

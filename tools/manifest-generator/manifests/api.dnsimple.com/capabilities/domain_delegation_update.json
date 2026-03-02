@@ -1,0 +1,48 @@
+{
+  "name": "domain_delegation_update",
+  "description": "Change the name servers a domain is delegated to.",
+  "resource_group": "registrar",
+  "endpoint": "/{account}/registrar/domains/{domain}/delegation",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "description": "Account ID."
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "required": true,
+      "description": "Domain name."
+    },
+    {
+      "name": "nameservers",
+      "type": "array",
+      "required": true,
+      "description": "Array of nameserver hostnames."
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://api.dnsimple.com/v2/1010/registrar/domains/example.com/delegation",
+    "headers": {
+      "Authorization": "Bearer <token>",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      "ns1.example.com",
+      "ns2.example.com"
+    ]
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        "ns1.example.com",
+        "ns2.example.com"
+      ]
+    }
+  }
+}

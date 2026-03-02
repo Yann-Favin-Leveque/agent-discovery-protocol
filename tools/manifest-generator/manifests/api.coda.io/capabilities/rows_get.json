@@ -1,0 +1,59 @@
+{
+  "name": "rows_get",
+  "resource_group": "rows",
+  "description": "Retrieve a specific row by ID.",
+  "endpoint": "/docs/{docId}/tables/{tableIdOrName}/rows/{rowIdOrName}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "docId",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Document ID",
+      "example": "AbCDeFGH"
+    },
+    {
+      "name": "tableIdOrName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Table ID or name",
+      "example": "grid-abc"
+    },
+    {
+      "name": "rowIdOrName",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Row ID or name",
+      "example": "i-abc"
+    },
+    {
+      "name": "useColumnNames",
+      "type": "boolean",
+      "required": false,
+      "description": "Use column names as keys",
+      "example": true
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://coda.io/apis/v1/docs/AbCDeFGH/tables/grid-abc/rows/i-abc?useColumnNames=true",
+    "headers": {
+      "Authorization": "Bearer CODA_API_KEY"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "i-abc",
+      "type": "row",
+      "name": "Build dashboard",
+      "values": {
+        "Task Name": "Build dashboard",
+        "Status": "In Progress"
+      }
+    }
+  }
+}

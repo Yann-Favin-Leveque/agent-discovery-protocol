@@ -1,0 +1,48 @@
+{
+  "name": "unsubscribes_create",
+  "description": "Add an address to the unsubscribe list.",
+  "resource_group": "unsubscribes",
+  "endpoint": "/v3/{domain}/unsubscribes",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "string",
+      "description": "Your Mailgun domain.",
+      "required": true,
+      "example": "mg.example.com"
+    },
+    {
+      "name": "address",
+      "type": "string",
+      "description": "Email address.",
+      "required": true,
+      "example": "unsub@example.com"
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "description": "Tag to unsubscribe from, or * for all.",
+      "required": false,
+      "example": "*"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mailgun.com/v3/mg.example.com/unsubscribes",
+    "headers": {
+      "Authorization": "Basic {base64(api:key)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "address": "unsub@example.com",
+      "tag": "*"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "message": "Address has been added to the unsubscribes table"
+    }
+  }
+}

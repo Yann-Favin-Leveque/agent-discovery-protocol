@@ -1,0 +1,55 @@
+{
+  "name": "token_prices_get",
+  "description": "Get current USD prices for tokens by their contract addresses across supported networks. Supports up to 25 tokens per request.",
+  "endpoint": "/prices/v1/{apiKey}/tokens/by-address",
+  "method": "POST",
+  "resource_group": "prices",
+  "parameters": [
+    {
+      "name": "apiKey",
+      "type": "string",
+      "required": true,
+      "description": "Your Alchemy API key (path parameter)."
+    },
+    {
+      "name": "addresses",
+      "type": "array",
+      "required": true,
+      "description": "Array of objects with 'network' (e.g., 'eth-mainnet') and 'address' (contract address). Min 1, max 25."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.g.alchemy.com/prices/v1/{apiKey}/tokens/by-address",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "addresses": [
+        { "network": "eth-mainnet", "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" },
+        { "network": "eth-mainnet", "address": "0xdac17f958d2ee523a2206206994597c13d831ec7" }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "network": "eth-mainnet",
+          "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+          "prices": [{ "currency": "usd", "value": "1.00", "lastUpdatedAt": "2024-01-15T12:00:00.000Z" }]
+        },
+        {
+          "network": "eth-mainnet",
+          "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+          "prices": [{ "currency": "usd", "value": "1.00", "lastUpdatedAt": "2024-01-15T12:00:00.000Z" }]
+        }
+      ]
+    }
+  },
+  "auth_scopes": [],
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
+}

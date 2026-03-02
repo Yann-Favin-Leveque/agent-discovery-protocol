@@ -1,0 +1,50 @@
+{
+  "name": "logs_search",
+  "description": "Search and filter log entries.",
+  "resource_group": "logs",
+  "endpoint": "/api/v2/logs/events/search",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "filter",
+      "type": "object",
+      "required": false,
+      "description": "Filter with query, from, to, indexes"
+    },
+    {
+      "name": "sort",
+      "type": "string",
+      "required": false,
+      "description": "Sort order: timestamp or -timestamp"
+    },
+    {
+      "name": "page",
+      "type": "object",
+      "required": false,
+      "description": "Pagination with limit and cursor"
+    }
+  ],
+  "request_example": {
+    "filter": {
+      "query": "service:web",
+      "from": "2025-01-01T00:00:00Z",
+      "to": "2025-01-02T00:00:00Z"
+    },
+    "page": {
+      "limit": 25
+    }
+  },
+  "response_example": {
+    "data": [
+      {
+        "id": "log_123",
+        "type": "log",
+        "attributes": {
+          "message": "Request completed",
+          "status": "info"
+        }
+      }
+    ]
+  },
+  "auth_scopes": []
+}

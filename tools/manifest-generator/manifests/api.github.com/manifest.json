@@ -1,71 +1,279 @@
 {
   "spec_version": "1.0",
-  "name": "GitHub v3 REST API",
-  "description": "GitHub v3 REST API provides a REST API for programmatic access to its features. Use it to automate workflows and integrate with other services.",
+  "name": "GitHub REST API",
+  "description": "GitHub provides a comprehensive REST API for managing repositories, issues, pull requests, actions workflows, organizations, users, gists, releases, and more. Use this API to automate development workflows, manage code repositories, track issues, review pull requests, trigger CI/CD pipelines, and integrate with the GitHub ecosystem.",
   "base_url": "https://api.github.com",
   "auth": {
-    "type": "none"
+    "type": "oauth2",
+    "header": "Authorization",
+    "prefix": "Bearer",
+    "setup_url": "https://github.com/settings/tokens",
+    "authorization_url": "https://github.com/login/oauth/authorize",
+    "token_url": "https://github.com/login/oauth/access_token",
+    "scopes": [
+      "repo",
+      "repo:status",
+      "repo_deployment",
+      "public_repo",
+      "admin:org",
+      "write:org",
+      "read:org",
+      "admin:repo_hook",
+      "write:repo_hook",
+      "read:repo_hook",
+      "gist",
+      "notifications",
+      "user",
+      "read:user",
+      "user:email",
+      "user:follow",
+      "project",
+      "read:project",
+      "delete_repo",
+      "write:packages",
+      "read:packages",
+      "admin:gpg_key",
+      "write:gpg_key",
+      "read:gpg_key",
+      "workflow",
+      "write:discussion",
+      "read:discussion"
+    ]
   },
   "capabilities": [
     {
-      "name": "meta",
-      "description": "Manage meta — github api root, get github meta information, get octocat. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/meta"
+      "name": "repos_list",
+      "resource_group": "repositories",
+      "description": "List repositories for the authenticated user, or for a specified user or organization.",
+      "detail_url": "/capabilities/repos_list"
     },
     {
-      "name": "security_advisories",
-      "description": "Manage security advisories — create a repository security advisory, privately report a security vulnerability, request a cve for a repository security advisory. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/security_advisories"
+      "name": "repos_get",
+      "resource_group": "repositories",
+      "description": "Get detailed information about a specific repository.",
+      "detail_url": "/capabilities/repos_get"
     },
     {
-      "name": "apps",
-      "description": "Manage apps — create a github app from a manifest, redeliver a delivery for an app webhook, create an installation access token for an app. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/apps"
+      "name": "repos_create",
+      "resource_group": "repositories",
+      "description": "Create a new repository for the authenticated user.",
+      "detail_url": "/capabilities/repos_create"
     },
     {
-      "name": "classroom",
-      "description": "Manage classroom — list classrooms, get an assignment, list accepted assignments for an assignment. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/classroom"
+      "name": "repos_update",
+      "resource_group": "repositories",
+      "description": "Update a repository's settings including name, description, visibility, and feature toggles.",
+      "detail_url": "/capabilities/repos_update"
     },
     {
-      "name": "codes_of_conduct",
-      "description": "Manage codes of conduct — get all codes of conduct, get a code of conduct. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/codes_of_conduct"
+      "name": "repos_delete",
+      "resource_group": "repositories",
+      "description": "Delete a repository. Requires admin access. This action is irreversible.",
+      "detail_url": "/capabilities/repos_delete"
     },
     {
-      "name": "credentials",
-      "description": "Manage credentials — revoke a list of credentials. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/credentials"
+      "name": "issues_list",
+      "resource_group": "issues",
+      "description": "List issues for a repository with optional filtering by state, labels, assignee, and milestone.",
+      "detail_url": "/capabilities/issues_list"
     },
     {
-      "name": "emojis",
-      "description": "Manage emojis — get emojis. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/emojis"
+      "name": "issues_get",
+      "resource_group": "issues",
+      "description": "Get a specific issue by number.",
+      "detail_url": "/capabilities/issues_get"
     },
     {
-      "name": "actions",
-      "description": "Manage actions — create a github-hosted runner for an organization, create a self-hosted runner group for an organization, create configuration for a just-in-time runner for an organization. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/actions"
+      "name": "issues_create",
+      "resource_group": "issues",
+      "description": "Create a new issue in a repository.",
+      "detail_url": "/capabilities/issues_create"
     },
     {
-      "name": "code_security",
-      "description": "Manage code security — create a code security configuration for an enterprise, create a code security configuration, attach an enterprise configuration to repositories. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/code_security"
+      "name": "issues_update",
+      "resource_group": "issues",
+      "description": "Update an issue's title, body, state, labels, assignees, or milestone.",
+      "detail_url": "/capabilities/issues_update"
     },
     {
-      "name": "dependabot",
-      "description": "Manage dependabot — set the default repository access level for dependabot, create or update an organization secret, set selected repositories for an organization secret. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/dependabot"
+      "name": "issues_comments_list",
+      "resource_group": "issues",
+      "description": "List comments on an issue.",
+      "detail_url": "/capabilities/issues_comments_list"
     },
     {
-      "name": "enterprise_teams",
-      "description": "Manage enterprise teams — create an enterprise team, list enterprise teams, get an enterprise team. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/enterprise_teams"
+      "name": "issues_comments_create",
+      "resource_group": "issues",
+      "description": "Create a comment on an issue.",
+      "detail_url": "/capabilities/issues_comments_create"
     },
     {
-      "name": "enterprise_team_memberships",
-      "description": "Manage enterprise team memberships — bulk add team members, bulk remove team members, add team member. Supports standard CRUD operations through the REST API.",
-      "detail_url": "/capabilities/enterprise_team_memberships"
+      "name": "issues_labels_list",
+      "resource_group": "issues",
+      "description": "List labels for a repository.",
+      "detail_url": "/capabilities/issues_labels_list"
+    },
+    {
+      "name": "pulls_list",
+      "resource_group": "pull_requests",
+      "description": "List pull requests for a repository with optional filtering.",
+      "detail_url": "/capabilities/pulls_list"
+    },
+    {
+      "name": "pulls_get",
+      "resource_group": "pull_requests",
+      "description": "Get a specific pull request by number.",
+      "detail_url": "/capabilities/pulls_get"
+    },
+    {
+      "name": "pulls_create",
+      "resource_group": "pull_requests",
+      "description": "Create a new pull request.",
+      "detail_url": "/capabilities/pulls_create"
+    },
+    {
+      "name": "pulls_update",
+      "resource_group": "pull_requests",
+      "description": "Update a pull request's title, body, state, or base branch.",
+      "detail_url": "/capabilities/pulls_update"
+    },
+    {
+      "name": "pulls_merge",
+      "resource_group": "pull_requests",
+      "description": "Merge a pull request. The head branch can optionally be deleted after merge.",
+      "detail_url": "/capabilities/pulls_merge"
+    },
+    {
+      "name": "pulls_reviews_list",
+      "resource_group": "pull_requests",
+      "description": "List reviews on a pull request.",
+      "detail_url": "/capabilities/pulls_reviews_list"
+    },
+    {
+      "name": "pulls_reviews_create",
+      "resource_group": "pull_requests",
+      "description": "Create a review on a pull request with approval, request changes, or comment.",
+      "detail_url": "/capabilities/pulls_reviews_create"
+    },
+    {
+      "name": "actions_workflows_list",
+      "resource_group": "actions",
+      "description": "List all workflows in a repository.",
+      "detail_url": "/capabilities/actions_workflows_list"
+    },
+    {
+      "name": "actions_runs_list",
+      "resource_group": "actions",
+      "description": "List workflow runs for a repository with optional filtering by workflow, branch, or status.",
+      "detail_url": "/capabilities/actions_runs_list"
+    },
+    {
+      "name": "actions_workflows_dispatch",
+      "resource_group": "actions",
+      "description": "Manually trigger a workflow_dispatch event for a workflow.",
+      "detail_url": "/capabilities/actions_workflows_dispatch"
+    },
+    {
+      "name": "actions_runs_cancel",
+      "resource_group": "actions",
+      "description": "Cancel a workflow run that is in progress or queued.",
+      "detail_url": "/capabilities/actions_runs_cancel"
+    },
+    {
+      "name": "actions_runs_rerun",
+      "resource_group": "actions",
+      "description": "Re-run a workflow run.",
+      "detail_url": "/capabilities/actions_runs_rerun"
+    },
+    {
+      "name": "releases_list",
+      "resource_group": "releases",
+      "description": "List releases for a repository.",
+      "detail_url": "/capabilities/releases_list"
+    },
+    {
+      "name": "releases_create",
+      "resource_group": "releases",
+      "description": "Create a new release with release notes and optional assets.",
+      "detail_url": "/capabilities/releases_create"
+    },
+    {
+      "name": "gists_list",
+      "resource_group": "gists",
+      "description": "List gists for the authenticated user.",
+      "detail_url": "/capabilities/gists_list"
+    },
+    {
+      "name": "gists_create",
+      "resource_group": "gists",
+      "description": "Create a new gist with one or more files.",
+      "detail_url": "/capabilities/gists_create"
+    },
+    {
+      "name": "users_get_authenticated",
+      "resource_group": "users",
+      "description": "Get the profile of the currently authenticated user.",
+      "detail_url": "/capabilities/users_get_authenticated"
+    },
+    {
+      "name": "users_get",
+      "resource_group": "users",
+      "description": "Get a user's public profile by username.",
+      "detail_url": "/capabilities/users_get"
+    },
+    {
+      "name": "search_repos",
+      "resource_group": "search",
+      "description": "Search for repositories by keywords, language, stars, and other criteria.",
+      "detail_url": "/capabilities/search_repos"
+    },
+    {
+      "name": "search_issues",
+      "resource_group": "search",
+      "description": "Search for issues and pull requests across all repositories.",
+      "detail_url": "/capabilities/search_issues"
+    },
+    {
+      "name": "search_code",
+      "resource_group": "search",
+      "description": "Search for code across all public repositories or within a specific repository.",
+      "detail_url": "/capabilities/search_code"
+    },
+    {
+      "name": "orgs_list",
+      "resource_group": "organizations",
+      "description": "List organizations for the authenticated user.",
+      "detail_url": "/capabilities/orgs_list"
+    },
+    {
+      "name": "orgs_get",
+      "resource_group": "organizations",
+      "description": "Get detailed information about an organization.",
+      "detail_url": "/capabilities/orgs_get"
+    },
+    {
+      "name": "branches_list",
+      "resource_group": "branches",
+      "description": "List branches for a repository.",
+      "detail_url": "/capabilities/branches_list"
+    },
+    {
+      "name": "commits_list",
+      "resource_group": "commits",
+      "description": "List commits for a repository with optional filtering by branch, path, author, and date.",
+      "detail_url": "/capabilities/commits_list"
+    },
+    {
+      "name": "contents_get",
+      "resource_group": "contents",
+      "description": "Get the contents of a file or directory in a repository.",
+      "detail_url": "/capabilities/contents_get"
+    },
+    {
+      "name": "contents_create_or_update",
+      "resource_group": "contents",
+      "description": "Create or update a file in a repository by providing the file content encoded in Base64.",
+      "detail_url": "/capabilities/contents_create_or_update"
     }
   ]
 }

@@ -1,0 +1,52 @@
+{
+  "name": "conversation_transcript_request",
+  "description": "Request a conversation transcript to be sent via email to the visitor.",
+  "endpoint": "/v1/website/{website_id}/conversation/{session_id}/transcript",
+  "method": "POST",
+  "resource_group": "conversations",
+  "parameters": [
+    {
+      "name": "website_id",
+      "type": "string",
+      "description": "The unique website identifier.",
+      "required": true,
+      "example": "8c842203-7ed8-4e29-a608-7cf78a7d2fcc"
+    },
+    {
+      "name": "session_id",
+      "type": "string",
+      "description": "The conversation session identifier.",
+      "required": true,
+      "example": "session_19e5240f-0a8d-461e-a661-a3123f3e"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "Email address to send the transcript to.",
+      "required": true,
+      "example": "john@example.com"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.crisp.chat/v1/website/8c842203-7ed8-4e29-a608-7cf78a7d2fcc/conversation/session_19e5240f-0a8d-461e-a661-a3123f3e/transcript",
+    "headers": {
+      "Authorization": "Basic base64(identifier:key)",
+      "Content-Type": "application/json",
+      "X-Crisp-Tier": "plugin"
+    },
+    "body": {
+      "to": "john@example.com"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": {}
+    }
+  },
+  "auth_scopes": ["website:conversation:sessions"],
+  "rate_limits": {
+    "requests_per_minute": 10
+  }
+}

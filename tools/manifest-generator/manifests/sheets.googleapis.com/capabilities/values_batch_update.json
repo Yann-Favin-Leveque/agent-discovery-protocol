@@ -1,0 +1,49 @@
+{
+  "name": "values_batch_update",
+  "description": "Set values in multiple ranges.",
+  "resource_group": "values",
+  "endpoint": "/v4/spreadsheets/{spreadsheetId}/values:batchUpdate",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "spreadsheetId",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The ID of the spreadsheet"
+    },
+    {
+      "name": "valueInputOption",
+      "type": "string",
+      "required": true,
+      "location": "body",
+      "description": "How input should be interpreted"
+    },
+    {
+      "name": "data",
+      "type": "array",
+      "required": true,
+      "location": "body",
+      "description": "Array of ValueRange objects"
+    }
+  ],
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/drive.file"
+  ],
+  "request_example": {
+    "valueInputOption": "USER_ENTERED",
+    "data": [
+      {
+        "range": "Sheet1!A1:B1",
+        "values": [
+          [
+            "Hello",
+            "World"
+          ]
+        ]
+      }
+    ]
+  }
+}

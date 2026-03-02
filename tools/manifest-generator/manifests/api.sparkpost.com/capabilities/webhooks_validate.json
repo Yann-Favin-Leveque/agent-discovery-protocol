@@ -1,0 +1,37 @@
+{
+  "name": "webhooks_validate",
+  "description": "Send a test event to a webhook target URL to verify connectivity.",
+  "endpoint": "/api/v1/webhooks/{id}/validate",
+  "method": "POST",
+  "resource_group": "webhooks",
+  "parameters": [
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Webhook ID",
+      "required": true,
+      "example": "webhook-123"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.sparkpost.com/api/v1/webhooks/webhook-123/validate",
+    "headers": {
+      "Authorization": "{api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "results": {
+        "msg": "Test POST to endpoint succeeded"
+      }
+    }
+  },
+  "auth_scopes": [
+    "transmissions/read-write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
+}

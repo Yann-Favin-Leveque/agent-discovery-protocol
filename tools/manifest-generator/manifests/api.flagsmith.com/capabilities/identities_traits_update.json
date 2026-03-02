@@ -1,0 +1,34 @@
+{
+  "name": "identities_traits_update",
+  "description": "Set or update traits for an identity and retrieve its flags with segment overrides applied. Performs the complete SDK identity workflow in a single call.",
+  "resource_group": "identities",
+  "endpoint": "/identities/",
+  "method": "POST",
+  "parameters": [
+    {"name": "identifier", "type": "string", "description": "Unique identifier for the user.", "required": true, "example": "user_12345"},
+    {"name": "traits", "type": "array", "description": "Array of trait key/value pairs to set.", "required": true, "example": [{"trait_key": "plan", "trait_value": "premium"}, {"trait_key": "age", "trait_value": 28}]}
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://edge.api.flagsmith.com/api/v1/identities/",
+    "headers": {"X-Environment-Key": "{environment_key}", "Content-Type": "application/json"},
+    "body": {
+      "identifier": "user_12345",
+      "traits": [
+        {"trait_key": "plan", "trait_value": "premium"},
+        {"trait_key": "age", "trait_value": 28}
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "traits": [{"trait_key": "plan", "trait_value": "premium"}, {"trait_key": "age", "trait_value": 28}],
+      "flags": [
+        {"feature": {"id": 101, "name": "new_checkout", "type": "FLAG"}, "enabled": true, "feature_state_value": null},
+        {"feature": {"id": 102, "name": "premium_feature", "type": "FLAG"}, "enabled": true, "feature_state_value": null}
+      ]
+    }
+  },
+  "rate_limits": {"requests_per_minute": 500}
+}

@@ -1,0 +1,35 @@
+{
+  "name": "visitors_bulk_delete",
+  "description": "Bulk-delete multiple visitors and all their associated data.",
+  "endpoint": "/api/v1/visitors",
+  "method": "DELETE",
+  "resource_group": "visitors",
+  "parameters": [
+    {
+      "name": "visitor_ids",
+      "type": "array",
+      "description": "Array of visitor IDs to delete.",
+      "required": true,
+      "example": ["vis_123", "vis_456"]
+    }
+  ],
+  "request_example": {
+    "method": "DELETE",
+    "url": "https://api.eu.smartlook.cloud/api/v1/visitors",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "visitor_ids": ["vis_123", "vis_456"]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": { "deleted": 2 }
+  },
+  "auth_scopes": ["write"],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
+}

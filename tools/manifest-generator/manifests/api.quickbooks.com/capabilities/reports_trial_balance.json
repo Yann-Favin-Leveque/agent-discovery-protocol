@@ -1,0 +1,48 @@
+{
+  "name": "reports_trial_balance",
+  "description": "Generate a Trial Balance report showing all account balances.",
+  "endpoint": "/v3/company/{realmId}/reports/TrialBalance",
+  "method": "GET",
+  "resource_group": "reports",
+  "parameters": [
+    {
+      "name": "realmId",
+      "type": "string",
+      "description": "The QuickBooks company ID",
+      "required": true,
+      "example": "1234567890"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "End date",
+      "required": false,
+      "example": "2026-03-31"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://quickbooks.api.intuit.com/v3/company/1234567890/reports/TrialBalance?end_date=2026-03-31",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "Header": {
+        "ReportName": "TrialBalance"
+      },
+      "Rows": {
+        "Row": []
+      }
+    }
+  },
+  "auth_scopes": [
+    "com.intuit.quickbooks.accounting"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "attempt_list_by_message",
+  "description": "List all delivery attempts for a specific message.",
+  "resource_group": "attempt",
+  "endpoint": "/api/v1/app/{app_id}/attempt/msg/{msg_id}",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "app_id",
+      "type": "string",
+      "description": "Application ID or UID (path parameter).",
+      "required": true,
+      "example": "app_123"
+    },
+    {
+      "name": "msg_id",
+      "type": "string",
+      "description": "Message ID (path parameter).",
+      "required": true,
+      "example": "msg_abc"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results.",
+      "required": false,
+      "example": 50
+    },
+    {
+      "name": "iterator",
+      "type": "string",
+      "description": "Pagination cursor.",
+      "required": false
+    },
+    {
+      "name": "status",
+      "type": "integer",
+      "description": "Filter by status: 0 (success), 1 (pending), 2 (fail).",
+      "required": false
+    },
+    {
+      "name": "endpoint_id",
+      "type": "string",
+      "description": "Filter by endpoint ID.",
+      "required": false
+    },
+    {
+      "name": "before",
+      "type": "string",
+      "description": "Before this time (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "After this time (ISO 8601).",
+      "required": false
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.svix.com/api/v1/app/app_123/attempt/msg/msg_abc?limit=10",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "atmpt_abc",
+          "status": 0,
+          "responseStatusCode": 200,
+          "endpointId": "ep_abc"
+        }
+      ],
+      "done": true
+    }
+  }
+}

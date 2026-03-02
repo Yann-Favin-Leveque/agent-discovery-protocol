@@ -1,0 +1,66 @@
+{
+  "name": "templates_create",
+  "description": "Create a new email template.",
+  "resource_group": "templates",
+  "endpoint": "/templates",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "Name",
+      "type": "string",
+      "description": "Template name.",
+      "required": true,
+      "example": "Welcome Email"
+    },
+    {
+      "name": "Subject",
+      "type": "string",
+      "description": "Email subject.",
+      "required": true,
+      "example": "Welcome!"
+    },
+    {
+      "name": "HtmlBody",
+      "type": "string",
+      "description": "HTML content.",
+      "required": false,
+      "example": "<p>Welcome</p>"
+    },
+    {
+      "name": "TextBody",
+      "type": "string",
+      "description": "Plain text content.",
+      "required": false
+    },
+    {
+      "name": "Alias",
+      "type": "string",
+      "description": "Unique alias.",
+      "required": false,
+      "example": "welcome"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.postmarkapp.com/templates",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "Name": "Welcome",
+      "Subject": "Welcome!",
+      "HtmlBody": "<p>Welcome</p>",
+      "Alias": "welcome"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TemplateId": 12345,
+      "Name": "Welcome",
+      "Active": true
+    }
+  }
+}

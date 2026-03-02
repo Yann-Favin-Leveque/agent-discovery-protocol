@@ -1,0 +1,44 @@
+{
+  "name": "domains_list",
+  "description": "List all sending domains.",
+  "resource_group": "domains",
+  "endpoint": "/domains",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "count",
+      "type": "number",
+      "description": "Records per request (max 500).",
+      "required": true,
+      "example": 100
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "description": "Records to skip.",
+      "required": true,
+      "example": 0
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.postmarkapp.com/domains?count=100&offset=0",
+    "headers": {
+      "X-Postmark-Server-Token": "{server_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "TotalCount": 2,
+      "Domains": [
+        {
+          "ID": 123,
+          "Name": "example.com",
+          "DKIMVerified": true
+        }
+      ]
+    }
+  }
+}

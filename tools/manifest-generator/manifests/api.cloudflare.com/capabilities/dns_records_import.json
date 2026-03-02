@@ -1,0 +1,41 @@
+{
+  "name": "dns_records_import",
+  "resource_group": "dns_records",
+  "description": "Import DNS records from a BIND config file.",
+  "endpoint": "/zones/{zone_id}/dns_records/import",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "zone_id",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Zone identifier."
+    },
+    {
+      "name": "file",
+      "type": "string",
+      "required": true,
+      "in": "body",
+      "description": "BIND config file content."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.cloudflare.com/client/v4/zones/zone123/dns_records/import",
+    "headers": {
+      "Authorization": "Bearer {api_token}",
+      "Content-Type": "multipart/form-data"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "success": true,
+      "result": {
+        "recs_added": 10,
+        "total_records_parsed": 15
+      }
+    }
+  }
+}

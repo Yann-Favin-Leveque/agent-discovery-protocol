@@ -1,0 +1,81 @@
+{
+  "name": "beams_publish_users",
+  "description": "Send push notifications to specific authenticated users via Pusher Beams. Supports APNs (iOS), FCM (Android), and web push.",
+  "resource_group": "beams",
+  "endpoint": "/customer_api/v1/instances/{instance_id}/publishes/users",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "instance_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Your Beams instance ID."
+    },
+    {
+      "name": "users",
+      "type": "array",
+      "required": true,
+      "description": "Array of user IDs to send notifications to (max 1000)."
+    },
+    {
+      "name": "apns",
+      "type": "object",
+      "required": false,
+      "description": "APNs (iOS) notification payload with 'aps' object."
+    },
+    {
+      "name": "fcm",
+      "type": "object",
+      "required": false,
+      "description": "FCM (Android) notification payload."
+    },
+    {
+      "name": "web",
+      "type": "object",
+      "required": false,
+      "description": "Web push notification payload."
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.pusherapp.com/customer_api/v1/instances/beams-instance-id/publishes/users",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer beams-secret-key"
+    },
+    "body": {
+      "users": [
+        "user-1",
+        "user-2"
+      ],
+      "apns": {
+        "aps": {
+          "alert": {
+            "title": "New Message",
+            "body": "You have a new message from Jane."
+          },
+          "sound": "default"
+        }
+      },
+      "fcm": {
+        "notification": {
+          "title": "New Message",
+          "body": "You have a new message from Jane."
+        }
+      },
+      "web": {
+        "notification": {
+          "title": "New Message",
+          "body": "You have a new message from Jane."
+        }
+      }
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "publishId": "pubid-12345"
+    }
+  }
+}
