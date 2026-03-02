@@ -5,17 +5,46 @@
   "endpoint": "/leads/{lead_id}/convert",
   "method": "POST",
   "parameters": [
-    {"name": "lead_id", "type": "integer", "required": true, "description": "The ID of the lead to convert", "location": "path"},
-    {"name": "person", "type": "object", "required": false, "description": "Person details for the converted contact"},
-    {"name": "opportunity", "type": "object", "required": false, "description": "Opportunity details to create during conversion"}
+    {
+      "name": "lead_id",
+      "type": "integer",
+      "required": true,
+      "description": "The ID of the lead to convert",
+      "location": "path",
+      "in": "path"
+    },
+    {
+      "name": "person",
+      "type": "object",
+      "required": false,
+      "description": "Person details for the converted contact",
+      "in": "body"
+    },
+    {
+      "name": "opportunity",
+      "type": "object",
+      "required": false,
+      "description": "Opportunity details to create during conversion",
+      "in": "body"
+    }
   ],
   "request_example": {
-    "person": {"contact_type_id": 1},
-    "opportunity": {"name": "New Deal", "pipeline_id": 1, "monetary_value": 5000}
+    "person": {
+      "contact_type_id": 1
+    },
+    "opportunity": {
+      "name": "New Deal",
+      "pipeline_id": 1,
+      "monetary_value": 5000
+    }
   },
   "response_example": {
-    "person": {"id": 111},
-    "opportunity": {"id": 222}
+    "person": {
+      "id": 111
+    },
+    "opportunity": {
+      "id": 222
+    }
   },
   "auth_scopes": []
 }

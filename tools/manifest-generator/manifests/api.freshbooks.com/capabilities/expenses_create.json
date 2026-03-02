@@ -5,23 +5,101 @@
   "method": "POST",
   "resource_group": "expenses",
   "parameters": [
-    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
-    {"name": "amount", "type": "object", "description": "Expense amount with currency.", "required": true, "example": {"amount": "45.99", "code": "USD"}},
-    {"name": "categoryid", "type": "integer", "description": "Expense category ID.", "required": true, "example": 5},
-    {"name": "vendor", "type": "string", "description": "Vendor/supplier name.", "required": false, "example": "Office Depot"},
-    {"name": "date", "type": "string", "description": "Expense date (YYYY-MM-DD).", "required": true, "example": "2024-09-01"},
-    {"name": "notes", "type": "string", "description": "Notes about the expense.", "required": false, "example": "Office supplies for Q3"}
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Expense amount with currency.",
+      "required": true,
+      "example": {
+        "amount": "45.99",
+        "code": "USD"
+      },
+      "in": "body"
+    },
+    {
+      "name": "categoryid",
+      "type": "integer",
+      "description": "Expense category ID.",
+      "required": true,
+      "example": 5,
+      "in": "body"
+    },
+    {
+      "name": "vendor",
+      "type": "string",
+      "description": "Vendor/supplier name.",
+      "required": false,
+      "example": "Office Depot",
+      "in": "body"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "description": "Expense date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-09-01",
+      "in": "body"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "description": "Notes about the expense.",
+      "required": false,
+      "example": "Office supplies for Q3",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.freshbooks.com/accounting/account/xB2yw/expenses/expenses",
-    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha", "Content-Type": "application/json"},
-    "body": {"expense": {"amount": {"amount": "45.99", "code": "USD"}, "categoryid": 5, "vendor": "Office Depot", "date": "2024-09-01", "notes": "Office supplies"}}
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "expense": {
+        "amount": {
+          "amount": "45.99",
+          "code": "USD"
+        },
+        "categoryid": 5,
+        "vendor": "Office Depot",
+        "date": "2024-09-01",
+        "notes": "Office supplies"
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"response": {"result": {"expense": {"id": 112, "vendor": "Office Depot", "amount": {"amount": "45.99", "code": "USD"}, "date": "2024-09-01"}}}}
+    "body": {
+      "response": {
+        "result": {
+          "expense": {
+            "id": 112,
+            "vendor": "Office Depot",
+            "amount": {
+              "amount": "45.99",
+              "code": "USD"
+            },
+            "date": "2024-09-01"
+          }
+        }
+      }
+    }
   },
-  "auth_scopes": ["user:expenses:write"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:expenses:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

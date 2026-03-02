@@ -5,25 +5,58 @@
   "endpoint": "/v1/projects/{project_id}/usage",
   "method": "GET",
   "parameters": [
-    {"name": "project_id", "type": "string", "description": "Project identifier.", "required": true, "example": "proj_abc123"},
-    {"name": "start", "type": "string", "description": "Start date (ISO 8601).", "required": false, "example": "2024-01-01"},
-    {"name": "end", "type": "string", "description": "End date (ISO 8601).", "required": false, "example": "2024-01-31"}
+    {
+      "name": "project_id",
+      "type": "string",
+      "description": "Project identifier.",
+      "required": true,
+      "example": "proj_abc123",
+      "in": "path"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "description": "Start date (ISO 8601).",
+      "required": false,
+      "example": "2024-01-01",
+      "in": "query"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End date (ISO 8601).",
+      "required": false,
+      "example": "2024-01-31",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.deepgram.com/v1/projects/proj_abc123/usage?start=2024-01-01&end=2024-01-31",
-    "headers": {"Authorization": "Token {api_key}"}
+    "headers": {
+      "Authorization": "Token {api_key}"
+    }
   },
   "response_example": {
     "status": 200,
     "body": {
       "start": "2024-01-01",
       "end": "2024-01-31",
-      "resolution": {"units": "day", "amount": 1},
+      "resolution": {
+        "units": "day",
+        "amount": 1
+      },
       "results": [
-        {"start": "2024-01-01", "end": "2024-01-02", "hours": 12.5, "requests": 150}
+        {
+          "start": "2024-01-01",
+          "end": "2024-01-02",
+          "hours": 12.5,
+          "requests": 150
+        }
       ]
     }
   },
-  "rate_limits": {"requests_per_minute": 100}
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

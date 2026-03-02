@@ -10,35 +10,50 @@
       "type": "string",
       "description": "The zone ID.",
       "required": true,
-      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+      "example": "023e105f4ecef8ad9ca31a8372d0c353",
+      "in": "path"
     },
     {
       "name": "posts",
       "type": "array",
       "description": "Array of DNS records to create.",
       "required": false,
-      "example": [{"type": "A", "name": "app.example.com", "content": "198.51.100.4"}]
+      "example": [
+        {
+          "type": "A",
+          "name": "app.example.com",
+          "content": "198.51.100.4"
+        }
+      ],
+      "in": "body"
     },
     {
       "name": "puts",
       "type": "array",
       "description": "Array of DNS records to overwrite (full update with record ID).",
       "required": false,
-      "example": []
+      "example": [],
+      "in": "body"
     },
     {
       "name": "patches",
       "type": "array",
       "description": "Array of DNS records to partially update.",
       "required": false,
-      "example": []
+      "example": [],
+      "in": "body"
     },
     {
       "name": "deletes",
       "type": "array",
       "description": "Array of DNS record IDs to delete.",
       "required": false,
-      "example": [{"id": "372e67954025e0ba6aaa6d586b9e0b59"}]
+      "example": [
+        {
+          "id": "372e67954025e0ba6aaa6d586b9e0b59"
+        }
+      ],
+      "in": "body"
     }
   ],
   "request_example": {
@@ -50,10 +65,17 @@
     },
     "body": {
       "posts": [
-        {"type": "A", "name": "app.example.com", "content": "198.51.100.4", "proxied": true}
+        {
+          "type": "A",
+          "name": "app.example.com",
+          "content": "198.51.100.4",
+          "proxied": true
+        }
       ],
       "deletes": [
-        {"id": "old_record_id"}
+        {
+          "id": "old_record_id"
+        }
       ]
     }
   },
@@ -62,12 +84,24 @@
     "body": {
       "success": true,
       "result": {
-        "posts": [{"id": "new_record_id", "type": "A", "name": "app.example.com"}],
-        "deletes": [{"id": "old_record_id"}]
+        "posts": [
+          {
+            "id": "new_record_id",
+            "type": "A",
+            "name": "app.example.com"
+          }
+        ],
+        "deletes": [
+          {
+            "id": "old_record_id"
+          }
+        ]
       }
     }
   },
-  "auth_scopes": ["dns_records:edit"],
+  "auth_scopes": [
+    "dns_records:edit"
+  ],
   "rate_limits": {
     "requests_per_minute": 1200
   }

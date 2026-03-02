@@ -10,7 +10,8 @@
       "type": "string",
       "description": "Comma-separated list of profile fields: greeting, get_started, persistent_menu, whitelisted_domains, ice_breakers.",
       "required": true,
-      "example": "greeting,get_started,persistent_menu,whitelisted_domains"
+      "example": "greeting,get_started,persistent_menu,whitelisted_domains",
+      "in": "query"
     }
   ],
   "request_example": {
@@ -25,22 +26,37 @@
     "body": {
       "data": [
         {
-          "greeting": [{ "locale": "default", "text": "Welcome!" }],
-          "get_started": { "payload": "get_started_clicked" },
+          "greeting": [
+            {
+              "locale": "default",
+              "text": "Welcome!"
+            }
+          ],
+          "get_started": {
+            "payload": "get_started_clicked"
+          },
           "persistent_menu": [
             {
               "locale": "default",
               "call_to_actions": [
-                { "type": "postback", "title": "Help", "payload": "help" }
+                {
+                  "type": "postback",
+                  "title": "Help",
+                  "payload": "help"
+                }
               ]
             }
           ],
-          "whitelisted_domains": ["https://example.com"]
+          "whitelisted_domains": [
+            "https://example.com"
+          ]
         }
       ]
     }
   },
-  "auth_scopes": ["pages_messaging"],
+  "auth_scopes": [
+    "pages_messaging"
+  ],
   "rate_limits": {
     "requests_per_minute": 10
   }

@@ -10,14 +10,16 @@
       "type": "string",
       "description": "The PSID of the Messenger recipient.",
       "required": true,
-      "example": "1234567890"
+      "example": "1234567890",
+      "in": "body"
     },
     {
       "name": "message_text",
       "type": "string",
       "description": "The text content of the message.",
       "required": true,
-      "example": "What is your favorite color?"
+      "example": "What is your favorite color?",
+      "in": "body"
     },
     {
       "name": "quick_replies",
@@ -25,9 +27,18 @@
       "description": "Array of quick reply objects (max 13). Each has content_type, title, and payload.",
       "required": true,
       "example": [
-        { "content_type": "text", "title": "Red", "payload": "red" },
-        { "content_type": "text", "title": "Blue", "payload": "blue" }
-      ]
+        {
+          "content_type": "text",
+          "title": "Red",
+          "payload": "red"
+        },
+        {
+          "content_type": "text",
+          "title": "Blue",
+          "payload": "blue"
+        }
+      ],
+      "in": "body"
     }
   ],
   "request_example": {
@@ -39,12 +50,23 @@
     },
     "body": {
       "messaging_type": "RESPONSE",
-      "recipient": { "id": "1234567890" },
+      "recipient": {
+        "id": "1234567890"
+      },
       "message": {
         "text": "What is your favorite color?",
         "quick_replies": [
-          { "content_type": "text", "title": "Red", "payload": "red", "image_url": "https://example.com/red.png" },
-          { "content_type": "text", "title": "Blue", "payload": "blue" }
+          {
+            "content_type": "text",
+            "title": "Red",
+            "payload": "red",
+            "image_url": "https://example.com/red.png"
+          },
+          {
+            "content_type": "text",
+            "title": "Blue",
+            "payload": "blue"
+          }
         ]
       }
     }
@@ -56,7 +78,9 @@
       "message_id": "mid.1457764197618:41d102a3e1ae206a38"
     }
   },
-  "auth_scopes": ["pages_messaging"],
+  "auth_scopes": [
+    "pages_messaging"
+  ],
   "rate_limits": {
     "requests_per_minute": 250
   }

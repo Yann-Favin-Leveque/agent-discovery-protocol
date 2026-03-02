@@ -5,20 +5,53 @@
   "method": "POST",
   "resource_group": "canned_responses",
   "parameters": [
-    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
-    {"name": "short_code", "type": "string", "description": "Short code trigger.", "required": true, "example": "thanks"},
-    {"name": "content", "type": "string", "description": "Response content.", "required": true, "example": "Thank you for contacting us! Is there anything else I can help with?"}
+    {
+      "name": "account_id",
+      "type": "integer",
+      "description": "Account ID.",
+      "required": true,
+      "example": 1,
+      "in": "path"
+    },
+    {
+      "name": "short_code",
+      "type": "string",
+      "description": "Short code trigger.",
+      "required": true,
+      "example": "thanks",
+      "in": "body"
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "description": "Response content.",
+      "required": true,
+      "example": "Thank you for contacting us! Is there anything else I can help with?",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.chatwoot.com/api/v1/accounts/1/canned_responses",
-    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
-    "body": {"short_code": "thanks", "content": "Thank you for contacting us! Is there anything else I can help with?"}
+    "headers": {
+      "api_access_token": "{token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "short_code": "thanks",
+      "content": "Thank you for contacting us! Is there anything else I can help with?"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"id": 2, "short_code": "thanks", "content": "Thank you for contacting us!"}
+    "body": {
+      "id": 2,
+      "short_code": "thanks",
+      "content": "Thank you for contacting us!"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 250}
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
 }

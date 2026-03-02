@@ -5,17 +5,59 @@
   "endpoint": "/v4/subscribers",
   "method": "GET",
   "parameters": [
-    { "name": "status", "type": "string", "description": "Filter by subscriber status. One of: active, cancelled, bounced, complained.", "required": false, "example": "active" },
-    { "name": "after", "type": "string", "description": "Cursor for pagination. Use the value from the previous response.", "required": false },
-    { "name": "per_page", "type": "integer", "description": "Number of subscribers per page. Default 50, max 100.", "required": false, "example": 50 },
-    { "name": "created_after", "type": "string", "description": "ISO 8601 date. Only return subscribers created after this date.", "required": false, "example": "2024-01-01T00:00:00Z" },
-    { "name": "created_before", "type": "string", "description": "ISO 8601 date. Only return subscribers created before this date.", "required": false },
-    { "name": "sort_field", "type": "string", "description": "Field to sort by. Default: created_at.", "required": false }
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by subscriber status. One of: active, cancelled, bounced, complained.",
+      "required": false,
+      "example": "active",
+      "in": "query"
+    },
+    {
+      "name": "after",
+      "type": "string",
+      "description": "Cursor for pagination. Use the value from the previous response.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Number of subscribers per page. Default 50, max 100.",
+      "required": false,
+      "example": 50,
+      "in": "query"
+    },
+    {
+      "name": "created_after",
+      "type": "string",
+      "description": "ISO 8601 date. Only return subscribers created after this date.",
+      "required": false,
+      "example": "2024-01-01T00:00:00Z",
+      "in": "query"
+    },
+    {
+      "name": "created_before",
+      "type": "string",
+      "description": "ISO 8601 date. Only return subscribers created before this date.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "sort_field",
+      "type": "string",
+      "description": "Field to sort by. Default: created_at.",
+      "required": false,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.convertkit.com/v4/subscribers?status=active&per_page=50",
-    "headers": { "Authorization": "Bearer {api_key}", "Accept": "application/json" }
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Accept": "application/json"
+    }
   },
   "response_example": {
     "status": 200,
@@ -30,7 +72,10 @@
           "fields": {}
         }
       ],
-      "pagination": { "has_next_page": true, "end_cursor": "abc123cursor" }
+      "pagination": {
+        "has_next_page": true,
+        "end_cursor": "abc123cursor"
+      }
     }
   }
 }

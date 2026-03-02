@@ -10,21 +10,24 @@
       "type": "string",
       "description": "Name of the index to browse.",
       "required": true,
-      "example": "products"
+      "example": "products",
+      "in": "path"
     },
     {
       "name": "cursor",
       "type": "string",
       "description": "Cursor from a previous browse response for pagination.",
       "required": false,
-      "example": ""
+      "example": "",
+      "in": "body"
     },
     {
       "name": "params",
       "type": "string",
       "description": "URL-encoded query parameters to filter browse results.",
       "required": false,
-      "example": "filters=category:electronics&hitsPerPage=1000"
+      "example": "filters=category:electronics&hitsPerPage=1000",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -35,18 +38,27 @@
       "x-algolia-api-key": "{API_KEY}",
       "Content-Type": "application/json"
     },
-    "body": { "params": "hitsPerPage=1000" }
+    "body": {
+      "params": "hitsPerPage=1000"
+    }
   },
   "response_example": {
     "status": 200,
     "body": {
-      "hits": [{ "objectID": "12345", "name": "Product A" }],
+      "hits": [
+        {
+          "objectID": "12345",
+          "name": "Product A"
+        }
+      ],
       "cursor": "AoE_dGVzdA==",
       "nbHits": 5000,
       "processingTimeMS": 5
     }
   },
-  "auth_scopes": ["browse"],
+  "auth_scopes": [
+    "browse"
+  ],
   "rate_limits": {
     "requests_per_minute": 600
   }

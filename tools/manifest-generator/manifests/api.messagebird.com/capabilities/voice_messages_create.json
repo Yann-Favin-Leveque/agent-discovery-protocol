@@ -5,23 +5,96 @@
   "endpoint": "/voicemessages",
   "method": "POST",
   "parameters": [
-    {"name": "recipients", "type": "array", "required": true, "description": "Array of recipient phone numbers."},
-    {"name": "body", "type": "string", "required": true, "description": "The text to be spoken via TTS."},
-    {"name": "language", "type": "string", "required": false, "description": "TTS language code (e.g., 'en-us', 'nl-nl'). Default 'en-gb'."},
-    {"name": "voice", "type": "string", "required": false, "description": "Voice gender: 'male' or 'female'. Default 'female'."},
-    {"name": "repeat", "type": "integer", "required": false, "description": "Number of times to repeat the message (1-10). Default 1."},
-    {"name": "ifMachine", "type": "string", "required": false, "description": "Action on answering machine: 'continue', 'delay', or 'hangup'. Default 'continue'."},
-    {"name": "reference", "type": "string", "required": false, "description": "Client reference for tracking."},
-    {"name": "reportUrl", "type": "string", "required": false, "description": "Webhook URL for status reports."}
+    {
+      "name": "recipients",
+      "type": "array",
+      "required": true,
+      "description": "Array of recipient phone numbers.",
+      "in": "body"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "required": true,
+      "description": "The text to be spoken via TTS.",
+      "in": "body"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "required": false,
+      "description": "TTS language code (e.g., 'en-us', 'nl-nl'). Default 'en-gb'.",
+      "in": "body"
+    },
+    {
+      "name": "voice",
+      "type": "string",
+      "required": false,
+      "description": "Voice gender: 'male' or 'female'. Default 'female'.",
+      "in": "body"
+    },
+    {
+      "name": "repeat",
+      "type": "integer",
+      "required": false,
+      "description": "Number of times to repeat the message (1-10). Default 1.",
+      "in": "body"
+    },
+    {
+      "name": "ifMachine",
+      "type": "string",
+      "required": false,
+      "description": "Action on answering machine: 'continue', 'delay', or 'hangup'. Default 'continue'.",
+      "in": "body"
+    },
+    {
+      "name": "reference",
+      "type": "string",
+      "required": false,
+      "description": "Client reference for tracking.",
+      "in": "body"
+    },
+    {
+      "name": "reportUrl",
+      "type": "string",
+      "required": false,
+      "description": "Webhook URL for status reports.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://rest.messagebird.com/voicemessages",
-    "headers": {"Content-Type": "application/json", "Authorization": "AccessKey live_abc123xyz"},
-    "body": {"recipients": [31612345678], "body": "Your one-time code is 5 4 3 2 1 0. I repeat, 5 4 3 2 1 0.", "language": "en-us", "voice": "female", "repeat": 2}
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "AccessKey live_abc123xyz"
+    },
+    "body": {
+      "recipients": [
+        31612345678
+      ],
+      "body": "Your one-time code is 5 4 3 2 1 0. I repeat, 5 4 3 2 1 0.",
+      "language": "en-us",
+      "voice": "female",
+      "repeat": 2
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"id": "a1b2c3d4e5f6", "recipients": {"totalCount": 1, "totalSentCount": 1, "items": [{"recipient": 31612345678, "status": "calling"}]}, "body": "Your one-time code is 5 4 3 2 1 0.", "createdDatetime": "2026-03-01T12:00:00+00:00"}
+    "body": {
+      "id": "a1b2c3d4e5f6",
+      "recipients": {
+        "totalCount": 1,
+        "totalSentCount": 1,
+        "items": [
+          {
+            "recipient": 31612345678,
+            "status": "calling"
+          }
+        ]
+      },
+      "body": "Your one-time code is 5 4 3 2 1 0.",
+      "createdDatetime": "2026-03-01T12:00:00+00:00"
+    }
   }
 }

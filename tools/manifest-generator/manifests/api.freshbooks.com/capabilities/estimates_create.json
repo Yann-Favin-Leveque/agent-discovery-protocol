@@ -5,21 +5,94 @@
   "method": "POST",
   "resource_group": "estimates",
   "parameters": [
-    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
-    {"name": "customerid", "type": "integer", "description": "The client ID.", "required": true, "example": 12345},
-    {"name": "create_date", "type": "string", "description": "Estimate creation date (YYYY-MM-DD).", "required": true, "example": "2024-09-01"},
-    {"name": "lines", "type": "array", "description": "Array of line items.", "required": true, "example": [{"name": "Consulting", "qty": 5, "unit_cost": {"amount": "200.00", "code": "USD"}}]}
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    },
+    {
+      "name": "customerid",
+      "type": "integer",
+      "description": "The client ID.",
+      "required": true,
+      "example": 12345,
+      "in": "body"
+    },
+    {
+      "name": "create_date",
+      "type": "string",
+      "description": "Estimate creation date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-09-01",
+      "in": "body"
+    },
+    {
+      "name": "lines",
+      "type": "array",
+      "description": "Array of line items.",
+      "required": true,
+      "example": [
+        {
+          "name": "Consulting",
+          "qty": 5,
+          "unit_cost": {
+            "amount": "200.00",
+            "code": "USD"
+          }
+        }
+      ],
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.freshbooks.com/accounting/account/xB2yw/estimates/estimates",
-    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha", "Content-Type": "application/json"},
-    "body": {"estimate": {"customerid": 12345, "create_date": "2024-09-01", "lines": [{"name": "Consulting", "qty": 5, "unit_cost": {"amount": "200.00", "code": "USD"}}]}}
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "estimate": {
+        "customerid": 12345,
+        "create_date": "2024-09-01",
+        "lines": [
+          {
+            "name": "Consulting",
+            "qty": 5,
+            "unit_cost": {
+              "amount": "200.00",
+              "code": "USD"
+            }
+          }
+        ]
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"response": {"result": {"estimate": {"id": 445, "customerid": 12345, "amount": {"amount": "1000.00", "code": "USD"}}}}}
+    "body": {
+      "response": {
+        "result": {
+          "estimate": {
+            "id": 445,
+            "customerid": 12345,
+            "amount": {
+              "amount": "1000.00",
+              "code": "USD"
+            }
+          }
+        }
+      }
+    }
   },
-  "auth_scopes": ["user:estimates:write"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:estimates:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

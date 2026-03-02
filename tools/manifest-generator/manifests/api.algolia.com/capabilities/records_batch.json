@@ -10,7 +10,8 @@
       "type": "string",
       "description": "Name of the target index.",
       "required": true,
-      "example": "products"
+      "example": "products",
+      "in": "path"
     },
     {
       "name": "requests",
@@ -18,9 +19,21 @@
       "description": "Array of batch operation objects with action and body.",
       "required": true,
       "example": [
-        { "action": "addObject", "body": { "objectID": "1", "name": "Item A" } },
-        { "action": "deleteObject", "body": { "objectID": "2" } }
-      ]
+        {
+          "action": "addObject",
+          "body": {
+            "objectID": "1",
+            "name": "Item A"
+          }
+        },
+        {
+          "action": "deleteObject",
+          "body": {
+            "objectID": "2"
+          }
+        }
+      ],
+      "in": "body"
     }
   ],
   "request_example": {
@@ -33,9 +46,27 @@
     },
     "body": {
       "requests": [
-        { "action": "addObject", "body": { "objectID": "1", "name": "Item A", "price": 29 } },
-        { "action": "updateObject", "body": { "objectID": "2", "price": 39 } },
-        { "action": "deleteObject", "body": { "objectID": "3" } }
+        {
+          "action": "addObject",
+          "body": {
+            "objectID": "1",
+            "name": "Item A",
+            "price": 29
+          }
+        },
+        {
+          "action": "updateObject",
+          "body": {
+            "objectID": "2",
+            "price": 39
+          }
+        },
+        {
+          "action": "deleteObject",
+          "body": {
+            "objectID": "3"
+          }
+        }
       ]
     }
   },
@@ -43,10 +74,17 @@
     "status": 200,
     "body": {
       "taskID": 684,
-      "objectIDs": ["1", "2", "3"]
+      "objectIDs": [
+        "1",
+        "2",
+        "3"
+      ]
     }
   },
-  "auth_scopes": ["addObject", "deleteObject"],
+  "auth_scopes": [
+    "addObject",
+    "deleteObject"
+  ],
   "rate_limits": {
     "requests_per_minute": 6000
   }

@@ -5,11 +5,44 @@
   "endpoint": "/coins/{id}/tickers",
   "method": "GET",
   "parameters": [
-    {"name": "id", "type": "string", "description": "Coin ID.", "required": true, "example": "bitcoin"},
-    {"name": "exchange_ids", "type": "string", "description": "Filter by exchange IDs.", "required": false, "example": "binance"},
-    {"name": "include_exchange_logo", "type": "boolean", "description": "Include exchange logos.", "required": false},
-    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1},
-    {"name": "order", "type": "string", "description": "Sort order: trust_score_desc (default), trust_score_asc, volume_desc.", "required": false}
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Coin ID.",
+      "required": true,
+      "example": "bitcoin",
+      "in": "path"
+    },
+    {
+      "name": "exchange_ids",
+      "type": "string",
+      "description": "Filter by exchange IDs.",
+      "required": false,
+      "example": "binance",
+      "in": "query"
+    },
+    {
+      "name": "include_exchange_logo",
+      "type": "boolean",
+      "description": "Include exchange logos.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1,
+      "in": "query"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Sort order: trust_score_desc (default), trust_score_asc, volume_desc.",
+      "required": false,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
@@ -21,9 +54,21 @@
     "body": {
       "name": "Bitcoin",
       "tickers": [
-        {"base": "BTC", "target": "USDT", "market": {"name": "Binance", "identifier": "binance"}, "last": 43250.50, "volume": 15000.5, "trust_score": "green"}
+        {
+          "base": "BTC",
+          "target": "USDT",
+          "market": {
+            "name": "Binance",
+            "identifier": "binance"
+          },
+          "last": 43250.5,
+          "volume": 15000.5,
+          "trust_score": "green"
+        }
       ]
     }
   },
-  "rate_limits": {"requests_per_minute": 30}
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
 }

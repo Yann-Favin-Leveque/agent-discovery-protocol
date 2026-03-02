@@ -5,19 +5,62 @@
   "endpoint": "/admin/api/2024-10/customers.json",
   "method": "GET",
   "parameters": [
-    {"name": "limit", "type": "integer", "required": false, "description": "Number of results per page (max 250, default 50)."},
-    {"name": "since_id", "type": "integer", "required": false, "description": "Return customers after specified ID."},
-    {"name": "created_at_min", "type": "string", "required": false, "description": "Customers created after date (ISO 8601)."},
-    {"name": "created_at_max", "type": "string", "required": false, "description": "Customers created before date (ISO 8601)."},
-    {"name": "fields", "type": "string", "required": false, "description": "Comma-separated list of fields to include."}
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Number of results per page (max 250, default 50).",
+      "in": "query"
+    },
+    {
+      "name": "since_id",
+      "type": "integer",
+      "required": false,
+      "description": "Return customers after specified ID.",
+      "in": "query"
+    },
+    {
+      "name": "created_at_min",
+      "type": "string",
+      "required": false,
+      "description": "Customers created after date (ISO 8601).",
+      "in": "query"
+    },
+    {
+      "name": "created_at_max",
+      "type": "string",
+      "required": false,
+      "description": "Customers created before date (ISO 8601).",
+      "in": "query"
+    },
+    {
+      "name": "fields",
+      "type": "string",
+      "required": false,
+      "description": "Comma-separated list of fields to include.",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://{store}.myshopify.com/admin/api/2024-10/customers.json?limit=25",
-    "headers": {"X-Shopify-Access-Token": "{access_token}"}
+    "headers": {
+      "X-Shopify-Access-Token": "{access_token}"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"customers": [{"id": 207119551, "email": "bob@example.com", "first_name": "Bob", "last_name": "Norman", "orders_count": 1, "total_spent": "199.65"}]}
+    "body": {
+      "customers": [
+        {
+          "id": 207119551,
+          "email": "bob@example.com",
+          "first_name": "Bob",
+          "last_name": "Norman",
+          "orders_count": 1,
+          "total_spent": "199.65"
+        }
+      ]
+    }
   }
 }

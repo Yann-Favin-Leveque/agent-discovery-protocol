@@ -10,21 +10,28 @@
       "type": "string",
       "description": "The visitor/user ID to update metadata for.",
       "required": true,
-      "example": "user_123"
+      "example": "user_123",
+      "in": "body"
     },
     {
       "name": "values",
       "type": "object",
       "description": "Key-value pairs of metadata to set.",
       "required": true,
-      "example": { "plan": "enterprise", "role": "admin", "company_size": 500 }
+      "example": {
+        "plan": "enterprise",
+        "role": "admin",
+        "company_size": 500
+      },
+      "in": "body"
     },
     {
       "name": "create",
       "type": "boolean",
       "description": "If true, create metadata fields that do not exist.",
       "required": false,
-      "example": true
+      "example": true,
+      "in": "body"
     }
   ],
   "request_example": {
@@ -36,14 +43,20 @@
     },
     "body": {
       "visitorId": "user_123",
-      "values": { "plan": "enterprise", "role": "admin", "company_size": 500 }
+      "values": {
+        "plan": "enterprise",
+        "role": "admin",
+        "company_size": 500
+      }
     }
   },
   "response_example": {
     "status": 200,
     "body": {}
   },
-  "auth_scopes": ["metadata"],
+  "auth_scopes": [
+    "metadata"
+  ],
   "rate_limits": {
     "requests_per_minute": 500
   }

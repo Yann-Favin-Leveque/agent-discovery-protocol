@@ -5,20 +5,57 @@
   "endpoint": "/channels",
   "method": "GET",
   "parameters": [
-    {"name": "limit", "type": "integer", "description": "Maximum number of channels to return (default 100).", "required": false, "example": 100},
-    {"name": "prefix", "type": "string", "description": "Filter channels by name prefix.", "required": false, "example": "chat:"},
-    {"name": "by", "type": "string", "description": "Return additional data: 'id' for names only, or 'value' for full metadata.", "required": false, "example": "value"}
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of channels to return (default 100).",
+      "required": false,
+      "example": 100,
+      "in": "query"
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "description": "Filter channels by name prefix.",
+      "required": false,
+      "example": "chat:",
+      "in": "query"
+    },
+    {
+      "name": "by",
+      "type": "string",
+      "description": "Return additional data: 'id' for names only, or 'value' for full metadata.",
+      "required": false,
+      "example": "value",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://rest.ably.io/channels?limit=100&prefix=chat:",
-    "headers": {"Authorization": "Basic {base64_api_key}"}
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
   },
   "response_example": {
     "status": 200,
     "body": [
-      {"channelId": "chat:general", "status": {"isActive": true, "occupancy": {"metrics": {"connections": 5, "publishers": 2, "subscribers": 3}}}}
+      {
+        "channelId": "chat:general",
+        "status": {
+          "isActive": true,
+          "occupancy": {
+            "metrics": {
+              "connections": 5,
+              "publishers": 2,
+              "subscribers": 3
+            }
+          }
+        }
+      }
     ]
   },
-  "rate_limits": {"requests_per_minute": 1500}
+  "rate_limits": {
+    "requests_per_minute": 1500
+  }
 }

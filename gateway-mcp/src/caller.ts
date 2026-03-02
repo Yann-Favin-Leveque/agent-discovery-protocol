@@ -54,10 +54,58 @@ export async function callCapability(
     };
   }
 
-  // Step 3: Build the request
-  const url = detail.endpoint.startsWith("http")
+  // Step 3: Build the request — classify parameters by location
+  let endpoint = detail.endpoint.startsWith("http")
     ? detail.endpoint
     : `${manifest.base_url}${detail.endpoint}`;
+
+  const method = detail.method.toUpperCase();
+
+  // Detect path param names from {paramName} patterns in endpoint
+  const endpointPathParams = new Set<string>();
+  for (const match of endpoint.matchAll(/\{(\w+)\}/g)) {
+    endpointPathParams.add(match[1]);
+  }
+
+  // Build a lookup of explicit "in" values from capability detail
+  const paramMeta = new Map<string, string>();
+  for (const p of detail.parameters ?? []) {
+    if (p.in) paramMeta.set(p.name, p.in);
+  }
+
+  // Classify each param: use explicit "in" if present, otherwise infer
+  const pathValues: Record<string, unknown> = {};
+  const queryValues: Record<string, unknown> = {};
+  const bodyValues: Record<string, unknown> = {};
+  const headerValues: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(params)) {
+    const explicit = paramMeta.get(key);
+    if (explicit === "path" || (!explicit && endpointPathParams.has(key))) {
+      pathValues[key] = value;
+    } else if (explicit === "header") {
+      headerValues[key] = value;
+    } else if (explicit === "query") {
+      queryValues[key] = value;
+    } else if (explicit === "body") {
+      bodyValues[key] = value;
+    } else {
+      // No explicit "in" and not a path param — infer from HTTP method
+      if (method === "GET" || method === "HEAD" || method === "DELETE") {
+        queryValues[key] = value;
+      } else {
+        bodyValues[key] = value;
+      }
+    }
+  }
+
+  // Substitute path parameters in the endpoint URL
+  endpoint = endpoint.replace(/\{(\w+)\}/g, (_match, paramName) => {
+    if (pathValues[paramName] !== undefined) {
+      return encodeURIComponent(String(pathValues[paramName]));
+    }
+    return `{${paramName}}`;
+  });
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -75,26 +123,30 @@ export async function callCapability(
     }
   }
 
+  // Inject header parameters
+  for (const [key, value] of Object.entries(headerValues)) {
+    headers[key] = String(value);
+  }
+
   // Step 4: Make the call
-  const method = detail.method.toUpperCase();
   const fetchOpts: RequestInit = {
     method,
     headers,
     signal: AbortSignal.timeout(30000),
   };
 
-  if (method !== "GET" && method !== "HEAD") {
-    fetchOpts.body = JSON.stringify(params);
+  if (method !== "GET" && method !== "HEAD" && Object.keys(bodyValues).length > 0) {
+    fetchOpts.body = JSON.stringify(bodyValues);
   }
 
-  // For GET, append params as query string
-  let finalUrl = url;
-  if (method === "GET" && Object.keys(params).length > 0) {
+  // Append query parameters
+  let finalUrl = endpoint;
+  if (Object.keys(queryValues).length > 0) {
     const qs = new URLSearchParams();
-    for (const [key, value] of Object.entries(params)) {
+    for (const [key, value] of Object.entries(queryValues)) {
       qs.set(key, String(value));
     }
-    finalUrl = `${url}?${qs.toString()}`;
+    finalUrl = `${endpoint}?${qs.toString()}`;
   }
 
   try {

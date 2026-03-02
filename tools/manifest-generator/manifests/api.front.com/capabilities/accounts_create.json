@@ -5,12 +5,61 @@
   "method": "POST",
   "resource_group": "accounts",
   "parameters": [
-    {"name": "name", "type": "string", "description": "Account name.", "required": true, "example": "Acme Corp"},
-    {"name": "domains", "type": "array", "description": "Associated domains.", "required": false, "example": ["acme.com"]},
-    {"name": "description", "type": "string", "description": "Account description.", "required": false, "example": "Enterprise client"}
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Account name.",
+      "required": true,
+      "example": "Acme Corp",
+      "in": "body"
+    },
+    {
+      "name": "domains",
+      "type": "array",
+      "description": "Associated domains.",
+      "required": false,
+      "example": [
+        "acme.com"
+      ],
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Account description.",
+      "required": false,
+      "example": "Enterprise client",
+      "in": "body"
+    }
   ],
-  "request_example": {"method": "POST", "url": "https://api2.frontapp.com/accounts", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"name": "Acme Corp", "domains": ["acme.com"]}},
-  "response_example": {"status": 201, "body": {"id": "acc_456", "name": "Acme Corp", "domains": ["acme.com"]}},
-  "auth_scopes": ["shared:accounts.write"],
-  "rate_limits": {"requests_per_minute": 120}
+  "request_example": {
+    "method": "POST",
+    "url": "https://api2.frontapp.com/accounts",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Acme Corp",
+      "domains": [
+        "acme.com"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "acc_456",
+      "name": "Acme Corp",
+      "domains": [
+        "acme.com"
+      ]
+    }
+  },
+  "auth_scopes": [
+    "shared:accounts.write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

@@ -10,70 +10,84 @@
       "type": "string",
       "description": "The user's UUID.",
       "required": true,
-      "example": "uuid-1234"
+      "example": "uuid-1234",
+      "in": "path"
     },
     {
       "name": "Authorization",
       "type": "string",
       "description": "Bearer token with service_role key.",
       "required": true,
-      "example": "Bearer {service_role_key}"
+      "example": "Bearer {service_role_key}",
+      "in": "body"
     },
     {
       "name": "email",
       "type": "string",
       "description": "New email address.",
       "required": false,
-      "example": "updated@example.com"
+      "example": "updated@example.com",
+      "in": "body"
     },
     {
       "name": "password",
       "type": "string",
       "description": "New password.",
       "required": false,
-      "example": "newPassword123"
+      "example": "newPassword123",
+      "in": "body"
     },
     {
       "name": "email_confirm",
       "type": "boolean",
       "description": "Automatically confirm the user's email.",
       "required": false,
-      "example": true
+      "example": true,
+      "in": "body"
     },
     {
       "name": "phone_confirm",
       "type": "boolean",
       "description": "Automatically confirm the user's phone.",
       "required": false,
-      "example": true
+      "example": true,
+      "in": "body"
     },
     {
       "name": "ban_duration",
       "type": "string",
       "description": "Ban duration (e.g., '24h', '168h'). Set to 'none' to unban.",
       "required": false,
-      "example": "24h"
+      "example": "24h",
+      "in": "body"
     },
     {
       "name": "role",
       "type": "string",
       "description": "User role.",
       "required": false,
-      "example": "authenticated"
+      "example": "authenticated",
+      "in": "body"
     },
     {
       "name": "user_metadata",
       "type": "object",
       "description": "Custom user metadata.",
       "required": false,
-      "example": {"first_name": "Jane"}
+      "example": {
+        "first_name": "Jane"
+      },
+      "in": "body"
     },
     {
       "name": "app_metadata",
       "type": "object",
       "description": "Application metadata (admin-only, not editable by user).",
       "required": false,
-      "example": {"plan": "premium"}
+      "example": {
+        "plan": "premium"
+      },
+      "in": "body"
     }
   ],
   "request_example": {
@@ -86,8 +100,12 @@
     },
     "body": {
       "email_confirm": true,
-      "user_metadata": {"first_name": "Jane"},
-      "app_metadata": {"plan": "premium"}
+      "user_metadata": {
+        "first_name": "Jane"
+      },
+      "app_metadata": {
+        "plan": "premium"
+      }
     }
   },
   "response_example": {
@@ -96,11 +114,17 @@
       "id": "uuid-1234",
       "email": "user@example.com",
       "email_confirmed_at": "2024-01-15T12:00:00Z",
-      "user_metadata": {"first_name": "Jane"},
-      "app_metadata": {"plan": "premium"}
+      "user_metadata": {
+        "first_name": "Jane"
+      },
+      "app_metadata": {
+        "plan": "premium"
+      }
     }
   },
-  "auth_scopes": ["service_role"],
+  "auth_scopes": [
+    "service_role"
+  ],
   "rate_limits": {
     "requests_per_minute": 60
   }

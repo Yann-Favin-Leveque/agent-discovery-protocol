@@ -5,18 +5,47 @@
   "method": "POST",
   "resource_group": "transactions",
   "parameters": [
-    {"name": "transactionId", "type": "string", "description": "ID of the transaction to void.", "required": true, "example": "dHJhbnNhY3Rpb25fOHg2NjRi"}
+    {
+      "name": "transactionId",
+      "type": "string",
+      "description": "ID of the transaction to void.",
+      "required": true,
+      "example": "dHJhbnNhY3Rpb25fOHg2NjRi",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://payments.braintree-api.com/graphql",
-    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
-    "body": {"query": "mutation VoidTransaction($input: VoidTransactionInput!) { voidTransaction(input: $input) { transaction { id status } } }", "variables": {"input": {"transactionId": "dHJhbnNhY3Rpb25fOHg2NjRi"}}}
+    "headers": {
+      "Authorization": "Basic {base64(public_key:private_key)}",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-08-01"
+    },
+    "body": {
+      "query": "mutation VoidTransaction($input: VoidTransactionInput!) { voidTransaction(input: $input) { transaction { id status } } }",
+      "variables": {
+        "input": {
+          "transactionId": "dHJhbnNhY3Rpb25fOHg2NjRi"
+        }
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"data": {"voidTransaction": {"transaction": {"id": "dHJhbnNhY3Rpb25fOHg2NjRi", "status": "VOIDED"}}}}
+    "body": {
+      "data": {
+        "voidTransaction": {
+          "transaction": {
+            "id": "dHJhbnNhY3Rpb25fOHg2NjRi",
+            "status": "VOIDED"
+          }
+        }
+      }
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

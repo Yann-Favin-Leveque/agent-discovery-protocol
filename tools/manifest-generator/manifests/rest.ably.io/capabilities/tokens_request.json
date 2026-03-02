@@ -5,20 +5,76 @@
   "endpoint": "/keys/{keyName}/requestToken",
   "method": "POST",
   "parameters": [
-    {"name": "keyName", "type": "string", "description": "API key name (first part before the colon).", "required": true, "example": "xVLyHw.abcdef"},
-    {"name": "ttl", "type": "integer", "description": "Token time-to-live in milliseconds (default 3600000 = 1 hour).", "required": false, "example": 3600000},
-    {"name": "capability", "type": "object", "description": "Token capabilities as channel-to-operations mapping.", "required": false, "example": {"*": ["publish", "subscribe"]}},
-    {"name": "clientId", "type": "string", "description": "Client identity to bind to the token.", "required": false}
+    {
+      "name": "keyName",
+      "type": "string",
+      "description": "API key name (first part before the colon).",
+      "required": true,
+      "example": "xVLyHw.abcdef",
+      "in": "path"
+    },
+    {
+      "name": "ttl",
+      "type": "integer",
+      "description": "Token time-to-live in milliseconds (default 3600000 = 1 hour).",
+      "required": false,
+      "example": 3600000,
+      "in": "body"
+    },
+    {
+      "name": "capability",
+      "type": "object",
+      "description": "Token capabilities as channel-to-operations mapping.",
+      "required": false,
+      "example": {
+        "*": [
+          "publish",
+          "subscribe"
+        ]
+      },
+      "in": "body"
+    },
+    {
+      "name": "clientId",
+      "type": "string",
+      "description": "Client identity to bind to the token.",
+      "required": false,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://rest.ably.io/keys/xVLyHw.abcdef/requestToken",
-    "headers": {"Authorization": "Basic {base64_api_key}", "Content-Type": "application/json"},
-    "body": {"ttl": 3600000, "capability": {"my-channel": ["publish", "subscribe"]}}
+    "headers": {
+      "Authorization": "Basic {base64_api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "ttl": 3600000,
+      "capability": {
+        "my-channel": [
+          "publish",
+          "subscribe"
+        ]
+      }
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"token": "xVLyHw.CIdfkE...", "keyName": "xVLyHw.abcdef", "issued": 1705312200000, "expires": 1705315800000, "capability": {"my-channel": ["publish", "subscribe"]}}
+    "body": {
+      "token": "xVLyHw.CIdfkE...",
+      "keyName": "xVLyHw.abcdef",
+      "issued": 1705312200000,
+      "expires": 1705315800000,
+      "capability": {
+        "my-channel": [
+          "publish",
+          "subscribe"
+        ]
+      }
+    }
   },
-  "rate_limits": {"requests_per_minute": 1500}
+  "rate_limits": {
+    "requests_per_minute": 1500
+  }
 }

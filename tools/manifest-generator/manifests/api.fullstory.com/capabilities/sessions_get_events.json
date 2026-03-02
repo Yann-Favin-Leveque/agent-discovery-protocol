@@ -10,7 +10,8 @@
       "type": "string",
       "description": "The session ID to retrieve events for.",
       "required": true,
-      "example": "sess_abc123"
+      "example": "sess_abc123",
+      "in": "path"
     }
   ],
   "request_example": {
@@ -24,12 +25,26 @@
     "status": 200,
     "body": {
       "events": [
-        { "type": "navigate", "timestamp": "2024-01-20T10:00:00Z", "properties": { "page_url": "https://example.com/pricing" } },
-        { "type": "click", "timestamp": "2024-01-20T10:01:00Z", "properties": { "element": "button.cta" } }
+        {
+          "type": "navigate",
+          "timestamp": "2024-01-20T10:00:00Z",
+          "properties": {
+            "page_url": "https://example.com/pricing"
+          }
+        },
+        {
+          "type": "click",
+          "timestamp": "2024-01-20T10:01:00Z",
+          "properties": {
+            "element": "button.cta"
+          }
+        }
       ]
     }
   },
-  "auth_scopes": ["server"],
+  "auth_scopes": [
+    "server"
+  ],
   "rate_limits": {
     "requests_per_minute": 600
   }

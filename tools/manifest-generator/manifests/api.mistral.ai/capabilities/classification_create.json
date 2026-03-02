@@ -5,14 +5,44 @@
   "endpoint": "/v1/classifications",
   "method": "POST",
   "parameters": [
-    {"name": "model", "type": "string", "required": false, "description": "Classification model ID."},
-    {"name": "input", "type": "string or array", "required": true, "description": "Text or texts to classify."}
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "description": "Classification model ID.",
+      "in": "body"
+    },
+    {
+      "name": "input",
+      "type": "string or array",
+      "required": true,
+      "description": "Text or texts to classify.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.mistral.ai/v1/classifications",
-    "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"input": "This product is amazing!"}
+    "headers": {
+      "Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "input": "This product is amazing!"
+    }
   },
-  "response_example": {"status": 200, "body": {"id": "cls-abc123", "results": [{"categories": {"positive": true, "negative": false}}]}}
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "cls-abc123",
+      "results": [
+        {
+          "categories": {
+            "positive": true,
+            "negative": false
+          }
+        }
+      ]
+    }
+  }
 }

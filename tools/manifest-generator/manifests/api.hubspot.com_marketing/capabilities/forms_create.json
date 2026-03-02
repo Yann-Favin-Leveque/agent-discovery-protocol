@@ -10,14 +10,16 @@
       "type": "string",
       "description": "The internal name of the form.",
       "required": true,
-      "example": "Newsletter Signup"
+      "example": "Newsletter Signup",
+      "in": "body"
     },
     {
       "name": "formType",
       "type": "string",
       "description": "Form type: hubspot, embedded, standalone, or popup.",
       "required": true,
-      "example": "hubspot"
+      "example": "hubspot",
+      "in": "body"
     },
     {
       "name": "fieldGroups",
@@ -28,17 +30,28 @@
         {
           "groupType": "default_group",
           "fields": [
-            { "name": "email", "label": "Email", "type": "string", "fieldType": "text", "required": true }
+            {
+              "name": "email",
+              "label": "Email",
+              "type": "string",
+              "fieldType": "text",
+              "required": true
+            }
           ]
         }
-      ]
+      ],
+      "in": "body"
     },
     {
       "name": "configuration",
       "type": "object",
       "description": "Form configuration including language and redirect URL.",
       "required": false,
-      "example": { "language": "en", "createNewContactForNewEmail": true }
+      "example": {
+        "language": "en",
+        "createNewContactForNewEmail": true
+      },
+      "in": "body"
     }
   ],
   "request_example": {
@@ -55,12 +68,26 @@
         {
           "groupType": "default_group",
           "fields": [
-            { "name": "email", "label": "Email", "type": "string", "fieldType": "text", "required": true },
-            { "name": "firstname", "label": "First Name", "type": "string", "fieldType": "text", "required": false }
+            {
+              "name": "email",
+              "label": "Email",
+              "type": "string",
+              "fieldType": "text",
+              "required": true
+            },
+            {
+              "name": "firstname",
+              "label": "First Name",
+              "type": "string",
+              "fieldType": "text",
+              "required": false
+            }
           ]
         }
       ],
-      "configuration": { "language": "en" }
+      "configuration": {
+        "language": "en"
+      }
     }
   },
   "response_example": {
@@ -72,7 +99,9 @@
       "createdAt": "2024-01-15T10:00:00Z"
     }
   },
-  "auth_scopes": ["forms"],
+  "auth_scopes": [
+    "forms"
+  ],
   "rate_limits": {
     "requests_per_minute": 100
   }

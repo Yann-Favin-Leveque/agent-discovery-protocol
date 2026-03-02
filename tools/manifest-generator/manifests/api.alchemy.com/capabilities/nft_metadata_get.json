@@ -9,32 +9,37 @@
       "name": "apiKey",
       "type": "string",
       "required": true,
-      "description": "Your Alchemy API key (path parameter)."
+      "description": "Your Alchemy API key (path parameter).",
+      "in": "path"
     },
     {
       "name": "contractAddress",
       "type": "string",
       "required": true,
       "description": "NFT contract address.",
-      "example": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
+      "example": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+      "in": "query"
     },
     {
       "name": "tokenId",
       "type": "string",
       "required": true,
-      "description": "Token ID of the NFT."
+      "description": "Token ID of the NFT.",
+      "in": "query"
     },
     {
       "name": "tokenType",
       "type": "string",
       "required": false,
-      "description": "Token standard: 'ERC721' or 'ERC1155'."
+      "description": "Token standard: 'ERC721' or 'ERC1155'.",
+      "in": "query"
     },
     {
       "name": "refreshCache",
       "type": "boolean",
       "required": false,
-      "description": "Force refresh of cached metadata."
+      "description": "Force refresh of cached metadata.",
+      "in": "query"
     }
   ],
   "request_example": {
@@ -45,12 +50,28 @@
   "response_example": {
     "status": 200,
     "body": {
-      "contract": { "address": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D", "name": "BoredApeYachtClub", "symbol": "BAYC", "tokenType": "ERC721" },
+      "contract": {
+        "address": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+        "name": "BoredApeYachtClub",
+        "symbol": "BAYC",
+        "tokenType": "ERC721"
+      },
       "tokenId": "1234",
       "name": "Bored Ape #1234",
       "description": "A unique Bored Ape NFT",
-      "image": { "cachedUrl": "https://res.cloudinary.com/alchemyapi/..." },
-      "raw": { "metadata": { "attributes": [{ "trait_type": "Background", "value": "Orange" }] } }
+      "image": {
+        "cachedUrl": "https://res.cloudinary.com/alchemyapi/..."
+      },
+      "raw": {
+        "metadata": {
+          "attributes": [
+            {
+              "trait_type": "Background",
+              "value": "Orange"
+            }
+          ]
+        }
+      }
     }
   },
   "auth_scopes": [],

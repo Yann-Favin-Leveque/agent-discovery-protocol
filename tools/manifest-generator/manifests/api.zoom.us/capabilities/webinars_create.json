@@ -10,56 +10,67 @@
       "type": "string",
       "description": "The user ID or email. Use 'me' for authenticated user.",
       "required": true,
-      "example": "me"
+      "example": "me",
+      "in": "path"
     },
     {
       "name": "topic",
       "type": "string",
       "description": "Webinar topic.",
       "required": false,
-      "example": "Product Launch Webinar"
+      "example": "Product Launch Webinar",
+      "in": "body"
     },
     {
       "name": "type",
       "type": "integer",
       "description": "Webinar type: 5 (webinar), 6 (recurring no fixed time), 9 (recurring fixed time).",
       "required": false,
-      "example": 5
+      "example": 5,
+      "in": "body"
     },
     {
       "name": "start_time",
       "type": "string",
       "description": "Start time in ISO 8601 format.",
       "required": false,
-      "example": "2024-02-01T14:00:00Z"
+      "example": "2024-02-01T14:00:00Z",
+      "in": "body"
     },
     {
       "name": "duration",
       "type": "integer",
       "description": "Duration in minutes.",
       "required": false,
-      "example": 90
+      "example": 90,
+      "in": "body"
     },
     {
       "name": "timezone",
       "type": "string",
       "description": "Timezone for the webinar.",
       "required": false,
-      "example": "America/New_York"
+      "example": "America/New_York",
+      "in": "body"
     },
     {
       "name": "agenda",
       "type": "string",
       "description": "Webinar description or agenda.",
       "required": false,
-      "example": "Join us for the launch of our new product"
+      "example": "Join us for the launch of our new product",
+      "in": "body"
     },
     {
       "name": "settings",
       "type": "object",
       "description": "Webinar settings including approval_type, registration_type, auto_recording, etc.",
       "required": false,
-      "example": {"approval_type": 0, "auto_recording": "cloud"}
+      "example": {
+        "approval_type": 0,
+        "auto_recording": "cloud"
+      },
+      "in": "body"
     }
   ],
   "request_example": {
@@ -94,7 +105,9 @@
       "registration_url": "https://zoom.us/webinar/register/9876543210"
     }
   },
-  "auth_scopes": ["webinar:write"],
+  "auth_scopes": [
+    "webinar:write"
+  ],
   "rate_limits": {
     "requests_per_minute": 60
   }

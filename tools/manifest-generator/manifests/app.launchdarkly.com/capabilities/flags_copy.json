@@ -5,20 +5,71 @@
   "endpoint": "/flags/{projectKey}/{flagKey}/copy",
   "method": "POST",
   "parameters": [
-    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
-    {"name": "flagKey", "type": "string", "description": "The feature flag key.", "required": true, "example": "new-checkout"},
-    {"name": "source", "type": "object", "description": "Source environment.", "required": true, "example": {"key": "staging"}},
-    {"name": "target", "type": "object", "description": "Target environment.", "required": true, "example": {"key": "production"}}
+    {
+      "name": "projectKey",
+      "type": "string",
+      "description": "The project key.",
+      "required": true,
+      "example": "my-project",
+      "in": "path"
+    },
+    {
+      "name": "flagKey",
+      "type": "string",
+      "description": "The feature flag key.",
+      "required": true,
+      "example": "new-checkout",
+      "in": "path"
+    },
+    {
+      "name": "source",
+      "type": "object",
+      "description": "Source environment.",
+      "required": true,
+      "example": {
+        "key": "staging"
+      },
+      "in": "body"
+    },
+    {
+      "name": "target",
+      "type": "object",
+      "description": "Target environment.",
+      "required": true,
+      "example": {
+        "key": "production"
+      },
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://app.launchdarkly.com/api/v2/flags/my-project/new-checkout/copy",
-    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
-    "body": {"source": {"key": "staging"}, "target": {"key": "production"}}
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "source": {
+        "key": "staging"
+      },
+      "target": {
+        "key": "production"
+      }
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"key": "new-checkout", "environments": {"production": {"on": true}}}
+    "body": {
+      "key": "new-checkout",
+      "environments": {
+        "production": {
+          "on": true
+        }
+      }
+    }
   },
-  "rate_limits": {"requests_per_minute": 120}
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

@@ -10,42 +10,48 @@
       "type": "string",
       "description": "The space ID.",
       "required": true,
-      "example": "cfexampleapi"
+      "example": "cfexampleapi",
+      "in": "path"
     },
     {
       "name": "environment_id",
       "type": "string",
       "description": "The environment ID.",
       "required": true,
-      "example": "master"
+      "example": "master",
+      "in": "path"
     },
     {
       "name": "initial",
       "type": "boolean",
       "description": "Set to true for initial sync. Omit for delta sync with sync_token.",
       "required": false,
-      "example": true
+      "example": true,
+      "in": "query"
     },
     {
       "name": "sync_token",
       "type": "string",
       "description": "Token from a previous sync response for incremental sync.",
       "required": false,
-      "example": ""
+      "example": "",
+      "in": "query"
     },
     {
       "name": "type",
       "type": "string",
       "description": "Filter by type: Entry, Asset, Deletion, DeletedEntry, DeletedAsset.",
       "required": false,
-      "example": "Entry"
+      "example": "Entry",
+      "in": "query"
     },
     {
       "name": "content_type",
       "type": "string",
       "description": "Filter by content type (only with type=Entry).",
       "required": false,
-      "example": "blogPost"
+      "example": "blogPost",
+      "in": "query"
     }
   ],
   "request_example": {
@@ -58,11 +64,18 @@
   "response_example": {
     "status": 200,
     "body": {
-      "sys": {"type": "Array"},
+      "sys": {
+        "type": "Array"
+      },
       "items": [
         {
-          "sys": {"id": "entry1", "type": "Entry"},
-          "fields": {"title": "Hello World"}
+          "sys": {
+            "id": "entry1",
+            "type": "Entry"
+          },
+          "fields": {
+            "title": "Hello World"
+          }
         }
       ],
       "nextSyncUrl": "https://cdn.contentful.com/spaces/cfexampleapi/environments/master/sync?sync_token=abc123",

@@ -10,14 +10,16 @@
       "type": "string",
       "description": "The PSID of the Messenger recipient.",
       "required": true,
-      "example": "1234567890"
+      "example": "1234567890",
+      "in": "body"
     },
     {
       "name": "template_type",
       "type": "string",
       "description": "Template type: button, generic, receipt, media, airline_boardingpass, airline_checkin, airline_itinerary, or airline_update.",
       "required": true,
-      "example": "generic"
+      "example": "generic",
+      "in": "body"
     },
     {
       "name": "template_payload",
@@ -26,8 +28,15 @@
       "required": true,
       "example": {
         "template_type": "generic",
-        "elements": [{ "title": "Product", "subtitle": "Description", "image_url": "https://example.com/img.jpg" }]
-      }
+        "elements": [
+          {
+            "title": "Product",
+            "subtitle": "Description",
+            "image_url": "https://example.com/img.jpg"
+          }
+        ]
+      },
+      "in": "body"
     }
   ],
   "request_example": {
@@ -39,7 +48,9 @@
     },
     "body": {
       "messaging_type": "RESPONSE",
-      "recipient": { "id": "1234567890" },
+      "recipient": {
+        "id": "1234567890"
+      },
       "message": {
         "attachment": {
           "type": "template",
@@ -51,8 +62,16 @@
                 "image_url": "https://example.com/store.jpg",
                 "subtitle": "Browse our collection",
                 "buttons": [
-                  { "type": "web_url", "url": "https://example.com/shop", "title": "Shop Now" },
-                  { "type": "postback", "title": "View Cart", "payload": "VIEW_CART" }
+                  {
+                    "type": "web_url",
+                    "url": "https://example.com/shop",
+                    "title": "Shop Now"
+                  },
+                  {
+                    "type": "postback",
+                    "title": "View Cart",
+                    "payload": "VIEW_CART"
+                  }
                 ]
               }
             ]
@@ -68,7 +87,9 @@
       "message_id": "mid.1457764197618:41d102a3e1ae206a38"
     }
   },
-  "auth_scopes": ["pages_messaging"],
+  "auth_scopes": [
+    "pages_messaging"
+  ],
   "rate_limits": {
     "requests_per_minute": 250
   }

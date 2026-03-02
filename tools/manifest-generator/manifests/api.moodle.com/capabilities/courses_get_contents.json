@@ -5,19 +5,53 @@
   "method": "POST",
   "resource_group": "courses",
   "parameters": [
-    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
-    { "name": "courseid", "type": "integer", "description": "The course ID", "required": true, "example": 5 }
+    {
+      "name": "wstoken",
+      "type": "string",
+      "description": "Web service authentication token",
+      "required": true,
+      "example": "abc123token",
+      "in": "body"
+    },
+    {
+      "name": "courseid",
+      "type": "integer",
+      "description": "The course ID",
+      "required": true,
+      "example": 5,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_course_get_contents&moodlewsrestformat=json",
-    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
-    "body": { "courseid": 5 }
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "courseid": 5
+    }
   },
   "response_example": {
     "status": 200,
-    "body": [{ "id": 1, "name": "Week 1 - Introduction", "modules": [{ "id": 10, "name": "Welcome Forum", "modname": "forum" }] }]
+    "body": [
+      {
+        "id": 1,
+        "name": "Week 1 - Introduction",
+        "modules": [
+          {
+            "id": 10,
+            "name": "Welcome Forum",
+            "modname": "forum"
+          }
+        ]
+      }
+    ]
   },
-  "auth_scopes": ["core_course_get_contents"],
-  "rate_limits": { "requests_per_minute": 120 }
+  "auth_scopes": [
+    "core_course_get_contents"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

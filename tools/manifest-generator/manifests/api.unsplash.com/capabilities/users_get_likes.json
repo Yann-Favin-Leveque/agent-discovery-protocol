@@ -5,21 +5,63 @@
   "endpoint": "/users/{username}/likes",
   "method": "GET",
   "parameters": [
-    { "name": "username", "type": "string", "required": true, "description": "The user's username." },
-    { "name": "page", "type": "integer", "required": false, "description": "Page number. Default: 1." },
-    { "name": "per_page", "type": "integer", "required": false, "description": "Items per page. Default: 10. Max: 30." },
-    { "name": "order_by", "type": "string", "required": false, "description": "Sort: 'latest', 'oldest', or 'popular'." },
-    { "name": "orientation", "type": "string", "required": false, "description": "Filter: 'landscape', 'portrait', or 'squarish'." }
+    {
+      "name": "username",
+      "type": "string",
+      "required": true,
+      "description": "The user's username.",
+      "in": "path"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number. Default: 1.",
+      "in": "query"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Items per page. Default: 10. Max: 30.",
+      "in": "query"
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "required": false,
+      "description": "Sort: 'latest', 'oldest', or 'popular'.",
+      "in": "query"
+    },
+    {
+      "name": "orientation",
+      "type": "string",
+      "required": false,
+      "description": "Filter: 'landscape', 'portrait', or 'squarish'.",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.unsplash.com/users/danielmirlea/likes?per_page=5",
-    "headers": { "Authorization": "Client-ID YOUR_ACCESS_KEY" }
+    "headers": {
+      "Authorization": "Client-ID YOUR_ACCESS_KEY"
+    }
   },
   "response_example": {
     "status": 200,
     "body": [
-      { "id": "xyz789", "description": "Urban architecture", "urls": { "regular": "https://images.unsplash.com/photo-xyz789?w=1080" }, "user": { "username": "archphotog", "name": "Architecture Photographer" } }
+      {
+        "id": "xyz789",
+        "description": "Urban architecture",
+        "urls": {
+          "regular": "https://images.unsplash.com/photo-xyz789?w=1080"
+        },
+        "user": {
+          "username": "archphotog",
+          "name": "Architecture Photographer"
+        }
+      }
     ]
   }
 }

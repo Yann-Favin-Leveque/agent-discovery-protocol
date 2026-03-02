@@ -5,19 +5,52 @@
   "method": "GET",
   "resource_group": "contacts",
   "parameters": [
-    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
-    {"name": "q", "type": "string", "description": "Search query.", "required": true, "example": "john"},
-    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1}
+    {
+      "name": "account_id",
+      "type": "integer",
+      "description": "Account ID.",
+      "required": true,
+      "example": 1,
+      "in": "path"
+    },
+    {
+      "name": "q",
+      "type": "string",
+      "description": "Search query.",
+      "required": true,
+      "example": "john",
+      "in": "query"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.chatwoot.com/api/v1/accounts/1/contacts/search?q=john&page=1",
-    "headers": {"api_access_token": "{token}"}
+    "headers": {
+      "api_access_token": "{token}"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"payload": [{"id": 42, "name": "John Doe", "email": "john@example.com"}]}
+    "body": {
+      "payload": [
+        {
+          "id": 42,
+          "name": "John Doe",
+          "email": "john@example.com"
+        }
+      ]
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 250}
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
 }

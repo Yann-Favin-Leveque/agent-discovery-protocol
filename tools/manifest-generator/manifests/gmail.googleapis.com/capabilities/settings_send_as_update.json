@@ -1,0 +1,54 @@
+{
+  "name": "settings_send_as_update",
+  "description": "Updates a send-as alias.",
+  "resource_group": "settings",
+  "endpoint": "/gmail/v1/users/{userId}/settings/sendAs/{sendAsEmail}",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me",
+      "in": "path"
+    },
+    {
+      "name": "sendAsEmail",
+      "type": "string",
+      "description": "The alias email.",
+      "required": true,
+      "example": "alias@example.com",
+      "in": "path"
+    },
+    {
+      "name": "displayName",
+      "type": "string",
+      "description": "Updated display name.",
+      "required": false,
+      "example": "Updated Alias",
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/settings/sendAs/alias@example.com",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "displayName": "Updated Alias"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sendAsEmail": "alias@example.com",
+      "displayName": "Updated Alias"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.settings.sharing"
+  ]
+}

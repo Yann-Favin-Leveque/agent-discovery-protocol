@@ -5,21 +5,88 @@
   "method": "PUT",
   "resource_group": "time_off",
   "parameters": [
-    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
-    {"name": "employeeId", "type": "integer", "description": "Employee ID.", "required": true, "example": 123},
-    {"name": "timeOffTypeId", "type": "integer", "description": "Time-off type ID.", "required": true, "example": 1},
-    {"name": "start", "type": "string", "description": "Start date (YYYY-MM-DD).", "required": true, "example": "2024-08-01"},
-    {"name": "end", "type": "string", "description": "End date (YYYY-MM-DD).", "required": true, "example": "2024-08-05"},
-    {"name": "notes", "type": "string", "description": "Optional notes for the request.", "required": false, "example": "Family vacation"},
-    {"name": "dates", "type": "object", "description": "Map of date to hours for partial-day requests.", "required": false, "example": {"2024-08-01": 8, "2024-08-02": 8}}
+    {
+      "name": "companyDomain",
+      "type": "string",
+      "description": "Your BambooHR subdomain.",
+      "required": true,
+      "example": "mycompany",
+      "in": "path"
+    },
+    {
+      "name": "employeeId",
+      "type": "integer",
+      "description": "Employee ID.",
+      "required": true,
+      "example": 123,
+      "in": "path"
+    },
+    {
+      "name": "timeOffTypeId",
+      "type": "integer",
+      "description": "Time-off type ID.",
+      "required": true,
+      "example": 1,
+      "in": "body"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "description": "Start date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-08-01",
+      "in": "body"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-08-05",
+      "in": "body"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "description": "Optional notes for the request.",
+      "required": false,
+      "example": "Family vacation",
+      "in": "body"
+    },
+    {
+      "name": "dates",
+      "type": "object",
+      "description": "Map of date to hours for partial-day requests.",
+      "required": false,
+      "example": {
+        "2024-08-01": 8,
+        "2024-08-02": 8
+      },
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PUT",
     "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/123/time_off/request/",
-    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Content-Type": "application/json"},
-    "body": {"timeOffTypeId": 1, "start": "2024-08-01", "end": "2024-08-05", "notes": "Family vacation"}
+    "headers": {
+      "Authorization": "Basic {base64(apikey:x)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "timeOffTypeId": 1,
+      "start": "2024-08-01",
+      "end": "2024-08-05",
+      "notes": "Family vacation"
+    }
   },
-  "response_example": {"status": 201, "body": {"id": 1002}},
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": 1002
+    }
+  },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 60}
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

@@ -5,21 +5,62 @@
   "method": "POST",
   "resource_group": "teams",
   "parameters": [
-    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
-    {"name": "name", "type": "string", "description": "Team name.", "required": true, "example": "Billing"},
-    {"name": "description", "type": "string", "description": "Team description.", "required": false, "example": "Handles billing inquiries"},
-    {"name": "allow_auto_assign", "type": "boolean", "description": "Enable auto-assignment.", "required": false, "example": true}
+    {
+      "name": "account_id",
+      "type": "integer",
+      "description": "Account ID.",
+      "required": true,
+      "example": 1,
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Team name.",
+      "required": true,
+      "example": "Billing",
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Team description.",
+      "required": false,
+      "example": "Handles billing inquiries",
+      "in": "body"
+    },
+    {
+      "name": "allow_auto_assign",
+      "type": "boolean",
+      "description": "Enable auto-assignment.",
+      "required": false,
+      "example": true,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.chatwoot.com/api/v1/accounts/1/teams",
-    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
-    "body": {"name": "Billing", "description": "Handles billing inquiries", "allow_auto_assign": true}
+    "headers": {
+      "api_access_token": "{token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Billing",
+      "description": "Handles billing inquiries",
+      "allow_auto_assign": true
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"id": 3, "name": "Billing", "description": "Handles billing inquiries"}
+    "body": {
+      "id": 3,
+      "name": "Billing",
+      "description": "Handles billing inquiries"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 250}
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
 }

@@ -5,7 +5,23 @@
   "endpoint": "/messages",
   "method": "POST",
   "parameters": [
-    {"name": "channels", "type": "array", "description": "Array of objects, each with a channel name and array of messages.", "required": true, "example": [{"channel": "ch1", "messages": [{"data": "hello"}]}]}
+    {
+      "name": "channels",
+      "type": "array",
+      "description": "Array of objects, each with a channel name and array of messages.",
+      "required": true,
+      "example": [
+        {
+          "channel": "ch1",
+          "messages": [
+            {
+              "data": "hello"
+            }
+          ]
+        }
+      ],
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
@@ -15,16 +31,32 @@
       "Content-Type": "application/json"
     },
     "body": {
-      "channels": ["channel1", "channel2"],
-      "messages": [{"name": "event", "data": "batch hello"}]
+      "channels": [
+        "channel1",
+        "channel2"
+      ],
+      "messages": [
+        {
+          "name": "event",
+          "data": "batch hello"
+        }
+      ]
     }
   },
   "response_example": {
     "status": 201,
     "body": [
-      {"channel": "channel1", "messageId": "msg_batch_001"},
-      {"channel": "channel2", "messageId": "msg_batch_002"}
+      {
+        "channel": "channel1",
+        "messageId": "msg_batch_001"
+      },
+      {
+        "channel": "channel2",
+        "messageId": "msg_batch_002"
+      }
     ]
   },
-  "rate_limits": {"requests_per_minute": 1500}
+  "rate_limits": {
+    "requests_per_minute": 1500
+  }
 }

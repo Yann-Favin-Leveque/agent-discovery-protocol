@@ -5,14 +5,32 @@
   "endpoint": "/v2beta/stable-image/edit/remove-background",
   "method": "POST",
   "parameters": [
-    {"name": "image", "type": "file", "required": true, "description": "The source image."},
-    {"name": "output_format", "type": "string", "required": false, "description": "Output format: 'png' (default, supports transparency), 'webp'."}
+    {
+      "name": "image",
+      "type": "file",
+      "required": true,
+      "description": "The source image.",
+      "in": "body"
+    },
+    {
+      "name": "output_format",
+      "type": "string",
+      "required": false,
+      "description": "Output format: 'png' (default, supports transparency), 'webp'.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.stability.ai/v2beta/stable-image/edit/remove-background",
-    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Accept": "image/*"},
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Accept": "image/*"
+    },
     "body": "multipart/form-data: image=@product.jpg"
   },
-  "response_example": {"status": 200, "body": "Binary PNG image with transparent background"}
+  "response_example": {
+    "status": 200,
+    "body": "Binary PNG image with transparent background"
+  }
 }

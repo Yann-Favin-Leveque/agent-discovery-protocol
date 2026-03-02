@@ -5,22 +5,86 @@
   "method": "POST",
   "resource_group": "transactions",
   "parameters": [
-    {"name": "amount", "type": "string", "description": "Transaction amount (e.g., '10.00').", "required": true, "example": "49.99"},
-    {"name": "paymentMethodId", "type": "string", "description": "ID of a vaulted payment method.", "required": false, "example": "cGF5bWVudG1ldGhvZF9uNnFmOWo"},
-    {"name": "paymentMethodNonce", "type": "string", "description": "Single-use nonce from client SDK.", "required": false, "example": "fake-valid-nonce"},
-    {"name": "orderId", "type": "string", "description": "Your order reference ID.", "required": false, "example": "order-12345"},
-    {"name": "merchantAccountId", "type": "string", "description": "Specific merchant account to use.", "required": false, "example": "my_merchant"}
+    {
+      "name": "amount",
+      "type": "string",
+      "description": "Transaction amount (e.g., '10.00').",
+      "required": true,
+      "example": "49.99",
+      "in": "body"
+    },
+    {
+      "name": "paymentMethodId",
+      "type": "string",
+      "description": "ID of a vaulted payment method.",
+      "required": false,
+      "example": "cGF5bWVudG1ldGhvZF9uNnFmOWo",
+      "in": "body"
+    },
+    {
+      "name": "paymentMethodNonce",
+      "type": "string",
+      "description": "Single-use nonce from client SDK.",
+      "required": false,
+      "example": "fake-valid-nonce",
+      "in": "body"
+    },
+    {
+      "name": "orderId",
+      "type": "string",
+      "description": "Your order reference ID.",
+      "required": false,
+      "example": "order-12345",
+      "in": "body"
+    },
+    {
+      "name": "merchantAccountId",
+      "type": "string",
+      "description": "Specific merchant account to use.",
+      "required": false,
+      "example": "my_merchant",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://payments.braintree-api.com/graphql",
-    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
-    "body": {"query": "mutation ChargePaymentMethod($input: ChargePaymentMethodInput!) { chargePaymentMethod(input: $input) { transaction { id status amount { value } } } }", "variables": {"input": {"paymentMethodId": "cGF5bWVudG1ldGhvZF9uNnFmOWo", "transaction": {"amount": "49.99", "orderId": "order-12345"}}}}
+    "headers": {
+      "Authorization": "Basic {base64(public_key:private_key)}",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-08-01"
+    },
+    "body": {
+      "query": "mutation ChargePaymentMethod($input: ChargePaymentMethodInput!) { chargePaymentMethod(input: $input) { transaction { id status amount { value } } } }",
+      "variables": {
+        "input": {
+          "paymentMethodId": "cGF5bWVudG1ldGhvZF9uNnFmOWo",
+          "transaction": {
+            "amount": "49.99",
+            "orderId": "order-12345"
+          }
+        }
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"data": {"chargePaymentMethod": {"transaction": {"id": "dHJhbnNhY3Rpb25fOHg2NjRi", "status": "SUBMITTED_FOR_SETTLEMENT", "amount": {"value": "49.99"}}}}}
+    "body": {
+      "data": {
+        "chargePaymentMethod": {
+          "transaction": {
+            "id": "dHJhbnNhY3Rpb25fOHg2NjRi",
+            "status": "SUBMITTED_FOR_SETTLEMENT",
+            "amount": {
+              "value": "49.99"
+            }
+          }
+        }
+      }
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

@@ -5,25 +5,101 @@
   "method": "POST",
   "resource_group": "tickets",
   "parameters": [
-    {"name": "subject", "type": "string", "description": "Ticket subject line.", "required": true, "example": "Login issue"},
-    {"name": "description", "type": "string", "description": "Ticket description in HTML.", "required": true, "example": "<p>Cannot log into my account</p>"},
-    {"name": "email", "type": "string", "description": "Requester email address.", "required": true, "example": "john@example.com"},
-    {"name": "priority", "type": "integer", "description": "Priority (1=Low, 2=Medium, 3=High, 4=Urgent).", "required": true, "example": 2},
-    {"name": "status", "type": "integer", "description": "Status (2=Open, 3=Pending, 4=Resolved, 5=Closed).", "required": true, "example": 2},
-    {"name": "type", "type": "string", "description": "Ticket type (Question, Incident, Problem, Feature Request).", "required": false, "example": "Problem"},
-    {"name": "tags", "type": "array", "description": "Array of tag strings.", "required": false, "example": ["login", "urgent"]},
-    {"name": "responder_id", "type": "integer", "description": "Agent ID to assign the ticket to.", "required": false, "example": 67890}
+    {
+      "name": "subject",
+      "type": "string",
+      "description": "Ticket subject line.",
+      "required": true,
+      "example": "Login issue",
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Ticket description in HTML.",
+      "required": true,
+      "example": "<p>Cannot log into my account</p>",
+      "in": "body"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Requester email address.",
+      "required": true,
+      "example": "john@example.com",
+      "in": "body"
+    },
+    {
+      "name": "priority",
+      "type": "integer",
+      "description": "Priority (1=Low, 2=Medium, 3=High, 4=Urgent).",
+      "required": true,
+      "example": 2,
+      "in": "body"
+    },
+    {
+      "name": "status",
+      "type": "integer",
+      "description": "Status (2=Open, 3=Pending, 4=Resolved, 5=Closed).",
+      "required": true,
+      "example": 2,
+      "in": "body"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Ticket type (Question, Incident, Problem, Feature Request).",
+      "required": false,
+      "example": "Problem",
+      "in": "body"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Array of tag strings.",
+      "required": false,
+      "example": [
+        "login",
+        "urgent"
+      ],
+      "in": "body"
+    },
+    {
+      "name": "responder_id",
+      "type": "integer",
+      "description": "Agent ID to assign the ticket to.",
+      "required": false,
+      "example": 67890,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://yourdomain.freshdesk.com/api/v2/tickets",
-    "headers": {"Authorization": "Basic base64(api_key:X)", "Content-Type": "application/json"},
-    "body": {"subject": "Login issue", "description": "<p>Cannot log into my account</p>", "email": "john@example.com", "priority": 2, "status": 2}
+    "headers": {
+      "Authorization": "Basic base64(api_key:X)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "subject": "Login issue",
+      "description": "<p>Cannot log into my account</p>",
+      "email": "john@example.com",
+      "priority": 2,
+      "status": 2
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"id": 2, "subject": "Login issue", "status": 2, "priority": 2, "requester_id": 12345}
+    "body": {
+      "id": 2,
+      "subject": "Login issue",
+      "status": 2,
+      "priority": 2,
+      "requester_id": 12345
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 80}
+  "rate_limits": {
+    "requests_per_minute": 80
+  }
 }

@@ -5,18 +5,44 @@
   "method": "GET",
   "resource_group": "webhooks",
   "parameters": [
-    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"}
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.freshbooks.com/events/account/xB2yw/events/callbacks",
-    "headers": {"Authorization": "Bearer {token}"},
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
     "body": {}
   },
   "response_example": {
     "status": 200,
-    "body": {"response": {"result": {"callbacks": [{"callbackid": 777, "event": "invoice.create", "uri": "https://example.com/webhooks/freshbooks", "verified": true}]}}}
+    "body": {
+      "response": {
+        "result": {
+          "callbacks": [
+            {
+              "callbackid": 777,
+              "event": "invoice.create",
+              "uri": "https://example.com/webhooks/freshbooks",
+              "verified": true
+            }
+          ]
+        }
+      }
+    }
   },
-  "auth_scopes": ["user:webhooks:read"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:webhooks:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

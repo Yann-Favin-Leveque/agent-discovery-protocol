@@ -5,18 +5,44 @@
   "method": "POST",
   "resource_group": "customers",
   "parameters": [
-    {"name": "customerId", "type": "string", "description": "ID of the customer to delete.", "required": true, "example": "Y3VzdG9tZXJfMTIz"}
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "ID of the customer to delete.",
+      "required": true,
+      "example": "Y3VzdG9tZXJfMTIz",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://payments.braintree-api.com/graphql",
-    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
-    "body": {"query": "mutation DeleteCustomer($input: DeleteCustomerInput!) { deleteCustomer(input: $input) { clientMutationId } }", "variables": {"input": {"customerId": "Y3VzdG9tZXJfMTIz"}}}
+    "headers": {
+      "Authorization": "Basic {base64(public_key:private_key)}",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-08-01"
+    },
+    "body": {
+      "query": "mutation DeleteCustomer($input: DeleteCustomerInput!) { deleteCustomer(input: $input) { clientMutationId } }",
+      "variables": {
+        "input": {
+          "customerId": "Y3VzdG9tZXJfMTIz"
+        }
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"data": {"deleteCustomer": {"clientMutationId": null}}}
+    "body": {
+      "data": {
+        "deleteCustomer": {
+          "clientMutationId": null
+        }
+      }
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

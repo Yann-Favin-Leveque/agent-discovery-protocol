@@ -10,35 +10,40 @@
       "type": "string",
       "description": "The zone ID.",
       "required": true,
-      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+      "example": "023e105f4ecef8ad9ca31a8372d0c353",
+      "in": "path"
     },
     {
       "name": "since",
       "type": "string",
       "description": "Start date/time in ISO 8601 format.",
       "required": false,
-      "example": "2024-01-01T00:00:00Z"
+      "example": "2024-01-01T00:00:00Z",
+      "in": "query"
     },
     {
       "name": "until",
       "type": "string",
       "description": "End date/time in ISO 8601 format.",
       "required": false,
-      "example": "2024-01-31T23:59:59Z"
+      "example": "2024-01-31T23:59:59Z",
+      "in": "query"
     },
     {
       "name": "metrics",
       "type": "string",
       "description": "Comma-separated metrics: queryCount, uncachedCount, staleCount, responseTimeAvg.",
       "required": false,
-      "example": "queryCount,responseTimeAvg"
+      "example": "queryCount,responseTimeAvg",
+      "in": "query"
     },
     {
       "name": "dimensions",
       "type": "string",
       "description": "Comma-separated dimensions: queryType, responseCode, queryName, coloName.",
       "required": false,
-      "example": "queryType"
+      "example": "queryType",
+      "in": "query"
     }
   ],
   "request_example": {
@@ -53,13 +58,21 @@
     "body": {
       "success": true,
       "result": {
-        "totals": {"queryCount": 1500000},
-        "min": {"queryCount": 100},
-        "max": {"queryCount": 50000}
+        "totals": {
+          "queryCount": 1500000
+        },
+        "min": {
+          "queryCount": 100
+        },
+        "max": {
+          "queryCount": 50000
+        }
       }
     }
   },
-  "auth_scopes": ["analytics:read"],
+  "auth_scopes": [
+    "analytics:read"
+  ],
   "rate_limits": {
     "requests_per_minute": 1200
   }

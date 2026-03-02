@@ -5,15 +5,41 @@
   "endpoint": "/v1/blueprints/{blueprintId}",
   "method": "PATCH",
   "parameters": [
-    {"name": "blueprintId", "type": "string", "required": true, "description": "The blueprint ID."},
-    {"name": "name", "type": "string", "required": false, "description": "New blueprint name."},
-    {"name": "autoSync", "type": "boolean", "required": false, "description": "Whether to auto-sync on changes."},
-    {"name": "path", "type": "string", "required": false, "description": "Path to render.yaml in the repo."}
+    {
+      "name": "blueprintId",
+      "type": "string",
+      "required": true,
+      "description": "The blueprint ID.",
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "description": "New blueprint name.",
+      "in": "body"
+    },
+    {
+      "name": "autoSync",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to auto-sync on changes.",
+      "in": "body"
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "required": false,
+      "description": "Path to render.yaml in the repo.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PATCH",
     "url": "https://api.render.com/v1/blueprints/bpr-abc123",
-    "body": {"autoSync": false}
+    "body": {
+      "autoSync": false
+    }
   },
   "response_example": {
     "id": "bpr-abc123",

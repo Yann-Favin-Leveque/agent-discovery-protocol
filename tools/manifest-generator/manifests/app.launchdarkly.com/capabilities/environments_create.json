@@ -5,17 +5,62 @@
   "endpoint": "/projects/{projectKey}/environments",
   "method": "POST",
   "parameters": [
-    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
-    {"name": "key", "type": "string", "description": "Unique environment key.", "required": true, "example": "staging"},
-    {"name": "name", "type": "string", "description": "Environment display name.", "required": true, "example": "Staging"},
-    {"name": "color", "type": "string", "description": "Color hex code for the environment.", "required": true, "example": "f5a623"}
+    {
+      "name": "projectKey",
+      "type": "string",
+      "description": "The project key.",
+      "required": true,
+      "example": "my-project",
+      "in": "path"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Unique environment key.",
+      "required": true,
+      "example": "staging",
+      "in": "body"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Environment display name.",
+      "required": true,
+      "example": "Staging",
+      "in": "body"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "description": "Color hex code for the environment.",
+      "required": true,
+      "example": "f5a623",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://app.launchdarkly.com/api/v2/projects/my-project/environments",
-    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
-    "body": {"key": "staging", "name": "Staging", "color": "f5a623"}
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "key": "staging",
+      "name": "Staging",
+      "color": "f5a623"
+    }
   },
-  "response_example": {"status": 201, "body": {"key": "staging", "name": "Staging", "color": "f5a623", "apiKey": "sdk-staging-xxxxx"}},
-  "rate_limits": {"requests_per_minute": 120}
+  "response_example": {
+    "status": 201,
+    "body": {
+      "key": "staging",
+      "name": "Staging",
+      "color": "f5a623",
+      "apiKey": "sdk-staging-xxxxx"
+    }
+  },
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

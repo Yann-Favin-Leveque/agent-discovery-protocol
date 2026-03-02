@@ -5,19 +5,55 @@
   "method": "GET",
   "resource_group": "payments",
   "parameters": [
-    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
-    {"name": "payment_id", "type": "integer", "description": "The payment ID.", "required": true, "example": 222}
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    },
+    {
+      "name": "payment_id",
+      "type": "integer",
+      "description": "The payment ID.",
+      "required": true,
+      "example": 222,
+      "in": "path"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.freshbooks.com/accounting/account/xB2yw/payments/payments/222",
-    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha"},
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha"
+    },
     "body": {}
   },
   "response_example": {
     "status": 200,
-    "body": {"response": {"result": {"payment": {"id": 222, "invoiceid": 67890, "amount": {"amount": "500.00", "code": "USD"}, "date": "2024-07-01", "type": "Credit Card"}}}}
+    "body": {
+      "response": {
+        "result": {
+          "payment": {
+            "id": 222,
+            "invoiceid": 67890,
+            "amount": {
+              "amount": "500.00",
+              "code": "USD"
+            },
+            "date": "2024-07-01",
+            "type": "Credit Card"
+          }
+        }
+      }
+    }
   },
-  "auth_scopes": ["user:payments:read"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:payments:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

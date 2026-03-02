@@ -10,21 +10,30 @@
       "type": "string",
       "description": "Name of the index.",
       "required": true,
-      "example": "products"
+      "example": "products",
+      "in": "path"
     },
     {
       "name": "forwardToReplicas",
       "type": "boolean",
       "description": "Whether to forward settings changes to replica indices.",
       "required": false,
-      "example": true
+      "example": true,
+      "in": "body"
     },
     {
       "name": "body",
       "type": "object",
       "description": "Settings object with updated configuration values.",
       "required": true,
-      "example": { "searchableAttributes": ["name", "description"], "hitsPerPage": 25 }
+      "example": {
+        "searchableAttributes": [
+          "name",
+          "description"
+        ],
+        "hitsPerPage": 25
+      },
+      "in": "body"
     }
   ],
   "request_example": {
@@ -36,9 +45,18 @@
       "Content-Type": "application/json"
     },
     "body": {
-      "searchableAttributes": ["name", "description", "brand"],
-      "attributesForFaceting": ["category", "brand"],
-      "customRanking": ["desc(popularity)"]
+      "searchableAttributes": [
+        "name",
+        "description",
+        "brand"
+      ],
+      "attributesForFaceting": [
+        "category",
+        "brand"
+      ],
+      "customRanking": [
+        "desc(popularity)"
+      ]
     }
   },
   "response_example": {
@@ -48,7 +66,9 @@
       "taskID": 690
     }
   },
-  "auth_scopes": ["editSettings"],
+  "auth_scopes": [
+    "editSettings"
+  ],
   "rate_limits": {
     "requests_per_minute": 600
   }

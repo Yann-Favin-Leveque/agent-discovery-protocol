@@ -5,14 +5,34 @@
   "endpoint": "/v1/services/{serviceId}/jobs",
   "method": "POST",
   "parameters": [
-    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID to run the job on."},
-    {"name": "startCommand", "type": "string", "required": true, "description": "The command to execute."},
-    {"name": "planId", "type": "string", "required": false, "description": "Plan to use for the job."}
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "The service ID to run the job on.",
+      "in": "path"
+    },
+    {
+      "name": "startCommand",
+      "type": "string",
+      "required": true,
+      "description": "The command to execute.",
+      "in": "body"
+    },
+    {
+      "name": "planId",
+      "type": "string",
+      "required": false,
+      "description": "Plan to use for the job.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5/jobs",
-    "body": {"startCommand": "npm run db:migrate"}
+    "body": {
+      "startCommand": "npm run db:migrate"
+    }
   },
   "response_example": {
     "id": "job-abc123",

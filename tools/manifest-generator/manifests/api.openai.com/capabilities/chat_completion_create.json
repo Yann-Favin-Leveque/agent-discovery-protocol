@@ -9,61 +9,71 @@
       "name": "model",
       "type": "string",
       "required": true,
-      "description": "Model ID to use (e.g. 'gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'gpt-3.5-turbo')."
+      "description": "Model ID to use (e.g. 'gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'gpt-3.5-turbo').",
+      "in": "body"
     },
     {
       "name": "messages",
       "type": "array",
       "required": true,
-      "description": "Array of message objects with 'role' (system/user/assistant/tool) and 'content' (string or array of content parts for vision)."
+      "description": "Array of message objects with 'role' (system/user/assistant/tool) and 'content' (string or array of content parts for vision).",
+      "in": "body"
     },
     {
       "name": "temperature",
       "type": "number",
       "required": false,
-      "description": "Sampling temperature between 0 and 2. Lower values are more deterministic (default 1)."
+      "description": "Sampling temperature between 0 and 2. Lower values are more deterministic (default 1).",
+      "in": "body"
     },
     {
       "name": "top_p",
       "type": "number",
       "required": false,
-      "description": "Nucleus sampling parameter (default 1)."
+      "description": "Nucleus sampling parameter (default 1).",
+      "in": "body"
     },
     {
       "name": "max_tokens",
       "type": "integer",
       "required": false,
-      "description": "Maximum number of tokens to generate in the response."
+      "description": "Maximum number of tokens to generate in the response.",
+      "in": "body"
     },
     {
       "name": "stream",
       "type": "boolean",
       "required": false,
-      "description": "If true, returns a stream of server-sent events (default false)."
+      "description": "If true, returns a stream of server-sent events (default false).",
+      "in": "body"
     },
     {
       "name": "tools",
       "type": "array",
       "required": false,
-      "description": "List of tools the model may call, each with type 'function' and a function definition."
+      "description": "List of tools the model may call, each with type 'function' and a function definition.",
+      "in": "body"
     },
     {
       "name": "response_format",
       "type": "object",
       "required": false,
-      "description": "Set to {\"type\": \"json_object\"} to enable JSON mode."
+      "description": "Set to {\"type\": \"json_object\"} to enable JSON mode.",
+      "in": "body"
     },
     {
       "name": "n",
       "type": "integer",
       "required": false,
-      "description": "Number of completions to generate (default 1)."
+      "description": "Number of completions to generate (default 1).",
+      "in": "body"
     },
     {
       "name": "stop",
       "type": "string or array",
       "required": false,
-      "description": "Up to 4 sequences where the model will stop generating."
+      "description": "Up to 4 sequences where the model will stop generating.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -76,8 +86,14 @@
     "body": {
       "model": "gpt-4o",
       "messages": [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "What are the three laws of thermodynamics?"}
+        {
+          "role": "system",
+          "content": "You are a helpful assistant."
+        },
+        {
+          "role": "user",
+          "content": "What are the three laws of thermodynamics?"
+        }
       ],
       "temperature": 0.7,
       "max_tokens": 500

@@ -5,20 +5,63 @@
   "endpoint": "/models",
   "method": "POST",
   "parameters": [
-    {"name": "owner", "type": "string", "required": true, "description": "Owner username or org."},
-    {"name": "name", "type": "string", "required": true, "description": "Model name."},
-    {"name": "visibility", "type": "string", "required": true, "description": "Model visibility: 'public' or 'private'."},
-    {"name": "hardware", "type": "string", "required": true, "description": "Hardware SKU to run on (e.g. 'gpu-a40-large')."},
-    {"name": "description", "type": "string", "required": false, "description": "Model description."}
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "description": "Owner username or org.",
+      "in": "body"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Model name.",
+      "in": "body"
+    },
+    {
+      "name": "visibility",
+      "type": "string",
+      "required": true,
+      "description": "Model visibility: 'public' or 'private'.",
+      "in": "body"
+    },
+    {
+      "name": "hardware",
+      "type": "string",
+      "required": true,
+      "description": "Hardware SKU to run on (e.g. 'gpu-a40-large').",
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "description": "Model description.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.replicate.com/v1/models",
-    "headers": {"Authorization": "Bearer r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"owner": "my-org", "name": "my-model", "visibility": "private", "hardware": "gpu-a40-large"}
+    "headers": {
+      "Authorization": "Bearer r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "owner": "my-org",
+      "name": "my-model",
+      "visibility": "private",
+      "hardware": "gpu-a40-large"
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"url": "https://replicate.com/my-org/my-model", "owner": "my-org", "name": "my-model", "visibility": "private"}
+    "body": {
+      "url": "https://replicate.com/my-org/my-model",
+      "owner": "my-org",
+      "name": "my-model",
+      "visibility": "private"
+    }
   }
 }

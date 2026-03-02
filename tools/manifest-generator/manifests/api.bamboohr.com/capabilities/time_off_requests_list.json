@@ -5,22 +5,87 @@
   "method": "GET",
   "resource_group": "time_off",
   "parameters": [
-    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
-    {"name": "start", "type": "string", "description": "Start date (YYYY-MM-DD).", "required": true, "example": "2024-01-01"},
-    {"name": "end", "type": "string", "description": "End date (YYYY-MM-DD).", "required": true, "example": "2024-12-31"},
-    {"name": "employeeId", "type": "integer", "description": "Filter by employee ID.", "required": false, "example": 123},
-    {"name": "status", "type": "string", "description": "Filter by status: approved, denied, superceded, requested, canceled.", "required": false, "example": "approved"},
-    {"name": "type", "type": "integer", "description": "Filter by time-off type ID.", "required": false, "example": 1}
+    {
+      "name": "companyDomain",
+      "type": "string",
+      "description": "Your BambooHR subdomain.",
+      "required": true,
+      "example": "mycompany",
+      "in": "path"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "description": "Start date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-01-01",
+      "in": "query"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End date (YYYY-MM-DD).",
+      "required": true,
+      "example": "2024-12-31",
+      "in": "query"
+    },
+    {
+      "name": "employeeId",
+      "type": "integer",
+      "description": "Filter by employee ID.",
+      "required": false,
+      "example": 123,
+      "in": "query"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status: approved, denied, superceded, requested, canceled.",
+      "required": false,
+      "example": "approved",
+      "in": "query"
+    },
+    {
+      "name": "type",
+      "type": "integer",
+      "description": "Filter by time-off type ID.",
+      "required": false,
+      "example": 1,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/time_off/requests/?start=2024-01-01&end=2024-12-31&status=approved",
-    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Accept": "application/json"}
+    "headers": {
+      "Authorization": "Basic {base64(apikey:x)}",
+      "Accept": "application/json"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": [{"id": 1001, "employeeId": 123, "status": {"status": "approved"}, "start": "2024-07-15", "end": "2024-07-19", "type": {"id": 1, "name": "Vacation"}, "amount": {"unit": "days", "amount": 5}}]
+    "body": [
+      {
+        "id": 1001,
+        "employeeId": 123,
+        "status": {
+          "status": "approved"
+        },
+        "start": "2024-07-15",
+        "end": "2024-07-19",
+        "type": {
+          "id": 1,
+          "name": "Vacation"
+        },
+        "amount": {
+          "unit": "days",
+          "amount": 5
+        }
+      }
+    ]
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 60}
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

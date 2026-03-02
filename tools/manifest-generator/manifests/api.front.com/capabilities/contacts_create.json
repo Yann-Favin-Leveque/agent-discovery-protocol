@@ -5,12 +5,70 @@
   "method": "POST",
   "resource_group": "contacts",
   "parameters": [
-    {"name": "name", "type": "string", "description": "Contact name.", "required": false, "example": "Jane Smith"},
-    {"name": "handles", "type": "array", "description": "Contact handles (email, phone, etc.).", "required": true, "example": [{"handle": "jane@example.com", "source": "email"}]},
-    {"name": "description", "type": "string", "description": "Contact description.", "required": false, "example": "New lead"}
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Contact name.",
+      "required": false,
+      "example": "Jane Smith",
+      "in": "body"
+    },
+    {
+      "name": "handles",
+      "type": "array",
+      "description": "Contact handles (email, phone, etc.).",
+      "required": true,
+      "example": [
+        {
+          "handle": "jane@example.com",
+          "source": "email"
+        }
+      ],
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Contact description.",
+      "required": false,
+      "example": "New lead",
+      "in": "body"
+    }
   ],
-  "request_example": {"method": "POST", "url": "https://api2.frontapp.com/contacts", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"name": "Jane Smith", "handles": [{"handle": "jane@example.com", "source": "email"}]}},
-  "response_example": {"status": 201, "body": {"id": "crd_456", "name": "Jane Smith", "handles": [{"handle": "jane@example.com", "source": "email"}]}},
-  "auth_scopes": ["shared:contacts.write"],
-  "rate_limits": {"requests_per_minute": 120}
+  "request_example": {
+    "method": "POST",
+    "url": "https://api2.frontapp.com/contacts",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Jane Smith",
+      "handles": [
+        {
+          "handle": "jane@example.com",
+          "source": "email"
+        }
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "id": "crd_456",
+      "name": "Jane Smith",
+      "handles": [
+        {
+          "handle": "jane@example.com",
+          "source": "email"
+        }
+      ]
+    }
+  },
+  "auth_scopes": [
+    "shared:contacts.write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

@@ -5,10 +5,34 @@
   "endpoint": "/v1/services/{serviceId}/deploys",
   "method": "GET",
   "parameters": [
-    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID to list deploys for."},
-    {"name": "status", "type": "string", "required": false, "description": "Filter by status: created, build_in_progress, update_in_progress, live, deactivated, build_failed, update_failed, canceled, pre_deploy_in_progress, pre_deploy_failed."},
-    {"name": "cursor", "type": "string", "required": false, "description": "Cursor for pagination."},
-    {"name": "limit", "type": "integer", "required": false, "description": "Max results to return. Default 20."}
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "The service ID to list deploys for.",
+      "in": "path"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": false,
+      "description": "Filter by status: created, build_in_progress, update_in_progress, live, deactivated, build_failed, update_failed, canceled, pre_deploy_in_progress, pre_deploy_failed.",
+      "in": "query"
+    },
+    {
+      "name": "cursor",
+      "type": "string",
+      "required": false,
+      "description": "Cursor for pagination.",
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "required": false,
+      "description": "Max results to return. Default 20.",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
@@ -18,7 +42,10 @@
     {
       "deploy": {
         "id": "dep-k1l2m3n4o5",
-        "commit": {"id": "d4e5f6a1b2c3", "message": "feat: add rate limiting"},
+        "commit": {
+          "id": "d4e5f6a1b2c3",
+          "message": "feat: add rate limiting"
+        },
         "status": "live",
         "trigger": "api",
         "createdAt": "2026-01-20T14:30:05Z",

@@ -5,18 +5,60 @@
   "endpoint": "/v2beta/stable-image/control/sketch",
   "method": "POST",
   "parameters": [
-    {"name": "image", "type": "file", "required": true, "description": "Sketch image for structural guidance."},
-    {"name": "prompt", "type": "string", "required": true, "description": "Description of the desired output."},
-    {"name": "negative_prompt", "type": "string", "required": false, "description": "What to exclude."},
-    {"name": "control_strength", "type": "number", "required": false, "description": "How closely to follow the sketch (0.0-1.0)."},
-    {"name": "output_format", "type": "string", "required": false, "description": "Output format."},
-    {"name": "seed", "type": "integer", "required": false, "description": "Random seed."}
+    {
+      "name": "image",
+      "type": "file",
+      "required": true,
+      "description": "Sketch image for structural guidance.",
+      "in": "body"
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": true,
+      "description": "Description of the desired output.",
+      "in": "body"
+    },
+    {
+      "name": "negative_prompt",
+      "type": "string",
+      "required": false,
+      "description": "What to exclude.",
+      "in": "body"
+    },
+    {
+      "name": "control_strength",
+      "type": "number",
+      "required": false,
+      "description": "How closely to follow the sketch (0.0-1.0).",
+      "in": "body"
+    },
+    {
+      "name": "output_format",
+      "type": "string",
+      "required": false,
+      "description": "Output format.",
+      "in": "body"
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Random seed.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.stability.ai/v2beta/stable-image/control/sketch",
-    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Accept": "image/*"},
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Accept": "image/*"
+    },
     "body": "multipart/form-data: image=@sketch.png&prompt='A realistic house in a meadow'&control_strength=0.7"
   },
-  "response_example": {"status": 200, "body": "Binary generated image content"}
+  "response_example": {
+    "status": 200,
+    "body": "Binary generated image content"
+  }
 }

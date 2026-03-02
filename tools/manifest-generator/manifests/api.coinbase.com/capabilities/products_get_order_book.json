@@ -5,8 +5,22 @@
   "method": "GET",
   "resource_group": "products",
   "parameters": [
-    {"name": "product_id", "type": "string", "description": "Trading pair ID.", "required": true, "example": "BTC-USD"},
-    {"name": "level", "type": "integer", "description": "Detail level: 1 (best bid/ask), 2 (top 50), 3 (full book).", "required": false, "example": 2}
+    {
+      "name": "product_id",
+      "type": "string",
+      "description": "Trading pair ID.",
+      "required": true,
+      "example": "BTC-USD",
+      "in": "path"
+    },
+    {
+      "name": "level",
+      "type": "integer",
+      "description": "Detail level: 1 (best bid/ask), 2 (top 50), 3 (full book).",
+      "required": false,
+      "example": 2,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
@@ -15,8 +29,26 @@
   },
   "response_example": {
     "status": 200,
-    "body": {"bids": [["50120.00", "0.5", 1]], "asks": [["50125.00", "0.3", 1]], "sequence": 123456789}
+    "body": {
+      "bids": [
+        [
+          "50120.00",
+          "0.5",
+          1
+        ]
+      ],
+      "asks": [
+        [
+          "50125.00",
+          "0.3",
+          1
+        ]
+      ],
+      "sequence": 123456789
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 600}
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
 }

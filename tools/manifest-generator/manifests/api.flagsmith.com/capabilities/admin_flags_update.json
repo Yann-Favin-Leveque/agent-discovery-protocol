@@ -5,20 +5,63 @@
   "endpoint": "/environments/{environment_api_key}/featurestates/{feature_state_id}/",
   "method": "PUT",
   "parameters": [
-    {"name": "environment_api_key", "type": "string", "description": "Environment API key.", "required": true, "example": "env_prod_xxxxx"},
-    {"name": "feature_state_id", "type": "integer", "description": "Feature state ID.", "required": true, "example": 1},
-    {"name": "enabled", "type": "boolean", "description": "Whether the flag is enabled.", "required": true, "example": true},
-    {"name": "feature_state_value", "type": "string", "description": "The remote config value.", "required": false}
+    {
+      "name": "environment_api_key",
+      "type": "string",
+      "description": "Environment API key.",
+      "required": true,
+      "example": "env_prod_xxxxx",
+      "in": "path"
+    },
+    {
+      "name": "feature_state_id",
+      "type": "integer",
+      "description": "Feature state ID.",
+      "required": true,
+      "example": 1,
+      "in": "path"
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "description": "Whether the flag is enabled.",
+      "required": true,
+      "example": true,
+      "in": "body"
+    },
+    {
+      "name": "feature_state_value",
+      "type": "string",
+      "description": "The remote config value.",
+      "required": false,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PUT",
     "url": "https://api.flagsmith.com/api/v1/environments/env_prod_xxxxx/featurestates/1/",
-    "headers": {"Authorization": "Token {admin_api_token}", "Content-Type": "application/json"},
-    "body": {"enabled": true, "feature_state_value": "updated_value"}
+    "headers": {
+      "Authorization": "Token {admin_api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "enabled": true,
+      "feature_state_value": "updated_value"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"id": 1, "feature": {"id": 101, "name": "new_checkout"}, "enabled": true, "feature_state_value": "updated_value"}
+    "body": {
+      "id": 1,
+      "feature": {
+        "id": 101,
+        "name": "new_checkout"
+      },
+      "enabled": true,
+      "feature_state_value": "updated_value"
+    }
   },
-  "rate_limits": {"requests_per_minute": 500}
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
 }

@@ -5,19 +5,52 @@
   "method": "GET",
   "resource_group": "reports",
   "parameters": [
-    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
-    {"name": "since", "type": "string", "description": "Start timestamp (Unix epoch).", "required": false, "example": "1704067200"},
-    {"name": "until", "type": "string", "description": "End timestamp (Unix epoch).", "required": false, "example": "1735689600"}
+    {
+      "name": "account_id",
+      "type": "integer",
+      "description": "Account ID.",
+      "required": true,
+      "example": 1,
+      "in": "path"
+    },
+    {
+      "name": "since",
+      "type": "string",
+      "description": "Start timestamp (Unix epoch).",
+      "required": false,
+      "example": "1704067200",
+      "in": "query"
+    },
+    {
+      "name": "until",
+      "type": "string",
+      "description": "End timestamp (Unix epoch).",
+      "required": false,
+      "example": "1735689600",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.chatwoot.com/api/v2/accounts/1/reports/agents/summary?since=1704067200&until=1735689600",
-    "headers": {"api_access_token": "{token}"}
+    "headers": {
+      "api_access_token": "{token}"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": [{"id": 5, "name": "Agent Smith", "conversations_count": 150, "avg_first_response_time": 120, "avg_resolution_time": 3600}]
+    "body": [
+      {
+        "id": 5,
+        "name": "Agent Smith",
+        "conversations_count": 150,
+        "avg_first_response_time": 120,
+        "avg_resolution_time": 3600
+      }
+    ]
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 250}
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
 }

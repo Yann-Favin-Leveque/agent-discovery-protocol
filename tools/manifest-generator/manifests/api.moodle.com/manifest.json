@@ -2,40 +2,176 @@
   "spec_version": "1.0",
   "name": "Moodle",
   "description": "Moodle is an open-source learning management system used worldwide by universities, schools, and training organizations. Its Web Services API allows external applications to manage courses, users, grades, assignments, enrolments, messages, and calendar events programmatically via REST.",
-  "base_url": "https://{your-moodle-site}",
+  "base_url": "https://example",
   "auth": {
     "type": "api_key",
     "query_param": "wstoken",
     "setup_url": "https://docs.moodle.org/en/Managing_tokens",
-    "note": "The base URL varies per Moodle installation. Replace {your-moodle-site} with your actual Moodle domain. Tokens are generated in Site Administration > Server > Web services > Manage tokens."
+    "note": "The base URL varies per Moodle installation. Replace {your-moodle-site} with your actual Moodle domain. Tokens are generated in Site Administration > Server > Web services > Manage tokens.",
+    "header": "Authorization"
   },
   "capabilities": [
-    { "name": "users_create", "description": "Create one or more new users in the Moodle database.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/users_create", "resource_group": "users" },
-    { "name": "users_get", "description": "Retrieve user profiles by field criteria such as ID, username, or email.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/users_get", "resource_group": "users" },
-    { "name": "users_update", "description": "Update one or more existing user profiles.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/users_update", "resource_group": "users" },
-    { "name": "users_delete", "description": "Delete one or more users from the Moodle database.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/users_delete", "resource_group": "users" },
-    { "name": "users_search", "description": "Search for users matching specific criteria with filtering.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/users_search", "resource_group": "users" },
-    { "name": "courses_list", "description": "Retrieve all courses available on the Moodle site.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/courses_list", "resource_group": "courses" },
-    { "name": "courses_get_by_field", "description": "Retrieve courses matching a specific field value.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/courses_get_by_field", "resource_group": "courses" },
-    { "name": "courses_create", "description": "Create one or more new courses in Moodle.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/courses_create", "resource_group": "courses" },
-    { "name": "courses_get_contents", "description": "Retrieve the full content structure of a course including sections and activities.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/courses_get_contents", "resource_group": "courses" },
-    { "name": "courses_update", "description": "Update one or more existing courses.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/courses_update", "resource_group": "courses" },
-    { "name": "courses_delete", "description": "Delete one or more courses from the Moodle site.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/courses_delete", "resource_group": "courses" },
-    { "name": "categories_create", "description": "Create one or more course categories.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/categories_create", "resource_group": "categories" },
-    { "name": "categories_list", "description": "Retrieve course categories matching given criteria.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/categories_list", "resource_group": "categories" },
-    { "name": "enrolments_enrol", "description": "Enrol users into a course with a specified role.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/enrolments_enrol", "resource_group": "enrolments" },
-    { "name": "enrolments_unenrol", "description": "Unenrol users from a course.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/enrolments_unenrol", "resource_group": "enrolments" },
-    { "name": "enrolments_get_enrolled_users", "description": "Get all users enrolled in a specific course.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/enrolments_get_enrolled_users", "resource_group": "enrolments" },
-    { "name": "enrolments_get_users_courses", "description": "Get all courses a specific user is enrolled in.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/enrolments_get_users_courses", "resource_group": "enrolments" },
-    { "name": "grades_get", "description": "Retrieve grade items and final grades for users in a course.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/grades_get", "resource_group": "grades" },
-    { "name": "grades_update", "description": "Update grade values for users in a course.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/grades_update", "resource_group": "grades" },
-    { "name": "assignments_list", "description": "Retrieve all assignments for one or more courses.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/assignments_list", "resource_group": "assignments" },
-    { "name": "assignments_get_submissions", "description": "Retrieve all submissions for a specific assignment.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/assignments_get_submissions", "resource_group": "assignments" },
-    { "name": "messages_send", "description": "Send instant messages to one or more users.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/messages_send", "resource_group": "messages" },
-    { "name": "messages_get", "description": "Retrieve messages for a conversation between users.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/messages_get", "resource_group": "messages" },
-    { "name": "calendar_events_list", "description": "Retrieve calendar events optionally filtered by course.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/calendar_events_list", "resource_group": "calendar" },
-    { "name": "calendar_events_create", "description": "Create one or more calendar events.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/calendar_events_create", "resource_group": "calendar" },
-    { "name": "files_upload", "description": "Upload a file to the Moodle draft area.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/files_upload", "resource_group": "files" },
-    { "name": "site_info_get", "description": "Retrieve information about the Moodle site including version and capabilities.", "detail_url": "https://agent-dns.dev/api/services/api.moodle.com/capabilities/site_info_get", "resource_group": "site" }
+    {
+      "name": "users_create",
+      "description": "Create one or more new users in the Moodle database.",
+      "detail_url": "/.well-known/agent/capabilities/users_create",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_get",
+      "description": "Retrieve user profiles by field criteria such as ID, username, or email.",
+      "detail_url": "/.well-known/agent/capabilities/users_get",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_update",
+      "description": "Update one or more existing user profiles.",
+      "detail_url": "/.well-known/agent/capabilities/users_update",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_delete",
+      "description": "Delete one or more users from the Moodle database.",
+      "detail_url": "/.well-known/agent/capabilities/users_delete",
+      "resource_group": "users"
+    },
+    {
+      "name": "users_search",
+      "description": "Search for users matching specific criteria with filtering.",
+      "detail_url": "/.well-known/agent/capabilities/users_search",
+      "resource_group": "users"
+    },
+    {
+      "name": "courses_list",
+      "description": "Retrieve all courses available on the Moodle site.",
+      "detail_url": "/.well-known/agent/capabilities/courses_list",
+      "resource_group": "courses"
+    },
+    {
+      "name": "courses_get_by_field",
+      "description": "Retrieve courses matching a specific field value.",
+      "detail_url": "/.well-known/agent/capabilities/courses_get_by_field",
+      "resource_group": "courses"
+    },
+    {
+      "name": "courses_create",
+      "description": "Create one or more new courses in Moodle.",
+      "detail_url": "/.well-known/agent/capabilities/courses_create",
+      "resource_group": "courses"
+    },
+    {
+      "name": "courses_get_contents",
+      "description": "Retrieve the full content structure of a course including sections and activities.",
+      "detail_url": "/.well-known/agent/capabilities/courses_get_contents",
+      "resource_group": "courses"
+    },
+    {
+      "name": "courses_update",
+      "description": "Update one or more existing courses.",
+      "detail_url": "/.well-known/agent/capabilities/courses_update",
+      "resource_group": "courses"
+    },
+    {
+      "name": "courses_delete",
+      "description": "Delete one or more courses from the Moodle site.",
+      "detail_url": "/.well-known/agent/capabilities/courses_delete",
+      "resource_group": "courses"
+    },
+    {
+      "name": "categories_create",
+      "description": "Create one or more course categories.",
+      "detail_url": "/.well-known/agent/capabilities/categories_create",
+      "resource_group": "categories"
+    },
+    {
+      "name": "categories_list",
+      "description": "Retrieve course categories matching given criteria.",
+      "detail_url": "/.well-known/agent/capabilities/categories_list",
+      "resource_group": "categories"
+    },
+    {
+      "name": "enrolments_enrol",
+      "description": "Enrol users into a course with a specified role.",
+      "detail_url": "/.well-known/agent/capabilities/enrolments_enrol",
+      "resource_group": "enrolments"
+    },
+    {
+      "name": "enrolments_unenrol",
+      "description": "Unenrol users from a course.",
+      "detail_url": "/.well-known/agent/capabilities/enrolments_unenrol",
+      "resource_group": "enrolments"
+    },
+    {
+      "name": "enrolments_get_enrolled_users",
+      "description": "Get all users enrolled in a specific course.",
+      "detail_url": "/.well-known/agent/capabilities/enrolments_get_enrolled_users",
+      "resource_group": "enrolments"
+    },
+    {
+      "name": "enrolments_get_users_courses",
+      "description": "Get all courses a specific user is enrolled in.",
+      "detail_url": "/.well-known/agent/capabilities/enrolments_get_users_courses",
+      "resource_group": "enrolments"
+    },
+    {
+      "name": "grades_get",
+      "description": "Retrieve grade items and final grades for users in a course.",
+      "detail_url": "/.well-known/agent/capabilities/grades_get",
+      "resource_group": "grades"
+    },
+    {
+      "name": "grades_update",
+      "description": "Update grade values for users in a course.",
+      "detail_url": "/.well-known/agent/capabilities/grades_update",
+      "resource_group": "grades"
+    },
+    {
+      "name": "assignments_list",
+      "description": "Retrieve all assignments for one or more courses.",
+      "detail_url": "/.well-known/agent/capabilities/assignments_list",
+      "resource_group": "assignments"
+    },
+    {
+      "name": "assignments_get_submissions",
+      "description": "Retrieve all submissions for a specific assignment.",
+      "detail_url": "/.well-known/agent/capabilities/assignments_get_submissions",
+      "resource_group": "assignments"
+    },
+    {
+      "name": "messages_send",
+      "description": "Send instant messages to one or more users.",
+      "detail_url": "/.well-known/agent/capabilities/messages_send",
+      "resource_group": "messages"
+    },
+    {
+      "name": "messages_get",
+      "description": "Retrieve messages for a conversation between users.",
+      "detail_url": "/.well-known/agent/capabilities/messages_get",
+      "resource_group": "messages"
+    },
+    {
+      "name": "calendar_events_list",
+      "description": "Retrieve calendar events optionally filtered by course.",
+      "detail_url": "/.well-known/agent/capabilities/calendar_events_list",
+      "resource_group": "calendar"
+    },
+    {
+      "name": "calendar_events_create",
+      "description": "Create one or more calendar events.",
+      "detail_url": "/.well-known/agent/capabilities/calendar_events_create",
+      "resource_group": "calendar"
+    },
+    {
+      "name": "files_upload",
+      "description": "Upload a file to the Moodle draft area.",
+      "detail_url": "/.well-known/agent/capabilities/files_upload",
+      "resource_group": "files"
+    },
+    {
+      "name": "site_info_get",
+      "description": "Retrieve information about the Moodle site including version and capabilities.",
+      "detail_url": "/.well-known/agent/capabilities/site_info_get",
+      "resource_group": "site"
+    }
   ]
 }

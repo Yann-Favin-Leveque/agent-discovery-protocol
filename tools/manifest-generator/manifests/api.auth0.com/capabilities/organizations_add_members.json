@@ -5,16 +5,46 @@
   "method": "POST",
   "resource_group": "organizations",
   "parameters": [
-    {"name": "id", "type": "string", "description": "Organization ID.", "required": true, "example": "org_abc123"},
-    {"name": "members", "type": "array", "description": "Array of user_id strings to add.", "required": true, "example": ["auth0|507f1f77bcf86cd799439011"]}
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Organization ID.",
+      "required": true,
+      "example": "org_abc123",
+      "in": "path"
+    },
+    {
+      "name": "members",
+      "type": "array",
+      "description": "Array of user_id strings to add.",
+      "required": true,
+      "example": [
+        "auth0|507f1f77bcf86cd799439011"
+      ],
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://YOUR_DOMAIN.auth0.com/api/v2/organizations/org_abc123/members",
-    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
-    "body": {"members": ["auth0|507f1f77bcf86cd799439011"]}
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "members": [
+        "auth0|507f1f77bcf86cd799439011"
+      ]
+    }
   },
-  "response_example": {"status": 204, "body": {}},
-  "auth_scopes": ["create:organization_members"],
-  "rate_limits": {"requests_per_minute": 50}
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": [
+    "create:organization_members"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 50
+  }
 }

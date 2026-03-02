@@ -5,29 +5,119 @@
   "endpoint": "/v2/chat",
   "method": "POST",
   "parameters": [
-    {"name": "model", "type": "string", "required": true, "description": "Model identifier (e.g. 'command-a-03-2025', 'command-r-plus')."},
-    {"name": "messages", "type": "array", "required": true, "description": "Chat message history with role and content objects in chronological order."},
-    {"name": "temperature", "type": "number", "required": false, "description": "Randomness degree (default 0.3)."},
-    {"name": "max_tokens", "type": "integer", "required": false, "description": "Maximum output tokens."},
-    {"name": "tools", "type": "array", "required": false, "description": "Available functions the model can invoke."},
-    {"name": "documents", "type": "array", "required": false, "description": "Reference documents for grounded generation with citations."},
-    {"name": "response_format", "type": "object", "required": false, "description": "Enforce JSON or text output structure."},
-    {"name": "safety_mode", "type": "string", "required": false, "description": "Safety level: CONTEXTUAL, STRICT, or OFF."},
-    {"name": "stop_sequences", "type": "array", "required": false, "description": "Up to 5 strings triggering generation halt."},
-    {"name": "seed", "type": "integer", "required": false, "description": "Deterministic sampling seed."},
-    {"name": "frequency_penalty", "type": "number", "required": false, "description": "Reduces token repetition (0.0-1.0)."},
-    {"name": "presence_penalty", "type": "number", "required": false, "description": "Reduces repeated tokens (0.0-1.0)."},
-    {"name": "k", "type": "integer", "required": false, "description": "Top-k token sampling (default 0)."},
-    {"name": "p", "type": "number", "required": false, "description": "Nucleus sampling probability (default 0.75)."}
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Model identifier (e.g. 'command-a-03-2025', 'command-r-plus').",
+      "in": "body"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Chat message history with role and content objects in chronological order.",
+      "in": "body"
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "Randomness degree (default 0.3).",
+      "in": "body"
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum output tokens.",
+      "in": "body"
+    },
+    {
+      "name": "tools",
+      "type": "array",
+      "required": false,
+      "description": "Available functions the model can invoke.",
+      "in": "body"
+    },
+    {
+      "name": "documents",
+      "type": "array",
+      "required": false,
+      "description": "Reference documents for grounded generation with citations.",
+      "in": "body"
+    },
+    {
+      "name": "response_format",
+      "type": "object",
+      "required": false,
+      "description": "Enforce JSON or text output structure.",
+      "in": "body"
+    },
+    {
+      "name": "safety_mode",
+      "type": "string",
+      "required": false,
+      "description": "Safety level: CONTEXTUAL, STRICT, or OFF.",
+      "in": "body"
+    },
+    {
+      "name": "stop_sequences",
+      "type": "array",
+      "required": false,
+      "description": "Up to 5 strings triggering generation halt.",
+      "in": "body"
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Deterministic sampling seed.",
+      "in": "body"
+    },
+    {
+      "name": "frequency_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Reduces token repetition (0.0-1.0).",
+      "in": "body"
+    },
+    {
+      "name": "presence_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Reduces repeated tokens (0.0-1.0).",
+      "in": "body"
+    },
+    {
+      "name": "k",
+      "type": "integer",
+      "required": false,
+      "description": "Top-k token sampling (default 0).",
+      "in": "body"
+    },
+    {
+      "name": "p",
+      "type": "number",
+      "required": false,
+      "description": "Nucleus sampling probability (default 0.75).",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.cohere.com/v2/chat",
-    "headers": {"Authorization": "Bearer co-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "headers": {
+      "Authorization": "Bearer co-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
     "body": {
       "model": "command-a-03-2025",
       "messages": [
-        {"role": "user", "content": "Explain the concept of RAG in AI."}
+        {
+          "role": "user",
+          "content": "Explain the concept of RAG in AI."
+        }
       ],
       "temperature": 0.3,
       "max_tokens": 500
@@ -40,11 +130,22 @@
       "finish_reason": "COMPLETE",
       "message": {
         "role": "assistant",
-        "content": [{"type": "text", "text": "RAG (Retrieval-Augmented Generation) is a technique that combines information retrieval with language generation..."}]
+        "content": [
+          {
+            "type": "text",
+            "text": "RAG (Retrieval-Augmented Generation) is a technique that combines information retrieval with language generation..."
+          }
+        ]
       },
       "usage": {
-        "billed_units": {"input_tokens": 15, "output_tokens": 120},
-        "tokens": {"input_tokens": 15, "output_tokens": 120}
+        "billed_units": {
+          "input_tokens": 15,
+          "output_tokens": 120
+        },
+        "tokens": {
+          "input_tokens": 15,
+          "output_tokens": 120
+        }
       }
     }
   }

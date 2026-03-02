@@ -10,14 +10,16 @@
       "type": "string",
       "description": "The event ID.",
       "required": true,
-      "example": "evt_abc123"
+      "example": "evt_abc123",
+      "in": "path"
     },
     {
       "name": "limit",
       "type": "number",
       "description": "Maximum results to return.",
       "required": false,
-      "example": 25
+      "example": 25,
+      "in": "query"
     }
   ],
   "request_example": {
@@ -31,13 +33,23 @@
     "status": 200,
     "body": {
       "data": [
-        { "visitor_id": "vis_123", "occurrences": 5, "last_triggered": "2024-01-20T10:00:00Z" },
-        { "visitor_id": "vis_456", "occurrences": 2, "last_triggered": "2024-01-19T15:00:00Z" }
+        {
+          "visitor_id": "vis_123",
+          "occurrences": 5,
+          "last_triggered": "2024-01-20T10:00:00Z"
+        },
+        {
+          "visitor_id": "vis_456",
+          "occurrences": 2,
+          "last_triggered": "2024-01-19T15:00:00Z"
+        }
       ],
       "total_count": 800
     }
   },
-  "auth_scopes": ["read"],
+  "auth_scopes": [
+    "read"
+  ],
   "rate_limits": {
     "requests_per_minute": 60
   }

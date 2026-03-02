@@ -5,15 +5,60 @@
   "endpoint": "/models/{model_id}",
   "method": "POST",
   "parameters": [
-    {"name": "model_id", "type": "string", "required": true, "description": "Model ID (e.g. 'facebook/bart-large-mnli' for zero-shot)."},
-    {"name": "inputs", "type": "string", "required": true, "description": "Text to classify."},
-    {"name": "parameters", "type": "object", "required": false, "description": "For zero-shot: candidate_labels array and multi_label boolean."}
+    {
+      "name": "model_id",
+      "type": "string",
+      "required": true,
+      "description": "Model ID (e.g. 'facebook/bart-large-mnli' for zero-shot).",
+      "in": "path"
+    },
+    {
+      "name": "inputs",
+      "type": "string",
+      "required": true,
+      "description": "Text to classify.",
+      "in": "body"
+    },
+    {
+      "name": "parameters",
+      "type": "object",
+      "required": false,
+      "description": "For zero-shot: candidate_labels array and multi_label boolean.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://router.huggingface.co/models/facebook/bart-large-mnli",
-    "headers": {"Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"inputs": "I love this product!", "parameters": {"candidate_labels": ["positive", "negative", "neutral"]}}
+    "headers": {
+      "Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": "I love this product!",
+      "parameters": {
+        "candidate_labels": [
+          "positive",
+          "negative",
+          "neutral"
+        ]
+      }
+    }
   },
-  "response_example": {"status": 200, "body": {"sequence": "I love this product!", "labels": ["positive", "neutral", "negative"], "scores": [0.95, 0.03, 0.02]}}
+  "response_example": {
+    "status": 200,
+    "body": {
+      "sequence": "I love this product!",
+      "labels": [
+        "positive",
+        "neutral",
+        "negative"
+      ],
+      "scores": [
+        0.95,
+        0.03,
+        0.02
+      ]
+    }
+  }
 }

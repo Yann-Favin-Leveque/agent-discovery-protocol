@@ -5,15 +5,41 @@
   "endpoint": "/models/{model_id}",
   "method": "POST",
   "parameters": [
-    {"name": "model_id", "type": "string", "required": true, "description": "Model ID (e.g. 'black-forest-labs/FLUX.1-dev', 'stabilityai/stable-diffusion-xl-base-1.0')."},
-    {"name": "inputs", "type": "string", "required": true, "description": "Text prompt describing the image."},
-    {"name": "parameters", "type": "object", "required": false, "description": "Generation parameters: num_inference_steps, guidance_scale, negative_prompt."}
+    {
+      "name": "model_id",
+      "type": "string",
+      "required": true,
+      "description": "Model ID (e.g. 'black-forest-labs/FLUX.1-dev', 'stabilityai/stable-diffusion-xl-base-1.0').",
+      "in": "path"
+    },
+    {
+      "name": "inputs",
+      "type": "string",
+      "required": true,
+      "description": "Text prompt describing the image.",
+      "in": "body"
+    },
+    {
+      "name": "parameters",
+      "type": "object",
+      "required": false,
+      "description": "Generation parameters: num_inference_steps, guidance_scale, negative_prompt.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://router.huggingface.co/models/black-forest-labs/FLUX.1-dev",
-    "headers": {"Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"inputs": "A futuristic cityscape at night"}
+    "headers": {
+      "Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": "A futuristic cityscape at night"
+    }
   },
-  "response_example": {"status": 200, "body": "Binary image content (PNG)"}
+  "response_example": {
+    "status": 200,
+    "body": "Binary image content (PNG)"
+  }
 }

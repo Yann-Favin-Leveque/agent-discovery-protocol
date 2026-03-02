@@ -5,20 +5,51 @@
   "method": "POST",
   "resource_group": "customers",
   "parameters": [
-    { "name": "customerId", "type": "string", "description": "The customer identifier", "required": true, "example": "cust_001" },
-    { "name": "name", "type": "string", "description": "Updated customer name", "required": false, "example": "Acme Corporation" },
-    { "name": "email", "type": "string", "description": "Updated email address", "required": false, "example": "finance@acme.com" }
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "The customer identifier",
+      "required": true,
+      "example": "cust_001",
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated customer name",
+      "required": false,
+      "example": "Acme Corporation",
+      "in": "body"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Updated email address",
+      "required": false,
+      "example": "finance@acme.com",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.mercury.com/api/v1/ar/customers/cust_001",
-    "headers": { "Authorization": "Bearer {token}", "Content-Type": "application/json" },
-    "body": { "name": "Acme Corporation" }
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Acme Corporation"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": { "id": "cust_001", "name": "Acme Corporation" }
+    "body": {
+      "id": "cust_001",
+      "name": "Acme Corporation"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": { "requests_per_minute": 30 }
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
 }

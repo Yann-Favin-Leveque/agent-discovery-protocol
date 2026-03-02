@@ -10,39 +10,48 @@
       "type": "string",
       "required": true,
       "description": "The reranking model to use.",
-      "example": "Salesforce/Llama-Rank-v1"
+      "example": "Salesforce/Llama-Rank-v1",
+      "in": "body"
     },
     {
       "name": "query",
       "type": "string",
       "required": true,
       "description": "The search query for ranking documents.",
-      "example": "What animals can I find near Peru?"
+      "example": "What animals can I find near Peru?",
+      "in": "body"
     },
     {
       "name": "documents",
       "type": "array",
       "required": true,
       "description": "List of documents as strings or objects with custom fields to be ranked.",
-      "example": ["The llama is a domesticated South American camelid.", "The giant panda is endemic to China."]
+      "example": [
+        "The llama is a domesticated South American camelid.",
+        "The giant panda is endemic to China."
+      ],
+      "in": "body"
     },
     {
       "name": "top_n",
       "type": "integer",
       "required": false,
-      "description": "Number of top results to return."
+      "description": "Number of top results to return.",
+      "in": "body"
     },
     {
       "name": "return_documents",
       "type": "boolean",
       "required": false,
-      "description": "Whether to include the supplied documents in the response."
+      "description": "Whether to include the supplied documents in the response.",
+      "in": "body"
     },
     {
       "name": "rank_fields",
       "type": "array",
       "required": false,
-      "description": "Specific JSON keys to rank by when documents are objects. Defaults to all keys."
+      "description": "Specific JSON keys to rank by when documents are objects. Defaults to all keys.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -71,7 +80,9 @@
         {
           "index": 0,
           "relevance_score": 0.2998,
-          "document": {"text": "The llama is a domesticated South American camelid."}
+          "document": {
+            "text": "The llama is a domesticated South American camelid."
+          }
         }
       ],
       "usage": {

@@ -5,15 +5,45 @@
   "endpoint": "/models/{model_id}",
   "method": "POST",
   "parameters": [
-    {"name": "model_id", "type": "string", "required": true, "description": "Model ID (e.g. 'facebook/bart-large-cnn')."},
-    {"name": "inputs", "type": "string", "required": true, "description": "Text to summarize."},
-    {"name": "parameters", "type": "object", "required": false, "description": "Parameters: min_length, max_length."}
+    {
+      "name": "model_id",
+      "type": "string",
+      "required": true,
+      "description": "Model ID (e.g. 'facebook/bart-large-cnn').",
+      "in": "path"
+    },
+    {
+      "name": "inputs",
+      "type": "string",
+      "required": true,
+      "description": "Text to summarize.",
+      "in": "body"
+    },
+    {
+      "name": "parameters",
+      "type": "object",
+      "required": false,
+      "description": "Parameters: min_length, max_length.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://router.huggingface.co/models/facebook/bart-large-cnn",
-    "headers": {"Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"inputs": "The tower is 324 metres tall, about the same height as an 81-storey building..."}
+    "headers": {
+      "Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": "The tower is 324 metres tall, about the same height as an 81-storey building..."
+    }
   },
-  "response_example": {"status": 200, "body": [{"summary_text": "The Eiffel Tower is 324 metres tall..."}]}
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "summary_text": "The Eiffel Tower is 324 metres tall..."
+      }
+    ]
+  }
 }

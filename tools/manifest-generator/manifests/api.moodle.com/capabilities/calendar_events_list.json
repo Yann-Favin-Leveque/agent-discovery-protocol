@@ -5,21 +5,66 @@
   "method": "POST",
   "resource_group": "calendar",
   "parameters": [
-    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
-    { "name": "events[courseids][0]", "type": "integer", "description": "Course ID filter", "required": false, "example": 5 },
-    { "name": "options[timestart]", "type": "integer", "description": "Start time as Unix timestamp", "required": false, "example": 1706745600 },
-    { "name": "options[timeend]", "type": "integer", "description": "End time as Unix timestamp", "required": false, "example": 1709337600 }
+    {
+      "name": "wstoken",
+      "type": "string",
+      "description": "Web service authentication token",
+      "required": true,
+      "example": "abc123token",
+      "in": "body"
+    },
+    {
+      "name": "events[courseids][0]",
+      "type": "integer",
+      "description": "Course ID filter",
+      "required": false,
+      "example": 5,
+      "in": "body"
+    },
+    {
+      "name": "options[timestart]",
+      "type": "integer",
+      "description": "Start time as Unix timestamp",
+      "required": false,
+      "example": 1706745600,
+      "in": "body"
+    },
+    {
+      "name": "options[timeend]",
+      "type": "integer",
+      "description": "End time as Unix timestamp",
+      "required": false,
+      "example": 1709337600,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_calendar_get_calendar_events&moodlewsrestformat=json",
-    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
-    "body": { "events[courseids][0]": 5 }
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "events[courseids][0]": 5
+    }
   },
   "response_example": {
     "status": 200,
-    "body": { "events": [{ "id": 1, "name": "Assignment Due", "courseid": 5, "timestart": 1706745600 }] }
+    "body": {
+      "events": [
+        {
+          "id": 1,
+          "name": "Assignment Due",
+          "courseid": 5,
+          "timestart": 1706745600
+        }
+      ]
+    }
   },
-  "auth_scopes": ["core_calendar_get_calendar_events"],
-  "rate_limits": { "requests_per_minute": 120 }
+  "auth_scopes": [
+    "core_calendar_get_calendar_events"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

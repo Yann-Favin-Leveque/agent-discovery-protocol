@@ -5,18 +5,60 @@
   "endpoint": "/v2beta/stable-image/generate/sd3",
   "method": "POST",
   "parameters": [
-    {"name": "prompt", "type": "string", "required": true, "description": "Text description of the desired image."},
-    {"name": "negative_prompt", "type": "string", "required": false, "description": "Text describing what to exclude."},
-    {"name": "aspect_ratio", "type": "string", "required": false, "description": "Aspect ratio (default '1:1')."},
-    {"name": "model", "type": "string", "required": false, "description": "SD3 model variant to use."},
-    {"name": "output_format", "type": "string", "required": false, "description": "Output format: 'png', 'jpeg', 'webp'."},
-    {"name": "seed", "type": "integer", "required": false, "description": "Random seed for reproducibility."}
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": true,
+      "description": "Text description of the desired image.",
+      "in": "body"
+    },
+    {
+      "name": "negative_prompt",
+      "type": "string",
+      "required": false,
+      "description": "Text describing what to exclude.",
+      "in": "body"
+    },
+    {
+      "name": "aspect_ratio",
+      "type": "string",
+      "required": false,
+      "description": "Aspect ratio (default '1:1').",
+      "in": "body"
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "description": "SD3 model variant to use.",
+      "in": "body"
+    },
+    {
+      "name": "output_format",
+      "type": "string",
+      "required": false,
+      "description": "Output format: 'png', 'jpeg', 'webp'.",
+      "in": "body"
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Random seed for reproducibility.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.stability.ai/v2beta/stable-image/generate/sd3",
-    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Accept": "image/*"},
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Accept": "image/*"
+    },
     "body": "multipart/form-data: prompt='A cyberpunk robot portrait'&aspect_ratio=1:1"
   },
-  "response_example": {"status": 200, "body": "Binary image content"}
+  "response_example": {
+    "status": 200,
+    "body": "Binary image content"
+  }
 }

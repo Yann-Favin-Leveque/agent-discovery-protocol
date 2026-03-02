@@ -1,1 +1,72 @@
-{"name":"subscribers_list","description":"Retrieve a paginated list of all subscribers with optional filtering by status, tag, or email.","resource_group":"subscribers","endpoint":"/v1/subscribers","method":"GET","parameters":[{"name":"page","type":"integer","description":"Page number for pagination.","required":false,"example":1},{"name":"type","type":"string","description":"Filter by subscriber type: regular, unactivated, unpaid, removed.","required":false,"example":"regular"},{"name":"tag","type":"string","description":"Filter subscribers by tag ID.","required":false},{"name":"email","type":"string","description":"Filter by exact email match.","required":false},{"name":"ordering","type":"string","description":"Sort order. Prefix with - for descending.","required":false,"example":"-creation_date"}],"request_example":{"method":"GET","url":"https://api.buttondown.email/v1/subscribers?type=regular&page=1","headers":{"Authorization":"Token {api_key}"}},"response_example":{"status":200,"body":{"count":150,"next":"https://api.buttondown.email/v1/subscribers?page=2","results":[{"id":"uuid-123","email":"john@example.com","creation_date":"2024-01-10T08:00:00Z","tags":["newsletter"],"metadata":{}}]}}}
+{
+  "name": "subscribers_list",
+  "description": "Retrieve a paginated list of all subscribers with optional filtering by status, tag, or email.",
+  "resource_group": "subscribers",
+  "endpoint": "/v1/subscribers",
+  "method": "GET",
+  "parameters": [
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination.",
+      "required": false,
+      "example": 1,
+      "in": "query"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Filter by subscriber type: regular, unactivated, unpaid, removed.",
+      "required": false,
+      "example": "regular",
+      "in": "query"
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "description": "Filter subscribers by tag ID.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Filter by exact email match.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "ordering",
+      "type": "string",
+      "description": "Sort order. Prefix with - for descending.",
+      "required": false,
+      "example": "-creation_date",
+      "in": "query"
+    }
+  ],
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.buttondown.email/v1/subscribers?type=regular&page=1",
+    "headers": {
+      "Authorization": "Token {api_key}"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "count": 150,
+      "next": "https://api.buttondown.email/v1/subscribers?page=2",
+      "results": [
+        {
+          "id": "uuid-123",
+          "email": "john@example.com",
+          "creation_date": "2024-01-10T08:00:00Z",
+          "tags": [
+            "newsletter"
+          ],
+          "metadata": {}
+        }
+      ]
+    }
+  }
+}

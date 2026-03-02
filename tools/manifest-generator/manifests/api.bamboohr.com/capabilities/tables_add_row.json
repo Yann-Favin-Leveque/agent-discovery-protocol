@@ -5,18 +5,62 @@
   "method": "POST",
   "resource_group": "tables",
   "parameters": [
-    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
-    {"name": "employeeId", "type": "integer", "description": "Employee ID.", "required": true, "example": 123},
-    {"name": "tableName", "type": "string", "description": "Table name.", "required": true, "example": "jobInfo"},
-    {"name": "body", "type": "object", "description": "Row data as key-value pairs.", "required": true, "example": {"date": "2024-07-01", "jobTitle": "Staff Engineer", "department": "Platform"}}
+    {
+      "name": "companyDomain",
+      "type": "string",
+      "description": "Your BambooHR subdomain.",
+      "required": true,
+      "example": "mycompany",
+      "in": "path"
+    },
+    {
+      "name": "employeeId",
+      "type": "integer",
+      "description": "Employee ID.",
+      "required": true,
+      "example": 123,
+      "in": "path"
+    },
+    {
+      "name": "tableName",
+      "type": "string",
+      "description": "Table name.",
+      "required": true,
+      "example": "jobInfo",
+      "in": "path"
+    },
+    {
+      "name": "body",
+      "type": "object",
+      "description": "Row data as key-value pairs.",
+      "required": true,
+      "example": {
+        "date": "2024-07-01",
+        "jobTitle": "Staff Engineer",
+        "department": "Platform"
+      },
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/employees/123/tables/jobInfo",
-    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Content-Type": "application/json"},
-    "body": {"date": "2024-07-01", "jobTitle": "Staff Engineer", "department": "Platform"}
+    "headers": {
+      "Authorization": "Basic {base64(apikey:x)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "date": "2024-07-01",
+      "jobTitle": "Staff Engineer",
+      "department": "Platform"
+    }
   },
-  "response_example": {"status": 200, "body": {}},
+  "response_example": {
+    "status": 200,
+    "body": {}
+  },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 60}
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

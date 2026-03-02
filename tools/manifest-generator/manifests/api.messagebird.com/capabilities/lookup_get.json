@@ -5,16 +5,49 @@
   "endpoint": "/lookup/{phoneNumber}",
   "method": "GET",
   "parameters": [
-    {"name": "phoneNumber", "type": "string", "required": true, "location": "path", "description": "Phone number in international format."},
-    {"name": "countryCode", "type": "string", "required": false, "description": "2-letter country code if number is in national format."}
+    {
+      "name": "phoneNumber",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "Phone number in international format.",
+      "in": "path"
+    },
+    {
+      "name": "countryCode",
+      "type": "string",
+      "required": false,
+      "description": "2-letter country code if number is in national format.",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://rest.messagebird.com/lookup/31612345678",
-    "headers": {"Authorization": "AccessKey live_abc123xyz"}
+    "headers": {
+      "Authorization": "AccessKey live_abc123xyz"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"href": "https://rest.messagebird.com/lookup/31612345678", "countryCode": "NL", "countryPrefix": 31, "phoneNumber": 31612345678, "type": "mobile", "formats": {"e164": "+31612345678", "international": "+31 6 12345678", "national": "06 12345678", "rfc3966": "tel:+31-6-12345678"}, "hlr": {"id": "hlr-id-123", "network": 20408, "reference": null, "status": "active"}}
+    "body": {
+      "href": "https://rest.messagebird.com/lookup/31612345678",
+      "countryCode": "NL",
+      "countryPrefix": 31,
+      "phoneNumber": 31612345678,
+      "type": "mobile",
+      "formats": {
+        "e164": "+31612345678",
+        "international": "+31 6 12345678",
+        "national": "06 12345678",
+        "rfc3966": "tel:+31-6-12345678"
+      },
+      "hlr": {
+        "id": "hlr-id-123",
+        "network": 20408,
+        "reference": null,
+        "status": "active"
+      }
+    }
   }
 }

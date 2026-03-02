@@ -9,31 +9,36 @@
       "name": "messages",
       "type": "array",
       "required": true,
-      "description": "Array of message objects to send."
+      "description": "Array of message objects to send.",
+      "in": "body"
     },
     {
       "name": "messages[].channel",
       "type": "string",
       "required": true,
-      "description": "Channel to send on: 'SMS', 'WHATSAPP', 'VIBER', 'RCS', 'MMS'."
+      "description": "Channel to send on: 'SMS', 'WHATSAPP', 'VIBER', 'RCS', 'MMS'.",
+      "in": "body"
     },
     {
       "name": "messages[].sender",
       "type": "string",
       "required": true,
-      "description": "Sender ID or phone number for the message."
+      "description": "Sender ID or phone number for the message.",
+      "in": "body"
     },
     {
       "name": "messages[].destinations",
       "type": "array",
       "required": true,
-      "description": "Array of destination objects with 'to' field containing recipient identifiers."
+      "description": "Array of destination objects with 'to' field containing recipient identifiers.",
+      "in": "body"
     },
     {
       "name": "messages[].content",
       "type": "object",
       "required": true,
-      "description": "Message content object. Structure depends on channel and message type."
+      "description": "Message content object. Structure depends on channel and message type.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -48,8 +53,16 @@
         {
           "channel": "SMS",
           "sender": "ServiceSMS",
-          "destinations": [{ "to": "14155550123" }],
-          "content": { "body": { "text": "Your verification code is 482910." } }
+          "destinations": [
+            {
+              "to": "14155550123"
+            }
+          ],
+          "content": {
+            "body": {
+              "text": "Your verification code is 482910."
+            }
+          }
         }
       ]
     }
@@ -61,7 +74,10 @@
       "messages": [
         {
           "messageId": "msg-api-12345",
-          "status": { "groupName": "PENDING", "name": "PENDING_ACCEPTED" },
+          "status": {
+            "groupName": "PENDING",
+            "name": "PENDING_ACCEPTED"
+          },
           "destination": "14155550123"
         }
       ]

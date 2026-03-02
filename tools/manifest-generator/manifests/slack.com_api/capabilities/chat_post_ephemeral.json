@@ -1,0 +1,61 @@
+{
+  "name": "chat_post_ephemeral",
+  "resource_group": "chat",
+  "description": "Send an ephemeral message visible only to a specific user in a channel.",
+  "endpoint": "/chat.postEphemeral",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "channel",
+      "type": "string",
+      "required": true,
+      "description": "Channel ID",
+      "example": "C1234567890",
+      "in": "body"
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "description": "User ID to show the message to",
+      "example": "U1234567890",
+      "in": "body"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "required": false,
+      "description": "Message text",
+      "example": "Only you can see this!",
+      "in": "body"
+    },
+    {
+      "name": "blocks",
+      "type": "array",
+      "required": false,
+      "description": "Block Kit blocks",
+      "example": [],
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://slack.com/api/chat.postEphemeral",
+    "headers": {
+      "Authorization": "Bearer xoxb-xxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "channel": "C1234567890",
+      "user": "U1234567890",
+      "text": "Only you can see this!"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "message_ts": "1502210682.580145"
+    }
+  }
+}

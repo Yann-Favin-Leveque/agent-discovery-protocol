@@ -5,13 +5,30 @@
   "method": "GET",
   "resource_group": "invoices",
   "parameters": [
-    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
-    {"name": "invoice_id", "type": "integer", "description": "The invoice ID.", "required": true, "example": 67890}
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    },
+    {
+      "name": "invoice_id",
+      "type": "integer",
+      "description": "The invoice ID.",
+      "required": true,
+      "example": 67890,
+      "in": "path"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.freshbooks.com/accounting/account/xB2yw/invoices/invoices/67890",
-    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha"},
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha"
+    },
     "body": {}
   },
   "response_example": {
@@ -19,11 +36,34 @@
     "body": {
       "response": {
         "result": {
-          "invoice": {"id": 67890, "invoice_number": "0001", "customerid": 12345, "status": 2, "amount": {"amount": "500.00", "code": "USD"}, "lines": [{"name": "Web Development", "qty": "10", "unit_cost": {"amount": "50.00", "code": "USD"}}]}
+          "invoice": {
+            "id": 67890,
+            "invoice_number": "0001",
+            "customerid": 12345,
+            "status": 2,
+            "amount": {
+              "amount": "500.00",
+              "code": "USD"
+            },
+            "lines": [
+              {
+                "name": "Web Development",
+                "qty": "10",
+                "unit_cost": {
+                  "amount": "50.00",
+                  "code": "USD"
+                }
+              }
+            ]
+          }
         }
       }
     }
   },
-  "auth_scopes": ["user:invoices:read"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:invoices:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

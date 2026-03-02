@@ -9,62 +9,72 @@
       "name": "service_plan_id",
       "type": "string",
       "required": true,
-      "description": "Your Sinch service plan ID (path parameter)."
+      "description": "Your Sinch service plan ID (path parameter).",
+      "in": "path"
     },
     {
       "name": "to",
       "type": "array",
       "required": true,
-      "description": "Array of recipient phone numbers in E.164 format or group IDs."
+      "description": "Array of recipient phone numbers in E.164 format or group IDs.",
+      "in": "body"
     },
     {
       "name": "from",
       "type": "string",
       "required": true,
-      "description": "Sender number in E.164 format. Must be a number associated with your account."
+      "description": "Sender number in E.164 format. Must be a number associated with your account.",
+      "in": "body"
     },
     {
       "name": "body",
       "type": "string",
       "required": true,
-      "description": "The message body text. Supports parameterization with ${parameter_key}."
+      "description": "The message body text. Supports parameterization with ${parameter_key}.",
+      "in": "body"
     },
     {
       "name": "type",
       "type": "string",
       "required": false,
       "description": "Message type: 'mt_text' (default) or 'mt_binary'.",
-      "example": "mt_text"
+      "example": "mt_text",
+      "in": "body"
     },
     {
       "name": "delivery_report",
       "type": "string",
       "required": false,
-      "description": "Delivery report type: 'none', 'summary', 'full', or 'per_recipient'."
+      "description": "Delivery report type: 'none', 'summary', 'full', or 'per_recipient'.",
+      "in": "body"
     },
     {
       "name": "send_at",
       "type": "string",
       "required": false,
-      "description": "ISO 8601 datetime for scheduled sending."
+      "description": "ISO 8601 datetime for scheduled sending.",
+      "in": "body"
     },
     {
       "name": "expire_at",
       "type": "string",
       "required": false,
-      "description": "ISO 8601 datetime when the message expires if not yet delivered."
+      "description": "ISO 8601 datetime when the message expires if not yet delivered.",
+      "in": "body"
     },
     {
       "name": "callback_url",
       "type": "string",
       "required": false,
-      "description": "Override webhook URL for delivery report callbacks."
+      "description": "Override webhook URL for delivery report callbacks.",
+      "in": "body"
     },
     {
       "name": "parameters",
       "type": "object",
       "required": false,
-      "description": "Key-value pairs for message body parameterization per recipient."
+      "description": "Key-value pairs for message body parameterization per recipient.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -76,12 +86,21 @@
     },
     "body": {
       "from": "12015550145",
-      "to": ["14155550123", "14155550124"],
+      "to": [
+        "14155550123",
+        "14155550124"
+      ],
       "body": "Hello ${name}, your code is ${code}.",
       "delivery_report": "full",
       "parameters": {
-        "name": { "14155550123": "John", "14155550124": "Jane" },
-        "code": { "14155550123": "1234", "14155550124": "5678" }
+        "name": {
+          "14155550123": "John",
+          "14155550124": "Jane"
+        },
+        "code": {
+          "14155550123": "1234",
+          "14155550124": "5678"
+        }
       }
     }
   },
@@ -89,7 +108,10 @@
     "status": 201,
     "body": {
       "id": "batch-id-01HXYZ",
-      "to": ["14155550123", "14155550124"],
+      "to": [
+        "14155550123",
+        "14155550124"
+      ],
       "from": "12015550145",
       "body": "Hello ${name}, your code is ${code}.",
       "type": "mt_text",

@@ -5,15 +5,81 @@
   "method": "POST",
   "resource_group": "employees",
   "parameters": [
-    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
-    {"name": "first_name", "type": "string", "description": "Employee first name.", "required": true, "example": "Jane"},
-    {"name": "last_name", "type": "string", "description": "Employee last name.", "required": true, "example": "Smith"},
-    {"name": "email", "type": "string", "description": "Employee email.", "required": false, "example": "jane@acme.com"},
-    {"name": "date_of_birth", "type": "string", "description": "Date of birth (YYYY-MM-DD).", "required": false, "example": "1992-05-20"},
-    {"name": "ssn", "type": "string", "description": "Social Security Number.", "required": false, "example": "123-45-6789"}
+    {
+      "name": "company_id",
+      "type": "string",
+      "description": "The company UUID.",
+      "required": true,
+      "example": "7757616923531542",
+      "in": "path"
+    },
+    {
+      "name": "first_name",
+      "type": "string",
+      "description": "Employee first name.",
+      "required": true,
+      "example": "Jane",
+      "in": "body"
+    },
+    {
+      "name": "last_name",
+      "type": "string",
+      "description": "Employee last name.",
+      "required": true,
+      "example": "Smith",
+      "in": "body"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Employee email.",
+      "required": false,
+      "example": "jane@acme.com",
+      "in": "body"
+    },
+    {
+      "name": "date_of_birth",
+      "type": "string",
+      "description": "Date of birth (YYYY-MM-DD).",
+      "required": false,
+      "example": "1992-05-20",
+      "in": "body"
+    },
+    {
+      "name": "ssn",
+      "type": "string",
+      "description": "Social Security Number.",
+      "required": false,
+      "example": "123-45-6789",
+      "in": "body"
+    }
   ],
-  "request_example": {"method": "POST", "url": "https://api.gusto.com/v1/companies/7757616923531542/employees", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"first_name": "Jane", "last_name": "Smith", "email": "jane@acme.com"}},
-  "response_example": {"status": 201, "body": {"uuid": "emp_456", "first_name": "Jane", "last_name": "Smith", "email": "jane@acme.com"}},
-  "auth_scopes": ["employees:write"],
-  "rate_limits": {"requests_per_minute": 60}
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gusto.com/v1/companies/7757616923531542/employees",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "email": "jane@acme.com"
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uuid": "emp_456",
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "email": "jane@acme.com"
+    }
+  },
+  "auth_scopes": [
+    "employees:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

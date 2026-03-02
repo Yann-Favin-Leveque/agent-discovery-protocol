@@ -5,18 +5,44 @@
   "method": "POST",
   "resource_group": "payment_methods",
   "parameters": [
-    {"name": "paymentMethodId", "type": "string", "description": "ID of the payment method to delete.", "required": true, "example": "cGF5bWVudG1ldGhvZF8x"}
+    {
+      "name": "paymentMethodId",
+      "type": "string",
+      "description": "ID of the payment method to delete.",
+      "required": true,
+      "example": "cGF5bWVudG1ldGhvZF8x",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://payments.braintree-api.com/graphql",
-    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
-    "body": {"query": "mutation DeletePaymentMethod($input: DeletePaymentMethodFromVaultInput!) { deletePaymentMethodFromVault(input: $input) { clientMutationId } }", "variables": {"input": {"paymentMethodId": "cGF5bWVudG1ldGhvZF8x"}}}
+    "headers": {
+      "Authorization": "Basic {base64(public_key:private_key)}",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-08-01"
+    },
+    "body": {
+      "query": "mutation DeletePaymentMethod($input: DeletePaymentMethodFromVaultInput!) { deletePaymentMethodFromVault(input: $input) { clientMutationId } }",
+      "variables": {
+        "input": {
+          "paymentMethodId": "cGF5bWVudG1ldGhvZF8x"
+        }
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"data": {"deletePaymentMethodFromVault": {"clientMutationId": null}}}
+    "body": {
+      "data": {
+        "deletePaymentMethodFromVault": {
+          "clientMutationId": null
+        }
+      }
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

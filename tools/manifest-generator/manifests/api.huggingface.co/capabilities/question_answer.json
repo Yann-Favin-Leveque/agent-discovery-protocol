@@ -5,14 +5,42 @@
   "endpoint": "/models/{model_id}",
   "method": "POST",
   "parameters": [
-    {"name": "model_id", "type": "string", "required": true, "description": "Model ID (e.g. 'deepset/roberta-base-squad2')."},
-    {"name": "inputs", "type": "object", "required": true, "description": "Object with 'question' and 'context' fields."}
+    {
+      "name": "model_id",
+      "type": "string",
+      "required": true,
+      "description": "Model ID (e.g. 'deepset/roberta-base-squad2').",
+      "in": "path"
+    },
+    {
+      "name": "inputs",
+      "type": "object",
+      "required": true,
+      "description": "Object with 'question' and 'context' fields.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://router.huggingface.co/models/deepset/roberta-base-squad2",
-    "headers": {"Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"inputs": {"question": "What is the capital of France?", "context": "France is a country in Europe. Its capital is Paris."}}
+    "headers": {
+      "Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": {
+        "question": "What is the capital of France?",
+        "context": "France is a country in Europe. Its capital is Paris."
+      }
+    }
   },
-  "response_example": {"status": 200, "body": {"answer": "Paris", "score": 0.98, "start": 48, "end": 53}}
+  "response_example": {
+    "status": 200,
+    "body": {
+      "answer": "Paris",
+      "score": 0.98,
+      "start": 48,
+      "end": 53
+    }
+  }
 }

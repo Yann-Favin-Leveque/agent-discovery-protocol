@@ -9,31 +9,36 @@
       "name": "availability",
       "type": "object",
       "required": true,
-      "description": "Availability configuration with 'participants', 'required_duration', and 'query_periods'."
+      "description": "Availability configuration with 'participants', 'required_duration', and 'query_periods'.",
+      "in": "body"
     },
     {
       "name": "event",
       "type": "object",
       "required": true,
-      "description": "Event template with 'event_id', 'summary', 'description', and 'tzid'."
+      "description": "Event template with 'event_id', 'summary', 'description', and 'tzid'.",
+      "in": "body"
     },
     {
       "name": "target_calendars",
       "type": "array",
       "required": true,
-      "description": "Array of {sub, calendar_id} to create the booked event in."
+      "description": "Array of {sub, calendar_id} to create the booked event in.",
+      "in": "body"
     },
     {
       "name": "redirect_urls",
       "type": "object",
       "required": true,
-      "description": "URLs for 'completed_url' (after booking) and 'declined_url'."
+      "description": "URLs for 'completed_url' (after booking) and 'declined_url'.",
+      "in": "body"
     },
     {
       "name": "callback_url",
       "type": "string",
       "required": false,
-      "description": "Webhook URL for booking notifications."
+      "description": "Webhook URL for booking notifications.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -45,17 +50,40 @@
     },
     "body": {
       "availability": {
-        "participants": [{ "members": [{ "sub": "acc_123" }], "required": "all" }],
-        "required_duration": { "minutes": 30 },
-        "query_periods": [{ "start": "2024-01-20T09:00:00Z", "end": "2024-01-26T18:00:00Z" }]
+        "participants": [
+          {
+            "members": [
+              {
+                "sub": "acc_123"
+              }
+            ],
+            "required": "all"
+          }
+        ],
+        "required_duration": {
+          "minutes": 30
+        },
+        "query_periods": [
+          {
+            "start": "2024-01-20T09:00:00Z",
+            "end": "2024-01-26T18:00:00Z"
+          }
+        ]
       },
       "event": {
         "event_id": "booking-001",
         "summary": "Consultation Call",
         "tzid": "America/New_York"
       },
-      "target_calendars": [{ "sub": "acc_123", "calendar_id": "cal_abc" }],
-      "redirect_urls": { "completed_url": "https://example.com/booked" }
+      "target_calendars": [
+        {
+          "sub": "acc_123",
+          "calendar_id": "cal_abc"
+        }
+      ],
+      "redirect_urls": {
+        "completed_url": "https://example.com/booked"
+      }
     }
   },
   "response_example": {
@@ -67,7 +95,9 @@
       }
     }
   },
-  "auth_scopes": ["create_event"],
+  "auth_scopes": [
+    "create_event"
+  ],
   "rate_limits": {
     "requests_per_minute": 60
   }

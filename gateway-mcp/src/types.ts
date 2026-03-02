@@ -45,6 +45,7 @@ export interface CapabilityDetail {
     description: string;
     required: boolean;
     example: unknown;
+    in?: "path" | "query" | "body" | "header";
   }>;
   request_example: {
     method: string;

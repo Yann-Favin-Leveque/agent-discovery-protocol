@@ -1,0 +1,64 @@
+{
+  "name": "settings_update_vacation",
+  "description": "Updates vacation responder settings.",
+  "resource_group": "settings",
+  "endpoint": "/gmail/v1/users/{userId}/settings/vacation",
+  "method": "PUT",
+  "parameters": [
+    {
+      "name": "userId",
+      "type": "string",
+      "description": "The user's email address.",
+      "required": true,
+      "example": "me",
+      "in": "path"
+    },
+    {
+      "name": "enableAutoReply",
+      "type": "boolean",
+      "description": "Whether to auto-reply.",
+      "required": true,
+      "example": true,
+      "in": "body"
+    },
+    {
+      "name": "responseSubject",
+      "type": "string",
+      "description": "Auto-reply subject.",
+      "required": false,
+      "example": "Out of Office",
+      "in": "body"
+    },
+    {
+      "name": "responseBodyPlainText",
+      "type": "string",
+      "description": "Plain text auto-reply body.",
+      "required": false,
+      "example": "I am currently out of office.",
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "PUT",
+    "url": "https://gmail.googleapis.com/gmail/v1/users/me/settings/vacation",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "enableAutoReply": true,
+      "responseSubject": "Out of Office",
+      "responseBodyPlainText": "I am out of office."
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "enableAutoReply": true,
+      "responseSubject": "Out of Office"
+    }
+  },
+  "auth_scopes": [
+    "https://www.googleapis.com/auth/gmail.settings.basic"
+  ]
+}

@@ -5,21 +5,70 @@
   "endpoint": "/projects/{project_id}/features/",
   "method": "POST",
   "parameters": [
-    {"name": "project_id", "type": "integer", "description": "Project ID.", "required": true, "example": 1},
-    {"name": "name", "type": "string", "description": "Feature flag name (must be unique in project).", "required": true, "example": "dark_mode"},
-    {"name": "type", "type": "string", "description": "Feature type: FLAG or CONFIG.", "required": false, "example": "FLAG"},
-    {"name": "default_enabled", "type": "boolean", "description": "Default enabled state.", "required": false, "example": false},
-    {"name": "initial_value", "type": "string", "description": "Initial remote config value.", "required": false}
+    {
+      "name": "project_id",
+      "type": "integer",
+      "description": "Project ID.",
+      "required": true,
+      "example": 1,
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Feature flag name (must be unique in project).",
+      "required": true,
+      "example": "dark_mode",
+      "in": "body"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Feature type: FLAG or CONFIG.",
+      "required": false,
+      "example": "FLAG",
+      "in": "body"
+    },
+    {
+      "name": "default_enabled",
+      "type": "boolean",
+      "description": "Default enabled state.",
+      "required": false,
+      "example": false,
+      "in": "body"
+    },
+    {
+      "name": "initial_value",
+      "type": "string",
+      "description": "Initial remote config value.",
+      "required": false,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.flagsmith.com/api/v1/projects/1/features/",
-    "headers": {"Authorization": "Token {admin_api_token}", "Content-Type": "application/json"},
-    "body": {"name": "dark_mode", "type": "FLAG", "default_enabled": false}
+    "headers": {
+      "Authorization": "Token {admin_api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "dark_mode",
+      "type": "FLAG",
+      "default_enabled": false
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"id": 103, "name": "dark_mode", "type": "FLAG", "default_enabled": false, "initial_value": null}
+    "body": {
+      "id": 103,
+      "name": "dark_mode",
+      "type": "FLAG",
+      "default_enabled": false,
+      "initial_value": null
+    }
   },
-  "rate_limits": {"requests_per_minute": 500}
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
 }

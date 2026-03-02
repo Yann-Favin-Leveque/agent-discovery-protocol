@@ -5,12 +5,54 @@
   "endpoint": "/v1/read",
   "method": "POST",
   "parameters": [
-    {"name": "text", "type": "string", "description": "Text content to analyze.", "required": true, "example": "The product is excellent and the support team was very helpful."},
-    {"name": "language", "type": "string", "description": "BCP-47 language code of the text.", "required": false, "example": "en"},
-    {"name": "sentiment", "type": "boolean", "description": "Analyze sentiment in the text.", "required": false, "example": true},
-    {"name": "summarize", "type": "boolean", "description": "Generate a summary.", "required": false, "example": true},
-    {"name": "topics", "type": "boolean", "description": "Detect topics in the text.", "required": false, "example": true},
-    {"name": "intents", "type": "boolean", "description": "Detect intents in the text.", "required": false, "example": false}
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Text content to analyze.",
+      "required": true,
+      "example": "The product is excellent and the support team was very helpful.",
+      "in": "body"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "description": "BCP-47 language code of the text.",
+      "required": false,
+      "example": "en",
+      "in": "body"
+    },
+    {
+      "name": "sentiment",
+      "type": "boolean",
+      "description": "Analyze sentiment in the text.",
+      "required": false,
+      "example": true,
+      "in": "body"
+    },
+    {
+      "name": "summarize",
+      "type": "boolean",
+      "description": "Generate a summary.",
+      "required": false,
+      "example": true,
+      "in": "body"
+    },
+    {
+      "name": "topics",
+      "type": "boolean",
+      "description": "Detect topics in the text.",
+      "required": false,
+      "example": true,
+      "in": "body"
+    },
+    {
+      "name": "intents",
+      "type": "boolean",
+      "description": "Detect intents in the text.",
+      "required": false,
+      "example": false,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
@@ -26,13 +68,29 @@
   "response_example": {
     "status": 200,
     "body": {
-      "metadata": {"request_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"},
+      "metadata": {
+        "request_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+      },
       "results": {
-        "sentiments": {"average": {"sentiment": "positive", "sentiment_score": 0.92}},
-        "summary": {"text": "Positive feedback about product quality and support."},
-        "topics": [{"topic": "customer satisfaction", "confidence": 0.89}]
+        "sentiments": {
+          "average": {
+            "sentiment": "positive",
+            "sentiment_score": 0.92
+          }
+        },
+        "summary": {
+          "text": "Positive feedback about product quality and support."
+        },
+        "topics": [
+          {
+            "topic": "customer satisfaction",
+            "confidence": 0.89
+          }
+        ]
       }
     }
   },
-  "rate_limits": {"requests_per_minute": 100}
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

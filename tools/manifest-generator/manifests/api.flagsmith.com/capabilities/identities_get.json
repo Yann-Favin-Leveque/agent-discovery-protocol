@@ -5,22 +5,49 @@
   "endpoint": "/identities/",
   "method": "POST",
   "parameters": [
-    {"name": "identifier", "type": "string", "description": "Unique identifier for the user.", "required": true, "example": "user_12345"}
+    {
+      "name": "identifier",
+      "type": "string",
+      "description": "Unique identifier for the user.",
+      "required": true,
+      "example": "user_12345",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://edge.api.flagsmith.com/api/v1/identities/",
-    "headers": {"X-Environment-Key": "{environment_key}", "Content-Type": "application/json"},
-    "body": {"identifier": "user_12345"}
+    "headers": {
+      "X-Environment-Key": "{environment_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "identifier": "user_12345"
+    }
   },
   "response_example": {
     "status": 200,
     "body": {
-      "traits": [{"trait_key": "plan", "trait_value": "premium"}],
+      "traits": [
+        {
+          "trait_key": "plan",
+          "trait_value": "premium"
+        }
+      ],
       "flags": [
-        {"feature": {"id": 101, "name": "new_checkout", "type": "FLAG"}, "enabled": true, "feature_state_value": null}
+        {
+          "feature": {
+            "id": 101,
+            "name": "new_checkout",
+            "type": "FLAG"
+          },
+          "enabled": true,
+          "feature_state_value": null
+        }
       ]
     }
   },
-  "rate_limits": {"requests_per_minute": 500}
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
 }

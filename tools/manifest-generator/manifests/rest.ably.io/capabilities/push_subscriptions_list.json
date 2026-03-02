@@ -5,19 +5,54 @@
   "endpoint": "/push/channelSubscriptions",
   "method": "GET",
   "parameters": [
-    {"name": "channel", "type": "string", "description": "Filter by channel name.", "required": false, "example": "alerts"},
-    {"name": "deviceId", "type": "string", "description": "Filter by device ID.", "required": false},
-    {"name": "clientId", "type": "string", "description": "Filter by client ID.", "required": false},
-    {"name": "limit", "type": "integer", "description": "Maximum results to return.", "required": false, "example": 100}
+    {
+      "name": "channel",
+      "type": "string",
+      "description": "Filter by channel name.",
+      "required": false,
+      "example": "alerts",
+      "in": "query"
+    },
+    {
+      "name": "deviceId",
+      "type": "string",
+      "description": "Filter by device ID.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "clientId",
+      "type": "string",
+      "description": "Filter by client ID.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum results to return.",
+      "required": false,
+      "example": 100,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://rest.ably.io/push/channelSubscriptions?channel=alerts",
-    "headers": {"Authorization": "Basic {base64_api_key}"}
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": [{"channel": "alerts", "deviceId": "device_001"}]
+    "body": [
+      {
+        "channel": "alerts",
+        "deviceId": "device_001"
+      }
+    ]
   },
-  "rate_limits": {"requests_per_minute": 1500}
+  "rate_limits": {
+    "requests_per_minute": 1500
+  }
 }

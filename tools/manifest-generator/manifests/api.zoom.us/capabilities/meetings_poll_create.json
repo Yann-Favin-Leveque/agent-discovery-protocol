@@ -10,21 +10,33 @@
       "type": "integer",
       "description": "The meeting ID.",
       "required": true,
-      "example": 1234567890
+      "example": 1234567890,
+      "in": "path"
     },
     {
       "name": "title",
       "type": "string",
       "description": "Poll title.",
       "required": true,
-      "example": "Team Preferences"
+      "example": "Team Preferences",
+      "in": "body"
     },
     {
       "name": "questions",
       "type": "array",
       "description": "Array of question objects with name, type (single/multiple), and answers.",
       "required": true,
-      "example": [{"name": "Preferred time?", "type": "single", "answers": ["Morning", "Afternoon"]}]
+      "example": [
+        {
+          "name": "Preferred time?",
+          "type": "single",
+          "answers": [
+            "Morning",
+            "Afternoon"
+          ]
+        }
+      ],
+      "in": "body"
     }
   ],
   "request_example": {
@@ -40,7 +52,11 @@
         {
           "name": "Preferred meeting time?",
           "type": "single",
-          "answers": ["Morning", "Afternoon", "Evening"]
+          "answers": [
+            "Morning",
+            "Afternoon",
+            "Evening"
+          ]
         }
       ]
     }
@@ -53,7 +69,9 @@
       "status": "notstart"
     }
   },
-  "auth_scopes": ["meeting:write"],
+  "auth_scopes": [
+    "meeting:write"
+  ],
   "rate_limits": {
     "requests_per_minute": 100
   }

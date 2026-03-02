@@ -5,21 +5,67 @@
   "method": "PUT",
   "resource_group": "time_entries",
   "parameters": [
-    {"name": "business_id", "type": "string", "description": "The FreshBooks business ID.", "required": true, "example": "xB2yw"},
-    {"name": "time_entry_id", "type": "integer", "description": "The time entry ID to update.", "required": true, "example": 333},
-    {"name": "duration", "type": "integer", "description": "Updated duration in seconds.", "required": false, "example": 7200},
-    {"name": "note", "type": "string", "description": "Updated note.", "required": false, "example": "Updated description"}
+    {
+      "name": "business_id",
+      "type": "string",
+      "description": "The FreshBooks business ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    },
+    {
+      "name": "time_entry_id",
+      "type": "integer",
+      "description": "The time entry ID to update.",
+      "required": true,
+      "example": 333,
+      "in": "path"
+    },
+    {
+      "name": "duration",
+      "type": "integer",
+      "description": "Updated duration in seconds.",
+      "required": false,
+      "example": 7200,
+      "in": "body"
+    },
+    {
+      "name": "note",
+      "type": "string",
+      "description": "Updated note.",
+      "required": false,
+      "example": "Updated description",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PUT",
     "url": "https://api.freshbooks.com/timetracking/business/xB2yw/time_entries/333",
-    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
-    "body": {"time_entry": {"duration": 7200, "note": "Updated description"}}
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "time_entry": {
+        "duration": 7200,
+        "note": "Updated description"
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"time_entry": {"id": 333, "duration": 7200, "note": "Updated description"}}
+    "body": {
+      "time_entry": {
+        "id": 333,
+        "duration": 7200,
+        "note": "Updated description"
+      }
+    }
   },
-  "auth_scopes": ["user:time_entries:write"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:time_entries:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

@@ -10,21 +10,28 @@
       "type": "string",
       "description": "The account ID to update metadata for.",
       "required": true,
-      "example": "acme-corp"
+      "example": "acme-corp",
+      "in": "body"
     },
     {
       "name": "values",
       "type": "object",
       "description": "Key-value pairs of metadata to set.",
       "required": true,
-      "example": { "plan": "enterprise", "industry": "Technology", "employee_count": 500 }
+      "example": {
+        "plan": "enterprise",
+        "industry": "Technology",
+        "employee_count": 500
+      },
+      "in": "body"
     },
     {
       "name": "create",
       "type": "boolean",
       "description": "If true, create metadata fields that do not exist.",
       "required": false,
-      "example": true
+      "example": true,
+      "in": "body"
     }
   ],
   "request_example": {
@@ -36,14 +43,19 @@
     },
     "body": {
       "accountId": "acme-corp",
-      "values": { "plan": "enterprise", "industry": "Technology" }
+      "values": {
+        "plan": "enterprise",
+        "industry": "Technology"
+      }
     }
   },
   "response_example": {
     "status": 200,
     "body": {}
   },
-  "auth_scopes": ["metadata"],
+  "auth_scopes": [
+    "metadata"
+  ],
   "rate_limits": {
     "requests_per_minute": 500
   }

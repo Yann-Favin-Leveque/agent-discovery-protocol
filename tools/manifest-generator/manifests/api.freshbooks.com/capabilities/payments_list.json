@@ -5,21 +5,75 @@
   "method": "GET",
   "resource_group": "payments",
   "parameters": [
-    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
-    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1},
-    {"name": "search[invoiceid]", "type": "integer", "description": "Filter by invoice ID.", "required": false, "example": 67890},
-    {"name": "search[date_min]", "type": "string", "description": "Minimum payment date.", "required": false, "example": "2024-01-01"}
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1,
+      "in": "query"
+    },
+    {
+      "name": "search[invoiceid]",
+      "type": "integer",
+      "description": "Filter by invoice ID.",
+      "required": false,
+      "example": 67890,
+      "in": "query"
+    },
+    {
+      "name": "search[date_min]",
+      "type": "string",
+      "description": "Minimum payment date.",
+      "required": false,
+      "example": "2024-01-01",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.freshbooks.com/accounting/account/xB2yw/payments/payments?page=1",
-    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha"},
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha"
+    },
     "body": {}
   },
   "response_example": {
     "status": 200,
-    "body": {"response": {"result": {"payments": [{"id": 222, "invoiceid": 67890, "amount": {"amount": "500.00", "code": "USD"}, "date": "2024-07-01", "type": "Credit Card"}], "page": 1, "total": 50}}}
+    "body": {
+      "response": {
+        "result": {
+          "payments": [
+            {
+              "id": 222,
+              "invoiceid": 67890,
+              "amount": {
+                "amount": "500.00",
+                "code": "USD"
+              },
+              "date": "2024-07-01",
+              "type": "Credit Card"
+            }
+          ],
+          "page": 1,
+          "total": 50
+        }
+      }
+    }
   },
-  "auth_scopes": ["user:payments:read"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:payments:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

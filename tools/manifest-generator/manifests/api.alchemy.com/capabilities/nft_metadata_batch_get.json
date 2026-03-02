@@ -9,19 +9,22 @@
       "name": "apiKey",
       "type": "string",
       "required": true,
-      "description": "Your Alchemy API key (path parameter)."
+      "description": "Your Alchemy API key (path parameter).",
+      "in": "path"
     },
     {
       "name": "tokens",
       "type": "array",
       "required": true,
-      "description": "Array of objects with 'contractAddress' and 'tokenId' fields."
+      "description": "Array of objects with 'contractAddress' and 'tokenId' fields.",
+      "in": "body"
     },
     {
       "name": "refreshCache",
       "type": "boolean",
       "required": false,
-      "description": "Force refresh of cached metadata for all tokens."
+      "description": "Force refresh of cached metadata for all tokens.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -32,8 +35,14 @@
     },
     "body": {
       "tokens": [
-        { "contractAddress": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D", "tokenId": "1234" },
-        { "contractAddress": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D", "tokenId": "5678" }
+        {
+          "contractAddress": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+          "tokenId": "1234"
+        },
+        {
+          "contractAddress": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+          "tokenId": "5678"
+        }
       ]
     }
   },
@@ -41,8 +50,20 @@
     "status": 200,
     "body": {
       "nfts": [
-        { "contract": { "address": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D" }, "tokenId": "1234", "name": "Bored Ape #1234" },
-        { "contract": { "address": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D" }, "tokenId": "5678", "name": "Bored Ape #5678" }
+        {
+          "contract": {
+            "address": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
+          },
+          "tokenId": "1234",
+          "name": "Bored Ape #1234"
+        },
+        {
+          "contract": {
+            "address": "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D"
+          },
+          "tokenId": "5678",
+          "name": "Bored Ape #5678"
+        }
       ]
     }
   },

@@ -5,12 +5,55 @@
   "method": "GET",
   "resource_group": "contractor_payments",
   "parameters": [
-    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
-    {"name": "start_date", "type": "string", "description": "Filter from date (YYYY-MM-DD).", "required": false, "example": "2024-01-01"},
-    {"name": "end_date", "type": "string", "description": "Filter to date (YYYY-MM-DD).", "required": false, "example": "2024-12-31"}
+    {
+      "name": "company_id",
+      "type": "string",
+      "description": "The company UUID.",
+      "required": true,
+      "example": "7757616923531542",
+      "in": "path"
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "Filter from date (YYYY-MM-DD).",
+      "required": false,
+      "example": "2024-01-01",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "Filter to date (YYYY-MM-DD).",
+      "required": false,
+      "example": "2024-12-31",
+      "in": "query"
+    }
   ],
-  "request_example": {"method": "GET", "url": "https://api.gusto.com/v1/companies/7757616923531542/contractor_payments", "headers": {"Authorization": "Bearer {token}"}, "body": {}},
-  "response_example": {"status": 200, "body": [{"uuid": "cpay_123", "contractor_uuid": "con_123", "date": "2024-09-15", "wage": "2500.00", "bonus": "0.00"}]},
-  "auth_scopes": ["contractor_payments:read"],
-  "rate_limits": {"requests_per_minute": 60}
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.gusto.com/v1/companies/7757616923531542/contractor_payments",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "uuid": "cpay_123",
+        "contractor_uuid": "con_123",
+        "date": "2024-09-15",
+        "wage": "2500.00",
+        "bonus": "0.00"
+      }
+    ]
+  },
+  "auth_scopes": [
+    "contractor_payments:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

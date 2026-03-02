@@ -5,19 +5,69 @@
   "endpoint": "/v2/document",
   "method": "POST",
   "parameters": [
-    {"name": "file", "type": "file", "required": true, "description": "Document file to translate."},
-    {"name": "target_lang", "type": "string", "required": true, "description": "Target language code."},
-    {"name": "source_lang", "type": "string", "required": false, "description": "Source language code."},
-    {"name": "filename", "type": "string", "required": false, "description": "Name of the uploaded file."},
-    {"name": "formality", "type": "string", "required": false, "description": "Formality level."},
-    {"name": "glossary_id", "type": "string", "required": false, "description": "Glossary ID."},
-    {"name": "output_format", "type": "string", "required": false, "description": "Output file extension (e.g. 'pdf', 'docx')."}
+    {
+      "name": "file",
+      "type": "file",
+      "required": true,
+      "description": "Document file to translate.",
+      "in": "body"
+    },
+    {
+      "name": "target_lang",
+      "type": "string",
+      "required": true,
+      "description": "Target language code.",
+      "in": "body"
+    },
+    {
+      "name": "source_lang",
+      "type": "string",
+      "required": false,
+      "description": "Source language code.",
+      "in": "body"
+    },
+    {
+      "name": "filename",
+      "type": "string",
+      "required": false,
+      "description": "Name of the uploaded file.",
+      "in": "body"
+    },
+    {
+      "name": "formality",
+      "type": "string",
+      "required": false,
+      "description": "Formality level.",
+      "in": "body"
+    },
+    {
+      "name": "glossary_id",
+      "type": "string",
+      "required": false,
+      "description": "Glossary ID.",
+      "in": "body"
+    },
+    {
+      "name": "output_format",
+      "type": "string",
+      "required": false,
+      "description": "Output file extension (e.g. 'pdf', 'docx').",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.deepl.com/v2/document",
-    "headers": {"Authorization": "DeepL-Auth-Key your-api-key-here"},
+    "headers": {
+      "Authorization": "DeepL-Auth-Key your-api-key-here"
+    },
     "body": "multipart/form-data: file=@document.docx&target_lang=DE"
   },
-  "response_example": {"status": 200, "body": {"document_id": "doc123", "document_key": "key456"}}
+  "response_example": {
+    "status": 200,
+    "body": {
+      "document_id": "doc123",
+      "document_key": "key456"
+    }
+  }
 }

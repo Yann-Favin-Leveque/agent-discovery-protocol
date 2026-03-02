@@ -5,19 +5,52 @@
   "endpoint": "/1.2/user/-/sleep.json",
   "method": "POST",
   "parameters": [
-    { "name": "startTime", "type": "string", "required": true, "description": "Start time in HH:mm format." },
-    { "name": "duration", "type": "integer", "required": true, "description": "Duration in milliseconds." },
-    { "name": "date", "type": "string", "required": true, "description": "The date of the sleep log in YYYY-MM-DD format." }
+    {
+      "name": "startTime",
+      "type": "string",
+      "required": true,
+      "description": "Start time in HH:mm format.",
+      "in": "body"
+    },
+    {
+      "name": "duration",
+      "type": "integer",
+      "required": true,
+      "description": "Duration in milliseconds.",
+      "in": "body"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "required": true,
+      "description": "The date of the sleep log in YYYY-MM-DD format.",
+      "in": "body"
+    }
   ],
-  "auth_scopes": ["sleep"],
+  "auth_scopes": [
+    "sleep"
+  ],
   "request_example": {
     "method": "POST",
     "url": "https://api.fitbit.com/1.2/user/-/sleep.json",
-    "headers": { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9...", "Content-Type": "application/x-www-form-urlencoded" },
-    "body": { "startTime": "23:00", "duration": 28800000, "date": "2025-01-15" }
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9...",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "startTime": "23:00",
+      "duration": 28800000,
+      "date": "2025-01-15"
+    }
   },
   "response_example": {
     "status": 201,
-    "body": { "sleep": { "logId": 41234568, "dateOfSleep": "2025-01-15", "duration": 28800000 } }
+    "body": {
+      "sleep": {
+        "logId": 41234568,
+        "dateOfSleep": "2025-01-15",
+        "duration": 28800000
+      }
+    }
   }
 }

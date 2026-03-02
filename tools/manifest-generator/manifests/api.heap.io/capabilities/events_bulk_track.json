@@ -10,7 +10,8 @@
       "type": "string",
       "description": "Your Heap environment ID.",
       "required": true,
-      "example": "123456789"
+      "example": "123456789",
+      "in": "body"
     },
     {
       "name": "events",
@@ -18,16 +19,27 @@
       "description": "Array of event objects (max 1,000). Each has identity, event, and optional properties.",
       "required": true,
       "example": [
-        { "identity": "user1@example.com", "event": "page_view", "properties": { "page": "/pricing" } },
-        { "identity": "user2@example.com", "event": "sign_up" }
-      ]
+        {
+          "identity": "user1@example.com",
+          "event": "page_view",
+          "properties": {
+            "page": "/pricing"
+          }
+        },
+        {
+          "identity": "user2@example.com",
+          "event": "sign_up"
+        }
+      ],
+      "in": "body"
     },
     {
       "name": "idempotency_key",
       "type": "string",
       "description": "Optional key to prevent duplicate batch submissions.",
       "required": false,
-      "example": "batch_unique_123"
+      "example": "batch_unique_123",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -39,8 +51,18 @@
     "body": {
       "app_id": "123456789",
       "events": [
-        { "identity": "user1@example.com", "event": "page_view", "properties": { "page": "/pricing" }, "timestamp": "2024-01-20T10:00:00Z" },
-        { "identity": "user2@example.com", "event": "sign_up" }
+        {
+          "identity": "user1@example.com",
+          "event": "page_view",
+          "properties": {
+            "page": "/pricing"
+          },
+          "timestamp": "2024-01-20T10:00:00Z"
+        },
+        {
+          "identity": "user2@example.com",
+          "event": "sign_up"
+        }
       ]
     }
   },

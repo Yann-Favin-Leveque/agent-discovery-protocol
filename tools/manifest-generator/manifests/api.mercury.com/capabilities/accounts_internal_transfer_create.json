@@ -5,21 +5,62 @@
   "method": "POST",
   "resource_group": "accounts",
   "parameters": [
-    { "name": "accountId", "type": "string", "description": "The source account ID for the transfer", "required": true, "example": "acc_123abc" },
-    { "name": "toAccountId", "type": "string", "description": "The destination account ID", "required": true, "example": "acc_456def" },
-    { "name": "amount", "type": "number", "description": "The amount to transfer in dollars", "required": true, "example": 5000.00 },
-    { "name": "note", "type": "string", "description": "Optional memo for the transfer", "required": false, "example": "Monthly savings transfer" }
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "The source account ID for the transfer",
+      "required": true,
+      "example": "acc_123abc",
+      "in": "path"
+    },
+    {
+      "name": "toAccountId",
+      "type": "string",
+      "description": "The destination account ID",
+      "required": true,
+      "example": "acc_456def",
+      "in": "body"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "The amount to transfer in dollars",
+      "required": true,
+      "example": 5000,
+      "in": "body"
+    },
+    {
+      "name": "note",
+      "type": "string",
+      "description": "Optional memo for the transfer",
+      "required": false,
+      "example": "Monthly savings transfer",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.mercury.com/api/v1/account/acc_123abc/internal-transfer",
-    "headers": { "Authorization": "Bearer {token}", "Content-Type": "application/json" },
-    "body": { "toAccountId": "acc_456def", "amount": 5000.00, "note": "Monthly savings transfer" }
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "toAccountId": "acc_456def",
+      "amount": 5000,
+      "note": "Monthly savings transfer"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": { "id": "txn_transfer_789", "status": "completed", "amount": 5000.00 }
+    "body": {
+      "id": "txn_transfer_789",
+      "status": "completed",
+      "amount": 5000
+    }
   },
   "auth_scopes": [],
-  "rate_limits": { "requests_per_minute": 30 }
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
 }

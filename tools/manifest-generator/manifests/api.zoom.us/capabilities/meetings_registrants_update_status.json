@@ -10,21 +10,29 @@
       "type": "integer",
       "description": "The meeting ID.",
       "required": true,
-      "example": 1234567890
+      "example": 1234567890,
+      "in": "path"
     },
     {
       "name": "action",
       "type": "string",
       "description": "The registration status action: approve, deny, or cancel.",
       "required": true,
-      "example": "approve"
+      "example": "approve",
+      "in": "body"
     },
     {
       "name": "registrants",
       "type": "array",
       "description": "Array of registrant objects with id and email to update.",
       "required": true,
-      "example": [{"id": "reg123", "email": "jane@example.com"}]
+      "example": [
+        {
+          "id": "reg123",
+          "email": "jane@example.com"
+        }
+      ],
+      "in": "body"
     }
   ],
   "request_example": {
@@ -36,14 +44,21 @@
     },
     "body": {
       "action": "approve",
-      "registrants": [{"id": "reg123", "email": "jane@example.com"}]
+      "registrants": [
+        {
+          "id": "reg123",
+          "email": "jane@example.com"
+        }
+      ]
     }
   },
   "response_example": {
     "status": 204,
     "body": {}
   },
-  "auth_scopes": ["meeting:write"],
+  "auth_scopes": [
+    "meeting:write"
+  ],
   "rate_limits": {
     "requests_per_minute": 100
   }

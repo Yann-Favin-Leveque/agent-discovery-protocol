@@ -5,15 +5,52 @@
   "endpoint": "/segments/{projectKey}/{envKey}/{segmentKey}",
   "method": "GET",
   "parameters": [
-    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
-    {"name": "envKey", "type": "string", "description": "The environment key.", "required": true, "example": "production"},
-    {"name": "segmentKey", "type": "string", "description": "The segment key.", "required": true, "example": "beta-users"}
+    {
+      "name": "projectKey",
+      "type": "string",
+      "description": "The project key.",
+      "required": true,
+      "example": "my-project",
+      "in": "path"
+    },
+    {
+      "name": "envKey",
+      "type": "string",
+      "description": "The environment key.",
+      "required": true,
+      "example": "production",
+      "in": "path"
+    },
+    {
+      "name": "segmentKey",
+      "type": "string",
+      "description": "The segment key.",
+      "required": true,
+      "example": "beta-users",
+      "in": "path"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://app.launchdarkly.com/api/v2/segments/my-project/production/beta-users",
-    "headers": {"Authorization": "{api_key}"}
+    "headers": {
+      "Authorization": "{api_key}"
+    }
   },
-  "response_example": {"status": 200, "body": {"key": "beta-users", "name": "Beta Users", "included": ["user1", "user2"], "excluded": [], "rules": []}},
-  "rate_limits": {"requests_per_minute": 120}
+  "response_example": {
+    "status": 200,
+    "body": {
+      "key": "beta-users",
+      "name": "Beta Users",
+      "included": [
+        "user1",
+        "user2"
+      ],
+      "excluded": [],
+      "rules": []
+    }
+  },
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

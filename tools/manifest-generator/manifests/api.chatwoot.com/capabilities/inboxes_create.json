@@ -5,20 +5,59 @@
   "method": "POST",
   "resource_group": "inboxes",
   "parameters": [
-    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
-    {"name": "name", "type": "string", "description": "Inbox name.", "required": true, "example": "Support Chat"},
-    {"name": "channel", "type": "object", "description": "Channel configuration.", "required": true, "example": {"type": "web_widget", "website_url": "https://mysite.com"}}
+    {
+      "name": "account_id",
+      "type": "integer",
+      "description": "Account ID.",
+      "required": true,
+      "example": 1,
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Inbox name.",
+      "required": true,
+      "example": "Support Chat",
+      "in": "body"
+    },
+    {
+      "name": "channel",
+      "type": "object",
+      "description": "Channel configuration.",
+      "required": true,
+      "example": {
+        "type": "web_widget",
+        "website_url": "https://mysite.com"
+      },
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.chatwoot.com/api/v1/accounts/1/inboxes",
-    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
-    "body": {"name": "Support Chat", "channel": {"type": "web_widget", "website_url": "https://mysite.com"}}
+    "headers": {
+      "api_access_token": "{token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Support Chat",
+      "channel": {
+        "type": "web_widget",
+        "website_url": "https://mysite.com"
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"id": 2, "name": "Support Chat", "channel_type": "Channel::WebWidget"}
+    "body": {
+      "id": 2,
+      "name": "Support Chat",
+      "channel_type": "Channel::WebWidget"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 250}
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
 }

@@ -5,17 +5,65 @@
   "endpoint": "/segments/{projectKey}/{envKey}/{segmentKey}",
   "method": "PATCH",
   "parameters": [
-    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
-    {"name": "envKey", "type": "string", "description": "The environment key.", "required": true, "example": "production"},
-    {"name": "segmentKey", "type": "string", "description": "The segment key.", "required": true, "example": "beta-users"},
-    {"name": "patch", "type": "array", "description": "JSON Patch operations.", "required": true}
+    {
+      "name": "projectKey",
+      "type": "string",
+      "description": "The project key.",
+      "required": true,
+      "example": "my-project",
+      "in": "path"
+    },
+    {
+      "name": "envKey",
+      "type": "string",
+      "description": "The environment key.",
+      "required": true,
+      "example": "production",
+      "in": "path"
+    },
+    {
+      "name": "segmentKey",
+      "type": "string",
+      "description": "The segment key.",
+      "required": true,
+      "example": "beta-users",
+      "in": "path"
+    },
+    {
+      "name": "patch",
+      "type": "array",
+      "description": "JSON Patch operations.",
+      "required": true,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PATCH",
     "url": "https://app.launchdarkly.com/api/v2/segments/my-project/production/beta-users",
-    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
-    "body": [{"op": "add", "path": "/included/-", "value": "user3"}]
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "op": "add",
+        "path": "/included/-",
+        "value": "user3"
+      }
+    ]
   },
-  "response_example": {"status": 200, "body": {"key": "beta-users", "included": ["user1", "user2", "user3"]}},
-  "rate_limits": {"requests_per_minute": 120}
+  "response_example": {
+    "status": 200,
+    "body": {
+      "key": "beta-users",
+      "included": [
+        "user1",
+        "user2",
+        "user3"
+      ]
+    }
+  },
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

@@ -5,21 +5,60 @@
   "method": "PUT",
   "resource_group": "contacts",
   "parameters": [
-    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
-    {"name": "contact_id", "type": "integer", "description": "Contact ID.", "required": true, "example": 42},
-    {"name": "name", "type": "string", "description": "Updated name.", "required": false, "example": "John D. Doe"},
-    {"name": "email", "type": "string", "description": "Updated email.", "required": false, "example": "johnd@example.com"}
+    {
+      "name": "account_id",
+      "type": "integer",
+      "description": "Account ID.",
+      "required": true,
+      "example": 1,
+      "in": "path"
+    },
+    {
+      "name": "contact_id",
+      "type": "integer",
+      "description": "Contact ID.",
+      "required": true,
+      "example": 42,
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Updated name.",
+      "required": false,
+      "example": "John D. Doe",
+      "in": "body"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Updated email.",
+      "required": false,
+      "example": "johnd@example.com",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PUT",
     "url": "https://api.chatwoot.com/api/v1/accounts/1/contacts/42",
-    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
-    "body": {"name": "John D. Doe"}
+    "headers": {
+      "api_access_token": "{token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "John D. Doe"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"id": 42, "name": "John D. Doe", "email": "john@example.com"}
+    "body": {
+      "id": 42,
+      "name": "John D. Doe",
+      "email": "john@example.com"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 250}
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
 }

@@ -5,18 +5,70 @@
   "method": "GET",
   "resource_group": "invoices",
   "parameters": [
-    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
-    {"name": "page", "type": "integer", "description": "Page number for pagination.", "required": false, "example": 1},
-    {"name": "per_page", "type": "integer", "description": "Results per page (max 100).", "required": false, "example": 25},
-    {"name": "search[customerid]", "type": "integer", "description": "Filter by client ID.", "required": false, "example": 12345},
-    {"name": "search[status]", "type": "string", "description": "Filter by invoice status (draft, sent, viewed, paid, overdue).", "required": false, "example": "paid"},
-    {"name": "search[date_min]", "type": "string", "description": "Minimum creation date (YYYY-MM-DD).", "required": false, "example": "2024-01-01"},
-    {"name": "search[date_max]", "type": "string", "description": "Maximum creation date (YYYY-MM-DD).", "required": false, "example": "2024-12-31"}
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number for pagination.",
+      "required": false,
+      "example": 1,
+      "in": "query"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page (max 100).",
+      "required": false,
+      "example": 25,
+      "in": "query"
+    },
+    {
+      "name": "search[customerid]",
+      "type": "integer",
+      "description": "Filter by client ID.",
+      "required": false,
+      "example": 12345,
+      "in": "query"
+    },
+    {
+      "name": "search[status]",
+      "type": "string",
+      "description": "Filter by invoice status (draft, sent, viewed, paid, overdue).",
+      "required": false,
+      "example": "paid",
+      "in": "query"
+    },
+    {
+      "name": "search[date_min]",
+      "type": "string",
+      "description": "Minimum creation date (YYYY-MM-DD).",
+      "required": false,
+      "example": "2024-01-01",
+      "in": "query"
+    },
+    {
+      "name": "search[date_max]",
+      "type": "string",
+      "description": "Maximum creation date (YYYY-MM-DD).",
+      "required": false,
+      "example": "2024-12-31",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.freshbooks.com/accounting/account/xB2yw/invoices/invoices?page=1&per_page=25",
-    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha"},
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha"
+    },
     "body": {}
   },
   "response_example": {
@@ -24,12 +76,31 @@
     "body": {
       "response": {
         "result": {
-          "invoices": [{"id": 67890, "invoice_number": "0001", "customerid": 12345, "status": 2, "amount": {"amount": "500.00", "code": "USD"}, "create_date": "2024-06-15"}],
-          "page": 1, "pages": 3, "per_page": 25, "total": 75
+          "invoices": [
+            {
+              "id": 67890,
+              "invoice_number": "0001",
+              "customerid": 12345,
+              "status": 2,
+              "amount": {
+                "amount": "500.00",
+                "code": "USD"
+              },
+              "create_date": "2024-06-15"
+            }
+          ],
+          "page": 1,
+          "pages": 3,
+          "per_page": 25,
+          "total": 75
         }
       }
     }
   },
-  "auth_scopes": ["user:invoices:read"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:invoices:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

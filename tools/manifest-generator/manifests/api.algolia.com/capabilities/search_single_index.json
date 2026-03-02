@@ -10,49 +10,63 @@
       "type": "string",
       "description": "Name of the index to search.",
       "required": true,
-      "example": "products"
+      "example": "products",
+      "in": "path"
     },
     {
       "name": "query",
       "type": "string",
       "description": "The search query text.",
       "required": false,
-      "example": "laptop"
+      "example": "laptop",
+      "in": "body"
     },
     {
       "name": "filters",
       "type": "string",
       "description": "Filter expression to apply (e.g., 'category:electronics AND price < 1000').",
       "required": false,
-      "example": "category:electronics"
+      "example": "category:electronics",
+      "in": "body"
     },
     {
       "name": "facets",
       "type": "array",
       "description": "List of attributes to retrieve facet values for.",
       "required": false,
-      "example": ["category", "brand"]
+      "example": [
+        "category",
+        "brand"
+      ],
+      "in": "body"
     },
     {
       "name": "hitsPerPage",
       "type": "integer",
       "description": "Number of hits per page (default: 20).",
       "required": false,
-      "example": 20
+      "example": 20,
+      "in": "body"
     },
     {
       "name": "page",
       "type": "integer",
       "description": "Page number to retrieve (0-indexed).",
       "required": false,
-      "example": 0
+      "example": 0,
+      "in": "body"
     },
     {
       "name": "attributesToRetrieve",
       "type": "array",
       "description": "List of attributes to include in results.",
       "required": false,
-      "example": ["name", "price", "description"]
+      "example": [
+        "name",
+        "price",
+        "description"
+      ],
+      "in": "body"
     }
   ],
   "request_example": {
@@ -79,7 +93,10 @@
           "name": "MacBook Pro",
           "price": 1999,
           "_highlightResult": {
-            "name": { "value": "<em>Laptop</em> MacBook Pro", "matchLevel": "full" }
+            "name": {
+              "value": "<em>Laptop</em> MacBook Pro",
+              "matchLevel": "full"
+            }
           }
         }
       ],
@@ -90,7 +107,9 @@
       "processingTimeMS": 1
     }
   },
-  "auth_scopes": ["search"],
+  "auth_scopes": [
+    "search"
+  ],
   "rate_limits": {
     "requests_per_minute": 6000
   }

@@ -5,22 +5,65 @@
   "endpoint": "/channels/{channelId}/messages",
   "method": "GET",
   "parameters": [
-    {"name": "channelId", "type": "string", "description": "The channel name to retrieve history for.", "required": true, "example": "my-channel"},
-    {"name": "start", "type": "string", "description": "Start of time range (millisecond epoch or ISO 8601).", "required": false},
-    {"name": "end", "type": "string", "description": "End of time range (millisecond epoch or ISO 8601).", "required": false},
-    {"name": "limit", "type": "integer", "description": "Maximum number of messages to return (default 100, max 1000).", "required": false, "example": 50},
-    {"name": "direction", "type": "string", "description": "Order of results: forwards or backwards (default).", "required": false, "example": "backwards"}
+    {
+      "name": "channelId",
+      "type": "string",
+      "description": "The channel name to retrieve history for.",
+      "required": true,
+      "example": "my-channel",
+      "in": "path"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "description": "Start of time range (millisecond epoch or ISO 8601).",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End of time range (millisecond epoch or ISO 8601).",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of messages to return (default 100, max 1000).",
+      "required": false,
+      "example": 50,
+      "in": "query"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "description": "Order of results: forwards or backwards (default).",
+      "required": false,
+      "example": "backwards",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://rest.ably.io/channels/my-channel/messages?limit=50",
-    "headers": {"Authorization": "Basic {base64_api_key}"}
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
   },
   "response_example": {
     "status": 200,
     "body": [
-      {"id": "msg_001", "name": "greeting", "data": "Hello", "timestamp": 1705312200000, "clientId": "user1"}
+      {
+        "id": "msg_001",
+        "name": "greeting",
+        "data": "Hello",
+        "timestamp": 1705312200000,
+        "clientId": "user1"
+      }
     ]
   },
-  "rate_limits": {"requests_per_minute": 1500}
+  "rate_limits": {
+    "requests_per_minute": 1500
+  }
 }

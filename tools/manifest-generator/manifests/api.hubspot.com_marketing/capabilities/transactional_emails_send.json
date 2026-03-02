@@ -10,28 +10,39 @@
       "type": "integer",
       "description": "The ID of the transactional email template to use.",
       "required": true,
-      "example": 12345678
+      "example": 12345678,
+      "in": "body"
     },
     {
       "name": "message",
       "type": "object",
       "description": "Message details including recipient email and optional from/cc/bcc.",
       "required": true,
-      "example": { "to": "john@example.com" }
+      "example": {
+        "to": "john@example.com"
+      },
+      "in": "body"
     },
     {
       "name": "contactProperties",
       "type": "object",
       "description": "Contact properties for personalization tokens.",
       "required": false,
-      "example": { "firstname": "John", "lastname": "Doe" }
+      "example": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "in": "body"
     },
     {
       "name": "customProperties",
       "type": "object",
       "description": "Custom properties for dynamic content in the template.",
       "required": false,
-      "example": { "order_number": "ORD-12345" }
+      "example": {
+        "order_number": "ORD-12345"
+      },
+      "in": "body"
     }
   ],
   "request_example": {
@@ -43,9 +54,16 @@
     },
     "body": {
       "emailId": 12345678,
-      "message": { "to": "john@example.com" },
-      "contactProperties": { "firstname": "John", "lastname": "Doe" },
-      "customProperties": { "order_number": "ORD-12345" }
+      "message": {
+        "to": "john@example.com"
+      },
+      "contactProperties": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "customProperties": {
+        "order_number": "ORD-12345"
+      }
     }
   },
   "response_example": {
@@ -56,7 +74,9 @@
       "status": "SENT"
     }
   },
-  "auth_scopes": ["transactional-email"],
+  "auth_scopes": [
+    "transactional-email"
+  ],
   "rate_limits": {
     "requests_per_minute": 100
   }

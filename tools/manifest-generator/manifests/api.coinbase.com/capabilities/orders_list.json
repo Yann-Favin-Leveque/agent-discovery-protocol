@@ -5,19 +5,57 @@
   "method": "GET",
   "resource_group": "orders",
   "parameters": [
-    {"name": "product_id", "type": "string", "description": "Filter by trading pair.", "required": false, "example": "BTC-USD"},
-    {"name": "status", "type": "string", "description": "Filter: open, pending, active, all.", "required": false, "example": "open"},
-    {"name": "limit", "type": "integer", "description": "Number of results (max 100).", "required": false, "example": 100}
+    {
+      "name": "product_id",
+      "type": "string",
+      "description": "Filter by trading pair.",
+      "required": false,
+      "example": "BTC-USD",
+      "in": "query"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter: open, pending, active, all.",
+      "required": false,
+      "example": "open",
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Number of results (max 100).",
+      "required": false,
+      "example": 100,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.exchange.coinbase.com/orders?status=open&product_id=BTC-USD",
-    "headers": {"CB-ACCESS-KEY": "{api_key}", "CB-ACCESS-SIGN": "{signature}", "CB-ACCESS-TIMESTAMP": "{timestamp}", "CB-ACCESS-PASSPHRASE": "{passphrase}"}
+    "headers": {
+      "CB-ACCESS-KEY": "{api_key}",
+      "CB-ACCESS-SIGN": "{signature}",
+      "CB-ACCESS-TIMESTAMP": "{timestamp}",
+      "CB-ACCESS-PASSPHRASE": "{passphrase}"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": [{"id": "d0c5340b-6d6c-49d9-b567-48c4bfca13d2", "product_id": "BTC-USD", "side": "buy", "type": "limit", "size": "0.01", "price": "50000.00", "status": "open"}]
+    "body": [
+      {
+        "id": "d0c5340b-6d6c-49d9-b567-48c4bfca13d2",
+        "product_id": "BTC-USD",
+        "side": "buy",
+        "type": "limit",
+        "size": "0.01",
+        "price": "50000.00",
+        "status": "open"
+      }
+    ]
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 600}
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
 }

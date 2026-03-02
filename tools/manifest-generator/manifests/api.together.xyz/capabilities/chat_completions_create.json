@@ -10,7 +10,8 @@
       "type": "string",
       "required": true,
       "description": "The model ID to use for the completion.",
-      "example": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
+      "example": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "in": "body"
     },
     {
       "name": "messages",
@@ -18,101 +19,123 @@
       "required": true,
       "description": "A list of messages comprising the conversation so far. Each message has a 'role' (system, user, assistant) and 'content' (string).",
       "example": [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "What is the capital of France?"}
-      ]
+        {
+          "role": "system",
+          "content": "You are a helpful assistant."
+        },
+        {
+          "role": "user",
+          "content": "What is the capital of France?"
+        }
+      ],
+      "in": "body"
     },
     {
       "name": "max_tokens",
       "type": "integer",
       "required": false,
-      "description": "Maximum number of tokens to generate in the completion."
+      "description": "Maximum number of tokens to generate in the completion.",
+      "in": "body"
     },
     {
       "name": "temperature",
       "type": "number",
       "required": false,
       "description": "Sampling temperature between 0 and 1. Lower values favor correctness.",
-      "example": 0.7
+      "example": 0.7,
+      "in": "body"
     },
     {
       "name": "top_p",
       "type": "number",
       "required": false,
       "description": "Nucleus sampling parameter. Only tokens with cumulative probability up to top_p are considered.",
-      "example": 0.9
+      "example": 0.9,
+      "in": "body"
     },
     {
       "name": "top_k",
       "type": "integer",
       "required": false,
-      "description": "Maximum number of tokens to consider at each generation step."
+      "description": "Maximum number of tokens to consider at each generation step.",
+      "in": "body"
     },
     {
       "name": "stream",
       "type": "boolean",
       "required": false,
-      "description": "If true, partial message deltas are sent as server-sent events."
+      "description": "If true, partial message deltas are sent as server-sent events.",
+      "in": "body"
     },
     {
       "name": "stop",
       "type": "array",
       "required": false,
-      "description": "Up to 4 sequences where the API will stop generating further tokens."
+      "description": "Up to 4 sequences where the API will stop generating further tokens.",
+      "in": "body"
     },
     {
       "name": "n",
       "type": "integer",
       "required": false,
-      "description": "Number of completions to generate (1-128)."
+      "description": "Number of completions to generate (1-128).",
+      "in": "body"
     },
     {
       "name": "repetition_penalty",
       "type": "number",
       "required": false,
-      "description": "Controls diversity by penalizing repeated sequences."
+      "description": "Controls diversity by penalizing repeated sequences.",
+      "in": "body"
     },
     {
       "name": "logprobs",
       "type": "integer",
       "required": false,
-      "description": "Return log probabilities for top k tokens (0-20)."
+      "description": "Return log probabilities for top k tokens (0-20).",
+      "in": "body"
     },
     {
       "name": "seed",
       "type": "integer",
       "required": false,
-      "description": "Seed value for reproducible generations."
+      "description": "Seed value for reproducible generations.",
+      "in": "body"
     },
     {
       "name": "response_format",
       "type": "object",
       "required": false,
-      "description": "Specifies output format. Supports 'text', 'json_object', or 'json_schema'."
+      "description": "Specifies output format. Supports 'text', 'json_object', or 'json_schema'.",
+      "in": "body"
     },
     {
       "name": "tools",
       "type": "array",
       "required": false,
-      "description": "List of functions the model may call during generation."
+      "description": "List of functions the model may call during generation.",
+      "in": "body"
     },
     {
       "name": "tool_choice",
       "type": "string",
       "required": false,
-      "description": "Controls which function is called. Options: 'auto', 'none', or a specific function name."
+      "description": "Controls which function is called. Options: 'auto', 'none', or a specific function name.",
+      "in": "body"
     },
     {
       "name": "safety_model",
       "type": "string",
       "required": false,
-      "description": "Moderation model for token validation."
+      "description": "Moderation model for token validation.",
+      "in": "body"
     },
     {
       "name": "reasoning_effort",
       "type": "string",
       "required": false,
-      "description": "Reasoning level for supported models: 'low', 'medium', or 'high'."
+      "description": "Reasoning level for supported models: 'low', 'medium', or 'high'.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -125,8 +148,14 @@
     "body": {
       "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
       "messages": [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "What are some fun things to do in New York?"}
+        {
+          "role": "system",
+          "content": "You are a helpful assistant."
+        },
+        {
+          "role": "user",
+          "content": "What are some fun things to do in New York?"
+        }
       ],
       "max_tokens": 512,
       "temperature": 0.7

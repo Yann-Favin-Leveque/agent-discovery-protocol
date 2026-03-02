@@ -9,43 +9,50 @@
       "name": "room_name",
       "type": "string",
       "required": true,
-      "description": "Name of the room to record."
+      "description": "Name of the room to record.",
+      "in": "body"
     },
     {
       "name": "layout",
       "type": "string",
       "required": false,
-      "description": "Layout template for the composite (e.g., 'grid', 'speaker')."
+      "description": "Layout template for the composite (e.g., 'grid', 'speaker').",
+      "in": "body"
     },
     {
       "name": "audio_only",
       "type": "boolean",
       "required": false,
-      "description": "Record only audio."
+      "description": "Record only audio.",
+      "in": "body"
     },
     {
       "name": "video_only",
       "type": "boolean",
       "required": false,
-      "description": "Record only video."
+      "description": "Record only video.",
+      "in": "body"
     },
     {
       "name": "file_outputs",
       "type": "array",
       "required": false,
-      "description": "Array of file output configurations with filepath and S3/GCS/Azure storage settings."
+      "description": "Array of file output configurations with filepath and S3/GCS/Azure storage settings.",
+      "in": "body"
     },
     {
       "name": "stream_outputs",
       "type": "array",
       "required": false,
-      "description": "Array of RTMP stream output configurations with URLs."
+      "description": "Array of RTMP stream output configurations with URLs.",
+      "in": "body"
     },
     {
       "name": "segment_outputs",
       "type": "array",
       "required": false,
-      "description": "Array of HLS segment output configurations."
+      "description": "Array of HLS segment output configurations.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -58,7 +65,15 @@
     "body": {
       "room_name": "interview-room-42",
       "layout": "grid",
-      "file_outputs": [{ "filepath": "recordings/interview-42.mp4", "s3": { "bucket": "my-recordings", "region": "us-east-1" } }]
+      "file_outputs": [
+        {
+          "filepath": "recordings/interview-42.mp4",
+          "s3": {
+            "bucket": "my-recordings",
+            "region": "us-east-1"
+          }
+        }
+      ]
     }
   },
   "response_example": {
@@ -70,7 +85,9 @@
       "started_at": 1705313800
     }
   },
-  "auth_scopes": ["roomRecord"],
+  "auth_scopes": [
+    "roomRecord"
+  ],
   "rate_limits": {
     "requests_per_minute": 60
   }

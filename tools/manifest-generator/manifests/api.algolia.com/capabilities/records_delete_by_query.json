@@ -10,14 +10,16 @@
       "type": "string",
       "description": "Name of the index.",
       "required": true,
-      "example": "products"
+      "example": "products",
+      "in": "path"
     },
     {
       "name": "filters",
       "type": "string",
       "description": "Filter expression to select records for deletion.",
       "required": true,
-      "example": "category:discontinued"
+      "example": "category:discontinued",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -28,7 +30,9 @@
       "x-algolia-api-key": "{API_KEY}",
       "Content-Type": "application/json"
     },
-    "body": { "filters": "category:discontinued" }
+    "body": {
+      "filters": "category:discontinued"
+    }
   },
   "response_example": {
     "status": 200,
@@ -37,7 +41,9 @@
       "taskID": 685
     }
   },
-  "auth_scopes": ["deleteObject"],
+  "auth_scopes": [
+    "deleteObject"
+  ],
   "rate_limits": {
     "requests_per_minute": 6000
   }

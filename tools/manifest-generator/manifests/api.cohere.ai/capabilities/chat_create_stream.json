@@ -5,17 +5,59 @@
   "endpoint": "/v2/chat",
   "method": "POST",
   "parameters": [
-    {"name": "model", "type": "string", "required": true, "description": "Model identifier."},
-    {"name": "messages", "type": "array", "required": true, "description": "Chat message history."},
-    {"name": "stream", "type": "boolean", "required": true, "description": "Must be set to true for streaming."},
-    {"name": "max_tokens", "type": "integer", "required": false, "description": "Maximum output tokens."},
-    {"name": "temperature", "type": "number", "required": false, "description": "Randomness degree (default 0.3)."}
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Model identifier.",
+      "in": "body"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Chat message history.",
+      "in": "body"
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "required": true,
+      "description": "Must be set to true for streaming.",
+      "in": "body"
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum output tokens.",
+      "in": "body"
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "Randomness degree (default 0.3).",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.cohere.com/v2/chat",
-    "headers": {"Authorization": "Bearer co-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"model": "command-a-03-2025", "stream": true, "messages": [{"role": "user", "content": "Tell me a short story."}]}
+    "headers": {
+      "Authorization": "Bearer co-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "command-a-03-2025",
+      "stream": true,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Tell me a short story."
+        }
+      ]
+    }
   },
   "response_example": {
     "status": 200,

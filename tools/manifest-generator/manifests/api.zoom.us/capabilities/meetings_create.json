@@ -10,63 +10,76 @@
       "type": "string",
       "description": "The user ID or email address. Use 'me' for the authenticated user.",
       "required": true,
-      "example": "me"
+      "example": "me",
+      "in": "path"
     },
     {
       "name": "topic",
       "type": "string",
       "description": "Meeting topic or name.",
       "required": false,
-      "example": "Weekly Team Sync"
+      "example": "Weekly Team Sync",
+      "in": "body"
     },
     {
       "name": "type",
       "type": "integer",
       "description": "Meeting type: 1 (instant), 2 (scheduled), 3 (recurring no fixed time), 8 (recurring fixed time).",
       "required": false,
-      "example": 2
+      "example": 2,
+      "in": "body"
     },
     {
       "name": "start_time",
       "type": "string",
       "description": "Meeting start time in ISO 8601 format (yyyy-MM-ddTHH:mm:ssZ). Required for scheduled meetings.",
       "required": false,
-      "example": "2024-01-15T10:00:00Z"
+      "example": "2024-01-15T10:00:00Z",
+      "in": "body"
     },
     {
       "name": "duration",
       "type": "integer",
       "description": "Meeting duration in minutes.",
       "required": false,
-      "example": 60
+      "example": 60,
+      "in": "body"
     },
     {
       "name": "timezone",
       "type": "string",
       "description": "Timezone for the meeting start time (e.g., America/New_York).",
       "required": false,
-      "example": "America/New_York"
+      "example": "America/New_York",
+      "in": "body"
     },
     {
       "name": "password",
       "type": "string",
       "description": "Password to join the meeting (max 10 characters).",
       "required": false,
-      "example": "abc123"
+      "example": "abc123",
+      "in": "body"
     },
     {
       "name": "agenda",
       "type": "string",
       "description": "Meeting description or agenda.",
       "required": false,
-      "example": "Discuss Q1 goals"
+      "example": "Discuss Q1 goals",
+      "in": "body"
     },
     {
       "name": "settings",
       "type": "object",
       "description": "Meeting settings object including waiting_room, join_before_host, mute_upon_entry, auto_recording, etc.",
       "required": false,
-      "example": {"waiting_room": true, "join_before_host": false, "mute_upon_entry": true}
+      "example": {
+        "waiting_room": true,
+        "join_before_host": false,
+        "mute_upon_entry": true
+      },
+      "in": "body"
     }
   ],
   "request_example": {
@@ -107,7 +120,9 @@
       "start_url": "https://zoom.us/s/1234567890?zak=..."
     }
   },
-  "auth_scopes": ["meeting:write"],
+  "auth_scopes": [
+    "meeting:write"
+  ],
   "rate_limits": {
     "requests_per_minute": 100
   }

@@ -5,20 +5,57 @@
   "method": "POST",
   "resource_group": "transfers",
   "parameters": [
-    {"name": "amount", "type": "string", "description": "Amount to withdraw.", "required": true, "example": "0.5"},
-    {"name": "currency", "type": "string", "description": "Currency code.", "required": true, "example": "BTC"},
-    {"name": "coinbase_account_id", "type": "string", "description": "Destination Coinbase account UUID.", "required": true, "example": "c1b2a3d4-e5f6-7890-abcd-ef1234567890"}
+    {
+      "name": "amount",
+      "type": "string",
+      "description": "Amount to withdraw.",
+      "required": true,
+      "example": "0.5",
+      "in": "body"
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "description": "Currency code.",
+      "required": true,
+      "example": "BTC",
+      "in": "body"
+    },
+    {
+      "name": "coinbase_account_id",
+      "type": "string",
+      "description": "Destination Coinbase account UUID.",
+      "required": true,
+      "example": "c1b2a3d4-e5f6-7890-abcd-ef1234567890",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.exchange.coinbase.com/withdrawals/coinbase-account",
-    "headers": {"CB-ACCESS-KEY": "{api_key}", "CB-ACCESS-SIGN": "{signature}", "CB-ACCESS-TIMESTAMP": "{timestamp}", "CB-ACCESS-PASSPHRASE": "{passphrase}", "Content-Type": "application/json"},
-    "body": {"amount": "0.5", "currency": "BTC", "coinbase_account_id": "c1b2a3d4-e5f6-7890-abcd-ef1234567890"}
+    "headers": {
+      "CB-ACCESS-KEY": "{api_key}",
+      "CB-ACCESS-SIGN": "{signature}",
+      "CB-ACCESS-TIMESTAMP": "{timestamp}",
+      "CB-ACCESS-PASSPHRASE": "{passphrase}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "amount": "0.5",
+      "currency": "BTC",
+      "coinbase_account_id": "c1b2a3d4-e5f6-7890-abcd-ef1234567890"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"id": "a1b2c3d4-e5f6-7890-1234-567890abcdef", "amount": "0.50000000", "currency": "BTC"}
+    "body": {
+      "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "amount": "0.50000000",
+      "currency": "BTC"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 600}
+  "rate_limits": {
+    "requests_per_minute": 600
+  }
 }

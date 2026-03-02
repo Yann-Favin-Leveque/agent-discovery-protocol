@@ -5,24 +5,109 @@
   "endpoint": "/v1/chat/completions",
   "method": "POST",
   "parameters": [
-    {"name": "model", "type": "string", "required": true, "description": "Model ID (e.g. 'Qwen/Qwen2.5-72B-Instruct', 'meta-llama/Llama-3.3-70B-Instruct')."},
-    {"name": "messages", "type": "array", "required": true, "description": "Array of message objects with 'role' and 'content'."},
-    {"name": "max_tokens", "type": "integer", "required": false, "description": "Maximum number of tokens to generate."},
-    {"name": "temperature", "type": "number", "required": false, "description": "Sampling temperature (0-2)."},
-    {"name": "top_p", "type": "number", "required": false, "description": "Nucleus sampling parameter."},
-    {"name": "stream", "type": "boolean", "required": false, "description": "Enable streaming via SSE."},
-    {"name": "tools", "type": "array", "required": false, "description": "Tool/function definitions for the model."},
-    {"name": "response_format", "type": "object", "required": false, "description": "Output format: json_object or json_schema."},
-    {"name": "stop", "type": "array", "required": false, "description": "Up to 4 stop sequences."},
-    {"name": "frequency_penalty", "type": "number", "required": false, "description": "Frequency penalty (-2.0 to 2.0)."},
-    {"name": "presence_penalty", "type": "number", "required": false, "description": "Presence penalty (-2.0 to 2.0)."},
-    {"name": "seed", "type": "integer", "required": false, "description": "Deterministic sampling seed."}
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Model ID (e.g. 'Qwen/Qwen2.5-72B-Instruct', 'meta-llama/Llama-3.3-70B-Instruct').",
+      "in": "body"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Array of message objects with 'role' and 'content'.",
+      "in": "body"
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum number of tokens to generate.",
+      "in": "body"
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "Sampling temperature (0-2).",
+      "in": "body"
+    },
+    {
+      "name": "top_p",
+      "type": "number",
+      "required": false,
+      "description": "Nucleus sampling parameter.",
+      "in": "body"
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable streaming via SSE.",
+      "in": "body"
+    },
+    {
+      "name": "tools",
+      "type": "array",
+      "required": false,
+      "description": "Tool/function definitions for the model.",
+      "in": "body"
+    },
+    {
+      "name": "response_format",
+      "type": "object",
+      "required": false,
+      "description": "Output format: json_object or json_schema.",
+      "in": "body"
+    },
+    {
+      "name": "stop",
+      "type": "array",
+      "required": false,
+      "description": "Up to 4 stop sequences.",
+      "in": "body"
+    },
+    {
+      "name": "frequency_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Frequency penalty (-2.0 to 2.0).",
+      "in": "body"
+    },
+    {
+      "name": "presence_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Presence penalty (-2.0 to 2.0).",
+      "in": "body"
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Deterministic sampling seed.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://router.huggingface.co/v1/chat/completions",
-    "headers": {"Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"model": "Qwen/Qwen2.5-72B-Instruct", "messages": [{"role": "user", "content": "Explain transformers in ML."}], "max_tokens": 500, "temperature": 0.7}
+    "headers": {
+      "Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "Qwen/Qwen2.5-72B-Instruct",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain transformers in ML."
+        }
+      ],
+      "max_tokens": 500,
+      "temperature": 0.7
+    }
   },
   "response_example": {
     "status": 200,
@@ -31,8 +116,21 @@
       "object": "chat.completion",
       "created": 1709164800,
       "model": "Qwen/Qwen2.5-72B-Instruct",
-      "choices": [{"index": 0, "message": {"role": "assistant", "content": "Transformers are a neural network architecture..."}, "finish_reason": "stop"}],
-      "usage": {"prompt_tokens": 12, "completion_tokens": 150, "total_tokens": 162}
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Transformers are a neural network architecture..."
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 12,
+        "completion_tokens": 150,
+        "total_tokens": 162
+      }
     }
   }
 }

@@ -5,12 +5,53 @@
   "endpoint": "/activities",
   "method": "POST",
   "parameters": [
-    {"name": "type", "type": "object", "required": true, "description": "Activity type with id and category"},
-    {"name": "details", "type": "string", "required": false, "description": "Activity details/body text"},
-    {"name": "parent", "type": "object", "required": true, "description": "Parent record (type and id)"},
-    {"name": "activity_date", "type": "integer", "required": false, "description": "Activity date as Unix timestamp"}
+    {
+      "name": "type",
+      "type": "object",
+      "required": true,
+      "description": "Activity type with id and category",
+      "in": "body"
+    },
+    {
+      "name": "details",
+      "type": "string",
+      "required": false,
+      "description": "Activity details/body text",
+      "in": "body"
+    },
+    {
+      "name": "parent",
+      "type": "object",
+      "required": true,
+      "description": "Parent record (type and id)",
+      "in": "body"
+    },
+    {
+      "name": "activity_date",
+      "type": "integer",
+      "required": false,
+      "description": "Activity date as Unix timestamp",
+      "in": "body"
+    }
   ],
-  "request_example": {"type": {"id": 0, "category": "user"}, "details": "Follow-up call", "parent": {"type": "person", "id": 12345}},
-  "response_example": {"id": 1, "type": {"id": 0, "name": "Note"}, "date_created": 1609459200},
+  "request_example": {
+    "type": {
+      "id": 0,
+      "category": "user"
+    },
+    "details": "Follow-up call",
+    "parent": {
+      "type": "person",
+      "id": 12345
+    }
+  },
+  "response_example": {
+    "id": 1,
+    "type": {
+      "id": 0,
+      "name": "Note"
+    },
+    "date_created": 1609459200
+  },
   "auth_scopes": []
 }

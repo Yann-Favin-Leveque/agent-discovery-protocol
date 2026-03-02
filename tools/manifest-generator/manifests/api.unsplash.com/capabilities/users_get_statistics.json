@@ -5,21 +5,63 @@
   "endpoint": "/users/{username}/statistics",
   "method": "GET",
   "parameters": [
-    { "name": "username", "type": "string", "required": true, "description": "The user's username." },
-    { "name": "resolution", "type": "string", "required": false, "description": "Frequency: 'days'. Default: 'days'." },
-    { "name": "quantity", "type": "integer", "required": false, "description": "Number of data points. Default: 30. Range: 1-30." }
+    {
+      "name": "username",
+      "type": "string",
+      "required": true,
+      "description": "The user's username.",
+      "in": "path"
+    },
+    {
+      "name": "resolution",
+      "type": "string",
+      "required": false,
+      "description": "Frequency: 'days'. Default: 'days'.",
+      "in": "query"
+    },
+    {
+      "name": "quantity",
+      "type": "integer",
+      "required": false,
+      "description": "Number of data points. Default: 30. Range: 1-30.",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.unsplash.com/users/danielmirlea/statistics?quantity=7",
-    "headers": { "Authorization": "Client-ID YOUR_ACCESS_KEY" }
+    "headers": {
+      "Authorization": "Client-ID YOUR_ACCESS_KEY"
+    }
   },
   "response_example": {
     "status": 200,
     "body": {
       "username": "danielmirlea",
-      "downloads": { "total": 145000, "historical": { "change": 3200, "values": [{"date": "2024-08-14", "value": 450}] } },
-      "views": { "total": 2340000, "historical": { "change": 52000, "values": [{"date": "2024-08-14", "value": 7400}] } }
+      "downloads": {
+        "total": 145000,
+        "historical": {
+          "change": 3200,
+          "values": [
+            {
+              "date": "2024-08-14",
+              "value": 450
+            }
+          ]
+        }
+      },
+      "views": {
+        "total": 2340000,
+        "historical": {
+          "change": 52000,
+          "values": [
+            {
+              "date": "2024-08-14",
+              "value": 7400
+            }
+          ]
+        }
+      }
     }
   }
 }

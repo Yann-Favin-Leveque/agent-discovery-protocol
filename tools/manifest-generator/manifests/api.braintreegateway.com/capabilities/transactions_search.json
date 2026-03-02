@@ -5,21 +5,81 @@
   "method": "POST",
   "resource_group": "transactions",
   "parameters": [
-    {"name": "status", "type": "string", "description": "Filter by status (AUTHORIZED, SUBMITTED_FOR_SETTLEMENT, SETTLED, etc.).", "required": false, "example": "SETTLED"},
-    {"name": "amount", "type": "object", "description": "Amount range filter with min/max.", "required": false, "example": {"min": "10.00", "max": "100.00"}},
-    {"name": "createdAt", "type": "object", "description": "Created date range filter.", "required": false, "example": {"after": "2024-01-01"}},
-    {"name": "first", "type": "integer", "description": "Number of results to return.", "required": false, "example": 20}
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by status (AUTHORIZED, SUBMITTED_FOR_SETTLEMENT, SETTLED, etc.).",
+      "required": false,
+      "example": "SETTLED",
+      "in": "body"
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Amount range filter with min/max.",
+      "required": false,
+      "example": {
+        "min": "10.00",
+        "max": "100.00"
+      },
+      "in": "body"
+    },
+    {
+      "name": "createdAt",
+      "type": "object",
+      "description": "Created date range filter.",
+      "required": false,
+      "example": {
+        "after": "2024-01-01"
+      },
+      "in": "body"
+    },
+    {
+      "name": "first",
+      "type": "integer",
+      "description": "Number of results to return.",
+      "required": false,
+      "example": 20,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://payments.braintree-api.com/graphql",
-    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
-    "body": {"query": "query SearchTransactions { search { transactions(input: { status: { is: SETTLED } }) { edges { node { id status amount { value } createdAt } } } } }"}
+    "headers": {
+      "Authorization": "Basic {base64(public_key:private_key)}",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-08-01"
+    },
+    "body": {
+      "query": "query SearchTransactions { search { transactions(input: { status: { is: SETTLED } }) { edges { node { id status amount { value } createdAt } } } } }"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"data": {"search": {"transactions": {"edges": [{"node": {"id": "dHJhbnNhY3Rpb25fOHg2NjRi", "status": "SETTLED", "amount": {"value": "49.99"}, "createdAt": "2024-06-15T10:00:00Z"}}]}}}}
+    "body": {
+      "data": {
+        "search": {
+          "transactions": {
+            "edges": [
+              {
+                "node": {
+                  "id": "dHJhbnNhY3Rpb25fOHg2NjRi",
+                  "status": "SETTLED",
+                  "amount": {
+                    "value": "49.99"
+                  },
+                  "createdAt": "2024-06-15T10:00:00Z"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

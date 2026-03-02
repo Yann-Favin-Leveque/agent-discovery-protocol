@@ -5,27 +5,97 @@
   "method": "GET",
   "resource_group": "tickets",
   "parameters": [
-    {"name": "filter", "type": "string", "description": "Predefined filter (new_and_my_open, watching, spam, deleted).", "required": false, "example": "new_and_my_open"},
-    {"name": "requester_id", "type": "integer", "description": "Filter by requester ID.", "required": false, "example": 12345},
-    {"name": "email", "type": "string", "description": "Filter by requester email.", "required": false, "example": "john@example.com"},
-    {"name": "updated_since", "type": "string", "description": "Return tickets updated after this date (ISO 8601).", "required": false, "example": "2024-01-01T00:00:00Z"},
-    {"name": "order_by", "type": "string", "description": "Sort field (created_at, due_by, updated_at).", "required": false, "example": "created_at"},
-    {"name": "order_type", "type": "string", "description": "Sort direction (asc, desc).", "required": false, "example": "desc"},
-    {"name": "per_page", "type": "integer", "description": "Results per page (max 100).", "required": false, "example": 30},
-    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 1}
+    {
+      "name": "filter",
+      "type": "string",
+      "description": "Predefined filter (new_and_my_open, watching, spam, deleted).",
+      "required": false,
+      "example": "new_and_my_open",
+      "in": "query"
+    },
+    {
+      "name": "requester_id",
+      "type": "integer",
+      "description": "Filter by requester ID.",
+      "required": false,
+      "example": 12345,
+      "in": "query"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "description": "Filter by requester email.",
+      "required": false,
+      "example": "john@example.com",
+      "in": "query"
+    },
+    {
+      "name": "updated_since",
+      "type": "string",
+      "description": "Return tickets updated after this date (ISO 8601).",
+      "required": false,
+      "example": "2024-01-01T00:00:00Z",
+      "in": "query"
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "description": "Sort field (created_at, due_by, updated_at).",
+      "required": false,
+      "example": "created_at",
+      "in": "query"
+    },
+    {
+      "name": "order_type",
+      "type": "string",
+      "description": "Sort direction (asc, desc).",
+      "required": false,
+      "example": "desc",
+      "in": "query"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page (max 100).",
+      "required": false,
+      "example": 30,
+      "in": "query"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 1,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://yourdomain.freshdesk.com/api/v2/tickets?per_page=30&page=1",
-    "headers": {"Authorization": "Basic base64(api_key:X)"},
+    "headers": {
+      "Authorization": "Basic base64(api_key:X)"
+    },
     "body": {}
   },
   "response_example": {
     "status": 200,
     "body": [
-      {"id": 1, "subject": "Login issue", "description_text": "Cannot log into my account", "status": 2, "priority": 2, "requester_id": 12345, "responder_id": 67890, "created_at": "2024-09-01T10:00:00Z", "updated_at": "2024-09-01T12:00:00Z"}
+      {
+        "id": 1,
+        "subject": "Login issue",
+        "description_text": "Cannot log into my account",
+        "status": 2,
+        "priority": 2,
+        "requester_id": 12345,
+        "responder_id": 67890,
+        "created_at": "2024-09-01T10:00:00Z",
+        "updated_at": "2024-09-01T12:00:00Z"
+      }
     ]
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 80}
+  "rate_limits": {
+    "requests_per_minute": 80
+  }
 }

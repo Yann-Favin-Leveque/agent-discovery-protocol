@@ -5,21 +5,67 @@
   "method": "POST",
   "resource_group": "organizations",
   "parameters": [
-    {"name": "name", "type": "string", "description": "Organization identifier (lowercase, no spaces).", "required": true, "example": "acme-corp"},
-    {"name": "display_name", "type": "string", "description": "Display name.", "required": false, "example": "Acme Corporation"},
-    {"name": "branding", "type": "object", "description": "Branding settings (logo_url, colors).", "required": false, "example": {"logo_url": "https://acme.com/logo.png"}},
-    {"name": "metadata", "type": "object", "description": "Custom metadata.", "required": false, "example": {"plan": "enterprise"}}
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Organization identifier (lowercase, no spaces).",
+      "required": true,
+      "example": "acme-corp",
+      "in": "body"
+    },
+    {
+      "name": "display_name",
+      "type": "string",
+      "description": "Display name.",
+      "required": false,
+      "example": "Acme Corporation",
+      "in": "body"
+    },
+    {
+      "name": "branding",
+      "type": "object",
+      "description": "Branding settings (logo_url, colors).",
+      "required": false,
+      "example": {
+        "logo_url": "https://acme.com/logo.png"
+      },
+      "in": "body"
+    },
+    {
+      "name": "metadata",
+      "type": "object",
+      "description": "Custom metadata.",
+      "required": false,
+      "example": {
+        "plan": "enterprise"
+      },
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://YOUR_DOMAIN.auth0.com/api/v2/organizations",
-    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
-    "body": {"name": "acme-corp", "display_name": "Acme Corporation"}
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "acme-corp",
+      "display_name": "Acme Corporation"
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"id": "org_xyz789", "name": "acme-corp", "display_name": "Acme Corporation"}
+    "body": {
+      "id": "org_xyz789",
+      "name": "acme-corp",
+      "display_name": "Acme Corporation"
+    }
   },
-  "auth_scopes": ["create:organizations"],
-  "rate_limits": {"requests_per_minute": 50}
+  "auth_scopes": [
+    "create:organizations"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 50
+  }
 }

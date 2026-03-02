@@ -9,73 +9,85 @@
       "name": "calendar_id",
       "type": "string",
       "required": true,
-      "description": "The calendar ID to create the event in (path parameter)."
+      "description": "The calendar ID to create the event in (path parameter).",
+      "in": "path"
     },
     {
       "name": "event_id",
       "type": "string",
       "required": true,
-      "description": "Unique event identifier for idempotent upsert."
+      "description": "Unique event identifier for idempotent upsert.",
+      "in": "body"
     },
     {
       "name": "summary",
       "type": "string",
       "required": true,
-      "description": "Event title/summary (max 1024 characters)."
+      "description": "Event title/summary (max 1024 characters).",
+      "in": "body"
     },
     {
       "name": "start",
       "type": "string",
       "required": true,
-      "description": "Event start time in ISO 8601 format or date string."
+      "description": "Event start time in ISO 8601 format or date string.",
+      "in": "body"
     },
     {
       "name": "end",
       "type": "string",
       "required": true,
-      "description": "Event end time in ISO 8601 format. Must be after start."
+      "description": "Event end time in ISO 8601 format. Must be after start.",
+      "in": "body"
     },
     {
       "name": "description",
       "type": "string",
       "required": false,
-      "description": "Event description (max 4096 characters)."
+      "description": "Event description (max 4096 characters).",
+      "in": "body"
     },
     {
       "name": "tzid",
       "type": "string",
       "required": false,
-      "description": "IANA timezone for the event."
+      "description": "IANA timezone for the event.",
+      "in": "body"
     },
     {
       "name": "location",
       "type": "object",
       "required": false,
-      "description": "Location with 'description', 'lat', and 'long' fields."
+      "description": "Location with 'description', 'lat', and 'long' fields.",
+      "in": "body"
     },
     {
       "name": "transparency",
       "type": "string",
       "required": false,
-      "description": "Whether the event blocks time: 'opaque' (busy) or 'transparent' (free)."
+      "description": "Whether the event blocks time: 'opaque' (busy) or 'transparent' (free).",
+      "in": "body"
     },
     {
       "name": "color",
       "type": "string",
       "required": false,
-      "description": "Hex color code for the event."
+      "description": "Hex color code for the event.",
+      "in": "body"
     },
     {
       "name": "attendees",
       "type": "object",
       "required": false,
-      "description": "Object with 'invite' and 'remove' arrays of email addresses."
+      "description": "Object with 'invite' and 'remove' arrays of email addresses.",
+      "in": "body"
     },
     {
       "name": "reminders",
       "type": "array",
       "required": false,
-      "description": "Array of reminder objects with 'minutes' before the event (max 5)."
+      "description": "Array of reminder objects with 'minutes' before the event (max 5).",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -92,16 +104,24 @@
       "start": "2024-01-20T14:00:00Z",
       "end": "2024-01-20T14:30:00Z",
       "tzid": "America/New_York",
-      "location": { "description": "Zoom Meeting" },
+      "location": {
+        "description": "Zoom Meeting"
+      },
       "transparency": "opaque",
-      "reminders": [{ "minutes": 15 }]
+      "reminders": [
+        {
+          "minutes": 15
+        }
+      ]
     }
   },
   "response_example": {
     "status": 202,
     "body": {}
   },
-  "auth_scopes": ["create_event"],
+  "auth_scopes": [
+    "create_event"
+  ],
   "rate_limits": {
     "requests_per_minute": 120
   }

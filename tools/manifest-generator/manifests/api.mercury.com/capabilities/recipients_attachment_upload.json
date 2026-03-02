@@ -5,19 +5,44 @@
   "method": "POST",
   "resource_group": "recipients",
   "parameters": [
-    { "name": "recipientId", "type": "string", "description": "The recipient ID", "required": true, "example": "rcp_456def" },
-    { "name": "file", "type": "file", "description": "The file to upload", "required": true, "example": "w9.pdf" }
+    {
+      "name": "recipientId",
+      "type": "string",
+      "description": "The recipient ID",
+      "required": true,
+      "example": "rcp_456def",
+      "in": "path"
+    },
+    {
+      "name": "file",
+      "type": "file",
+      "description": "The file to upload",
+      "required": true,
+      "example": "w9.pdf",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.mercury.com/api/v1/recipient/rcp_456def/attachment",
-    "headers": { "Authorization": "Bearer {token}", "Content-Type": "multipart/form-data" },
-    "body": { "file": "<binary>" }
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "multipart/form-data"
+    },
+    "body": {
+      "file": "<binary>"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": { "id": "att_002", "recipientId": "rcp_456def", "fileName": "w9.pdf" }
+    "body": {
+      "id": "att_002",
+      "recipientId": "rcp_456def",
+      "fileName": "w9.pdf"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": { "requests_per_minute": 30 }
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
 }

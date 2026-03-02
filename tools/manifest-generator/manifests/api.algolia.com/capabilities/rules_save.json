@@ -10,35 +10,52 @@
       "type": "string",
       "description": "Name of the index.",
       "required": true,
-      "example": "products"
+      "example": "products",
+      "in": "path"
     },
     {
       "name": "objectID",
       "type": "string",
       "description": "Unique ID for the rule.",
       "required": true,
-      "example": "rule-promote-sale"
+      "example": "rule-promote-sale",
+      "in": "path"
     },
     {
       "name": "forwardToReplicas",
       "type": "boolean",
       "description": "Whether to forward to replica indices.",
       "required": false,
-      "example": true
+      "example": true,
+      "in": "body"
     },
     {
       "name": "conditions",
       "type": "array",
       "description": "Array of condition objects defining when the rule triggers.",
       "required": true,
-      "example": [{ "anchoring": "contains", "pattern": "sale" }]
+      "example": [
+        {
+          "anchoring": "contains",
+          "pattern": "sale"
+        }
+      ],
+      "in": "body"
     },
     {
       "name": "consequence",
       "type": "object",
       "description": "The consequence applied when the rule triggers (promote, filter, hide, userData).",
       "required": true,
-      "example": { "promote": [{ "objectID": "promo-1", "position": 0 }] }
+      "example": {
+        "promote": [
+          {
+            "objectID": "promo-1",
+            "position": 0
+          }
+        ]
+      },
+      "in": "body"
     }
   ],
   "request_example": {
@@ -51,9 +68,19 @@
     },
     "body": {
       "objectID": "rule-promote-sale",
-      "conditions": [{ "anchoring": "contains", "pattern": "sale" }],
+      "conditions": [
+        {
+          "anchoring": "contains",
+          "pattern": "sale"
+        }
+      ],
       "consequence": {
-        "promote": [{ "objectID": "promo-1", "position": 0 }]
+        "promote": [
+          {
+            "objectID": "promo-1",
+            "position": 0
+          }
+        ]
       }
     }
   },
@@ -64,7 +91,9 @@
       "taskID": 693
     }
   },
-  "auth_scopes": ["editSettings"],
+  "auth_scopes": [
+    "editSettings"
+  ],
   "rate_limits": {
     "requests_per_minute": 600
   }

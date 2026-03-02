@@ -5,17 +5,54 @@
   "endpoint": "/v2beta/stable-image/upscale/creative",
   "method": "POST",
   "parameters": [
-    {"name": "image", "type": "file", "required": true, "description": "The image to upscale."},
-    {"name": "prompt", "type": "string", "required": true, "description": "Description to guide creative upscaling."},
-    {"name": "output_format", "type": "string", "required": false, "description": "Output format."},
-    {"name": "creativity", "type": "number", "required": false, "description": "Creativity level (0.0-0.35)."},
-    {"name": "seed", "type": "integer", "required": false, "description": "Random seed."}
+    {
+      "name": "image",
+      "type": "file",
+      "required": true,
+      "description": "The image to upscale.",
+      "in": "body"
+    },
+    {
+      "name": "prompt",
+      "type": "string",
+      "required": true,
+      "description": "Description to guide creative upscaling.",
+      "in": "body"
+    },
+    {
+      "name": "output_format",
+      "type": "string",
+      "required": false,
+      "description": "Output format.",
+      "in": "body"
+    },
+    {
+      "name": "creativity",
+      "type": "number",
+      "required": false,
+      "description": "Creativity level (0.0-0.35).",
+      "in": "body"
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Random seed.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.stability.ai/v2beta/stable-image/upscale/creative",
-    "headers": {"Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+    "headers": {
+      "Authorization": "Bearer sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
     "body": "multipart/form-data: image=@photo.jpg&prompt='Enhanced landscape'"
   },
-  "response_example": {"status": 200, "body": {"id": "gen-abc123"}}
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "gen-abc123"
+    }
+  }
 }

@@ -5,22 +5,55 @@
   "endpoint": "/v2/applications",
   "method": "POST",
   "parameters": [
-    {"name": "name", "type": "string", "required": true, "description": "A human-readable name for the application."},
-    {"name": "capabilities", "type": "object", "required": false, "description": "Object defining capabilities: voice, messages, rtc, vbc. Each has webhooks configuration."},
-    {"name": "keys", "type": "object", "required": false, "description": "Public key for JWT authentication. Vonage generates one if not provided."},
-    {"name": "privacy", "type": "object", "required": false, "description": "Privacy settings including 'improve_ai' boolean."}
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "A human-readable name for the application.",
+      "in": "body"
+    },
+    {
+      "name": "capabilities",
+      "type": "object",
+      "required": false,
+      "description": "Object defining capabilities: voice, messages, rtc, vbc. Each has webhooks configuration.",
+      "in": "body"
+    },
+    {
+      "name": "keys",
+      "type": "object",
+      "required": false,
+      "description": "Public key for JWT authentication. Vonage generates one if not provided.",
+      "in": "body"
+    },
+    {
+      "name": "privacy",
+      "type": "object",
+      "required": false,
+      "description": "Privacy settings including 'improve_ai' boolean.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.vonage.com/v2/applications",
-    "headers": {"Content-Type": "application/json", "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."},
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."
+    },
     "body": {
       "name": "My Voice App",
       "capabilities": {
         "voice": {
           "webhooks": {
-            "answer_url": {"address": "https://example.com/webhooks/answer", "http_method": "GET"},
-            "event_url": {"address": "https://example.com/webhooks/event", "http_method": "POST"}
+            "answer_url": {
+              "address": "https://example.com/webhooks/answer",
+              "http_method": "GET"
+            },
+            "event_url": {
+              "address": "https://example.com/webhooks/event",
+              "http_method": "POST"
+            }
           }
         }
       }
@@ -31,8 +64,20 @@
     "body": {
       "id": "78d335fa-323d-0114-9c3d-d6f0d48968cf",
       "name": "My Voice App",
-      "capabilities": {"voice": {"webhooks": {"answer_url": {"address": "https://example.com/webhooks/answer", "http_method": "GET"}}}},
-      "keys": {"public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBg...", "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADA..."}
+      "capabilities": {
+        "voice": {
+          "webhooks": {
+            "answer_url": {
+              "address": "https://example.com/webhooks/answer",
+              "http_method": "GET"
+            }
+          }
+        }
+      },
+      "keys": {
+        "public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBg...",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADA..."
+      }
     }
   }
 }

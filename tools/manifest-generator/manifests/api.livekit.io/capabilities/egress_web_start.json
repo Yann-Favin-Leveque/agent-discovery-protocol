@@ -9,31 +9,36 @@
       "name": "url",
       "type": "string",
       "required": true,
-      "description": "URL of the web page to record."
+      "description": "URL of the web page to record.",
+      "in": "body"
     },
     {
       "name": "audio_only",
       "type": "boolean",
       "required": false,
-      "description": "Record only audio from the web page."
+      "description": "Record only audio from the web page.",
+      "in": "body"
     },
     {
       "name": "video_only",
       "type": "boolean",
       "required": false,
-      "description": "Record only video from the web page."
+      "description": "Record only video from the web page.",
+      "in": "body"
     },
     {
       "name": "file_outputs",
       "type": "array",
       "required": false,
-      "description": "File output configurations."
+      "description": "File output configurations.",
+      "in": "body"
     },
     {
       "name": "stream_outputs",
       "type": "array",
       "required": false,
-      "description": "RTMP stream output configurations."
+      "description": "RTMP stream output configurations.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -45,7 +50,11 @@
     },
     "body": {
       "url": "https://example.com/dashboard",
-      "file_outputs": [{ "filepath": "recordings/web-capture.mp4" }]
+      "file_outputs": [
+        {
+          "filepath": "recordings/web-capture.mp4"
+        }
+      ]
     }
   },
   "response_example": {
@@ -55,7 +64,9 @@
       "status": "EGRESS_STARTING"
     }
   },
-  "auth_scopes": ["roomRecord"],
+  "auth_scopes": [
+    "roomRecord"
+  ],
   "rate_limits": {
     "requests_per_minute": 60
   }

@@ -10,42 +10,51 @@
       "type": "string",
       "description": "Event type, always 'track'.",
       "required": true,
-      "example": "track"
+      "example": "track",
+      "in": "body"
     },
     {
       "name": "event",
       "type": "string",
       "description": "Event name.",
       "required": true,
-      "example": "Feature Activated"
+      "example": "Feature Activated",
+      "in": "body"
     },
     {
       "name": "visitorId",
       "type": "string",
       "description": "Unique visitor/user ID.",
       "required": true,
-      "example": "user_123"
+      "example": "user_123",
+      "in": "body"
     },
     {
       "name": "accountId",
       "type": "string",
       "description": "Account/company ID for B2B tracking.",
       "required": false,
-      "example": "acme-corp"
+      "example": "acme-corp",
+      "in": "body"
     },
     {
       "name": "properties",
       "type": "object",
       "description": "Custom event properties.",
       "required": false,
-      "example": { "feature": "export", "plan": "enterprise" }
+      "example": {
+        "feature": "export",
+        "plan": "enterprise"
+      },
+      "in": "body"
     },
     {
       "name": "timestamp",
       "type": "number",
       "description": "Unix timestamp in milliseconds.",
       "required": false,
-      "example": 1705747200000
+      "example": 1705747200000,
+      "in": "body"
     }
   ],
   "request_example": {
@@ -60,7 +69,10 @@
       "event": "Feature Activated",
       "visitorId": "user_123",
       "accountId": "acme-corp",
-      "properties": { "feature": "export", "plan": "enterprise" },
+      "properties": {
+        "feature": "export",
+        "plan": "enterprise"
+      },
       "timestamp": 1705747200000
     }
   },
@@ -68,7 +80,9 @@
     "status": 200,
     "body": {}
   },
-  "auth_scopes": ["track"],
+  "auth_scopes": [
+    "track"
+  ],
   "rate_limits": {
     "requests_per_minute": 500
   }

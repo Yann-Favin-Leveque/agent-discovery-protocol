@@ -10,21 +10,30 @@
       "type": "string",
       "description": "UUID of the vault containing the item.",
       "required": true,
-      "example": "hfnjvi6aymbsnfc2xeeoheizda"
+      "example": "hfnjvi6aymbsnfc2xeeoheizda",
+      "in": "path"
     },
     {
       "name": "itemUUID",
       "type": "string",
       "description": "UUID of the item to patch.",
       "required": true,
-      "example": "wepiqdxdzncjtnvmv5fegud4qy"
+      "example": "wepiqdxdzncjtnvmv5fegud4qy",
+      "in": "path"
     },
     {
       "name": "body",
       "type": "array",
       "description": "Array of JSON Patch operations (op, path, value).",
       "required": true,
-      "example": [{ "op": "replace", "path": "/title", "value": "New Title" }]
+      "example": [
+        {
+          "op": "replace",
+          "path": "/title",
+          "value": "New Title"
+        }
+      ],
+      "in": "body"
     }
   ],
   "request_example": {
@@ -35,7 +44,11 @@
       "Content-Type": "application/json-patch+json"
     },
     "body": [
-      { "op": "replace", "path": "/fields/password/value", "value": "updatedP@ssw0rd!" }
+      {
+        "op": "replace",
+        "path": "/fields/password/value",
+        "value": "updatedP@ssw0rd!"
+      }
     ]
   },
   "response_example": {
@@ -44,11 +57,15 @@
       "id": "wepiqdxdzncjtnvmv5fegud4qy",
       "title": "Database Credentials",
       "category": "LOGIN",
-      "vault": { "id": "hfnjvi6aymbsnfc2xeeoheizda" },
+      "vault": {
+        "id": "hfnjvi6aymbsnfc2xeeoheizda"
+      },
       "updatedAt": "2024-06-15T10:30:00Z"
     }
   },
-  "auth_scopes": ["vaults"],
+  "auth_scopes": [
+    "vaults"
+  ],
   "rate_limits": {
     "requests_per_minute": 100
   }

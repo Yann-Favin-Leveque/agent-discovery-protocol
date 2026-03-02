@@ -5,19 +5,75 @@
   "endpoint": "/segments/{projectKey}/{envKey}",
   "method": "POST",
   "parameters": [
-    {"name": "projectKey", "type": "string", "description": "The project key.", "required": true, "example": "my-project"},
-    {"name": "envKey", "type": "string", "description": "The environment key.", "required": true, "example": "production"},
-    {"name": "key", "type": "string", "description": "Unique segment key.", "required": true, "example": "beta-users"},
-    {"name": "name", "type": "string", "description": "Segment display name.", "required": true, "example": "Beta Users"},
-    {"name": "description", "type": "string", "description": "Description.", "required": false},
-    {"name": "tags", "type": "array", "description": "Tags.", "required": false}
+    {
+      "name": "projectKey",
+      "type": "string",
+      "description": "The project key.",
+      "required": true,
+      "example": "my-project",
+      "in": "path"
+    },
+    {
+      "name": "envKey",
+      "type": "string",
+      "description": "The environment key.",
+      "required": true,
+      "example": "production",
+      "in": "path"
+    },
+    {
+      "name": "key",
+      "type": "string",
+      "description": "Unique segment key.",
+      "required": true,
+      "example": "beta-users",
+      "in": "body"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Segment display name.",
+      "required": true,
+      "example": "Beta Users",
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Tags.",
+      "required": false,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://app.launchdarkly.com/api/v2/segments/my-project/production",
-    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
-    "body": {"key": "beta-users", "name": "Beta Users", "description": "Users enrolled in the beta program"}
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "key": "beta-users",
+      "name": "Beta Users",
+      "description": "Users enrolled in the beta program"
+    }
   },
-  "response_example": {"status": 201, "body": {"key": "beta-users", "name": "Beta Users", "creationDate": 1705312200000}},
-  "rate_limits": {"requests_per_minute": 120}
+  "response_example": {
+    "status": 201,
+    "body": {
+      "key": "beta-users",
+      "name": "Beta Users",
+      "creationDate": 1705312200000
+    }
+  },
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

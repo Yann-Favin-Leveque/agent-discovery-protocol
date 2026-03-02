@@ -10,28 +10,32 @@
       "type": "string",
       "description": "Name of the index.",
       "required": true,
-      "example": "products"
+      "example": "products",
+      "in": "path"
     },
     {
       "name": "query",
       "type": "string",
       "description": "Search query to find rules.",
       "required": false,
-      "example": "sale"
+      "example": "sale",
+      "in": "body"
     },
     {
       "name": "page",
       "type": "integer",
       "description": "Page number.",
       "required": false,
-      "example": 0
+      "example": 0,
+      "in": "body"
     },
     {
       "name": "hitsPerPage",
       "type": "integer",
       "description": "Number of results per page.",
       "required": false,
-      "example": 20
+      "example": 20,
+      "in": "body"
     }
   ],
   "request_example": {
@@ -42,18 +46,30 @@
       "x-algolia-api-key": "{API_KEY}",
       "Content-Type": "application/json"
     },
-    "body": { "query": "sale" }
+    "body": {
+      "query": "sale"
+    }
   },
   "response_example": {
     "status": 200,
     "body": {
       "hits": [
-        { "objectID": "rule-promote-sale", "conditions": [{ "anchoring": "contains", "pattern": "sale" }] }
+        {
+          "objectID": "rule-promote-sale",
+          "conditions": [
+            {
+              "anchoring": "contains",
+              "pattern": "sale"
+            }
+          ]
+        }
       ],
       "nbHits": 1
     }
   },
-  "auth_scopes": ["settings"],
+  "auth_scopes": [
+    "settings"
+  ],
   "rate_limits": {
     "requests_per_minute": 600
   }

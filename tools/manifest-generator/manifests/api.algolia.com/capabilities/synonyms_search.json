@@ -10,35 +10,40 @@
       "type": "string",
       "description": "Name of the index.",
       "required": true,
-      "example": "products"
+      "example": "products",
+      "in": "path"
     },
     {
       "name": "query",
       "type": "string",
       "description": "Search query to find synonyms.",
       "required": false,
-      "example": "phone"
+      "example": "phone",
+      "in": "body"
     },
     {
       "name": "type",
       "type": "string",
       "description": "Filter by synonym type.",
       "required": false,
-      "example": "synonym"
+      "example": "synonym",
+      "in": "body"
     },
     {
       "name": "page",
       "type": "integer",
       "description": "Page number.",
       "required": false,
-      "example": 0
+      "example": 0,
+      "in": "body"
     },
     {
       "name": "hitsPerPage",
       "type": "integer",
       "description": "Number of results per page.",
       "required": false,
-      "example": 20
+      "example": 20,
+      "in": "body"
     }
   ],
   "request_example": {
@@ -49,18 +54,30 @@
       "x-algolia-api-key": "{API_KEY}",
       "Content-Type": "application/json"
     },
-    "body": { "query": "phone", "hitsPerPage": 20 }
+    "body": {
+      "query": "phone",
+      "hitsPerPage": 20
+    }
   },
   "response_example": {
     "status": 200,
     "body": {
       "hits": [
-        { "objectID": "syn-phone-mobile", "type": "synonym", "synonyms": ["phone", "mobile"] }
+        {
+          "objectID": "syn-phone-mobile",
+          "type": "synonym",
+          "synonyms": [
+            "phone",
+            "mobile"
+          ]
+        }
       ],
       "nbHits": 1
     }
   },
-  "auth_scopes": ["settings"],
+  "auth_scopes": [
+    "settings"
+  ],
   "rate_limits": {
     "requests_per_minute": 600
   }

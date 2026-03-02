@@ -5,19 +5,61 @@
   "method": "POST",
   "resource_group": "recipients",
   "parameters": [
-    { "name": "name", "type": "string", "description": "Recipient name", "required": true, "example": "Acme Corp" },
-    { "name": "emails", "type": "array", "description": "Email addresses for the recipient", "required": true, "example": ["billing@acme.com"] },
-    { "name": "paymentMethod", "type": "string", "description": "Payment method: ach, domesticWire, or internationalWire", "required": true, "example": "ach" },
-    { "name": "routingNumber", "type": "string", "description": "Bank routing number", "required": true, "example": "021000089" },
-    { "name": "accountNumber", "type": "string", "description": "Bank account number", "required": true, "example": "1234567890" }
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Recipient name",
+      "required": true,
+      "example": "Acme Corp",
+      "in": "body"
+    },
+    {
+      "name": "emails",
+      "type": "array",
+      "description": "Email addresses for the recipient",
+      "required": true,
+      "example": [
+        "billing@acme.com"
+      ],
+      "in": "body"
+    },
+    {
+      "name": "paymentMethod",
+      "type": "string",
+      "description": "Payment method: ach, domesticWire, or internationalWire",
+      "required": true,
+      "example": "ach",
+      "in": "body"
+    },
+    {
+      "name": "routingNumber",
+      "type": "string",
+      "description": "Bank routing number",
+      "required": true,
+      "example": "021000089",
+      "in": "body"
+    },
+    {
+      "name": "accountNumber",
+      "type": "string",
+      "description": "Bank account number",
+      "required": true,
+      "example": "1234567890",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.mercury.com/api/v1/recipient",
-    "headers": { "Authorization": "Bearer {token}", "Content-Type": "application/json" },
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
     "body": {
       "name": "Acme Corp",
-      "emails": ["billing@acme.com"],
+      "emails": [
+        "billing@acme.com"
+      ],
       "paymentMethod": "ach",
       "routingNumber": "021000089",
       "accountNumber": "1234567890"
@@ -25,8 +67,14 @@
   },
   "response_example": {
     "status": 200,
-    "body": { "id": "rcp_new789", "name": "Acme Corp", "paymentMethod": "ach" }
+    "body": {
+      "id": "rcp_new789",
+      "name": "Acme Corp",
+      "paymentMethod": "ach"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": { "requests_per_minute": 30 }
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
 }

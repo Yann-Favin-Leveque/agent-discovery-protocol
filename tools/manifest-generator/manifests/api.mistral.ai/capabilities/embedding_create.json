@@ -5,18 +5,61 @@
   "endpoint": "/v1/embeddings",
   "method": "POST",
   "parameters": [
-    {"name": "model", "type": "string", "required": true, "description": "Model ID (e.g. 'mistral-embed')."},
-    {"name": "input", "type": "string or array", "required": true, "description": "Text or array of texts to embed."},
-    {"name": "encoding_format", "type": "string", "required": false, "description": "Encoding format: 'float' (default)."}
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Model ID (e.g. 'mistral-embed').",
+      "in": "body"
+    },
+    {
+      "name": "input",
+      "type": "string or array",
+      "required": true,
+      "description": "Text or array of texts to embed.",
+      "in": "body"
+    },
+    {
+      "name": "encoding_format",
+      "type": "string",
+      "required": false,
+      "description": "Encoding format: 'float' (default).",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.mistral.ai/v1/embeddings",
-    "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"model": "mistral-embed", "input": ["What is machine learning?"]}
+    "headers": {
+      "Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "mistral-embed",
+      "input": [
+        "What is machine learning?"
+      ]
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"id": "emb-abc123", "object": "list", "data": [{"object": "embedding", "index": 0, "embedding": [0.0023, -0.0093]}], "usage": {"prompt_tokens": 5, "total_tokens": 5}}
+    "body": {
+      "id": "emb-abc123",
+      "object": "list",
+      "data": [
+        {
+          "object": "embedding",
+          "index": 0,
+          "embedding": [
+            0.0023,
+            -0.0093
+          ]
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 5,
+        "total_tokens": 5
+      }
+    }
   }
 }

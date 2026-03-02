@@ -9,49 +9,57 @@
       "name": "messages",
       "type": "array",
       "required": true,
-      "description": "Array of message objects, each containing destinations, sender, and content."
+      "description": "Array of message objects, each containing destinations, sender, and content.",
+      "in": "body"
     },
     {
       "name": "messages[].destinations",
       "type": "array",
       "required": true,
-      "description": "Array of destination objects with 'to' (E.164 phone number) and optional 'messageId'."
+      "description": "Array of destination objects with 'to' (E.164 phone number) and optional 'messageId'.",
+      "in": "body"
     },
     {
       "name": "messages[].from",
       "type": "string",
       "required": false,
-      "description": "Sender ID, alphanumeric (max 11 chars) or numeric (max 16 digits)."
+      "description": "Sender ID, alphanumeric (max 11 chars) or numeric (max 16 digits).",
+      "in": "body"
     },
     {
       "name": "messages[].text",
       "type": "string",
       "required": false,
-      "description": "The text content of the SMS message."
+      "description": "The text content of the SMS message.",
+      "in": "body"
     },
     {
       "name": "messages[].sendAt",
       "type": "string",
       "required": false,
-      "description": "ISO 8601 datetime for scheduling the message. Up to 180 days in the future."
+      "description": "ISO 8601 datetime for scheduling the message. Up to 180 days in the future.",
+      "in": "body"
     },
     {
       "name": "messages[].validityPeriod",
       "type": "integer",
       "required": false,
-      "description": "Validity period in minutes. Message delivery is attempted until this period expires."
+      "description": "Validity period in minutes. Message delivery is attempted until this period expires.",
+      "in": "body"
     },
     {
       "name": "messages[].notifyUrl",
       "type": "string",
       "required": false,
-      "description": "Webhook URL to receive delivery reports for this message."
+      "description": "Webhook URL to receive delivery reports for this message.",
+      "in": "body"
     },
     {
       "name": "messages[].callbackData",
       "type": "string",
       "required": false,
-      "description": "Custom data sent with the delivery report webhook callback."
+      "description": "Custom data sent with the delivery report webhook callback.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -65,7 +73,9 @@
       "messages": [
         {
           "destinations": [
-            { "to": "14155550123" }
+            {
+              "to": "14155550123"
+            }
           ],
           "from": "ServiceSMS",
           "text": "Your verification code is 482910. It expires in 10 minutes."

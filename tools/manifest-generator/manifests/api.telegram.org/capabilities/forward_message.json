@@ -1,0 +1,62 @@
+{
+  "name": "forward_message",
+  "resource_group": "messages",
+  "description": "Forward a message from one chat to another.",
+  "endpoint": "/bot{token}/forwardMessage",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Bot token",
+      "example": "123456:ABC-DEF"
+    },
+    {
+      "name": "chat_id",
+      "type": "string",
+      "required": true,
+      "description": "Target chat ID",
+      "example": "987654321",
+      "in": "body"
+    },
+    {
+      "name": "from_chat_id",
+      "type": "string",
+      "required": true,
+      "description": "Source chat ID",
+      "example": "123456789",
+      "in": "body"
+    },
+    {
+      "name": "message_id",
+      "type": "integer",
+      "required": true,
+      "description": "Message ID to forward",
+      "example": 100,
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.telegram.org/bot123456:ABC-DEF/forwardMessage",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "chat_id": "987654321",
+      "from_chat_id": "123456789",
+      "message_id": 100
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "result": {
+        "message_id": 200
+      }
+    }
+  }
+}

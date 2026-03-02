@@ -5,21 +5,73 @@
   "endpoint": "/deployments",
   "method": "POST",
   "parameters": [
-    {"name": "name", "type": "string", "required": true, "description": "Deployment name."},
-    {"name": "model", "type": "string", "required": true, "description": "Model to deploy (owner/name)."},
-    {"name": "version", "type": "string", "required": true, "description": "Model version ID."},
-    {"name": "hardware", "type": "string", "required": true, "description": "Hardware SKU."},
-    {"name": "min_instances", "type": "integer", "required": false, "description": "Minimum running instances."},
-    {"name": "max_instances", "type": "integer", "required": false, "description": "Maximum running instances."}
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Deployment name.",
+      "in": "body"
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Model to deploy (owner/name).",
+      "in": "body"
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "required": true,
+      "description": "Model version ID.",
+      "in": "body"
+    },
+    {
+      "name": "hardware",
+      "type": "string",
+      "required": true,
+      "description": "Hardware SKU.",
+      "in": "body"
+    },
+    {
+      "name": "min_instances",
+      "type": "integer",
+      "required": false,
+      "description": "Minimum running instances.",
+      "in": "body"
+    },
+    {
+      "name": "max_instances",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum running instances.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.replicate.com/v1/deployments",
-    "headers": {"Authorization": "Bearer r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"name": "my-deployment", "model": "stability-ai/sdxl", "version": "5c7d...", "hardware": "gpu-a40-large", "min_instances": 1, "max_instances": 3}
+    "headers": {
+      "Authorization": "Bearer r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "my-deployment",
+      "model": "stability-ai/sdxl",
+      "version": "5c7d...",
+      "hardware": "gpu-a40-large",
+      "min_instances": 1,
+      "max_instances": 3
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"owner": "my-org", "name": "my-deployment", "current_release": {"version": "5c7d..."}}
+    "body": {
+      "owner": "my-org",
+      "name": "my-deployment",
+      "current_release": {
+        "version": "5c7d..."
+      }
+    }
   }
 }

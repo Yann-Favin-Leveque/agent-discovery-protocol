@@ -5,17 +5,61 @@
   "endpoint": "/webhooks",
   "method": "POST",
   "parameters": [
-    {"name": "url", "type": "string", "description": "Webhook endpoint URL.", "required": true, "example": "https://example.com/webhook"},
-    {"name": "sign", "type": "boolean", "description": "Whether to sign webhook payloads.", "required": false, "example": true},
-    {"name": "on", "type": "boolean", "description": "Whether the webhook is enabled.", "required": false, "example": true},
-    {"name": "tags", "type": "array", "description": "Filter events by tags.", "required": false}
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Webhook endpoint URL.",
+      "required": true,
+      "example": "https://example.com/webhook",
+      "in": "body"
+    },
+    {
+      "name": "sign",
+      "type": "boolean",
+      "description": "Whether to sign webhook payloads.",
+      "required": false,
+      "example": true,
+      "in": "body"
+    },
+    {
+      "name": "on",
+      "type": "boolean",
+      "description": "Whether the webhook is enabled.",
+      "required": false,
+      "example": true,
+      "in": "body"
+    },
+    {
+      "name": "tags",
+      "type": "array",
+      "description": "Filter events by tags.",
+      "required": false,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://app.launchdarkly.com/api/v2/webhooks",
-    "headers": {"Authorization": "{api_key}", "Content-Type": "application/json"},
-    "body": {"url": "https://example.com/webhook", "sign": true, "on": true}
+    "headers": {
+      "Authorization": "{api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhook",
+      "sign": true,
+      "on": true
+    }
   },
-  "response_example": {"status": 201, "body": {"_id": "wh_new", "url": "https://example.com/webhook", "on": true, "secret": "wh_secret_xxxxx"}},
-  "rate_limits": {"requests_per_minute": 120}
+  "response_example": {
+    "status": 201,
+    "body": {
+      "_id": "wh_new",
+      "url": "https://example.com/webhook",
+      "on": true,
+      "secret": "wh_secret_xxxxx"
+    }
+  },
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

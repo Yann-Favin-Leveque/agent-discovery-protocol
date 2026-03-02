@@ -5,26 +5,80 @@
   "endpoint": "/inquiries",
   "method": "GET",
   "parameters": [
-    {"name": "filter[reference-id]", "type": "string", "description": "Filter by your reference ID.", "required": false, "example": "user_12345"},
-    {"name": "filter[account-id]", "type": "string", "description": "Filter by account ID.", "required": false},
-    {"name": "filter[status]", "type": "string", "description": "Filter by status (created, pending, completed, approved, declined, expired).", "required": false, "example": "approved"},
-    {"name": "page[after]", "type": "string", "description": "Cursor for forward pagination.", "required": false},
-    {"name": "page[before]", "type": "string", "description": "Cursor for backward pagination.", "required": false},
-    {"name": "page[size]", "type": "integer", "description": "Number of results per page (default 10, max 100).", "required": false, "example": 25}
+    {
+      "name": "filter[reference-id]",
+      "type": "string",
+      "description": "Filter by your reference ID.",
+      "required": false,
+      "example": "user_12345",
+      "in": "query"
+    },
+    {
+      "name": "filter[account-id]",
+      "type": "string",
+      "description": "Filter by account ID.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "filter[status]",
+      "type": "string",
+      "description": "Filter by status (created, pending, completed, approved, declined, expired).",
+      "required": false,
+      "example": "approved",
+      "in": "query"
+    },
+    {
+      "name": "page[after]",
+      "type": "string",
+      "description": "Cursor for forward pagination.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "page[before]",
+      "type": "string",
+      "description": "Cursor for backward pagination.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "page[size]",
+      "type": "integer",
+      "description": "Number of results per page (default 10, max 100).",
+      "required": false,
+      "example": 25,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://withpersona.com/api/v1/inquiries?filter[status]=approved&page[size]=25",
-    "headers": {"Authorization": "Bearer {api_key}", "Persona-Version": "2023-01-05"}
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Persona-Version": "2023-01-05"
+    }
   },
   "response_example": {
     "status": 200,
     "body": {
       "data": [
-        {"type": "inquiry", "id": "inq_abc123", "attributes": {"status": "approved", "reference-id": "user_12345", "created-at": "2024-01-15T10:30:00.000Z"}}
+        {
+          "type": "inquiry",
+          "id": "inq_abc123",
+          "attributes": {
+            "status": "approved",
+            "reference-id": "user_12345",
+            "created-at": "2024-01-15T10:30:00.000Z"
+          }
+        }
       ],
-      "links": {"next": "/api/v1/inquiries?page[after]=inq_abc123"}
+      "links": {
+        "next": "/api/v1/inquiries?page[after]=inq_abc123"
+      }
     }
   },
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

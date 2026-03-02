@@ -10,19 +10,22 @@
       "type": "string",
       "required": true,
       "location": "path",
-      "description": "The UUID of the call to modify."
+      "description": "The UUID of the call to modify.",
+      "in": "path"
     },
     {
       "name": "action",
       "type": "string",
       "required": true,
-      "description": "The action to perform: 'transfer', 'hangup', 'mute', 'unmute', 'earmuff', 'unearmuff'."
+      "description": "The action to perform: 'transfer', 'hangup', 'mute', 'unmute', 'earmuff', 'unearmuff'.",
+      "in": "body"
     },
     {
       "name": "destination",
       "type": "object",
       "required": false,
-      "description": "Required for 'transfer' action. Object with 'type' ('ncco') and 'url' (array of NCCO URLs) or 'ncco' (inline NCCO actions)."
+      "description": "Required for 'transfer' action. Object with 'type' ('ncco') and 'url' (array of NCCO URLs) or 'ncco' (inline NCCO actions).",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -43,7 +46,12 @@
           },
           {
             "action": "connect",
-            "endpoint": [{ "type": "phone", "number": "12015550199" }]
+            "endpoint": [
+              {
+                "type": "phone",
+                "number": "12015550199"
+              }
+            ]
           }
         ]
       }

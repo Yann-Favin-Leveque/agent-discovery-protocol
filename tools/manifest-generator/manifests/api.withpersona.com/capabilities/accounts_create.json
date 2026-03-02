@@ -5,21 +5,80 @@
   "endpoint": "/accounts",
   "method": "POST",
   "parameters": [
-    {"name": "reference-id", "type": "string", "description": "Your internal reference ID for this person.", "required": false, "example": "user_12345"},
-    {"name": "name-first", "type": "string", "description": "First name.", "required": false, "example": "Jane"},
-    {"name": "name-last", "type": "string", "description": "Last name.", "required": false, "example": "Doe"},
-    {"name": "email-address", "type": "string", "description": "Email address.", "required": false, "example": "jane@example.com"},
-    {"name": "phone-number", "type": "string", "description": "Phone number.", "required": false}
+    {
+      "name": "reference-id",
+      "type": "string",
+      "description": "Your internal reference ID for this person.",
+      "required": false,
+      "example": "user_12345",
+      "in": "body"
+    },
+    {
+      "name": "name-first",
+      "type": "string",
+      "description": "First name.",
+      "required": false,
+      "example": "Jane",
+      "in": "body"
+    },
+    {
+      "name": "name-last",
+      "type": "string",
+      "description": "Last name.",
+      "required": false,
+      "example": "Doe",
+      "in": "body"
+    },
+    {
+      "name": "email-address",
+      "type": "string",
+      "description": "Email address.",
+      "required": false,
+      "example": "jane@example.com",
+      "in": "body"
+    },
+    {
+      "name": "phone-number",
+      "type": "string",
+      "description": "Phone number.",
+      "required": false,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://withpersona.com/api/v1/accounts",
-    "headers": {"Authorization": "Bearer {api_key}", "Content-Type": "application/json", "Persona-Version": "2023-01-05"},
-    "body": {"data": {"attributes": {"reference-id": "user_12345", "name-first": "Jane", "name-last": "Doe"}}}
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json",
+      "Persona-Version": "2023-01-05"
+    },
+    "body": {
+      "data": {
+        "attributes": {
+          "reference-id": "user_12345",
+          "name-first": "Jane",
+          "name-last": "Doe"
+        }
+      }
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"data": {"type": "account", "id": "act_abc123", "attributes": {"reference-id": "user_12345", "name-first": "Jane", "name-last": "Doe", "created-at": "2024-01-15T10:30:00.000Z"}}}
+    "body": {
+      "data": {
+        "type": "account",
+        "id": "act_abc123",
+        "attributes": {
+          "reference-id": "user_12345",
+          "name-first": "Jane",
+          "name-last": "Doe",
+          "created-at": "2024-01-15T10:30:00.000Z"
+        }
+      }
+    }
   },
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

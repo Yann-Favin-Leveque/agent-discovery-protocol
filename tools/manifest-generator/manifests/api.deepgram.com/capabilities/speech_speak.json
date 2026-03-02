@@ -5,10 +5,38 @@
   "endpoint": "/v1/speak",
   "method": "POST",
   "parameters": [
-    {"name": "text", "type": "string", "description": "Text to convert to speech.", "required": true, "example": "Hello, how are you today?"},
-    {"name": "model", "type": "string", "description": "Voice model to use (aura-asteria-en, aura-luna-en, etc.).", "required": false, "example": "aura-asteria-en"},
-    {"name": "encoding", "type": "string", "description": "Audio encoding format (linear16, mp3, opus, flac, alaw, mulaw).", "required": false, "example": "mp3"},
-    {"name": "sample_rate", "type": "integer", "description": "Audio sample rate in Hz.", "required": false, "example": 24000}
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Text to convert to speech.",
+      "required": true,
+      "example": "Hello, how are you today?",
+      "in": "body"
+    },
+    {
+      "name": "model",
+      "type": "string",
+      "description": "Voice model to use (aura-asteria-en, aura-luna-en, etc.).",
+      "required": false,
+      "example": "aura-asteria-en",
+      "in": "body"
+    },
+    {
+      "name": "encoding",
+      "type": "string",
+      "description": "Audio encoding format (linear16, mp3, opus, flac, alaw, mulaw).",
+      "required": false,
+      "example": "mp3",
+      "in": "body"
+    },
+    {
+      "name": "sample_rate",
+      "type": "integer",
+      "description": "Audio sample rate in Hz.",
+      "required": false,
+      "example": 24000,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
@@ -25,5 +53,7 @@
     "status": 200,
     "body": "(binary audio data returned with Content-Type: audio/mp3)"
   },
-  "rate_limits": {"requests_per_minute": 100}
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

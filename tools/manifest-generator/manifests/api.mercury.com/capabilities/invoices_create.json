@@ -5,21 +5,63 @@
   "method": "POST",
   "resource_group": "invoices",
   "parameters": [
-    { "name": "customerId", "type": "string", "description": "The customer to invoice", "required": true, "example": "cust_001" },
-    { "name": "amount", "type": "number", "description": "Invoice amount in dollars", "required": true, "example": 5000.00 },
-    { "name": "dueDate", "type": "string", "description": "Payment due date in ISO 8601 format", "required": true, "example": "2025-02-15" },
-    { "name": "description", "type": "string", "description": "Invoice description or line items", "required": false, "example": "Consulting services - January 2025" }
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "The customer to invoice",
+      "required": true,
+      "example": "cust_001",
+      "in": "body"
+    },
+    {
+      "name": "amount",
+      "type": "number",
+      "description": "Invoice amount in dollars",
+      "required": true,
+      "example": 5000,
+      "in": "body"
+    },
+    {
+      "name": "dueDate",
+      "type": "string",
+      "description": "Payment due date in ISO 8601 format",
+      "required": true,
+      "example": "2025-02-15",
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Invoice description or line items",
+      "required": false,
+      "example": "Consulting services - January 2025",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.mercury.com/api/v1/ar/invoices",
-    "headers": { "Authorization": "Bearer {token}", "Content-Type": "application/json" },
-    "body": { "customerId": "cust_001", "amount": 5000.00, "dueDate": "2025-02-15", "description": "Consulting services - January 2025" }
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "customerId": "cust_001",
+      "amount": 5000,
+      "dueDate": "2025-02-15",
+      "description": "Consulting services - January 2025"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": { "id": "inv_new001", "status": "draft", "amount": 5000.00 }
+    "body": {
+      "id": "inv_new001",
+      "status": "draft",
+      "amount": 5000
+    }
   },
   "auth_scopes": [],
-  "rate_limits": { "requests_per_minute": 30 }
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
 }

@@ -5,17 +5,61 @@
   "method": "GET",
   "resource_group": "transactions",
   "parameters": [
-    { "name": "accountId", "type": "string", "description": "The account ID to retrieve transactions for", "required": true, "example": "acc_123abc" },
-    { "name": "start", "type": "string", "description": "Start date filter in ISO 8601 format", "required": false, "example": "2025-01-01" },
-    { "name": "end", "type": "string", "description": "End date filter in ISO 8601 format", "required": false, "example": "2025-01-31" },
-    { "name": "status", "type": "string", "description": "Filter by transaction status (pending, sent, cancelled, failed)", "required": false, "example": "sent" },
-    { "name": "limit", "type": "integer", "description": "Maximum number of transactions to return", "required": false, "example": 50 },
-    { "name": "offset", "type": "integer", "description": "Number of transactions to skip for pagination", "required": false, "example": 0 }
+    {
+      "name": "accountId",
+      "type": "string",
+      "description": "The account ID to retrieve transactions for",
+      "required": true,
+      "example": "acc_123abc",
+      "in": "path"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "description": "Start date filter in ISO 8601 format",
+      "required": false,
+      "example": "2025-01-01",
+      "in": "query"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End date filter in ISO 8601 format",
+      "required": false,
+      "example": "2025-01-31",
+      "in": "query"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Filter by transaction status (pending, sent, cancelled, failed)",
+      "required": false,
+      "example": "sent",
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of transactions to return",
+      "required": false,
+      "example": 50,
+      "in": "query"
+    },
+    {
+      "name": "offset",
+      "type": "integer",
+      "description": "Number of transactions to skip for pagination",
+      "required": false,
+      "example": 0,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.mercury.com/api/v1/account/acc_123abc/transactions?start=2025-01-01&end=2025-01-31&limit=50",
-    "headers": { "Authorization": "Bearer {token}" }
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
   },
   "response_example": {
     "status": 200,
@@ -24,7 +68,7 @@
       "transactions": [
         {
           "id": "txn_abc123",
-          "amount": -1500.00,
+          "amount": -1500,
           "counterpartyName": "AWS",
           "status": "sent",
           "kind": "externalTransfer",
@@ -35,5 +79,7 @@
     }
   },
   "auth_scopes": [],
-  "rate_limits": { "requests_per_minute": 60 }
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

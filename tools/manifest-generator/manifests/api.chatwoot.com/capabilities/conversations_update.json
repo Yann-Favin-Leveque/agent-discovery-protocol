@@ -5,21 +5,59 @@
   "method": "PATCH",
   "resource_group": "conversations",
   "parameters": [
-    {"name": "account_id", "type": "integer", "description": "Account ID.", "required": true, "example": 1},
-    {"name": "conversation_id", "type": "integer", "description": "Conversation ID.", "required": true, "example": 101},
-    {"name": "status", "type": "string", "description": "New status: open, resolved, pending, snoozed.", "required": false, "example": "resolved"},
-    {"name": "priority", "type": "string", "description": "Priority: urgent, high, medium, low, none.", "required": false, "example": "high"}
+    {
+      "name": "account_id",
+      "type": "integer",
+      "description": "Account ID.",
+      "required": true,
+      "example": 1,
+      "in": "path"
+    },
+    {
+      "name": "conversation_id",
+      "type": "integer",
+      "description": "Conversation ID.",
+      "required": true,
+      "example": 101,
+      "in": "path"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "New status: open, resolved, pending, snoozed.",
+      "required": false,
+      "example": "resolved",
+      "in": "body"
+    },
+    {
+      "name": "priority",
+      "type": "string",
+      "description": "Priority: urgent, high, medium, low, none.",
+      "required": false,
+      "example": "high",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PATCH",
     "url": "https://api.chatwoot.com/api/v1/accounts/1/conversations/101",
-    "headers": {"api_access_token": "{token}", "Content-Type": "application/json"},
-    "body": {"status": "resolved"}
+    "headers": {
+      "api_access_token": "{token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "status": "resolved"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"id": 101, "status": "resolved"}
+    "body": {
+      "id": 101,
+      "status": "resolved"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 250}
+  "rate_limits": {
+    "requests_per_minute": 250
+  }
 }

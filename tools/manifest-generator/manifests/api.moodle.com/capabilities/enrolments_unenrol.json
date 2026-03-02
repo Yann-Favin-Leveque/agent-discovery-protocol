@@ -5,21 +5,59 @@
   "method": "POST",
   "resource_group": "enrolments",
   "parameters": [
-    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
-    { "name": "enrolments[0][userid]", "type": "integer", "description": "User ID to unenrol", "required": true, "example": 42 },
-    { "name": "enrolments[0][courseid]", "type": "integer", "description": "Course ID to unenrol from", "required": true, "example": 5 },
-    { "name": "enrolments[0][roleid]", "type": "integer", "description": "Role ID to remove", "required": true, "example": 5 }
+    {
+      "name": "wstoken",
+      "type": "string",
+      "description": "Web service authentication token",
+      "required": true,
+      "example": "abc123token",
+      "in": "body"
+    },
+    {
+      "name": "enrolments[0][userid]",
+      "type": "integer",
+      "description": "User ID to unenrol",
+      "required": true,
+      "example": 42,
+      "in": "body"
+    },
+    {
+      "name": "enrolments[0][courseid]",
+      "type": "integer",
+      "description": "Course ID to unenrol from",
+      "required": true,
+      "example": 5,
+      "in": "body"
+    },
+    {
+      "name": "enrolments[0][roleid]",
+      "type": "integer",
+      "description": "Role ID to remove",
+      "required": true,
+      "example": 5,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=enrol_manual_unenrol_users&moodlewsrestformat=json",
-    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
-    "body": { "enrolments[0][userid]": 42, "enrolments[0][courseid]": 5, "enrolments[0][roleid]": 5 }
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "enrolments[0][userid]": 42,
+      "enrolments[0][courseid]": 5,
+      "enrolments[0][roleid]": 5
+    }
   },
   "response_example": {
     "status": 200,
     "body": null
   },
-  "auth_scopes": ["enrol_manual_unenrol_users"],
-  "rate_limits": { "requests_per_minute": 60 }
+  "auth_scopes": [
+    "enrol_manual_unenrol_users"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

@@ -5,16 +5,46 @@
   "method": "DELETE",
   "resource_group": "users",
   "parameters": [
-    {"name": "id", "type": "string", "description": "The user_id.", "required": true, "example": "auth0|507f1f77bcf86cd799439011"},
-    {"name": "roles", "type": "array", "description": "Array of role IDs to remove.", "required": true, "example": ["rol_abc123"]}
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The user_id.",
+      "required": true,
+      "example": "auth0|507f1f77bcf86cd799439011",
+      "in": "path"
+    },
+    {
+      "name": "roles",
+      "type": "array",
+      "description": "Array of role IDs to remove.",
+      "required": true,
+      "example": [
+        "rol_abc123"
+      ],
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "DELETE",
     "url": "https://YOUR_DOMAIN.auth0.com/api/v2/users/auth0%7C507f1f77bcf86cd799439011/roles",
-    "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"},
-    "body": {"roles": ["rol_abc123"]}
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "roles": [
+        "rol_abc123"
+      ]
+    }
   },
-  "response_example": {"status": 204, "body": {}},
-  "auth_scopes": ["update:users"],
-  "rate_limits": {"requests_per_minute": 50}
+  "response_example": {
+    "status": 204,
+    "body": {}
+  },
+  "auth_scopes": [
+    "update:users"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 50
+  }
 }

@@ -5,14 +5,41 @@
   "endpoint": "/models/{model_id}",
   "method": "POST",
   "parameters": [
-    {"name": "model_id", "type": "string", "required": true, "description": "Model ID (e.g. 'sentence-transformers/all-MiniLM-L6-v2')."},
-    {"name": "inputs", "type": "string or array", "required": true, "description": "Text or array of texts to embed."}
+    {
+      "name": "model_id",
+      "type": "string",
+      "required": true,
+      "description": "Model ID (e.g. 'sentence-transformers/all-MiniLM-L6-v2').",
+      "in": "path"
+    },
+    {
+      "name": "inputs",
+      "type": "string or array",
+      "required": true,
+      "description": "Text or array of texts to embed.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://router.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2",
-    "headers": {"Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"inputs": "What is machine learning?"}
+    "headers": {
+      "Authorization": "Bearer hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": "What is machine learning?"
+    }
   },
-  "response_example": {"status": 200, "body": [[0.0023, -0.0093, 0.0158, -0.0042]]}
+  "response_example": {
+    "status": 200,
+    "body": [
+      [
+        0.0023,
+        -0.0093,
+        0.0158,
+        -0.0042
+      ]
+    ]
+  }
 }

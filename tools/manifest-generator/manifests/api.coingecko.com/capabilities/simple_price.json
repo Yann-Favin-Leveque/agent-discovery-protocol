@@ -5,12 +5,54 @@
   "endpoint": "/simple/price",
   "method": "GET",
   "parameters": [
-    {"name": "ids", "type": "string", "description": "Comma-separated coin IDs (e.g., bitcoin,ethereum).", "required": true, "example": "bitcoin,ethereum"},
-    {"name": "vs_currencies", "type": "string", "description": "Comma-separated target currencies (e.g., usd,eur).", "required": true, "example": "usd,eur"},
-    {"name": "include_market_cap", "type": "boolean", "description": "Include market cap data.", "required": false, "example": true},
-    {"name": "include_24hr_vol", "type": "boolean", "description": "Include 24-hour volume.", "required": false, "example": true},
-    {"name": "include_24hr_change", "type": "boolean", "description": "Include 24-hour price change percentage.", "required": false, "example": true},
-    {"name": "include_last_updated_at", "type": "boolean", "description": "Include last updated Unix timestamp.", "required": false, "example": true}
+    {
+      "name": "ids",
+      "type": "string",
+      "description": "Comma-separated coin IDs (e.g., bitcoin,ethereum).",
+      "required": true,
+      "example": "bitcoin,ethereum",
+      "in": "query"
+    },
+    {
+      "name": "vs_currencies",
+      "type": "string",
+      "description": "Comma-separated target currencies (e.g., usd,eur).",
+      "required": true,
+      "example": "usd,eur",
+      "in": "query"
+    },
+    {
+      "name": "include_market_cap",
+      "type": "boolean",
+      "description": "Include market cap data.",
+      "required": false,
+      "example": true,
+      "in": "query"
+    },
+    {
+      "name": "include_24hr_vol",
+      "type": "boolean",
+      "description": "Include 24-hour volume.",
+      "required": false,
+      "example": true,
+      "in": "query"
+    },
+    {
+      "name": "include_24hr_change",
+      "type": "boolean",
+      "description": "Include 24-hour price change percentage.",
+      "required": false,
+      "example": true,
+      "in": "query"
+    },
+    {
+      "name": "include_last_updated_at",
+      "type": "boolean",
+      "description": "Include last updated Unix timestamp.",
+      "required": false,
+      "example": true,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
@@ -20,9 +62,17 @@
   "response_example": {
     "status": 200,
     "body": {
-      "bitcoin": {"usd": 43250.50, "usd_24h_change": 2.15},
-      "ethereum": {"usd": 2280.75, "usd_24h_change": 1.87}
+      "bitcoin": {
+        "usd": 43250.5,
+        "usd_24h_change": 2.15
+      },
+      "ethereum": {
+        "usd": 2280.75,
+        "usd_24h_change": 1.87
+      }
     }
   },
-  "rate_limits": {"requests_per_minute": 30}
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
 }

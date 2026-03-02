@@ -5,30 +5,123 @@
   "endpoint": "/openai/v1/chat/completions",
   "method": "POST",
   "parameters": [
-    {"name": "model", "type": "string", "required": true, "description": "Model ID (e.g. 'llama-3.3-70b-versatile', 'mixtral-8x7b-32768', 'gemma2-9b-it')."},
-    {"name": "messages", "type": "array", "required": true, "description": "Array of message objects with 'role' (system/user/assistant/tool) and 'content'."},
-    {"name": "temperature", "type": "number", "required": false, "description": "Sampling temperature (0-2, default 1)."},
-    {"name": "top_p", "type": "number", "required": false, "description": "Nucleus sampling parameter (default 1)."},
-    {"name": "max_tokens", "type": "integer", "required": false, "description": "Maximum tokens to generate."},
-    {"name": "stream", "type": "boolean", "required": false, "description": "Enable streaming via SSE (default false)."},
-    {"name": "tools", "type": "array", "required": false, "description": "Tool/function definitions for the model."},
-    {"name": "tool_choice", "type": "string or object", "required": false, "description": "Tool selection: 'auto', 'none', 'required', or specific tool."},
-    {"name": "response_format", "type": "object", "required": false, "description": "Set to {\"type\": \"json_object\"} for JSON mode."},
-    {"name": "n", "type": "integer", "required": false, "description": "Number of completions (default 1)."},
-    {"name": "stop", "type": "string or array", "required": false, "description": "Stop sequences."},
-    {"name": "frequency_penalty", "type": "number", "required": false, "description": "Frequency penalty (-2.0 to 2.0, default 0)."},
-    {"name": "presence_penalty", "type": "number", "required": false, "description": "Presence penalty (-2.0 to 2.0, default 0)."},
-    {"name": "seed", "type": "integer", "required": false, "description": "Deterministic sampling seed."}
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Model ID (e.g. 'llama-3.3-70b-versatile', 'mixtral-8x7b-32768', 'gemma2-9b-it').",
+      "in": "body"
+    },
+    {
+      "name": "messages",
+      "type": "array",
+      "required": true,
+      "description": "Array of message objects with 'role' (system/user/assistant/tool) and 'content'.",
+      "in": "body"
+    },
+    {
+      "name": "temperature",
+      "type": "number",
+      "required": false,
+      "description": "Sampling temperature (0-2, default 1).",
+      "in": "body"
+    },
+    {
+      "name": "top_p",
+      "type": "number",
+      "required": false,
+      "description": "Nucleus sampling parameter (default 1).",
+      "in": "body"
+    },
+    {
+      "name": "max_tokens",
+      "type": "integer",
+      "required": false,
+      "description": "Maximum tokens to generate.",
+      "in": "body"
+    },
+    {
+      "name": "stream",
+      "type": "boolean",
+      "required": false,
+      "description": "Enable streaming via SSE (default false).",
+      "in": "body"
+    },
+    {
+      "name": "tools",
+      "type": "array",
+      "required": false,
+      "description": "Tool/function definitions for the model.",
+      "in": "body"
+    },
+    {
+      "name": "tool_choice",
+      "type": "string or object",
+      "required": false,
+      "description": "Tool selection: 'auto', 'none', 'required', or specific tool.",
+      "in": "body"
+    },
+    {
+      "name": "response_format",
+      "type": "object",
+      "required": false,
+      "description": "Set to {\"type\": \"json_object\"} for JSON mode.",
+      "in": "body"
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "required": false,
+      "description": "Number of completions (default 1).",
+      "in": "body"
+    },
+    {
+      "name": "stop",
+      "type": "string or array",
+      "required": false,
+      "description": "Stop sequences.",
+      "in": "body"
+    },
+    {
+      "name": "frequency_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Frequency penalty (-2.0 to 2.0, default 0).",
+      "in": "body"
+    },
+    {
+      "name": "presence_penalty",
+      "type": "number",
+      "required": false,
+      "description": "Presence penalty (-2.0 to 2.0, default 0).",
+      "in": "body"
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "required": false,
+      "description": "Deterministic sampling seed.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.groq.com/openai/v1/chat/completions",
-    "headers": {"Authorization": "Bearer gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
+    "headers": {
+      "Authorization": "Bearer gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
     "body": {
       "model": "llama-3.3-70b-versatile",
       "messages": [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "What are the benefits of LPU inference?"}
+        {
+          "role": "system",
+          "content": "You are a helpful assistant."
+        },
+        {
+          "role": "user",
+          "content": "What are the benefits of LPU inference?"
+        }
       ],
       "temperature": 0.7,
       "max_tokens": 500
@@ -41,9 +134,28 @@
       "object": "chat.completion",
       "created": 1709164800,
       "model": "llama-3.3-70b-versatile",
-      "choices": [{"index": 0, "message": {"role": "assistant", "content": "LPU (Language Processing Unit) inference offers several benefits..."}, "finish_reason": "stop"}],
-      "usage": {"prompt_tokens": 28, "completion_tokens": 150, "total_tokens": 178, "queue_time": 0.001, "prompt_time": 0.01, "completion_time": 0.15, "total_time": 0.161},
-      "x_groq": {"id": "req_abc123"}
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "LPU (Language Processing Unit) inference offers several benefits..."
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 28,
+        "completion_tokens": 150,
+        "total_tokens": 178,
+        "queue_time": 0.001,
+        "prompt_time": 0.01,
+        "completion_time": 0.15,
+        "total_time": 0.161
+      },
+      "x_groq": {
+        "id": "req_abc123"
+      }
     }
   }
 }

@@ -1,0 +1,77 @@
+{
+  "name": "send_photo",
+  "resource_group": "messages",
+  "description": "Send a photo to a chat.",
+  "endpoint": "/bot{token}/sendPhoto",
+  "method": "POST",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "string",
+      "required": true,
+      "in": "path",
+      "description": "Bot token",
+      "example": "123456:ABC-DEF"
+    },
+    {
+      "name": "chat_id",
+      "type": "string",
+      "required": true,
+      "description": "Target chat ID",
+      "example": "123456789",
+      "in": "body"
+    },
+    {
+      "name": "photo",
+      "type": "string",
+      "required": true,
+      "description": "Photo URL or file_id",
+      "example": "https://example.com/photo.jpg",
+      "in": "body"
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "required": false,
+      "description": "Photo caption",
+      "example": "Beautiful sunset",
+      "in": "body"
+    },
+    {
+      "name": "parse_mode",
+      "type": "string",
+      "required": false,
+      "description": "Caption formatting",
+      "example": "HTML",
+      "in": "body"
+    }
+  ],
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.telegram.org/bot123456:ABC-DEF/sendPhoto",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "chat_id": "123456789",
+      "photo": "https://example.com/photo.jpg",
+      "caption": "Beautiful sunset"
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "result": {
+        "message_id": 101,
+        "photo": [
+          {
+            "file_id": "AgACAgIAAxkBAAI",
+            "width": 320,
+            "height": 240
+          }
+        ]
+      }
+    }
+  }
+}

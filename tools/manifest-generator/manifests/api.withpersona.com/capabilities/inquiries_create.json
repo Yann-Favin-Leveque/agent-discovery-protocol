@@ -5,11 +5,47 @@
   "endpoint": "/inquiries",
   "method": "POST",
   "parameters": [
-    {"name": "inquiry-template-id", "type": "string", "description": "The inquiry template ID to use.", "required": true, "example": "itmpl_abc123"},
-    {"name": "reference-id", "type": "string", "description": "Your internal reference ID for this individual.", "required": false, "example": "user_12345"},
-    {"name": "account-id", "type": "string", "description": "Persona account ID to associate with.", "required": false},
-    {"name": "note", "type": "string", "description": "Internal note for this inquiry.", "required": false},
-    {"name": "fields", "type": "object", "description": "Pre-fill fields such as name, address, date of birth.", "required": false, "example": {"name-first": "Jane", "name-last": "Doe"}}
+    {
+      "name": "inquiry-template-id",
+      "type": "string",
+      "description": "The inquiry template ID to use.",
+      "required": true,
+      "example": "itmpl_abc123",
+      "in": "body"
+    },
+    {
+      "name": "reference-id",
+      "type": "string",
+      "description": "Your internal reference ID for this individual.",
+      "required": false,
+      "example": "user_12345",
+      "in": "body"
+    },
+    {
+      "name": "account-id",
+      "type": "string",
+      "description": "Persona account ID to associate with.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "note",
+      "type": "string",
+      "description": "Internal note for this inquiry.",
+      "required": false,
+      "in": "body"
+    },
+    {
+      "name": "fields",
+      "type": "object",
+      "description": "Pre-fill fields such as name, address, date of birth.",
+      "required": false,
+      "example": {
+        "name-first": "Jane",
+        "name-last": "Doe"
+      },
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
@@ -24,7 +60,10 @@
         "attributes": {
           "inquiry-template-id": "itmpl_abc123",
           "reference-id": "user_12345",
-          "fields": {"name-first": "Jane", "name-last": "Doe"}
+          "fields": {
+            "name-first": "Jane",
+            "name-last": "Doe"
+          }
         }
       }
     }
@@ -43,5 +82,7 @@
       }
     }
   },
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

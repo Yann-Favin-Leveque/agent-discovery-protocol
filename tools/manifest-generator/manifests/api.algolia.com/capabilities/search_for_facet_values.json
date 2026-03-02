@@ -10,21 +10,24 @@
       "type": "string",
       "description": "Name of the index to search.",
       "required": true,
-      "example": "products"
+      "example": "products",
+      "in": "path"
     },
     {
       "name": "facetName",
       "type": "string",
       "description": "Name of the facet attribute to search.",
       "required": true,
-      "example": "brand"
+      "example": "brand",
+      "in": "path"
     },
     {
       "name": "facetQuery",
       "type": "string",
       "description": "Text to search for within facet values.",
       "required": false,
-      "example": "app"
+      "example": "app",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -35,17 +38,25 @@
       "x-algolia-api-key": "{API_KEY}",
       "Content-Type": "application/json"
     },
-    "body": { "facetQuery": "app" }
+    "body": {
+      "facetQuery": "app"
+    }
   },
   "response_example": {
     "status": 200,
     "body": {
       "facetHits": [
-        { "value": "Apple", "highlighted": "<em>App</em>le", "count": 42 }
+        {
+          "value": "Apple",
+          "highlighted": "<em>App</em>le",
+          "count": 42
+        }
       ]
     }
   },
-  "auth_scopes": ["search"],
+  "auth_scopes": [
+    "search"
+  ],
   "rate_limits": {
     "requests_per_minute": 6000
   }

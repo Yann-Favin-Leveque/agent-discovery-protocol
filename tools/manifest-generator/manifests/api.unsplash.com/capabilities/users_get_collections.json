@@ -5,19 +5,48 @@
   "endpoint": "/users/{username}/collections",
   "method": "GET",
   "parameters": [
-    { "name": "username", "type": "string", "required": true, "description": "The user's username." },
-    { "name": "page", "type": "integer", "required": false, "description": "Page number. Default: 1." },
-    { "name": "per_page", "type": "integer", "required": false, "description": "Items per page. Default: 10. Max: 30." }
+    {
+      "name": "username",
+      "type": "string",
+      "required": true,
+      "description": "The user's username.",
+      "in": "path"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number. Default: 1.",
+      "in": "query"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Items per page. Default: 10. Max: 30.",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.unsplash.com/users/danielmirlea/collections?per_page=5",
-    "headers": { "Authorization": "Client-ID YOUR_ACCESS_KEY" }
+    "headers": {
+      "Authorization": "Client-ID YOUR_ACCESS_KEY"
+    }
   },
   "response_example": {
     "status": 200,
     "body": [
-      { "id": 296, "title": "Nature Landscapes", "total_photos": 87, "cover_photo": { "urls": { "small": "https://images.unsplash.com/photo-abc123?w=400" } } }
+      {
+        "id": 296,
+        "title": "Nature Landscapes",
+        "total_photos": 87,
+        "cover_photo": {
+          "urls": {
+            "small": "https://images.unsplash.com/photo-abc123?w=400"
+          }
+        }
+      }
     ]
   }
 }

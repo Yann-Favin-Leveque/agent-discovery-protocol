@@ -9,31 +9,36 @@
       "name": "smart_invite_id",
       "type": "string",
       "required": true,
-      "description": "Unique identifier for the smart invite."
+      "description": "Unique identifier for the smart invite.",
+      "in": "body"
     },
     {
       "name": "callback_url",
       "type": "string",
       "required": true,
-      "description": "Webhook URL to receive RSVP status changes."
+      "description": "Webhook URL to receive RSVP status changes.",
+      "in": "body"
     },
     {
       "name": "event",
       "type": "object",
       "required": true,
-      "description": "Event details with 'summary', 'start', 'end', 'tzid', and optional 'description', 'location'."
+      "description": "Event details with 'summary', 'start', 'end', 'tzid', and optional 'description', 'location'.",
+      "in": "body"
     },
     {
       "name": "recipients",
       "type": "array",
       "required": true,
-      "description": "Array of recipient objects with 'email' fields."
+      "description": "Array of recipient objects with 'email' fields.",
+      "in": "body"
     },
     {
       "name": "organizer",
       "type": "object",
       "required": true,
-      "description": "Organizer with 'name' and 'email' fields."
+      "description": "Organizer with 'name' and 'email' fields.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -51,13 +56,22 @@
         "start": "2024-01-22T12:00:00Z",
         "end": "2024-01-22T13:00:00Z",
         "tzid": "America/New_York",
-        "location": { "description": "Restaurant downtown" }
+        "location": {
+          "description": "Restaurant downtown"
+        }
       },
       "recipients": [
-        { "email": "alice@example.com" },
-        { "email": "bob@example.com" }
+        {
+          "email": "alice@example.com"
+        },
+        {
+          "email": "bob@example.com"
+        }
       ],
-      "organizer": { "name": "John", "email": "john@example.com" }
+      "organizer": {
+        "name": "John",
+        "email": "john@example.com"
+      }
     }
   },
   "response_example": {
@@ -65,8 +79,14 @@
     "body": {
       "smart_invite_id": "invite-001",
       "recipients": [
-        { "email": "alice@example.com", "status": "pending" },
-        { "email": "bob@example.com", "status": "pending" }
+        {
+          "email": "alice@example.com",
+          "status": "pending"
+        },
+        {
+          "email": "bob@example.com",
+          "status": "pending"
+        }
       ]
     }
   },

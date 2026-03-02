@@ -5,19 +5,54 @@
   "method": "POST",
   "resource_group": "client_tokens",
   "parameters": [
-    {"name": "customerId", "type": "string", "description": "Customer ID to associate with the token for vaulted payment methods.", "required": false, "example": "Y3VzdG9tZXJfMTIz"},
-    {"name": "merchantAccountId", "type": "string", "description": "Merchant account ID.", "required": false, "example": "my_merchant"}
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer ID to associate with the token for vaulted payment methods.",
+      "required": false,
+      "example": "Y3VzdG9tZXJfMTIz",
+      "in": "body"
+    },
+    {
+      "name": "merchantAccountId",
+      "type": "string",
+      "description": "Merchant account ID.",
+      "required": false,
+      "example": "my_merchant",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://payments.braintree-api.com/graphql",
-    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
-    "body": {"query": "mutation CreateClientToken($input: CreateClientTokenInput) { createClientToken(input: $input) { clientToken } }", "variables": {"input": {"clientToken": {"customerId": "Y3VzdG9tZXJfMTIz"}}}}
+    "headers": {
+      "Authorization": "Basic {base64(public_key:private_key)}",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-08-01"
+    },
+    "body": {
+      "query": "mutation CreateClientToken($input: CreateClientTokenInput) { createClientToken(input: $input) { clientToken } }",
+      "variables": {
+        "input": {
+          "clientToken": {
+            "customerId": "Y3VzdG9tZXJfMTIz"
+          }
+        }
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"data": {"createClientToken": {"clientToken": "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiIuLi4ifQ=="}}}
+    "body": {
+      "data": {
+        "createClientToken": {
+          "clientToken": "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiIuLi4ifQ=="
+        }
+      }
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

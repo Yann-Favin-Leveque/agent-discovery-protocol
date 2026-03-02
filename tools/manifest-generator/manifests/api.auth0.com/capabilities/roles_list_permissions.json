@@ -5,19 +5,52 @@
   "method": "GET",
   "resource_group": "roles",
   "parameters": [
-    {"name": "id", "type": "string", "description": "The role ID.", "required": true, "example": "rol_abc123"},
-    {"name": "page", "type": "integer", "description": "Page number.", "required": false, "example": 0},
-    {"name": "per_page", "type": "integer", "description": "Results per page.", "required": false, "example": 50}
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The role ID.",
+      "required": true,
+      "example": "rol_abc123",
+      "in": "path"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "description": "Page number.",
+      "required": false,
+      "example": 0,
+      "in": "query"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "description": "Results per page.",
+      "required": false,
+      "example": 50,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://YOUR_DOMAIN.auth0.com/api/v2/roles/rol_abc123/permissions",
-    "headers": {"Authorization": "Bearer {token}"}
+    "headers": {
+      "Authorization": "Bearer {token}"
+    }
   },
   "response_example": {
     "status": 200,
-    "body": [{"permission_name": "read:data", "description": "Read data", "resource_server_identifier": "https://api.example.com"}]
+    "body": [
+      {
+        "permission_name": "read:data",
+        "description": "Read data",
+        "resource_server_identifier": "https://api.example.com"
+      }
+    ]
   },
-  "auth_scopes": ["read:roles"],
-  "rate_limits": {"requests_per_minute": 50}
+  "auth_scopes": [
+    "read:roles"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 50
+  }
 }

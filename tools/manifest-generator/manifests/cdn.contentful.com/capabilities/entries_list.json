@@ -10,70 +10,80 @@
       "type": "string",
       "description": "The space ID.",
       "required": true,
-      "example": "cfexampleapi"
+      "example": "cfexampleapi",
+      "in": "path"
     },
     {
       "name": "environment_id",
       "type": "string",
       "description": "The environment ID.",
       "required": true,
-      "example": "master"
+      "example": "master",
+      "in": "path"
     },
     {
       "name": "content_type",
       "type": "string",
       "description": "Filter by content type ID.",
       "required": false,
-      "example": "blogPost"
+      "example": "blogPost",
+      "in": "query"
     },
     {
       "name": "select",
       "type": "string",
       "description": "Comma-separated list of fields to include in response.",
       "required": false,
-      "example": "sys.id,fields.title"
+      "example": "sys.id,fields.title",
+      "in": "query"
     },
     {
       "name": "query",
       "type": "string",
       "description": "Full-text search query across all text and symbol fields.",
       "required": false,
-      "example": "hello world"
+      "example": "hello world",
+      "in": "query"
     },
     {
       "name": "order",
       "type": "string",
       "description": "Order results by field. Prefix with - for descending.",
       "required": false,
-      "example": "-sys.createdAt"
+      "example": "-sys.createdAt",
+      "in": "query"
     },
     {
       "name": "limit",
       "type": "integer",
       "description": "Maximum number of results (default 100, max 1000).",
       "required": false,
-      "example": 10
+      "example": 10,
+      "in": "query"
     },
     {
       "name": "skip",
       "type": "integer",
       "description": "Number of results to skip for pagination.",
       "required": false,
-      "example": 0
+      "example": 0,
+      "in": "query"
     },
     {
       "name": "include",
       "type": "integer",
       "description": "Number of levels of linked entries/assets to resolve (0-10, default 1).",
       "required": false,
-      "example": 2
+      "example": 2,
+      "in": "query"
     },
     {
       "name": "locale",
       "type": "string",
       "description": "Locale code to return content in. Use * for all locales.",
       "required": false,
-      "example": "en-US"
+      "example": "en-US",
+      "in": "query"
     }
   ],
   "request_example": {
@@ -86,13 +96,23 @@
   "response_example": {
     "status": 200,
     "body": {
-      "sys": {"type": "Array"},
+      "sys": {
+        "type": "Array"
+      },
       "total": 42,
       "skip": 0,
       "limit": 10,
       "items": [
         {
-          "sys": {"id": "entry1", "type": "Entry", "contentType": {"sys": {"id": "blogPost"}}},
+          "sys": {
+            "id": "entry1",
+            "type": "Entry",
+            "contentType": {
+              "sys": {
+                "id": "blogPost"
+              }
+            }
+          },
           "fields": {
             "title": "Hello World",
             "body": "This is my first blog post."

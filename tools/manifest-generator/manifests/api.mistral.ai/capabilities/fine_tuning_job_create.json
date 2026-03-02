@@ -5,12 +5,62 @@
   "endpoint": "/v1/fine_tuning/jobs",
   "method": "POST",
   "parameters": [
-    {"name": "model", "type": "string", "required": true, "description": "Base model to fine-tune."},
-    {"name": "training_files", "type": "array", "required": true, "description": "Array of training file IDs."},
-    {"name": "validation_files", "type": "array", "required": false, "description": "Validation file IDs."},
-    {"name": "hyperparameters", "type": "object", "required": false, "description": "Training hyperparameters."},
-    {"name": "suffix", "type": "string", "required": false, "description": "Suffix for the fine-tuned model name."}
+    {
+      "name": "model",
+      "type": "string",
+      "required": true,
+      "description": "Base model to fine-tune.",
+      "in": "body"
+    },
+    {
+      "name": "training_files",
+      "type": "array",
+      "required": true,
+      "description": "Array of training file IDs.",
+      "in": "body"
+    },
+    {
+      "name": "validation_files",
+      "type": "array",
+      "required": false,
+      "description": "Validation file IDs.",
+      "in": "body"
+    },
+    {
+      "name": "hyperparameters",
+      "type": "object",
+      "required": false,
+      "description": "Training hyperparameters.",
+      "in": "body"
+    },
+    {
+      "name": "suffix",
+      "type": "string",
+      "required": false,
+      "description": "Suffix for the fine-tuned model name.",
+      "in": "body"
+    }
   ],
-  "request_example": {"method": "POST", "url": "https://api.mistral.ai/v1/fine_tuning/jobs", "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"}, "body": {"model": "mistral-small-latest", "training_files": ["file-abc123"]}},
-  "response_example": {"status": 200, "body": {"id": "ftjob-abc123", "model": "mistral-small-latest", "status": "queued"}}
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/fine_tuning/jobs",
+    "headers": {
+      "Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "model": "mistral-small-latest",
+      "training_files": [
+        "file-abc123"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "ftjob-abc123",
+      "model": "mistral-small-latest",
+      "status": "queued"
+    }
+  }
 }

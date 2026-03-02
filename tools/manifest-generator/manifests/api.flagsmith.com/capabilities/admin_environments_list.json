@@ -5,19 +5,46 @@
   "endpoint": "/environments/",
   "method": "GET",
   "parameters": [
-    {"name": "project", "type": "integer", "description": "Filter by project ID.", "required": false, "example": 1}
+    {
+      "name": "project",
+      "type": "integer",
+      "description": "Filter by project ID.",
+      "required": false,
+      "example": 1,
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.flagsmith.com/api/v1/environments/?project=1",
-    "headers": {"Authorization": "Token {admin_api_token}"}
+    "headers": {
+      "Authorization": "Token {admin_api_token}"
+    }
   },
   "response_example": {
     "status": 200,
     "body": [
-      {"id": 1, "name": "Production", "api_key": "env_prod_xxxxx", "project": {"id": 1, "name": "My Web App"}},
-      {"id": 2, "name": "Development", "api_key": "env_dev_xxxxx", "project": {"id": 1, "name": "My Web App"}}
+      {
+        "id": 1,
+        "name": "Production",
+        "api_key": "env_prod_xxxxx",
+        "project": {
+          "id": 1,
+          "name": "My Web App"
+        }
+      },
+      {
+        "id": 2,
+        "name": "Development",
+        "api_key": "env_dev_xxxxx",
+        "project": {
+          "id": 1,
+          "name": "My Web App"
+        }
+      }
     ]
   },
-  "rate_limits": {"requests_per_minute": 500}
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
 }

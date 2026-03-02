@@ -5,21 +5,63 @@
   "method": "POST",
   "resource_group": "solutions",
   "parameters": [
-    {"name": "folder_id", "type": "integer", "description": "The solutions folder ID.", "required": true, "example": 10},
-    {"name": "title", "type": "string", "description": "Article title.", "required": true, "example": "Getting Started Guide"},
-    {"name": "description", "type": "string", "description": "Article body in HTML.", "required": true, "example": "<p>Welcome to our platform...</p>"},
-    {"name": "status", "type": "integer", "description": "Article status (1=Draft, 2=Published).", "required": false, "example": 2}
+    {
+      "name": "folder_id",
+      "type": "integer",
+      "description": "The solutions folder ID.",
+      "required": true,
+      "example": 10,
+      "in": "path"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Article title.",
+      "required": true,
+      "example": "Getting Started Guide",
+      "in": "body"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Article body in HTML.",
+      "required": true,
+      "example": "<p>Welcome to our platform...</p>",
+      "in": "body"
+    },
+    {
+      "name": "status",
+      "type": "integer",
+      "description": "Article status (1=Draft, 2=Published).",
+      "required": false,
+      "example": 2,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://yourdomain.freshdesk.com/api/v2/solutions/folders/10/articles",
-    "headers": {"Authorization": "Basic base64(api_key:X)", "Content-Type": "application/json"},
-    "body": {"title": "Getting Started Guide", "description": "<p>Welcome to our platform...</p>", "status": 2}
+    "headers": {
+      "Authorization": "Basic base64(api_key:X)",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Getting Started Guide",
+      "description": "<p>Welcome to our platform...</p>",
+      "status": 2
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"id": 51, "title": "Getting Started Guide", "status": 2, "folder_id": 10}
+    "body": {
+      "id": 51,
+      "title": "Getting Started Guide",
+      "status": 2,
+      "folder_id": 10
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 80}
+  "rate_limits": {
+    "requests_per_minute": 80
+  }
 }

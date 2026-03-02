@@ -5,20 +5,54 @@
   "method": "POST",
   "resource_group": "categories",
   "parameters": [
-    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
-    { "name": "criteria[0][key]", "type": "string", "description": "Filter key (id, name, parent, visible)", "required": false, "example": "parent" },
-    { "name": "criteria[0][value]", "type": "string", "description": "Filter value", "required": false, "example": "0" }
+    {
+      "name": "wstoken",
+      "type": "string",
+      "description": "Web service authentication token",
+      "required": true,
+      "example": "abc123token",
+      "in": "body"
+    },
+    {
+      "name": "criteria[0][key]",
+      "type": "string",
+      "description": "Filter key (id, name, parent, visible)",
+      "required": false,
+      "example": "parent",
+      "in": "body"
+    },
+    {
+      "name": "criteria[0][value]",
+      "type": "string",
+      "description": "Filter value",
+      "required": false,
+      "example": "0",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_course_get_categories&moodlewsrestformat=json",
-    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
     "body": {}
   },
   "response_example": {
     "status": 200,
-    "body": [{ "id": 1, "name": "Miscellaneous", "parent": 0, "coursecount": 5 }]
+    "body": [
+      {
+        "id": 1,
+        "name": "Miscellaneous",
+        "parent": 0,
+        "coursecount": 5
+      }
+    ]
   },
-  "auth_scopes": ["core_course_get_categories"],
-  "rate_limits": { "requests_per_minute": 120 }
+  "auth_scopes": [
+    "core_course_get_categories"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

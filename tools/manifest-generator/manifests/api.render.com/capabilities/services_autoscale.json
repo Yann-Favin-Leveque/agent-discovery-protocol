@@ -5,21 +5,74 @@
   "endpoint": "/v1/services/{serviceId}/autoscaling",
   "method": "PUT",
   "parameters": [
-    {"name": "serviceId", "type": "string", "required": true, "description": "The service ID to configure autoscaling for."},
-    {"name": "enabled", "type": "boolean", "required": true, "description": "Whether autoscaling is enabled."},
-    {"name": "min", "type": "integer", "required": true, "description": "Minimum number of instances."},
-    {"name": "max", "type": "integer", "required": true, "description": "Maximum number of instances."},
-    {"name": "criteria", "type": "object", "required": true, "description": "Autoscaling criteria with cpu and memory percentage thresholds."}
+    {
+      "name": "serviceId",
+      "type": "string",
+      "required": true,
+      "description": "The service ID to configure autoscaling for.",
+      "in": "path"
+    },
+    {
+      "name": "enabled",
+      "type": "boolean",
+      "required": true,
+      "description": "Whether autoscaling is enabled.",
+      "in": "body"
+    },
+    {
+      "name": "min",
+      "type": "integer",
+      "required": true,
+      "description": "Minimum number of instances.",
+      "in": "body"
+    },
+    {
+      "name": "max",
+      "type": "integer",
+      "required": true,
+      "description": "Maximum number of instances.",
+      "in": "body"
+    },
+    {
+      "name": "criteria",
+      "type": "object",
+      "required": true,
+      "description": "Autoscaling criteria with cpu and memory percentage thresholds.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PUT",
     "url": "https://api.render.com/v1/services/srv-a1b2c3d4e5/autoscaling",
-    "body": {"enabled": true, "min": 1, "max": 5, "criteria": {"cpu": {"enabled": true, "percentage": 70}, "memory": {"enabled": true, "percentage": 80}}}
+    "body": {
+      "enabled": true,
+      "min": 1,
+      "max": 5,
+      "criteria": {
+        "cpu": {
+          "enabled": true,
+          "percentage": 70
+        },
+        "memory": {
+          "enabled": true,
+          "percentage": 80
+        }
+      }
+    }
   },
   "response_example": {
     "enabled": true,
     "min": 1,
     "max": 5,
-    "criteria": {"cpu": {"enabled": true, "percentage": 70}, "memory": {"enabled": true, "percentage": 80}}
+    "criteria": {
+      "cpu": {
+        "enabled": true,
+        "percentage": 70
+      },
+      "memory": {
+        "enabled": true,
+        "percentage": 80
+      }
+    }
   }
 }

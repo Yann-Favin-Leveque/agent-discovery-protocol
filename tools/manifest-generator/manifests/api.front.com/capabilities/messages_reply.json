@@ -5,14 +5,70 @@
   "method": "POST",
   "resource_group": "messages",
   "parameters": [
-    {"name": "message_id", "type": "string", "description": "The message ID to reply to.", "required": true, "example": "msg_111"},
-    {"name": "body", "type": "string", "description": "Reply body in HTML.", "required": true, "example": "<p>Thank you for reaching out. We'll look into this.</p>"},
-    {"name": "to", "type": "array", "description": "Recipient email addresses.", "required": false, "example": ["john@example.com"]},
-    {"name": "cc", "type": "array", "description": "CC email addresses.", "required": false, "example": []},
-    {"name": "bcc", "type": "array", "description": "BCC email addresses.", "required": false, "example": []}
+    {
+      "name": "message_id",
+      "type": "string",
+      "description": "The message ID to reply to.",
+      "required": true,
+      "example": "msg_111",
+      "in": "path"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "Reply body in HTML.",
+      "required": true,
+      "example": "<p>Thank you for reaching out. We'll look into this.</p>",
+      "in": "body"
+    },
+    {
+      "name": "to",
+      "type": "array",
+      "description": "Recipient email addresses.",
+      "required": false,
+      "example": [
+        "john@example.com"
+      ],
+      "in": "body"
+    },
+    {
+      "name": "cc",
+      "type": "array",
+      "description": "CC email addresses.",
+      "required": false,
+      "example": [],
+      "in": "body"
+    },
+    {
+      "name": "bcc",
+      "type": "array",
+      "description": "BCC email addresses.",
+      "required": false,
+      "example": [],
+      "in": "body"
+    }
   ],
-  "request_example": {"method": "POST", "url": "https://api2.frontapp.com/messages/msg_111/reply", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"body": "<p>Thank you for reaching out.</p>"}},
-  "response_example": {"status": 202, "body": {"message_uid": "msg_222"}},
-  "auth_scopes": ["shared:messages.write"],
-  "rate_limits": {"requests_per_minute": 120}
+  "request_example": {
+    "method": "POST",
+    "url": "https://api2.frontapp.com/messages/msg_111/reply",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "body": "<p>Thank you for reaching out.</p>"
+    }
+  },
+  "response_example": {
+    "status": 202,
+    "body": {
+      "message_uid": "msg_222"
+    }
+  },
+  "auth_scopes": [
+    "shared:messages.write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 120
+  }
 }

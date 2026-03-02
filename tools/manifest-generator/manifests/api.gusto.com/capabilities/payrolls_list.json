@@ -5,13 +5,69 @@
   "method": "GET",
   "resource_group": "payrolls",
   "parameters": [
-    {"name": "company_id", "type": "string", "description": "The company UUID.", "required": true, "example": "7757616923531542"},
-    {"name": "processed", "type": "boolean", "description": "Filter by processed status.", "required": false, "example": true},
-    {"name": "start_date", "type": "string", "description": "Start date filter (YYYY-MM-DD).", "required": false, "example": "2024-01-01"},
-    {"name": "end_date", "type": "string", "description": "End date filter (YYYY-MM-DD).", "required": false, "example": "2024-12-31"}
+    {
+      "name": "company_id",
+      "type": "string",
+      "description": "The company UUID.",
+      "required": true,
+      "example": "7757616923531542",
+      "in": "path"
+    },
+    {
+      "name": "processed",
+      "type": "boolean",
+      "description": "Filter by processed status.",
+      "required": false,
+      "example": true,
+      "in": "query"
+    },
+    {
+      "name": "start_date",
+      "type": "string",
+      "description": "Start date filter (YYYY-MM-DD).",
+      "required": false,
+      "example": "2024-01-01",
+      "in": "query"
+    },
+    {
+      "name": "end_date",
+      "type": "string",
+      "description": "End date filter (YYYY-MM-DD).",
+      "required": false,
+      "example": "2024-12-31",
+      "in": "query"
+    }
   ],
-  "request_example": {"method": "GET", "url": "https://api.gusto.com/v1/companies/7757616923531542/payrolls?processed=true", "headers": {"Authorization": "Bearer {token}"}, "body": {}},
-  "response_example": {"status": 200, "body": [{"payroll_uuid": "pay_789", "pay_period": {"start_date": "2024-09-01", "end_date": "2024-09-15"}, "check_date": "2024-09-20", "processed": true, "totals": {"gross_pay": "50000.00", "net_pay": "38000.00"}}]},
-  "auth_scopes": ["payrolls:read"],
-  "rate_limits": {"requests_per_minute": 60}
+  "request_example": {
+    "method": "GET",
+    "url": "https://api.gusto.com/v1/companies/7757616923531542/payrolls?processed=true",
+    "headers": {
+      "Authorization": "Bearer {token}"
+    },
+    "body": {}
+  },
+  "response_example": {
+    "status": 200,
+    "body": [
+      {
+        "payroll_uuid": "pay_789",
+        "pay_period": {
+          "start_date": "2024-09-01",
+          "end_date": "2024-09-15"
+        },
+        "check_date": "2024-09-20",
+        "processed": true,
+        "totals": {
+          "gross_pay": "50000.00",
+          "net_pay": "38000.00"
+        }
+      }
+    ]
+  },
+  "auth_scopes": [
+    "payrolls:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

@@ -10,70 +10,80 @@
       "type": "string",
       "description": "The zone ID.",
       "required": true,
-      "example": "023e105f4ecef8ad9ca31a8372d0c353"
+      "example": "023e105f4ecef8ad9ca31a8372d0c353",
+      "in": "path"
     },
     {
       "name": "type",
       "type": "string",
       "description": "DNS record type filter: A, AAAA, CNAME, MX, TXT, NS, SRV, CAA, etc.",
       "required": false,
-      "example": "A"
+      "example": "A",
+      "in": "query"
     },
     {
       "name": "name",
       "type": "string",
       "description": "DNS record name filter (e.g., example.com).",
       "required": false,
-      "example": "example.com"
+      "example": "example.com",
+      "in": "query"
     },
     {
       "name": "content",
       "type": "string",
       "description": "DNS record content filter (e.g., IP address).",
       "required": false,
-      "example": "127.0.0.1"
+      "example": "127.0.0.1",
+      "in": "query"
     },
     {
       "name": "proxied",
       "type": "boolean",
       "description": "Filter by Cloudflare proxy status.",
       "required": false,
-      "example": true
+      "example": true,
+      "in": "query"
     },
     {
       "name": "page",
       "type": "integer",
       "description": "Page number of results.",
       "required": false,
-      "example": 1
+      "example": 1,
+      "in": "query"
     },
     {
       "name": "per_page",
       "type": "integer",
       "description": "Number of records per page (default 100, max 5000).",
       "required": false,
-      "example": 100
+      "example": 100,
+      "in": "query"
     },
     {
       "name": "order",
       "type": "string",
       "description": "Sort order field: type, name, content, ttl, proxied.",
       "required": false,
-      "example": "type"
+      "example": "type",
+      "in": "query"
     },
     {
       "name": "direction",
       "type": "string",
       "description": "Sort direction: asc or desc.",
       "required": false,
-      "example": "asc"
+      "example": "asc",
+      "in": "query"
     },
     {
       "name": "match",
       "type": "string",
       "description": "Match logic: any (OR) or all (AND) for filters.",
       "required": false,
-      "example": "all"
+      "example": "all",
+      "in": "query"
     }
   ],
   "request_example": {
@@ -99,10 +109,16 @@
           "modified_on": "2024-01-10T00:00:00Z"
         }
       ],
-      "result_info": {"page": 1, "per_page": 100, "total_count": 1}
+      "result_info": {
+        "page": 1,
+        "per_page": 100,
+        "total_count": 1
+      }
     }
   },
-  "auth_scopes": ["dns_records:read"],
+  "auth_scopes": [
+    "dns_records:read"
+  ],
   "rate_limits": {
     "requests_per_minute": 1200
   }

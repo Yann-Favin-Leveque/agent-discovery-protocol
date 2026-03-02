@@ -9,31 +9,36 @@
       "name": "room_name",
       "type": "string",
       "required": true,
-      "description": "Name of the room."
+      "description": "Name of the room.",
+      "in": "body"
     },
     {
       "name": "audio_track_id",
       "type": "string",
       "required": false,
-      "description": "SID of the audio track to record."
+      "description": "SID of the audio track to record.",
+      "in": "body"
     },
     {
       "name": "video_track_id",
       "type": "string",
       "required": false,
-      "description": "SID of the video track to record."
+      "description": "SID of the video track to record.",
+      "in": "body"
     },
     {
       "name": "file_outputs",
       "type": "array",
       "required": false,
-      "description": "File output configurations."
+      "description": "File output configurations.",
+      "in": "body"
     },
     {
       "name": "stream_outputs",
       "type": "array",
       "required": false,
-      "description": "RTMP stream output configurations."
+      "description": "RTMP stream output configurations.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -47,7 +52,11 @@
       "room_name": "interview-room-42",
       "audio_track_id": "TR_audio_01",
       "video_track_id": "TR_video_01",
-      "file_outputs": [{ "filepath": "recordings/track-composite.mp4" }]
+      "file_outputs": [
+        {
+          "filepath": "recordings/track-composite.mp4"
+        }
+      ]
     }
   },
   "response_example": {
@@ -58,7 +67,9 @@
       "status": "EGRESS_STARTING"
     }
   },
-  "auth_scopes": ["roomRecord"],
+  "auth_scopes": [
+    "roomRecord"
+  ],
   "rate_limits": {
     "requests_per_minute": 60
   }

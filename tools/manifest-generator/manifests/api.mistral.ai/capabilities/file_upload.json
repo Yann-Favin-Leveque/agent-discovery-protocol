@@ -5,9 +5,37 @@
   "endpoint": "/v1/files",
   "method": "POST",
   "parameters": [
-    {"name": "file", "type": "file", "required": true, "description": "File to upload."},
-    {"name": "purpose", "type": "string", "required": false, "description": "Purpose: 'fine-tune', 'batch'."}
+    {
+      "name": "file",
+      "type": "file",
+      "required": true,
+      "description": "File to upload.",
+      "in": "body"
+    },
+    {
+      "name": "purpose",
+      "type": "string",
+      "required": false,
+      "description": "Purpose: 'fine-tune', 'batch'.",
+      "in": "body"
+    }
   ],
-  "request_example": {"method": "POST", "url": "https://api.mistral.ai/v1/files", "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"}, "body": "multipart/form-data: file=@data.jsonl&purpose=fine-tune"},
-  "response_example": {"status": 200, "body": {"id": "file-abc123", "object": "file", "bytes": 175234, "filename": "data.jsonl", "purpose": "fine-tune"}}
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.mistral.ai/v1/files",
+    "headers": {
+      "Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "body": "multipart/form-data: file=@data.jsonl&purpose=fine-tune"
+  },
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "file-abc123",
+      "object": "file",
+      "bytes": 175234,
+      "filename": "data.jsonl",
+      "purpose": "fine-tune"
+    }
+  }
 }

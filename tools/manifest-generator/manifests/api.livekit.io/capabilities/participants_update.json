@@ -9,31 +9,36 @@
       "name": "room",
       "type": "string",
       "required": true,
-      "description": "Name of the room."
+      "description": "Name of the room.",
+      "in": "body"
     },
     {
       "name": "identity",
       "type": "string",
       "required": true,
-      "description": "Identity of the participant to update."
+      "description": "Identity of the participant to update.",
+      "in": "body"
     },
     {
       "name": "metadata",
       "type": "string",
       "required": false,
-      "description": "New metadata string for the participant."
+      "description": "New metadata string for the participant.",
+      "in": "body"
     },
     {
       "name": "permission",
       "type": "object",
       "required": false,
-      "description": "Permission object with 'can_publish', 'can_subscribe', 'can_publish_data' booleans."
+      "description": "Permission object with 'can_publish', 'can_subscribe', 'can_publish_data' booleans.",
+      "in": "body"
     },
     {
       "name": "name",
       "type": "string",
       "required": false,
-      "description": "New display name for the participant."
+      "description": "New display name for the participant.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -47,7 +52,11 @@
       "room": "interview-room-42",
       "identity": "user-alice",
       "metadata": "{\"role\":\"presenter\"}",
-      "permission": { "can_publish": true, "can_subscribe": true, "can_publish_data": true }
+      "permission": {
+        "can_publish": true,
+        "can_subscribe": true,
+        "can_publish_data": true
+      }
     }
   },
   "response_example": {
@@ -56,10 +65,16 @@
       "sid": "PA_xyz789",
       "identity": "user-alice",
       "metadata": "{\"role\":\"presenter\"}",
-      "permission": { "can_publish": true, "can_subscribe": true, "can_publish_data": true }
+      "permission": {
+        "can_publish": true,
+        "can_subscribe": true,
+        "can_publish_data": true
+      }
     }
   },
-  "auth_scopes": ["roomAdmin"],
+  "auth_scopes": [
+    "roomAdmin"
+  ],
   "rate_limits": {
     "requests_per_minute": 300
   }

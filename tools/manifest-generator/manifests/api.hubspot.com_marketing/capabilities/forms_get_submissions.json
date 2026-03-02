@@ -10,21 +10,24 @@
       "type": "string",
       "description": "The form ID.",
       "required": true,
-      "example": "form_abc123"
+      "example": "form_abc123",
+      "in": "path"
     },
     {
       "name": "limit",
       "type": "integer",
       "description": "Maximum submissions to return (default 20, max 50).",
       "required": false,
-      "example": 20
+      "example": 20,
+      "in": "query"
     },
     {
       "name": "after",
       "type": "string",
       "description": "Cursor for pagination.",
       "required": false,
-      "example": ""
+      "example": "",
+      "in": "query"
     }
   ],
   "request_example": {
@@ -41,18 +44,28 @@
         {
           "submittedAt": 1700000000000,
           "values": [
-            { "name": "email", "value": "john@example.com" },
-            { "name": "firstname", "value": "John" }
+            {
+              "name": "email",
+              "value": "john@example.com"
+            },
+            {
+              "name": "firstname",
+              "value": "John"
+            }
           ],
           "pageUrl": "https://example.com/signup"
         }
       ],
       "paging": {
-        "next": { "after": "abc123" }
+        "next": {
+          "after": "abc123"
+        }
       }
     }
   },
-  "auth_scopes": ["forms"],
+  "auth_scopes": [
+    "forms"
+  ],
   "rate_limits": {
     "requests_per_minute": 100
   }

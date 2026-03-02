@@ -10,49 +10,57 @@
       "type": "string",
       "required": true,
       "description": "IANA Time Zone Database identifier (e.g., 'Etc/UTC', 'America/New_York').",
-      "example": "America/New_York"
+      "example": "America/New_York",
+      "in": "query"
     },
     {
       "name": "from",
       "type": "string",
       "required": false,
-      "description": "Oldest date to return events (ISO 8601 date). Must be within the last 42 days."
+      "description": "Oldest date to return events (ISO 8601 date). Must be within the last 42 days.",
+      "in": "query"
     },
     {
       "name": "to",
       "type": "string",
       "required": false,
-      "description": "Return events up to this date (ISO 8601 date). Max 201 days in the future."
+      "description": "Return events up to this date (ISO 8601 date). Max 201 days in the future.",
+      "in": "query"
     },
     {
       "name": "calendar_ids[]",
       "type": "array",
       "required": false,
-      "description": "Restrict results to specific calendar IDs."
+      "description": "Restrict results to specific calendar IDs.",
+      "in": "query"
     },
     {
       "name": "last_modified",
       "type": "string",
       "required": false,
-      "description": "Return events modified on or after this ISO 8601 timestamp. For incremental sync."
+      "description": "Return events modified on or after this ISO 8601 timestamp. For incremental sync.",
+      "in": "query"
     },
     {
       "name": "include_deleted",
       "type": "boolean",
       "required": false,
-      "description": "Include events that have been deleted."
+      "description": "Include events that have been deleted.",
+      "in": "query"
     },
     {
       "name": "include_managed",
       "type": "boolean",
       "required": false,
-      "description": "Include events created by your application."
+      "description": "Include events created by your application.",
+      "in": "query"
     },
     {
       "name": "localized_times",
       "type": "boolean",
       "required": false,
-      "description": "Include timezone info with start/end times."
+      "description": "Include timezone info with start/end times.",
+      "in": "query"
     }
   ],
   "request_example": {
@@ -77,7 +85,9 @@
           "description": "Daily standup meeting",
           "start": "2024-01-16T09:00:00-05:00",
           "end": "2024-01-16T09:30:00-05:00",
-          "location": { "description": "Conference Room A" },
+          "location": {
+            "description": "Conference Room A"
+          },
           "participation_status": "accepted",
           "status": "confirmed",
           "transparency": "opaque"
@@ -85,7 +95,9 @@
       ]
     }
   },
-  "auth_scopes": ["read_events"],
+  "auth_scopes": [
+    "read_events"
+  ],
   "rate_limits": {
     "requests_per_minute": 120
   }

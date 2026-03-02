@@ -9,25 +9,29 @@
       "name": "messages",
       "type": "array",
       "required": true,
-      "description": "Array of binary message objects with destinations and binary content."
+      "description": "Array of binary message objects with destinations and binary content.",
+      "in": "body"
     },
     {
       "name": "messages[].destinations",
       "type": "array",
       "required": true,
-      "description": "Array of destination objects with 'to' (E.164 phone number)."
+      "description": "Array of destination objects with 'to' (E.164 phone number).",
+      "in": "body"
     },
     {
       "name": "messages[].from",
       "type": "string",
       "required": false,
-      "description": "Sender ID or phone number."
+      "description": "Sender ID or phone number.",
+      "in": "body"
     },
     {
       "name": "messages[].binary",
       "type": "object",
       "required": true,
-      "description": "Binary content object with 'hex' (hexadecimal data), 'dataCoding' (integer), and 'esmClass' (integer)."
+      "description": "Binary content object with 'hex' (hexadecimal data), 'dataCoding' (integer), and 'esmClass' (integer).",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -41,7 +45,11 @@
       "messages": [
         {
           "from": "InfoSMS",
-          "destinations": [{ "to": "14155550123" }],
+          "destinations": [
+            {
+              "to": "14155550123"
+            }
+          ],
           "binary": {
             "hex": "54 65 73 74 20 6d 65 73 73 61 67 65 2e",
             "dataCoding": 0,

@@ -5,17 +5,66 @@
   "endpoint": "/v2/glossaries",
   "method": "POST",
   "parameters": [
-    {"name": "name", "type": "string", "required": true, "description": "Glossary name."},
-    {"name": "source_lang", "type": "string", "required": true, "description": "Source language code."},
-    {"name": "target_lang", "type": "string", "required": true, "description": "Target language code."},
-    {"name": "entries", "type": "string", "required": true, "description": "Glossary entries content."},
-    {"name": "entries_format", "type": "string", "required": true, "description": "Format: 'tsv' or 'csv'."}
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Glossary name.",
+      "in": "body"
+    },
+    {
+      "name": "source_lang",
+      "type": "string",
+      "required": true,
+      "description": "Source language code.",
+      "in": "body"
+    },
+    {
+      "name": "target_lang",
+      "type": "string",
+      "required": true,
+      "description": "Target language code.",
+      "in": "body"
+    },
+    {
+      "name": "entries",
+      "type": "string",
+      "required": true,
+      "description": "Glossary entries content.",
+      "in": "body"
+    },
+    {
+      "name": "entries_format",
+      "type": "string",
+      "required": true,
+      "description": "Format: 'tsv' or 'csv'.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.deepl.com/v2/glossaries",
-    "headers": {"Authorization": "DeepL-Auth-Key your-api-key-here", "Content-Type": "application/json"},
-    "body": {"name": "Tech Terms", "source_lang": "EN", "target_lang": "DE", "entries": "machine learning\tMaschinelles Lernen\nartificial intelligence\tKuenstliche Intelligenz", "entries_format": "tsv"}
+    "headers": {
+      "Authorization": "DeepL-Auth-Key your-api-key-here",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Tech Terms",
+      "source_lang": "EN",
+      "target_lang": "DE",
+      "entries": "machine learning\tMaschinelles Lernen\nartificial intelligence\tKuenstliche Intelligenz",
+      "entries_format": "tsv"
+    }
   },
-  "response_example": {"status": 201, "body": {"glossary_id": "gls123", "name": "Tech Terms", "ready": true, "source_lang": "EN", "target_lang": "DE", "entry_count": 2}}
+  "response_example": {
+    "status": 201,
+    "body": {
+      "glossary_id": "gls123",
+      "name": "Tech Terms",
+      "ready": true,
+      "source_lang": "EN",
+      "target_lang": "DE",
+      "entry_count": 2
+    }
+  }
 }

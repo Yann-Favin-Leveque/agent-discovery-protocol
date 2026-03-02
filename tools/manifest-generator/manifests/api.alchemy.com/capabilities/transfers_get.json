@@ -9,25 +9,29 @@
       "name": "apiKey",
       "type": "string",
       "required": true,
-      "description": "Your Alchemy API key (path parameter)."
+      "description": "Your Alchemy API key (path parameter).",
+      "in": "path"
     },
     {
       "name": "id",
       "type": "integer",
       "required": true,
-      "description": "JSON-RPC request ID."
+      "description": "JSON-RPC request ID.",
+      "in": "body"
     },
     {
       "name": "method",
       "type": "string",
       "required": true,
-      "description": "Must be 'alchemy_getAssetTransfers'."
+      "description": "Must be 'alchemy_getAssetTransfers'.",
+      "in": "body"
     },
     {
       "name": "params",
       "type": "array",
       "required": true,
-      "description": "Array with transfer params object: fromBlock, toBlock, fromAddress, toAddress, category[], contractAddresses[], withMetadata, maxCount, pageKey."
+      "description": "Array with transfer params object: fromBlock, toBlock, fromAddress, toAddress, category[], contractAddresses[], withMetadata, maxCount, pageKey.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -40,12 +44,18 @@
       "id": 1,
       "jsonrpc": "2.0",
       "method": "alchemy_getAssetTransfers",
-      "params": [{
-        "fromAddress": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
-        "category": ["external", "erc20", "erc721"],
-        "withMetadata": true,
-        "maxCount": "0x14"
-      }]
+      "params": [
+        {
+          "fromAddress": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+          "category": [
+            "external",
+            "erc20",
+            "erc721"
+          ],
+          "withMetadata": true,
+          "maxCount": "0x14"
+        }
+      ]
     }
   },
   "response_example": {
@@ -63,7 +73,9 @@
             "value": 1.5,
             "asset": "ETH",
             "category": "external",
-            "metadata": { "blockTimestamp": "2024-01-15T12:00:00.000Z" }
+            "metadata": {
+              "blockTimestamp": "2024-01-15T12:00:00.000Z"
+            }
           }
         ],
         "pageKey": "next_transfers_key"

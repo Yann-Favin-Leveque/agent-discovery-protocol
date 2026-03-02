@@ -10,14 +10,16 @@
       "type": "string",
       "description": "The external event identifier.",
       "required": true,
-      "example": "ext_event_001"
+      "example": "ext_event_001",
+      "in": "path"
     },
     {
       "name": "subscriberState",
       "type": "string",
       "description": "Attendance state: REGISTERED, ATTENDED, CANCELLED, or NO_SHOW.",
       "required": true,
-      "example": "ATTENDED"
+      "example": "ATTENDED",
+      "in": "path"
     },
     {
       "name": "inputs",
@@ -25,15 +27,20 @@
       "description": "Array of objects with email and optional interactionDateTime.",
       "required": true,
       "example": [
-        { "email": "john@example.com", "interactionDateTime": 1700000000000 }
-      ]
+        {
+          "email": "john@example.com",
+          "interactionDateTime": 1700000000000
+        }
+      ],
+      "in": "body"
     },
     {
       "name": "externalAccountId",
       "type": "string",
       "description": "The external account identifier.",
       "required": true,
-      "example": "acct_001"
+      "example": "acct_001",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -45,8 +52,14 @@
     },
     "body": {
       "inputs": [
-        { "email": "john@example.com", "interactionDateTime": 1700000000000 },
-        { "email": "jane@example.com", "interactionDateTime": 1700000000000 }
+        {
+          "email": "john@example.com",
+          "interactionDateTime": 1700000000000
+        },
+        {
+          "email": "jane@example.com",
+          "interactionDateTime": 1700000000000
+        }
       ]
     }
   },
@@ -55,12 +68,20 @@
     "body": {
       "status": "COMPLETE",
       "results": [
-        { "email": "john@example.com", "status": "UPDATED" },
-        { "email": "jane@example.com", "status": "UPDATED" }
+        {
+          "email": "john@example.com",
+          "status": "UPDATED"
+        },
+        {
+          "email": "jane@example.com",
+          "status": "UPDATED"
+        }
       ]
     }
   },
-  "auth_scopes": ["marketing-events"],
+  "auth_scopes": [
+    "marketing-events"
+  ],
   "rate_limits": {
     "requests_per_minute": 100
   }

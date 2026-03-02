@@ -11,16 +11,24 @@
       "description": "Array of search request objects, each specifying an indexName and query parameters.",
       "required": true,
       "example": [
-        { "indexName": "products", "query": "laptop" },
-        { "indexName": "categories", "query": "laptop" }
-      ]
+        {
+          "indexName": "products",
+          "query": "laptop"
+        },
+        {
+          "indexName": "categories",
+          "query": "laptop"
+        }
+      ],
+      "in": "body"
     },
     {
       "name": "strategy",
       "type": "string",
       "description": "Multi-query strategy: 'none' (default) or 'stopIfEnoughMatches'.",
       "required": false,
-      "example": "none"
+      "example": "none",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -33,8 +41,16 @@
     },
     "body": {
       "requests": [
-        { "indexName": "products", "query": "laptop", "hitsPerPage": 5 },
-        { "indexName": "categories", "query": "laptop", "hitsPerPage": 3 }
+        {
+          "indexName": "products",
+          "query": "laptop",
+          "hitsPerPage": 5
+        },
+        {
+          "indexName": "categories",
+          "query": "laptop",
+          "hitsPerPage": 3
+        }
       ]
     }
   },
@@ -42,12 +58,22 @@
     "status": 200,
     "body": {
       "results": [
-        { "hits": [], "nbHits": 150, "index": "products" },
-        { "hits": [], "nbHits": 3, "index": "categories" }
+        {
+          "hits": [],
+          "nbHits": 150,
+          "index": "products"
+        },
+        {
+          "hits": [],
+          "nbHits": 3,
+          "index": "categories"
+        }
       ]
     }
   },
-  "auth_scopes": ["search"],
+  "auth_scopes": [
+    "search"
+  ],
   "rate_limits": {
     "requests_per_minute": 6000
   }

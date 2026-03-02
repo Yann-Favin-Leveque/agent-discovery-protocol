@@ -5,21 +5,86 @@
   "method": "POST",
   "resource_group": "reports",
   "parameters": [
-    {"name": "companyDomain", "type": "string", "description": "Your BambooHR subdomain.", "required": true, "example": "mycompany"},
-    {"name": "format", "type": "string", "description": "Output format: JSON, CSV, XLS, XML, PDF.", "required": false, "example": "JSON"},
-    {"name": "fields", "type": "array", "description": "Array of field IDs to include.", "required": true, "example": ["firstName", "lastName", "department", "jobTitle"]},
-    {"name": "filters", "type": "object", "description": "Filter criteria (e.g., lastChanged date).", "required": false, "example": {"lastChanged": {"includeNull": "no", "value": "2024-01-01T00:00:00Z"}}}
+    {
+      "name": "companyDomain",
+      "type": "string",
+      "description": "Your BambooHR subdomain.",
+      "required": true,
+      "example": "mycompany",
+      "in": "path"
+    },
+    {
+      "name": "format",
+      "type": "string",
+      "description": "Output format: JSON, CSV, XLS, XML, PDF.",
+      "required": false,
+      "example": "JSON",
+      "in": "body"
+    },
+    {
+      "name": "fields",
+      "type": "array",
+      "description": "Array of field IDs to include.",
+      "required": true,
+      "example": [
+        "firstName",
+        "lastName",
+        "department",
+        "jobTitle"
+      ],
+      "in": "body"
+    },
+    {
+      "name": "filters",
+      "type": "object",
+      "description": "Filter criteria (e.g., lastChanged date).",
+      "required": false,
+      "example": {
+        "lastChanged": {
+          "includeNull": "no",
+          "value": "2024-01-01T00:00:00Z"
+        }
+      },
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.bamboohr.com/api/gateway.php/mycompany/v1/reports/custom?format=JSON",
-    "headers": {"Authorization": "Basic {base64(apikey:x)}", "Content-Type": "application/json"},
-    "body": {"fields": ["firstName", "lastName", "department", "jobTitle"]}
+    "headers": {
+      "Authorization": "Basic {base64(apikey:x)}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "fields": [
+        "firstName",
+        "lastName",
+        "department",
+        "jobTitle"
+      ]
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"fields": [{"id": "firstName", "type": "text", "name": "First Name"}], "employees": [{"id": "123", "firstName": "John", "lastName": "Doe"}]}
+    "body": {
+      "fields": [
+        {
+          "id": "firstName",
+          "type": "text",
+          "name": "First Name"
+        }
+      ],
+      "employees": [
+        {
+          "id": "123",
+          "firstName": "John",
+          "lastName": "Doe"
+        }
+      ]
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 60}
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

@@ -5,23 +5,88 @@
   "endpoint": "/verify",
   "method": "POST",
   "parameters": [
-    {"name": "recipient", "type": "integer", "required": true, "description": "Phone number to verify in international format."},
-    {"name": "originator", "type": "string", "required": true, "description": "Sender name or number for the verification SMS."},
-    {"name": "type", "type": "string", "required": false, "description": "Verification type: 'sms' (default) or 'tts' (voice)."},
-    {"name": "template", "type": "string", "required": false, "description": "Custom message template. Use %token for the code placeholder."},
-    {"name": "tokenLength", "type": "integer", "required": false, "description": "Length of the verification code (4-10). Default 6."},
-    {"name": "timeout", "type": "integer", "required": false, "description": "Expiration time in seconds (30-259200). Default 30."},
-    {"name": "language", "type": "string", "required": false, "description": "Language for voice verification (e.g., 'en-us')."},
-    {"name": "voice", "type": "string", "required": false, "description": "Voice gender for TTS: 'male' or 'female'."}
+    {
+      "name": "recipient",
+      "type": "integer",
+      "required": true,
+      "description": "Phone number to verify in international format.",
+      "in": "body"
+    },
+    {
+      "name": "originator",
+      "type": "string",
+      "required": true,
+      "description": "Sender name or number for the verification SMS.",
+      "in": "body"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": false,
+      "description": "Verification type: 'sms' (default) or 'tts' (voice).",
+      "in": "body"
+    },
+    {
+      "name": "template",
+      "type": "string",
+      "required": false,
+      "description": "Custom message template. Use %token for the code placeholder.",
+      "in": "body"
+    },
+    {
+      "name": "tokenLength",
+      "type": "integer",
+      "required": false,
+      "description": "Length of the verification code (4-10). Default 6.",
+      "in": "body"
+    },
+    {
+      "name": "timeout",
+      "type": "integer",
+      "required": false,
+      "description": "Expiration time in seconds (30-259200). Default 30.",
+      "in": "body"
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "required": false,
+      "description": "Language for voice verification (e.g., 'en-us').",
+      "in": "body"
+    },
+    {
+      "name": "voice",
+      "type": "string",
+      "required": false,
+      "description": "Voice gender for TTS: 'male' or 'female'.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://rest.messagebird.com/verify",
-    "headers": {"Content-Type": "application/json", "Authorization": "AccessKey live_abc123xyz"},
-    "body": {"recipient": 31612345678, "originator": "MyApp", "type": "sms", "tokenLength": 6, "timeout": 120}
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "AccessKey live_abc123xyz"
+    },
+    "body": {
+      "recipient": 31612345678,
+      "originator": "MyApp",
+      "type": "sms",
+      "tokenLength": 6,
+      "timeout": 120
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"id": "verify-id-123", "href": "https://rest.messagebird.com/verify/verify-id-123", "recipient": 31612345678, "reference": null, "status": "sent", "createdDatetime": "2026-03-01T12:00:00+00:00", "validUntilDatetime": "2026-03-01T12:02:00+00:00"}
+    "body": {
+      "id": "verify-id-123",
+      "href": "https://rest.messagebird.com/verify/verify-id-123",
+      "recipient": 31612345678,
+      "reference": null,
+      "status": "sent",
+      "createdDatetime": "2026-03-01T12:00:00+00:00",
+      "validUntilDatetime": "2026-03-01T12:02:00+00:00"
+    }
   }
 }

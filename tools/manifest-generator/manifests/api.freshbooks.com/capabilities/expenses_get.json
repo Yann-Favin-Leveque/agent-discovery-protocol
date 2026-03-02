@@ -5,19 +5,56 @@
   "method": "GET",
   "resource_group": "expenses",
   "parameters": [
-    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
-    {"name": "expense_id", "type": "integer", "description": "The expense ID.", "required": true, "example": 111}
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    },
+    {
+      "name": "expense_id",
+      "type": "integer",
+      "description": "The expense ID.",
+      "required": true,
+      "example": 111,
+      "in": "path"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.freshbooks.com/accounting/account/xB2yw/expenses/expenses/111",
-    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha"},
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha"
+    },
     "body": {}
   },
   "response_example": {
     "status": 200,
-    "body": {"response": {"result": {"expense": {"id": 111, "vendor": "Office Depot", "amount": {"amount": "45.99", "code": "USD"}, "date": "2024-06-15", "categoryid": 5, "notes": "Office supplies"}}}}
+    "body": {
+      "response": {
+        "result": {
+          "expense": {
+            "id": 111,
+            "vendor": "Office Depot",
+            "amount": {
+              "amount": "45.99",
+              "code": "USD"
+            },
+            "date": "2024-06-15",
+            "categoryid": 5,
+            "notes": "Office supplies"
+          }
+        }
+      }
+    }
   },
-  "auth_scopes": ["user:expenses:read"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:expenses:read"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

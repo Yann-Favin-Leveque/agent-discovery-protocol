@@ -5,19 +5,61 @@
   "method": "POST",
   "resource_group": "transactions",
   "parameters": [
-    {"name": "transactionId", "type": "string", "description": "ID of the settled transaction to refund.", "required": true, "example": "dHJhbnNhY3Rpb25fOHg2NjRi"},
-    {"name": "amount", "type": "string", "description": "Refund amount (optional, defaults to full amount).", "required": false, "example": "25.00"}
+    {
+      "name": "transactionId",
+      "type": "string",
+      "description": "ID of the settled transaction to refund.",
+      "required": true,
+      "example": "dHJhbnNhY3Rpb25fOHg2NjRi",
+      "in": "body"
+    },
+    {
+      "name": "amount",
+      "type": "string",
+      "description": "Refund amount (optional, defaults to full amount).",
+      "required": false,
+      "example": "25.00",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://payments.braintree-api.com/graphql",
-    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
-    "body": {"query": "mutation RefundTransaction($input: RefundTransactionInput!) { refundTransaction(input: $input) { refund { id status amount { value } } } }", "variables": {"input": {"transactionId": "dHJhbnNhY3Rpb25fOHg2NjRi", "refund": {"amount": "25.00"}}}}
+    "headers": {
+      "Authorization": "Basic {base64(public_key:private_key)}",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-08-01"
+    },
+    "body": {
+      "query": "mutation RefundTransaction($input: RefundTransactionInput!) { refundTransaction(input: $input) { refund { id status amount { value } } } }",
+      "variables": {
+        "input": {
+          "transactionId": "dHJhbnNhY3Rpb25fOHg2NjRi",
+          "refund": {
+            "amount": "25.00"
+          }
+        }
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"data": {"refundTransaction": {"refund": {"id": "cmVmdW5kXzEyMzQ1", "status": "SUBMITTED_FOR_SETTLEMENT", "amount": {"value": "25.00"}}}}}
+    "body": {
+      "data": {
+        "refundTransaction": {
+          "refund": {
+            "id": "cmVmdW5kXzEyMzQ1",
+            "status": "SUBMITTED_FOR_SETTLEMENT",
+            "amount": {
+              "value": "25.00"
+            }
+          }
+        }
+      }
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

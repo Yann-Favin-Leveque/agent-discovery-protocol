@@ -5,19 +5,50 @@
   "method": "POST",
   "resource_group": "webhooks",
   "parameters": [
-    { "name": "url", "type": "string", "description": "The URL to receive webhook notifications", "required": true, "example": "https://myapp.com/webhooks/mercury" },
-    { "name": "events", "type": "array", "description": "Event types to subscribe to", "required": true, "example": ["transaction.created", "transaction.updated"] }
+    {
+      "name": "url",
+      "type": "string",
+      "description": "The URL to receive webhook notifications",
+      "required": true,
+      "example": "https://myapp.com/webhooks/mercury",
+      "in": "body"
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "Event types to subscribe to",
+      "required": true,
+      "example": [
+        "transaction.created",
+        "transaction.updated"
+      ],
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.mercury.com/webhook",
-    "headers": { "Authorization": "Bearer {token}", "Content-Type": "application/json" },
-    "body": { "url": "https://myapp.com/webhooks/mercury", "events": ["transaction.created"] }
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://myapp.com/webhooks/mercury",
+      "events": [
+        "transaction.created"
+      ]
+    }
   },
   "response_example": {
     "status": 200,
-    "body": { "id": "wh_001", "url": "https://myapp.com/webhooks/mercury", "status": "active" }
+    "body": {
+      "id": "wh_001",
+      "url": "https://myapp.com/webhooks/mercury",
+      "status": "active"
+    }
   },
   "auth_scopes": [],
-  "rate_limits": { "requests_per_minute": 30 }
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
 }

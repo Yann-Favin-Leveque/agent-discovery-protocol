@@ -5,21 +5,63 @@
   "endpoint": "/topics/{id_or_slug}/photos",
   "method": "GET",
   "parameters": [
-    { "name": "id_or_slug", "type": "string", "required": true, "description": "The topic's ID or URL slug." },
-    { "name": "page", "type": "integer", "required": false, "description": "Page number. Default: 1." },
-    { "name": "per_page", "type": "integer", "required": false, "description": "Items per page. Default: 10. Max: 30." },
-    { "name": "order_by", "type": "string", "required": false, "description": "Sort order: 'latest', 'popular', 'views', or 'downloads'." },
-    { "name": "orientation", "type": "string", "required": false, "description": "Filter: 'landscape', 'portrait', or 'squarish'." }
+    {
+      "name": "id_or_slug",
+      "type": "string",
+      "required": true,
+      "description": "The topic's ID or URL slug.",
+      "in": "path"
+    },
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "description": "Page number. Default: 1.",
+      "in": "query"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "description": "Items per page. Default: 10. Max: 30.",
+      "in": "query"
+    },
+    {
+      "name": "order_by",
+      "type": "string",
+      "required": false,
+      "description": "Sort order: 'latest', 'popular', 'views', or 'downloads'.",
+      "in": "query"
+    },
+    {
+      "name": "orientation",
+      "type": "string",
+      "required": false,
+      "description": "Filter: 'landscape', 'portrait', or 'squarish'.",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://api.unsplash.com/topics/wallpapers/photos?per_page=5&order_by=popular",
-    "headers": { "Authorization": "Client-ID YOUR_ACCESS_KEY" }
+    "headers": {
+      "Authorization": "Client-ID YOUR_ACCESS_KEY"
+    }
   },
   "response_example": {
     "status": 200,
     "body": [
-      { "id": "abc123", "description": "Epic mountain wallpaper", "urls": { "regular": "https://images.unsplash.com/photo-abc123?w=1080" }, "user": { "username": "photographer1", "name": "Photographer One" } }
+      {
+        "id": "abc123",
+        "description": "Epic mountain wallpaper",
+        "urls": {
+          "regular": "https://images.unsplash.com/photo-abc123?w=1080"
+        },
+        "user": {
+          "username": "photographer1",
+          "name": "Photographer One"
+        }
+      }
     ]
   }
 }

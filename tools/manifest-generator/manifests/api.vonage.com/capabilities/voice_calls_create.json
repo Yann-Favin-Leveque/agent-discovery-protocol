@@ -9,55 +9,64 @@
       "name": "to",
       "type": "array",
       "required": true,
-      "description": "Array of destination objects. Each has 'type' ('phone', 'sip', 'websocket') and 'number' or 'uri'."
+      "description": "Array of destination objects. Each has 'type' ('phone', 'sip', 'websocket') and 'number' or 'uri'.",
+      "in": "body"
     },
     {
       "name": "from",
       "type": "object",
       "required": true,
-      "description": "Caller ID object with 'type' ('phone') and 'number' (your Vonage number in E.164 format)."
+      "description": "Caller ID object with 'type' ('phone') and 'number' (your Vonage number in E.164 format).",
+      "in": "body"
     },
     {
       "name": "answer_url",
       "type": "array",
       "required": false,
-      "description": "Array of URLs returning NCCO JSON for the call flow. Required if ncco is not provided."
+      "description": "Array of URLs returning NCCO JSON for the call flow. Required if ncco is not provided.",
+      "in": "body"
     },
     {
       "name": "ncco",
       "type": "array",
       "required": false,
-      "description": "Inline NCCO actions array. Use instead of answer_url for simple call flows."
+      "description": "Inline NCCO actions array. Use instead of answer_url for simple call flows.",
+      "in": "body"
     },
     {
       "name": "answer_method",
       "type": "string",
       "required": false,
-      "description": "HTTP method for answer_url. 'GET' (default) or 'POST'."
+      "description": "HTTP method for answer_url. 'GET' (default) or 'POST'.",
+      "in": "body"
     },
     {
       "name": "event_url",
       "type": "array",
       "required": false,
-      "description": "URLs for call event webhooks (started, ringing, answered, completed)."
+      "description": "URLs for call event webhooks (started, ringing, answered, completed).",
+      "in": "body"
     },
     {
       "name": "machine_detection",
       "type": "string",
       "required": false,
-      "description": "Answering machine detection mode: 'continue' or 'hangup'."
+      "description": "Answering machine detection mode: 'continue' or 'hangup'.",
+      "in": "body"
     },
     {
       "name": "length_timer",
       "type": "integer",
       "required": false,
-      "description": "Maximum call length in seconds (1-7200). Default 7200."
+      "description": "Maximum call length in seconds (1-7200). Default 7200.",
+      "in": "body"
     },
     {
       "name": "ringing_timer",
       "type": "integer",
       "required": false,
-      "description": "Ringing timeout in seconds before giving up (1-120). Default 60."
+      "description": "Ringing timeout in seconds before giving up (1-120). Default 60.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -68,8 +77,16 @@
       "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."
     },
     "body": {
-      "to": [{ "type": "phone", "number": "14155550123" }],
-      "from": { "type": "phone", "number": "12015550145" },
+      "to": [
+        {
+          "type": "phone",
+          "number": "14155550123"
+        }
+      ],
+      "from": {
+        "type": "phone",
+        "number": "12015550145"
+      },
       "ncco": [
         {
           "action": "talk",
@@ -78,7 +95,9 @@
           "style": 0
         }
       ],
-      "event_url": ["https://example.com/webhooks/events"],
+      "event_url": [
+        "https://example.com/webhooks/events"
+      ],
       "length_timer": 120
     }
   },

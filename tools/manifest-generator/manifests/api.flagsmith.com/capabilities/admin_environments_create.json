@@ -5,18 +5,48 @@
   "endpoint": "/environments/",
   "method": "POST",
   "parameters": [
-    {"name": "name", "type": "string", "description": "Environment name.", "required": true, "example": "Staging"},
-    {"name": "project", "type": "integer", "description": "Project ID.", "required": true, "example": 1}
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Environment name.",
+      "required": true,
+      "example": "Staging",
+      "in": "body"
+    },
+    {
+      "name": "project",
+      "type": "integer",
+      "description": "Project ID.",
+      "required": true,
+      "example": 1,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.flagsmith.com/api/v1/environments/",
-    "headers": {"Authorization": "Token {admin_api_token}", "Content-Type": "application/json"},
-    "body": {"name": "Staging", "project": 1}
+    "headers": {
+      "Authorization": "Token {admin_api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "Staging",
+      "project": 1
+    }
   },
   "response_example": {
     "status": 201,
-    "body": {"id": 3, "name": "Staging", "api_key": "env_stg_xxxxx", "project": {"id": 1, "name": "My Web App"}}
+    "body": {
+      "id": 3,
+      "name": "Staging",
+      "api_key": "env_stg_xxxxx",
+      "project": {
+        "id": 1,
+        "name": "My Web App"
+      }
+    }
   },
-  "rate_limits": {"requests_per_minute": 500}
+  "rate_limits": {
+    "requests_per_minute": 500
+  }
 }

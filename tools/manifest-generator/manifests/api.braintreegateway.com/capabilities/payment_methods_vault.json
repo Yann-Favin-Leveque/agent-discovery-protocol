@@ -5,19 +5,60 @@
   "method": "POST",
   "resource_group": "payment_methods",
   "parameters": [
-    {"name": "paymentMethodId", "type": "string", "description": "Single-use payment method ID to vault.", "required": true, "example": "dG9rZW5pemVkX2NjXzEyMw"},
-    {"name": "customerId", "type": "string", "description": "Customer to associate the payment method with.", "required": false, "example": "Y3VzdG9tZXJfMTIz"}
+    {
+      "name": "paymentMethodId",
+      "type": "string",
+      "description": "Single-use payment method ID to vault.",
+      "required": true,
+      "example": "dG9rZW5pemVkX2NjXzEyMw",
+      "in": "body"
+    },
+    {
+      "name": "customerId",
+      "type": "string",
+      "description": "Customer to associate the payment method with.",
+      "required": false,
+      "example": "Y3VzdG9tZXJfMTIz",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://payments.braintree-api.com/graphql",
-    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
-    "body": {"query": "mutation VaultPaymentMethod($input: VaultPaymentMethodInput!) { vaultPaymentMethod(input: $input) { paymentMethod { id usage details { ... on CreditCardDetails { last4 brandCode } } } } }", "variables": {"input": {"paymentMethodId": "dG9rZW5pemVkX2NjXzEyMw", "customerId": "Y3VzdG9tZXJfMTIz"}}}
+    "headers": {
+      "Authorization": "Basic {base64(public_key:private_key)}",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-08-01"
+    },
+    "body": {
+      "query": "mutation VaultPaymentMethod($input: VaultPaymentMethodInput!) { vaultPaymentMethod(input: $input) { paymentMethod { id usage details { ... on CreditCardDetails { last4 brandCode } } } } }",
+      "variables": {
+        "input": {
+          "paymentMethodId": "dG9rZW5pemVkX2NjXzEyMw",
+          "customerId": "Y3VzdG9tZXJfMTIz"
+        }
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"data": {"vaultPaymentMethod": {"paymentMethod": {"id": "cGF5bWVudG1ldGhvZF8x", "usage": "MULTI_USE", "details": {"last4": "1234", "brandCode": "VISA"}}}}}
+    "body": {
+      "data": {
+        "vaultPaymentMethod": {
+          "paymentMethod": {
+            "id": "cGF5bWVudG1ldGhvZF8x",
+            "usage": "MULTI_USE",
+            "details": {
+              "last4": "1234",
+              "brandCode": "VISA"
+            }
+          }
+        }
+      }
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

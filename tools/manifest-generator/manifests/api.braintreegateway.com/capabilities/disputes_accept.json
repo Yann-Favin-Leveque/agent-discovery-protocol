@@ -5,18 +5,44 @@
   "method": "POST",
   "resource_group": "disputes",
   "parameters": [
-    {"name": "disputeId", "type": "string", "description": "ID of the dispute to accept.", "required": true, "example": "ZGlzcHV0ZV8xMjM0NQ"}
+    {
+      "name": "disputeId",
+      "type": "string",
+      "description": "ID of the dispute to accept.",
+      "required": true,
+      "example": "ZGlzcHV0ZV8xMjM0NQ",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://payments.braintree-api.com/graphql",
-    "headers": {"Authorization": "Basic {base64(public_key:private_key)}", "Content-Type": "application/json", "Braintree-Version": "2024-08-01"},
-    "body": {"query": "mutation AcceptDispute($input: AcceptDisputeInput!) { acceptDispute(input: $input) { clientMutationId } }", "variables": {"input": {"disputeId": "ZGlzcHV0ZV8xMjM0NQ"}}}
+    "headers": {
+      "Authorization": "Basic {base64(public_key:private_key)}",
+      "Content-Type": "application/json",
+      "Braintree-Version": "2024-08-01"
+    },
+    "body": {
+      "query": "mutation AcceptDispute($input: AcceptDisputeInput!) { acceptDispute(input: $input) { clientMutationId } }",
+      "variables": {
+        "input": {
+          "disputeId": "ZGlzcHV0ZV8xMjM0NQ"
+        }
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"data": {"acceptDispute": {"clientMutationId": null}}}
+    "body": {
+      "data": {
+        "acceptDispute": {
+          "clientMutationId": null
+        }
+      }
+    }
   },
   "auth_scopes": [],
-  "rate_limits": {"requests_per_minute": 300}
+  "rate_limits": {
+    "requests_per_minute": 300
+  }
 }

@@ -5,16 +5,62 @@
   "endpoint": "/v2/applications/{application_id}",
   "method": "PUT",
   "parameters": [
-    {"name": "application_id", "type": "string", "required": true, "location": "path", "description": "The application ID to update."},
-    {"name": "name", "type": "string", "required": true, "description": "Updated application name."},
-    {"name": "capabilities", "type": "object", "required": false, "description": "Updated capabilities configuration."},
-    {"name": "keys", "type": "object", "required": false, "description": "Updated public key."}
+    {
+      "name": "application_id",
+      "type": "string",
+      "required": true,
+      "location": "path",
+      "description": "The application ID to update.",
+      "in": "path"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "description": "Updated application name.",
+      "in": "body"
+    },
+    {
+      "name": "capabilities",
+      "type": "object",
+      "required": false,
+      "description": "Updated capabilities configuration.",
+      "in": "body"
+    },
+    {
+      "name": "keys",
+      "type": "object",
+      "required": false,
+      "description": "Updated public key.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PUT",
     "url": "https://api.vonage.com/v2/applications/78d335fa-323d-0114-9c3d-d6f0d48968cf",
-    "headers": {"Content-Type": "application/json", "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."},
-    "body": {"name": "Updated App Name", "capabilities": {"messages": {"webhooks": {"inbound_url": {"address": "https://new.example.com/inbound", "http_method": "POST"}}}}}
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJhbGciOiJSUzI1NiJ9..."
+    },
+    "body": {
+      "name": "Updated App Name",
+      "capabilities": {
+        "messages": {
+          "webhooks": {
+            "inbound_url": {
+              "address": "https://new.example.com/inbound",
+              "http_method": "POST"
+            }
+          }
+        }
+      }
+    }
   },
-  "response_example": {"status": 200, "body": {"id": "78d335fa-323d-0114-9c3d-d6f0d48968cf", "name": "Updated App Name"}}
+  "response_example": {
+    "status": 200,
+    "body": {
+      "id": "78d335fa-323d-0114-9c3d-d6f0d48968cf",
+      "name": "Updated App Name"
+    }
+  }
 }

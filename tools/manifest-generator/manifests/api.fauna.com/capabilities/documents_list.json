@@ -10,14 +10,16 @@
       "type": "string",
       "description": "FQL query to list documents. Use Collection.all() syntax with optional .take(n) for pagination.",
       "required": true,
-      "example": "Product.all().take(20)"
+      "example": "Product.all().take(20)",
+      "in": "body"
     },
     {
       "name": "arguments",
       "type": "object",
       "description": "Named arguments for the query.",
       "required": false,
-      "example": {}
+      "example": {},
+      "in": "body"
     }
   ],
   "request_example": {
@@ -37,8 +39,16 @@
     "body": {
       "data": {
         "data": [
-          {"id": "123", "name": "Widget", "price": 9.99},
-          {"id": "456", "name": "Gadget", "price": 24.99}
+          {
+            "id": "123",
+            "name": "Widget",
+            "price": 9.99
+          },
+          {
+            "id": "456",
+            "name": "Gadget",
+            "price": 24.99
+          }
         ],
         "after": "cursor_token_for_next_page"
       },
@@ -50,7 +60,10 @@
       }
     }
   },
-  "auth_scopes": ["server", "admin"],
+  "auth_scopes": [
+    "server",
+    "admin"
+  ],
   "rate_limits": {
     "requests_per_minute": 1000
   }

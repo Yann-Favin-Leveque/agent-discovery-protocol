@@ -5,11 +5,56 @@
   "method": "POST",
   "resource_group": "webhooks",
   "parameters": [
-    {"name": "url", "type": "string", "description": "The callback URL.", "required": true, "example": "https://example.com/webhooks/gusto"},
-    {"name": "subscription_types", "type": "array", "description": "Event types to subscribe to.", "required": true, "example": ["Employee", "Payroll"]}
+    {
+      "name": "url",
+      "type": "string",
+      "description": "The callback URL.",
+      "required": true,
+      "example": "https://example.com/webhooks/gusto",
+      "in": "body"
+    },
+    {
+      "name": "subscription_types",
+      "type": "array",
+      "description": "Event types to subscribe to.",
+      "required": true,
+      "example": [
+        "Employee",
+        "Payroll"
+      ],
+      "in": "body"
+    }
   ],
-  "request_example": {"method": "POST", "url": "https://api.gusto.com/v1/webhook_subscriptions", "headers": {"Authorization": "Bearer {token}", "Content-Type": "application/json"}, "body": {"url": "https://example.com/webhooks/gusto", "subscription_types": ["Employee", "Payroll"]}},
-  "response_example": {"status": 201, "body": {"uuid": "wh_123", "url": "https://example.com/webhooks/gusto", "subscription_types": ["Employee", "Payroll"]}},
-  "auth_scopes": ["webhook_subscriptions:write"],
-  "rate_limits": {"requests_per_minute": 60}
+  "request_example": {
+    "method": "POST",
+    "url": "https://api.gusto.com/v1/webhook_subscriptions",
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "url": "https://example.com/webhooks/gusto",
+      "subscription_types": [
+        "Employee",
+        "Payroll"
+      ]
+    }
+  },
+  "response_example": {
+    "status": 201,
+    "body": {
+      "uuid": "wh_123",
+      "url": "https://example.com/webhooks/gusto",
+      "subscription_types": [
+        "Employee",
+        "Payroll"
+      ]
+    }
+  },
+  "auth_scopes": [
+    "webhook_subscriptions:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 60
+  }
 }

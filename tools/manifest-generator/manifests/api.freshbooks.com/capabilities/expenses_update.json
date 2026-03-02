@@ -5,21 +5,73 @@
   "method": "PUT",
   "resource_group": "expenses",
   "parameters": [
-    {"name": "account_id", "type": "string", "description": "The FreshBooks account ID.", "required": true, "example": "xB2yw"},
-    {"name": "expense_id", "type": "integer", "description": "The expense ID to update.", "required": true, "example": 111},
-    {"name": "amount", "type": "object", "description": "Updated amount.", "required": false, "example": {"amount": "50.00", "code": "USD"}},
-    {"name": "notes", "type": "string", "description": "Updated notes.", "required": false, "example": "Updated expense notes"}
+    {
+      "name": "account_id",
+      "type": "string",
+      "description": "The FreshBooks account ID.",
+      "required": true,
+      "example": "xB2yw",
+      "in": "path"
+    },
+    {
+      "name": "expense_id",
+      "type": "integer",
+      "description": "The expense ID to update.",
+      "required": true,
+      "example": 111,
+      "in": "path"
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "Updated amount.",
+      "required": false,
+      "example": {
+        "amount": "50.00",
+        "code": "USD"
+      },
+      "in": "body"
+    },
+    {
+      "name": "notes",
+      "type": "string",
+      "description": "Updated notes.",
+      "required": false,
+      "example": "Updated expense notes",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "PUT",
     "url": "https://api.freshbooks.com/accounting/account/xB2yw/expenses/expenses/111",
-    "headers": {"Authorization": "Bearer {token}", "Api-Version": "alpha", "Content-Type": "application/json"},
-    "body": {"expense": {"notes": "Updated expense notes"}}
+    "headers": {
+      "Authorization": "Bearer {token}",
+      "Api-Version": "alpha",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "expense": {
+        "notes": "Updated expense notes"
+      }
+    }
   },
   "response_example": {
     "status": 200,
-    "body": {"response": {"result": {"expense": {"id": 111, "notes": "Updated expense notes"}}}}
+    "body": {
+      "response": {
+        "result": {
+          "expense": {
+            "id": 111,
+            "notes": "Updated expense notes"
+          }
+        }
+      }
+    }
   },
-  "auth_scopes": ["user:expenses:write"],
-  "rate_limits": {"requests_per_minute": 100}
+  "auth_scopes": [
+    "user:expenses:write"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 100
+  }
 }

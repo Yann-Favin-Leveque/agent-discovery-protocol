@@ -5,14 +5,44 @@
   "endpoint": "/v1/ocr",
   "method": "POST",
   "parameters": [
-    {"name": "model", "type": "string", "required": false, "description": "OCR model ID."},
-    {"name": "document", "type": "object", "required": true, "description": "Document or image to process. Can include URL or base64 data."}
+    {
+      "name": "model",
+      "type": "string",
+      "required": false,
+      "description": "OCR model ID.",
+      "in": "body"
+    },
+    {
+      "name": "document",
+      "type": "object",
+      "required": true,
+      "description": "Document or image to process. Can include URL or base64 data.",
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://api.mistral.ai/v1/ocr",
-    "headers": {"Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx", "Content-Type": "application/json"},
-    "body": {"document": {"type": "image_url", "image_url": "https://example.com/receipt.jpg"}}
+    "headers": {
+      "Authorization": "Bearer mk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "document": {
+        "type": "image_url",
+        "image_url": "https://example.com/receipt.jpg"
+      }
+    }
   },
-  "response_example": {"status": 200, "body": {"pages": [{"index": 0, "markdown": "# Invoice\n\nItem: Widget\nPrice: $9.99\nTotal: $9.99"}]}}
+  "response_example": {
+    "status": 200,
+    "body": {
+      "pages": [
+        {
+          "index": 0,
+          "markdown": "# Invoice\n\nItem: Widget\nPrice: $9.99\nTotal: $9.99"
+        }
+      ]
+    }
+  }
 }

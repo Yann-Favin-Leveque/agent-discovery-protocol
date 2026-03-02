@@ -10,28 +10,32 @@
       "type": "string",
       "description": "The PSID (Page-Scoped ID) of the Messenger recipient.",
       "required": true,
-      "example": "1234567890"
+      "example": "1234567890",
+      "in": "body"
     },
     {
       "name": "message_text",
       "type": "string",
       "description": "The text content of the message to send (max 2000 characters).",
       "required": true,
-      "example": "Hello! How can I help you today?"
+      "example": "Hello! How can I help you today?",
+      "in": "body"
     },
     {
       "name": "messaging_type",
       "type": "string",
       "description": "The messaging type: RESPONSE, UPDATE, or MESSAGE_TAG.",
       "required": true,
-      "example": "RESPONSE"
+      "example": "RESPONSE",
+      "in": "body"
     },
     {
       "name": "tag",
       "type": "string",
       "description": "Message tag for sending outside the 24-hour window. Required when messaging_type is MESSAGE_TAG.",
       "required": false,
-      "example": "CONFIRMED_EVENT_UPDATE"
+      "example": "CONFIRMED_EVENT_UPDATE",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -43,8 +47,12 @@
     },
     "body": {
       "messaging_type": "RESPONSE",
-      "recipient": { "id": "1234567890" },
-      "message": { "text": "Hello! How can I help you today?" }
+      "recipient": {
+        "id": "1234567890"
+      },
+      "message": {
+        "text": "Hello! How can I help you today?"
+      }
     }
   },
   "response_example": {
@@ -54,7 +62,9 @@
       "message_id": "mid.1457764197618:41d102a3e1ae206a38"
     }
   },
-  "auth_scopes": ["pages_messaging"],
+  "auth_scopes": [
+    "pages_messaging"
+  ],
   "rate_limits": {
     "requests_per_minute": 250
   }

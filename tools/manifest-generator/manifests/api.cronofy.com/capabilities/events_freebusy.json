@@ -9,31 +9,36 @@
       "name": "tzid",
       "type": "string",
       "required": true,
-      "description": "IANA Time Zone Database identifier."
+      "description": "IANA Time Zone Database identifier.",
+      "in": "query"
     },
     {
       "name": "from",
       "type": "string",
       "required": false,
-      "description": "Start date for the free/busy query (ISO 8601 date)."
+      "description": "Start date for the free/busy query (ISO 8601 date).",
+      "in": "query"
     },
     {
       "name": "to",
       "type": "string",
       "required": false,
-      "description": "End date for the free/busy query (ISO 8601 date)."
+      "description": "End date for the free/busy query (ISO 8601 date).",
+      "in": "query"
     },
     {
       "name": "calendar_ids[]",
       "type": "array",
       "required": false,
-      "description": "Restrict to specific calendar IDs."
+      "description": "Restrict to specific calendar IDs.",
+      "in": "query"
     },
     {
       "name": "include_free",
       "type": "boolean",
       "required": false,
-      "description": "Include free (transparent) events."
+      "description": "Include free (transparent) events.",
+      "in": "query"
     }
   ],
   "request_example": {
@@ -46,7 +51,10 @@
   "response_example": {
     "status": 200,
     "body": {
-      "pages": { "current": 1, "total": 1 },
+      "pages": {
+        "current": 1,
+        "total": 1
+      },
       "free_busy": [
         {
           "calendar_id": "cal_n23kjnwrw2_abc123",
@@ -57,7 +65,9 @@
       ]
     }
   },
-  "auth_scopes": ["read_free_busy"],
+  "auth_scopes": [
+    "read_free_busy"
+  ],
   "rate_limits": {
     "requests_per_minute": 120
   }

@@ -10,7 +10,10 @@
       "type": "object",
       "description": "Response format specification.",
       "required": true,
-      "example": { "mimeType": "application/json" }
+      "example": {
+        "mimeType": "application/json"
+      },
+      "in": "body"
     },
     {
       "name": "request",
@@ -19,12 +22,29 @@
       "required": true,
       "example": {
         "pipeline": [
-          { "source": { "events": null } },
-          { "identified": "visitorId" },
-          { "dateRange": { "from": "2024-01-01", "to": "2024-01-31" } },
-          { "group": { "field": "visitorId", "count": "count" } }
+          {
+            "source": {
+              "events": null
+            }
+          },
+          {
+            "identified": "visitorId"
+          },
+          {
+            "dateRange": {
+              "from": "2024-01-01",
+              "to": "2024-01-31"
+            }
+          },
+          {
+            "group": {
+              "field": "visitorId",
+              "count": "count"
+            }
+          }
         ]
-      }
+      },
+      "in": "body"
     }
   ],
   "request_example": {
@@ -35,13 +55,31 @@
       "Content-Type": "application/json"
     },
     "body": {
-      "response": { "mimeType": "application/json" },
+      "response": {
+        "mimeType": "application/json"
+      },
       "request": {
         "pipeline": [
-          { "source": { "events": null } },
-          { "identified": "visitorId" },
-          { "dateRange": { "from": "2024-01-01", "to": "2024-01-31" } },
-          { "group": { "field": "visitorId", "count": "count" } }
+          {
+            "source": {
+              "events": null
+            }
+          },
+          {
+            "identified": "visitorId"
+          },
+          {
+            "dateRange": {
+              "from": "2024-01-01",
+              "to": "2024-01-31"
+            }
+          },
+          {
+            "group": {
+              "field": "visitorId",
+              "count": "count"
+            }
+          }
         ]
       }
     }
@@ -50,12 +88,20 @@
     "status": 200,
     "body": {
       "results": [
-        { "visitorId": "user_123", "count": 250 },
-        { "visitorId": "user_456", "count": 180 }
+        {
+          "visitorId": "user_123",
+          "count": 250
+        },
+        {
+          "visitorId": "user_456",
+          "count": 180
+        }
       ]
     }
   },
-  "auth_scopes": ["aggregation"],
+  "auth_scopes": [
+    "aggregation"
+  ],
   "rate_limits": {
     "requests_per_minute": 60
   }

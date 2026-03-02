@@ -9,19 +9,22 @@
       "name": "sequence",
       "type": "array",
       "required": true,
-      "description": "Ordered array of availability queries, each with 'participants', 'required_duration', and optional 'buffer'."
+      "description": "Ordered array of availability queries, each with 'participants', 'required_duration', and optional 'buffer'.",
+      "in": "body"
     },
     {
       "name": "query_periods",
       "type": "array",
       "required": true,
-      "description": "Time windows for the overall sequence."
+      "description": "Time windows for the overall sequence.",
+      "in": "body"
     },
     {
       "name": "response_format",
       "type": "string",
       "required": false,
-      "description": "Result format: 'periods' (default) or 'slots'."
+      "description": "Result format: 'periods' (default) or 'slots'.",
+      "in": "body"
     }
   ],
   "request_example": {
@@ -34,15 +37,42 @@
     "body": {
       "sequence": [
         {
-          "participants": [{ "members": [{ "sub": "acc_123" }], "required": "all" }],
-          "required_duration": { "minutes": 30 }
+          "participants": [
+            {
+              "members": [
+                {
+                  "sub": "acc_123"
+                }
+              ],
+              "required": "all"
+            }
+          ],
+          "required_duration": {
+            "minutes": 30
+          }
         },
         {
-          "participants": [{ "members": [{ "sub": "acc_456" }], "required": "all" }],
-          "required_duration": { "minutes": 60 }
+          "participants": [
+            {
+              "members": [
+                {
+                  "sub": "acc_456"
+                }
+              ],
+              "required": "all"
+            }
+          ],
+          "required_duration": {
+            "minutes": 60
+          }
         }
       ],
-      "query_periods": [{ "start": "2024-01-20T09:00:00Z", "end": "2024-01-20T18:00:00Z" }]
+      "query_periods": [
+        {
+          "start": "2024-01-20T09:00:00Z",
+          "end": "2024-01-20T18:00:00Z"
+        }
+      ]
     }
   },
   "response_example": {
@@ -51,14 +81,32 @@
       "available_periods": [
         {
           "sequence": [
-            { "start": "2024-01-20T10:00:00Z", "end": "2024-01-20T10:30:00Z", "participants": [{ "sub": "acc_123" }] },
-            { "start": "2024-01-20T10:30:00Z", "end": "2024-01-20T11:30:00Z", "participants": [{ "sub": "acc_456" }] }
+            {
+              "start": "2024-01-20T10:00:00Z",
+              "end": "2024-01-20T10:30:00Z",
+              "participants": [
+                {
+                  "sub": "acc_123"
+                }
+              ]
+            },
+            {
+              "start": "2024-01-20T10:30:00Z",
+              "end": "2024-01-20T11:30:00Z",
+              "participants": [
+                {
+                  "sub": "acc_456"
+                }
+              ]
+            }
           ]
         }
       ]
     }
   },
-  "auth_scopes": ["read_free_busy"],
+  "auth_scopes": [
+    "read_free_busy"
+  ],
   "rate_limits": {
     "requests_per_minute": 60
   }

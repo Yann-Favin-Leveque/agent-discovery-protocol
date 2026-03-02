@@ -5,19 +5,41 @@
   "method": "POST",
   "resource_group": "users",
   "parameters": [
-    { "name": "wstoken", "type": "string", "description": "Web service authentication token", "required": true, "example": "abc123token" },
-    { "name": "userids[0]", "type": "integer", "description": "User ID to delete", "required": true, "example": 42 }
+    {
+      "name": "wstoken",
+      "type": "string",
+      "description": "Web service authentication token",
+      "required": true,
+      "example": "abc123token",
+      "in": "body"
+    },
+    {
+      "name": "userids[0]",
+      "type": "integer",
+      "description": "User ID to delete",
+      "required": true,
+      "example": 42,
+      "in": "body"
+    }
   ],
   "request_example": {
     "method": "POST",
     "url": "https://{moodle_url}/webservice/rest/server.php?wstoken={token}&wsfunction=core_user_delete_users&moodlewsrestformat=json",
-    "headers": { "Content-Type": "application/x-www-form-urlencoded" },
-    "body": { "userids[0]": 42 }
+    "headers": {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "body": {
+      "userids[0]": 42
+    }
   },
   "response_example": {
     "status": 200,
     "body": null
   },
-  "auth_scopes": ["core_user_delete_users"],
-  "rate_limits": { "requests_per_minute": 30 }
+  "auth_scopes": [
+    "core_user_delete_users"
+  ],
+  "rate_limits": {
+    "requests_per_minute": 30
+  }
 }

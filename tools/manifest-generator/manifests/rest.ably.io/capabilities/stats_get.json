@@ -5,26 +5,76 @@
   "endpoint": "/stats",
   "method": "GET",
   "parameters": [
-    {"name": "start", "type": "string", "description": "Start of time range (millisecond epoch or ISO 8601).", "required": false},
-    {"name": "end", "type": "string", "description": "End of time range.", "required": false},
-    {"name": "limit", "type": "integer", "description": "Maximum number of stat records to return (default 100).", "required": false, "example": 100},
-    {"name": "unit", "type": "string", "description": "Time unit granularity (minute, hour, day, month).", "required": false, "example": "hour"},
-    {"name": "direction", "type": "string", "description": "Order: forwards or backwards (default).", "required": false, "example": "backwards"}
+    {
+      "name": "start",
+      "type": "string",
+      "description": "Start of time range (millisecond epoch or ISO 8601).",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "end",
+      "type": "string",
+      "description": "End of time range.",
+      "required": false,
+      "in": "query"
+    },
+    {
+      "name": "limit",
+      "type": "integer",
+      "description": "Maximum number of stat records to return (default 100).",
+      "required": false,
+      "example": 100,
+      "in": "query"
+    },
+    {
+      "name": "unit",
+      "type": "string",
+      "description": "Time unit granularity (minute, hour, day, month).",
+      "required": false,
+      "example": "hour",
+      "in": "query"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "description": "Order: forwards or backwards (default).",
+      "required": false,
+      "example": "backwards",
+      "in": "query"
+    }
   ],
   "request_example": {
     "method": "GET",
     "url": "https://rest.ably.io/stats?unit=hour&limit=24",
-    "headers": {"Authorization": "Basic {base64_api_key}"}
+    "headers": {
+      "Authorization": "Basic {base64_api_key}"
+    }
   },
   "response_example": {
     "status": 200,
     "body": [
       {
         "intervalId": "2024-01-15:10",
-        "all": {"messages": {"count": 1500, "data": 45000}, "all": {"count": 1500, "data": 45000}},
-        "channels": {"opened": 25, "peak": 30, "mean": 20}
+        "all": {
+          "messages": {
+            "count": 1500,
+            "data": 45000
+          },
+          "all": {
+            "count": 1500,
+            "data": 45000
+          }
+        },
+        "channels": {
+          "opened": 25,
+          "peak": 30,
+          "mean": 20
+        }
       }
     ]
   },
-  "rate_limits": {"requests_per_minute": 1500}
+  "rate_limits": {
+    "requests_per_minute": 1500
+  }
 }
