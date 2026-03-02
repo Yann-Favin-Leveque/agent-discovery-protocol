@@ -82,6 +82,7 @@ async function initSchema(p: Pool) {
         description TEXT NOT NULL,
         detail_url TEXT NOT NULL,
         detail_json JSONB,
+        resource_group TEXT,
         category_slug TEXT REFERENCES categories(slug)
       )
     `);
@@ -321,6 +322,7 @@ export interface CapabilityRow {
   description: string;
   detail_url: string;
   detail_json: unknown | null;
+  resource_group: string | null;
   category_slug: string | null;
 }
 
@@ -646,6 +648,7 @@ export async function insertService(data: {
     description: string;
     detail_url: string;
     detail_json?: unknown;
+    resource_group?: string;
     category_slug?: string;
   }>;
 }): Promise<ServiceRow> {
@@ -667,8 +670,8 @@ export async function insertService(data: {
 
   for (const cap of data.capabilities) {
     await db.query(
-      "INSERT INTO capabilities (service_id, name, description, detail_url, detail_json, category_slug) VALUES ($1, $2, $3, $4, $5, $6)",
-      [serviceId, cap.name, cap.description, cap.detail_url, cap.detail_json ? JSON.stringify(cap.detail_json) : null, cap.category_slug ?? null]
+      "INSERT INTO capabilities (service_id, name, description, detail_url, detail_json, resource_group, category_slug) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [serviceId, cap.name, cap.description, cap.detail_url, cap.detail_json ? JSON.stringify(cap.detail_json) : null, cap.resource_group ?? null, cap.category_slug ?? null]
     );
   }
 
@@ -694,6 +697,7 @@ export async function updateServiceVerification(
       description: string;
       detail_url: string;
       detail_json?: unknown;
+      resource_group?: string;
       category_slug?: string;
     }>;
   }
@@ -722,8 +726,8 @@ export async function updateServiceVerification(
 
   for (const cap of manifest.capabilities) {
     await db.query(
-      "INSERT INTO capabilities (service_id, name, description, detail_url, detail_json, category_slug) VALUES ($1, $2, $3, $4, $5, $6)",
-      [service.id, cap.name, cap.description, cap.detail_url, cap.detail_json ? JSON.stringify(cap.detail_json) : null, cap.category_slug ?? null]
+      "INSERT INTO capabilities (service_id, name, description, detail_url, detail_json, resource_group, category_slug) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [service.id, cap.name, cap.description, cap.detail_url, cap.detail_json ? JSON.stringify(cap.detail_json) : null, cap.resource_group ?? null, cap.category_slug ?? null]
     );
   }
 
@@ -760,6 +764,55 @@ export async function upsertCapabilityDetail(
     [JSON.stringify(detailJson), serviceId, capabilityName]
   );
   return (result.rowCount ?? 0) > 0;
+}
+
+export async function replaceServiceCapabilities(
+  domain: string,
+  manifest: {
+    name: string;
+    description: string;
+    base_url: string;
+    auth_type: string;
+    auth_details: string;
+    pricing_type: string;
+    spec_version: string;
+  },
+  capabilities: Array<{
+    name: string;
+    description: string;
+    detail_url: string;
+    detail_json?: unknown;
+    resource_group?: string;
+    category_slug?: string;
+  }>,
+  trustLevel?: string
+): Promise<ServiceRow | undefined> {
+  const db = await ensureInitialized();
+  const service = await getServiceByDomain(domain);
+  if (!service) return undefined;
+
+  await db.query(
+    `UPDATE services SET
+      name = $1, description = $2, base_url = $3, auth_type = $4, auth_details = $5,
+      pricing_type = $6, spec_version = $7, updated_at = NOW()
+      ${trustLevel ? ", trust_level = $9" : ""}
+     WHERE id = $8`,
+    trustLevel
+      ? [manifest.name, manifest.description, manifest.base_url, manifest.auth_type, manifest.auth_details, manifest.pricing_type, manifest.spec_version, service.id, trustLevel]
+      : [manifest.name, manifest.description, manifest.base_url, manifest.auth_type, manifest.auth_details, manifest.pricing_type, manifest.spec_version, service.id]
+  );
+
+  await db.query("DELETE FROM capabilities WHERE service_id = $1", [service.id]);
+
+  for (const cap of capabilities) {
+    await db.query(
+      "INSERT INTO capabilities (service_id, name, description, detail_url, detail_json, resource_group, category_slug) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [service.id, cap.name, cap.description, cap.detail_url, cap.detail_json ? JSON.stringify(cap.detail_json) : null, cap.resource_group ?? null, cap.category_slug ?? null]
+    );
+  }
+
+  const result = await db.query("SELECT * FROM services WHERE id = $1", [service.id]);
+  return rowTo<ServiceRow>(result.rows[0]);
 }
 
 export async function getTrustedServices(): Promise<ServiceRow[]> {

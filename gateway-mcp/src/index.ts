@@ -62,9 +62,10 @@ server.registerTool(
       domain: z.string().optional().describe("Specific domain to explore (e.g. 'api.mailforge.dev')"),
       capability: z.string().optional().describe("Capability name to drill into (requires domain)"),
       include_unverified: z.boolean().optional().describe("Include unverified services in results (default: false, only trusted services shown)"),
+      resource: z.string().optional().describe("Filter capabilities by resource group (e.g. 'messages', 'users')"),
     },
   },
-  async ({ query, domain, capability, include_unverified }) => {
+  async ({ query, domain, capability, include_unverified, resource }) => {
     try {
       // Mode 1: Search registry by query
       if (query && !domain) {
@@ -111,9 +112,66 @@ server.registerTool(
         const token = getToken(domain);
         const connected = token && token.access_token ? "[CONNECTED]" : "[NOT CONNECTED]";
 
-        const caps = manifest.capabilities
-          .map((c) => `  - ${c.name}: ${c.description}`)
-          .join("\n");
+        let capsSection: string;
+        const allCaps = manifest.capabilities;
+
+        if (resource) {
+          // Filter capabilities by resource_group (case-insensitive partial match)
+          const resourceLower = resource.toLowerCase();
+          const filtered = allCaps.filter(
+            (c) => c.resource_group && c.resource_group.toLowerCase().includes(resourceLower)
+          );
+
+          if (filtered.length === 0) {
+            // Collect available groups for helpful message
+            const groups = new Set<string>();
+            for (const c of allCaps) {
+              groups.add(c.resource_group ?? "other");
+            }
+            capsSection = [
+              `No capabilities matching resource "${resource}".`,
+              ``,
+              `Available resource groups: ${[...groups].join(", ")}`,
+            ].join("\n");
+          } else {
+            capsSection = [
+              `Capabilities matching "${resource}" (${filtered.length}):`,
+              ``,
+              ...filtered.map((c) => `  - ${c.name}: ${c.description}`),
+            ].join("\n");
+          }
+        } else if (allCaps.length >= 15) {
+          // Group capabilities by resource_group
+          const groups = new Map<string, typeof allCaps>();
+          for (const c of allCaps) {
+            const group = c.resource_group ?? "other";
+            if (!groups.has(group)) {
+              groups.set(group, []);
+            }
+            groups.get(group)!.push(c);
+          }
+
+          const groupLines: string[] = [];
+          for (const [group, caps] of groups) {
+            groupLines.push(`  ${group} (${caps.length} operations):`);
+            for (const c of caps) {
+              groupLines.push(`    - ${c.name}: ${c.description}`);
+            }
+            groupLines.push(``);
+          }
+
+          capsSection = [
+            `Capabilities (${allCaps.length} total):`,
+            ``,
+            ...groupLines,
+          ].join("\n");
+        } else {
+          // Flat list for < 15 capabilities
+          capsSection = [
+            `Capabilities:`,
+            ...allCaps.map((c) => `  - ${c.name}: ${c.description}`),
+          ].join("\n");
+        }
 
         const text = [
           `${manifest.name} (${domain}) ${connected}`,
@@ -124,11 +182,11 @@ server.registerTool(
           manifest.pricing ? `Pricing: ${manifest.pricing.type}` : null,
           `Spec version: ${manifest.spec_version}`,
           ``,
-          `Capabilities:`,
-          caps,
+          capsSection,
           ``,
           `To use a capability, call the 'call' tool with domain="${domain}" and the capability name.`,
           `To see full details on a capability, call 'discover' with domain="${domain}" and capability="<name>".`,
+          allCaps.length >= 15 && !resource ? `Use discover(domain="${domain}", resource="<group>") to filter by resource group.` : null,
         ]
           .filter((l) => l !== null)
           .join("\n");

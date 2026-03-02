@@ -20,6 +20,7 @@ export interface ManifestCapability {
   name: string;
   description: string;
   detail_url: string;
+  resource_group?: string;
 }
 
 export interface Manifest {
@@ -47,6 +48,7 @@ export interface CapabilityDetail {
   description: string;
   endpoint: string;
   method: string;
+  resource_group?: string;
   parameters: CapabilityParameter[];
   request_example: {
     method: string;
