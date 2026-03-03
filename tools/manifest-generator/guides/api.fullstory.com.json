@@ -1,0 +1,41 @@
+{
+  "domain": "api.fullstory.com",
+  "display_name": "FullStory",
+  "auth_type": "api_key",
+  "portal_url": "https://app.fullstory.com/ui/org/settings/integrations/api-keys",
+  "steps": [
+    "Log in to your FullStory account at https://app.fullstory.com",
+    "Click the settings gear icon or navigate to Settings in the top navigation",
+    "Go to 'Integrations' in the left sidebar, then select 'API Keys'",
+    "Click 'Create key' in the top-right corner",
+    "Enter a meaningful key name (e.g., 'Gateway MCP')",
+    "Select the minimum required permissions for your use case",
+    "Click 'Create'",
+    "A modal displays the full API key value — copy it immediately, as it will not be shown again",
+    "Encode the key in Base64 and pass it as the Authorization header using the 'Basic' scheme"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "A FullStory API key from Settings > Integrations > API Keys. Shown only once at creation. Used with Basic auth (Base64-encoded).",
+      "secret": true,
+      "placeholder": "your_api_key_here"
+    }
+  ],
+  "notes": [
+    "The API key is shown only once at creation — copy it immediately and store it securely",
+    "FullStory uses HTTP Basic Auth: Base64-encode 'api_key:' (note the colon, no password) and set Authorization: Basic <encoded>",
+    "API access requires a Business or Enterprise plan — not available on the free tier",
+    "Rate limits apply per organization; check FullStory documentation for current limits",
+    "Admin-level keys are required for user deletion; read-only keys are sufficient for session and event queries",
+    "Revoking a key immediately invalidates all requests using that key"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v2/users",
+    "expected_status": 200,
+    "description": "List users in the FullStory organization. Verifies API key and permissions are correctly configured."
+  },
+  "last_verified": "2026-03-02"
+}

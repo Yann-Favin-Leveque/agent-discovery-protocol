@@ -1,0 +1,40 @@
+{
+  "domain": "app.posthog.com_api",
+  "display_name": "PostHog",
+  "auth_type": "api_key",
+  "portal_url": "https://app.posthog.com/settings/user-api-keys",
+  "steps": [
+    "Go to https://app.posthog.com and sign in to your account",
+    "Click your profile icon or navigate to 'Settings' in the left sidebar",
+    "Select 'Personal API keys' or go directly to https://app.posthog.com/settings/user-api-keys",
+    "Click '+ Create personal API key'",
+    "Enter a label for the key (e.g. 'My Integration')",
+    "Select the scopes required for your use case",
+    "Click 'Create key'",
+    "Copy the key immediately — it will never be shown again"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Personal API Key",
+      "description": "Your PostHog personal API key (not the project API key)",
+      "secret": true,
+      "placeholder": "phx_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ],
+  "notes": [
+    "Free open-source plan available; cloud plans start with a generous free tier",
+    "Personal API keys are for server-side use only — never expose in frontend code",
+    "The key is shown only once — copy it before leaving the page",
+    "PostHog also has a 'Project API Key' (write-only, for event capture) — this guide is for the personal API key (read/write for management APIs)",
+    "Self-hosted PostHog users: replace app.posthog.com with your instance URL",
+    "Most API endpoints require the project ID in the path: /api/projects/{project_id}/..."
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/projects/",
+    "expected_status": 200,
+    "description": "List all projects in the organization"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,39 @@
+{
+  "domain": "api.bamboohr.com",
+  "display_name": "BambooHR",
+  "auth_type": "api_key",
+  "portal_url": "https://app.bamboohr.com/settings/account/apikeys",
+  "steps": [
+    "Go to https://app.bamboohr.com and log in as an Account Owner or Admin",
+    "Navigate to Settings (gear icon) in the top navigation",
+    "Go to Account > API Keys",
+    "Click '+ Add New Key'",
+    "Enter a descriptive name for the key and click 'Generate Key'",
+    "Copy the generated API key — it is shown only once",
+    "To authenticate, base64-encode 'api_key:x' (where x is the literal character x) and send as 'Authorization: Basic <encoded>'",
+    "Replace {companyDomain} in API URLs with your BambooHR subdomain (e.g., mycompany)"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your BambooHR API key. Authenticate using Basic auth with the key as username and 'x' as password: base64('api_key:x').",
+      "secret": true,
+      "placeholder": "your_bamboohr_api_key"
+    }
+  ],
+  "notes": [
+    "API key is shown only once at creation — copy it before closing the dialog",
+    "Authentication uses HTTP Basic: base64(api_key + ':x') — the password is always the literal letter 'x'",
+    "All API URLs include your company subdomain: https://api.bamboohr.com/api/gateway.php/{companyDomain}/v1/",
+    "Only Account Owners and Admins can generate API keys",
+    "No free public tier — requires an active BambooHR subscription"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/gateway.php/{companyDomain}/v1/employees/directory",
+    "expected_status": 200,
+    "description": "Retrieve the employee directory to verify your API key and company domain"
+  },
+  "last_verified": "2026-03-02"
+}

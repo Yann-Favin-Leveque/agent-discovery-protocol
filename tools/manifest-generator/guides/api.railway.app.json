@@ -1,0 +1,40 @@
+{
+  "domain": "api.railway.app",
+  "display_name": "Railway",
+  "auth_type": "api_key",
+  "portal_url": "https://railway.com/account/tokens",
+  "steps": [
+    "Go to https://railway.com and sign in or create a free account (sign in with GitHub or Google)",
+    "Click your profile avatar in the top-right corner",
+    "Select 'Account Settings' from the dropdown",
+    "Click 'Tokens' in the left sidebar, or navigate directly to https://railway.com/account/tokens",
+    "Click 'Create Token'",
+    "Enter a name for the token (e.g., 'My Agent')",
+    "Select the scope: 'No workspace' for account-level access, or select a specific workspace",
+    "Click 'Create' and copy the generated token immediately"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "Your Railway API token, sent as a Bearer token in the Authorization header",
+      "secret": true,
+      "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Railway uses a GraphQL API at https://backboard.railway.app/graphql/v2 — all requests are POST",
+    "Three token scopes: Account (all resources), Workspace (workspace-scoped), Project (environment-scoped)",
+    "Hobby plan is free with limited usage; Pro plan required for production workloads",
+    "The token is shown only once — copy it immediately and store securely",
+    "Project tokens can also be created from the project's Settings > Tokens page for CI/CD use",
+    "Rate limit: 1,000 requests per minute on the GraphQL API"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/graphql/v2",
+    "expected_status": 200,
+    "description": "Send a GraphQL query for the authenticated user's profile (query { me { id name email } })"
+  },
+  "last_verified": "2026-03-02"
+}

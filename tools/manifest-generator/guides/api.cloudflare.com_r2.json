@@ -1,0 +1,41 @@
+{
+  "domain": "api.cloudflare.com_r2",
+  "display_name": "Cloudflare R2",
+  "auth_type": "api_key",
+  "portal_url": "https://dash.cloudflare.com/profile/api-tokens",
+  "steps": [
+    "Go to https://dash.cloudflare.com and log in or create a free account",
+    "Click your user icon in the top right, then select 'My Profile'",
+    "Click 'API Tokens' in the left sidebar",
+    "Click 'Create Token', then select 'Create Custom Token'",
+    "Under Permissions, add: Account > R2 Storage > Edit",
+    "Under Account Resources, select your account",
+    "Click 'Continue to summary', then 'Create Token'",
+    "Copy the token — it is shown only once",
+    "Note your Account ID from the Cloudflare dashboard URL or the right sidebar of the main dashboard page"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "Your Cloudflare API Token with R2 Storage permissions",
+      "secret": true,
+      "placeholder": "..."
+    }
+  ],
+  "notes": [
+    "R2 bucket management uses Account-level permissions, not Zone-level",
+    "You will need your Account ID (visible in the Cloudflare dashboard URL: dash.cloudflare.com/<account_id>/r2)",
+    "R2 offers 10 GB free storage and 1 million free Class A operations per month",
+    "For S3-compatible object operations (upload/download), use R2 API tokens generated in the R2 section of the dashboard, not the API Token portal",
+    "The Cloudflare API token (this guide) is for bucket management only, not object operations",
+    "Token is shown only once — store it securely immediately after creation"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/client/v4/accounts/{account_id}/r2/buckets",
+    "expected_status": 200,
+    "description": "List R2 buckets to verify credentials (replace {account_id} with your account ID)"
+  },
+  "last_verified": "2026-03-02"
+}

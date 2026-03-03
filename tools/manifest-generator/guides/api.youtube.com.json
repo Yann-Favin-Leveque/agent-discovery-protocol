@@ -1,0 +1,48 @@
+{
+  "domain": "api.youtube.com",
+  "display_name": "YouTube Data API v3",
+  "auth_type": "oauth2",
+  "portal_url": "https://console.cloud.google.com/apis/credentials",
+  "steps": [
+    "Go to https://console.cloud.google.com/ and sign in with your Google account",
+    "Create a new project or select an existing one from the project dropdown",
+    "Navigate to 'APIs & Services' > 'Library' and search for 'YouTube Data API v3'",
+    "Click 'YouTube Data API v3' and then click 'Enable'",
+    "Go to 'APIs & Services' > 'OAuth consent screen' and configure it (select 'External' for personal use)",
+    "Go to 'APIs & Services' > 'Credentials'",
+    "Click '+ Create Credentials' and select 'OAuth client ID'",
+    "Select 'Web application' as the application type",
+    "Add your redirect URI under 'Authorized redirect URIs' (e.g. https://yourapp.com/callback)",
+    "Click 'Create' and copy the Client ID and Client Secret"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "The OAuth 2.0 Client ID from Google Cloud Console",
+      "secret": false,
+      "placeholder": "YOUR_CLIENT_ID.apps.googleusercontent.com"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "The OAuth 2.0 Client Secret from Google Cloud Console",
+      "secret": true,
+      "placeholder": "YOUR_CLIENT_SECRET"
+    }
+  ],
+  "notes": [
+    "Free tier: 10,000 units per day quota (most reads cost 1 unit, video uploads cost 1,600)",
+    "YouTube Data API v3 does NOT support service account auth — user OAuth2 only",
+    "OAuth consent screen must be configured before creating credentials",
+    "Apps in 'Testing' status are limited to 100 test users; publish to production for broader access",
+    "To increase quota, submit a request through the Google Cloud Console"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/youtube/v3/channels?part=snippet&mine=true",
+    "expected_status": 200,
+    "description": "Retrieve the authenticated user's YouTube channel info"
+  },
+  "last_verified": "2026-03-02"
+}

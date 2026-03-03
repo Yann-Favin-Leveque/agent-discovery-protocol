@@ -114,6 +114,58 @@ export const CACHE_TTLS = {
   capability: 60 * 60 * 1000,       // 1 hour  — capability details rarely change
 } as const;
 
+// ─── Service setup guides ───────────────────────────────────────
+
+export interface CredentialField {
+  name: string;           // param name for auth tool (e.g. "api_key", "client_id")
+  label: string;          // human label (e.g. "API Key")
+  description: string;    // help text
+  secret: boolean;        // mask in display
+  placeholder?: string;   // e.g. "sk-..."
+}
+
+export interface TestEndpoint {
+  method: "GET" | "POST" | "HEAD";
+  path: string;           // relative to base_url
+  expected_status?: number;
+  description?: string;
+}
+
+export interface ServiceGuide {
+  domain: string;
+  display_name: string;
+  auth_type: "api_key" | "oauth2" | "none";
+  portal_url: string;
+  steps: string[];
+  credential_fields: CredentialField[];
+  notes: string[];
+  extra_oauth_params?: Record<string, string>;
+  test_endpoint?: TestEndpoint;
+  last_verified?: string;
+}
+
+// ─── User-owned credentials ─────────────────────────────────────
+
+export interface OAuth2Credential {
+  type: "oauth2";
+  client_id: string;
+  client_secret: string;
+  added_at: string;
+}
+
+export interface ApiKeyCredential {
+  type: "api_key";
+  api_key: string;
+  added_at: string;
+}
+
+export type UserCredential = OAuth2Credential | ApiKeyCredential;
+
+export interface CredentialStore {
+  version: 1;
+  credentials: Record<string, UserCredential>;
+}
+
 // ─── Config ──────────────────────────────────────────────────────
 
 export interface GatewayConfig {

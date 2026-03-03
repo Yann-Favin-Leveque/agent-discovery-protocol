@@ -1,0 +1,38 @@
+{
+  "domain": "api.sinch.com",
+  "display_name": "Sinch Communications API",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.sinch.com/settings/access-keys",
+  "steps": [
+    "Go to https://dashboard.sinch.com/signup and create an account, or log in at https://dashboard.sinch.com",
+    "Navigate to Settings > Access Keys in the left sidebar",
+    "Click 'Create Access Key'",
+    "Enter a display name for the key and click 'Confirm'",
+    "Copy the Key ID and Key Secret immediately — the secret is shown only once",
+    "Also note your Project ID from the top of the dashboard",
+    "The Authorization header value is 'Bearer {base64(keyId:keySecret)}' — use Key ID as username and Key Secret as password in Basic auth encoding"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key (Key ID:Key Secret)",
+      "description": "Your Sinch Access Key encoded as base64(keyId:keySecret). Alternatively provide as 'keyId:keySecret' and the gateway will encode it.",
+      "secret": true,
+      "placeholder": "keyId:keySecret"
+    }
+  ],
+  "notes": [
+    "Free trial available with test credits on signup",
+    "Key Secret is shown only once at creation time — save it immediately",
+    "You also need your Project ID for SMS API calls (found in dashboard header)",
+    "The SMS API base URL is regional: us.sms.api.sinch.com, eu.sms.api.sinch.com, etc.",
+    "Key ID and Project ID are always visible in the dashboard; only the secret is hidden"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/xms/v1/{servicePlanId}/batches",
+    "expected_status": 200,
+    "description": "List SMS batches — requires a service plan ID from your Sinch account"
+  },
+  "last_verified": "2026-03-02"
+}

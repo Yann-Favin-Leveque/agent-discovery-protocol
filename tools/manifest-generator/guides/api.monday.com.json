@@ -1,0 +1,37 @@
+{
+  "domain": "api.monday.com",
+  "display_name": "Monday.com",
+  "auth_type": "api_key",
+  "portal_url": "https://auth.monday.com/users/sign_in",
+  "steps": [
+    "Go to https://monday.com and log in to your account",
+    "Click your profile picture/avatar in the top-right corner",
+    "Select 'Developers' from the dropdown menu (opens Developer Center in a new tab)",
+    "In the Developer Center, click 'My Access Tokens'",
+    "Click 'Show' next to your personal API token",
+    "Copy the token and store it securely"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Personal API Token",
+      "description": "Your Monday.com personal API token from the Developer Center",
+      "secret": true,
+      "placeholder": "eyJhbGciOiJIUzI1NiJ9..."
+    }
+  ],
+  "notes": [
+    "Personal API tokens reflect your own user permissions in Monday.com",
+    "The token is sent in the Authorization header without a prefix",
+    "All API operations use a single GraphQL endpoint: POST https://api.monday.com/v2",
+    "Free plan has API rate limits; higher tiers have increased limits",
+    "For production apps, consider creating an OAuth app via the Developer Center instead"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/v2",
+    "expected_status": 200,
+    "description": "Send a GraphQL query (e.g. { me { name } }) to verify credentials"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,38 @@
+{
+  "domain": "api.snyk.io",
+  "display_name": "Snyk",
+  "auth_type": "api_key",
+  "portal_url": "https://app.snyk.io/account",
+  "steps": [
+    "Go to https://app.snyk.io and log in or create a free account",
+    "Click your account avatar in the top-right corner",
+    "Select 'Account Settings' from the dropdown",
+    "In the 'Auth Token' section under General settings, click 'click to show'",
+    "Highlight and copy your API token",
+    "Alternatively, click 'Revoke & Regenerate' to create a new token (this invalidates the old one)",
+    "Use the token in the Authorization header as: 'token {your_api_token}'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "Your Snyk personal API token. Sent in the Authorization header as 'token {value}'.",
+      "secret": true,
+      "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Free tier available with limited features (open source scanning, limited projects)",
+    "One personal token per user account — regenerating it invalidates the old token",
+    "Enterprise users should create Service Account tokens for automation (Settings > Group/Org > Service Accounts)",
+    "The token is a UUID format string",
+    "Rate limits apply: 1,500 requests/min for most endpoints"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/rest/self",
+    "expected_status": 200,
+    "description": "Get the currently authenticated user's details"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,38 @@
+{
+  "domain": "api.uploadthing.com",
+  "display_name": "UploadThing",
+  "auth_type": "api_key",
+  "portal_url": "https://uploadthing.com/dashboard",
+  "steps": [
+    "Go to https://uploadthing.com and click 'Sign in with GitHub'",
+    "After logging in, click 'Create a new app'",
+    "Enter your app name and select a storage region",
+    "Once the app is created, click on it to open the dashboard",
+    "In the left sidebar, click 'API Keys'",
+    "Click 'Create new API key', give it a name, and click 'Create'",
+    "Copy the API key — it will be used in the x-uploadthing-api-key header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "UploadThing API key passed in the x-uploadthing-api-key header",
+      "secret": true,
+      "placeholder": "sk_live_YOUR_KEY"
+    }
+  ],
+  "notes": [
+    "Free tier: 2 GB storage, 1 app",
+    "Sign in with GitHub is the only authentication method",
+    "API key is sent in the x-uploadthing-api-key header (no prefix/Bearer)",
+    "Multiple API keys can be created per app for different environments",
+    "SDK v7 uses a combined token format (base64 JSON) — the raw API key is for direct REST calls"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v6/getUsageInfo",
+    "expected_status": 200,
+    "description": "Get current storage usage and limits for your UploadThing app"
+  },
+  "last_verified": "2026-03-02"
+}

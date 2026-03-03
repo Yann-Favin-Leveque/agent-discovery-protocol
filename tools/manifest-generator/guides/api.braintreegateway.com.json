@@ -1,0 +1,34 @@
+{
+  "domain": "api.braintreegateway.com",
+  "display_name": "Braintree",
+  "auth_type": "api_key",
+  "portal_url": "https://sandbox.braintreegateway.com/merchants/settings/api_keys",
+  "steps": [
+    "Go to https://sandbox.braintreegateway.com and sign in (or create a free sandbox account at https://www.braintreegateway.com/sandbox)",
+    "Once logged in, navigate to Settings (gear icon) in the top right",
+    "Click 'API' under the Settings menu",
+    "Your Merchant ID is displayed at the top of the API keys page",
+    "Under 'API Keys', click 'Generate New API Key'",
+    "Copy the Public Key shown in the table, then click 'View' next to it to reveal the Private Key",
+    "Save all three credentials: Merchant ID, Public Key, and Private Key",
+    "For production, log into https://www.braintreegateway.com and repeat the same steps"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key (Base64 public_key:private_key)",
+      "description": "Braintree uses HTTP Basic Auth. Encode 'public_key:private_key' in base64 and pass as the Authorization header with 'Basic ' prefix. You also need the Merchant ID for the GraphQL endpoint.",
+      "secret": true,
+      "placeholder": "cHVibGlja2V5OnByaXZhdGVrZXk="
+    }
+  ],
+  "notes": [
+    "Braintree provides a free sandbox environment for testing — no real money is processed",
+    "All API operations go through a single GraphQL endpoint at /graphql",
+    "Authentication uses HTTP Basic Auth: base64-encode 'public_key:private_key' and set as Authorization header with 'Basic ' prefix",
+    "The Braintree-Version header is required for all GraphQL requests (e.g., '2019-01-01')",
+    "Each gateway user has their own set of API keys; do not share private keys",
+    "Production credentials are separate from sandbox credentials"
+  ],
+  "last_verified": "2026-03-02"
+}

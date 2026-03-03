@@ -1,0 +1,40 @@
+{
+  "domain": "api.greenhouse.io",
+  "display_name": "Greenhouse Harvest API",
+  "auth_type": "api_key",
+  "portal_url": "https://app.greenhouse.io/configure/dev_center/credentials",
+  "steps": [
+    "Go to https://app.greenhouse.io/configure/dev_center/credentials",
+    "Log in to your Greenhouse account (requires Site Admin with 'Can manage ALL organization's API Credentials' developer permission)",
+    "Click 'Create New API Key'",
+    "Select 'Harvest' as the API type",
+    "Enter a name for the key (typically the integration name)",
+    "Configure permissions for the specific endpoints this key will access",
+    "Click 'Manage Permissions' then 'I have stored the API key' — the key is shown only once",
+    "Copy the key before confirming; Base64-encode it with a colon appended for HTTP Basic auth (e.g., base64('<key>:'))"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Harvest API Key",
+      "description": "Your Greenhouse Harvest API key, used with HTTP Basic auth. Send as 'Basic <base64(key:)>' in the Authorization header.",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Requires a Greenhouse Recruiting account — contact sales for pricing",
+    "Only Site Admins with the 'Can manage ALL organization's API Credentials' permission can create keys",
+    "The API key is shown only once — store it securely before clicking 'I have stored the API key'",
+    "Authentication uses HTTP Basic auth: base64-encode '<key>:' (key followed by colon, no password)",
+    "Harvest API v1 and v2 are deprecated after August 31, 2026 — use v3 for new integrations",
+    "Permissions can be scoped per endpoint (GET/POST/PATCH/DELETE) for least-privilege access"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/users",
+    "expected_status": 200,
+    "description": "List Greenhouse users to verify the API key and permissions are correctly configured"
+  },
+  "last_verified": "2026-03-02"
+}

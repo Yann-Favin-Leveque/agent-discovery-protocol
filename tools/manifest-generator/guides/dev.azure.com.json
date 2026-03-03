@@ -1,0 +1,42 @@
+{
+  "domain": "dev.azure.com",
+  "display_name": "Azure DevOps",
+  "auth_type": "api_key",
+  "portal_url": "https://dev.azure.com/_usersSettings/tokens",
+  "steps": [
+    "Go to https://dev.azure.com and sign in with your Microsoft account",
+    "Click your profile avatar in the top-right corner",
+    "Select 'Personal access tokens' from the dropdown menu",
+    "Click '+ New Token'",
+    "Enter a name for the token and select your organization",
+    "Set an expiration date (maximum 1 year)",
+    "Under Scopes, select the permissions your use case needs (e.g. Code: Read, Build: Read & execute)",
+    "Click 'Create'",
+    "Copy the token immediately — it will not be shown again",
+    "To use the token as a Basic auth header, base64-encode the string ':YOUR_TOKEN' (colon prefix + token) and use it as the Authorization header value"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Personal Access Token (PAT)",
+      "description": "Your Azure DevOps PAT. Used with Basic auth: base64-encode ':PAT' and pass as 'Authorization: Basic <encoded>'",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Azure DevOps is free for up to 5 users with Basic access; additional users require paid plans",
+    "Token is shown only once at creation — copy and store it securely",
+    "The token uses HTTP Basic auth with an empty username: base64(':' + token)",
+    "PAT expiration maximum is 1 year; set calendar reminders to rotate",
+    "Prefer scoped tokens over full-access tokens to limit blast radius",
+    "You can also use the direct URL: https://dev.azure.com/_usersSettings/tokens"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/{organization}/_apis/projects?api-version=7.1",
+    "expected_status": 200,
+    "description": "List all projects in your Azure DevOps organization"
+  },
+  "last_verified": "2026-03-02"
+}

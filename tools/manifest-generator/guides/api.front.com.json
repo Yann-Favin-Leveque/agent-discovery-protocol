@@ -1,0 +1,40 @@
+{
+  "domain": "api.front.com",
+  "display_name": "Front",
+  "auth_type": "api_key",
+  "portal_url": "https://app.frontapp.com/settings/tools/api",
+  "steps": [
+    "Go to https://app.frontapp.com/settings/tools/api and log in to your Front account",
+    "You will land on the 'API Tokens' tab under Settings > Developers",
+    "Click 'Create API token'",
+    "Enter a descriptive name for the token (e.g., 'Gateway MCP')",
+    "Select the required namespaces and permissions (e.g., conversations:read, messages:write)",
+    "Click 'Create'",
+    "On the token detail page, click 'Reveal' or 'Copy' to obtain the token value",
+    "Use the token as a Bearer token in the Authorization header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "A Front API token created in Settings > Developers > API Tokens. Used as a Bearer token in the Authorization header.",
+      "secret": true,
+      "placeholder": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+    }
+  ],
+  "notes": [
+    "Front API tokens are long-lived JWTs — store them securely",
+    "Tokens are scoped by namespace and permission — create separate tokens per integration for least privilege",
+    "The API base URL is https://api2.frontapp.com",
+    "Front offers a free developer account at https://dev.frontapp.com for testing",
+    "Rate limit is 120 requests per minute per token by default",
+    "Company-level tokens can be created by admins; personal tokens are user-scoped"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/me",
+    "expected_status": 200,
+    "description": "Retrieve the identity of the token owner (teammate or company account)"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,53 @@
+{
+  "domain": "api.coinbase.com",
+  "display_name": "Coinbase Exchange",
+  "auth_type": "api_key",
+  "portal_url": "https://portal.cdp.coinbase.com/projects/api-keys",
+  "steps": [
+    "Go to https://portal.cdp.coinbase.com and sign in or create a Coinbase account",
+    "Enable Two-Factor Authentication (2FA) if not already enabled — it is required",
+    "Click 'Create API Key' in the top-right corner of the API Keys page",
+    "Under 'API Key permissions', ensure 'Coinbase Exchange' access is selected",
+    "Set a nickname and a passphrase (you will need this passphrase for every signed request)",
+    "Complete the 2FA verification prompt",
+    "Copy the API Key, Secret Key, and Passphrase — the Secret Key is shown only once"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Coinbase Exchange API key (CB-ACCESS-KEY header)",
+      "secret": false,
+      "placeholder": "organizations/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/apiKeys/..."
+    },
+    {
+      "name": "api_secret",
+      "label": "API Secret",
+      "description": "Your EC private key for signing requests (CB-ACCESS-SIGN). Shown only once at creation.",
+      "secret": true,
+      "placeholder": "-----BEGIN EC PRIVATE KEY-----\n..."
+    },
+    {
+      "name": "api_passphrase",
+      "label": "Passphrase",
+      "description": "The passphrase you set when creating the key (CB-ACCESS-PASSPHRASE)",
+      "secret": true,
+      "placeholder": "my-passphrase"
+    }
+  ],
+  "notes": [
+    "Requires a Coinbase account with 2FA enabled",
+    "The secret key is an EC private key shown only once — save it immediately",
+    "All authenticated requests must include CB-ACCESS-KEY, CB-ACCESS-SIGN, CB-ACCESS-TIMESTAMP, and CB-ACCESS-PASSPHRASE headers",
+    "Public endpoints like /products and /currencies do not require authentication",
+    "New API keys can take up to 48 hours to become fully active",
+    "Withdrawal permissions are disabled by default for security"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/products",
+    "expected_status": 200,
+    "description": "List all available trading pairs — this is a public endpoint that requires no authentication"
+  },
+  "last_verified": "2026-03-02"
+}

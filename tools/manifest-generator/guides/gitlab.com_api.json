@@ -1,0 +1,48 @@
+{
+  "domain": "gitlab.com_api",
+  "display_name": "GitLab REST API",
+  "auth_type": "oauth2",
+  "portal_url": "https://gitlab.com/-/profile/applications",
+  "steps": [
+    "Go to https://gitlab.com and sign in with your GitLab account",
+    "Click your avatar in the top-right corner and select 'Edit profile'",
+    "In the left sidebar, click 'Applications'",
+    "Click 'Add new application'",
+    "Enter a name for your application",
+    "Enter a redirect URI (e.g. https://yourapp.com/auth/callback or http://localhost:3000/callback for local dev)",
+    "Select the required scopes (at minimum: 'api' for full access, or 'read_api' for read-only)",
+    "Click 'Save application'",
+    "Copy the Application ID (Client ID) and the Secret (Client Secret) — the secret is shown only once"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Application ID (Client ID)",
+      "description": "Your GitLab OAuth application ID",
+      "secret": false,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "name": "client_secret",
+      "label": "Secret (Client Secret)",
+      "description": "Your GitLab OAuth application secret — shown only at creation",
+      "secret": true,
+      "placeholder": "gloas-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Free GitLab.com accounts can create OAuth applications",
+    "Client secret is shown only once at creation; store it securely",
+    "For personal scripts, GitLab also supports Personal Access Tokens at https://gitlab.com/-/user_settings/personal_access_tokens (simpler than OAuth for single-user use)",
+    "Authorization URL: https://gitlab.com/oauth/authorize",
+    "Token URL: https://gitlab.com/oauth/token",
+    "Required scope for full API access: 'api'"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v4/user",
+    "expected_status": 200,
+    "description": "Returns the profile of the currently authenticated user"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,39 @@
+{
+  "domain": "api.imgix.com",
+  "display_name": "imgix",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.imgix.com/api-keys",
+  "steps": [
+    "Go to https://dashboard.imgix.com and log in to your imgix account",
+    "Click the dropdown menu in the top-right corner (your account name)",
+    "Select 'API Keys'",
+    "Click 'Generate new key'",
+    "Enter a descriptive name for the key",
+    "Select the required permissions (e.g., 'Full Access' or specific scopes like 'Sources' and 'Asset Manager')",
+    "Click 'Generate' and copy the API key immediately"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your imgix Management API key, used as a Bearer token in the Authorization header",
+      "secret": true,
+      "placeholder": "ak_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "This key is for the imgix Management API (sources, assets, purges) — not for image rendering",
+    "Image rendering is done via URL parameters on your imgix subdomain (e.g., yoursubdomain.imgix.net/image.jpg?w=300)",
+    "Legacy API keys have been removed from the Account page; all new keys must be created from the API Keys page",
+    "Permissions can be scoped: set 'Asset Manager Browse' at minimum for asset listing",
+    "API keys are shown only once — save immediately after generation",
+    "imgix requires a paid account; a free trial is available"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v1/sources",
+    "expected_status": 200,
+    "description": "List all imgix sources in your account to verify the API key"
+  },
+  "last_verified": "2026-03-02"
+}

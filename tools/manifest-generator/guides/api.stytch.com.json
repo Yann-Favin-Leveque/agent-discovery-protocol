@@ -1,0 +1,37 @@
+{
+  "domain": "api.stytch.com",
+  "display_name": "Stytch",
+  "auth_type": "api_key",
+  "portal_url": "https://stytch.com/dashboard/api-keys",
+  "steps": [
+    "Go to https://stytch.com/dashboard and log in or create a free Stytch account",
+    "Create a new project by clicking your project name in the top-left corner and selecting 'Create Project'",
+    "Choose 'Consumer Authentication' or 'B2B Authentication' depending on your use case",
+    "Navigate to the 'API Keys' tab in the left sidebar (or go directly to https://stytch.com/dashboard/api-keys)",
+    "Copy your 'Project ID' (acts as the username) and 'Secret' (acts as the password)",
+    "Stytch uses HTTP Basic Authentication: encode 'project_id:secret' in Base64 and pass as the Authorization header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Encoded Basic Auth Credential",
+      "description": "Base64-encoded string of 'project_id:secret'. In the Authorization header this is sent as 'Basic <encoded_value>'.",
+      "secret": true,
+      "placeholder": "Base64(project-id:secret)"
+    }
+  ],
+  "notes": [
+    "Free tier available (up to 25 monthly active users for test environments)",
+    "Stytch uses HTTP Basic Auth: Project ID is the username, Secret is the password",
+    "Each project has a Test environment (test.stytch.com) and a Live environment (api.stytch.com)",
+    "Use the Test environment (test.stytch.com) for development — credentials are separate per environment",
+    "Secret is displayed in the dashboard and can be regenerated if compromised"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/v1/users/search",
+    "expected_status": 200,
+    "description": "Search for users (empty query returns empty list) to verify Basic Auth credentials"
+  },
+  "last_verified": "2026-03-02"
+}

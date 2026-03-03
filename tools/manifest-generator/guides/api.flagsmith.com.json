@@ -1,0 +1,38 @@
+{
+  "domain": "api.flagsmith.com",
+  "display_name": "Flagsmith",
+  "auth_type": "api_key",
+  "portal_url": "https://app.flagsmith.com/",
+  "steps": [
+    "Go to https://app.flagsmith.com/ and log in or create a free account",
+    "Select or create an Organisation and then a Project",
+    "In the left sidebar, select the environment you want to use (e.g., 'Development' or 'Production')",
+    "Click 'SDK Keys' in the left sidebar under the environment name",
+    "For server-side usage: click 'Create Server-side Environment Key', give it a name, and copy the generated key",
+    "For client-side usage: the Client-side Environment Key is shown directly on the SDK Keys page — copy it",
+    "Pass the key in the X-Environment-Key header on all API requests to edge.api.flagsmith.com/api/v1"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Environment Key",
+      "description": "The Flagsmith environment key (client-side or server-side). Found under SDK Keys in the environment settings.",
+      "secret": true,
+      "placeholder": "ser...."
+    }
+  ],
+  "notes": [
+    "Client-side environment keys (starting with 'ser.') are safe to embed in frontend code",
+    "Server-side keys must be kept secret as they bypass evaluation rules and return all flags",
+    "Flagsmith offers a generous free tier: up to 50,000 requests/month and 10 feature flags",
+    "Self-hosted option available; change the base URL to your own instance if self-hosting",
+    "The Admin API requires a separate API key found in Account Settings > API Keys"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v1/flags/",
+    "expected_status": 200,
+    "description": "List all feature flags for the environment. Returns an array of flag objects."
+  },
+  "last_verified": "2026-03-02"
+}

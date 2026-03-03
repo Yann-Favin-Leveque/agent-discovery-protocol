@@ -1,0 +1,36 @@
+{
+  "domain": "api.hellosign.com",
+  "display_name": "Dropbox Sign (HelloSign)",
+  "auth_type": "api_key",
+  "portal_url": "https://app.hellosign.com/home/myAccount#api",
+  "steps": [
+    "Go to https://app.hellosign.com and log in (or create a free account)",
+    "Click your account name in the top-right corner and select 'Settings'",
+    "Navigate to the 'API' tab (or go directly to https://app.hellosign.com/home/myAccount#api)",
+    "Your API key is displayed under the 'API Key' section",
+    "Click 'Reveal' to view the key, then copy it"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Dropbox Sign API key. Used as the username in HTTP Basic Auth (password is empty). The gateway sends it as a Basic-encoded Authorization header.",
+      "secret": true,
+      "placeholder": "your-dropbox-sign-api-key"
+    }
+  ],
+  "notes": [
+    "The API uses HTTP Basic Auth: the API key is the username and the password is empty",
+    "Free accounts can fully test the API by setting test_mode=true in requests",
+    "Each account can have up to 4 active API keys simultaneously",
+    "API keys can be rotated at any time from the same settings page",
+    "Production API calls (without test_mode) count against your plan quota"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v3/account",
+    "expected_status": 200,
+    "description": "Retrieve the authenticated account details to verify the API key"
+  },
+  "last_verified": "2026-03-02"
+}

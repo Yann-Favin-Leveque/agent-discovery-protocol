@@ -1,0 +1,47 @@
+{
+  "domain": "api.paypal.com",
+  "display_name": "PayPal",
+  "auth_type": "oauth2",
+  "portal_url": "https://developer.paypal.com/dashboard/applications/live",
+  "steps": [
+    "Go to https://developer.paypal.com/dashboard/applications/live",
+    "Log in with your PayPal Business account credentials",
+    "Click the blue 'Create App' button",
+    "Enter an app name and set App Type to 'Merchant'",
+    "Confirm your Business Account is correctly selected and click 'Create App'",
+    "On the app detail page, copy the Client ID (visible immediately)",
+    "Click 'Show' next to Client Secret and copy it — store securely"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "Your PayPal application client ID",
+      "secret": false,
+      "placeholder": "AXxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "Your PayPal application client secret",
+      "secret": true,
+      "placeholder": "EJxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "A PayPal Business account is required (personal accounts cannot create apps)",
+    "For testing, use sandbox credentials at https://developer.paypal.com/dashboard/applications/sandbox",
+    "Sandbox and live apps have separate Client ID and Secret pairs",
+    "Token endpoint: POST https://api-m.paypal.com/v1/oauth2/token with Basic auth (client_id:client_secret)",
+    "Sandbox base URL: https://api-m.sandbox.paypal.com",
+    "Live base URL: https://api-m.paypal.com",
+    "PayPal supports 200+ markets; check country/currency availability for your use case"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/invoicing/invoices?page=1&page_size=1",
+    "expected_status": 200,
+    "description": "List invoices to verify credentials are working"
+  },
+  "last_verified": "2026-03-02"
+}

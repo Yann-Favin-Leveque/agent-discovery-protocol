@@ -1,0 +1,37 @@
+{
+  "domain": "api.stripe.com",
+  "display_name": "Stripe",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.stripe.com/apikeys",
+  "steps": [
+    "Go to https://dashboard.stripe.com/apikeys and log in or create a free Stripe account",
+    "You will see your Publishable key and Secret key listed",
+    "To use an existing secret key, click the 'Reveal live key' button next to the Secret key",
+    "To create a new restricted API key, click 'Create restricted key', name it, set permissions, and click 'Create key'",
+    "Copy the secret key (starts with 'sk_live_' for live or 'sk_test_' for test mode)",
+    "Use test mode keys (starting with 'sk_test_') for development"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Secret API Key",
+      "description": "Your Stripe secret API key. Use sk_test_... for testing or sk_live_... for production.",
+      "secret": true,
+      "placeholder": "sk_test_YOUR_KEY"
+    }
+  ],
+  "notes": [
+    "Free account available; Stripe charges per transaction (2.9% + 30 cents for card payments)",
+    "Use test mode keys (sk_test_...) during development — no real charges occur",
+    "Secret keys are shown only once when creating restricted keys; standard keys can be revealed in the dashboard",
+    "Consider using restricted keys with only the permissions your integration needs",
+    "Live mode keys are gated behind account activation (requires business verification)"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/balance",
+    "expected_status": 200,
+    "description": "Retrieve account balance to verify the API key"
+  },
+  "last_verified": "2026-03-02"
+}

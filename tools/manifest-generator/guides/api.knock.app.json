@@ -1,0 +1,37 @@
+{
+  "domain": "api.knock.app",
+  "display_name": "Knock",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.knock.app/settings/api-keys",
+  "steps": [
+    "Go to https://dashboard.knock.app/ and log in or create a free account",
+    "Select your environment (Development or Production) from the top selector",
+    "Navigate to 'Developers' > 'API Keys' in the left sidebar",
+    "You will see your Public API Key and Secret API Key listed",
+    "Copy the Secret API Key — this is used for server-side API calls",
+    "Use the key as a Bearer token in the Authorization header: 'Authorization: Bearer YOUR_SECRET_KEY'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Secret API Key",
+      "description": "Your Knock Secret API Key from the API Keys settings page. Use the secret key (sk_...) for server-side calls.",
+      "secret": true,
+      "placeholder": "sk_test_YOUR_KEY"
+    }
+  ],
+  "notes": [
+    "Free tier available: up to 10,000 monthly notifications",
+    "Two key types: Public Key (pk_...) for client-side use, Secret Key (sk_...) for server-side API calls",
+    "Separate keys per environment (Development vs Production)",
+    "The secret key is shown on the dashboard and can be rotated at any time",
+    "Keys are prefixed with sk_test_ (development) or sk_live_ (production)"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/users",
+    "expected_status": 200,
+    "description": "Returns a paginated list of users in the environment"
+  },
+  "last_verified": "2026-03-02"
+}

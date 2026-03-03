@@ -1,0 +1,38 @@
+{
+  "domain": "api.backblazeb2.com",
+  "display_name": "Backblaze B2",
+  "auth_type": "api_key",
+  "portal_url": "https://secure.backblaze.com/app_keys.htm",
+  "steps": [
+    "Go to https://secure.backblaze.com/user_signin.htm and sign in to your Backblaze account",
+    "In the left navigation under 'B2 Cloud Storage', click 'Application Keys'",
+    "Click 'Add a New Application Key'",
+    "Enter a key name, optionally restrict to specific buckets or file prefixes, and set an expiry if needed",
+    "Click 'Create New Key'",
+    "Copy both the keyID and the applicationKey immediately — the applicationKey is shown only once",
+    "For API calls, use Basic auth with keyID as the username and applicationKey as the password (base64 encoded)"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Application Key (base64 keyID:applicationKey)",
+      "description": "Base64-encoded string of 'keyID:applicationKey', sent as 'Authorization: Basic <encoded>'. First call b2_authorize_account to obtain a session token and API URL.",
+      "secret": true,
+      "placeholder": "Base64(keyID:applicationKey)"
+    }
+  ],
+  "notes": [
+    "The applicationKey is displayed only once at creation — copy it before closing the dialog",
+    "You must call /b2api/v3/b2_authorize_account first to get a session token and the correct API URL for subsequent calls",
+    "Free tier: 10 GB storage and 1 GB/day downloads free",
+    "Pricing is approximately $0.006/GB/month for storage, much lower than AWS S3",
+    "Master application key is available on the Account tab; creating separate app keys per use case is recommended"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/b2api/v3/b2_authorize_account",
+    "expected_status": 200,
+    "description": "Authorize your account to get a session token and API URL"
+  },
+  "last_verified": "2026-03-02"
+}

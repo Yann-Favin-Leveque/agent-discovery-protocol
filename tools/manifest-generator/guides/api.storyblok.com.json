@@ -1,0 +1,37 @@
+{
+  "domain": "api.storyblok.com",
+  "display_name": "Storyblok",
+  "auth_type": "api_key",
+  "portal_url": "https://app.storyblok.com/#/me/account",
+  "steps": [
+    "Go to https://app.storyblok.com/#/me/account and log in or create a free account",
+    "Scroll down to the 'Personal access tokens' section",
+    "Click 'Generate new token'",
+    "Enter a name for the token (e.g., 'Gateway MCP')",
+    "Copy the generated token immediately — it is shown only once",
+    "For space-specific tokens: open your space, go to Settings > Access Tokens, select an access level (Public, Preview, or Private), enter a name, and click 'Generate'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Personal Access Token",
+      "description": "Your Storyblok personal access token (for Management API) or space-level token (for Content Delivery API)",
+      "secret": true,
+      "placeholder": "your-storyblok-token"
+    }
+  ],
+  "notes": [
+    "Free tier available with up to 1 space",
+    "Personal access tokens grant access to ALL spaces on your account — keep them secret",
+    "The Management API uses the personal access token; the Content Delivery API uses per-space tokens",
+    "Space-level tokens have three access levels: Public (published), Preview (draft + published), and Private",
+    "Token is shown only once at creation time — copy it immediately"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/spaces/me",
+    "expected_status": 200,
+    "description": "Retrieve info about the current space to verify the access token"
+  },
+  "last_verified": "2026-03-02"
+}

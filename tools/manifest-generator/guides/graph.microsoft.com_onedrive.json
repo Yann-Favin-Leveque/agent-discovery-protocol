@@ -1,0 +1,53 @@
+{
+  "domain": "graph.microsoft.com_onedrive",
+  "display_name": "OneDrive (Microsoft Graph)",
+  "auth_type": "oauth2",
+  "portal_url": "https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade",
+  "steps": [
+    "Go to https://portal.azure.com and sign in with your Microsoft account",
+    "Navigate to 'Azure Active Directory' (or 'Microsoft Entra ID') > 'App registrations'",
+    "Click '+ New registration'",
+    "Enter a name for your application",
+    "Under 'Supported account types', select 'Accounts in any organizational directory and personal Microsoft accounts' to support OneDrive personal and business",
+    "Under 'Redirect URI', select 'Web' and enter your redirect URI (e.g. http://localhost:3000/callback for local dev)",
+    "Click 'Register'",
+    "On the app overview page, copy the 'Application (client) ID' — this is your Client ID",
+    "In the left sidebar, click 'Certificates & secrets', then click '+ New client secret'",
+    "Enter a description and choose an expiration, then click 'Add'",
+    "Copy the client secret value immediately — it will not be shown again",
+    "In the left sidebar, click 'API permissions', then 'Add a permission' > 'Microsoft Graph' > 'Delegated permissions'",
+    "Add Files.ReadWrite and Files.Read.All permissions, then click 'Add permissions'"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Application (Client) ID",
+      "description": "Your Azure app registration Application (Client) ID",
+      "secret": false,
+      "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "Your Azure app registration client secret value — shown only at creation",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Free Microsoft accounts include 5 GB OneDrive storage; Microsoft 365 subscribers get 1 TB",
+    "Client secret is shown only once at creation — copy it immediately",
+    "Client secrets expire (max 2 years); rotate before expiration to avoid service interruption",
+    "Authorization URL: https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+    "Token URL: https://login.microsoftonline.com/common/oauth2/v2.0/token",
+    "Required scope for full access: Files.ReadWrite or Files.ReadWrite.All",
+    "For personal OneDrive, use tenant 'common'; for Azure AD accounts use your specific tenant ID"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1.0/me/drive",
+    "expected_status": 200,
+    "description": "Returns the current user's default OneDrive drive"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,38 @@
+{
+  "domain": "api.statuspage.io",
+  "display_name": "Statuspage",
+  "auth_type": "api_key",
+  "portal_url": "https://manage.statuspage.io/profile/api-info",
+  "steps": [
+    "Go to https://manage.statuspage.io and log in with your Atlassian account",
+    "Click your profile avatar or name in the top-right corner",
+    "Select 'API Info' or navigate to https://manage.statuspage.io/profile/api-info",
+    "Your API key is displayed on this page",
+    "Copy the API key",
+    "Use the key in the Authorization header as: 'OAuth {your_api_key}'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Statuspage API key. Sent in the Authorization header as 'OAuth {key}'.",
+      "secret": true,
+      "placeholder": "your-statuspage-api-key"
+    }
+  ],
+  "notes": [
+    "Free plan available with basic features (1 status page, limited components)",
+    "API key is tied to your user account and has organization-level permissions",
+    "API keys managed at the organization level — account owners control access",
+    "You also need your Page ID for most API calls (found in page settings)",
+    "The Authorization prefix is 'OAuth' (not 'Bearer' or 'token')",
+    "API keys created by a user remain active even if that user's access is later revoked"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/pages",
+    "expected_status": 200,
+    "description": "List all status pages in your organization"
+  },
+  "last_verified": "2026-03-02"
+}

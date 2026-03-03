@@ -1,0 +1,42 @@
+{
+  "domain": "api.crisp.chat",
+  "display_name": "Crisp",
+  "auth_type": "api_key",
+  "portal_url": "https://marketplace.crisp.chat/",
+  "steps": [
+    "Go to https://marketplace.crisp.chat/ and sign in or create a Crisp Marketplace account",
+    "Click 'Create a plugin' to register a new plugin (or select an existing one)",
+    "Give your plugin a name and description",
+    "Navigate to the 'Tokens' tab within your plugin settings",
+    "Scroll to 'Development Token' to find your token identifier and key pair",
+    "Copy both the Identifier and the Key",
+    "Encode them as Base64: btoa('<identifier>:<key>') and use as: Authorization: Basic <base64>",
+    "Also add the header X-Crisp-Tier: plugin to all requests"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Token Identifier:Key (Base64)",
+      "description": "Base64-encoded string of your plugin token in the format identifier:key. Used as HTTP Basic auth. Compute with: btoa('identifier:key')",
+      "secret": true,
+      "placeholder": "aWRlbnRpZmllcjprZXk="
+    }
+  ],
+  "notes": [
+    "Crisp uses plugin-based authentication — you must create a Marketplace plugin to get credentials",
+    "The Authorization header value is: Basic <base64(identifier:key)>",
+    "Every request also requires the X-Crisp-Tier: plugin header",
+    "Development tokens have lower rate limits and only work on your trusted Crisp workspace",
+    "You must link your Marketplace account to a Crisp workspace: Settings > Add Trusted Workspace",
+    "Production tokens require submitting your plugin for review by Crisp",
+    "Token keypairs must be kept private — they grant access to all websites that install your plugin",
+    "Granular tokens expire every 90 days and require 2FA by default"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/website/{website_id}/conversation/",
+    "expected_status": 200,
+    "description": "List conversations for your website. Replace {website_id} with your Crisp website ID."
+  },
+  "last_verified": "2026-03-02"
+}

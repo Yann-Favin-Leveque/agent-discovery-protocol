@@ -1,0 +1,35 @@
+{
+  "domain": "api.turso.tech",
+  "display_name": "Turso",
+  "auth_type": "api_key",
+  "portal_url": "https://app.turso.tech/settings/tokens",
+  "steps": [
+    "Go to https://app.turso.tech and log in or create a free account",
+    "Navigate to Settings > API Tokens at https://app.turso.tech/settings/tokens",
+    "Click 'Create Token', enter a name for the token",
+    "Copy the generated API token — it is shown only once",
+    "Alternatively, use the Turso CLI: run 'turso auth token' after logging in with 'turso auth login'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "Your Turso platform API token, sent as a Bearer token in the Authorization header",
+      "secret": true,
+      "placeholder": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9..."
+    }
+  ],
+  "notes": [
+    "Free Starter plan includes 5 databases, 9 GB storage, and 500M row reads/month",
+    "The API token is a JWT — it is shown only once at creation, save it immediately",
+    "Separate database-level tokens can be generated per database via /v1/organizations/{org}/databases/{db}/auth/tokens",
+    "Organization name (slug) is required as a path parameter in most API endpoints"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/organizations",
+    "expected_status": 200,
+    "description": "List all organizations accessible with the API token"
+  },
+  "last_verified": "2026-03-02"
+}

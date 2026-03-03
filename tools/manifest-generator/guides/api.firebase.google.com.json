@@ -1,0 +1,37 @@
+{
+  "domain": "api.firebase.google.com",
+  "display_name": "Firebase Auth (Identity Toolkit)",
+  "auth_type": "api_key",
+  "portal_url": "https://console.firebase.google.com/project/_/settings/general",
+  "steps": [
+    "Go to https://console.firebase.google.com/ and select your Firebase project (or create one)",
+    "Click the gear icon next to 'Project Overview' in the left sidebar and select 'Project settings'",
+    "Scroll down to the 'Your apps' section and click '</>' to add or select a web app",
+    "In the SDK setup and configuration panel, select 'Config'",
+    "Copy the value of the 'apiKey' field from the firebaseConfig object",
+    "This Web API key is passed as the ?key= query parameter on every Identity Toolkit request"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Firebase Web API Key",
+      "description": "The Web API key from your Firebase project settings (Project settings > Your apps > Config > apiKey)",
+      "secret": true,
+      "placeholder": "AIzaSy..."
+    }
+  ],
+  "notes": [
+    "The Firebase Web API key is project-scoped, not user-scoped — one key per project",
+    "This key is safe to use in client-side code for Authentication endpoints only",
+    "Requests go to identitytoolkit.googleapis.com with the key as a ?key= query param",
+    "Firebase has a generous free tier (Spark plan) with no billing required for Authentication",
+    "The key is visible in your web app's firebaseConfig and is not considered a secret for Auth endpoints"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/v1/accounts:lookup?key={api_key}",
+    "expected_status": 400,
+    "description": "A POST with no body returns a 400 INVALID_ID_TOKEN error, confirming the key is valid and the endpoint is reachable"
+  },
+  "last_verified": "2026-03-02"
+}

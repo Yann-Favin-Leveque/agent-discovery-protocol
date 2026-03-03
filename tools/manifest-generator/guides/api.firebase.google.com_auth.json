@@ -1,0 +1,37 @@
+{
+  "domain": "api.firebase.google.com_auth",
+  "display_name": "Firebase Auth REST API (v1)",
+  "auth_type": "api_key",
+  "portal_url": "https://console.firebase.google.com/project/_/settings/general",
+  "steps": [
+    "Go to https://console.firebase.google.com/ and select your Firebase project (or create a new one)",
+    "Click the gear icon next to 'Project Overview' and choose 'Project settings'",
+    "Scroll down to the 'Your apps' section; click '</>' to register a Web app if none exists",
+    "Under 'SDK setup and configuration', select the 'Config' radio button",
+    "Locate the 'apiKey' field in the displayed firebaseConfig object and copy its value",
+    "Use this key as the ?key= query parameter on all requests to identitytoolkit.googleapis.com/v1"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Firebase Web API Key",
+      "description": "The Web API key from Firebase Project settings (Project settings > Your apps > Config > apiKey). Passed as ?key= query parameter.",
+      "secret": true,
+      "placeholder": "AIzaSy..."
+    }
+  ],
+  "notes": [
+    "The Web API key identifies your Firebase project and is required on every Auth REST request",
+    "Authentication is free on the Spark (free) plan — no billing setup required",
+    "The base URL for this manifest is https://identitytoolkit.googleapis.com/v1",
+    "Enable the Identity Toolkit API in the Google Cloud Console if requests return 403",
+    "Do not confuse the Web API key with a service account private key — they are different credentials"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/accounts:signUp?key={api_key}",
+    "expected_status": 400,
+    "description": "A POST with an empty body returns 400 MISSING_EMAIL, confirming the key is valid and Firebase Auth is enabled"
+  },
+  "last_verified": "2026-03-02"
+}

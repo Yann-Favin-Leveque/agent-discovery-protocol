@@ -1,0 +1,38 @@
+{
+  "domain": "api.hasura.io",
+  "display_name": "Hasura",
+  "auth_type": "api_key",
+  "portal_url": "https://cloud.hasura.io/projects",
+  "steps": [
+    "Go to https://cloud.hasura.io and sign up or log in",
+    "Click 'New Project' to create a new Hasura Cloud project, or select an existing project",
+    "Once the project is created, click the settings (gear) icon on the project card",
+    "Go to the 'Env vars' tab in project settings",
+    "Find the 'HASURA_GRAPHQL_ADMIN_SECRET' environment variable — this is your API key",
+    "Click the eye icon to reveal the admin secret value and copy it",
+    "Use this value as the 'x-hasura-admin-secret' header in your API requests"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Admin Secret",
+      "description": "Your Hasura project's admin secret, sent in the 'x-hasura-admin-secret' request header",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Hasura Cloud Free tier available; paid plans (Professional, Enterprise) for production workloads",
+    "The admin secret is auto-generated at project creation but can be changed in project settings",
+    "Admin secret bypasses all row-level security and permission rules — keep it strictly server-side",
+    "For self-hosted Hasura, set HASURA_GRAPHQL_ADMIN_SECRET as an environment variable on startup",
+    "The base_url must be replaced with your actual Hasura project URL (e.g., https://your-project.hasura.app)"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/healthz",
+    "expected_status": 200,
+    "description": "Check the Hasura instance health to verify the server is reachable"
+  },
+  "last_verified": "2026-03-02"
+}

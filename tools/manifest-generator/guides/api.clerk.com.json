@@ -1,0 +1,36 @@
+{
+  "domain": "api.clerk.com",
+  "display_name": "Clerk",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.clerk.com/last-active?path=api-keys",
+  "steps": [
+    "Go to https://dashboard.clerk.com and log in or create a free account",
+    "Select your application from the dashboard (or create one)",
+    "In the left sidebar, click 'API Keys'",
+    "Copy the 'Secret key' (starts with sk_test_ for development or sk_live_ for production)",
+    "Store the key immediately — it cannot be retrieved after you navigate away"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Secret Key",
+      "description": "Your Clerk Secret Key (Backend API key for your application)",
+      "secret": true,
+      "placeholder": "sk_test_YOUR_KEY"
+    }
+  ],
+  "notes": [
+    "Each Clerk application has its own secret key — make sure to use the key for the correct app",
+    "Development keys start with sk_test_, production keys start with sk_live_",
+    "The secret key grants full backend access to your application — never expose it client-side",
+    "Free tier is available with generous limits for development",
+    "All API requests must include the key as: Authorization: Bearer sk_..."
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/users?limit=1",
+    "expected_status": 200,
+    "description": "List users to verify the secret key is valid"
+  },
+  "last_verified": "2026-03-02"
+}

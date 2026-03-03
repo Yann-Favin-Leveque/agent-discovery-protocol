@@ -1,0 +1,37 @@
+{
+  "domain": "api.trello.com",
+  "display_name": "Trello",
+  "auth_type": "api_key",
+  "portal_url": "https://trello.com/power-ups/admin",
+  "steps": [
+    "Go to https://trello.com/power-ups/admin and log in with your Atlassian/Trello account",
+    "Click 'New' to create a new Power-Up (required to obtain an API key)",
+    "Fill in the Power-Up name, workspace, iframe URL (can be a placeholder), and contact email",
+    "After creating the Power-Up, click on it and navigate to the 'API Key' tab",
+    "Click 'Generate a new API Key' — your API key is now displayed",
+    "To generate a user Token, click the 'Token' link on the same page and authorize access"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Trello API key from the Power-Ups admin panel. Passed as a query parameter.",
+      "secret": false,
+      "placeholder": "your32charactertrelloapikey000000"
+    }
+  ],
+  "notes": [
+    "The API key itself is not secret and can be publicly visible",
+    "A user Token is also required for most API operations — generate it from the API Key page",
+    "Tokens grant access to a user's full Trello account — store them securely",
+    "Trello API is free with no usage fees for standard use",
+    "Trello uses both API key + token as query parameters: ?key=API_KEY&token=TOKEN"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/1/members/me?key={key}&token={token}",
+    "expected_status": 200,
+    "description": "Get the authenticated member's profile — replace {key} and {token} with your credentials"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,47 @@
+{
+  "domain": "api.freshbooks.com",
+  "display_name": "FreshBooks",
+  "auth_type": "oauth2",
+  "portal_url": "https://my.freshbooks.com/#/developer",
+  "steps": [
+    "Go to https://my.freshbooks.com/#/developer and log in with your FreshBooks account",
+    "Click 'Create an App' in the top-right corner",
+    "Enter a unique Application Name (this appears on the FreshBooks app store and user integrations page)",
+    "Enter a Redirect URI — this must be an HTTPS URL (localhost is allowed during development)",
+    "Optionally fill in Description, Application Homepage, and other metadata",
+    "Click 'Save' to create the application",
+    "Your Client ID and Client Secret are now displayed on the application detail page",
+    "Copy both values — the Client Secret is shown here and can be retrieved later from the same page"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "The OAuth 2.0 client ID for your FreshBooks application",
+      "secret": false,
+      "placeholder": "abc123..."
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "The OAuth 2.0 client secret for your FreshBooks application. Keep this confidential.",
+      "secret": true,
+      "placeholder": "abc123def456..."
+    }
+  ],
+  "notes": [
+    "FreshBooks requires OAuth 2.0 authorization code flow — no simple API key is available",
+    "Access tokens expire after 12 hours; use the refresh token to get a new one",
+    "The authorization endpoint is https://auth.freshbooks.com/oauth/authorize",
+    "FreshBooks offers a 30-day free trial; active subscription required for API access beyond that",
+    "Application name must be globally unique across all FreshBooks apps",
+    "The developer portal is at my.freshbooks.com/#/developer (hash-routed SPA)"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/auth/api/v1/users/me",
+    "expected_status": 200,
+    "description": "Retrieve the authenticated user's FreshBooks profile and associated business memberships"
+  },
+  "last_verified": "2026-03-02"
+}

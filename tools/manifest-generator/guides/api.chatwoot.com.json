@@ -1,0 +1,37 @@
+{
+  "domain": "api.chatwoot.com",
+  "display_name": "Chatwoot",
+  "auth_type": "api_key",
+  "portal_url": "https://app.chatwoot.com/app/login",
+  "steps": [
+    "Go to https://app.chatwoot.com and log in (or create a free account; alternatively use a self-hosted instance)",
+    "Click your avatar image in the bottom-left corner of the screen to open the profile menu",
+    "Select 'Profile Settings' from the menu",
+    "Scroll to the bottom of the Profile Settings page",
+    "Your Personal Access Token is shown under the 'Access Token' section",
+    "Click the copy icon to copy the token"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Access Token",
+      "description": "Your Chatwoot Personal Access Token, sent in the 'api_access_token' request header",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Free cloud plan available at app.chatwoot.com; self-hosted version is open-source (MIT license)",
+    "The access token is a user-specific token — it has the same permissions as the user's account role",
+    "Administrator privileges are required to access certain API endpoints (e.g., creating agents, inboxes)",
+    "The token can be regenerated from Profile Settings; regenerating invalidates all existing API integrations",
+    "For self-hosted instances, replace the base URL with your own domain (e.g., https://your-chatwoot.example.com)"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/auth/sign_in",
+    "expected_status": 200,
+    "description": "Note: Use GET /api/v1/profile with api_access_token header to verify credentials for the authenticated user"
+  },
+  "last_verified": "2026-03-02"
+}

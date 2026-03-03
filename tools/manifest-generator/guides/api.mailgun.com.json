@@ -1,0 +1,41 @@
+{
+  "domain": "api.mailgun.com",
+  "display_name": "Mailgun",
+  "auth_type": "api_key",
+  "portal_url": "https://app.mailgun.com/settings/api_security",
+  "steps": [
+    "Go to https://app.mailgun.com and log in or create an account",
+    "Click your profile menu icon in the top-right corner of the control panel",
+    "Select 'API Security' from the dropdown",
+    "Click 'Add new key' button",
+    "Enter a description for the key and select a role (e.g., 'Full Access')",
+    "Click 'Create Key' in the confirmation modal",
+    "Copy the displayed API key immediately — it is only shown once",
+    "Store the key securely in a password manager or secrets vault"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key (Private Key)",
+      "description": "Your Mailgun private API key. Used as the password in HTTP Basic Auth with 'api' as the username.",
+      "secret": true,
+      "placeholder": "key-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Mailgun uses HTTP Basic Auth: username is always 'api', password is your API key",
+    "API key is shown only once at creation — save it immediately",
+    "Role-based API keys (RBAC) let you restrict key permissions (e.g., send-only)",
+    "Free trial includes 5,000 emails/month for 3 months, then Flex plan pricing applies",
+    "New accounts start in sandbox mode — you must verify your sending domain before sending to unverified recipients",
+    "Sandbox domain is provided for testing but can only send to authorized recipients",
+    "US and EU API endpoints differ: US is api.mailgun.com, EU is api.eu.mailgun.com"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v3/domains",
+    "expected_status": 200,
+    "description": "List all domains to verify credentials are working"
+  },
+  "last_verified": "2026-03-02"
+}

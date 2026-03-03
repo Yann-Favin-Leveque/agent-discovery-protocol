@@ -1,0 +1,37 @@
+{
+  "domain": "api.gocardless.com",
+  "display_name": "GoCardless",
+  "auth_type": "api_key",
+  "portal_url": "https://manage.gocardless.com/developers/access-tokens",
+  "steps": [
+    "Go to https://manage.gocardless.com/developers/access-tokens (live) or https://manage-sandbox.gocardless.com/developers/access-tokens (sandbox)",
+    "Log in or create a GoCardless account",
+    "Click 'Create token' in the top-right corner",
+    "Enter a name for the token and select the scope (read-only or read-write)",
+    "Click 'Create access token'",
+    "Copy the token immediately — it is shown only once"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Access Token",
+      "description": "Your GoCardless access token, sent as 'Bearer <token>' in the Authorization header",
+      "secret": true,
+      "placeholder": "live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "GoCardless has two separate environments: Sandbox (free, for testing) and Live (for real payments)",
+    "Sandbox tokens begin with 'sandbox_' and must be used against api-sandbox.gocardless.com",
+    "Live tokens begin with 'live_' and are used against api.gocardless.com",
+    "Access tokens are shown only once at creation — store them securely",
+    "A live account requires completing GoCardless's onboarding and KYC process"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/creditors",
+    "expected_status": 200,
+    "description": "List creditors to verify the access token is valid and the account is active"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,51 @@
+{
+  "domain": "api.reddit.com",
+  "display_name": "Reddit",
+  "auth_type": "oauth2",
+  "portal_url": "https://www.reddit.com/prefs/apps",
+  "steps": [
+    "Log in to Reddit at https://www.reddit.com with your Reddit account",
+    "Go to https://www.reddit.com/prefs/apps",
+    "Scroll to the bottom and click 'Are you a developer? Create an app...'",
+    "Enter a name for your application",
+    "Select the app type: 'web app' for server-side OAuth, 'installed app' for mobile/desktop, or 'script' for personal use bots",
+    "Enter a redirect URI (e.g., https://yourapp.com/callback or http://localhost:8080/callback for testing)",
+    "Optionally add a description",
+    "Click 'Create app'",
+    "Your Client ID is shown below the app name (the string under the app type label)",
+    "Your Client Secret is labeled 'secret' — copy both values"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "Your Reddit OAuth app client ID (displayed below the app name in the app listing)",
+      "secret": false,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "Your Reddit OAuth app client secret (labeled 'secret' in the app listing)",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Reddit requires a descriptive User-Agent header for all API requests: <platform>:<app_id>:<version> (by /u/<reddit_username>)",
+    "Authorization URL: https://www.reddit.com/api/v1/authorize",
+    "Token URL: https://www.reddit.com/api/v1/access_token",
+    "All authenticated API calls go to https://oauth.reddit.com (not www.reddit.com)",
+    "Access tokens expire after 1 hour; use refresh tokens for long-lived access",
+    "For script apps (personal bots), you can use password grant flow with your own Reddit credentials",
+    "Rate limit: 60 requests/minute per OAuth client",
+    "New apps may require manual review for some scopes or high-volume access"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v1/me",
+    "expected_status": 200,
+    "description": "Retrieve the authenticated user's Reddit profile and identity information"
+  },
+  "last_verified": "2026-03-02"
+}

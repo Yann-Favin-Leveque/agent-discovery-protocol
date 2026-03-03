@@ -1,0 +1,40 @@
+{
+  "domain": "api.auth0.com",
+  "display_name": "Auth0",
+  "auth_type": "api_key",
+  "portal_url": "https://manage.auth0.com/#/apis",
+  "steps": [
+    "Go to https://manage.auth0.com and log in to your Auth0 tenant",
+    "Navigate to Applications > Applications in the left sidebar",
+    "Click 'Create Application'",
+    "Enter a name, select 'Machine to Machine Applications', and click 'Create'",
+    "In the next screen, select 'Auth0 Management API' from the API dropdown",
+    "Grant the required scopes (e.g., read:users, create:users) and click 'Authorize'",
+    "Go to the application's Settings tab and note the Domain, Client ID, and Client Secret",
+    "Request an access token via POST to https://YOUR_DOMAIN/oauth/token with grant_type=client_credentials",
+    "Use the returned access_token as a Bearer token in the Authorization header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Management API Access Token",
+      "description": "A JWT access token obtained via client credentials grant from your Auth0 Machine-to-Machine app. Replace YOUR_DOMAIN in the base URL with your tenant domain (e.g., myapp.us.auth0.com).",
+      "secret": true,
+      "placeholder": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  ],
+  "notes": [
+    "The base URL must be customized to your tenant domain (e.g., https://myapp.us.auth0.com)",
+    "Access tokens from the client credentials grant typically expire in 24 hours — you must refresh them",
+    "Free tier available with up to 7,500 monthly active users",
+    "The Management API is pre-configured in Auth0 — no need to register it separately",
+    "Scopes must be explicitly granted to the M2M app for each operation you want to perform"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v2/users",
+    "expected_status": 200,
+    "description": "List users in the tenant to verify the Management API token is valid"
+  },
+  "last_verified": "2026-03-02"
+}

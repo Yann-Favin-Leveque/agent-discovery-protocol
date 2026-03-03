@@ -1,0 +1,38 @@
+{
+  "domain": "api.infobip.com",
+  "display_name": "Infobip",
+  "auth_type": "api_key",
+  "portal_url": "https://portal.infobip.com/dev/api-keys",
+  "steps": [
+    "Go to https://www.infobip.com/signup and create a free account (or log in at https://portal.infobip.com)",
+    "After logging in, note your personal base URL shown on the dashboard (e.g., xxxxx.api.infobip.com) — this is required for all API calls",
+    "In the left sidebar, navigate to 'Developer Tools' → 'API Keys'",
+    "Click 'Create API key'",
+    "Enter a name for the key and select the required API scopes (e.g., SMS, WhatsApp, Email)",
+    "Click 'Create' and copy the generated API key"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Infobip API key, sent using the 'App' prefix in the Authorization header (e.g., Authorization: App <key>)",
+      "secret": true,
+      "placeholder": "your-infobip-api-key"
+    }
+  ],
+  "notes": [
+    "Infobip uses a custom 'App' authorization prefix (not 'Bearer') — the Authorization header must be: 'App <api_key>'",
+    "Each account has a unique personal base URL (e.g., xxxxx.api.infobip.com) — use this URL, not api.infobip.com, for actual API calls",
+    "A free account is available with limited credits for testing SMS, WhatsApp, and Email",
+    "API keys can be scoped to specific channels (SMS, WhatsApp, Email, etc.) for security",
+    "An API key is automatically assigned when you create your account and can be found under Developer Tools",
+    "WhatsApp Business account approval from Meta is required before sending WhatsApp messages"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/sms/1/logs",
+    "expected_status": 200,
+    "description": "Retrieve SMS message logs to verify the API key (returns empty list if no messages sent yet)"
+  },
+  "last_verified": "2026-03-02"
+}

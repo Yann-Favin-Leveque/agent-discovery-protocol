@@ -1,0 +1,42 @@
+{
+  "domain": "api.zendesk.com",
+  "display_name": "Zendesk",
+  "auth_type": "api_key",
+  "portal_url": "https://{your-subdomain}.zendesk.com/admin/apps-integrations/apis/zendesk-api/settings/tokens/",
+  "steps": [
+    "Log in to your Zendesk account at https://{your-subdomain}.zendesk.com",
+    "Click the grid/waffle icon in the top-right to open Admin Center",
+    "In the left sidebar, click 'Apps and integrations'",
+    "Select 'APIs' > 'Zendesk API'",
+    "Ensure 'Token Access' is enabled under the 'Settings' tab",
+    "Click the 'Add API token' button",
+    "Enter a description for the token (e.g. 'My App Integration')",
+    "Copy the generated token — it will not be shown again",
+    "Click 'Save' to confirm",
+    "Use the token in the Authorization header as: '{email_address}/token:{api_token}' encoded in Base64, or use the format 'Bearer {token}' if your Zendesk plan supports it"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "Zendesk API token. Used with email as: Authorization: Basic base64({email}/token:{api_token})",
+      "secret": true,
+      "placeholder": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ],
+  "notes": [
+    "Requires an Admin account to generate API tokens",
+    "Token access must be enabled in Admin Center > Apps and integrations > APIs > Zendesk API > Settings",
+    "Token is shown only once — copy and store it immediately",
+    "Up to 256 active tokens per account",
+    "The base URL is specific to your subdomain: https://{your-subdomain}.zendesk.com/api/v2",
+    "Authentication uses email + token: encode '{email}/token:{api_token}' in Base64 and pass as Basic auth"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v2/users/me",
+    "expected_status": 200,
+    "description": "Retrieve the authenticated user's profile"
+  },
+  "last_verified": "2026-03-02"
+}

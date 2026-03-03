@@ -1,0 +1,37 @@
+{
+  "domain": "api.fusionauth.io",
+  "display_name": "FusionAuth",
+  "auth_type": "api_key",
+  "portal_url": "https://your-fusionauth-host/admin/api-key",
+  "steps": [
+    "Log in to your FusionAuth admin UI at https://<your-fusionauth-host>/admin",
+    "Navigate to Settings in the left sidebar",
+    "Click 'API Keys'",
+    "Click the green '+' button to create a new API key",
+    "Optionally restrict the key to specific tenants and endpoints",
+    "Click 'Save' and copy the generated API key from the list"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your FusionAuth API key, passed directly in the Authorization header without any prefix",
+      "secret": true,
+      "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "FusionAuth is self-hosted — replace 'your-fusionauth-host' with your actual instance hostname",
+    "Community Edition is free and open source; Cloud plans are available at fusionauth.io/pricing",
+    "API keys can be scoped to specific tenants and HTTP methods per endpoint for least-privilege access",
+    "Keys can also be created via the API Key API (requires an existing superuser key)",
+    "The Authorization header takes the raw key value with no prefix (e.g., 'Authorization: <key>')"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/system-configuration",
+    "expected_status": 200,
+    "description": "Retrieve the FusionAuth system configuration to verify the API key is valid"
+  },
+  "last_verified": "2026-03-02"
+}

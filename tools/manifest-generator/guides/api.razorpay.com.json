@@ -1,0 +1,41 @@
+{
+  "domain": "api.razorpay.com",
+  "display_name": "Razorpay",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.razorpay.com/app/keys",
+  "steps": [
+    "Go to https://dashboard.razorpay.com/register and create a free Razorpay account",
+    "Complete KYC verification (required for live payments; Test mode is available without KYC)",
+    "Log in to the Razorpay Dashboard at https://dashboard.razorpay.com",
+    "Navigate to Settings > API Keys, or go directly to https://dashboard.razorpay.com/app/keys",
+    "Select the mode: 'Test' for sandbox or 'Live' for production",
+    "Click 'Generate Key'",
+    "A popup will display the Key ID and Key Secret — copy both immediately",
+    "The Key Secret is shown only once and cannot be retrieved again"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Key ID",
+      "description": "Your Razorpay Key ID, used as the username in HTTP Basic Auth",
+      "secret": false,
+      "placeholder": "rzp_test_xxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Razorpay uses HTTP Basic Auth with Key ID as username and Key Secret as password",
+    "Test keys are prefixed with rzp_test_; Live keys are prefixed with rzp_live_",
+    "The Key Secret is shown only once — store it immediately in a password manager",
+    "Razorpay is primarily for India-based businesses; international payments require additional setup",
+    "Test mode provides a sandbox with virtual payment simulation — no real charges",
+    "Live mode requires completing KYC and business verification",
+    "Rate limit: 100 requests/second in live mode; lower limits in test mode"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/orders",
+    "expected_status": 200,
+    "description": "List orders — returns empty array on a new account, confirming credentials are valid"
+  },
+  "last_verified": "2026-03-02"
+}

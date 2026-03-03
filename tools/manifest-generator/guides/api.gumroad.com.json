@@ -1,0 +1,38 @@
+{
+  "domain": "api.gumroad.com",
+  "display_name": "Gumroad",
+  "auth_type": "api_key",
+  "portal_url": "https://app.gumroad.com/settings/advanced#application-form",
+  "steps": [
+    "Go to https://app.gumroad.com/settings/advanced#application-form",
+    "Log in to your Gumroad account",
+    "Scroll to the 'Applications' section at the bottom of the Advanced settings page",
+    "Enter an application name and icon URL, then set the redirect URI to http://127.0.0.1 for personal use",
+    "Click 'Create application'",
+    "In the application list, click 'Generate access token' to get a personal access token",
+    "Copy the access token — this is used directly as your API key"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Access Token",
+      "description": "Your Gumroad personal access token, sent as 'Bearer <token>' in the Authorization header",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Free Gumroad account required — Gumroad takes a percentage of sales, no monthly fee",
+    "A personal access token grants access to your own account without OAuth flow",
+    "For multi-user OAuth apps, use the client_id and client_secret from the application settings",
+    "The API uses v2 endpoints under https://api.gumroad.com/v2/",
+    "Rate limits apply; check API documentation for current limits"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v2/user",
+    "expected_status": 200,
+    "description": "Retrieve the authenticated user profile to verify the access token is valid"
+  },
+  "last_verified": "2026-03-02"
+}

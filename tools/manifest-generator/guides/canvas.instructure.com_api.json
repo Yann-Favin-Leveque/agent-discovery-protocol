@@ -1,0 +1,42 @@
+{
+  "domain": "canvas.instructure.com_api",
+  "display_name": "Canvas LMS",
+  "auth_type": "api_key",
+  "portal_url": "https://canvas.instructure.com/profile/settings",
+  "steps": [
+    "Go to your Canvas instance (e.g. https://canvas.instructure.com or your institution's Canvas URL)",
+    "Click your account name or profile icon in the top-right corner",
+    "Select 'Settings' from the dropdown menu",
+    "Scroll down to the 'Approved Integrations' section",
+    "Click '+ New Access Token'",
+    "Enter a purpose/description for the token (e.g. 'API Integration')",
+    "Optionally set an expiration date (leave blank for no expiration)",
+    "Click 'Generate Token'",
+    "Copy the token immediately — it will not be shown again after you close the dialog"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Access Token",
+      "description": "Your Canvas LMS personal access token",
+      "secret": true,
+      "placeholder": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ],
+  "notes": [
+    "Free Canvas accounts available at canvas.instructure.com",
+    "Institutional Canvas deployments may have custom URLs (e.g. yourschool.instructure.com)",
+    "The access token is shown only once — copy it before closing the dialog",
+    "Token acts as your user — it has the same permissions as your Canvas account role",
+    "The base URL for API calls is {canvas_base_url}/api/v1/ (varies by institution)",
+    "Rate limit: typically 3,000 requests per hour; check your institution's Canvas settings",
+    "For production integrations with multiple users, use the OAuth2 flow instead"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v1/users/self/profile",
+    "expected_status": 200,
+    "description": "Retrieve the authenticated user's Canvas profile"
+  },
+  "last_verified": "2026-03-02"
+}

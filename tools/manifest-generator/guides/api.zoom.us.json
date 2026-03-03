@@ -1,0 +1,48 @@
+{
+  "domain": "api.zoom.us",
+  "display_name": "Zoom",
+  "auth_type": "oauth2",
+  "portal_url": "https://marketplace.zoom.us/develop/create",
+  "steps": [
+    "Go to https://marketplace.zoom.us and sign in with your Zoom account",
+    "Click 'Develop' in the top menu, then select 'Build App'",
+    "Choose 'OAuth' as the app type for user-delegated access",
+    "Enter your app name and choose whether the app is intended for account-level or user-level access",
+    "Toggle 'Would you like to publish this app on the Zoom App Marketplace?' to OFF for a private app",
+    "Fill in the required fields including redirect URL and allow list",
+    "Note your Client ID and Client Secret on the 'App Credentials' page",
+    "Add the required scopes under the 'Scopes' tab (e.g. meeting:read, meeting:write)",
+    "Click 'Continue' through all steps to activate the app"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "The OAuth 2.0 Client ID from your Zoom Marketplace app",
+      "secret": false,
+      "placeholder": "XXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "The OAuth 2.0 Client Secret from your Zoom Marketplace app",
+      "secret": true,
+      "placeholder": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ],
+  "notes": [
+    "Free Zoom account is sufficient to create Marketplace apps",
+    "For server-to-server (no user interaction), create a 'Server-to-Server OAuth' app type instead",
+    "Server-to-Server apps additionally provide an Account ID credential",
+    "Apps remain in 'Development' status until submitted and approved for publishing",
+    "Rate limits vary by endpoint — most are 30 requests per second per account",
+    "Redirect URL must be HTTPS for production use"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v2/users/me",
+    "expected_status": 200,
+    "description": "Retrieve the authenticated user's Zoom profile"
+  },
+  "last_verified": "2026-03-02"
+}

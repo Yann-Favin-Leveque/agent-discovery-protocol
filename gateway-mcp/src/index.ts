@@ -6,6 +6,7 @@ import { z } from "zod";
 import { discoverByQuery, fetchManifest, fetchCapabilityDetail, pickTopCapabilities, fetchTopCapabilityDetails, clearCache } from "./discovery.js";
 import { authenticate, storeApiKey } from "./auth.js";
 import { callCapability } from "./caller.js";
+import { listCredentials } from "./credentials.js";
 import {
   getToken,
   getConnection,
@@ -62,13 +63,23 @@ server.registerTool(
       include_unverified: z.boolean().optional().describe("Include unverified services in results (default: false, only trusted services shown)"),
       resource: z.string().optional().describe("Filter capabilities by resource group (e.g. 'messages', 'users')"),
       force_refresh: z.boolean().optional().describe("Bypass cache and fetch fresh data from the registry (default: false)"),
+      registered_only: z.boolean().optional().describe("Only show services the user has registered credentials for (default: false)"),
     },
   },
-  async ({ query, domain, capability, include_unverified, resource, force_refresh }) => {
+  async ({ query, domain, capability, include_unverified, resource, force_refresh, registered_only }) => {
     try {
       // Mode 1: Search registry by query
       if (query && !domain) {
         const results = await discoverByQuery(query, { include_unverified, force_refresh });
+
+        // Filter to registered services if requested
+        if (registered_only) {
+          const creds = listCredentials();
+          const registeredDomains = new Set(Object.keys(creds));
+          results.data = results.data.filter((r) => registeredDomains.has(r.service.domain));
+          results.result_count = results.data.length;
+        }
+
         const connections = getAllConnections();
         const connectedDomains = new Set(connections.map((c) => c.domain));
 
@@ -345,23 +356,34 @@ server.registerTool(
   {
     description: "Connect to a service. For OAuth2 services, opens a browser for authorization. " +
       "For API key services, provide the key. For public APIs, auto-connects. " +
+      "If no credentials are on file, returns setup instructions for the user to register their own app. " +
       "Tokens are stored locally on your machine.",
     inputSchema: {
       domain: z.string().describe("Service domain to connect to"),
       api_key: z.string().optional().describe("API key (for api_key auth type services)"),
+      client_id: z.string().optional().describe("OAuth2 client_id (user's own app credentials)"),
+      client_secret: z.string().optional().describe("OAuth2 client_secret (user's own app credentials)"),
     },
   },
-  async ({ domain, api_key }) => {
+  async ({ domain, api_key, client_id, client_secret }) => {
     try {
       let result;
       if (api_key) {
         result = await storeApiKey(domain, api_key);
+      } else if (client_id && client_secret) {
+        result = await authenticate(domain, client_id, client_secret);
       } else {
         result = await authenticate(domain);
       }
 
+      // Build response with test result details
+      let text = result.message;
+      if (result.test_result && !result.test_result.passed) {
+        text += "\n\nYou can retry with a different key or proceed anyway.";
+      }
+
       return {
-        content: [{ type: "text" as const, text: result.message }],
+        content: [{ type: "text" as const, text }],
         isError: !result.success,
       };
     } catch (err) {

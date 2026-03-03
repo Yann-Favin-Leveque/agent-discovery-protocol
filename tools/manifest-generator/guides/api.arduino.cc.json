@@ -1,0 +1,46 @@
+{
+  "domain": "api.arduino.cc",
+  "display_name": "Arduino IoT Cloud",
+  "auth_type": "oauth2",
+  "portal_url": "https://cloud.arduino.cc/home/api-keys",
+  "steps": [
+    "Go to https://cloud.arduino.cc/home/api-keys and sign in to your Arduino account (or create one at https://login.arduino.cc/)",
+    "Click 'CREATE API KEY'",
+    "Enter a name for your API key and click 'Continue'",
+    "Copy and save the Client ID and Client Secret shown — the secret will not be shown again",
+    "Click 'Done'",
+    "To get an access token, make a POST request to https://api2.arduino.cc/iot/v1/clients/token with body: grant_type=client_credentials, client_id=YOUR_ID, client_secret=YOUR_SECRET, audience=https://api2.arduino.cc/iot",
+    "Use the returned access token as a Bearer token in subsequent API calls"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "The OAuth2 Client ID from the Arduino IoT Cloud API Keys page",
+      "secret": false,
+      "placeholder": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "The OAuth2 Client Secret from the Arduino IoT Cloud API Keys page. Shown only once at creation.",
+      "secret": true,
+      "placeholder": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ],
+  "notes": [
+    "Uses OAuth2 Client Credentials flow — no user login required, suitable for server-to-server use",
+    "Client Secret is shown only once at creation — save it securely before closing the dialog",
+    "Token endpoint: POST https://api2.arduino.cc/iot/v1/clients/token with audience=https://api2.arduino.cc/iot",
+    "Access tokens expire and must be refreshed using the same client credentials",
+    "Free plan available with limited device and data storage quota",
+    "Arduino Cloud API docs: https://docs.arduino.cc/arduino-cloud/getting-started/arduino-iot-api"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/iot/v2/things",
+    "expected_status": 200,
+    "description": "List all IoT Things in your account (requires valid Bearer access token)"
+  },
+  "last_verified": "2026-03-02"
+}

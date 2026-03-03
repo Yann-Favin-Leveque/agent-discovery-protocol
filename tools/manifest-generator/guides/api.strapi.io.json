@@ -1,0 +1,39 @@
+{
+  "domain": "api.strapi.io",
+  "display_name": "Strapi",
+  "auth_type": "api_key",
+  "portal_url": "https://docs.strapi.io/cms/features/api-tokens",
+  "steps": [
+    "Log in to your self-hosted Strapi admin panel (typically at http://localhost:1337/admin or your deployment URL)",
+    "Go to Settings > Global settings > API Tokens",
+    "Click 'Create new API Token'",
+    "Enter a name and optional description for the token",
+    "Select the token duration (unlimited, 7 days, 30 days, or 90 days)",
+    "Select the token type: Read-only, Full access, or Custom",
+    "For Custom type, expand each content type and check the specific permissions you want",
+    "Click 'Save' and copy the token immediately — it is shown only once (unless an encryption key is configured)"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "Your Strapi API token generated in the admin panel under Settings > API Tokens",
+      "secret": true,
+      "placeholder": "your-strapi-api-token"
+    }
+  ],
+  "notes": [
+    "Strapi is self-hosted — the base URL depends on your deployment, not api.strapi.io",
+    "Free and open-source; no SaaS signup required",
+    "Token is shown only once unless admin.secrets.encryptionKey is set in your Strapi config",
+    "Token types: Read-only (GET only), Full access (all methods), Custom (granular per content type)",
+    "Token duration can be set to unlimited or time-limited for security"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/content-type-builder/content-types",
+    "expected_status": 200,
+    "description": "List available content types to verify the API token works"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,39 @@
+{
+  "domain": "customsearch.googleapis.com",
+  "display_name": "Google Custom Search",
+  "auth_type": "api_key",
+  "portal_url": "https://console.cloud.google.com/apis/credentials",
+  "steps": [
+    "Go to https://console.cloud.google.com/ and sign in with your Google account",
+    "Create a new project or select an existing one from the project dropdown",
+    "Navigate to APIs & Services > Library and enable the 'Custom Search API'",
+    "Go to APIs & Services > Credentials at https://console.cloud.google.com/apis/credentials",
+    "Click 'Create Credentials' and select 'API key'",
+    "Copy the generated API key",
+    "Optionally restrict the key to the Custom Search API under 'Edit API key'",
+    "Go to https://programmablesearchengine.google.com/controlpanel/create to create a Programmable Search Engine and obtain a Search Engine ID (cx)"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Google Cloud API key, passed as the 'key' query parameter",
+      "secret": true,
+      "placeholder": "AIzaSy..."
+    }
+  ],
+  "notes": [
+    "You also need a Search Engine ID (cx) from https://programmablesearchengine.google.com — this is a per-request parameter, not a credential",
+    "Free tier: 100 search queries per day; paid at $5 per 1,000 queries up to 10,000/day",
+    "The Custom Search JSON API is closed to new customers as of 2025; existing customers have until Jan 1 2027 — consider Vertex AI Search as an alternative",
+    "API key is passed as the 'key' query parameter on each request",
+    "Restrict your API key to specific APIs and HTTP referrers to limit exposure"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/customsearch/v1?q=test&cx=YOUR_SEARCH_ENGINE_ID&key=YOUR_API_KEY",
+    "expected_status": 200,
+    "description": "Execute a simple search query (requires a valid cx Search Engine ID)"
+  },
+  "last_verified": "2026-03-02"
+}

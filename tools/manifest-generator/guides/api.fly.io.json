@@ -1,0 +1,39 @@
+{
+  "domain": "api.fly.io",
+  "display_name": "Fly.io",
+  "auth_type": "api_key",
+  "portal_url": "https://fly.io/user/personal_access_tokens",
+  "steps": [
+    "Go to https://fly.io/ and log in to your account",
+    "Click your profile avatar in the top-right corner and select 'Account settings'",
+    "In the left sidebar click 'Access Tokens' (or navigate directly to https://fly.io/user/personal_access_tokens)",
+    "Click 'Create access token'",
+    "Enter a descriptive name for the token (e.g., 'Gateway MCP')",
+    "Click 'Create token'",
+    "Copy the generated token immediately — it will not be shown again",
+    "Use the token as a Bearer token in the Authorization header on all Machines API requests"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Personal Access Token",
+      "description": "A Fly.io personal access token with full account access. Shown only once at creation.",
+      "secret": true,
+      "placeholder": "fo1_..."
+    }
+  ],
+  "notes": [
+    "Personal access tokens have full account-level access; prefer deploy tokens (app-scoped) for CI/CD",
+    "Tokens are shown only once at creation — store them securely immediately",
+    "The Machines API base URL is https://api.machines.dev/v1",
+    "Fly.io offers a free tier (Hobby plan) with limited compute and bandwidth included",
+    "Alternatively, generate a token using the CLI: fly tokens create org --expiry 8760h"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/apps?org_slug={org_slug}",
+    "expected_status": 200,
+    "description": "List all apps for an organization. Replace {org_slug} with your Fly.io organization slug."
+  },
+  "last_verified": "2026-03-02"
+}

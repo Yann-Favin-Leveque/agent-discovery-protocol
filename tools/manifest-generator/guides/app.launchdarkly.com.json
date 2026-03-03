@@ -1,0 +1,41 @@
+{
+  "domain": "app.launchdarkly.com",
+  "display_name": "LaunchDarkly",
+  "auth_type": "api_key",
+  "portal_url": "https://app.launchdarkly.com/settings/authorization",
+  "steps": [
+    "Go to https://app.launchdarkly.com and sign in to your account",
+    "Click the gear icon in the left navigation to open Organization settings",
+    "Click 'Authorization' in the settings menu",
+    "Under 'Access tokens', click 'Create token'",
+    "Enter a name for the token (e.g. 'API Integration')",
+    "Select a role for the token (Reader, Writer, Admin, or custom role)",
+    "Optionally check 'This is a service token' for long-term integrations (Enterprise plans only)",
+    "Click 'Save token'",
+    "Copy the token immediately — it will not be shown again"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Access Token",
+      "description": "Your LaunchDarkly API access token",
+      "secret": true,
+      "placeholder": "api-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+    }
+  ],
+  "notes": [
+    "Free trial and Pro plans support personal access tokens",
+    "Service tokens (for server-side integrations) require an Enterprise plan",
+    "Token is shown only once — copy it immediately after creation",
+    "Token permissions are scoped by the role assigned at creation time",
+    "Rate limit: 100 requests per second",
+    "The Authorization header does NOT use a prefix — send the token directly (not 'Bearer token')"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v2/projects",
+    "expected_status": 200,
+    "description": "List all projects in the account"
+  },
+  "last_verified": "2026-03-02"
+}

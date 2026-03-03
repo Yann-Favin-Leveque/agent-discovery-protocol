@@ -1,0 +1,37 @@
+{
+  "domain": "api.mixpanel.com",
+  "display_name": "Mixpanel",
+  "auth_type": "api_key",
+  "portal_url": "https://mixpanel.com/settings/project",
+  "steps": [
+    "Go to https://mixpanel.com and log in (or create a free account)",
+    "Select the project you want to use from the top navigation",
+    "Click the settings gear icon or go to https://mixpanel.com/settings/project",
+    "On the 'Overview' tab, scroll down to the 'Access Keys' section",
+    "Find the 'Project Token' (for ingestion) and 'API Secret' (for query/export)",
+    "Copy the relevant credential for your use case"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Secret",
+      "description": "Your Mixpanel project API secret, used as the Basic Auth username with an empty password",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "For ingestion endpoints, use the Project Token; for query/export endpoints, use the API Secret",
+    "The API Secret is used via HTTP Basic Auth — provide it as the username with an empty password",
+    "Project Secret authentication is being deprecated; new integrations should consider Service Accounts",
+    "Free tier available with event volume limits",
+    "Each project has a separate API secret; credentials are project-scoped"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/2.0/engage",
+    "expected_status": 200,
+    "description": "Query user profiles to verify credentials"
+  },
+  "last_verified": "2026-03-02"
+}

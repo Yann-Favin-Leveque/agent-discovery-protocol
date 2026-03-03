@@ -1,0 +1,37 @@
+{
+  "domain": "api.docker.com",
+  "display_name": "Docker Hub",
+  "auth_type": "api_key",
+  "portal_url": "https://hub.docker.com/settings/security",
+  "steps": [
+    "Go to https://hub.docker.com and log in or create a Docker account",
+    "Click on your avatar in the top-right corner and select 'Account Settings'",
+    "Navigate to 'Personal access tokens' (or go directly to https://hub.docker.com/settings/security)",
+    "Click 'Generate new token'",
+    "Enter a description and choose the access permissions (Read, Read/Write, or Read/Write/Delete)",
+    "Click 'Generate' and copy the token — it will not be shown again"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Personal Access Token",
+      "description": "Your Docker Hub personal access token. Used as a Bearer token in the Authorization header.",
+      "secret": true,
+      "placeholder": "dckr_pat_xxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Personal access tokens are prefixed with 'dckr_pat_'",
+    "Token is shown only once at creation — copy it immediately",
+    "Free Docker accounts have rate limits on Docker Hub pulls (100 pulls per 6 hours for anonymous, 200 for free authenticated accounts)",
+    "Tokens can be scoped to Read-only, Read/Write, or Read/Write/Delete",
+    "Docker Hub API base URL is https://hub.docker.com/v2 (not api.docker.com for most endpoints)"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v2/users/{username}",
+    "expected_status": 200,
+    "description": "Retrieve authenticated user information (replace {username} with your Docker Hub username)"
+  },
+  "last_verified": "2026-03-02"
+}

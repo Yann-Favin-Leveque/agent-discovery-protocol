@@ -1,0 +1,38 @@
+{
+  "domain": "rest.ably.io",
+  "display_name": "Ably",
+  "auth_type": "api_key",
+  "portal_url": "https://ably.com/accounts/any/apps",
+  "steps": [
+    "Go to https://ably.com and log in or sign up for a free account",
+    "From the dashboard, click on the app you want to use (or create a new app with 'Create App')",
+    "Click the 'API Keys' tab within the app settings",
+    "Click 'Create a new API key'",
+    "Enter a name for the key and select the capabilities you need (publish, subscribe, presence, history, push, stats)",
+    "Click 'Create key' and copy the full API key string (format: AppID.KeyID:KeySecret)",
+    "Use the full key string as the Basic auth credential in the Authorization header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Full Ably API key in the format AppID.KeyID:KeySecret, sent as a Basic auth credential in the Authorization header",
+      "secret": true,
+      "placeholder": "xxxx.xxxxxx:xxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Free tier includes 6 million messages/month and up to 200 peak connections",
+    "The API key contains the secret portion — store and treat the full key as a secret",
+    "Each app can have multiple API keys with different capability sets",
+    "For client-side usage, use Ably Token Authentication instead of direct API keys to avoid exposing secrets",
+    "The key format AppID.KeyID:KeySecret — the portion before the colon is the public key ID, the portion after is the secret"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/time",
+    "expected_status": 200,
+    "description": "Retrieve the current Ably server time to verify connectivity and authentication"
+  },
+  "last_verified": "2026-03-02"
+}

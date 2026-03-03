@@ -1,0 +1,43 @@
+{
+  "domain": "api.mercury.com",
+  "display_name": "Mercury",
+  "auth_type": "api_key",
+  "portal_url": "https://app.mercury.com/settings/tokens",
+  "steps": [
+    "Go to https://app.mercury.com and log in to your Mercury business banking account",
+    "Click your company logo or avatar in the top-left corner",
+    "Select 'Settings' from the navigation menu",
+    "Click 'API Tokens' in the settings sidebar (or go directly to https://app.mercury.com/settings/tokens)",
+    "Click 'Generate token' or 'Add token'",
+    "Enter a descriptive name for the token",
+    "Select the token's permission level (read-only recommended for most integrations)",
+    "Click 'Generate'",
+    "Copy the displayed token immediately — it will not be shown again",
+    "Store the token securely in a secrets manager or environment variable"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "Your Mercury API token. Sent as a Bearer token in the Authorization header.",
+      "secret": true,
+      "placeholder": "mercury_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Mercury API token is shown only once — save it immediately upon generation",
+    "A stolen token can access your bank accounts — treat with extreme security care",
+    "Mercury requires a real US business bank account — not available for personal accounts",
+    "Read-only tokens are recommended for analytics and reporting integrations",
+    "Sandbox environment available for testing: https://sandbox.mercury.com — sandbox tokens are separate from production",
+    "Some operations (e.g., sending payments) may require additional account verification",
+    "Only users with appropriate account permissions can create API tokens"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v1/accounts",
+    "expected_status": 200,
+    "description": "List your Mercury bank accounts to verify the API token is valid"
+  },
+  "last_verified": "2026-03-02"
+}

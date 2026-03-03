@@ -1,0 +1,40 @@
+{
+  "domain": "api.vaultproject.io",
+  "display_name": "HashiCorp Vault",
+  "auth_type": "api_key",
+  "portal_url": "https://portal.cloud.hashicorp.com/sign-in",
+  "steps": [
+    "Go to https://portal.cloud.hashicorp.com and sign up or log in to HCP (HashiCorp Cloud Platform)",
+    "In the left sidebar, select 'Vault' and click 'Create cluster'",
+    "Choose 'HCP Vault Dedicated' or use the free 'HCP Vault Secrets' for basic secret storage",
+    "Select a cloud provider (AWS or Azure), region, and tier (Development tier is free)",
+    "Wait for the cluster to provision (a few minutes)",
+    "Once the cluster is running, click on it and then click 'Generate token' under Quick Actions",
+    "Copy the admin token — it is shown only once",
+    "Use the token in the X-Vault-Token header for all API requests"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Vault Token",
+      "description": "HashiCorp Vault authentication token passed in the X-Vault-Token header",
+      "secret": true,
+      "placeholder": "hvs.xxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "HCP Vault Dedicated Development tier is free for testing",
+    "Self-hosted Vault is also an option — use 'vault token create' CLI command or the UI",
+    "For dev mode (local), start with: vault server -dev (generates a root token)",
+    "The admin token from HCP Portal is for initial setup only — create scoped tokens for production",
+    "Vault tokens start with 'hvs.' (service tokens) or 's.' (legacy)",
+    "The X-Vault-Token header is used — no 'Bearer' prefix"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/sys/health",
+    "expected_status": 200,
+    "description": "Check the health and initialization status of the Vault server"
+  },
+  "last_verified": "2026-03-02"
+}

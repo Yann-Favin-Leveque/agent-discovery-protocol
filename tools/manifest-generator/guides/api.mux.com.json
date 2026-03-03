@@ -1,0 +1,39 @@
+{
+  "domain": "api.mux.com",
+  "display_name": "Mux",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.mux.com/settings/access-tokens",
+  "steps": [
+    "Go to https://dashboard.mux.com and create an account (or log in)",
+    "In the left sidebar, click 'Settings'",
+    "Click 'Access Tokens'",
+    "Click 'Generate new token'",
+    "Select the environment (e.g. 'Development' or 'Production')",
+    "Set the required permissions (Mux Video: Read + Write for full access)",
+    "Click 'Generate Token'",
+    "Copy both the Token ID and Token Secret — the secret is shown only once"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Token ID:Token Secret (Base64)",
+      "description": "HTTP Basic auth credentials: base64-encode 'TOKEN_ID:TOKEN_SECRET' and use as the Authorization header value with 'Basic ' prefix",
+      "secret": true,
+      "placeholder": "base64(token_id:token_secret)"
+    }
+  ],
+  "notes": [
+    "Authentication uses HTTP Basic auth with Token ID as username and Token Secret as password",
+    "The Token Secret is shown only once — copy it immediately at creation",
+    "Access Tokens are scoped to an Environment (Development/Production)",
+    "Separate tokens can be created with read-only or read+write permissions",
+    "Free tier available with limited encoding minutes and storage"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/video/v1/assets",
+    "expected_status": 200,
+    "description": "List video assets to verify credentials"
+  },
+  "last_verified": "2026-03-02"
+}

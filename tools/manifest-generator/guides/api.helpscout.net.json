@@ -1,0 +1,45 @@
+{
+  "domain": "api.helpscout.net",
+  "display_name": "Help Scout",
+  "auth_type": "oauth2",
+  "portal_url": "https://secure.helpscout.net/settings/oauth/clients/create",
+  "steps": [
+    "Go to https://secure.helpscout.net and log in to your Help Scout account",
+    "Click your profile avatar in the top-right corner and select 'Your Profile'",
+    "In the left sidebar, click 'My Apps'",
+    "Click 'Create My App'",
+    "Fill in the app name and a redirect URL (e.g., https://yourdomain.com/oauth/callback)",
+    "Click 'Create' to generate your OAuth credentials",
+    "Copy the App ID (client_id) and App Secret (client_secret) shown on the app detail page"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "App ID (Client ID)",
+      "description": "The App ID generated when you create an OAuth app in Help Scout",
+      "secret": false,
+      "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    },
+    {
+      "name": "client_secret",
+      "label": "App Secret (Client Secret)",
+      "description": "The App Secret generated when you create an OAuth app in Help Scout",
+      "secret": true,
+      "placeholder": "your-app-secret"
+    }
+  ],
+  "notes": [
+    "Help Scout uses OAuth2 client credentials flow for server-to-server API access",
+    "Access tokens expire after 2 hours and must be refreshed using the client credentials grant",
+    "Token endpoint: POST https://api.helpscout.net/v2/oauth2/token with grant_type=client_credentials",
+    "The redirect URL is required when creating the app but only used for Authorization Code flow",
+    "All Help Scout plans include API access"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v2/users/me",
+    "expected_status": 200,
+    "description": "Retrieve the currently authenticated user to verify credentials"
+  },
+  "last_verified": "2026-03-02"
+}

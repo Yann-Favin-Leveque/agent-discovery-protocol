@@ -1,0 +1,45 @@
+{
+  "domain": "api.datadoghq.com",
+  "display_name": "Datadog",
+  "auth_type": "api_key",
+  "portal_url": "https://app.datadoghq.com/organization-settings/api-keys",
+  "steps": [
+    "Go to https://app.datadoghq.com and sign in or create a free Datadog account",
+    "Navigate to Organization Settings > API Keys (or go directly to https://app.datadoghq.com/organization-settings/api-keys)",
+    "Click the 'New Key' button in the top-right corner",
+    "Enter a name for the API key and click 'Create Key'",
+    "Copy the API key value immediately — it is shown only once (One-Time Read mode is enabled by default for new accounts)",
+    "Optionally, create an Application Key at https://app.datadoghq.com/organization-settings/application-keys for operations that require app-level auth"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Datadog API key, sent as the DD-API-KEY header on every request",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "name": "app_key",
+      "label": "Application Key (optional)",
+      "description": "Required for some management operations. Sent as DD-APPLICATION-KEY header. Create at Organization Settings > Application Keys.",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Free trial available with 14 days full access; after trial some features require a paid plan",
+    "API keys are shown only once at creation — save immediately (One-Time Read mode enabled by default since August 2025)",
+    "Most read operations only require DD-API-KEY; some management endpoints also require DD-APPLICATION-KEY",
+    "The default API host is https://api.datadoghq.com — EU users should use https://api.datadoghq.eu",
+    "Rate limits vary by plan; free/trial accounts have lower limits",
+    "API documentation at https://docs.datadoghq.com/api/"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v1/validate",
+    "expected_status": 200,
+    "description": "Validate the DD-API-KEY header — returns {\"valid\": true} if the key is correct"
+  },
+  "last_verified": "2026-03-02"
+}

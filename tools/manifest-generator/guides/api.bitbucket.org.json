@@ -1,0 +1,46 @@
+{
+  "domain": "api.bitbucket.org",
+  "display_name": "Bitbucket Cloud",
+  "auth_type": "oauth2",
+  "portal_url": "https://bitbucket.org/account/settings/app-passwords/new",
+  "steps": [
+    "Go to https://bitbucket.org and log in",
+    "Click your avatar in the bottom-left corner, then select 'Personal settings'",
+    "In the left sidebar, click 'App passwords' under 'Security'",
+    "Click 'Create app password'",
+    "Enter a label and select the required permissions (e.g., Repositories: Read, Pull requests: Read)",
+    "Click 'Create' and copy the password immediately — it is shown only once",
+    "For OAuth apps: go to https://bitbucket.org/<workspace>/workspace/settings/oauth-consumers/new",
+    "Fill in the app name, callback URL, and permissions, then click 'Save' to get your Client ID and Secret"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "OAuth Consumer Key (Client ID)",
+      "description": "The Key from your Bitbucket OAuth consumer, used as client_id in the OAuth 2.0 flow",
+      "secret": false,
+      "placeholder": "your_bitbucket_oauth_key"
+    },
+    {
+      "name": "client_secret",
+      "label": "OAuth Consumer Secret",
+      "description": "The Secret from your Bitbucket OAuth consumer, used as client_secret in the OAuth 2.0 flow",
+      "secret": true,
+      "placeholder": "your_bitbucket_oauth_secret"
+    }
+  ],
+  "notes": [
+    "OAuth consumers are workspace-scoped — create them under the workspace that owns the repos",
+    "Navigate to workspace OAuth consumers at: https://bitbucket.org/<workspace>/workspace/settings/oauth-consumers",
+    "For personal/script use, App Passwords are simpler than full OAuth — use username + app password as Basic auth",
+    "Free tier available with unlimited public repos and up to 5 users for private repos",
+    "Access tokens obtained via OAuth expire and must be refreshed using the refresh token"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/2.0/user",
+    "expected_status": 200,
+    "description": "Get the authenticated user profile to verify your credentials"
+  },
+  "last_verified": "2026-03-02"
+}

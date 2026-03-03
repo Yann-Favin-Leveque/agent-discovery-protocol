@@ -1,0 +1,41 @@
+{
+  "domain": "api.meilisearch.com",
+  "display_name": "Meilisearch",
+  "auth_type": "api_key",
+  "portal_url": "https://cloud.meilisearch.com/",
+  "steps": [
+    "Go to https://cloud.meilisearch.com/ and sign up or log in",
+    "Create a new project by clicking 'New project', choosing a name and region",
+    "Wait for the project to be provisioned (usually a few seconds)",
+    "Click on your project to open its dashboard",
+    "In the left sidebar, click 'API Keys'",
+    "You will see auto-generated keys: 'Default Admin API Key' (full access) and 'Default Search API Key' (search-only)",
+    "Copy the 'Default Admin API Key' for server-side operations",
+    "Copy the 'Default Search API Key' for client-side/frontend search queries",
+    "Also note your project's 'Host URL' — this is the base URL for all API calls"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Meilisearch API key. Use the Admin API key for full access or the Search API key for read-only search operations.",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Meilisearch is self-hosted open source or available as Meilisearch Cloud at cloud.meilisearch.com",
+    "For self-hosted instances: set a master key at startup with MEILI_MASTER_KEY env variable; the instance auto-generates default Admin and Search keys",
+    "Never use the master key in application code — use the generated Admin or Search API keys",
+    "The Admin API key has full access; the Search API key is read-only and safe for frontend use",
+    "Meilisearch Cloud free tier is available for small projects",
+    "The base URL for cloud projects is project-specific (e.g., https://xxx.meilisearch.io)"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/health",
+    "expected_status": 200,
+    "description": "Check instance health — returns {status: 'available'} when the instance is running correctly"
+  },
+  "last_verified": "2026-03-02"
+}

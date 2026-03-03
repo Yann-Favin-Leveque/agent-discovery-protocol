@@ -1,0 +1,36 @@
+{
+  "domain": "api.svix.com",
+  "display_name": "Svix",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.svix.com/api-access",
+  "steps": [
+    "Go to https://dashboard.svix.com and log in or create a free Svix account",
+    "Navigate to the 'API Access' section in the left sidebar (or go to https://dashboard.svix.com/api-access)",
+    "Your organization's API key is displayed on this page",
+    "Copy the API key — it starts with a prefix indicating the environment (e.g., testsk_ for test, sk_ for production)",
+    "Use the API key as a Bearer token in the Authorization header: 'Authorization: Bearer <your-api-key>'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Svix API key found in the Dashboard under API Access. Used as a Bearer token.",
+      "secret": true,
+      "placeholder": "testsk_..."
+    }
+  ],
+  "notes": [
+    "Free tier available (limited to development/testing usage)",
+    "API keys are per-environment — use test environment keys for development",
+    "The API key grants full access to your Svix organization — keep it secret",
+    "EU region API: https://api.eu.svix.com; US region API: https://api.us.svix.com (default: https://api.svix.com)",
+    "Svix also provides a hosted App Portal for your customers to manage their own webhook endpoints"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v1/app/",
+    "expected_status": 200,
+    "description": "List webhook applications to verify the API key"
+  },
+  "last_verified": "2026-03-02"
+}

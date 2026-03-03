@@ -1,0 +1,52 @@
+{
+  "domain": "api.cloudinary.com",
+  "display_name": "Cloudinary",
+  "auth_type": "api_key",
+  "portal_url": "https://console.cloudinary.com/settings/api-keys",
+  "steps": [
+    "Go to https://cloudinary.com and log in or create a free account",
+    "From the Cloudinary Console, click your product environment name in the top bar",
+    "Click 'Settings' (gear icon) in the left sidebar",
+    "Select 'API Keys' from the settings menu",
+    "Your Cloud Name, API Key, and API Secret are displayed on this page",
+    "Click the copy icon next to the API Key and API Secret to copy each value",
+    "Note your Cloud Name — it is required as part of the API URL path"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Cloudinary API Key (used as the Basic auth username together with api_secret)",
+      "secret": false,
+      "placeholder": "123456789012345"
+    },
+    {
+      "name": "api_secret",
+      "label": "API Secret",
+      "description": "Your Cloudinary API Secret (used as the Basic auth password)",
+      "secret": true,
+      "placeholder": "abcdefghijklmnopqrstuvwxyz"
+    },
+    {
+      "name": "cloud_name",
+      "label": "Cloud Name",
+      "description": "Your Cloudinary cloud name (appears in all media URLs)",
+      "secret": false,
+      "placeholder": "my-cloud-name"
+    }
+  ],
+  "notes": [
+    "Cloudinary uses HTTP Basic auth: api_key as username, api_secret as password",
+    "The cloud_name is part of the API URL path (e.g., /v1_1/{cloud_name}/image/upload)",
+    "Free tier includes 25 GB storage, 25 GB bandwidth, and 25,000 transformations per month",
+    "You can generate multiple API key/secret pairs in the console for different applications",
+    "Never expose the API Secret in client-side code — use upload presets for unsigned uploads"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1_1/{cloud_name}/usage",
+    "expected_status": 200,
+    "description": "Get account usage statistics (replace {cloud_name} with your cloud name)"
+  },
+  "last_verified": "2026-03-02"
+}

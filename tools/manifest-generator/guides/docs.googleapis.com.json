@@ -1,0 +1,51 @@
+{
+  "domain": "docs.googleapis.com",
+  "display_name": "Google Docs API",
+  "auth_type": "oauth2",
+  "portal_url": "https://console.cloud.google.com/apis/credentials",
+  "steps": [
+    "Go to https://console.cloud.google.com/ and sign in with your Google account",
+    "Create a new project or select an existing one",
+    "Navigate to APIs & Services > Library and enable the 'Google Docs API' and 'Google Drive API'",
+    "Go to APIs & Services > OAuth consent screen",
+    "Select 'External' user type and click 'Create'",
+    "Fill in the app name, user support email, and developer contact email, then click 'Save and Continue'",
+    "On the Scopes screen, add the scopes: .../auth/documents and .../auth/drive.file, then click 'Save and Continue'",
+    "Add your own Google account as a test user, then click 'Save and Continue'",
+    "Go to APIs & Services > Credentials at https://console.cloud.google.com/apis/credentials",
+    "Click 'Create Credentials' > 'OAuth client ID'",
+    "Select application type (e.g. 'Web application' or 'Desktop app')",
+    "Add authorized redirect URIs if applicable, then click 'Create'",
+    "Copy the Client ID and Client Secret from the dialog"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "OAuth Client ID",
+      "description": "Your Google Cloud OAuth 2.0 Client ID",
+      "secret": false,
+      "placeholder": "YOUR_CLIENT_ID.apps.googleusercontent.com"
+    },
+    {
+      "name": "client_secret",
+      "label": "OAuth Client Secret",
+      "description": "Your Google Cloud OAuth 2.0 Client Secret",
+      "secret": true,
+      "placeholder": "YOUR_CLIENT_SECRET"
+    }
+  ],
+  "notes": [
+    "Free tier: Google Docs API has no direct cost beyond Google Cloud project quotas",
+    "Requires OAuth consent screen setup before creating credentials",
+    "External apps stay in 'Testing' mode (100 users max) until verified by Google; verification required for production",
+    "Client Secret is shown at creation and can be re-downloaded from the Credentials page as a JSON file",
+    "Required scopes: https://www.googleapis.com/auth/documents and https://www.googleapis.com/auth/drive.file"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/documents/{documentId}",
+    "expected_status": 200,
+    "description": "Retrieve a Google Doc by ID (requires a valid document ID and access token)"
+  },
+  "last_verified": "2026-03-02"
+}

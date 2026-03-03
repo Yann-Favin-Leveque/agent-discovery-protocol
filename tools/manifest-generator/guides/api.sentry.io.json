@@ -1,0 +1,39 @@
+{
+  "domain": "api.sentry.io",
+  "display_name": "Sentry",
+  "auth_type": "api_key",
+  "portal_url": "https://sentry.io/settings/account/api/auth-tokens/",
+  "steps": [
+    "Go to https://sentry.io/settings/account/api/auth-tokens/",
+    "Log in to your Sentry account or sign up at https://sentry.io/signup/",
+    "Click 'Create New Token'",
+    "Enter a descriptive name for the token",
+    "Select the required permission scopes (e.g., 'project:read', 'org:read', 'event:read')",
+    "Click 'Create Token'",
+    "Copy the token immediately — it is shown only once"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Auth Token",
+      "description": "Your Sentry user auth token or organization auth token. Sent as a Bearer token in the Authorization header.",
+      "secret": true,
+      "placeholder": "sntrys_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Free Developer plan available with 1 user, 14-day data retention",
+    "Auth tokens are scoped — select only the permissions your integration needs",
+    "Token is shown only once at creation time — copy it before leaving the page",
+    "Organization-level tokens (for CI/CD) are found at Settings > Developer Settings > Organization Tokens",
+    "Personal tokens are tied to your account; prefer organization tokens for automation",
+    "The Sentry API base URL is https://sentry.io/api/0/"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/organizations/",
+    "expected_status": 200,
+    "description": "List organizations the token has access to, to verify authentication"
+  },
+  "last_verified": "2026-03-02"
+}

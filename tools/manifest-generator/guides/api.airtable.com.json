@@ -1,0 +1,40 @@
+{
+  "domain": "api.airtable.com",
+  "display_name": "Airtable",
+  "auth_type": "api_key",
+  "portal_url": "https://airtable.com/create/tokens",
+  "steps": [
+    "Go to https://airtable.com/create/tokens",
+    "Log in to your Airtable account (or create a free account at https://airtable.com/signup)",
+    "Click '+ Create new token'",
+    "Give your token a descriptive name",
+    "Under 'Scopes', select the permissions your token needs (e.g. data.records:read, data.records:write, schema.bases:read)",
+    "Under 'Access', choose which bases or workspaces the token can access",
+    "Click 'Create token'",
+    "Copy the token immediately — it is shown only once"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Personal Access Token",
+      "description": "Your Airtable personal access token. Used as a Bearer token in the Authorization header.",
+      "secret": true,
+      "placeholder": "patXXXXXXXXXXXXXX.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ],
+  "notes": [
+    "Free plan available with generous limits for personal use",
+    "Personal Access Tokens replace the deprecated legacy API key (migrated as of Feb 2024)",
+    "The token is shown only once at creation — save it securely",
+    "Tokens start with 'pat' followed by your workspace ID and a random secret",
+    "Scope-limited tokens are recommended: grant only the permissions your app needs",
+    "Rate limit: 5 requests per second per base on the free plan"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v0/meta/bases",
+    "expected_status": 200,
+    "description": "List all bases accessible to the token"
+  },
+  "last_verified": "2026-03-02"
+}

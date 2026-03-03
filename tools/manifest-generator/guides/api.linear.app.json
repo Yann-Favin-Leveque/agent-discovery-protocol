@@ -1,0 +1,39 @@
+{
+  "domain": "api.linear.app",
+  "display_name": "Linear",
+  "auth_type": "api_key",
+  "portal_url": "https://linear.app/settings/api",
+  "steps": [
+    "Go to https://linear.app and log in to your workspace",
+    "Click your avatar or workspace name in the top-left corner",
+    "Select 'Settings' from the dropdown menu",
+    "Navigate to 'Account' > 'Security & Access'",
+    "Scroll down to the 'API keys' section",
+    "Click 'Create key'",
+    "Enter a descriptive name for your key and optionally set permissions (Read, Write, Admin) and team restrictions",
+    "Click 'Create key' to confirm",
+    "Copy the generated API key immediately — it will not be shown again"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Linear personal API key",
+      "secret": true,
+      "placeholder": "lin_api_..."
+    }
+  ],
+  "notes": [
+    "API key is shown only once at creation time — store it securely",
+    "Linear uses a GraphQL API; all requests go to the /graphql endpoint",
+    "You can restrict a key to specific teams or permission levels",
+    "Workspace admins can control whether members can create their own API keys under Settings > Administration > API",
+    "Free tier available with up to 3 active members"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/graphql",
+    "description": "Send a GraphQL query { viewer { id name email } } to verify the key returns the authenticated user"
+  },
+  "last_verified": "2026-03-02"
+}

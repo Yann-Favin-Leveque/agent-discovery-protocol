@@ -1,29 +1,20 @@
 #!/usr/bin/env node
 
-import http from "http";
 import readline from "readline";
+import { loadConfig, setRegistryUrl } from "./config.js";
+import { fetchManifest } from "./discovery.js";
 import {
-  loadConfig,
-  saveConfig,
-  storeIdentity,
-  isInitialized,
-  getIdentity,
-  setRegistryUrl,
-  getOAuthCredentials,
-} from "./config.js";
-import type { UserIdentity, IdentityProvider } from "./types.js";
+  getCredential,
+  storeCredential,
+  removeCredential,
+  listCredentials,
+} from "./credentials.js";
+import type { Manifest } from "./types.js";
 
 // ─── CLI helpers ─────────────────────────────────────────────────
 
-const IDENTITY_PROVIDERS: Record<IdentityProvider, string> = {
-  google: "Google",
-  github: "GitHub",
-  microsoft: "Microsoft",
-};
-
 interface InitOptions {
   registry?: string;
-  provider?: IdentityProvider;
 }
 
 function parseArgs(): InitOptions {
@@ -35,41 +26,23 @@ function parseArgs(): InitOptions {
       opts.registry = args[i + 1];
       i++;
     }
-    if (args[i] === "--provider" && args[i + 1]) {
-      opts.provider = args[i + 1] as IdentityProvider;
-      i++;
-    }
   }
 
   return opts;
 }
 
-// ─── Interactive provider prompt ─────────────────────────────────
-
-const PROVIDER_CHOICES: { key: string; provider: IdentityProvider; label: string }[] = [
-  { key: "1", provider: "google", label: "Google" },
-  { key: "2", provider: "github", label: "GitHub" },
-];
-
-async function promptProvider(): Promise<IdentityProvider> {
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-
-  console.log("  Sign in to create your gateway identity:\n");
-  for (const c of PROVIDER_CHOICES) {
-    console.log(`  [${c.key}] ${c.label}`);
-  }
-  console.log("");
-
-  return new Promise<IdentityProvider>((resolve) => {
-    rl.question("  Choice (1-2, default 1): ", (answer) => {
-      rl.close();
-      const choice = PROVIDER_CHOICES.find((c) => c.key === answer.trim());
-      resolve(choice?.provider ?? "google");
-    });
+function ask(rl: readline.Interface, question: string): Promise<string> {
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => resolve(answer.trim()));
   });
 }
 
-// ─── Init flow ──────────────────────────────────────────────────
+function maskValue(value: string): string {
+  if (value.length <= 8) return "****";
+  return value.substring(0, 4) + "..." + value.substring(value.length - 4);
+}
+
+// ─── Main menu ──────────────────────────────────────────────────
 
 async function init(): Promise<void> {
   const opts = parseArgs();
@@ -83,343 +56,234 @@ async function init(): Promise<void> {
 
   console.log("");
   console.log("  ╔══════════════════════════════════════╗");
-  console.log("  ║     Agent Gateway — Setup            ║");
+  console.log("  ║   Agent Gateway — Service Manager    ║");
   console.log("  ╚══════════════════════════════════════╝");
   console.log("");
 
-  if (isInitialized()) {
-    const identity = getIdentity()!;
-    console.log(`  Already signed in as ${identity.email} (${identity.provider})`);
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  let running = true;
+  while (running) {
+    console.log("  [1] Register a service");
+    console.log("  [2] List registered services");
+    console.log("  [3] Remove a service");
+    console.log("  [4] Exit");
     console.log("");
 
-    console.log("  You're all set! Your agent can now use the gateway.");
+    const choice = await ask(rl, "  Choice (1-4): ");
     console.log("");
-    printMcpConfig(registryUrl);
-    return;
+
+    switch (choice) {
+      case "1":
+        await addService(rl, registryUrl);
+        break;
+      case "2":
+        listServices();
+        break;
+      case "3":
+        await removeService(rl);
+        break;
+      case "4":
+      case "":
+        running = false;
+        break;
+      default:
+        console.log("  Invalid choice.\n");
+    }
   }
 
-  // Determine provider
-  const provider = opts.provider ?? await promptProvider();
-  const providerName = IDENTITY_PROVIDERS[provider] ?? provider;
+  rl.close();
 
-  console.log(`  Signing in with ${providerName}...`);
-  console.log("");
-
-  let identity: UserIdentity;
-
-  if (provider === "google" || provider === "github") {
-    // Direct OAuth (Desktop app flow)
-    identity = await desktopOAuth(provider, config.auth_callback_port, registryUrl);
-  } else {
-    // For Microsoft, use registry-mediated flow
-    identity = await registryMediatedOAuth(provider, config.auth_callback_port, registryUrl);
-  }
-
-  storeIdentity(identity);
-
-  console.log(`  Signed in as ${identity.email}`);
-  console.log("");
-
-  console.log("  Setup complete! Add this to your MCP client config:");
+  console.log("  MCP config for your agent:");
   console.log("");
   printMcpConfig(registryUrl);
 }
 
-// ─── Desktop OAuth (Google & GitHub) ─────────────────────────────
+// ─── Add service ────────────────────────────────────────────────
 
-interface ProviderOAuthConfig {
-  authorizationUrl: string;
-  tokenUrl: string;
-  scopes: string;
-  extraAuthParams?: Record<string, string>;
-  tokenExchangeHeaders?: Record<string, string>;
+async function addService(rl: readline.Interface, registryUrl: string): Promise<void> {
+  const domain = await ask(rl, "  Service domain (e.g. api.openai.com): ");
+  if (!domain) {
+    console.log("  Cancelled.\n");
+    return;
+  }
+
+  // Check if already registered
+  const existing = getCredential(domain);
+  if (existing) {
+    const overwrite = await ask(rl, `  ${domain} is already registered. Overwrite? (y/N): `);
+    if (overwrite.toLowerCase() !== "y") {
+      console.log("  Cancelled.\n");
+      return;
+    }
+  }
+
+  // Fetch manifest
+  console.log(`  Fetching manifest for ${domain}...`);
+  let manifest: Manifest;
+  try {
+    manifest = await fetchManifest(domain);
+  } catch (err) {
+    console.log(`  Error: Cannot reach ${domain}: ${err instanceof Error ? err.message : "unknown"}`);
+    console.log("");
+    return;
+  }
+
+  console.log(`  Found: ${manifest.name}`);
+  console.log(`  Auth type: ${manifest.auth.type}`);
+  console.log("");
+
+  if (manifest.auth.type === "none") {
+    console.log("  This service requires no authentication. No registration needed.");
+    console.log("");
+    return;
+  }
+
+  if (manifest.auth.type === "api_key") {
+    if (manifest.auth.setup_url) {
+      console.log(`  Get your API key at: ${manifest.auth.setup_url}`);
+      // Try to open browser
+      try {
+        const open = (await import("open")).default;
+        await open(manifest.auth.setup_url);
+        console.log("  (Browser opened)");
+      } catch {
+        // ignore
+      }
+      console.log("");
+    }
+
+    const apiKey = await ask(rl, "  API key: ");
+    if (!apiKey) {
+      console.log("  Cancelled.\n");
+      return;
+    }
+
+    storeCredential(domain, {
+      type: "api_key",
+      api_key: apiKey,
+      added_at: new Date().toISOString(),
+    });
+
+    console.log(`  API key stored for ${manifest.name}.`);
+    console.log("");
+    return;
+  }
+
+  if (manifest.auth.type === "oauth2") {
+    if (manifest.auth.setup_url) {
+      console.log(`  Create an OAuth app at: ${manifest.auth.setup_url}`);
+      try {
+        const open = (await import("open")).default;
+        await open(manifest.auth.setup_url);
+        console.log("  (Browser opened)");
+      } catch {
+        // ignore
+      }
+    } else {
+      console.log("  Create an OAuth app in the service's developer portal.");
+    }
+    console.log(`  Set redirect URI to: http://localhost:${loadConfig().auth_callback_port}/callback`);
+    if (manifest.auth.scopes?.length) {
+      console.log(`  Required scopes: ${manifest.auth.scopes.join(", ")}`);
+    }
+    console.log("");
+
+    const clientId = await ask(rl, "  Client ID: ");
+    if (!clientId) {
+      console.log("  Cancelled.\n");
+      return;
+    }
+
+    const clientSecret = await ask(rl, "  Client Secret: ");
+    if (!clientSecret) {
+      console.log("  Cancelled.\n");
+      return;
+    }
+
+    storeCredential(domain, {
+      type: "oauth2",
+      client_id: clientId,
+      client_secret: clientSecret,
+      added_at: new Date().toISOString(),
+    });
+
+    console.log(`  OAuth credentials stored for ${manifest.name}.`);
+    console.log("");
+    return;
+  }
+
+  console.log(`  Unknown auth type: ${manifest.auth.type}`);
+  console.log("");
 }
 
-const PROVIDER_OAUTH_CONFIG: Record<"google" | "github", ProviderOAuthConfig> = {
-  google: {
-    authorizationUrl: "https://accounts.google.com/o/oauth2/v2/auth",
-    tokenUrl: "https://oauth2.googleapis.com/token",
-    scopes: "openid email profile",
-    extraAuthParams: { access_type: "offline", prompt: "consent" },
-  },
-  github: {
-    authorizationUrl: "https://github.com/login/oauth/authorize",
-    tokenUrl: "https://github.com/login/oauth/access_token",
-    scopes: "read:user user:email",
-    tokenExchangeHeaders: { Accept: "application/json" },
-  },
-};
+// ─── List services ──────────────────────────────────────────────
 
-async function desktopOAuth(
-  provider: "google" | "github",
-  port: number,
-  registryUrl: string
-): Promise<UserIdentity> {
-  const { clientId, clientSecret } = getOAuthCredentials(provider);
-  const providerConfig = PROVIDER_OAUTH_CONFIG[provider];
-  const redirectUri = `http://localhost:${port}/callback`;
-  const state = Math.random().toString(36).substring(2, 15);
+function listServices(): void {
+  const creds = listCredentials();
+  const domains = Object.keys(creds);
 
-  // Build authorization URL
-  const authParams = new URLSearchParams({
-    client_id: clientId,
-    redirect_uri: redirectUri,
-    response_type: "code",
-    scope: providerConfig.scopes,
-    state,
-    ...providerConfig.extraAuthParams,
-  });
-  const authUrl = `${providerConfig.authorizationUrl}?${authParams.toString()}`;
-
-  // Start local callback server and wait for the authorization code
-  const codePromise = new Promise<string>((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      server.close();
-      reject(new Error("Authentication timeout — no callback received within 120 seconds."));
-    }, 120000);
-
-    const server = http.createServer(async (req, res) => {
-      const url = new URL(req.url ?? "/", `http://localhost:${port}`);
-
-      if (url.pathname !== "/callback") {
-        res.writeHead(404);
-        res.end("Not found");
-        return;
-      }
-
-      const error = url.searchParams.get("error");
-      if (error) {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(html("Authentication Failed", `<p>${error}</p><p>You can close this tab.</p>`));
-        clearTimeout(timeout);
-        server.close();
-        reject(new Error(`Auth error: ${error}`));
-        return;
-      }
-
-      const returnedState = url.searchParams.get("state");
-      if (returnedState !== state) {
-        res.writeHead(400, { "Content-Type": "text/html" });
-        res.end(html("Invalid Callback", "<p>State mismatch. Please try again.</p>"));
-        return;
-      }
-
-      const code = url.searchParams.get("code");
-      if (!code) {
-        res.writeHead(400, { "Content-Type": "text/html" });
-        res.end(html("Invalid Callback", "<p>Missing authorization code.</p>"));
-        return;
-      }
-
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(html(
-        "Connected to Agent Gateway!",
-        "<p>You can close this tab and return to your terminal.</p>"
-      ));
-
-      clearTimeout(timeout);
-      server.close();
-      resolve(code);
-    });
-
-    server.listen(port, () => {
-      // Server ready
-    });
-  });
-
-  // Open browser
-  try {
-    const open = (await import("open")).default;
-    await open(authUrl);
-    console.log("  Browser opened for sign-in.");
-  } catch {
-    console.log("  Open this URL in your browser:");
+  if (domains.length === 0) {
+    console.log("  No registered services.");
+    console.log("  Use option [1] to register a service.");
     console.log("");
-    console.log(`  ${authUrl}`);
+    return;
   }
 
+  console.log(`  Registered services (${domains.length}):`);
   console.log("");
-  console.log(`  Waiting for sign-in on http://localhost:${port}/callback...`);
+  for (const domain of domains) {
+    const c = creds[domain];
+    if (c.type === "api_key") {
+      console.log(`    ${domain}  [API Key: ${maskValue(c.api_key)}]`);
+    } else if (c.type === "oauth2") {
+      console.log(`    ${domain}  [OAuth2: ${maskValue(c.client_id)}]`);
+    }
+  }
   console.log("");
-
-  // Wait for the authorization code
-  const code = await codePromise;
-
-  // Exchange code for provider tokens
-  const tokenBody = new URLSearchParams({
-    client_id: clientId,
-    client_secret: clientSecret,
-    code,
-    redirect_uri: redirectUri,
-    grant_type: "authorization_code",
-  });
-
-  const tokenRes = await fetch(providerConfig.tokenUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      ...providerConfig.tokenExchangeHeaders,
-    },
-    body: tokenBody.toString(),
-    signal: AbortSignal.timeout(10000),
-  });
-
-  if (!tokenRes.ok) {
-    const text = await tokenRes.text();
-    throw new Error(`${provider} token exchange failed: ${tokenRes.status} ${text}`);
-  }
-
-  const tokenData = (await tokenRes.json()) as {
-    access_token: string;
-    refresh_token?: string;
-    error?: string;
-    error_description?: string;
-  };
-
-  if (tokenData.error) {
-    throw new Error(`${provider} token error: ${tokenData.error_description ?? tokenData.error}`);
-  }
-
-  // Exchange provider access token for a registry token via the CLI endpoint
-  const registryRes = await fetch(`${registryUrl}/api/auth/cli`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      provider,
-      access_token: tokenData.access_token,
-    }),
-    signal: AbortSignal.timeout(10000),
-  });
-
-  if (!registryRes.ok) {
-    const text = await registryRes.text();
-    throw new Error(`Registry authentication failed: ${registryRes.status} ${text}`);
-  }
-
-  const registryData = (await registryRes.json()) as {
-    success: boolean;
-    data?: {
-      registry_token: string;
-      email: string;
-      name: string;
-      provider_id: string;
-    };
-    error?: string;
-  };
-
-  if (!registryData.success || !registryData.data) {
-    throw new Error(`Registry auth error: ${registryData.error ?? "unknown"}`);
-  }
-
-  return {
-    provider,
-    provider_id: registryData.data.provider_id,
-    email: registryData.data.email,
-    name: registryData.data.name ?? undefined,
-    registry_token: registryData.data.registry_token,
-    connected_at: new Date().toISOString(),
-  };
 }
 
-// ─── Registry-mediated OAuth (GitHub, Microsoft) ─────────────────
+// ─── Remove service ─────────────────────────────────────────────
 
-async function registryMediatedOAuth(
-  provider: IdentityProvider,
-  port: number,
-  registryUrl: string
-): Promise<UserIdentity> {
-  const redirectUri = `http://localhost:${port}/callback`;
-  const state = Math.random().toString(36).substring(2, 15);
+async function removeService(rl: readline.Interface): Promise<void> {
+  const creds = listCredentials();
+  const domains = Object.keys(creds);
 
-  const authUrl = `${registryUrl}/auth/init?provider=${provider}&redirect_uri=${encodeURIComponent(redirectUri)}&state=${state}`;
-
-  // Start local callback server
-  const identityPromise = new Promise<UserIdentity>((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      server.close();
-      reject(new Error("Authentication timeout — no callback received within 120 seconds."));
-    }, 120000);
-
-    const server = http.createServer(async (req, res) => {
-      const url = new URL(req.url ?? "/", `http://localhost:${port}`);
-
-      if (url.pathname !== "/callback") {
-        res.writeHead(404);
-        res.end("Not found");
-        return;
-      }
-
-      const error = url.searchParams.get("error");
-      if (error) {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end(html("Authentication Failed", `<p>${error}</p><p>You can close this tab.</p>`));
-        clearTimeout(timeout);
-        server.close();
-        reject(new Error(`Auth error: ${error}`));
-        return;
-      }
-
-      const returnedState = url.searchParams.get("state");
-      if (returnedState !== state) {
-        res.writeHead(400, { "Content-Type": "text/html" });
-        res.end(html("Invalid Callback", "<p>State mismatch. Please try again.</p>"));
-        return;
-      }
-
-      const registryToken = url.searchParams.get("token");
-      const refreshToken = url.searchParams.get("refresh_token");
-      const email = url.searchParams.get("email");
-      const name = url.searchParams.get("name");
-      const providerId = url.searchParams.get("provider_id");
-
-      if (!registryToken || !email || !providerId) {
-        res.writeHead(400, { "Content-Type": "text/html" });
-        res.end(html("Invalid Callback", "<p>Missing authentication data. Please try again.</p>"));
-        return;
-      }
-
-      const identity: UserIdentity = {
-        provider,
-        provider_id: providerId,
-        email,
-        name: name ?? undefined,
-        registry_token: registryToken,
-        registry_refresh_token: refreshToken ?? undefined,
-        connected_at: new Date().toISOString(),
-      };
-
-      res.writeHead(200, { "Content-Type": "text/html" });
-      res.end(html(
-        "Connected to Agent Gateway!",
-        `<p>Signed in as <strong>${email}</strong></p><p>You can close this tab and return to your terminal.</p>`
-      ));
-
-      clearTimeout(timeout);
-      server.close();
-      resolve(identity);
-    });
-
-    server.listen(port, () => {
-      // Server ready
-    });
-  });
-
-  // Open browser
-  try {
-    const open = (await import("open")).default;
-    await open(authUrl);
-    console.log("  Browser opened for sign-in.");
-  } catch {
-    console.log("  Open this URL in your browser:");
+  if (domains.length === 0) {
+    console.log("  No registered services to remove.");
     console.log("");
-    console.log(`  ${authUrl}`);
+    return;
   }
 
-  console.log("");
-  console.log(`  Waiting for sign-in on http://localhost:${port}/callback...`);
+  console.log("  Registered services:");
+  domains.forEach((d, i) => {
+    console.log(`    [${i + 1}] ${d} (${creds[d].type})`);
+  });
   console.log("");
 
-  return identityPromise;
+  const input = await ask(rl, "  Remove (number or domain): ");
+  if (!input) {
+    console.log("  Cancelled.\n");
+    return;
+  }
+
+  let domain: string;
+  const idx = parseInt(input, 10);
+  if (!isNaN(idx) && idx >= 1 && idx <= domains.length) {
+    domain = domains[idx - 1];
+  } else {
+    domain = input;
+  }
+
+  if (removeCredential(domain)) {
+    console.log(`  Removed ${domain}.`);
+  } else {
+    console.log(`  ${domain} not found.`);
+  }
+  console.log("");
 }
 
 // ─── Helpers ────────────────────────────────────────────────────
@@ -438,29 +302,6 @@ function printMcpConfig(registryUrl: string): void {
 
   console.log("  " + JSON.stringify(config, null, 2).split("\n").join("\n  "));
   console.log("");
-}
-
-function html(title: string, body: string): string {
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>${title}</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #0a0a0a; color: #e5e5e5; }
-    .card { text-align: center; padding: 3rem; border: 1px solid #262626; border-radius: 12px; background: #171717; max-width: 400px; }
-    h2 { color: #10b981; margin-bottom: 1rem; }
-    p { color: #a3a3a3; line-height: 1.6; }
-    strong { color: #e5e5e5; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h2>${title}</h2>
-    ${body}
-  </div>
-</body>
-</html>`;
 }
 
 init().catch((err) => {

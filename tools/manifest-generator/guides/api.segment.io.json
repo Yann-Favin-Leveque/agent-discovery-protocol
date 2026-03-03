@@ -1,0 +1,41 @@
+{
+  "domain": "api.segment.io",
+  "display_name": "Segment",
+  "auth_type": "api_key",
+  "portal_url": "https://app.segment.com/goto-my-workspace/settings/access-management",
+  "steps": [
+    "Go to https://app.segment.com and log in to your Segment workspace",
+    "Click 'Settings' in the left sidebar",
+    "Click 'Access Management'",
+    "Click the 'Tokens' tab",
+    "Click '+ Create Token'",
+    "Enter a description for the token",
+    "Assign the access level: 'Workspace Owner' or 'Workspace Member'",
+    "Click 'Create'",
+    "Copy the token immediately and store it securely",
+    "Click 'Done'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Public API Token",
+      "description": "Your Segment Public API token. Used as a Basic auth credential (base64-encoded as the username with no password).",
+      "secret": true,
+      "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  ],
+  "notes": [
+    "The Public API (api.segmentapis.com) requires a Workspace Owner token to create and manage resources",
+    "The tracking API (api.segment.io) uses a Source Write Key, not this token — find it in your Source settings",
+    "Public API access is available on Team and Business tier plans",
+    "Only Workspace Owners can create Public API tokens",
+    "The token is shown only once — copy it before clicking Done"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/workspaces",
+    "expected_status": 200,
+    "description": "Retrieve workspace information to verify the token is valid"
+  },
+  "last_verified": "2026-03-02"
+}

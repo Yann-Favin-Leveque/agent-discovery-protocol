@@ -1,0 +1,52 @@
+{
+  "domain": "gmail.googleapis.com",
+  "display_name": "Gmail API",
+  "auth_type": "oauth2",
+  "portal_url": "https://console.cloud.google.com/apis/credentials",
+  "steps": [
+    "Go to https://console.cloud.google.com/ and sign in with your Google account",
+    "Create a new project or select an existing one",
+    "Navigate to APIs & Services > Library and enable the 'Gmail API'",
+    "Go to APIs & Services > OAuth consent screen",
+    "Select 'External' user type and click 'Create'",
+    "Fill in the app name, user support email, and developer contact email, then click 'Save and Continue'",
+    "On the Scopes screen, add required Gmail scopes (e.g. .../auth/gmail.readonly for read, .../auth/gmail.send for send), then click 'Save and Continue'",
+    "Add your own Google account as a test user, then click 'Save and Continue'",
+    "Go to APIs & Services > Credentials at https://console.cloud.google.com/apis/credentials",
+    "Click 'Create Credentials' > 'OAuth client ID'",
+    "Select application type (e.g. 'Web application' or 'Desktop app')",
+    "Add authorized redirect URIs as needed, then click 'Create'",
+    "Copy the Client ID and Client Secret from the dialog"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "OAuth Client ID",
+      "description": "Your Google Cloud OAuth 2.0 Client ID",
+      "secret": false,
+      "placeholder": "YOUR_CLIENT_ID.apps.googleusercontent.com"
+    },
+    {
+      "name": "client_secret",
+      "label": "OAuth Client Secret",
+      "description": "Your Google Cloud OAuth 2.0 Client Secret",
+      "secret": true,
+      "placeholder": "YOUR_CLIENT_SECRET"
+    }
+  ],
+  "notes": [
+    "Gmail API is free to use within quota limits (1 billion quota units per day)",
+    "Sensitive scopes (e.g. full mailbox access) require Google verification for apps used by external users beyond the test phase",
+    "External apps stay in 'Testing' mode with max 100 test users until Google verifies the app",
+    "The https://mail.google.com/ scope grants full mailbox access and is considered sensitive",
+    "For read-only access use .../auth/gmail.readonly; for sending use .../auth/gmail.send",
+    "Client secret can be re-downloaded as JSON from the Credentials page"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/gmail/v1/users/me/profile",
+    "expected_status": 200,
+    "description": "Returns the authenticated user's Gmail profile (email address, message counts)"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,47 @@
+{
+  "domain": "api.fitbit.com",
+  "display_name": "Fitbit",
+  "auth_type": "oauth2",
+  "portal_url": "https://dev.fitbit.com/apps/new",
+  "steps": [
+    "Go to https://dev.fitbit.com/apps/new and log in with your Fitbit account",
+    "Fill in the required fields: Application Name, Description, Application Website URL",
+    "Set 'OAuth 2.0 Application Type' to 'Server' for server-side applications",
+    "Enter a Redirect URI (e.g., https://your-app.com/callback or http://localhost:3000/callback for development)",
+    "Set 'Default Access Type' to 'Read & Write' (or 'Read Only' if write access is not needed)",
+    "Click 'Register' at the bottom of the form",
+    "After registration, your Client ID and Client Secret are shown on the app detail page",
+    "Copy both the Client ID and Client Secret immediately"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "The OAuth 2.0 client ID assigned to your registered Fitbit application",
+      "secret": false,
+      "placeholder": "23ABCD"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "The OAuth 2.0 client secret for your registered Fitbit application. Keep this confidential.",
+      "secret": true,
+      "placeholder": "abc123def456..."
+    }
+  ],
+  "notes": [
+    "Fitbit requires OAuth 2.0 — there is no simple API key option for the Web API",
+    "The 'Personal' app type only allows access to the developer's own Fitbit account",
+    "Use 'Server' type for multi-user applications with a backend",
+    "Intraday data (heart rate at 1-second intervals, etc.) requires special permission — contact Fitbit",
+    "Free to register; no payment required to access personal or development data",
+    "Access tokens expire after 8 hours; use the refresh token to obtain a new one"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/1/user/-/profile.json",
+    "expected_status": 200,
+    "description": "Retrieve the authenticated user's Fitbit profile. Requires a valid access token in the Authorization header."
+  },
+  "last_verified": "2026-03-02"
+}

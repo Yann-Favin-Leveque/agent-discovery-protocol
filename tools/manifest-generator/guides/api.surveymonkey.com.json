@@ -1,0 +1,45 @@
+{
+  "domain": "api.surveymonkey.com",
+  "display_name": "SurveyMonkey",
+  "auth_type": "oauth2",
+  "portal_url": "https://developer.surveymonkey.com/apps/",
+  "steps": [
+    "Go to https://developer.surveymonkey.com/apps/ and log in with your SurveyMonkey account",
+    "Click 'Add a New App'",
+    "Enter an App Nickname and click 'Create App'",
+    "In your app settings, go to the 'Credentials' tab to find your Client ID and Client Secret",
+    "Go to the 'Settings' tab and add your OAuth Redirect URI (the callback URL for your application)",
+    "Go to the 'Scopes' tab and select the required scopes (surveys_read, surveys_write, responses_read, etc.), then click 'Update Scopes'",
+    "Use the Client ID and Secret to implement the OAuth 2.0 authorization code flow against https://api.surveymonkey.com/oauth/authorize"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "Your SurveyMonkey OAuth app Client ID, found in the Credentials tab of your app at developer.surveymonkey.com",
+      "secret": false,
+      "placeholder": "your-client-id"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "Your SurveyMonkey OAuth app Client Secret, found in the Credentials tab of your app at developer.surveymonkey.com",
+      "secret": true,
+      "placeholder": "your-client-secret"
+    }
+  ],
+  "notes": [
+    "A free SurveyMonkey account is required; some API features require a paid plan (Advantage or Premier)",
+    "OAuth 2.0 authorization code flow is used — a redirect URI must be registered in your app settings",
+    "Private apps can use a personal access token (also in the Credentials tab) to skip the OAuth flow for personal use",
+    "Scopes must be explicitly selected in your app's Scopes tab before they can be requested during OAuth",
+    "Rate limit: 120 requests per minute on free plans; higher on paid plans"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v3/users/me",
+    "expected_status": 200,
+    "description": "Retrieve the current authenticated user's profile to verify OAuth credentials"
+  },
+  "last_verified": "2026-03-02"
+}

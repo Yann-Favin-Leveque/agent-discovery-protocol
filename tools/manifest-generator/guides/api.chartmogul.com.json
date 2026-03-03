@@ -1,0 +1,38 @@
+{
+  "domain": "api.chartmogul.com",
+  "display_name": "ChartMogul",
+  "auth_type": "api_key",
+  "portal_url": "https://app.chartmogul.com/account/api_keys",
+  "steps": [
+    "Go to https://app.chartmogul.com and log in (or start a free trial)",
+    "Click your profile avatar in the top-right corner and select 'View Profile'",
+    "Click the 'API keys' tab in your profile page",
+    "Click 'Add API Key'",
+    "Give the key a name and select the access level (Read-only or Read & Write)",
+    "Click 'Create API Key' — the key is displayed immediately",
+    "Copy the API key and store it securely; it is used as the username in HTTP Basic Auth with an empty password"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your ChartMogul API key. Used with HTTP Basic Auth: base64-encode 'api_key:' (note the trailing colon with empty password) and set as the Authorization header with 'Basic ' prefix",
+      "secret": true,
+      "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "14-day free trial available; no credit card required",
+    "ChartMogul uses HTTP Basic Authentication: the API key is the username, password is empty",
+    "Create separate API keys per integration; use read-only keys unless write access is needed",
+    "Keys can be disabled, regenerated, or deleted from the API Access Manager at Settings & Data > Admin > API Access Manager",
+    "API rate limits: 40 requests/second on most plans"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/account",
+    "expected_status": 200,
+    "description": "Returns your ChartMogul account details including name, currency, and timezone"
+  },
+  "last_verified": "2026-03-02"
+}

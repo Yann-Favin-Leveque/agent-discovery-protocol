@@ -1,0 +1,46 @@
+{
+  "domain": "api.copper.com",
+  "display_name": "Copper CRM",
+  "auth_type": "api_key",
+  "portal_url": "https://app.copper.com/settings/api-keys",
+  "steps": [
+    "Go to https://app.copper.com and sign in to your Copper account",
+    "Click the gear icon or navigate to 'Settings' in the left navigation",
+    "Go to 'Integrations' > 'API Keys' (or directly visit https://app.copper.com/settings/api-keys)",
+    "Click 'GENERATE API KEY'",
+    "Enter a label for the key to identify its purpose",
+    "Copy the generated API key",
+    "Note: every request also requires the email address of the user who generated the key in the X-PW-UserEmail header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key (Access Token)",
+      "description": "Your Copper API access token, sent as the X-PW-AccessToken header",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "name": "user_email",
+      "label": "User Email",
+      "description": "The email address of the Copper user who generated the API key. Required on every request as the X-PW-UserEmail header.",
+      "secret": false,
+      "placeholder": "you@company.com"
+    }
+  ],
+  "notes": [
+    "Every API request requires both X-PW-AccessToken and X-PW-UserEmail headers",
+    "Also required: X-PW-Application: developer_api and Content-Type: application/json on all requests",
+    "Users can hold multiple valid tokens simultaneously",
+    "Admins can view and manage all user-generated tokens",
+    "No free tier — Copper requires a paid subscription",
+    "API documentation is at https://developer.copper.com/"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/developer_api/v1/account",
+    "expected_status": 200,
+    "description": "Fetch account details for the authenticated user. Note: this endpoint uses POST method."
+  },
+  "last_verified": "2026-03-02"
+}

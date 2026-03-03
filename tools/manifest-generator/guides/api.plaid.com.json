@@ -1,0 +1,38 @@
+{
+  "domain": "api.plaid.com",
+  "display_name": "Plaid",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.plaid.com/developers/api",
+  "steps": [
+    "Go to https://dashboard.plaid.com/signup and create a free developer account",
+    "Verify your email address and complete the account setup",
+    "Log in to the Plaid Dashboard at https://dashboard.plaid.com/developers/api",
+    "Under 'Team Settings', click 'Keys' to view your credentials",
+    "Copy your 'client_id' — this is used as the PLAID-CLIENT-ID header value",
+    "Copy the 'Sandbox secret' for sandbox testing, or 'Development'/'Production' secret for the corresponding environment",
+    "Note: Plaid uses two values together — a client_id and a secret — sent in the request body (not a single API key header)"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Client ID",
+      "description": "Your Plaid client_id, sent as the PLAID-CLIENT-ID header",
+      "secret": false,
+      "placeholder": "5f3b2e1a0c9d8e7f6a5b4c3d"
+    }
+  ],
+  "notes": [
+    "Plaid requires both a client_id and a secret in most API request bodies — the manifest maps to client_id as the primary key",
+    "Sandbox environment is free and available immediately; Development and Production require approval",
+    "The secret is environment-specific: sandbox, development, and production secrets are separate",
+    "Apply for Production access via the Dashboard after testing in Sandbox",
+    "All Plaid API endpoints require POST with JSON body including client_id and secret fields"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/institutions/get",
+    "expected_status": 200,
+    "description": "Retrieve a paginated list of financial institutions (no linked user required)"
+  },
+  "last_verified": "2026-03-02"
+}

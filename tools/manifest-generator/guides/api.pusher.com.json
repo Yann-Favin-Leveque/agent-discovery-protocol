@@ -1,0 +1,41 @@
+{
+  "domain": "api.pusher.com",
+  "display_name": "Pusher Channels",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.pusher.com/",
+  "steps": [
+    "Go to https://dashboard.pusher.com/accounts/sign_up and create a free account",
+    "Verify your email and log in to the Pusher dashboard",
+    "Click 'Channels' in the left sidebar to access the Channels product",
+    "Click 'Create app' (or 'Your apps' > 'Create a new app')",
+    "Enter a name for your app and select a cluster closest to your users (e.g., us2, eu, ap1)",
+    "Optionally select your frontend and backend tech stack for starter code",
+    "Click 'Create app'",
+    "In your app, click 'App Keys' in the left sidebar",
+    "Copy the app_id, key, secret, and cluster values"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "App Key",
+      "description": "Your Pusher Channels app key (the 'key' value from App Keys, not the app_id)",
+      "secret": false,
+      "placeholder": "abcdef1234567890"
+    }
+  ],
+  "notes": [
+    "Pusher requires four values: app_id, key, secret, and cluster — all found under App Keys",
+    "The 'key' is the public identifier; the 'secret' is confidential and used to sign requests",
+    "Free Sandbox plan: 200,000 messages/day, 100 max connections",
+    "The cluster (e.g., us2, eu, ap1) determines the API base URL: api-{cluster}.pusher.com",
+    "Channels and Beams are separate products with separate credentials — Beams uses its own instance ID and secret key",
+    "Server-side authentication for private/presence channels requires the secret to sign auth responses"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/apps/{app_id}/channels",
+    "expected_status": 200,
+    "description": "List active channels for the app (requires HMAC signature authentication)"
+  },
+  "last_verified": "2026-03-02"
+}

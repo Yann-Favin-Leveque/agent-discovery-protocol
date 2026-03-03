@@ -1,0 +1,40 @@
+{
+  "domain": "api.cloudflare.com_dns",
+  "display_name": "Cloudflare DNS",
+  "auth_type": "api_key",
+  "portal_url": "https://dash.cloudflare.com/profile/api-tokens",
+  "steps": [
+    "Go to https://dash.cloudflare.com and log in or create a free account",
+    "Click your user icon in the top right, then select 'My Profile'",
+    "Click 'API Tokens' in the left sidebar",
+    "Click 'Create Token'",
+    "Select the 'Edit zone DNS' template, or click 'Create Custom Token'",
+    "Under Permissions, add: Zone > DNS > Edit (and optionally Zone > DNS > Read)",
+    "Under Zone Resources, select the specific zone(s) or 'All zones'",
+    "Click 'Continue to summary', then 'Create Token'",
+    "Copy the token — it is shown only once"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "Your Cloudflare API Token with DNS permissions",
+      "secret": true,
+      "placeholder": "..."
+    }
+  ],
+  "notes": [
+    "Use the scoped API Token (not the Global API Key) — grant only 'Zone > DNS' permissions",
+    "You will also need your Zone ID, available in the Cloudflare dashboard Overview page for each domain",
+    "The token is sent as: Authorization: Bearer <token>",
+    "DNS management is available on all Cloudflare plans including free",
+    "Token is shown only once — store it securely immediately after creation"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/client/v4/user/tokens/verify",
+    "expected_status": 200,
+    "description": "Verify the API token is valid and active"
+  },
+  "last_verified": "2026-03-02"
+}

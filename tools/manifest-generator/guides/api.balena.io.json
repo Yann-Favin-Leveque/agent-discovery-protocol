@@ -1,0 +1,39 @@
+{
+  "domain": "api.balena.io",
+  "display_name": "Balena",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.balena-cloud.com/preferences/access-tokens",
+  "steps": [
+    "Go to https://dashboard.balena-cloud.com and log in to your Balena account",
+    "Click on your avatar or account menu in the upper-right corner",
+    "Select 'Preferences' from the dropdown",
+    "Click the 'Access tokens' tab",
+    "Click 'Create API key'",
+    "Give the token a name and optionally set an expiry",
+    "Copy the generated token — it is shown only once",
+    "Use the token as a Bearer token in the Authorization header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Token",
+      "description": "Your Balena Cloud API token, sent as 'Authorization: Bearer <token>'",
+      "secret": true,
+      "placeholder": "your_balena_api_token"
+    }
+  ],
+  "notes": [
+    "Two token types exist: session tokens (expire after 7 days, cannot be revoked) and API keys (persistent, can be revoked)",
+    "Use API keys for automation and agents — session tokens are for interactive use",
+    "API keys provide full user-level permissions across all devices and fleets",
+    "Free tier available for up to 10 devices",
+    "The base URL is https://api.balena-cloud.com (not api.balena.io) for production"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v6/application",
+    "expected_status": 200,
+    "description": "List all applications (fleets) to verify your token is valid"
+  },
+  "last_verified": "2026-03-02"
+}

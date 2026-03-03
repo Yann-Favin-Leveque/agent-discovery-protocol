@@ -1,0 +1,39 @@
+{
+  "domain": "api.fauna.com",
+  "display_name": "Fauna",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.fauna.com/",
+  "steps": [
+    "Go to https://dashboard.fauna.com/ and sign up or log in",
+    "Create a new database or select an existing one from the dashboard",
+    "In the left sidebar, click on 'Keys' under your database",
+    "Click 'New Key'",
+    "Choose a Role for the key (e.g., 'Admin' for full access, 'Server' for read/write, 'Client' for limited access)",
+    "Optionally give the key a name, then click 'Save'",
+    "Copy the Key Secret immediately — it is only shown once and cannot be recovered"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Database Secret Key",
+      "description": "Your Fauna database secret key. Used as a Bearer token in the Authorization header. Scoped to a specific database and role.",
+      "secret": true,
+      "placeholder": "fn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Free tier available: 100K read ops, 50K write ops, and 500K compute ops per day",
+    "Secret key is shown only once at creation — copy it immediately; it cannot be recovered",
+    "Keys are scoped to a specific database — create separate keys for different databases",
+    "Role options: Admin (full control), Server (read/write data), Server Read-Only, Client (limited)",
+    "Fauna's API base URL is https://db.fauna.com (not api.fauna.com)",
+    "All queries use POST /query/1 with FQL in the request body"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/query/1",
+    "expected_status": 200,
+    "description": "Execute a simple FQL query (e.g., Collection.all()) to verify credentials"
+  },
+  "last_verified": "2026-03-02"
+}

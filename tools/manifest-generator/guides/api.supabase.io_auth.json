@@ -1,0 +1,38 @@
+{
+  "domain": "api.supabase.io_auth",
+  "display_name": "Supabase Auth",
+  "auth_type": "api_key",
+  "portal_url": "https://supabase.com/dashboard/project/_/settings/api",
+  "steps": [
+    "Go to https://supabase.com/dashboard and log in or create a free account",
+    "Create a new project by clicking 'New project', entering a name, database password, and region",
+    "Wait for the project to finish provisioning (about 1-2 minutes)",
+    "Go to your project's Settings > API (or visit https://supabase.com/dashboard/project/YOUR_PROJECT_REF/settings/api)",
+    "Copy your Project URL — the Auth API base URL is https://YOUR_PROJECT_REF.supabase.co/auth/v1",
+    "Copy the 'anon public' key for client-side auth operations, or 'service_role secret' for admin operations (admin_users_list, admin_user_update, etc.)"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key (anon or service_role)",
+      "description": "Use the 'anon' key for client-facing auth (sign up, sign in) or the 'service_role' key for admin operations (list/update/delete users). Passed in the 'apikey' header.",
+      "secret": true,
+      "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  ],
+  "notes": [
+    "Free tier available (2 active projects, up to 50,000 monthly active users)",
+    "The actual Auth API base URL is https://YOUR_PROJECT_REF.supabase.co/auth/v1 — not api.supabase.io",
+    "Client-side operations (sign_up, sign_in_password, etc.) require the 'anon' key",
+    "Admin operations (admin_users_list, admin_user_update, admin_user_delete) require the 'service_role' key",
+    "The 'service_role' key bypasses all Row Level Security — never expose it in client-side code",
+    "Authenticated user operations also require passing the user's JWT in the 'Authorization: Bearer <jwt>' header"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/health",
+    "expected_status": 200,
+    "description": "Check Auth service health to verify the project URL is correct"
+  },
+  "last_verified": "2026-03-02"
+}

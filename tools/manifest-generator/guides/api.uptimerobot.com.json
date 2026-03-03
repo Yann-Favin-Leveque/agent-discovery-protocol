@@ -1,0 +1,37 @@
+{
+  "domain": "api.uptimerobot.com",
+  "display_name": "UptimeRobot",
+  "auth_type": "api_key",
+  "portal_url": "https://uptimerobot.com/dashboard#integrations",
+  "steps": [
+    "Go to https://uptimerobot.com and log in or create a free account",
+    "In the left sidebar, click 'Integrations & API'",
+    "Scroll down to the 'API' section",
+    "Click 'Create Main API Key' to generate an account-wide API key",
+    "Optionally create monitor-specific API keys for limited access",
+    "Copy the API key — it will be included in the request body (not headers) for all API calls"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "UptimeRobot API key. Sent in the POST request body as 'api_key' parameter, not in headers",
+      "secret": true,
+      "placeholder": "ur123456-abcdefgh1234567890abcdef"
+    }
+  ],
+  "notes": [
+    "Free tier: up to 50 monitors, 5-minute check intervals",
+    "All API requests use POST method — the API key goes in the request body, not headers",
+    "Set Content-Type: application/x-www-form-urlencoded or application/json",
+    "Main API key gives full account access; monitor-specific keys limit access to one monitor",
+    "API rate limits: 10 req/min on free, up to 5,000 req/min on Pro"
+  ],
+  "test_endpoint": {
+    "method": "POST",
+    "path": "/v2/getAccountDetails",
+    "expected_status": 200,
+    "description": "Retrieve account details and monitor limits (POST with api_key in body)"
+  },
+  "last_verified": "2026-03-02"
+}

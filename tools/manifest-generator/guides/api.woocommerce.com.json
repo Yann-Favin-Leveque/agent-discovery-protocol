@@ -1,0 +1,38 @@
+{
+  "domain": "api.woocommerce.com",
+  "display_name": "WooCommerce",
+  "auth_type": "api_key",
+  "portal_url": "https://{your-store-domain}/wp-admin/admin.php?page=wc-settings&tab=advanced&section=keys",
+  "steps": [
+    "Log in to your WordPress admin dashboard at https://{your-store-domain}/wp-admin",
+    "Navigate to WooCommerce > Settings > Advanced > REST API",
+    "Click 'Add Key'",
+    "Enter a description (e.g. 'Agent Gateway'), select the WordPress user, and set Permissions to 'Read/Write'",
+    "Click 'Generate API Key'",
+    "Immediately copy the Consumer Key and Consumer Secret — the secret will not be shown again",
+    "Use the Consumer Key as the API key in requests (via HTTP Basic Auth or as query parameters)"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Consumer Key",
+      "description": "Your WooCommerce REST API Consumer Key (used as the username in HTTP Basic Auth)",
+      "secret": false,
+      "placeholder": "ck_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "WooCommerce is self-hosted — each store has its own API keys; there is no central developer portal",
+    "The Consumer Secret is only shown once at key generation — store it securely",
+    "For HTTPS stores, use HTTP Basic Auth with Consumer Key as username and Consumer Secret as password",
+    "The base URL is specific to your store: https://{store-domain}/wp-json/wc/v3",
+    "WooCommerce must be installed and active on a WordPress site"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/wp-json/wc/v3/system_status",
+    "expected_status": 200,
+    "description": "Retrieve system status to verify the API credentials"
+  },
+  "last_verified": "2026-03-02"
+}

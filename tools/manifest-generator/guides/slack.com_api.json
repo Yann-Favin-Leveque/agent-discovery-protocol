@@ -1,0 +1,47 @@
+{
+  "domain": "slack.com_api",
+  "display_name": "Slack",
+  "auth_type": "oauth2",
+  "portal_url": "https://api.slack.com/apps",
+  "steps": [
+    "Go to https://api.slack.com/apps and log in with your Slack account",
+    "Click 'Create New App'",
+    "Choose 'From scratch', enter an app name and select your development workspace, then click 'Create App'",
+    "In the left sidebar, go to 'OAuth & Permissions'",
+    "Under 'Scopes' > 'Bot Token Scopes', add the required scopes (e.g. chat:write, channels:read, etc.)",
+    "Scroll up and click 'Install to Workspace', then click 'Allow' to authorize the app",
+    "Go to 'Basic Information' in the left sidebar to find your Client ID and Client Secret under 'App Credentials'",
+    "For OAuth flows, use the Client ID and Client Secret; for direct testing, use the Bot User OAuth Token from 'OAuth & Permissions'"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "Slack app Client ID from the Basic Information page",
+      "secret": false,
+      "placeholder": "xxxxxxxxxxxx.xxxxxxxxxxxx"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "Slack app Client Secret from the Basic Information page",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Slack apps are free to create; usage is limited by your Slack workspace plan",
+    "The Client Secret is visible in the Basic Information page at any time (not one-time only)",
+    "You need a Slack workspace to develop and test; create a free workspace at slack.com if needed",
+    "Required scopes vary by capability — add only the scopes your app needs",
+    "For distribution to other workspaces, the app must go through Slack's App Directory review process",
+    "The Bot User OAuth Token (xoxb-...) can be used directly for single-workspace bots without a full OAuth flow"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/auth.test",
+    "expected_status": 200,
+    "description": "Test the OAuth token to verify it is valid and return workspace and user info"
+  },
+  "last_verified": "2026-03-02"
+}

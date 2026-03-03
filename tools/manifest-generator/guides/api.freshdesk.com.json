@@ -1,0 +1,40 @@
+{
+  "domain": "api.freshdesk.com",
+  "display_name": "Freshdesk",
+  "auth_type": "api_key",
+  "portal_url": "https://support.freshdesk.com/support/solutions/articles/215517",
+  "steps": [
+    "Log in to your Freshdesk account at https://yoursubdomain.freshdesk.com",
+    "Click your profile picture or avatar in the top-right corner",
+    "Select 'Profile settings' from the dropdown menu",
+    "On the right-hand pane, click 'View API key'",
+    "Complete the CAPTCHA verification if prompted",
+    "Copy the displayed API key",
+    "Use the key with HTTP Basic Auth: set the username to the API key and the password to any string (e.g., 'X')",
+    "Encode username:password in Base64 and set the Authorization header to 'Basic <encoded_value>'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Freshdesk API key, found in Profile Settings. Used as the HTTP Basic Auth username with any password.",
+      "secret": true,
+      "placeholder": "abcdefghij1234567890"
+    }
+  ],
+  "notes": [
+    "Freshdesk uses HTTP Basic Auth: set the username to the API key and password to 'X' (or any non-empty string)",
+    "The base URL is https://{yoursubdomain}.freshdesk.com — you must use your own subdomain",
+    "Resetting your API key will disconnect all apps currently using it",
+    "Freshdesk offers a free plan (Sprout) for up to 10 agents with limited features",
+    "Rate limits vary by plan: Free plan is 100 requests/minute, higher plans allow more",
+    "API key is tied to the agent account — activities via API are governed by the agent's role"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v2/tickets",
+    "expected_status": 200,
+    "description": "List the most recent support tickets. Requires your subdomain in the base URL."
+  },
+  "last_verified": "2026-03-02"
+}

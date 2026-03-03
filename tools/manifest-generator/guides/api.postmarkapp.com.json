@@ -1,0 +1,39 @@
+{
+  "domain": "api.postmarkapp.com",
+  "display_name": "Postmark",
+  "auth_type": "api_key",
+  "portal_url": "https://account.postmarkapp.com/servers",
+  "steps": [
+    "Go to https://account.postmarkapp.com/sign_up and create a free account",
+    "Verify your email address",
+    "Log in at https://account.postmarkapp.com and you will be taken to your Servers list",
+    "Click on an existing server or create a new one by clicking 'Add Server'",
+    "Inside the server, click the 'API Tokens' tab",
+    "Your Server API token is displayed — copy it",
+    "If you need a new token, click 'Generate New' (a server can have up to 3 tokens)"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Server API Token",
+      "description": "Your Postmark Server API token, sent as the X-Postmark-Server-Token header",
+      "secret": true,
+      "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Each Postmark Server has its own API token — tokens are server-scoped, not account-scoped",
+    "A server can have up to 3 API tokens active simultaneously",
+    "There is also a separate Account API token (used for managing servers/domains) found under Account > API Tokens",
+    "Free accounts can send up to 100 emails/month; paid plans start at 1,000 emails/month",
+    "New accounts are in a sandbox mode until your sending domain is verified",
+    "Postmark focuses on transactional email only — bulk/marketing email is not supported"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/server",
+    "expected_status": 200,
+    "description": "Retrieve the server details associated with the provided Server API token"
+  },
+  "last_verified": "2026-03-02"
+}

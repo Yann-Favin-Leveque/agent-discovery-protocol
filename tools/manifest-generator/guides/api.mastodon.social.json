@@ -1,0 +1,48 @@
+{
+  "domain": "api.mastodon.social",
+  "display_name": "Mastodon",
+  "auth_type": "oauth2",
+  "portal_url": "https://mastodon.social/settings/applications",
+  "steps": [
+    "Go to https://mastodon.social and log in to your account (or create one)",
+    "Navigate to https://mastodon.social/settings/applications",
+    "Click 'New application'",
+    "Fill in the 'Application name' field with your app's name",
+    "Set the 'Redirect URI' to your OAuth callback URL (use 'urn:ietf:wg:oauth:2.0:oob' for out-of-band testing)",
+    "Select the required scopes: read, write, follow, push",
+    "Click 'Submit'",
+    "On the application detail page, copy the 'Client key' (Client ID) and 'Client secret'",
+    "Use these credentials with the OAuth 2.0 authorization code flow at https://mastodon.social/oauth/authorize"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID (Client Key)",
+      "description": "Your Mastodon application Client ID, also called the Client Key",
+      "secret": false,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "Your Mastodon application Client Secret",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Mastodon is a decentralized network — the base URL depends on the instance (mastodon.social is the flagship)",
+    "Each Mastodon instance has its own OAuth app registration at <instance>/settings/applications",
+    "Apps registered on one instance cannot be used on another — each instance is separate",
+    "The 'urn:ietf:wg:oauth:2.0:oob' redirect URI displays the token on-screen instead of redirecting",
+    "Mastodon is free and open source — mastodon.social accounts are free to create",
+    "Rate limits apply: typically 300 requests per 5 minutes for authenticated users"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v1/accounts/verify_credentials",
+    "expected_status": 200,
+    "description": "Verify the OAuth access token by fetching the authenticated account's profile"
+  },
+  "last_verified": "2026-03-02"
+}

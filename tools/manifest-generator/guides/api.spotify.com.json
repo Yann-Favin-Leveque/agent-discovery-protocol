@@ -1,0 +1,49 @@
+{
+  "domain": "api.spotify.com",
+  "display_name": "Spotify",
+  "auth_type": "oauth2",
+  "portal_url": "https://developer.spotify.com/dashboard",
+  "steps": [
+    "Go to https://developer.spotify.com/dashboard and log in with your Spotify account",
+    "Accept the Developer Terms of Service if prompted",
+    "Click 'Create app' button",
+    "Fill in the App name and App description",
+    "Add at least one Redirect URI (e.g., http://localhost:3000/callback for local development)",
+    "Check the box for 'Web API' under 'Which API/SDKs are you planning to use?'",
+    "Accept the Terms of Service and click 'Save'",
+    "On your app's dashboard page, click 'Settings'",
+    "Copy your Client ID from the Settings page",
+    "Click 'View client secret' to reveal and copy your Client Secret"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "Your Spotify app's Client ID, visible on the app settings page.",
+      "secret": false,
+      "placeholder": "your_client_id"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "Your Spotify app's Client Secret. Keep this confidential.",
+      "secret": true,
+      "placeholder": "your_client_secret"
+    }
+  ],
+  "notes": [
+    "Free to use — no payment required for API access",
+    "New apps are in Development mode by default, limited to 25 users (must be added in the dashboard)",
+    "For broader access, you must apply for Extended Quota Mode via the dashboard",
+    "Redirect URIs must be registered in your app settings before use in OAuth flows",
+    "Certain scopes (e.g., user-read-private, playlist-modify-public) require user authorization via OAuth",
+    "Client Credentials flow (no user context) works for catalog/search endpoints; user endpoints require Authorization Code flow"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/markets",
+    "expected_status": 200,
+    "description": "Get available Spotify markets — works with Client Credentials token, no user auth needed"
+  },
+  "last_verified": "2026-03-02"
+}

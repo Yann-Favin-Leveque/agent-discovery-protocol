@@ -1,0 +1,39 @@
+{
+  "domain": "rest.avatax.com",
+  "display_name": "Avalara AvaTax",
+  "auth_type": "api_key",
+  "portal_url": "https://sandbox.admin.avalara.com",
+  "steps": [
+    "Go to https://www.avalara.com/us/en/index.html and click 'Free trial' to register a sandbox account",
+    "Fill in your name, email, and company information; select 'API & Custom Integration' as your use case",
+    "Complete email verification to activate your account",
+    "Log in to the sandbox admin portal at https://sandbox.admin.avalara.com",
+    "Navigate to Settings > License and API Keys",
+    "Click 'Generate license key' to create your credentials",
+    "Note your Account ID (displayed on the settings page) and the generated License Key",
+    "Encode 'AccountID:LicenseKey' in Base64 and use the result as the Basic auth value in the Authorization header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Authorization (Base64 AccountID:LicenseKey)",
+      "description": "Base64-encoded string of 'AccountID:LicenseKey', used as a Basic auth value in the Authorization header. Encode your credentials with: echo -n 'ACCOUNT_ID:LICENSE_KEY' | base64",
+      "secret": true,
+      "placeholder": "Base64-encoded AccountID:LicenseKey"
+    }
+  ],
+  "notes": [
+    "Sandbox environment is at https://sandbox-rest.avatax.com — production is https://rest.avatax.com",
+    "Use a different email address for sandbox vs production to keep environments separate",
+    "License key is shown only once at generation — save it immediately",
+    "AvaTax requires a paid subscription for production; the sandbox is free for development and testing",
+    "The Account ID is a numeric value found in Settings > License and API Keys in the admin portal"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/v2/utilities/ping",
+    "expected_status": 200,
+    "description": "Ping the AvaTax API to verify connectivity and that credentials are valid"
+  },
+  "last_verified": "2026-03-02"
+}

@@ -1,0 +1,38 @@
+{
+  "domain": "api.amplitude.com",
+  "display_name": "Amplitude",
+  "auth_type": "api_key",
+  "portal_url": "https://analytics.amplitude.com/settings/projects",
+  "steps": [
+    "Go to https://analytics.amplitude.com/settings/projects and sign in to your Amplitude account (or create a free account at https://amplitude.com/)",
+    "Click on the project you want to use, or create a new project",
+    "On the project settings page, scroll down to find your 'API Key' and 'Secret Key'",
+    "Copy the API Key and Secret Key",
+    "To use the HTTP API (ingestion), use the API key directly in the request body",
+    "To use Dashboard/Export REST APIs, combine API key and secret key as Basic auth credentials (Base64 encode 'api_key:secret_key')"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Amplitude project API key. Used for event tracking and as the username in Basic auth for analytics APIs.",
+      "secret": false,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Amplitude uses two credentials: API Key (public) and Secret Key (private)",
+    "For dashboard/export/taxonomy APIs: Basic auth = Base64('api_key:secret_key') in Authorization header",
+    "For the event ingestion API (HTTP V2): API key goes in the request body JSON as 'api_key' field",
+    "Free Starter plan available with unlimited events for up to 1M monthly tracked users",
+    "Each Amplitude project has its own unique API key and secret key",
+    "Secret key can be regenerated in project settings if compromised"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/2/events/list",
+    "expected_status": 200,
+    "description": "List all event types in the project (requires Basic auth with api_key:secret_key)"
+  },
+  "last_verified": "2026-03-02"
+}

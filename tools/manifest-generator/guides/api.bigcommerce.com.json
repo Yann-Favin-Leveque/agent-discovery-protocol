@@ -1,0 +1,39 @@
+{
+  "domain": "api.bigcommerce.com",
+  "display_name": "BigCommerce",
+  "auth_type": "api_key",
+  "portal_url": "https://login.bigcommerce.com/deep-links/settings/api-accounts",
+  "steps": [
+    "Go to https://login.bigcommerce.com and log in to your BigCommerce store",
+    "In the store control panel, navigate to Advanced Settings > API Accounts",
+    "Click 'Create API Account'",
+    "Select 'Store-level API account' (for direct store access)",
+    "Enter a name for the account and configure the required OAuth scopes",
+    "Click 'Save'",
+    "Copy the Access Token (X-Auth-Token), Client ID, Client Secret, and note your Store Hash from the API Path shown",
+    "The store hash is the segment between /stores/ and /v3/ in the API Path (e.g., abc123xyz)"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Access Token (X-Auth-Token)",
+      "description": "Your BigCommerce store API access token, sent as the X-Auth-Token header. Also note your store hash for constructing API URLs.",
+      "secret": true,
+      "placeholder": "your_bigcommerce_access_token"
+    }
+  ],
+  "notes": [
+    "The store hash is embedded in all API URLs: https://api.bigcommerce.com/stores/{store_hash}/v3/",
+    "Access token is shown only once at creation — copy it before leaving the page",
+    "Store-level API accounts are scoped to a single store; use app-level accounts for multi-store apps",
+    "BigCommerce requires a paid plan — no free tier for production stores",
+    "Scope permissions must be explicitly granted for each resource group"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/stores/{store_hash}/v3/catalog/products",
+    "expected_status": 200,
+    "description": "List products to verify your API credentials and store hash are correct"
+  },
+  "last_verified": "2026-03-02"
+}

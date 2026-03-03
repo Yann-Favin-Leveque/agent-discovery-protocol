@@ -1,0 +1,36 @@
+{
+  "domain": "api.bunny.net",
+  "display_name": "Bunny CDN",
+  "auth_type": "api_key",
+  "portal_url": "https://dash.bunny.net/account/api-keys",
+  "steps": [
+    "Go to https://dash.bunny.net and log in (or create a free account)",
+    "Click your profile picture or account name in the top-right corner",
+    "Select 'Account' or navigate directly to https://dash.bunny.net/account/api-keys",
+    "Your primary account API key is displayed in the 'API Key' section",
+    "Click the eye icon or 'Show' to reveal the key, then copy it"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key (AccessKey)",
+      "description": "Your Bunny.net account API key, sent in the 'AccessKey' request header",
+      "secret": true,
+      "placeholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Bunny.net uses different keys for different services: the account API key (for pull zones, DNS, storage zone management), storage zone passwords (for file uploads/downloads via Edge Storage), and video library API keys (for stream management)",
+    "The account-level API key at dash.bunny.net/account/api-keys covers the main management API",
+    "Free trial with $10 credit available; pay-as-you-go pricing after that",
+    "API key is a UUID format",
+    "Rate limits apply; check documentation for specifics"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/pullzone",
+    "expected_status": 200,
+    "description": "Lists all CDN pull zones in your account — confirms the API key is valid"
+  },
+  "last_verified": "2026-03-02"
+}

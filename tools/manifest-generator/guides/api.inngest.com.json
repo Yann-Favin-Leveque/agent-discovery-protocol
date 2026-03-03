@@ -1,0 +1,39 @@
+{
+  "domain": "api.inngest.com",
+  "display_name": "Inngest",
+  "auth_type": "api_key",
+  "portal_url": "https://app.inngest.com/settings/api-keys",
+  "steps": [
+    "Go to https://app.inngest.com and log in (or create a free account)",
+    "In the left sidebar, click 'Manage'",
+    "Click on 'Event Keys' to view and manage your event keys",
+    "Click 'Create event key'",
+    "Enter a name for the key (e.g., 'Production API Key')",
+    "Click 'Create' and copy the generated event key",
+    "For signing keys (used to verify Inngest requests to your app), go to Settings → Signing Keys"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Event Key",
+      "description": "Your Inngest event key, used as a Bearer token to send events to the Inngest API",
+      "secret": true,
+      "placeholder": "signkey-prod-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Inngest has two types of keys: Event Keys (for sending events) and Signing Keys (for verifying requests from Inngest to your app)",
+    "Use Event Keys as the Bearer token when calling the Inngest REST API to send events",
+    "Event keys can be filtered by event name or source IP for security",
+    "Inngest offers a free tier with 50,000 function runs per month",
+    "Keep event keys separated per environment (production vs. staging) for easier management and rotation",
+    "Signing keys are environment-specific and found in Settings → Signing Key"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/apps",
+    "expected_status": 200,
+    "description": "List all registered Inngest apps to verify the event key"
+  },
+  "last_verified": "2026-03-02"
+}

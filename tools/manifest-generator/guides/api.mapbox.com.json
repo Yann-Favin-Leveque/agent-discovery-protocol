@@ -1,0 +1,40 @@
+{
+  "domain": "api.mapbox.com",
+  "display_name": "Mapbox",
+  "auth_type": "api_key",
+  "portal_url": "https://account.mapbox.com/access-tokens/",
+  "steps": [
+    "Go to https://account.mapbox.com/auth/signup/ and create a free account, or log in at https://account.mapbox.com",
+    "Once logged in, navigate to https://account.mapbox.com/access-tokens/",
+    "Click 'Create a token'",
+    "Enter a descriptive name for the token",
+    "Select the required scopes for your use case (e.g., styles:read, geocoding:read, etc.)",
+    "Optionally add URL restrictions to limit where the token can be used",
+    "Click 'Create token' and confirm with your account password",
+    "Copy the generated access token — it is shown in the token list and can be retrieved later"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Access Token",
+      "description": "Your Mapbox access token. Passed as the 'access_token' query parameter or as a Bearer token in the Authorization header.",
+      "secret": true,
+      "placeholder": "pk.eyJ1Ijoixxxxxxxxxx..."
+    }
+  ],
+  "notes": [
+    "Tokens starting with 'pk.' are public tokens; tokens starting with 'sk.' are secret tokens with write access",
+    "The default public token in your account can be used immediately for most read operations",
+    "Access tokens can be retrieved from the dashboard at any time (unlike some other services)",
+    "Free tier includes 50,000 map loads/month and generous API call limits across geocoding, directions, etc.",
+    "Tokens can be scoped to specific API scopes and restricted to specific URLs for security",
+    "The 'access_token' query parameter and Authorization Bearer header are both supported"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/geocoding/v5/mapbox.places/Paris.json",
+    "expected_status": 200,
+    "description": "Forward geocode 'Paris' to verify the access token works (append ?access_token=YOUR_TOKEN to the URL)"
+  },
+  "last_verified": "2026-03-02"
+}

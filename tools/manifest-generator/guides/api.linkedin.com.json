@@ -1,0 +1,48 @@
+{
+  "domain": "api.linkedin.com",
+  "display_name": "LinkedIn",
+  "auth_type": "oauth2",
+  "portal_url": "https://www.linkedin.com/developers/apps/new",
+  "steps": [
+    "Go to https://www.linkedin.com/developers/ and log in with your LinkedIn account",
+    "Click 'Create app' in the top-right corner",
+    "Fill in the required fields: App name, LinkedIn Page (must be an existing Company Page you manage), App logo, and Privacy Policy URL",
+    "Click 'Create app'",
+    "Navigate to the 'Auth' tab of your newly created app",
+    "Under 'OAuth 2.0 settings', add your Redirect URL (e.g., https://yourapp.com/callback)",
+    "Copy the 'Client ID' shown on the Auth tab",
+    "Click the eye icon next to 'Client Secret' to reveal it, then copy it",
+    "Under 'Products', request access to the products you need (e.g., 'Share on LinkedIn', 'Sign In with LinkedIn using OpenID Connect')"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "Your LinkedIn app Client ID",
+      "secret": false,
+      "placeholder": "86xxxxxxxxxxxxxx"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "Your LinkedIn app Client Secret",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "A LinkedIn Company Page is required to create an app — you must be an admin of that page",
+    "Product access (e.g., 'Share on LinkedIn') must be explicitly requested and may require review",
+    "The 'Sign In with LinkedIn using OpenID Connect' product grants openid, profile, and email scopes",
+    "The 'w_member_social' scope for posting requires the 'Share on LinkedIn' product to be approved",
+    "Redirect URIs must use HTTPS in production",
+    "Free developer access available but posting capabilities require product approval"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v2/userinfo",
+    "expected_status": 200,
+    "description": "Verify credentials by fetching the authenticated user's OpenID Connect profile (requires openid scope)"
+  },
+  "last_verified": "2026-03-02"
+}

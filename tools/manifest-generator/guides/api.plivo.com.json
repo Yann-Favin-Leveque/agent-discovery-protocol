@@ -1,0 +1,39 @@
+{
+  "domain": "api.plivo.com",
+  "display_name": "Plivo",
+  "auth_type": "api_key",
+  "portal_url": "https://console.plivo.com/dashboard/",
+  "steps": [
+    "Go to https://console.plivo.com/accounts/register/ and create a free account",
+    "Verify your email address and complete phone verification",
+    "Log in to the Plivo console at https://console.plivo.com/dashboard/",
+    "Your Auth ID and Auth Token are displayed at the top of the Dashboard overview page",
+    "Copy the 'Auth ID' (this is your username for Basic Auth)",
+    "Copy the 'Auth Token' (this is your password for Basic Auth)",
+    "Plivo uses HTTP Basic Auth — combine as Base64(AUTH_ID:AUTH_TOKEN) in the Authorization header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Auth ID",
+      "description": "Your Plivo Auth ID, used as the username in HTTP Basic Auth (Authorization: Basic base64(AUTH_ID:AUTH_TOKEN))",
+      "secret": false,
+      "placeholder": "MAXXXXXXXXXXXXXXXXXX"
+    }
+  ],
+  "notes": [
+    "Plivo uses HTTP Basic Auth with Auth ID as username and Auth Token as password",
+    "Auth ID cannot be changed; Auth Token can be regenerated at Account > Settings > Credentials",
+    "Free trial account includes $0.10 credit for testing",
+    "Trial accounts can only send SMS to verified numbers",
+    "The Auth Token should be treated as a password and never committed to source control",
+    "Base URL for v1 API: https://api.plivo.com/v1/Account/{auth_id}/"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v1/Account/{auth_id}/",
+    "expected_status": 200,
+    "description": "Retrieve account details using your Auth ID in the path"
+  },
+  "last_verified": "2026-03-02"
+}

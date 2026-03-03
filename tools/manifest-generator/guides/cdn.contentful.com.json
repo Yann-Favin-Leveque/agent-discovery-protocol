@@ -1,0 +1,41 @@
+{
+  "domain": "cdn.contentful.com",
+  "display_name": "Contentful",
+  "auth_type": "api_key",
+  "portal_url": "https://app.contentful.com/spaces/{space_id}/settings/api/keys",
+  "steps": [
+    "Go to https://app.contentful.com and sign in to your account",
+    "Select your space from the top-left dropdown (or create one if needed)",
+    "Click 'Settings' in the top navigation bar",
+    "Select 'API keys' from the settings menu",
+    "Click 'Add API key' (or select an existing key to view its details)",
+    "Enter a name and optional description for the key",
+    "Click 'Save'",
+    "Copy the 'Content Delivery API - access token' from the key details page",
+    "Also note your 'Space ID' — both are required for API calls"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Content Delivery API Access Token",
+      "description": "The CDA access token for read-only content delivery from your Contentful space",
+      "secret": true,
+      "placeholder": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+  ],
+  "notes": [
+    "Free Community plan available with up to 5 spaces",
+    "The Content Delivery API (cdn.contentful.com) is read-only — for write access use the Content Management API",
+    "Each space has its own API keys — you must use the key corresponding to your target space",
+    "You also need your Space ID for all API requests: https://cdn.contentful.com/spaces/{space_id}/...",
+    "Different API keys can be scoped to specific environments (e.g. master, staging)",
+    "The setup_url in the manifest points to CMA token creation — for CDA keys use the link above"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/spaces/{space_id}",
+    "expected_status": 200,
+    "description": "Retrieve metadata about your Contentful space"
+  },
+  "last_verified": "2026-03-02"
+}

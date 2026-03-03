@@ -1,0 +1,38 @@
+{
+  "domain": "api.algolia.com",
+  "display_name": "Algolia",
+  "auth_type": "api_key",
+  "portal_url": "https://dashboard.algolia.com/account/api-keys/all",
+  "steps": [
+    "Go to https://dashboard.algolia.com/ and sign in (or create a free account)",
+    "In the left sidebar, click 'Settings' (gear icon)",
+    "Under 'Team and Access', click 'API Keys'",
+    "Your Application ID, Admin API Key, and Search-Only API Key are listed here",
+    "To create a restricted API key, click 'New API Key', configure permissions and index restrictions, then click 'Create'",
+    "Copy both your Application ID and the desired API key — both are required for every request"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Algolia API key (Admin or restricted). Sent in the X-Algolia-API-Key header.",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Algolia requires TWO credentials per request: API key (X-Algolia-API-Key) AND Application ID (X-Algolia-Application-Id)",
+    "Application ID is not secret — it identifies your Algolia application",
+    "Admin API Key has full write access — use a restricted key in client-side code",
+    "Free plan: 10,000 records and 10,000 search requests/month",
+    "The base URL is application-specific: https://{APPLICATION_ID}.algolia.net or https://{APPLICATION_ID}-dsn.algolia.net",
+    "Store your Application ID alongside the API key when configuring this integration"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/1/indexes",
+    "expected_status": 200,
+    "description": "List all indices in the application (requires Admin API key and Application ID headers)"
+  },
+  "last_verified": "2026-03-02"
+}

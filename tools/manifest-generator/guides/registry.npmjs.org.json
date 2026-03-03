@@ -1,0 +1,39 @@
+{
+  "domain": "registry.npmjs.org",
+  "display_name": "npm Registry",
+  "auth_type": "api_key",
+  "portal_url": "https://www.npmjs.com/settings/~/tokens",
+  "steps": [
+    "Go to https://www.npmjs.com and log in to your account",
+    "Click your profile picture in the upper-right corner",
+    "Select 'Access Tokens' from the dropdown menu",
+    "Click 'Generate New Token' > 'Granular Access Token'",
+    "Enter a token name and set an expiration period",
+    "Configure package access permissions (read-only for querying, read+write for publishing)",
+    "Click 'Generate Token' and copy the token — it is shown only once"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Access Token",
+      "description": "npm access token sent as a Bearer token in the Authorization header",
+      "secret": true,
+      "placeholder": "npm_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "npm is free to use for public packages; private packages require a paid plan ($7/month)",
+    "The token is shown only once at creation — copy and store it securely",
+    "Granular access tokens support fine-grained package and IP restrictions",
+    "Legacy tokens (read-only, automation, publish) are also available for simpler use cases",
+    "You can create up to 1,000 granular access tokens per account",
+    "Unauthenticated read access is available for public packages — a token is only required for publishing or accessing private packages"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/-/whoami",
+    "expected_status": 200,
+    "description": "Returns the username associated with the access token to verify authentication"
+  },
+  "last_verified": "2026-03-02"
+}

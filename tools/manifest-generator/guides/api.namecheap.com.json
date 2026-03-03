@@ -1,0 +1,39 @@
+{
+  "domain": "api.namecheap.com",
+  "display_name": "Namecheap",
+  "auth_type": "api_key",
+  "portal_url": "https://ap.www.namecheap.com/settings/tools/apiaccess/",
+  "steps": [
+    "Go to https://www.namecheap.com and log in to your account",
+    "Click your username in the top-right corner and select 'Profile'",
+    "Go to 'Tools' tab",
+    "Scroll down to the 'Business & Dev Tools' section",
+    "Click 'MANAGE' next to 'Namecheap API Access'",
+    "Toggle API Access to ON, accept the Terms of Service, and enter your account password",
+    "Your API key will be displayed — copy it",
+    "Whitelist your server's IP address by entering it in the 'Whitelisted IPs' field and clicking 'Add IP'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Namecheap API key, used together with your account username and whitelisted IP",
+      "secret": true,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Every API request requires four parameters: ApiUser (your username), ApiKey, UserName (same as ApiUser), and ClientIp (your whitelisted IP)",
+    "Only IPv4 addresses can be whitelisted; requests from non-whitelisted IPs will be rejected",
+    "API access requires a Namecheap account with at least $50 in purchases or at least 20 domains",
+    "A sandbox environment is available at https://api.sandbox.namecheap.com for testing",
+    "Resetting the API key immediately invalidates the old key for all applications using it"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/xml.response?Command=namecheap.domains.getList&ApiUser=USERNAME&ApiKey=APIKEY&UserName=USERNAME&ClientIp=IP",
+    "expected_status": 200,
+    "description": "List domains in the account to verify credentials (replace params with your values)"
+  },
+  "last_verified": "2026-03-02"
+}

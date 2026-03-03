@@ -1,0 +1,38 @@
+{
+  "domain": "api.upstash.com",
+  "display_name": "Upstash",
+  "auth_type": "api_key",
+  "portal_url": "https://console.upstash.com/account/api",
+  "steps": [
+    "Go to https://console.upstash.com and sign up or log in (supports GitHub, Google, email)",
+    "In the left sidebar, click on your account name or 'Account'",
+    "Click 'Management API' in the account settings",
+    "Click 'Create API Key'",
+    "Enter a name for the key and optionally restrict its permissions",
+    "Click 'Create' and copy the API key",
+    "Use Basic auth: base64('your-email:your-api-key') in the Authorization header"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Upstash management API key. Used with Basic auth: base64(email:api_key)",
+      "secret": true,
+      "placeholder": "your-upstash-api-key"
+    }
+  ],
+  "notes": [
+    "The management API uses HTTP Basic auth: Authorization: Basic base64(email:api_key)",
+    "Free tier available: up to 10,000 commands/day per Redis database",
+    "Individual Redis databases have their own REST tokens (separate from the management API key)",
+    "The management API key is for creating/listing databases; Redis REST tokens are for executing commands",
+    "Upstash also offers Kafka and QStash (message queuing) services"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/v2/redis",
+    "expected_status": 200,
+    "description": "List all Redis databases in the account"
+  },
+  "last_verified": "2026-03-02"
+}

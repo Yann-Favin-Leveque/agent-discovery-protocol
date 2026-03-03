@@ -1,0 +1,39 @@
+{
+  "domain": "api.huggingface.co",
+  "display_name": "Hugging Face",
+  "auth_type": "api_key",
+  "portal_url": "https://huggingface.co/settings/tokens",
+  "steps": [
+    "Go to https://huggingface.co and log in (or create a free account)",
+    "Click your profile picture in the top-right corner and select 'Settings'",
+    "In the left sidebar, click 'Access Tokens'",
+    "Click 'New token'",
+    "Enter a name for the token and select the role: 'Read' for inference only, or 'Write' for model uploads",
+    "Click 'Generate a token'",
+    "Copy the token immediately — it is shown only once"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "User Access Token",
+      "description": "Your Hugging Face User Access Token, used as a Bearer token for Inference API calls",
+      "secret": true,
+      "placeholder": "hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Tokens start with 'hf_' prefix",
+    "Free tier includes limited Inference API usage; higher rate limits require a Pro subscription ($9/month)",
+    "Use a 'Read' token for inference; only use 'Write' if you also need to upload models",
+    "Fine-grained tokens can restrict access to specific models or organizations",
+    "The Serverless Inference API (router.huggingface.co) uses the same token",
+    "Token is shown only once at creation — copy and store it securely"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/whoami-v2",
+    "expected_status": 200,
+    "description": "Verify the access token by retrieving the authenticated user's profile"
+  },
+  "last_verified": "2026-03-02"
+}

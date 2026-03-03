@@ -1,0 +1,48 @@
+{
+  "domain": "www.googleapis.com_drive",
+  "display_name": "Google Drive API",
+  "auth_type": "oauth2",
+  "portal_url": "https://console.cloud.google.com/apis/credentials",
+  "steps": [
+    "Go to https://console.cloud.google.com and sign in with your Google account",
+    "Select an existing project from the top dropdown or click 'New Project' to create one",
+    "Go to https://console.cloud.google.com/apis/library/drive.googleapis.com and click 'Enable' to enable the Google Drive API",
+    "Go to https://console.cloud.google.com/apis/credentials",
+    "Click '+ Create Credentials' and select 'OAuth client ID'",
+    "If prompted, click 'Configure consent screen', choose 'External', fill in the app name and your email, add the Drive scopes you need, then save",
+    "Back on the credentials page, click '+ Create Credentials' > 'OAuth client ID'",
+    "Select 'Web application' as the application type",
+    "Enter a name (e.g. 'Drive API Client'), add your redirect URI under 'Authorized redirect URIs', then click 'Create'",
+    "Copy the Client ID and Client Secret from the dialog that appears"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "The OAuth 2.0 Client ID from Google Cloud Console",
+      "secret": false,
+      "placeholder": "YOUR_CLIENT_ID.apps.googleusercontent.com"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "The OAuth 2.0 Client Secret from Google Cloud Console",
+      "secret": true,
+      "placeholder": "YOUR_CLIENT_SECRET"
+    }
+  ],
+  "notes": [
+    "The Google Drive API is free with no billing required for basic usage",
+    "Usage limits apply: 1 billion requests/day with per-user quotas — see https://console.cloud.google.com/apis/api/drive.googleapis.com/quotas",
+    "Required OAuth scopes vary by operation — use https://www.googleapis.com/auth/drive for full access or more restricted scopes like drive.readonly or drive.file for least-privilege",
+    "The OAuth consent screen must be configured before creating OAuth credentials; sensitive scopes (drive, drive.readonly) require Google verification for production apps",
+    "Add test users on the consent screen page if your app is in 'Testing' mode (up to 100 test users allowed)"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/drive/v3/about?fields=user",
+    "expected_status": 200,
+    "description": "Get basic information about the authenticated user and their Drive"
+  },
+  "last_verified": "2026-03-02"
+}

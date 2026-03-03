@@ -1,0 +1,39 @@
+{
+  "domain": "api.coursera.org",
+  "display_name": "Coursera",
+  "auth_type": "api_key",
+  "portal_url": "https://accounts.coursera.org/console",
+  "steps": [
+    "Go to https://accounts.coursera.org/console and sign in with your Coursera account",
+    "Click 'Register a new application' or 'Create Application'",
+    "Enter an application name and description",
+    "Set the Redirect URI (use http://localhost:9876/callback for local development)",
+    "Submit the form to create your application",
+    "Copy your Client ID and Client Secret from the application details page",
+    "Use the client credentials OAuth flow to obtain a Bearer token: POST to https://accounts.coursera.org/oauth2/v1/token with grant_type=client_credentials"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "Bearer Token",
+      "description": "OAuth 2.0 access token obtained via client credentials flow using your Client ID and Client Secret",
+      "secret": true,
+      "placeholder": "eyJhbGciOiJSUzI1NiJ9..."
+    }
+  ],
+  "notes": [
+    "Coursera uses OAuth 2.0 client credentials flow — you exchange Client ID + Secret for a Bearer token",
+    "The Catalog API (courses, instructors, partners) is publicly readable but may require authentication for higher rate limits",
+    "Coursera's developer program is primarily focused on enterprise and institutional integrations",
+    "Token endpoint: POST https://accounts.coursera.org/oauth2/v1/token",
+    "Developer console: https://accounts.coursera.org/console",
+    "Access to user enrollment and learning data requires additional scope approval from Coursera"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/courses.v1?limit=5",
+    "expected_status": 200,
+    "description": "List 5 courses from the Coursera catalog"
+  },
+  "last_verified": "2026-03-02"
+}
