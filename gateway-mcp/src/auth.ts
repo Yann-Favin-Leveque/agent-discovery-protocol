@@ -1,4 +1,6 @@
 import http from "http";
+import { spawn } from "child_process";
+import path from "path";
 import { loadConfig, getToken, storeToken, storeConnection } from "./config.js";
 import { getCredential, storeCredential } from "./credentials.js";
 import { fetchManifest } from "./discovery.js";
@@ -186,6 +188,85 @@ async function testCredential(
   }
 }
 
+// ─── Interactive registration (spawn terminal) ──────────────────
+
+async function launchRegistrationTerminal(domain: string): Promise<boolean> {
+  // Resolve the init script path relative to this file (same dist/ folder)
+  const rawDir = path.dirname(new URL(import.meta.url).pathname);
+  // On Windows, pathname starts with /C: — strip the leading slash
+  const fixedDir = process.platform === "win32" ? rawDir.replace(/^\/([A-Za-z]:)/, "$1") : rawDir;
+  const initScript = path.resolve(fixedDir, "init.js");
+
+  return new Promise<boolean>((resolve) => {
+    const platform = process.platform;
+
+    try {
+      if (platform === "win32") {
+        // Windows: open a new cmd window
+        const child = spawn("cmd.exe", ["/c", "start", "Agent Gateway - Register", "node", initScript, "--register", domain], {
+          detached: true,
+          stdio: "ignore",
+          shell: false,
+        });
+        child.unref();
+      } else if (platform === "darwin") {
+        // macOS: open a new Terminal.app window
+        const script = `tell application "Terminal" to do script "node '${initScript}' --register '${domain}'"`;
+        const child = spawn("osascript", ["-e", script], {
+          detached: true,
+          stdio: "ignore",
+        });
+        child.unref();
+      } else {
+        // Linux: try common terminal emulators
+        const terminals = ["x-terminal-emulator", "gnome-terminal", "konsole", "xterm"];
+        let launched = false;
+        for (const term of terminals) {
+          try {
+            const args = term === "gnome-terminal"
+              ? ["--", "node", initScript, "--register", domain]
+              : ["-e", `node '${initScript}' --register '${domain}'`];
+            const child = spawn(term, args, {
+              detached: true,
+              stdio: "ignore",
+            });
+            child.unref();
+            launched = true;
+            break;
+          } catch {
+            continue;
+          }
+        }
+        if (!launched) {
+          resolve(false);
+          return;
+        }
+      }
+    } catch {
+      resolve(false);
+      return;
+    }
+
+    // Poll credentials.json for the new credential to appear
+    const timeoutMs = 120_000; // 2 minutes
+    const pollIntervalMs = 1_000;
+    const startTime = Date.now();
+
+    const poll = setInterval(() => {
+      const cred = getCredential(domain);
+      if (cred) {
+        clearInterval(poll);
+        resolve(true);
+        return;
+      }
+      if (Date.now() - startTime > timeoutMs) {
+        clearInterval(poll);
+        resolve(false);
+      }
+    }, pollIntervalMs);
+  });
+}
+
 // ─── Main authenticate flow ──────────────────────────────────────
 
 export async function authenticate(
@@ -261,12 +342,21 @@ export async function authenticate(
 
   if (auth.type === "api_key") {
     // Check credentials.json for a stored API key
-    const cred = getCredential(domain);
+    let cred = getCredential(domain);
     if (cred && cred.type === "api_key") {
       return storeApiKey(domain, cred.api_key);
     }
 
-    // No stored key — return setup instructions
+    // No stored key — try interactive terminal registration
+    const registered = await launchRegistrationTerminal(domain);
+    if (registered) {
+      cred = getCredential(domain);
+      if (cred && cred.type === "api_key") {
+        return storeApiKey(domain, cred.api_key);
+      }
+    }
+
+    // Fallback: return setup instructions
     const { text: instructions, guide } = await buildSetupInstructions(domain, manifest);
     return {
       success: false,
@@ -508,7 +598,19 @@ async function startOAuth2Flow(
     }
   }
 
-  // 3. No credentials available — return setup instructions
+  // 3. No credentials available — try interactive terminal registration
+  if (!clientId) {
+    const registered = await launchRegistrationTerminal(domain);
+    if (registered) {
+      const newCred = getCredential(domain);
+      if (newCred && newCred.type === "oauth2") {
+        clientId = newCred.client_id;
+        clientSecret = newCred.client_secret;
+      }
+    }
+  }
+
+  // 4. Still no credentials — return setup instructions as fallback
   if (!clientId) {
     const { text: instructions, guide } = await buildSetupInstructions(domain, manifest);
     return {

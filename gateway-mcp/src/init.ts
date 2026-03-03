@@ -15,6 +15,7 @@ import type { Manifest } from "./types.js";
 
 interface InitOptions {
   registry?: string;
+  register?: string; // --register <domain>: skip menu, register a single service
 }
 
 function parseArgs(): InitOptions {
@@ -24,6 +25,9 @@ function parseArgs(): InitOptions {
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--registry" && args[i + 1]) {
       opts.registry = args[i + 1];
+      i++;
+    } else if (args[i] === "--register" && args[i + 1]) {
+      opts.register = args[i + 1];
       i++;
     }
   }
@@ -53,6 +57,24 @@ async function init(): Promise<void> {
 
   const config = loadConfig();
   const registryUrl = config.registry_url;
+
+  // Direct registration mode: skip menu, register a single service
+  if (opts.register) {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    console.log("");
+    console.log("  ╔══════════════════════════════════════╗");
+    console.log("  ║   Agent Gateway — Register Service   ║");
+    console.log("  ╚══════════════════════════════════════╝");
+    console.log("");
+
+    await addService(rl, registryUrl, opts.register);
+    rl.close();
+    return;
+  }
 
   console.log("");
   console.log("  ╔══════════════════════════════════════╗");
@@ -104,8 +126,8 @@ async function init(): Promise<void> {
 
 // ─── Add service ────────────────────────────────────────────────
 
-async function addService(rl: readline.Interface, registryUrl: string): Promise<void> {
-  const domain = await ask(rl, "  Service domain (e.g. api.openai.com): ");
+async function addService(rl: readline.Interface, registryUrl: string, domainOverride?: string): Promise<void> {
+  const domain = domainOverride ?? await ask(rl, "  Service domain (e.g. api.openai.com): ");
   if (!domain) {
     console.log("  Cancelled.\n");
     return;
