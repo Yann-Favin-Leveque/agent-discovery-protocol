@@ -65,6 +65,20 @@ export default async function ServiceDetailPage(props: {
   }
   const hasGroups = groups.size > 1 || !groups.has("other");
 
+  // Parse setup guide if available
+  const guide = service.setup_guide
+    ? ((typeof service.setup_guide === "string"
+        ? JSON.parse(service.setup_guide)
+        : service.setup_guide) as {
+        portal_url?: string;
+        auth_type?: string;
+        steps?: string[];
+        credential_fields?: Array<{ name: string; label?: string; description?: string; secret?: boolean }>;
+        test_endpoint?: { method: string; path: string; expected_status: number };
+        notes?: string;
+      })
+    : null;
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       {/* Header */}
@@ -276,6 +290,85 @@ export default async function ServiceDetailPage(props: {
           )}
         </div>
       </section>
+
+      {/* Setup Guide */}
+      {guide && (
+        <section className="mt-12">
+          <h2 className="text-2xl font-bold">Developer Setup Guide</h2>
+          <p className="mt-2 text-sm text-muted">
+            How to get credentials and connect to this service.
+          </p>
+          <div className="mt-4 rounded-xl border border-accent/20 bg-surface-light p-6 space-y-5">
+            {guide.portal_url && (
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Developer Portal</h3>
+                <a
+                  href={guide.portal_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-block font-mono text-sm text-accent hover:underline"
+                >
+                  {guide.portal_url} &rarr;
+                </a>
+              </div>
+            )}
+            {guide.steps && guide.steps.length > 0 && (
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Setup Steps</h3>
+                <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-muted">
+                  {guide.steps.map((step, i) => (
+                    <li key={i}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+            )}
+            {guide.credential_fields && guide.credential_fields.length > 0 && (
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Credential Fields</h3>
+                <div className="mt-2 overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-white/10 text-left text-xs text-muted">
+                        <th className="pb-2 pr-4">Field</th>
+                        <th className="pb-2 pr-4">Label</th>
+                        <th className="pb-2 pr-4">Description</th>
+                        <th className="pb-2">Secret</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                      {guide.credential_fields.map((f) => (
+                        <tr key={f.name}>
+                          <td className="py-2 pr-4 font-mono text-accent">{f.name}</td>
+                          <td className="py-2 pr-4 text-muted">{f.label ?? f.name}</td>
+                          <td className="py-2 pr-4 text-muted">{f.description ?? "\u2014"}</td>
+                          <td className="py-2 text-muted">{f.secret ? "Yes" : "No"}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+            {guide.test_endpoint && (
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Test Endpoint</h3>
+                <p className="mt-1 font-mono text-sm text-muted">
+                  {guide.test_endpoint.method} {guide.test_endpoint.path}{" "}
+                  <span className="text-accent">
+                    (expects {guide.test_endpoint.expected_status})
+                  </span>
+                </p>
+              </div>
+            )}
+            {guide.notes && (
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Notes</h3>
+                <p className="mt-1 text-sm text-muted">{guide.notes}</p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Agent preview */}
       <section className="mt-12">

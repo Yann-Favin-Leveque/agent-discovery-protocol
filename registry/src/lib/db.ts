@@ -657,6 +657,7 @@ export async function insertService(data: {
   pricing_type: string;
   spec_version: string;
   trust_level: TrustLevel;
+  setup_guide?: unknown;
   capabilities: Array<{
     name: string;
     description: string;
@@ -670,13 +671,14 @@ export async function insertService(data: {
   const verified = data.trust_level === "verified" ? 1 : 0;
 
   const insertResult = await db.query(
-    `INSERT INTO services (name, domain, description, base_url, well_known_url, auth_type, auth_details, pricing_type, spec_version, verified, trust_level, last_crawled_at)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())
+    `INSERT INTO services (name, domain, description, base_url, well_known_url, auth_type, auth_details, pricing_type, spec_version, verified, trust_level, setup_guide, last_crawled_at)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW())
      RETURNING id`,
     [
       data.name, data.domain, data.description, data.base_url,
       data.well_known_url, data.auth_type, data.auth_details,
       data.pricing_type, data.spec_version, verified, data.trust_level,
+      data.setup_guide ? JSON.stringify(data.setup_guide) : null,
     ]
   );
 

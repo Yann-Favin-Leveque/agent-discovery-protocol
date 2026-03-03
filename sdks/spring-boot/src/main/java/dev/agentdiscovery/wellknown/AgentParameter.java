@@ -55,4 +55,11 @@ public @interface AgentParameter {
      * Defaults to empty string (no example).
      */
     String example() default "";
+
+    /**
+     * Where the parameter is sent: {@code "path"}, {@code "query"},
+     * {@code "body"}, or {@code "header"}.
+     * Defaults to empty string (not specified).
+     */
+    String in() default "";
 }

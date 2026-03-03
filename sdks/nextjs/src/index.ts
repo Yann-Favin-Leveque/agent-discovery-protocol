@@ -26,6 +26,8 @@ export interface ParameterConfig {
   description: string;
   /** Example value used in auto-generated request examples. */
   example?: unknown;
+  /** Where the parameter is sent: path, query, body, or header. */
+  in?: "path" | "query" | "body" | "header";
 }
 
 /** Authentication configuration. */
@@ -159,6 +161,7 @@ interface CapabilityDetail {
     description: string;
     required: boolean;
     example?: unknown;
+    in?: string;
   }>;
   request_example: RequestExample;
   response_example?: ResponseExample;
@@ -385,6 +388,9 @@ function buildCapabilityDetail(
       };
       if (p.example !== undefined) {
         param.example = p.example;
+      }
+      if (p.in) {
+        param.in = p.in;
       }
       return param;
     }),

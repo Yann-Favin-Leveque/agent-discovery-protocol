@@ -6,4 +6,4 @@ Serve a /.well-known/agent manifest so AI agents can discover your API at runtim
 from agent_well_known.manifest import AgentManifest, Capability
 
 __all__ = ["AgentManifest", "Capability"]
-__version__ = "1.1.0"
+__version__ = "1.2.0"

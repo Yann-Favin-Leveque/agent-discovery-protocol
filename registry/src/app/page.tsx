@@ -203,8 +203,8 @@ function ComparisonSection() {
 }`}</code>
             </pre>
             <p className="mt-3 text-xs text-muted">
-              1 gateway. All services discovered at runtime. Auth handled
-              centrally.
+              1 gateway. All services discovered at runtime. Credentials
+              stored locally, setup guided step by step.
             </p>
 
             <div className="mt-4 rounded-lg border border-white/5 bg-surface p-4">
@@ -280,7 +280,8 @@ function ForAgentsSection() {
             <p className="mt-4 text-muted">
               Install one gateway. Add it to your MCP config. That&apos;s it.
               Your agent can now discover and use any API — no per-service
-              setup, no API keys to juggle, no plugins to install.
+              plugins, no config files. When you first use a service, the
+              gateway walks you through credential setup step by step.
             </p>
 
             <div className="mt-8">
@@ -474,11 +475,11 @@ function VisionSection() {
     },
     {
       icon: "\u{1F511}",
-      title: "One-click OAuth",
+      title: "Managed OAuth",
       status: "Coming soon",
       statusColor: "bg-yellow-500/10 text-yellow-400",
       description:
-        "Users authorize access in one click. No API key to copy, no signup form. Declare OAuth in your manifest and it just works.",
+        "Premium tier: skip credential setup entirely. We handle OAuth apps and API keys so users connect in one click.",
     },
     {
       icon: "\u{1F4DD}",

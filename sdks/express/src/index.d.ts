@@ -8,6 +8,7 @@ export interface AuthOAuth2 {
   authorization_url: string;
   token_url: string;
   scopes?: string[];
+  setup_url?: string;
 }
 
 export interface AuthApiKey {
@@ -50,6 +51,7 @@ export interface ParameterConfig {
   required: boolean;
   description: string;
   example?: any;
+  in?: 'path' | 'query' | 'body' | 'header';
 }
 
 /**

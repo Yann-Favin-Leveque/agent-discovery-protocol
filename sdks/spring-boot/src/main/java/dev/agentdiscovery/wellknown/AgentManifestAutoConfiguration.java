@@ -263,8 +263,9 @@ public class AgentManifestAutoConfiguration {
         List<ParameterDefinition> parameters = new ArrayList<>();
         for (AgentParameter param : cap.parameters()) {
             Object example = param.example().isEmpty() ? null : parseExample(param.example(), param.type());
+            String paramIn = param.in().isEmpty() ? null : param.in();
             parameters.add(new ParameterDefinition(
-                    param.name(), param.type(), param.description(), param.required(), example));
+                    param.name(), param.type(), param.description(), param.required(), example, paramIn));
         }
 
         // Build request example

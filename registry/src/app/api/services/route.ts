@@ -146,6 +146,7 @@ export async function POST(request: NextRequest) {
       pricing_type: manifest.pricing?.type ?? "free",
       spec_version: manifest.spec_version,
       trust_level: "verified",
+      setup_guide: body.setup_guide ?? undefined,
       capabilities: manifest.capabilities.map((c) => ({
         name: c.name,
         description: c.description,
@@ -243,6 +244,7 @@ export async function POST(request: NextRequest) {
       pricing_type: manifest.pricing?.type ?? "free",
       spec_version: manifest.spec_version,
       trust_level: "unverified",
+      setup_guide: body.setup_guide ?? undefined,
       capabilities: manifest.capabilities.map((c) => ({
         name: c.name,
         description: c.description,

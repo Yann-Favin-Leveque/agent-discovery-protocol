@@ -39,7 +39,8 @@ class Capability(BaseModel):
         ...,
         description=(
             "Parameter definitions.  Each dict must contain: name (str), "
-            "type (str), required (bool), description (str), example (any)."
+            "type (str), required (bool), description (str), example (any).  "
+            "Optional: in (str) — where the parameter is sent: 'path', 'query', 'body', or 'header'."
         ),
     )
     request_example: Optional[Dict[str, Any]] = Field(

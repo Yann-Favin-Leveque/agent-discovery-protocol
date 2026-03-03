@@ -20,14 +20,21 @@ public class ParameterDefinition {
     private final String description;
     private final boolean required;
     private final Object example;
+    private final String in;
 
     public ParameterDefinition(String name, String type, String description,
                                boolean required, Object example) {
+        this(name, type, description, required, example, null);
+    }
+
+    public ParameterDefinition(String name, String type, String description,
+                               boolean required, Object example, String in) {
         this.name = name;
         this.type = type;
         this.description = description;
         this.required = required;
         this.example = example;
+        this.in = in;
     }
 
     @JsonProperty("name")
@@ -53,5 +60,10 @@ public class ParameterDefinition {
     @JsonProperty("example")
     public Object getExample() {
         return example;
+    }
+
+    @JsonProperty("in")
+    public String getIn() {
+        return in;
     }
 }

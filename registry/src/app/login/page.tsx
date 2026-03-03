@@ -19,8 +19,12 @@ export default async function LoginPage({
       <div className="text-center">
         <h1 className="text-3xl font-bold">Sign in</h1>
         <p className="mt-3 text-muted">
-          Sign in with your existing account to manage subscriptions, view
-          billing, and connect your agent.
+          Sign in to access premium features: managed OAuth, billing,
+          and credential sync across machines.
+        </p>
+        <p className="mt-2 text-sm text-muted">
+          The gateway works without an account — credentials are stored locally
+          on your machine.
         </p>
       </div>
 

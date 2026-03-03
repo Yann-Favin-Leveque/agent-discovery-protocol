@@ -185,27 +185,36 @@ export default async function AccountPage() {
 
       {/* Gateway setup instructions */}
       <section className="mt-12">
-        <h2 className="text-2xl font-bold">Gateway connection</h2>
+        <h2 className="text-2xl font-bold">Gateway</h2>
         <p className="mt-2 text-sm text-muted">
-          Your gateway connections are automatically synced to your account.
-          To set up the gateway on a new machine:
+          The gateway stores your credentials locally in{" "}
+          <code className="text-accent">~/.agent-gateway/credentials.json</code>.
+          To set up the gateway:
         </p>
         <div className="mt-4 rounded-xl border border-white/5 bg-surface p-6">
           <div className="space-y-3">
             <div>
-              <p className="text-xs font-medium text-muted">1. Install the gateway</p>
+              <p className="text-xs font-medium text-muted">Install the gateway</p>
               <code className="mt-1 block rounded-lg bg-black px-3 py-2 font-mono text-sm text-accent">
-                npx agent-gateway init
+                npm install -g agent-gateway-mcp
               </code>
             </div>
             <div>
-              <p className="text-xs font-medium text-muted">2. Sign in with the same account</p>
+              <p className="text-xs font-medium text-muted">Add to your MCP config and start using</p>
               <p className="text-sm text-muted">
-                Your browser will open — sign in with {user.provider === "google" ? "Google" : user.provider === "github" ? "GitHub" : user.provider}
-                and all your connections will be restored automatically.
+                When you first call a service, the gateway guides you through
+                setting up credentials. No account sign-in needed.
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="mt-4 rounded-xl border border-accent/20 bg-accent/5 p-5">
+          <p className="text-sm font-medium text-foreground">Coming soon</p>
+          <p className="mt-1 text-sm text-muted">
+            Managed OAuth, credential sync across machines, and premium API access
+            — all tied to your account.
+          </p>
         </div>
       </section>
     </div>

@@ -55,8 +55,7 @@ export default function AgentsPage() {
         </p>
 
         <div className="mt-6">
-          <CodeBlock title="Install">{`npm install -g agent-gateway-mcp
-agent-gateway init   # Sign in with Google or GitHub → done`}</CodeBlock>
+          <CodeBlock title="Install">{`npm install -g agent-gateway-mcp`}</CodeBlock>
         </div>
 
         <div className="mt-4">
@@ -84,7 +83,9 @@ agent-gateway init   # Sign in with Google or GitHub → done`}</CodeBlock>
                 <td className="py-2 pr-4 font-mono text-accent">discover</td>
                 <td className="py-2 text-muted">
                   Search services by intent, explore domains, drill into
-                  capabilities
+                  capabilities. Use{" "}
+                  <code className="text-accent">registered_only</code> to filter
+                  by services you&apos;ve already connected.
                 </td>
               </tr>
               <tr>
@@ -97,7 +98,8 @@ agent-gateway init   # Sign in with Google or GitHub → done`}</CodeBlock>
               <tr>
                 <td className="py-2 pr-4 font-mono text-accent">auth</td>
                 <td className="py-2 text-muted">
-                  Connect to services via OAuth2 or API key
+                  Connect to services using your own credentials — the gateway
+                  walks you through setup with step-by-step guides
                 </td>
               </tr>
               <tr>
@@ -131,6 +133,14 @@ agent-gateway init   # Sign in with Google or GitHub → done`}</CodeBlock>
 
 Agent → discover({ query: "create invoice" })
 Agent → discover({ domain: "api.invoiceninja.com", capability: "create_invoice" })
+Agent → auth({ domain: "api.invoiceninja.com" })
+
+# First time? The gateway opens a setup guide:
+#   1. Go to https://app.invoiceninja.com/settings/integrations
+#   2. Create an API token
+#   3. Paste your token here: ████████████
+# Credentials saved to ~/.agent-gateway/credentials.json
+
 Agent → call({
   domain: "api.invoiceninja.com",
   capability: "create_invoice",
@@ -138,6 +148,17 @@ Agent → call({
 })
 
 Agent: "Done! Invoice INV-2024-0042 sent to Acme Corp."`}</CodeBlock>
+        </div>
+
+        <div className="mt-4 p-4 rounded-lg border border-accent/20 bg-accent/5">
+          <p className="text-sm text-muted">
+            <strong className="text-foreground">How credentials work:</strong>{" "}
+            You own your credentials. When you first use a service, the gateway
+            guides you through registering your own API key or OAuth app.
+            Credentials are stored locally in{" "}
+            <code className="text-accent">~/.agent-gateway/credentials.json</code>.
+            No cloud accounts required.
+          </p>
         </div>
       </section>
 

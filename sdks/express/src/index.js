@@ -228,6 +228,9 @@ function buildCapabilityDetail(cap, config) {
       if (p.example !== undefined) {
         param.example = p.example;
       }
+      if (p.in) {
+        param.in = p.in;
+      }
       return param;
     }),
     request_example: cap.request_example || generateRequestExample(cap, config),
