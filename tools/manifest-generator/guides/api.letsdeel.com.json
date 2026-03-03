@@ -1,0 +1,41 @@
+{
+  "domain": "api.letsdeel.com",
+  "display_name": "Deel",
+  "auth_type": "api_key",
+  "portal_url": "https://app.deel.com/developer/tokens",
+  "steps": [
+    "Go to https://app.deel.com and sign in to your Deel account",
+    "Navigate to 'Apps & Integrations' in the left sidebar, then select 'Developer Center'",
+    "Click 'Generate Token' or 'Create Token'",
+    "Select the token type: 'Personal' (tied to your user account) or 'Organization' (service account, never expires)",
+    "Enter a name for the token and click 'Next'",
+    "In the scopes popup, select the permissions your integration needs",
+    "Click 'Generate' to create the token",
+    "Copy the token immediately — it will not be shown again"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Access Token",
+      "description": "Your Deel Bearer token, sent as Authorization: Bearer <token>",
+      "secret": true,
+      "placeholder": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  ],
+  "notes": [
+    "The token is shown only once at generation — save it immediately",
+    "Personal tokens expire when the user leaves the company; Organization tokens (service accounts) never expire",
+    "Recommend using Organization tokens for production integrations",
+    "Scopes are selected at token creation and cannot be modified — regenerate the token to change scopes",
+    "The API base URL is https://api.letsdeel.com",
+    "A Deel account with appropriate plan is required — no free tier for API access",
+    "API documentation at https://developer.deel.com/"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/rest/v2/organizations",
+    "expected_status": 200,
+    "description": "Retrieve organization details to verify the API token is valid"
+  },
+  "last_verified": "2026-03-03"
+}

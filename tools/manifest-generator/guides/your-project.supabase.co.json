@@ -1,0 +1,38 @@
+{
+  "domain": "your-project.supabase.co",
+  "display_name": "Supabase",
+  "auth_type": "api_key",
+  "portal_url": "https://supabase.com/dashboard/project/_/settings/api",
+  "steps": [
+    "Go to https://supabase.com/dashboard and log in or create a free account",
+    "Create a new project by clicking 'New project', entering a name, database password, and region",
+    "Wait for the project to finish provisioning (about 1-2 minutes)",
+    "Go to your project's Settings > API (or visit https://supabase.com/dashboard/project/YOUR_PROJECT_REF/settings/api)",
+    "Under 'Project API keys', copy the 'anon public' key for client-side access or the 'service_role secret' key for server-side admin access",
+    "Also copy your Project URL (e.g., https://YOUR_PROJECT_REF.supabase.co) — this is your actual API base URL"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key (anon or service_role)",
+      "description": "Use the 'anon' key for public client-side access (respects Row Level Security) or the 'service_role' key for admin/server-side access (bypasses RLS).",
+      "secret": true,
+      "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  ],
+  "notes": [
+    "Replace 'your-project' with your actual Supabase project reference ID",
+    "Free tier available (2 active projects, 500 MB database, 1 GB file storage)",
+    "The actual API base URL is https://YOUR_PROJECT_REF.supabase.co",
+    "The 'anon' key is safe for client-side use when Row Level Security (RLS) is enabled",
+    "The 'service_role' key bypasses all security policies — never expose it in client-side code",
+    "API keys are JWTs and can be viewed at any time in the project dashboard"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/rest/v1/",
+    "expected_status": 200,
+    "description": "Fetch the PostgREST OpenAPI spec to verify the API key and project URL"
+  },
+  "last_verified": "2026-03-03"
+}

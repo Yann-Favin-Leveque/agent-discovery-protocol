@@ -24,8 +24,8 @@ export interface AuthResult {
 
 // ─── Setup instructions for LLM relay ────────────────────────────
 
-function buildSetupInstructions(domain: string, manifest: Manifest): { text: string; guide?: ServiceGuide } {
-  const guide = getGuide(domain);
+async function buildSetupInstructions(domain: string, manifest: Manifest): Promise<{ text: string; guide?: ServiceGuide }> {
+  const guide = await getGuide(domain);
 
   if (guide) {
     return { text: formatGuideInstructions(domain, guide), guide };
@@ -267,7 +267,7 @@ export async function authenticate(
     }
 
     // No stored key — return setup instructions
-    const { text: instructions, guide } = buildSetupInstructions(domain, manifest);
+    const { text: instructions, guide } = await buildSetupInstructions(domain, manifest);
     return {
       success: false,
       needs_credentials: true,
@@ -325,7 +325,7 @@ export async function storeApiKey(
   });
 
   // Test credential if guide has a test endpoint
-  const guide = getGuide(domain);
+  const guide = await getGuide(domain);
   let test_result: TestResult | undefined;
   if (guide?.test_endpoint) {
     test_result = await testCredential(domain, guide, manifest, token);
@@ -510,7 +510,7 @@ async function startOAuth2Flow(
 
   // 3. No credentials available — return setup instructions
   if (!clientId) {
-    const { text: instructions, guide } = buildSetupInstructions(domain, manifest);
+    const { text: instructions, guide } = await buildSetupInstructions(domain, manifest);
     return {
       success: false,
       needs_credentials: true,
@@ -667,7 +667,7 @@ async function startOAuth2Flow(
     });
 
     // Test credential if guide has a test endpoint
-    const guide = getGuide(domain);
+    const guide = await getGuide(domain);
     let test_result: TestResult | undefined;
     if (guide?.test_endpoint) {
       test_result = await testCredential(domain, guide, manifest, token);

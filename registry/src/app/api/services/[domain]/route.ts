@@ -48,6 +48,7 @@ export async function GET(
         created_at: service.created_at,
         updated_at: service.updated_at,
         manifest,
+        ...(service.setup_guide ? { setup_guide: service.setup_guide } : {}),
       },
     });
   } catch (err) {

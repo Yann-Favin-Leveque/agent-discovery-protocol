@@ -1,0 +1,47 @@
+{
+  "domain": "3.basecampapi.com",
+  "display_name": "Basecamp",
+  "auth_type": "oauth2",
+  "portal_url": "https://launchpad.37signals.com/integrations",
+  "steps": [
+    "Go to https://launchpad.37signals.com/integrations",
+    "Sign in with your 37signals (Basecamp) account",
+    "Click 'Register another application'",
+    "Fill in your application name, company name, website URL, and redirect URI",
+    "Submit the form to receive your Client ID and Client Secret",
+    "Use the authorization URL https://launchpad.37signals.com/authorization/new to start the OAuth flow",
+    "After the user authorizes, exchange the code at https://launchpad.37signals.com/authorization/token",
+    "Use the access token as 'Authorization: Bearer <token>' in API requests to https://3.basecampapi.com/{account_id}/"
+  ],
+  "credential_fields": [
+    {
+      "name": "client_id",
+      "label": "Client ID",
+      "description": "The OAuth Client ID for your registered Basecamp application",
+      "secret": false,
+      "placeholder": "your_basecamp_client_id"
+    },
+    {
+      "name": "client_secret",
+      "label": "Client Secret",
+      "description": "The OAuth Client Secret for your registered Basecamp application",
+      "secret": true,
+      "placeholder": "your_basecamp_client_secret"
+    }
+  ],
+  "notes": [
+    "Basecamp uses OAuth 2.0 only — no API key option",
+    "Register your app at https://launchpad.37signals.com/integrations (37signals developer portal)",
+    "The Basecamp 3 API base URL is https://3.basecampapi.com/{account_id}/",
+    "You can get the account ID from the authorization response or the /authorization.json endpoint",
+    "Basecamp requires a User-Agent header identifying your app and contact email",
+    "30-day free trial available; paid plans start at $15/month"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/authorization.json",
+    "expected_status": 200,
+    "description": "Get authorization info including account IDs for the authenticated user"
+  },
+  "last_verified": "2026-03-03"
+}

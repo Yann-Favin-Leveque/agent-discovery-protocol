@@ -1,0 +1,40 @@
+{
+  "domain": "api.exchange.coinbase.com",
+  "display_name": "Coinbase Exchange",
+  "auth_type": "api_key",
+  "portal_url": "https://exchange.coinbase.com/profile/api",
+  "steps": [
+    "Go to https://exchange.coinbase.com and sign in with your Coinbase Exchange account",
+    "Navigate to Profile > API (or go directly to https://exchange.coinbase.com/profile/api)",
+    "Click 'New API Key'",
+    "Set permissions for the key (View, Trade, Transfer) and restrict IP addresses if desired",
+    "Set a passphrase — you will need this for every authenticated request",
+    "Complete the 2FA verification prompt",
+    "Copy the API Key, Secret, and Passphrase — the Secret is shown only once",
+    "Use these three values to sign each request with HMAC-SHA256"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key",
+      "description": "Your Coinbase Exchange API key (sent as CB-ACCESS-KEY header)",
+      "secret": false,
+      "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    }
+  ],
+  "notes": [
+    "Requires a Coinbase Exchange (formerly GDAX / Coinbase Pro) account with 2FA enabled",
+    "All authenticated requests require four headers: CB-ACCESS-KEY, CB-ACCESS-SIGN (HMAC-SHA256), CB-ACCESS-TIMESTAMP, and CB-ACCESS-PASSPHRASE",
+    "The signature is computed over: timestamp + method + requestPath + body",
+    "Public endpoints (e.g., /products, /currencies) do not require authentication",
+    "Your timestamp must be within 30 seconds of the server time",
+    "API keys can be scoped by permissions (View, Trade, Transfer) and IP whitelist"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/products",
+    "expected_status": 200,
+    "description": "List all available trading pairs — public endpoint, no auth required"
+  },
+  "last_verified": "2026-03-03"
+}

@@ -12,6 +12,7 @@ import type {
   Manifest,
   CapabilityDetail,
   RegistryDiscoverResponse,
+  ServiceGuide,
 } from "./types.js";
 import { CACHE_TTLS } from "./types.js";
 
@@ -20,6 +21,7 @@ import { CACHE_TTLS } from "./types.js";
 const memDiscoveryCache = new Map<string, { result: RegistryDiscoverResponse; at: number }>();
 const memManifestCache = new Map<string, { result: Manifest; at: number }>();
 const memCapabilityCache = new Map<string, { result: CapabilityDetail; at: number }>();
+const memGuideCache = new Map<string, { result: ServiceGuide | null; at: number }>();
 
 // ─── Fetch helper ────────────────────────────────────────────────
 
@@ -99,7 +101,7 @@ export async function fetchManifest(
     manifest = await fetchJson<Manifest>(`https://${domain}/.well-known/agent`);
   } catch {
     const config = loadConfig();
-    const reg = await fetchJson<{ success: boolean; data: { manifest: Manifest } }>(
+    const reg = await fetchJson<{ success: boolean; data: { manifest: Manifest; setup_guide?: ServiceGuide } }>(
       `${config.registry_url}/api/services/${encodeURIComponent(domain)}`
     );
     if (!reg.success || !reg.data?.manifest) {
@@ -108,6 +110,11 @@ export async function fetchManifest(
       );
     }
     manifest = reg.data.manifest;
+
+    // Cache guide from registry response
+    if (reg.data.setup_guide) {
+      memGuideCache.set(domain, { result: reg.data.setup_guide, at: Date.now() });
+    }
   }
 
   // Store in both caches
@@ -186,6 +193,30 @@ export async function fetchCapabilityDetail(
   return detail;
 }
 
+// ─── Guide (from registry, 1h cache) ────────────────────────────
+
+export async function fetchGuide(domain: string): Promise<ServiceGuide | null> {
+  // Check in-memory cache (populated by fetchManifest or previous fetchGuide call)
+  const mem = memGuideCache.get(domain);
+  if (mem && Date.now() - mem.at < CACHE_TTLS.manifest) {
+    return mem.result;
+  }
+
+  // Fetch from registry
+  try {
+    const config = loadConfig();
+    const reg = await fetchJson<{ success: boolean; data: { setup_guide?: ServiceGuide } }>(
+      `${config.registry_url}/api/services/${encodeURIComponent(domain)}`
+    );
+    const guide = reg.success && reg.data?.setup_guide ? reg.data.setup_guide : null;
+    memGuideCache.set(domain, { result: guide, at: Date.now() });
+    return guide;
+  } catch {
+    memGuideCache.set(domain, { result: null, at: Date.now() });
+    return null;
+  }
+}
+
 // ─── Top capabilities scoring ───────────────────────────────────
 
 const TOP_VERBS = ["list", "get", "search", "send", "create"];
@@ -238,5 +269,6 @@ export function clearCache(): void {
   memDiscoveryCache.clear();
   memManifestCache.clear();
   memCapabilityCache.clear();
+  memGuideCache.clear();
   clearAllCaches();
 }

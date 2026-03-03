@@ -1,0 +1,39 @@
+{
+  "domain": "smartcat.com",
+  "display_name": "Smartcat",
+  "auth_type": "api_key",
+  "portal_url": "https://smartcat.com/account/api",
+  "steps": [
+    "Go to https://smartcat.com and log in or create an account",
+    "Click your profile/account menu and navigate to Settings",
+    "Select 'API' from the settings sidebar",
+    "Note your Account ID displayed at the top of the page",
+    "In the 'API Keys' section, click 'CREATE NEW KEY'",
+    "Enter a name for the key and confirm",
+    "Copy the generated API key",
+    "The Authorization header uses HTTP Basic auth: encode 'accountId:apiKey' in base64 and send as 'Basic {encoded}'"
+  ],
+  "credential_fields": [
+    {
+      "name": "api_key",
+      "label": "API Key (AccountID:APIKey)",
+      "description": "Your Smartcat credentials as 'accountId:apiKey'. The gateway will Base64-encode this for the Basic Authorization header.",
+      "secret": true,
+      "placeholder": "your-account-id:your-api-key"
+    }
+  ],
+  "notes": [
+    "Free plan available with limited features",
+    "You must be an Administrator in your Smartcat workspace to create API keys",
+    "Multiple API keys can be created for different integrations",
+    "Account ID is your username for Basic auth; API key is your password",
+    "The API key page URL is https://smartcat.com/account/api"
+  ],
+  "test_endpoint": {
+    "method": "GET",
+    "path": "/api/integration/v1/project/list",
+    "expected_status": 200,
+    "description": "List all translation projects in the account"
+  },
+  "last_verified": "2026-03-03"
+}

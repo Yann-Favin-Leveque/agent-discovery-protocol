@@ -326,6 +326,7 @@ export interface ServiceRow {
   crawl_failures: number;
   last_crawled_at: string | null;
   category_slug: string | null;
+  setup_guide: unknown | null;
   created_at: string;
   updated_at: string;
 }
