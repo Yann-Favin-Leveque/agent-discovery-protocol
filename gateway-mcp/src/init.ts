@@ -3,31 +3,42 @@
 import readline from "readline";
 import { loadConfig, setRegistryUrl } from "./config.js";
 import { fetchManifest } from "./discovery.js";
-import {
-  getCredential,
-  storeCredential,
-  removeCredential,
-  listCredentials,
-} from "./credentials.js";
+import { getCredential, storeCredential } from "./credentials.js";
 import type { Manifest } from "./types.js";
+import { startConfigServer } from "./config-server.js";
 
 // ─── CLI helpers ─────────────────────────────────────────────────
 
+type Command = "config" | "init" | "register-only";
+
 interface InitOptions {
+  command: Command;
   registry?: string;
   register?: string; // --register <domain>: skip menu, register a single service
 }
 
 function parseArgs(): InitOptions {
   const args = process.argv.slice(2);
-  const opts: InitOptions = {};
+  const opts: InitOptions = { command: "config" };
 
-  for (let i = 0; i < args.length; i++) {
+  // First positional arg is the subcommand. Everything else is flags.
+  // Backwards-compat: no subcommand → default to `config`.
+  let i = 0;
+  if (args.length > 0 && !args[0].startsWith("-")) {
+    const sub = args[0];
+    if (sub === "init" || sub === "config") {
+      opts.command = sub;
+      i = 1;
+    }
+  }
+
+  for (; i < args.length; i++) {
     if (args[i] === "--registry" && args[i + 1]) {
       opts.registry = args[i + 1];
       i++;
     } else if (args[i] === "--register" && args[i + 1]) {
       opts.register = args[i + 1];
+      opts.command = "register-only";
       i++;
     }
   }
@@ -41,14 +52,9 @@ function ask(rl: readline.Interface, question: string): Promise<string> {
   });
 }
 
-function maskValue(value: string): string {
-  if (value.length <= 8) return "****";
-  return value.substring(0, 4) + "..." + value.substring(value.length - 4);
-}
+// ─── Main dispatch ──────────────────────────────────────────────
 
-// ─── Main menu ──────────────────────────────────────────────────
-
-async function init(): Promise<void> {
+async function main(): Promise<void> {
   const opts = parseArgs();
 
   if (opts.registry) {
@@ -58,70 +64,80 @@ async function init(): Promise<void> {
   const config = loadConfig();
   const registryUrl = config.registry_url;
 
-  // Direct registration mode: skip menu, register a single service
-  if (opts.register) {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-
-    console.log("");
-    console.log("  ╔══════════════════════════════════════╗");
-    console.log("  ║   Agent Gateway — Register Service   ║");
-    console.log("  ╚══════════════════════════════════════╝");
-    console.log("");
-
-    await addService(rl, registryUrl, opts.register);
-    rl.close();
+  if (opts.command === "register-only" && opts.register) {
+    await runRegisterOnly(registryUrl, opts.register);
     return;
   }
 
+  // `init` is now an alias of `config`. The text-only flow has been
+  // replaced by the local web page.
+  if (opts.command === "init") {
+    console.log("  `agent-gateway init` is now `agent-gateway config` (same flow).");
+  }
+
+  await runConfig();
+}
+
+// ─── Run config (local web page) ────────────────────────────────
+
+async function runConfig(): Promise<void> {
   console.log("");
   console.log("  ╔══════════════════════════════════════╗");
-  console.log("  ║   Agent Gateway — Service Manager    ║");
+  console.log("  ║         AgentDNS — Setup             ║");
   console.log("  ╚══════════════════════════════════════╝");
   console.log("");
+  console.log("  Starting local config server...");
 
+  let handle;
+  try {
+    handle = await startConfigServer();
+  } catch (err) {
+    console.error(`  Failed to start config server: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  }
+
+  console.log(`  Server running at ${handle.url}`);
+  console.log("  Opening browser...");
+  console.log("");
+  console.log("  When you're done, click 'Done' in the page or press Ctrl+C here.");
+  console.log("");
+
+  // Open the browser. If this fails (headless / WSL), fall back to printing.
+  try {
+    const open = (await import("open")).default;
+    await open(handle.url);
+  } catch {
+    console.log(`  Could not open browser automatically. Visit: ${handle.url}`);
+  }
+
+  // Allow Ctrl+C to close the server cleanly.
+  const onSig = () => {
+    console.log("\n  Shutting down...");
+    handle.close();
+  };
+  process.on("SIGINT", onSig);
+  process.on("SIGTERM", onSig);
+
+  await handle.done;
+  console.log("  Done.");
+}
+
+// ─── Register-only mode (used by spawned terminal) ──────────────
+
+async function runRegisterOnly(registryUrl: string, domain: string): Promise<void> {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   });
 
-  let running = true;
-  while (running) {
-    console.log("  [1] Register a service");
-    console.log("  [2] List registered services");
-    console.log("  [3] Remove a service");
-    console.log("  [4] Exit");
-    console.log("");
-
-    const choice = await ask(rl, "  Choice (1-4): ");
-    console.log("");
-
-    switch (choice) {
-      case "1":
-        await addService(rl, registryUrl);
-        break;
-      case "2":
-        listServices();
-        break;
-      case "3":
-        await removeService(rl);
-        break;
-      case "4":
-      case "":
-        running = false;
-        break;
-      default:
-        console.log("  Invalid choice.\n");
-    }
-  }
-
-  rl.close();
-
-  console.log("  MCP config for your agent:");
   console.log("");
-  printMcpConfig(registryUrl);
+  console.log("  ╔══════════════════════════════════════╗");
+  console.log("  ║   Agent Gateway — Register Service   ║");
+  console.log("  ╚══════════════════════════════════════╝");
+  console.log("");
+
+  await addService(rl, registryUrl, domain);
+  rl.close();
 }
 
 // ─── Add service ────────────────────────────────────────────────
@@ -242,91 +258,7 @@ async function addService(rl: readline.Interface, registryUrl: string, domainOve
   console.log("");
 }
 
-// ─── List services ──────────────────────────────────────────────
-
-function listServices(): void {
-  const creds = listCredentials();
-  const domains = Object.keys(creds);
-
-  if (domains.length === 0) {
-    console.log("  No registered services.");
-    console.log("  Use option [1] to register a service.");
-    console.log("");
-    return;
-  }
-
-  console.log(`  Registered services (${domains.length}):`);
-  console.log("");
-  for (const domain of domains) {
-    const c = creds[domain];
-    if (c.type === "api_key") {
-      console.log(`    ${domain}  [API Key: ${maskValue(c.api_key)}]`);
-    } else if (c.type === "oauth2") {
-      console.log(`    ${domain}  [OAuth2: ${maskValue(c.client_id)}]`);
-    }
-  }
-  console.log("");
-}
-
-// ─── Remove service ─────────────────────────────────────────────
-
-async function removeService(rl: readline.Interface): Promise<void> {
-  const creds = listCredentials();
-  const domains = Object.keys(creds);
-
-  if (domains.length === 0) {
-    console.log("  No registered services to remove.");
-    console.log("");
-    return;
-  }
-
-  console.log("  Registered services:");
-  domains.forEach((d, i) => {
-    console.log(`    [${i + 1}] ${d} (${creds[d].type})`);
-  });
-  console.log("");
-
-  const input = await ask(rl, "  Remove (number or domain): ");
-  if (!input) {
-    console.log("  Cancelled.\n");
-    return;
-  }
-
-  let domain: string;
-  const idx = parseInt(input, 10);
-  if (!isNaN(idx) && idx >= 1 && idx <= domains.length) {
-    domain = domains[idx - 1];
-  } else {
-    domain = input;
-  }
-
-  if (removeCredential(domain)) {
-    console.log(`  Removed ${domain}.`);
-  } else {
-    console.log(`  ${domain} not found.`);
-  }
-  console.log("");
-}
-
-// ─── Helpers ────────────────────────────────────────────────────
-
-function printMcpConfig(registryUrl: string): void {
-  const config: Record<string, unknown> = {
-    mcpServers: {
-      gateway: {
-        command: "agent-gateway-mcp",
-        args: registryUrl !== "https://agent-dns.dev"
-          ? ["--registry", registryUrl]
-          : [],
-      },
-    },
-  };
-
-  console.log("  " + JSON.stringify(config, null, 2).split("\n").join("\n  "));
-  console.log("");
-}
-
-init().catch((err) => {
+main().catch((err) => {
   console.error(`Fatal error: ${err}`);
   process.exit(1);
 });
