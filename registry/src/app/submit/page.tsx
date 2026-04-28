@@ -5,34 +5,17 @@ import { useRouter } from "next/navigation";
 
 type Mode = "discover" | "paste";
 
-interface CredentialField {
-  name: string;
-  label: string;
-  description: string;
-  secret: boolean;
-}
-
 export default function SubmitPage() {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("discover");
   const [domain, setDomain] = useState("");
   const [manifest, setManifest] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [pricingModel, setPricingModel] = useState<"free" | "pay_per_use" | "paid_tiered">("free");
+  const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [success, setSuccess] = useState<string | null>(null);
-
-  // Setup guide state
-  const [showGuide, setShowGuide] = useState(false);
-  const [guidePortalUrl, setGuidePortalUrl] = useState("");
-  const [guideAuthType, setGuideAuthType] = useState<"oauth2" | "api_key" | "none">("api_key");
-  const [guideSteps, setGuideSteps] = useState<string[]>([""]);
-  const [guideFields, setGuideFields] = useState<CredentialField[]>([
-    { name: "", label: "", description: "", secret: false },
-  ]);
-  const [guideTestMethod, setGuideTestMethod] = useState("GET");
-  const [guideTestPath, setGuideTestPath] = useState("");
-  const [guideTestStatus, setGuideTestStatus] = useState("200");
-  const [guideNotes, setGuideNotes] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -46,27 +29,12 @@ export default function SubmitPage() {
           ? { domain: domain.trim() }
           : { manifest: JSON.parse(manifest) };
 
-      // Include setup guide if filled out
-      if (showGuide && guidePortalUrl.trim()) {
-        const filledSteps = guideSteps.filter((s) => s.trim());
-        const filledFields = guideFields.filter((f) => f.name.trim());
-        body.setup_guide = {
-          portal_url: guidePortalUrl.trim(),
-          auth_type: guideAuthType,
-          ...(filledSteps.length > 0 ? { steps: filledSteps } : {}),
-          ...(filledFields.length > 0 ? { credential_fields: filledFields } : {}),
-          ...(guideTestPath.trim()
-            ? {
-                test_endpoint: {
-                  method: guideTestMethod,
-                  path: guideTestPath.trim(),
-                  expected_status: parseInt(guideTestStatus, 10),
-                },
-              }
-            : {}),
-          ...(guideNotes.trim() ? { notes: guideNotes.trim() } : {}),
-        };
-      }
+      // Send the contact / pricing / notes fields too. The API does not yet
+      // persist them but we want to reserve the shape so this form does not
+      // need a second redesign once the review backend lands.
+      if (contactEmail.trim()) body.contact_email = contactEmail.trim();
+      body.pricing_model = pricingModel;
+      if (notes.trim()) body.submission_notes = notes.trim();
 
       const res = await fetch("/api/services", {
         method: "POST",
@@ -98,9 +66,10 @@ export default function SubmitPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-20">
-      <h1 className="text-4xl font-bold">Submit Your Service</h1>
+      <h1 className="text-4xl font-bold">Submit your service</h1>
       <p className="mt-3 text-muted">
-        Register your API in the directory so any AI agent can discover it.
+        List your API in the AgentDNS catalog so any agent using the gateway
+        can discover it. We review submissions within 48h.
       </p>
 
       {/* Mode tabs */}
@@ -131,7 +100,7 @@ export default function SubmitPage() {
         {mode === "discover" ? (
           <div>
             <label className="block text-sm font-medium text-muted" htmlFor="domain">
-              Domain
+              Service domain <span className="text-red-400">*</span>
             </label>
             <div className="mt-2 flex items-center gap-2">
               <span className="text-sm text-muted">https://</span>
@@ -140,20 +109,24 @@ export default function SubmitPage() {
                 type="text"
                 value={domain}
                 onChange={(e) => setDomain(e.target.value)}
-                placeholder="api.yourservice.com"
+                placeholder="api.example.com"
                 required
                 className="flex-1 rounded-lg border border-white/10 bg-surface-light px-4 py-2.5 font-mono text-sm text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
               />
               <span className="text-sm text-muted">/.well-known/agent</span>
             </div>
             <p className="mt-2 text-xs text-muted">
-              We&apos;ll fetch the endpoint, validate the manifest, and register your service.
+              We&apos;ll fetch your manifest from{" "}
+              <code className="text-accent">
+                https://{domain || "{domain}"}/.well-known/agent
+              </code>
+              , validate it, and register your service.
             </p>
           </div>
         ) : (
           <div>
             <label className="block text-sm font-medium text-muted" htmlFor="manifest">
-              Manifest JSON
+              Manifest JSON <span className="text-red-400">*</span>
             </label>
             <textarea
               id="manifest"
@@ -172,232 +145,87 @@ export default function SubmitPage() {
               className="mt-2 w-full rounded-lg border border-white/10 bg-surface-light px-4 py-3 font-mono text-sm text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
             />
             <p className="mt-2 text-xs text-muted">
-              For services that don&apos;t expose the endpoint yet. Service will be registered as unverified.
+              Use this when your service does not yet expose{" "}
+              <code className="text-accent">/.well-known/agent</code>. The
+              service will be registered as unverified until the live endpoint
+              is reachable.
             </p>
           </div>
         )}
 
-        {/* Setup guide (optional, collapsible) */}
-        <div className="rounded-xl border border-white/5 bg-surface">
-          <button
-            type="button"
-            onClick={() => setShowGuide(!showGuide)}
-            className="flex w-full items-center justify-between p-4 text-left"
-          >
-            <div>
-              <span className="text-sm font-medium text-foreground">
-                Setup Guide
-              </span>
-              <span className="ml-2 rounded bg-white/5 px-2 py-0.5 text-xs text-muted">
-                Optional
-              </span>
-              <p className="mt-1 text-xs text-muted">
-                Help users connect to your service faster by providing credential setup instructions.
-              </p>
-            </div>
-            <span className="text-muted">{showGuide ? "\u25B2" : "\u25BC"}</span>
-          </button>
+        {/* Contact email */}
+        <div>
+          <label className="block text-sm font-medium text-muted" htmlFor="contact_email">
+            Contact email <span className="text-red-400">*</span>
+          </label>
+          <input
+            id="contact_email"
+            type="email"
+            value={contactEmail}
+            onChange={(e) => setContactEmail(e.target.value)}
+            placeholder="you@example.com"
+            required
+            className="mt-2 w-full rounded-lg border border-white/10 bg-surface-light px-4 py-2.5 text-sm text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          />
+          <p className="mt-2 text-xs text-muted">
+            Used for review feedback and the future provider partner program.
+            Not displayed publicly.
+          </p>
+        </div>
 
-          {showGuide && (
-            <div className="space-y-4 border-t border-white/5 p-4">
-              {/* Portal URL */}
-              <div>
-                <label className="block text-sm font-medium text-muted">
-                  Developer Portal URL
-                </label>
+        {/* Pricing model */}
+        <div>
+          <label className="block text-sm font-medium text-muted">
+            Pricing model
+          </label>
+          <p className="mt-1 text-xs text-muted">
+            Informational — helps us tag your listing. The actual billing
+            handling depends on your tier in our service review.
+          </p>
+          <div className="mt-3 space-y-2">
+            {([
+              ["free", "Free", "No charge to call your API."],
+              ["pay_per_use", "Pay-per-use", "Per-call or per-unit pricing."],
+              ["paid_tiered", "Paid tiered", "Monthly plans with quotas."],
+            ] as const).map(([value, label, hint]) => (
+              <label
+                key={value}
+                className={`flex cursor-pointer items-start gap-3 rounded-lg border px-4 py-3 transition-colors ${
+                  pricingModel === value
+                    ? "border-accent/40 bg-accent/5"
+                    : "border-white/10 bg-surface-light hover:border-white/20"
+                }`}
+              >
                 <input
-                  type="url"
-                  value={guidePortalUrl}
-                  onChange={(e) => setGuidePortalUrl(e.target.value)}
-                  placeholder="https://console.example.com/credentials"
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-surface-light px-3 py-2 font-mono text-sm text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none"
+                  type="radio"
+                  name="pricing_model"
+                  value={value}
+                  checked={pricingModel === value}
+                  onChange={() => setPricingModel(value)}
+                  className="mt-1"
                 />
-              </div>
-
-              {/* Auth type */}
-              <div>
-                <label className="block text-sm font-medium text-muted">
-                  Auth Type
-                </label>
-                <select
-                  value={guideAuthType}
-                  onChange={(e) =>
-                    setGuideAuthType(e.target.value as "oauth2" | "api_key" | "none")
-                  }
-                  className="mt-1 rounded-lg border border-white/10 bg-surface-light px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none"
-                >
-                  <option value="api_key">API Key</option>
-                  <option value="oauth2">OAuth2</option>
-                  <option value="none">None</option>
-                </select>
-              </div>
-
-              {/* Steps */}
-              <div>
-                <label className="block text-sm font-medium text-muted">
-                  Setup Steps
-                </label>
-                <div className="mt-1 space-y-2">
-                  {guideSteps.map((step, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <span className="w-6 text-right text-xs text-muted">
-                        {i + 1}.
-                      </span>
-                      <input
-                        type="text"
-                        value={step}
-                        onChange={(e) => {
-                          const next = [...guideSteps];
-                          next[i] = e.target.value;
-                          setGuideSteps(next);
-                        }}
-                        placeholder={`Step ${i + 1}`}
-                        className="flex-1 rounded-lg border border-white/10 bg-surface-light px-3 py-2 text-sm text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none"
-                      />
-                      {guideSteps.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setGuideSteps(guideSteps.filter((_, j) => j !== i))
-                          }
-                          className="text-xs text-muted hover:text-red-400"
-                        >
-                          Remove
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() => setGuideSteps([...guideSteps, ""])}
-                    className="text-xs text-accent hover:underline"
-                  >
-                    + Add step
-                  </button>
+                <div>
+                  <p className="text-sm font-medium text-foreground">{label}</p>
+                  <p className="text-xs text-muted">{hint}</p>
                 </div>
-              </div>
+              </label>
+            ))}
+          </div>
+        </div>
 
-              {/* Credential fields */}
-              <div>
-                <label className="block text-sm font-medium text-muted">
-                  Credential Fields
-                </label>
-                <div className="mt-1 space-y-2">
-                  {guideFields.map((field, i) => (
-                    <div key={i} className="flex flex-wrap items-center gap-2 rounded-lg border border-white/5 bg-surface-light p-2">
-                      <input
-                        type="text"
-                        value={field.name}
-                        onChange={(e) => {
-                          const next = [...guideFields];
-                          next[i] = { ...next[i], name: e.target.value };
-                          setGuideFields(next);
-                        }}
-                        placeholder="Field name (e.g. api_key)"
-                        className="flex-1 min-w-[120px] rounded border border-white/10 bg-surface px-2 py-1 font-mono text-xs text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none"
-                      />
-                      <input
-                        type="text"
-                        value={field.label}
-                        onChange={(e) => {
-                          const next = [...guideFields];
-                          next[i] = { ...next[i], label: e.target.value };
-                          setGuideFields(next);
-                        }}
-                        placeholder="Label (e.g. API Key)"
-                        className="flex-1 min-w-[120px] rounded border border-white/10 bg-surface px-2 py-1 text-xs text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none"
-                      />
-                      <label className="flex items-center gap-1 text-xs text-muted">
-                        <input
-                          type="checkbox"
-                          checked={field.secret}
-                          onChange={(e) => {
-                            const next = [...guideFields];
-                            next[i] = { ...next[i], secret: e.target.checked };
-                            setGuideFields(next);
-                          }}
-                          className="rounded"
-                        />
-                        Secret
-                      </label>
-                      {guideFields.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setGuideFields(guideFields.filter((_, j) => j !== i))
-                          }
-                          className="text-xs text-muted hover:text-red-400"
-                        >
-                          Remove
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setGuideFields([
-                        ...guideFields,
-                        { name: "", label: "", description: "", secret: false },
-                      ])
-                    }
-                    className="text-xs text-accent hover:underline"
-                  >
-                    + Add field
-                  </button>
-                </div>
-              </div>
-
-              {/* Test endpoint */}
-              <div>
-                <label className="block text-sm font-medium text-muted">
-                  Test Endpoint
-                </label>
-                <p className="text-xs text-muted">
-                  An endpoint to verify credentials work after setup.
-                </p>
-                <div className="mt-1 flex items-center gap-2">
-                  <select
-                    value={guideTestMethod}
-                    onChange={(e) => setGuideTestMethod(e.target.value)}
-                    className="rounded border border-white/10 bg-surface-light px-2 py-1.5 text-xs text-foreground focus:border-accent focus:outline-none"
-                  >
-                    <option>GET</option>
-                    <option>POST</option>
-                    <option>HEAD</option>
-                  </select>
-                  <input
-                    type="text"
-                    value={guideTestPath}
-                    onChange={(e) => setGuideTestPath(e.target.value)}
-                    placeholder="/v1/me"
-                    className="flex-1 rounded border border-white/10 bg-surface-light px-2 py-1.5 font-mono text-xs text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none"
-                  />
-                  <span className="text-xs text-muted">expects</span>
-                  <input
-                    type="text"
-                    value={guideTestStatus}
-                    onChange={(e) => setGuideTestStatus(e.target.value)}
-                    className="w-16 rounded border border-white/10 bg-surface-light px-2 py-1.5 font-mono text-xs text-foreground focus:border-accent focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              {/* Notes */}
-              <div>
-                <label className="block text-sm font-medium text-muted">
-                  Notes
-                </label>
-                <textarea
-                  value={guideNotes}
-                  onChange={(e) => setGuideNotes(e.target.value)}
-                  placeholder="Tips, gotchas, billing requirements..."
-                  rows={3}
-                  className="mt-1 w-full rounded-lg border border-white/10 bg-surface-light px-3 py-2 text-sm text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none"
-                />
-              </div>
-            </div>
-          )}
+        {/* Notes */}
+        <div>
+          <label className="block text-sm font-medium text-muted" htmlFor="notes">
+            Notes <span className="text-muted">(optional)</span>
+          </label>
+          <textarea
+            id="notes"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="Anything you want us to know during review — special access, pre-release status, billing details, etc."
+            rows={4}
+            className="mt-2 w-full rounded-lg border border-white/10 bg-surface-light px-4 py-3 text-sm text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          />
         </div>
 
         {/* Errors */}
@@ -418,7 +246,14 @@ export default function SubmitPage() {
         {success && (
           <div className="rounded-lg border border-accent/30 bg-accent/10 p-4">
             <p className="text-sm text-accent">
-              Service registered successfully! Redirecting to{" "}
+              Thanks. We&apos;ll review within 48h
+              {contactEmail.trim() ? (
+                <>
+                  {" "}and email you at{" "}
+                  <span className="font-mono">{contactEmail}</span>
+                </>
+              ) : null}
+              . Redirecting to{" "}
               <span className="font-mono">/directory/{success}</span>...
             </p>
           </div>
@@ -433,10 +268,17 @@ export default function SubmitPage() {
             ? mode === "discover"
               ? "Discovering..."
               : "Validating..."
-            : mode === "discover"
-              ? "Discover & register"
-              : "Validate & register"}
+            : "Submit for review"}
         </button>
+
+        <p className="text-center text-xs text-muted">
+          No payment setup required. AgentDNS handles billing for v1 services
+          centrally — see{" "}
+          <a href="/docs/providers" className="text-accent hover:underline">
+            provider docs
+          </a>
+          .
+        </p>
       </form>
     </div>
   );

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "For Service Providers — AgentDNS",
   description:
-    "Make your API agent-ready in 10 minutes. Add one JSON endpoint and your API becomes discoverable by every AI agent.",
+    "Be discoverable to thousands of AI agents through one gateway. Implement /.well-known/agent, submit, get listed.",
 };
 
 function CodeBlock({ children, title }: { children: string; title?: string }) {
@@ -32,27 +32,93 @@ export default function ProvidersPage() {
         &larr; Docs
       </Link>
 
-      <h1 className="mt-6 text-4xl font-bold">
-        Make your API agent-ready in 10 minutes
-      </h1>
+      <h1 className="mt-6 text-4xl font-bold">List your service on AgentDNS</h1>
       <p className="mt-4 text-lg text-muted">
-        Add a single JSON endpoint. Your API becomes discoverable by every AI
-        agent. No SDK to maintain, no MCP server to build, no partnership to
-        negotiate.
+        Be discoverable to every AI agent using the gateway. No MCP server to
+        build, no plugin to maintain. Implement one JSON endpoint, submit, and
+        you&apos;re in.
       </p>
 
-      {/* Step 1 */}
+      {/* What's in it for you */}
+      <section className="mt-12 rounded-xl border border-accent/20 bg-accent/5 p-6">
+        <h2 className="text-lg font-semibold">What&apos;s in it for you</h2>
+        <ul className="mt-4 space-y-2 text-sm text-muted">
+          <li className="flex items-start gap-2">
+            <span className="mt-0.5 text-accent">&#10003;</span>
+            <span>
+              Your API becomes discoverable inside any agent that uses the
+              AgentDNS gateway — Claude, Cursor, custom frameworks, etc.
+            </span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="mt-0.5 text-accent">&#10003;</span>
+            <span>
+              No MCP server to write or maintain. The gateway translates
+              between your manifest and any agent.
+            </span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="mt-0.5 text-accent">&#10003;</span>
+            <span>
+              Open protocol. No partnership, no exclusive contract — just a
+              public spec and a registry.
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      {/* How it works */}
       <section className="mt-16">
-        <div className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">
-            1
-          </span>
-          <h2 className="text-2xl font-bold">Create your manifest</h2>
-        </div>
+        <h2 className="text-2xl font-bold">How it works for providers</h2>
+        <ol className="mt-6 space-y-4 text-sm text-muted">
+          <li className="flex items-start gap-3">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
+              1
+            </span>
+            <span>
+              Implement{" "}
+              <code className="text-accent">/.well-known/agent</code> on your
+              service domain. It returns a JSON manifest describing your
+              capabilities. See the{" "}
+              <Link href="/docs/spec" className="text-accent hover:underline">
+                spec
+              </Link>{" "}
+              for the full schema.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
+              2
+            </span>
+            <span>
+              Submit your service at{" "}
+              <Link href="/submit" className="text-accent hover:underline">
+                /submit
+              </Link>
+              . The registry crawls your manifest and validates it.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
+              3
+            </span>
+            <span>
+              We review and list. Verification typically takes ~48h. You get
+              an email when it&apos;s done.
+            </span>
+          </li>
+        </ol>
+      </section>
+
+      {/* Manifest */}
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold">Manifest</h2>
         <p className="mt-4 text-muted">
-          A manifest is a JSON file that describes your API&apos;s capabilities
-          in both human-readable and machine-readable format. Here&apos;s the
-          minimal version:
+          A small JSON document describing your API. The gateway uses this to
+          tell agents what your service does and how to call it. Each
+          capability points to a <code className="text-accent">detail_url</code>{" "}
+          for a deeper drill-down (method, parameters, examples) — agents only
+          fetch this when needed.
         </p>
 
         <div className="mt-6">
@@ -61,9 +127,7 @@ export default function ProvidersPage() {
   "name": "My API",
   "description": "What my API does in one sentence.",
   "base_url": "https://api.example.com",
-  "auth": {
-    "type": "none"
-  },
+  "auth": { "type": "none" },
   "capabilities": [
     {
       "name": "get_data",
@@ -75,247 +139,88 @@ export default function ProvidersPage() {
         </div>
 
         <p className="mt-4 text-sm text-muted">
-          Each capability points to a <code className="text-accent">detail_url</code> —
-          a deeper JSON endpoint that describes exactly how to call it (method,
-          parameters, examples). Agents only fetch these when they need them
-          (lazy drill-down).
-        </p>
-
-        <div className="mt-6">
-          <CodeBlock title="Capability detail (at /api/capabilities/get_data)">{`{
-  "name": "get_data",
-  "description": "Fetch data by ID",
-  "endpoint": "/v1/data/{id}",
-  "method": "GET",
-  "parameters": [
-    {
-      "name": "id",
-      "type": "string",
-      "description": "The data ID to fetch",
-      "required": true,
-      "example": "abc-123"
-    }
-  ],
-  "request_example": {
-    "method": "GET",
-    "url": "https://api.example.com/v1/data/abc-123",
-    "headers": { "Accept": "application/json" }
-  },
-  "response_example": {
-    "status": 200,
-    "body": { "id": "abc-123", "value": "Hello" }
-  }
-}`}</CodeBlock>
-        </div>
-
-        <div className="mt-6 p-4 rounded-lg border border-accent/20 bg-accent/5">
-          <p className="text-sm text-muted">
-            <strong className="text-foreground">Submitting capability details:</strong>{" "}
-            When submitting your service to the registry, you can include full
-            capability details (endpoint, method, parameters, examples) alongside
-            your manifest using the <code className="text-accent">capability_details</code> field.
-            This is especially useful for services that don&apos;t implement their own
-            capability detail endpoints — the registry will store and serve them
-            as a fallback for agents.
-          </p>
-        </div>
-      </section>
-
-      {/* Step 2 */}
-      <section className="mt-16">
-        <div className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">
-            2
-          </span>
-          <h2 className="text-2xl font-bold">
-            Serve it with an SDK
-          </h2>
-        </div>
-        <p className="mt-4 text-muted">
-          Install the SDK for your framework. It auto-generates{" "}
-          <code className="text-accent">/.well-known/agent</code> and all
-          capability detail endpoints with proper CORS and caching headers.
-        </p>
-
-        <div className="mt-6">
-          <CodeBlock title="Express.js — npm install agent-well-known-express">{`const { agentManifest } = require('agent-well-known-express');
-
-app.use(agentManifest({
-  name: "My API",
-  description: "What my API does.",
-  base_url: "https://api.example.com",
-  auth: { type: "api_key", header: "Authorization", prefix: "Bearer" },
-  capabilities: [
-    {
-      name: "get_data",
-      description: "Fetch data by ID",
-      handler: { endpoint: "/v1/data", method: "GET" },
-      parameters: [
-        { name: "id", type: "string", required: true,
-          description: "The data ID", example: "abc-123" }
-      ]
-    }
-  ]
-}));
-// Auto-generates: GET /.well-known/agent
-//                 GET /.well-known/agent/capabilities/:name`}</CodeBlock>
-        </div>
-
-        <div className="mt-4">
-          <CodeBlock title="FastAPI — pip install agent-well-known-fastapi">{`from agent_well_known import AgentManifest, Capability
-
-manifest = AgentManifest(
-    name="My API",
-    description="What my API does.",
-    base_url="https://api.example.com",
-    auth={"type": "api_key", "header": "Authorization", "prefix": "Bearer"},
-    capabilities=[
-        Capability(
-            name="get_data",
-            description="Fetch data by ID",
-            endpoint="/v1/data", method="GET",
-            parameters=[{"name": "id", "type": "string",
-                         "required": True, "description": "The data ID",
-                         "example": "abc-123"}]
-        )
-    ]
-)
-manifest.mount(app)  # Registers both routes automatically`}</CodeBlock>
-        </div>
-
-        <div className="mt-4">
-          <CodeBlock title="Next.js — npm install agent-well-known-next">{`// app/.well-known/agent/route.ts
-import { createAgentManifest } from 'agent-well-known-next';
-
-export const GET = createAgentManifest({
-  name: "My API",
-  description: "What my API does.",
-  base_url: "https://api.example.com",
-  auth: { type: "api_key", header: "Authorization", prefix: "Bearer" },
-  capabilities: [
-    { name: "get_data", description: "Fetch data by ID",
-      endpoint: "/v1/data", method: "GET",
-      parameters: [{ name: "id", type: "string", required: true,
-                     description: "The data ID", example: "abc-123" }] }
-  ]
-});`}</CodeBlock>
-        </div>
-
-        <div className="mt-4">
-          <CodeBlock title="Spring Boot — agent-well-known-spring-boot">{`@AgentManifest(
-    name = "My API",
-    description = "What my API does.",
-    baseUrl = "https://api.example.com",
-    auth = @AgentAuth(type = "api_key", header = "Authorization", prefix = "Bearer")
-)
-@SpringBootApplication
-public class MyApp { }
-
-// On your controller method:
-@AgentCapability(
-    name = "get_data", description = "Fetch data by ID",
-    endpoint = "/v1/data", method = "GET",
-    parameters = { @AgentParameter(name = "id", type = "string",
-                    required = true, description = "The data ID",
-                    example = "abc-123") }
-)
-@GetMapping("/v1/data")
-public Data getData(@RequestParam String id) { ... }`}</CodeBlock>
-        </div>
-
-        <p className="mt-4 text-sm text-muted">
-          All SDKs handle CORS headers, caching ({" "}
-          <code className="text-accent">Cache-Control: public, max-age=3600</code>
-          ), input validation, and auto-generated request examples. You can also{" "}
+          We provide SDKs for Express, FastAPI, Next.js, and Spring Boot that
+          generate the endpoints automatically. See the{" "}
           <a
-            href="https://github.com/user/agent-discovery-protocol/tree/main/spec"
-            className="text-accent hover:underline"
+            href="https://github.com/Yann-Favin-Leveque/agent-discovery-protocol/tree/main/spec"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-accent hover:underline"
           >
-            serve the manifest manually
+            GitHub repo
           </a>{" "}
-          without an SDK.
-        </p>
-      </section>
-
-      {/* Step 3 */}
-      <section className="mt-16">
-        <div className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">
-            3
-          </span>
-          <h2 className="text-2xl font-bold">Submit to the registry</h2>
-        </div>
-        <p className="mt-4 text-muted">
-          Once your endpoint is live, submit your domain. The registry will
-          crawl your manifest, validate it, and make your API discoverable.
-        </p>
-
-        <div className="mt-6 flex gap-4">
-          <Link
-            href="/submit"
-            className="rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
-          >
-            Submit your service
+          or the{" "}
+          <Link href="/docs/spec" className="text-accent hover:underline">
+            full spec
           </Link>
-          <Link
-            href="/playground"
-            className="rounded-lg border border-white/10 px-5 py-2.5 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
-          >
-            Test in playground first
-          </Link>
+          .
+        </p>
+      </section>
+
+      {/* Pricing & billing */}
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold">Pricing &amp; billing</h2>
+        <p className="mt-4 text-muted">
+          AgentDNS is a single-tenant aggregator: users pay AgentDNS, AgentDNS
+          pays providers. There&apos;s no marketplace billing setup for you to
+          go through.
+        </p>
+
+        <div className="mt-6 space-y-4">
+          <div className="rounded-xl border border-white/5 bg-surface-light p-5">
+            <h3 className="font-semibold">Free services</h3>
+            <p className="mt-2 text-sm text-muted">
+              Nothing special to do. Users authenticate to your service via
+              their own OAuth or your standard auth, through the gateway. We
+              never sit in the billing path.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/5 bg-surface-light p-5">
+            <h3 className="font-semibold">Paid services (v1)</h3>
+            <p className="mt-2 text-sm text-muted">
+              In v1, AgentDNS itself is your customer. We open an account on
+              your service, hold our own credentials, pay you per our standard
+              billing terms, and re-bill our users on top. From your side it
+              looks like a single high-volume customer — no per-end-user
+              accounts to manage, no Stripe Connect, no marketplace plumbing.
+            </p>
+            <p className="mt-3 text-sm text-muted">
+              We&apos;re working on a partner program for direct billing in a
+              future version. It is not available yet.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/5 bg-surface-light p-5">
+            <h3 className="font-semibold">No more Stripe Connect</h3>
+            <p className="mt-2 text-sm text-muted">
+              The previous marketplace flow (per-provider Stripe Connect onboarding,
+              per-user subscriptions) was removed. If you were halfway through that
+              setup, you can stop — nothing on your end is required for the v1
+              billing model.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Why */}
-      <section className="mt-16 rounded-xl border border-accent/20 bg-accent/5 p-8">
-        <h2 className="text-2xl font-bold">Why do this?</h2>
+      {/* Spec */}
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold">Spec compliance</h2>
         <p className="mt-4 text-muted">
-          Your API becomes discoverable by every AI agent in the world.
+          The full Agent Discovery Protocol specification:{" "}
+          <Link href="/docs/spec" className="text-accent hover:underline">
+            /docs/spec
+          </Link>
+          . It covers the manifest format, the auth object, capability detail
+          format, and all required fields.
         </p>
-        <ul className="mt-4 space-y-3 text-sm text-muted">
-          <li className="flex items-start gap-2">
-            <span className="mt-0.5 text-accent">&#10003;</span>
-            <span>
-              <strong className="text-foreground">No SDK to maintain.</strong>{" "}
-              Agents learn your API from the manifest at runtime.
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="mt-0.5 text-accent">&#10003;</span>
-            <span>
-              <strong className="text-foreground">No MCP server to build.</strong>{" "}
-              The gateway handles all agent-to-API communication.
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="mt-0.5 text-accent">&#10003;</span>
-            <span>
-              <strong className="text-foreground">
-                No partnership to negotiate.
-              </strong>{" "}
-              Just add the endpoint and submit. Open protocol.
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="mt-0.5 text-accent">&#10003;</span>
-            <span>
-              <strong className="text-foreground">
-                Your existing API stays the same.
-              </strong>{" "}
-              The manifest describes your API — it doesn&apos;t change it.
-            </span>
-          </li>
-        </ul>
       </section>
 
-      {/* Trust & Verification */}
+      {/* Trust levels */}
       <section className="mt-16">
-        <h2 className="text-2xl font-bold">Trust &amp; Verification</h2>
+        <h2 className="text-2xl font-bold">Trust levels</h2>
         <p className="mt-4 text-muted">
-          The registry uses a three-tier trust system to help agents make
-          informed decisions about which services to use.
+          Each registered service has one of three trust levels. Higher trust
+          means better placement in agent search results and active health
+          monitoring.
         </p>
 
         <div className="mt-6 space-y-4">
@@ -328,28 +233,23 @@ public Data getData(@RequestParam String id) { ... }`}</CodeBlock>
             </div>
             <p className="mt-2 text-sm text-muted">
               Your service hosts its own{" "}
-              <code className="text-accent">/.well-known/agent</code> manifest.
-              The registry crawls it periodically and confirms it&apos;s live.
-              This is the <strong className="text-foreground">recommended path</strong> — agents
-              prioritize verified services in search results.
+              <code className="text-accent">/.well-known/agent</code>. The
+              registry crawls it on a schedule and confirms it&apos;s live.
             </p>
           </div>
-
           <div className="rounded-xl border border-blue-500/20 bg-surface-light p-5">
             <div className="flex items-center gap-3">
               <span className="rounded-full bg-blue-500/10 px-3 py-1 text-sm text-blue-400">
                 Community
               </span>
-              <span className="text-sm text-muted">Maintained by the registry</span>
+              <span className="text-sm text-muted">Maintained by AgentDNS</span>
             </div>
             <p className="mt-2 text-sm text-muted">
-              Services submitted manually and maintained by the AgentDNS team.
-              These are trusted but the service provider doesn&apos;t host the
-              manifest themselves. Good for services that don&apos;t want to
-              change their infrastructure.
+              Manifest hand-written by the AgentDNS team based on your public
+              docs. No infrastructure change on your side. If you want to
+              upgrade to verified, just host the manifest yourself.
             </p>
           </div>
-
           <div className="rounded-xl border border-yellow-500/20 bg-surface-light p-5">
             <div className="flex items-center gap-3">
               <span className="rounded-full bg-yellow-500/10 px-3 py-1 text-sm text-yellow-400">
@@ -358,175 +258,33 @@ public Data getData(@RequestParam String id) { ... }`}</CodeBlock>
               <span className="text-sm text-muted">Not yet reviewed</span>
             </div>
             <p className="mt-2 text-sm text-muted">
-              Newly submitted services that haven&apos;t been verified yet.
-              Hidden from search results by default. Agents must explicitly
-              opt in to see unverified services.
+              Newly submitted, awaiting review. Hidden from search by default.
             </p>
           </div>
         </div>
 
-        <p className="mt-6 text-sm text-muted">
-          To get verified status: host your manifest at{" "}
-          <code className="text-accent">/.well-known/agent</code> and{" "}
-          <Link href="/submit" className="text-accent hover:underline">
-            submit your domain
+        <p className="mt-4 text-sm text-muted">
+          More detail in{" "}
+          <Link href="/docs/trust-levels" className="text-accent hover:underline">
+            /docs/trust-levels
           </Link>
-          . The registry will crawl your endpoint and verify it automatically.
+          .
         </p>
       </section>
 
-      {/* Monetize */}
-      <section className="mt-16">
-        <div className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-bold text-accent">
-            $
-          </span>
-          <h2 className="text-2xl font-bold">Monetize your API</h2>
-        </div>
-        <p className="mt-4 text-muted">
-          Earn revenue from agents that use your API. Connect your Stripe account
-          and add pricing to your manifest — the registry handles billing, invoicing,
-          and payouts automatically.
+      {/* CTA */}
+      <section className="mt-16 rounded-xl border border-accent/20 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 p-8 text-center">
+        <h2 className="text-2xl font-bold">Get listed</h2>
+        <p className="mx-auto mt-3 max-w-lg text-sm text-muted">
+          Implement <code className="text-accent">/.well-known/agent</code>,
+          submit your domain, and we&apos;ll review within 48h.
         </p>
-
-        <div className="mt-6 space-y-6">
-          <div>
-            <h3 className="font-semibold">1. Connect Stripe</h3>
-            <p className="mt-2 text-sm text-muted">
-              Link your existing Stripe account (or create a new one) to receive
-              payments. You manage your payouts, refunds, and tax reporting in your
-              own Stripe dashboard.
-            </p>
-            <Link
-              href="/providers/connect"
-              className="mt-3 inline-block rounded-lg bg-[#635BFF] px-5 py-2.5 font-medium text-white transition-colors hover:bg-[#7A73FF]"
-            >
-              Connect with Stripe
-            </Link>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">2. Add pricing to your manifest</h3>
-            <p className="mt-2 text-sm text-muted">
-              Declare your plans in the <code className="text-accent">pricing</code>{" "}
-              field. Agents see this info and guide users through subscriptions.
-            </p>
-            <div className="mt-3">
-              <CodeBlock title="Pricing in manifest">{`"pricing": {
-  "type": "paid",
-  "plans": [
-    { "name": "Starter", "price": "$29/mo", "limits": "1,000 requests/day" },
-    { "name": "Pro", "price": "$99/mo", "limits": "Unlimited requests" }
-  ],
-  "plans_url": "https://example.com/pricing"
-}`}</CodeBlock>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">3. Get paid</h3>
-            <p className="mt-2 text-sm text-muted">
-              When an agent subscribes to your API through the gateway, the user is
-              charged via their saved payment method. You receive payouts directly to
-              your bank account through Stripe.
-            </p>
-          </div>
-
-          <div className="rounded-xl border border-white/5 bg-surface p-5">
-            <h4 className="text-sm font-semibold">Platform fee</h4>
-            <p className="mt-2 text-sm text-muted">
-              AgentDNS charges a <strong className="text-foreground">10% platform fee</strong> on
-              all subscriptions. This covers:
-            </p>
-            <ul className="mt-2 space-y-1 text-sm text-muted">
-              <li className="flex items-start gap-2">
-                <span className="mt-0.5 text-accent">&#8226;</span>
-                <span>Discovery — your API is searchable by every AI agent</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-0.5 text-accent">&#8226;</span>
-                <span>Auth brokering — OAuth and API key management for users</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-0.5 text-accent">&#8226;</span>
-                <span>Payment processing — billing, invoicing, and payouts</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-0.5 text-accent">&#8226;</span>
-                <span>Support — platform maintenance and reliability</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="mt-16">
-        <h2 className="text-2xl font-bold">FAQ</h2>
-
-        <div className="mt-8 space-y-8">
-          <div>
-            <h3 className="font-semibold">
-              Do I need to change my existing API?
-            </h3>
-            <p className="mt-2 text-sm text-muted">
-              No. The manifest is a <em>description</em> of your API, not a
-              modification. Your existing endpoints, auth, and behavior stay
-              exactly the same. You just add one new endpoint that describes
-              them.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">What about authentication?</h3>
-            <p className="mt-2 text-sm text-muted">
-              Just declare it in the <code className="text-accent">auth</code>{" "}
-              field of your manifest. Supported types:{" "}
-              <code className="text-accent">none</code>,{" "}
-              <code className="text-accent">api_key</code>, and{" "}
-              <code className="text-accent">oauth2</code>. For API keys, you can
-              specify the header name and prefix. For OAuth2, provide the
-              authorization and token URLs.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">What about pricing?</h3>
-            <p className="mt-2 text-sm text-muted">
-              The <code className="text-accent">pricing</code> field is optional.
-              You can set it to <code className="text-accent">free</code>,{" "}
-              <code className="text-accent">freemium</code>, or{" "}
-              <code className="text-accent">paid</code> and list your plans.
-              Agents see this information and can guide users through
-              subscriptions.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">
-              How do agents find my specific capability?
-            </h3>
-            <p className="mt-2 text-sm text-muted">
-              Agents search the registry by intent (e.g., &quot;send
-              email&quot;). The registry matches against your service name,
-              description, and capability names/descriptions. Agents then drill
-              down into the specific capability they need — they never load
-              everything upfront.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold">
-              What if I have dozens of capabilities?
-            </h3>
-            <p className="mt-2 text-sm text-muted">
-              List them all in the manifest. Each one has a short description and
-              a <code className="text-accent">detail_url</code>. Because agents
-              use lazy drill-down, they only fetch the details for the
-              capabilities they actually need. Your manifest stays lean.
-            </p>
-          </div>
-        </div>
+        <Link
+          href="/submit"
+          className="mt-6 inline-block rounded-lg bg-accent px-6 py-3 font-medium text-black transition-colors hover:bg-accent-light"
+        >
+          Submit your service
+        </Link>
       </section>
     </div>
   );
