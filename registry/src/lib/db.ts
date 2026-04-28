@@ -144,48 +144,6 @@ async function initSchema(p: Pool) {
     `);
 
     await client.query(`
-      CREATE TABLE IF NOT EXISTS provider_accounts (
-        id SERIAL PRIMARY KEY,
-        service_domain TEXT NOT NULL UNIQUE,
-        stripe_connect_account_id TEXT NOT NULL,
-        onboarding_complete INTEGER NOT NULL DEFAULT 0,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `);
-
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS subscriptions (
-        id SERIAL PRIMARY KEY,
-        user_id INTEGER NOT NULL REFERENCES users(id),
-        service_domain TEXT NOT NULL,
-        stripe_subscription_id TEXT,
-        plan_name TEXT NOT NULL,
-        price_cents INTEGER NOT NULL DEFAULT 0,
-        currency TEXT NOT NULL DEFAULT 'usd',
-        interval TEXT NOT NULL DEFAULT 'month',
-        status TEXT NOT NULL DEFAULT 'active',
-        current_period_start TIMESTAMPTZ,
-        current_period_end TIMESTAMPTZ,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `);
-
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS transactions (
-        id SERIAL PRIMARY KEY,
-        user_id INTEGER NOT NULL REFERENCES users(id),
-        service_domain TEXT NOT NULL,
-        stripe_payment_intent_id TEXT,
-        amount_cents INTEGER NOT NULL DEFAULT 0,
-        currency TEXT NOT NULL DEFAULT 'usd',
-        platform_fee_cents INTEGER NOT NULL DEFAULT 0,
-        status TEXT NOT NULL DEFAULT 'pending',
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `);
-
-    await client.query(`
       CREATE TABLE IF NOT EXISTS oauth_clients (
         id SERIAL PRIMARY KEY,
         service_domain TEXT NOT NULL UNIQUE,
@@ -219,12 +177,6 @@ async function initSchema(p: Pool) {
       "CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)",
       "CREATE INDEX IF NOT EXISTS idx_users_provider ON users(provider, provider_id)",
       "CREATE INDEX IF NOT EXISTS idx_users_stripe ON users(stripe_customer_id)",
-      "CREATE INDEX IF NOT EXISTS idx_provider_accounts_domain ON provider_accounts(service_domain)",
-      "CREATE INDEX IF NOT EXISTS idx_subscriptions_user ON subscriptions(user_id)",
-      "CREATE INDEX IF NOT EXISTS idx_subscriptions_domain ON subscriptions(service_domain)",
-      "CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe ON subscriptions(stripe_subscription_id)",
-      "CREATE INDEX IF NOT EXISTS idx_transactions_user ON transactions(user_id)",
-      "CREATE INDEX IF NOT EXISTS idx_transactions_domain ON transactions(service_domain)",
       "CREATE INDEX IF NOT EXISTS idx_oauth_clients_domain ON oauth_clients(service_domain)",
     ];
     for (const idx of indexes) {
@@ -392,44 +344,6 @@ export interface UserRow {
   payment_method_added: number;
   created_at: string;
   updated_at: string;
-}
-
-export interface ProviderAccountRow {
-  id: number;
-  service_domain: string;
-  stripe_connect_account_id: string;
-  onboarding_complete: number;
-  created_at: string;
-}
-
-export type SubscriptionStatus = "active" | "canceled" | "past_due";
-
-export interface SubscriptionRow {
-  id: number;
-  user_id: number;
-  service_domain: string;
-  stripe_subscription_id: string | null;
-  plan_name: string;
-  price_cents: number;
-  currency: string;
-  interval: string;
-  status: SubscriptionStatus;
-  current_period_start: string | null;
-  current_period_end: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface TransactionRow {
-  id: number;
-  user_id: number;
-  service_domain: string;
-  stripe_payment_intent_id: string | null;
-  amount_cents: number;
-  currency: string;
-  platform_fee_cents: number;
-  status: string;
-  created_at: string;
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────
@@ -1067,12 +981,6 @@ export async function getUserByEmail(email: string): Promise<UserRow | undefined
   return result.rows.length > 0 ? rowTo<UserRow>(result.rows[0]) : undefined;
 }
 
-export async function getUserByStripeCustomerId(customerId: string): Promise<UserRow | undefined> {
-  const db = await ensureInitialized();
-  const result = await db.query("SELECT * FROM users WHERE stripe_customer_id = $1", [customerId]);
-  return result.rows.length > 0 ? rowTo<UserRow>(result.rows[0]) : undefined;
-}
-
 export async function getUserByProvider(
   provider: string,
   providerId: string
@@ -1128,185 +1036,6 @@ export async function updateUserPaymentMethod(
     "UPDATE users SET payment_method_added = $1, updated_at = NOW() WHERE id = $2",
     [added ? 1 : 0, userId]
   );
-}
-
-// ─── Provider accounts ───────────────────────────────────────
-
-export async function getProviderAccount(
-  domain: string
-): Promise<ProviderAccountRow | undefined> {
-  const db = await ensureInitialized();
-  const result = await db.query(
-    "SELECT * FROM provider_accounts WHERE service_domain = $1",
-    [domain]
-  );
-  return result.rows.length > 0 ? rowTo<ProviderAccountRow>(result.rows[0]) : undefined;
-}
-
-export async function getProviderAccountByStripeId(
-  stripeAccountId: string
-): Promise<ProviderAccountRow | undefined> {
-  const db = await ensureInitialized();
-  const result = await db.query(
-    "SELECT * FROM provider_accounts WHERE stripe_connect_account_id = $1",
-    [stripeAccountId]
-  );
-  return result.rows.length > 0 ? rowTo<ProviderAccountRow>(result.rows[0]) : undefined;
-}
-
-export async function upsertProviderAccount(data: {
-  service_domain: string;
-  stripe_connect_account_id: string;
-}): Promise<ProviderAccountRow> {
-  const db = await ensureInitialized();
-  await db.query(
-    `INSERT INTO provider_accounts (service_domain, stripe_connect_account_id)
-     VALUES ($1, $2)
-     ON CONFLICT(service_domain) DO UPDATE SET stripe_connect_account_id = $2`,
-    [data.service_domain, data.stripe_connect_account_id]
-  );
-  return (await getProviderAccount(data.service_domain))!;
-}
-
-export async function updateProviderOnboarding(
-  domain: string,
-  complete: boolean
-): Promise<void> {
-  const db = await ensureInitialized();
-  await db.query(
-    "UPDATE provider_accounts SET onboarding_complete = $1 WHERE service_domain = $2",
-    [complete ? 1 : 0, domain]
-  );
-}
-
-// ─── Subscriptions ────────────────────────────────────────────
-
-export async function getSubscriptionById(
-  id: number
-): Promise<SubscriptionRow | undefined> {
-  const db = await ensureInitialized();
-  const result = await db.query("SELECT * FROM subscriptions WHERE id = $1", [id]);
-  return result.rows.length > 0 ? rowTo<SubscriptionRow>(result.rows[0]) : undefined;
-}
-
-export async function getSubscriptionByStripeId(
-  stripeSubId: string
-): Promise<SubscriptionRow | undefined> {
-  const db = await ensureInitialized();
-  const result = await db.query(
-    "SELECT * FROM subscriptions WHERE stripe_subscription_id = $1",
-    [stripeSubId]
-  );
-  return result.rows.length > 0 ? rowTo<SubscriptionRow>(result.rows[0]) : undefined;
-}
-
-export async function getUserSubscriptions(
-  userId: number
-): Promise<SubscriptionRow[]> {
-  const db = await ensureInitialized();
-  const result = await db.query(
-    "SELECT * FROM subscriptions WHERE user_id = $1 ORDER BY created_at DESC",
-    [userId]
-  );
-  return rowsTo<SubscriptionRow>(result.rows);
-}
-
-export async function getSubscriptionsByDomain(
-  domain: string
-): Promise<SubscriptionRow[]> {
-  const db = await ensureInitialized();
-  const result = await db.query(
-    "SELECT * FROM subscriptions WHERE service_domain = $1 AND status = 'active' ORDER BY created_at DESC",
-    [domain]
-  );
-  return rowsTo<SubscriptionRow>(result.rows);
-}
-
-export async function insertSubscription(data: {
-  user_id: number;
-  service_domain: string;
-  stripe_subscription_id: string;
-  plan_name: string;
-  price_cents: number;
-  currency: string;
-  interval: string;
-  status: SubscriptionStatus;
-  current_period_start?: string;
-  current_period_end?: string;
-}): Promise<SubscriptionRow> {
-  const db = await ensureInitialized();
-  const result = await db.query(
-    `INSERT INTO subscriptions (user_id, service_domain, stripe_subscription_id, plan_name, price_cents, currency, interval, status, current_period_start, current_period_end)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-     RETURNING id`,
-    [
-      data.user_id, data.service_domain, data.stripe_subscription_id,
-      data.plan_name, data.price_cents, data.currency, data.interval,
-      data.status, data.current_period_start ?? null, data.current_period_end ?? null,
-    ]
-  );
-  const id = Number(result.rows[0].id);
-  return (await getSubscriptionById(id))!;
-}
-
-export async function updateSubscriptionStatus(
-  stripeSubId: string,
-  status: SubscriptionStatus
-): Promise<void> {
-  const db = await ensureInitialized();
-  await db.query(
-    "UPDATE subscriptions SET status = $1, updated_at = NOW() WHERE stripe_subscription_id = $2",
-    [status, stripeSubId]
-  );
-}
-
-export async function updateSubscriptionPeriod(
-  stripeSubId: string,
-  periodStart: string,
-  periodEnd: string
-): Promise<void> {
-  const db = await ensureInitialized();
-  await db.query(
-    `UPDATE subscriptions SET current_period_start = $1, current_period_end = $2, updated_at = NOW()
-     WHERE stripe_subscription_id = $3`,
-    [periodStart, periodEnd, stripeSubId]
-  );
-}
-
-// ─── Transactions ─────────────────────────────────────────────
-
-export async function insertTransaction(data: {
-  user_id: number;
-  service_domain: string;
-  stripe_payment_intent_id: string;
-  amount_cents: number;
-  currency: string;
-  platform_fee_cents: number;
-  status: string;
-}): Promise<TransactionRow> {
-  const db = await ensureInitialized();
-  const result = await db.query(
-    `INSERT INTO transactions (user_id, service_domain, stripe_payment_intent_id, amount_cents, currency, platform_fee_cents, status)
-     VALUES ($1, $2, $3, $4, $5, $6, $7)
-     RETURNING *`,
-    [
-      data.user_id, data.service_domain, data.stripe_payment_intent_id,
-      data.amount_cents, data.currency, data.platform_fee_cents, data.status,
-    ]
-  );
-  return rowTo<TransactionRow>(result.rows[0]);
-}
-
-export async function getUserTransactions(
-  userId: number,
-  limit: number = 50
-): Promise<TransactionRow[]> {
-  const db = await ensureInitialized();
-  const result = await db.query(
-    "SELECT * FROM transactions WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2",
-    [userId, limit]
-  );
-  return rowsTo<TransactionRow>(result.rows);
 }
 
 // ─── Health checks ────────────────────────────────────────────
