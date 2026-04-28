@@ -19,8 +19,94 @@ export default function SecurityPage() {
 
       <h1 className="mt-6 text-4xl font-bold">Security</h1>
       <p className="mt-4 text-lg text-muted">
-        How we keep the registry safe for agents and service providers.
+        How AgentDNS holds credentials, what stays on your machine, and how we
+        prevent abuse on top of every paid service we resell.
       </p>
+
+      {/* Single-tenant model */}
+      <section className="mt-12">
+        <h2 className="text-2xl font-bold">Single-tenant model</h2>
+        <p className="mt-4 text-muted">
+          For services billable through AgentDNS in v1, we hold the API
+          credentials with the provider — AgentDNS is the customer of record.
+          We re-bill end users for what they consume, and we identify them
+          back to providers via supported user-tagging fields whenever
+          available (e.g. OpenAI{" "}
+          <code className="text-accent">user</code>, Anthropic{" "}
+          <code className="text-accent">metadata.user_id</code>).
+        </p>
+        <p className="mt-3 text-sm text-muted">
+          For catalog-only services (anything outside the v1 list), users
+          provide their own API key (BYO). AgentDNS never sees any provider
+          billing — it only proxies the call.
+        </p>
+      </section>
+
+      {/* Credential storage */}
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold">Credential storage</h2>
+        <ul className="mt-4 space-y-3 text-sm text-muted">
+          <li className="flex items-start gap-2">
+            <span className="mt-0.5 text-accent">&#8226;</span>
+            <span>
+              <strong className="text-foreground">User OAuth tokens</strong>{" "}
+              and <strong className="text-foreground">BYO API keys</strong> are
+              stored locally on the user&apos;s machine, in{" "}
+              <code className="text-accent">~/.agent-gateway/</code>. They are
+              never synced to any AgentDNS server. Cloud sync was removed in
+              v0.7.x.
+            </span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="mt-0.5 text-accent">&#8226;</span>
+            <span>
+              <strong className="text-foreground">Server-side BYO blobs</strong>{" "}
+              (when a user opts to push their key to the registry for
+              cross-machine use) are encrypted at rest in the
+              <code className="text-accent">{" user_service_enablement.byo_credential_blob "}</code>{" "}
+              column.
+            </span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="mt-0.5 text-accent">&#8226;</span>
+            <span>
+              <strong className="text-foreground">Provider credentials we own</strong>{" "}
+              (for v1 paid services) live in the registry&apos;s{" "}
+              <code className="text-accent">service_credentials</code> table,
+              encrypted at rest, rotated periodically.
+            </span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="mt-0.5 text-accent">&#8226;</span>
+            <span>
+              <strong className="text-foreground">Card details</strong> are
+              stored only by Stripe. AgentDNS holds a{" "}
+              <code className="text-accent">stripe_customer_id</code> and
+              never sees PAN data.
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      {/* Acceptable Use */}
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold">Acceptable Use Policy</h2>
+        <p className="mt-4 text-muted">
+          Because we resell paid services on behalf of users, abuse of those
+          services lands on our account. Our{" "}
+          <Link href="/aup" className="text-accent hover:underline">
+            Acceptable Use Policy
+          </Link>{" "}
+          covers spam, generated-content abuse, scraping, and fraud — and
+          gives us the right to suspend any user causing provider-side
+          incidents.
+        </p>
+        <p className="mt-3 text-sm text-muted">
+          We pass per-user identifiers to providers wherever supported, so
+          abuse can be tracked individually and we can co-operate with
+          provider abuse desks at user granularity rather than account-wide.
+        </p>
+      </section>
 
       {/* Trust Levels */}
       <section className="mt-16">
@@ -77,10 +163,13 @@ export default function SecurityPage() {
 
       {/* Rate Limits */}
       <section className="mt-16">
-        <h2 className="text-2xl font-bold">Rate Limits</h2>
+        <h2 className="text-2xl font-bold">Rate limits</h2>
         <p className="mt-4 text-muted">
-          All API endpoints are rate limited to prevent abuse. Limits are
-          per-IP.
+          Public registry endpoints are rate-limited per-IP. The gateway
+          additionally enforces per-user sliding-window limits on every
+          provider call so a single user cannot exhaust shared provider
+          quotas. Defaults are conservative (e.g. provider-limit / 100) and
+          are tightened service-by-service if abuse is detected.
         </p>
 
         <div className="mt-6 rounded-xl border border-white/5 bg-surface-light p-5">

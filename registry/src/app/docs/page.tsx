@@ -9,45 +9,45 @@ export const metadata: Metadata = {
 
 const sections = [
   {
-    title: "For Service Providers",
-    href: "/docs/providers",
-    description:
-      "Make your API agent-ready in 10 minutes. Add one endpoint, become discoverable by every AI agent.",
-    tag: "Guide",
-  },
-  {
     title: "For Agent Developers",
     href: "/docs/agents",
     description:
-      "Give your agent access to every API. Use the Gateway MCP, query the registry, or fetch manifests directly.",
+      "Install the gateway, sign in, add a card. Get your agent talking to 25+ services without managing API keys.",
+    tag: "Guide",
+  },
+  {
+    title: "For Service Providers",
+    href: "/docs/providers",
+    description:
+      "List your API on AgentDNS. Implement /.well-known/agent, submit, get reviewed within 48h.",
     tag: "Guide",
   },
   {
     title: "Spec Reference",
     href: "/docs/spec",
     description:
-      "The full Agent Discovery Protocol specification. Manifest format, capability details, endpoint rules.",
+      "The Agent Discovery Protocol specification — manifest format, capability details, endpoint rules.",
     tag: "Reference",
   },
   {
-    title: "API Reference",
+    title: "Registry API",
     href: "/docs/api",
     description:
-      "Registry REST API. Discover services, submit, verify, validate — with request/response examples.",
+      "REST endpoints for discovery, submission, validation, and authenticated user enablement / billing.",
     tag: "Reference",
   },
   {
     title: "Trust Levels",
     href: "/docs/trust-levels",
     description:
-      "Understand the three trust levels: Verified, Community, and Unverified. How verification works and how to upgrade.",
+      "Verified, community, and unverified — how the registry rates services and how providers move up.",
     tag: "Guide",
   },
   {
     title: "Security",
     href: "/docs/security",
     description:
-      "Rate limits, domain protection, input validation, and how to report abusive services.",
+      "How AgentDNS holds credentials, what stays local, rate limits, abuse prevention, and reporting.",
     tag: "Security",
   },
 ];
@@ -57,9 +57,8 @@ export default function DocsPage() {
     <div className="mx-auto max-w-4xl px-6 py-24">
       <h1 className="text-4xl font-bold">Documentation</h1>
       <p className="mt-4 text-lg text-muted">
-        Everything you need to implement the Agent Discovery Protocol — whether
-        you&apos;re a service provider, an agent developer, or building on the
-        registry API.
+        How AgentDNS works, how to install the gateway, how to list a service,
+        and the full spec underneath. Pick a section.
       </p>
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2">

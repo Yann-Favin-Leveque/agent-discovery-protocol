@@ -63,6 +63,17 @@ export default function SpecPage() {
         endpoint. One JSON format. That&apos;s the whole spec.
       </p>
 
+      {/* Implementation note */}
+      <div className="mt-6 rounded-xl border border-white/5 bg-surface-light p-4 text-sm text-muted">
+        <strong className="text-foreground">Note:</strong> this page documents
+        the public protocol — the on-the-wire format every provider implements.
+        How the AgentDNS registry and the AgentDNS gateway handle billing,
+        auth brokerage, or per-user enablement is a registry / gateway
+        implementation choice, not part of this spec. A different
+        implementation could host its own registry and gateway and stay fully
+        protocol-compatible.
+      </div>
+
       {/* Table of Contents */}
       <nav className="mt-8 rounded-xl border border-white/5 bg-surface-light p-6">
         <h2 className="font-semibold text-sm mb-3">Contents</h2>
