@@ -1463,3 +1463,144 @@ export async function deleteOAuthClient(domain: string): Promise<boolean> {
   const result = await db.query("DELETE FROM oauth_clients WHERE service_domain = $1", [domain]);
   return (result.rowCount ?? 0) > 0;
 }
+
+// ─── User Service Enablement ────────────────────────────────────
+//
+// The `user_service_enablement` table is created by migration
+// 003_pivot_unified_billing.sql and stores per-user toggles, monthly
+// caps, and an optional BYO encrypted credential blob.
+//
+// These functions intentionally don't auto-create the table — that
+// migration is run out-of-band against production. In development,
+// run `psql -f registry/migrations/003_pivot_unified_billing.sql`.
+
+export interface UserEnablementRow {
+  user_id: number;
+  service_id: number;
+  domain: string;
+  name: string;
+  enabled: boolean;
+  monthly_cap_cents: number | null;
+  has_byo_credentials: boolean;
+  enabled_at: string;
+}
+
+export async function getUserEnablement(
+  userId: number
+): Promise<UserEnablementRow[]> {
+  const db = await ensureInitialized();
+  const result = await db.query(
+    `SELECT use.user_id, use.service_id, s.domain, s.name,
+            use.enabled, use.monthly_cap_cents,
+            (use.byo_credential_blob IS NOT NULL) AS has_byo_credentials,
+            use.enabled_at
+       FROM user_service_enablement use
+       JOIN services s ON s.id = use.service_id
+      WHERE use.user_id = $1
+      ORDER BY s.name ASC`,
+    [userId]
+  );
+  return result.rows.map((r) => ({
+    user_id: Number(r.user_id),
+    service_id: Number(r.service_id),
+    domain: String(r.domain),
+    name: String(r.name),
+    enabled: Boolean(r.enabled),
+    monthly_cap_cents: r.monthly_cap_cents == null ? null : Number(r.monthly_cap_cents),
+    has_byo_credentials: Boolean(r.has_byo_credentials),
+    enabled_at: r.enabled_at instanceof Date ? r.enabled_at.toISOString() : String(r.enabled_at),
+  }));
+}
+
+export async function upsertUserEnablement(data: {
+  user_id: number;
+  service_id: number;
+  enabled: boolean;
+  monthly_cap_cents?: number | null;
+  // TODO(security): byo_credential_blob arrives already encrypted on the
+  // client side in the long-term plan. For v1 we trust the local config
+  // page (which is talking to *its own* user) and store the bytes as-is.
+  // Real encryption-at-rest with a per-user KMS key is tracked in a
+  // follow-up.
+  //
+  // Semantics:
+  //   undefined → don't touch the existing blob
+  //   null      → clear the blob (revoke BYO key)
+  //   Buffer    → set / overwrite
+  byo_credential_blob?: Buffer | null;
+}): Promise<UserEnablementRow> {
+  const db = await ensureInitialized();
+  const cap = data.monthly_cap_cents ?? null;
+
+  if (data.byo_credential_blob === undefined) {
+    // Don't touch the existing blob.
+    await db.query(
+      `INSERT INTO user_service_enablement
+         (user_id, service_id, enabled, monthly_cap_cents)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (user_id, service_id) DO UPDATE SET
+         enabled = EXCLUDED.enabled,
+         monthly_cap_cents = EXCLUDED.monthly_cap_cents,
+         enabled_at = CASE WHEN user_service_enablement.enabled = false AND EXCLUDED.enabled = true
+                           THEN NOW() ELSE user_service_enablement.enabled_at END`,
+      [data.user_id, data.service_id, data.enabled, cap]
+    );
+  } else {
+    // Set or clear the blob.
+    await db.query(
+      `INSERT INTO user_service_enablement
+         (user_id, service_id, enabled, byo_credential_blob, monthly_cap_cents)
+       VALUES ($1, $2, $3, $4, $5)
+       ON CONFLICT (user_id, service_id) DO UPDATE SET
+         enabled = EXCLUDED.enabled,
+         byo_credential_blob = EXCLUDED.byo_credential_blob,
+         monthly_cap_cents = EXCLUDED.monthly_cap_cents,
+         enabled_at = CASE WHEN user_service_enablement.enabled = false AND EXCLUDED.enabled = true
+                           THEN NOW() ELSE user_service_enablement.enabled_at END`,
+      [data.user_id, data.service_id, data.enabled, data.byo_credential_blob, cap]
+    );
+  }
+
+  // Fetch with service join to return the canonical shape.
+  const fetched = await db.query(
+    `SELECT use.user_id, use.service_id, s.domain, s.name,
+            use.enabled, use.monthly_cap_cents,
+            (use.byo_credential_blob IS NOT NULL) AS has_byo_credentials,
+            use.enabled_at
+       FROM user_service_enablement use
+       JOIN services s ON s.id = use.service_id
+      WHERE use.user_id = $1 AND use.service_id = $2`,
+    [data.user_id, data.service_id]
+  );
+  if (fetched.rows.length === 0) {
+    throw new Error("Enablement upsert returned no row");
+  }
+  const r = fetched.rows[0];
+  return {
+    user_id: Number(r.user_id),
+    service_id: Number(r.service_id),
+    domain: String(r.domain),
+    name: String(r.name),
+    enabled: Boolean(r.enabled),
+    monthly_cap_cents: r.monthly_cap_cents == null ? null : Number(r.monthly_cap_cents),
+    has_byo_credentials: Boolean(r.has_byo_credentials),
+    enabled_at: r.enabled_at instanceof Date ? r.enabled_at.toISOString() : String(r.enabled_at),
+  };
+}
+
+export async function disableUserService(
+  userId: number,
+  serviceDomain: string
+): Promise<boolean> {
+  const db = await ensureInitialized();
+  const result = await db.query(
+    `UPDATE user_service_enablement
+        SET enabled = false
+       FROM services s
+      WHERE user_service_enablement.service_id = s.id
+        AND s.domain = $1
+        AND user_service_enablement.user_id = $2`,
+    [serviceDomain, userId]
+  );
+  return (result.rowCount ?? 0) > 0;
+}

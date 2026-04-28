@@ -88,3 +88,26 @@ export async function getSession(): Promise<SessionPayload | null> {
   if (!token) return null;
   return verifySessionToken(token);
 }
+
+// ─── Bearer token (registry_token) helpers ─────────────────────
+//
+// The CLI / local config page authenticates via a Bearer JWT issued
+// by /api/auth/cli or /api/auth/token. We accept either the short
+// session token or the long-lived registry_token; both are signed
+// with the same secret and decode to a SessionPayload-compatible
+// shape (registry_token has extra fields we ignore here).
+
+export function extractBearerToken(request: Request): string | null {
+  const auth = request.headers.get("authorization");
+  if (!auth) return null;
+  const match = /^Bearer\s+(.+)$/i.exec(auth.trim());
+  return match ? match[1].trim() : null;
+}
+
+export async function getBearerSession(
+  request: Request
+): Promise<SessionPayload | null> {
+  const token = extractBearerToken(request);
+  if (!token) return null;
+  return verifySessionToken(token);
+}
