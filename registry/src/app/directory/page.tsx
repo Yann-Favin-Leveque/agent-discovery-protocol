@@ -269,9 +269,14 @@ export default async function DirectoryPage(props: {
     <div className="mx-auto max-w-6xl px-6 py-16">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-4xl font-bold">Service Directory</h1>
+          <h1 className="text-4xl font-bold">Catalog</h1>
           <p className="mt-2 text-muted">
             {total} {total === 1 ? "service" : "services"}{showUnverified ? " total" : " trusted"}
+            {" · "}
+            <span className="text-xs">
+              Enable any of these in{" "}
+              <code className="text-accent">agent-gateway config</code>.
+            </span>
           </p>
         </div>
 

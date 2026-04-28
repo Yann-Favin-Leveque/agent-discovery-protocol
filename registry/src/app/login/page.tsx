@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Sign in — AgentDNS",
-  description: "Sign in to manage your API subscriptions and billing.",
+  description: "Sign in to manage your enabled services and billing.",
 };
 
 export default async function LoginPage({
@@ -19,12 +19,12 @@ export default async function LoginPage({
       <div className="text-center">
         <h1 className="text-3xl font-bold">Sign in</h1>
         <p className="mt-3 text-muted">
-          Sign in to access premium features: managed OAuth, billing,
-          and credential sync across machines.
+          Sign in to manage your enabled services and view billing.
         </p>
         <p className="mt-2 text-sm text-muted">
-          The gateway works without an account — credentials are stored locally
-          on your machine.
+          Most setup is done via{" "}
+          <code className="text-accent">agent-gateway config</code> in your
+          terminal — sign-in here is for managing your account.
         </p>
       </div>
 

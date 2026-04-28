@@ -5,6 +5,44 @@ import { VerifyButton } from "./verify-button";
 import { ManifestToggle } from "./manifest-toggle";
 import { ReportButton } from "./report-button";
 import { HealthSection } from "./health-section";
+import { EnableCommand } from "./enable-command";
+
+// v1 launch list: services billable through AgentDNS at launch.
+// Source of truth: docs/pivot-unified-billing.md §5.
+const V1_DOMAINS = new Set<string>([
+  // LLMs
+  "api.openai.com",
+  "api.anthropic.com",
+  "api.mistral.ai",
+  "api.groq.com",
+  "api.replicate.com",
+  "api.deepgram.com",
+  // Comms
+  "gmail.googleapis.com",
+  "slack.com",
+  "api.twilio.com",
+  "api.sendgrid.com",
+  "api.resend.com",
+  "api.telegram.org",
+  // Productivity
+  "www.googleapis.com", // Google Calendar lives under this domain in many manifests
+  "calendar-json.googleapis.com",
+  "api.notion.com",
+  "api.github.com",
+  "api.trello.com",
+  "api.calendly.com",
+  "api.cal.com",
+  // Infra
+  "api.stripe.com",
+  "api.cloudflare.com",
+  "api.mapbox.com",
+  "api.algolia.com",
+  // Misc
+  "api.openweathermap.org",
+  "api-free.deepl.com",
+  "api.deepl.com",
+  "api.docspring.com",
+]);
 
 export async function generateMetadata(props: { params: Promise<{ domain: string }> }) {
   const { domain } = await props.params;
@@ -116,6 +154,46 @@ export default async function ServiceDetailPage(props: {
       <p className="mt-6 text-lg leading-relaxed text-muted">
         {service.description}
       </p>
+
+      {/* v1 / catalog availability */}
+      <div className="mt-6">
+        {V1_DOMAINS.has(service.domain) ? (
+          <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+            <span className="font-mono">[v1]</span>
+            Available — billing handled by AgentDNS
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface-light px-3 py-1 text-xs font-medium text-muted">
+            <span className="font-mono">[catalog]</span>
+            Catalog only — enable via gateway with your own API key
+          </span>
+        )}
+      </div>
+
+      {/* Enable via gateway */}
+      <section className="mt-8 rounded-xl border border-accent/20 bg-accent/5 p-6">
+        <h2 className="text-lg font-semibold">Enable this service</h2>
+        <p className="mt-2 text-sm text-muted">
+          {V1_DOMAINS.has(service.domain) ? (
+            <>
+              Run the command below in a terminal. The local config page lets
+              you toggle this service on, complete OAuth (or paste a BYO API
+              key for services where AgentDNS does not broker auth), and set a
+              monthly spending cap.
+            </>
+          ) : (
+            <>
+              This service is in the catalog but not part of v1 launch
+              billing. To use it, run the command below and provide your own
+              API key in the local config page — the gateway will call it
+              under your account.
+            </>
+          )}
+        </p>
+        <div className="mt-4">
+          <EnableCommand />
+        </div>
+      </section>
 
       {/* Meta */}
       <div className="mt-6 flex flex-wrap gap-4">
