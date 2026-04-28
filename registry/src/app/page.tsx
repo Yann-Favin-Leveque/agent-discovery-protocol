@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { getServiceStats } from "@/lib/db";
-import { TerminalDemo } from "@/components/terminal-demo";
 
 function HeroSection() {
   return (
@@ -12,32 +10,100 @@ function HeroSection() {
 
       <div className="relative mx-auto max-w-4xl px-6 text-center">
         <div className="mb-6 inline-block rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 font-mono text-xs text-accent">
-          Agent Discovery Protocol v1.0
+          Agent Discovery Protocol — v1
         </div>
 
         <h1 className="text-5xl font-bold leading-tight tracking-tight sm:text-7xl">
-          The <span className="text-accent">DNS</span> for AI&nbsp;Agents
+          One MCP. One card.
+          <br />
+          Every <span className="text-accent">API</span> your agent needs.
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
-          Discover any API. Zero installation. One gateway.
-          <br />
-          Replace all your MCP plugins with a single protocol.
+          Install the gateway, sign in once, add a card. Your agent now has
+          access to 25+ services — Gmail, Stripe, OpenAI, GitHub, and more —
+          without managing a single API key.
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
-            href="/submit"
+            href="/docs/agents"
             className="rounded-lg bg-accent px-6 py-3 font-medium text-black transition-colors hover:bg-accent-light"
           >
-            Add your service
+            Install
           </Link>
           <Link
-            href="/docs"
+            href="/directory"
             className="rounded-lg border border-white/10 px-6 py-3 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
           >
-            Read the docs
+            Browse the catalog
           </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PillarsSection() {
+  return (
+    <section className="border-t border-white/5 py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="grid gap-6 sm:grid-cols-3">
+          {/* Plug & play */}
+          <div className="rounded-xl border border-white/5 bg-surface-light p-6">
+            <span className="font-mono text-sm text-accent">01</span>
+            <h3 className="mt-3 text-lg font-semibold">Plug &amp; play</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Install the gateway, run <code className="text-accent">agent-gateway config</code>,
+              add it to your MCP client. No per-service setup.
+            </p>
+            <div className="mt-4 rounded-lg bg-surface p-3">
+              <pre className="overflow-x-auto font-mono text-xs leading-relaxed">
+                <code className="text-accent-light">{`$ npm install -g agent-gateway-mcp
+$ agent-gateway config
+$ # add to Claude/Cursor/etc.`}</code>
+              </pre>
+            </div>
+          </div>
+
+          {/* One card */}
+          <div className="rounded-xl border border-white/5 bg-surface-light p-6">
+            <span className="font-mono text-sm text-accent">02</span>
+            <h3 className="mt-3 text-lg font-semibold">One card</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Pay us, we pay providers. Pay-per-use, billed monthly. No
+              per-service subscriptions to manage. Free services stay free.
+            </p>
+            <div className="mt-4 rounded-lg bg-surface p-3">
+              <p className="font-mono text-xs text-muted">
+                Invoice — March
+              </p>
+              <p className="mt-1 font-mono text-xs text-accent-light">
+                OpenAI: $4.32
+                <br />
+                Twilio: $1.10
+                <br />
+                <span className="text-accent">Total: $5.42</span>
+              </p>
+            </div>
+          </div>
+
+          {/* Lazy by default */}
+          <div className="rounded-xl border border-white/5 bg-surface-light p-6">
+            <span className="font-mono text-sm text-accent">03</span>
+            <h3 className="mt-3 text-lg font-semibold">Lazy by default</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Your agent only sees the services you&apos;ve enabled. No context
+              bloat from 242 unused tools. Drill down only when needed.
+            </p>
+            <div className="mt-4 rounded-lg bg-surface p-3">
+              <pre className="overflow-x-auto font-mono text-xs leading-relaxed">
+                <code className="text-accent-light">{`> discover()
+gmail, stripe, github,
+notion, slack (5 enabled)`}</code>
+              </pre>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -48,24 +114,29 @@ function HowItWorksSection() {
   const steps = [
     {
       number: "01",
-      title: "Service adds endpoint",
-      description:
-        "Install an SDK for Express, FastAPI, Next.js, or Spring Boot. Define your capabilities and the SDK serves a /.well-known/agent manifest automatically.",
-      code: "GET /.well-known/agent → { capabilities: [...] }",
+      title: "Install",
+      description: "One npm install. The gateway is your only MCP server.",
+      code: "npm install -g agent-gateway-mcp",
     },
     {
       number: "02",
-      title: "Registry indexes it",
+      title: "Configure",
       description:
-        "The registry crawls and indexes the manifest. Verified and community-trusted services are prioritized. Services become searchable by intent — not by name.",
-      code: 'discover("send email") → [ MailForge, SendGrid, ... ]',
+        "agent-gateway config opens a local browser page. Sign in, add a card, toggle services on/off.",
+      code: "agent-gateway config",
     },
     {
       number: "03",
-      title: "Agent discovers & uses",
+      title: "Wire it up",
+      description: "Add the gateway to your MCP client config (Claude, Cursor, Windsurf, etc.).",
+      code: '{ "mcpServers": { "gateway": { "command": "agent-gateway-mcp" } } }',
+    },
+    {
+      number: "04",
+      title: "Use",
       description:
-        "Any agent finds and calls services through the Gateway MCP. Lazy drill-down fetches only what's needed.",
-      code: "call(service, capability, params) → result",
+        "Talk to your agent. It discovers and calls services through the gateway. No further setup.",
+      code: '> "Send an email to Alice about the meeting"',
     },
   ];
 
@@ -76,24 +147,24 @@ function HowItWorksSection() {
           How it works
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-center text-muted">
-          Three steps. That&apos;s it.
+          Four steps. About two minutes the first time. Zero every other day.
         </p>
 
-        <div className="mt-16 grid gap-8 sm:grid-cols-3">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step) => (
             <div
               key={step.number}
-              className="rounded-xl border border-white/5 bg-surface-light p-6"
+              className="rounded-xl border border-white/5 bg-surface-light p-5"
             >
               <span className="font-mono text-sm text-accent">
                 {step.number}
               </span>
-              <h3 className="mt-3 text-lg font-semibold">{step.title}</h3>
+              <h3 className="mt-3 text-base font-semibold">{step.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 {step.description}
               </p>
               <div className="mt-4 rounded-lg bg-surface p-3">
-                <code className="font-mono text-xs text-accent-light">
+                <code className="font-mono text-xs text-accent-light break-all">
                   {step.code}
                 </code>
               </div>
@@ -105,357 +176,64 @@ function HowItWorksSection() {
   );
 }
 
-function TerminalDemoSection() {
-  return (
-    <section className="border-t border-white/5 py-24">
-      <div className="mx-auto max-w-4xl px-6">
-        <h2 className="text-center text-3xl font-bold sm:text-4xl">
-          See it in action
-        </h2>
-        <p className="mx-auto mt-4 max-w-xl text-center text-muted">
-          One agent, one gateway, any API. Watch the full flow: discover, auth,
-          call.
-        </p>
-
-        <div className="mt-12">
-          <TerminalDemo />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ComparisonSection() {
-  return (
-    <section className="border-t border-white/5 py-24">
-      <div className="mx-auto max-w-5xl px-6">
-        <h2 className="text-center text-3xl font-bold sm:text-4xl">
-          Before &amp; after
-        </h2>
-        <p className="mx-auto mt-4 max-w-xl text-center text-muted">
-          Stop installing MCP servers for every service. One gateway is all you
-          need.
-        </p>
-
-        <div className="mt-16 grid gap-6 sm:grid-cols-2">
-          {/* Before — MCP */}
-          <div className="rounded-xl border border-red-500/20 bg-surface-light p-6">
-            <div className="mb-4 flex items-center gap-2">
-              <span className="rounded-md bg-red-500/10 px-2 py-0.5 font-mono text-xs text-red-400">
-                Before
-              </span>
-              <span className="text-sm text-muted">With MCP plugins</span>
-            </div>
-            <pre className="overflow-x-auto rounded-lg bg-surface p-4 font-mono text-xs leading-relaxed">
-              <code className="text-red-300/80">{`{
-  "mcpServers": {
-    "gmail": {
-      "command": "npx",
-      "args": ["@mcp/gmail"],
-      "env": { "GMAIL_TOKEN": "..." }
-    },
-    "stripe": {
-      "command": "npx",
-      "args": ["@mcp/stripe"],
-      "env": { "STRIPE_KEY": "sk_..." }
-    },
-    "calendar": {
-      "command": "npx",
-      "args": ["@mcp/gcal"],
-      "env": { "GCAL_TOKEN": "..." }
-    },
-    "weather": {
-      "command": "npx",
-      "args": ["@mcp/weather"],
-      "env": { "WEATHER_KEY": "..." }
-    },
-    "slack": {
-      "command": "npx",
-      "args": ["@mcp/slack"],
-      "env": { "SLACK_TOKEN": "xoxb-..." }
-    }
-  }
-}`}</code>
-            </pre>
-            <p className="mt-3 text-xs text-muted">
-              5 services = 5 MCP servers, 5 configs, 5 API keys to manage
-            </p>
-          </div>
-
-          {/* After — Agent Discovery */}
-          <div className="rounded-xl border border-accent/20 bg-surface-light p-6">
-            <div className="mb-4 flex items-center gap-2">
-              <span className="rounded-md bg-accent/10 px-2 py-0.5 font-mono text-xs text-accent">
-                After
-              </span>
-              <span className="text-sm text-muted">
-                With Agent Discovery
-              </span>
-            </div>
-            <pre className="overflow-x-auto rounded-lg bg-surface p-4 font-mono text-xs leading-relaxed">
-              <code className="text-accent-light">{`{
-  "mcpServers": {
-    "gateway": {
-      "command": "npx",
-      "args": ["agent-gateway-mcp"]
-    }
-  }
-}`}</code>
-            </pre>
-            <p className="mt-3 text-xs text-muted">
-              1 gateway. All services discovered at runtime. Credentials
-              stored locally, setup guided step by step.
-            </p>
-
-            <div className="mt-4 rounded-lg border border-white/5 bg-surface p-4">
-              <p className="mb-2 font-mono text-xs text-muted">
-                Then your agent just says:
-              </p>
-              <code className="font-mono text-xs text-accent-light">
-                {`> "Send an email to Alice about tomorrow's meeting"`}
-              </code>
-              <p className="mt-2 font-mono text-xs text-muted">
-                Gateway discovers email service, authenticates, sends.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WorksWithSection() {
-  const llms = [
-    { name: "Claude", desc: "Anthropic" },
-    { name: "GPT", desc: "OpenAI" },
-    { name: "Gemini", desc: "Google" },
-    { name: "Llama", desc: "Meta" },
-    { name: "Mistral", desc: "Mistral AI" },
-    { name: "Any LLM", desc: "Open protocol" },
+function AvailableServicesSection() {
+  // v1 launch list per docs/pivot-unified-billing.md §5
+  const services = [
+    "OpenAI",
+    "Anthropic",
+    "Mistral",
+    "Groq",
+    "Replicate",
+    "Deepgram",
+    "Gmail",
+    "Slack",
+    "Twilio",
+    "SendGrid",
+    "Resend",
+    "Telegram",
+    "Google Calendar",
+    "Notion",
+    "GitHub",
+    "Trello",
+    "Calendly",
+    "Cal.com",
+    "Stripe",
+    "Cloudflare R2",
+    "Mapbox",
+    "Algolia",
+    "OpenWeatherMap",
+    "DeepL",
+    "DocSpring",
   ];
 
   return (
     <section className="border-t border-white/5 py-24">
-      <div className="mx-auto max-w-4xl px-6">
+      <div className="mx-auto max-w-5xl px-6">
         <h2 className="text-center text-3xl font-bold sm:text-4xl">
-          Works with any LLM
+          Available services
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-center text-muted">
-          Not tied to any provider. Open protocol, works with any agent
-          framework.
+          25 services billable through us at launch. 242 in the full catalog —
+          enable any of them with your own API key.
         </p>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
-          {llms.map((llm) => (
+        <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+          {services.map((name) => (
             <div
-              key={llm.name}
-              className="flex flex-col items-center rounded-xl border border-white/5 bg-surface-light p-4 transition-colors hover:border-accent/20"
+              key={name}
+              className="rounded-lg border border-white/5 bg-surface-light px-3 py-2.5 text-center text-sm text-foreground transition-colors hover:border-accent/20"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-surface font-mono text-lg font-bold text-accent">
-                {llm.name[0]}
-              </div>
-              <span className="mt-2 text-sm font-medium">{llm.name}</span>
-              <span className="text-xs text-muted">{llm.desc}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ForAgentsSection() {
-  return (
-    <section className="border-t border-white/5 py-24">
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="grid gap-12 sm:grid-cols-2 items-center">
-          <div>
-            <div className="mb-4 inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
-              For Agent Developers
-            </div>
-            <h2 className="text-3xl font-bold sm:text-4xl">
-              Set up once, access every&nbsp;API
-            </h2>
-            <p className="mt-4 text-muted">
-              Install one gateway. Add it to your MCP config. That&apos;s it.
-              Your agent can now discover and use any API — no per-service
-              plugins, no config files. When you first use a service, the
-              gateway walks you through credential setup step by step.
-            </p>
-
-            <div className="mt-8">
-              <Link
-                href="/docs/agents"
-                className="rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
-              >
-                View integration guide
-              </Link>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            {/* Step 1 */}
-            <div className="rounded-xl border border-white/5 bg-surface-light p-5">
-              <div className="flex items-center gap-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
-                  1
-                </span>
-                <span className="text-sm font-medium">Install the gateway</span>
-              </div>
-              <pre className="mt-3 overflow-x-auto rounded-lg bg-surface p-3 font-mono text-xs leading-relaxed">
-                <code className="text-accent-light">npm install -g agent-gateway-mcp</code>
-              </pre>
-            </div>
-
-            {/* Step 2 */}
-            <div className="rounded-xl border border-white/5 bg-surface-light p-5">
-              <div className="flex items-center gap-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
-                  2
-                </span>
-                <span className="text-sm font-medium">Add to your MCP config</span>
-              </div>
-              <pre className="mt-3 overflow-x-auto rounded-lg bg-surface p-3 font-mono text-xs leading-relaxed">
-                <code className="text-accent-light">{`{
-  "mcpServers": {
-    "gateway": {
-      "command": "npx",
-      "args": ["agent-gateway-mcp"]
-    }
-  }
-}`}</code>
-              </pre>
-            </div>
-
-            {/* Step 3 */}
-            <div className="rounded-xl border border-accent/20 bg-surface-light p-5">
-              <div className="flex items-center gap-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-bold text-accent">
-                  3
-                </span>
-                <span className="text-sm font-medium">That&apos;s it. Your agent can now discover and use any API.</span>
-              </div>
-              <div className="mt-3 rounded-lg border border-white/5 bg-surface p-3">
-                <p className="font-mono text-xs text-foreground">
-                  {`> "Send an email to Alice about tomorrow's meeting"`}
-                </p>
-                <p className="mt-2 font-mono text-xs text-muted">
-                  Gateway discovers &rarr; authenticates &rarr; sends. Done.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ForProvidersSection() {
-  const sdks = [
-    {
-      framework: "Express.js",
-      pkg: "agent-well-known-express",
-      code: `const { agentManifest } = require('agent-well-known-express');
-
-app.use(agentManifest({
-  name: "My API",
-  description: "What my API does.",
-  base_url: "https://api.example.com",
-  auth: { type: "api_key", header: "Authorization" },
-  capabilities: [{ name: "send_email", ... }]
-}));`,
-    },
-    {
-      framework: "FastAPI",
-      pkg: "agent-well-known-fastapi",
-      code: `from agent_well_known import AgentManifest, Capability
-
-manifest = AgentManifest(
-    name="My API",
-    description="What my API does.",
-    base_url="https://api.example.com",
-    auth={"type": "api_key", "header": "Authorization"},
-    capabilities=[Capability(name="send_email", ...)]
-)
-manifest.mount(app)`,
-    },
-    {
-      framework: "Next.js",
-      pkg: "agent-well-known-next",
-      code: `import { createAgentManifest } from 'agent-well-known-next';
-
-// app/.well-known/agent/route.ts
-export const GET = createAgentManifest({
-  name: "My API",
-  description: "What my API does.",
-  base_url: "https://api.example.com",
-  auth: { type: "api_key", header: "Authorization" },
-  capabilities: [{ name: "send_email", ... }]
-});`,
-    },
-    {
-      framework: "Spring Boot",
-      pkg: "agent-well-known-spring-boot",
-      code: `@AgentManifest(
-    name = "My API",
-    description = "What my API does.",
-    baseUrl = "https://api.example.com"
-)
-@SpringBootApplication
-public class MyApp { }`,
-    },
-  ];
-
-  return (
-    <section className="border-t border-white/5 py-24">
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="text-center">
-          <div className="mb-4 inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
-            For Service Providers
-          </div>
-          <h2 className="text-3xl font-bold sm:text-4xl">
-            Add the protocol to your API in one&nbsp;line
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted">
-            Pick your framework. Define your capabilities. Your API is
-            instantly discoverable by every AI agent — no MCP server
-            to build, no plugin to maintain.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-4 sm:grid-cols-2">
-          {sdks.map((sdk) => (
-            <div
-              key={sdk.framework}
-              className="rounded-xl border border-white/5 bg-surface-light p-5"
-            >
-              <div className="mb-3 flex items-center justify-between">
-                <span className="font-semibold">{sdk.framework}</span>
-                <code className="rounded bg-surface px-2 py-0.5 font-mono text-xs text-muted">
-                  {sdk.pkg}
-                </code>
-              </div>
-              <pre className="overflow-x-auto rounded-lg bg-surface p-4 font-mono text-xs leading-relaxed">
-                <code className="text-accent-light">{sdk.code}</code>
-              </pre>
+              {name}
             </div>
           ))}
         </div>
 
-        <div className="mt-8 flex items-center justify-center gap-4">
+        <div className="mt-10 text-center">
           <Link
-            href="/docs/providers"
-            className="rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
+            href="/directory"
+            className="text-sm text-accent hover:text-accent-light transition-colors"
           >
-            Get started
-          </Link>
-          <Link
-            href="/playground"
-            className="rounded-lg border border-white/10 px-5 py-2.5 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
-          >
-            Try the playground
+            See all 242 in the catalog &rarr;
           </Link>
         </div>
       </div>
@@ -463,199 +241,32 @@ public class MyApp { }`,
   );
 }
 
-function VisionSection() {
-  const milestones = [
-    {
-      icon: "\u{1F50D}",
-      title: "Discovery",
-      status: "Live now",
-      statusColor: "bg-accent/10 text-accent",
-      description:
-        'Agents find your service by intent. "I need to send an invoice" \u2014 your API shows up.',
-    },
-    {
-      icon: "\u{1F511}",
-      title: "Managed OAuth",
-      status: "Coming soon",
-      statusColor: "bg-yellow-500/10 text-yellow-400",
-      description:
-        "Premium tier: skip credential setup entirely. We handle OAuth apps and API keys so users connect in one click.",
-    },
-    {
-      icon: "\u{1F4DD}",
-      title: "Agent onboarding",
-      status: "Planned",
-      statusColor: "bg-white/5 text-muted",
-      description:
-        "New users sign up to your service directly through their agent. Zero friction acquisition channel.",
-    },
-    {
-      icon: "\u{1F4B3}",
-      title: "In-agent subscriptions",
-      status: "Planned",
-      statusColor: "bg-white/5 text-muted",
-      description:
-        "Users approve plans from their agent with biometric confirmation. Payment handled by the registry.",
-    },
-  ];
-
-  return (
-    <section className="border-t border-white/5 py-24">
-      <div className="mx-auto max-w-5xl px-6">
-        {/* Header */}
-        <div className="text-center">
-          <div className="mb-4 inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
-            What&apos;s Next
-          </div>
-          <h2 className="text-3xl font-bold sm:text-4xl">
-            The Future: Frictionless Agent&nbsp;Access
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted">
-            Today, agents discover and call your API. Tomorrow, they&apos;ll
-            handle everything.
-          </p>
-        </div>
-
-        {/* Timeline */}
-        <div className="relative mt-16">
-          {/* Vertical line */}
-          <div className="absolute left-6 top-0 hidden h-full w-px bg-gradient-to-b from-accent/40 via-accent/20 to-transparent sm:block" />
-
-          <div className="space-y-6">
-            {milestones.map((m, i) => (
-              <div key={m.title} className="relative flex gap-6">
-                {/* Dot on the line */}
-                <div className="relative z-10 hidden sm:block">
-                  <div
-                    className={`flex h-12 w-12 items-center justify-center rounded-full border text-lg ${
-                      i === 0
-                        ? "border-accent/40 bg-accent/10"
-                        : "border-white/10 bg-surface-light"
-                    }`}
-                  >
-                    {m.icon}
-                  </div>
-                </div>
-
-                {/* Card */}
-                <div
-                  className={`flex-1 rounded-xl border p-5 ${
-                    i === 0
-                      ? "border-accent/20 bg-gradient-to-r from-accent/5 to-transparent"
-                      : "border-white/5 bg-surface-light"
-                  }`}
-                >
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="sm:hidden text-lg">{m.icon}</span>
-                    <h3 className="font-semibold">{m.title}</h3>
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-xs font-medium ${m.statusColor}`}
-                    >
-                      {m.status}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {m.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="mt-16 rounded-xl border border-accent/20 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 p-8 text-center">
-          <p className="text-lg font-medium">
-            Want to be among the first services to support full agent
-            onboarding?
-          </p>
-          <a
-            href="mailto:yann.fl95@gmail.com"
-            className="mt-4 inline-block rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
-          >
-            Get in touch
-          </a>
-          <p className="mt-6 text-sm text-muted">
-            If your service already supports OAuth, you&apos;re ahead of the
-            curve. Declare it in your manifest and agents can connect users
-            today.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-async function StatsSection() {
-  const dbStats = await getServiceStats();
-  const stats = [
-    {
-      value: String(dbStats.total_services || 0),
-      label: "Services indexed",
-    },
-    {
-      value: String(dbStats.total_capabilities || 0),
-      label: "Capabilities available",
-    },
-    {
-      value: String(dbStats.trusted_services || 0),
-      label: "Trusted services",
-    },
-    { value: "6", label: "Gateway tools" },
-  ];
-
-  return (
-    <section className="border-t border-white/5 py-24">
-      <div className="mx-auto max-w-4xl px-6">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="font-mono text-3xl font-bold text-accent">
-                {stat.value}
-              </div>
-              <div className="mt-1 text-sm text-muted">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-        <p className="mt-8 text-center text-sm text-muted">
-          Verified services are actively monitored.{" "}
-          <Link href="/status" className="text-accent hover:text-accent-light transition-colors">
-            Check real-time status
-          </Link>
-          {" · "}
-          <Link href="/docs/trust-levels" className="text-accent hover:text-accent-light transition-colors">
-            Learn about trust levels
-          </Link>
-        </p>
-      </div>
-    </section>
-  );
-}
-
-function CtaSection() {
+function ProvidersSection() {
   return (
     <section className="border-t border-white/5 py-24">
       <div className="mx-auto max-w-3xl px-6 text-center">
-        <h2 className="text-3xl font-bold sm:text-4xl">
-          Ready to get started?
-        </h2>
+        <div className="mb-4 inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
+          For Service Providers
+        </div>
+        <h2 className="text-3xl font-bold sm:text-4xl">Run a service?</h2>
         <p className="mx-auto mt-4 max-w-xl text-muted">
-          Whether you&apos;re a service provider making your API discoverable, or
-          an agent developer connecting to every API — start in minutes.
+          List it on AgentDNS. Implement <code className="text-accent">/.well-known/agent</code>{" "}
+          on your domain, submit, and you&apos;re discoverable to every agent
+          using the gateway.
         </p>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
-            href="/submit"
-            className="rounded-lg bg-accent px-6 py-3 font-medium text-black transition-colors hover:bg-accent-light"
+            href="/docs/providers"
+            className="rounded-lg border border-white/10 px-5 py-2.5 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
           >
-            Submit your service
+            Provider docs
           </Link>
           <Link
-            href="/docs/agents"
-            className="rounded-lg border border-white/10 px-6 py-3 font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/5"
+            href="/submit"
+            className="rounded-lg bg-accent px-5 py-2.5 font-medium text-black transition-colors hover:bg-accent-light"
           >
-            Integrate the gateway &rarr;
+            Submit your service
           </Link>
         </div>
       </div>
@@ -663,19 +274,14 @@ function CtaSection() {
   );
 }
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <HeroSection />
+      <PillarsSection />
       <HowItWorksSection />
-      <TerminalDemoSection />
-      <ComparisonSection />
-      <WorksWithSection />
-      <ForAgentsSection />
-      <ForProvidersSection />
-      <VisionSection />
-      <StatsSection />
-      <CtaSection />
+      <AvailableServicesSection />
+      <ProvidersSection />
     </>
   );
 }
