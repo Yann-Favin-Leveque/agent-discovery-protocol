@@ -355,6 +355,110 @@ export async function startConfigServer(): Promise<ConfigServerHandle> {
         }
       }
 
+      // ── /api/proxy/setup-intent ─────────────────────────────
+      // POST → registry POST /api/users/payment-method (creates SetupIntent).
+      if (pathname === "/api/proxy/setup-intent" && method === "POST") {
+        const id = getIdentity();
+        if (!id) {
+          jsonResponse(res, 401, { success: false, error: "Not signed in" });
+          return;
+        }
+        const cfg = loadConfig();
+        try {
+          const upstream = `${cfg.registry_url}/api/users/payment-method`;
+          const upstreamRes = await fetch(upstream, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${id.registry_token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+          });
+          const text = await upstreamRes.text();
+          res.writeHead(upstreamRes.status, {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          });
+          res.end(text);
+          return;
+        } catch (err) {
+          jsonResponse(res, 502, {
+            success: false,
+            error: `Cannot reach registry: ${err instanceof Error ? err.message : "unknown"}`,
+          });
+          return;
+        }
+      }
+
+      // ── /api/proxy/payment-method-confirm ────────────────────
+      // PUT-equivalent on registry: marks payment_method_added=true.
+      if (pathname === "/api/proxy/payment-method-confirm" && method === "POST") {
+        const id = getIdentity();
+        if (!id) {
+          jsonResponse(res, 401, { success: false, error: "Not signed in" });
+          return;
+        }
+        const cfg = loadConfig();
+        try {
+          const upstream = `${cfg.registry_url}/api/users/payment-method`;
+          const upstreamRes = await fetch(upstream, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${id.registry_token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+          });
+          const text = await upstreamRes.text();
+          res.writeHead(upstreamRes.status, {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          });
+          res.end(text);
+          return;
+        } catch (err) {
+          jsonResponse(res, 502, {
+            success: false,
+            error: `Cannot reach registry: ${err instanceof Error ? err.message : "unknown"}`,
+          });
+          return;
+        }
+      }
+
+      // ── /api/proxy/billing-portal ────────────────────────────
+      if (pathname === "/api/proxy/billing-portal" && method === "POST") {
+        const id = getIdentity();
+        if (!id) {
+          jsonResponse(res, 401, { success: false, error: "Not signed in" });
+          return;
+        }
+        const cfg = loadConfig();
+        try {
+          const upstream = `${cfg.registry_url}/api/users/me/billing-portal`;
+          const upstreamRes = await fetch(upstream, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${id.registry_token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+          });
+          const text = await upstreamRes.text();
+          res.writeHead(upstreamRes.status, {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          });
+          res.end(text);
+          return;
+        } catch (err) {
+          jsonResponse(res, 502, {
+            success: false,
+            error: `Cannot reach registry: ${err instanceof Error ? err.message : "unknown"}`,
+          });
+          return;
+        }
+      }
+
       // /api/proxy/enablement/:domain (DELETE)
       const enablementDeleteMatch = /^\/api\/proxy\/enablement\/([^/]+)$/.exec(pathname);
       if (enablementDeleteMatch && method === "DELETE") {

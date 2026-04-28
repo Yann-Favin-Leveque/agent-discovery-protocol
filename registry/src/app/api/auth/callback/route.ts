@@ -6,7 +6,25 @@ import {
   type OAuthProvider,
 } from "@/lib/oauth";
 import { upsertUser } from "@/lib/db";
-import { createSessionToken, setSessionCookie } from "@/lib/auth";
+import {
+  createSessionToken,
+  setSessionCookie,
+  createRegistryToken,
+} from "@/lib/auth";
+
+// Hosts we allow as a return_to target *with a token in the URL*.
+// The CLI-spawned local server binds to 127.0.0.1:9876..9885 so we
+// hardcode that range. Other return_to URLs get a session cookie only.
+function isLocalCliReturn(target: string): boolean {
+  try {
+    const u = new URL(target);
+    if (u.hostname !== "localhost" && u.hostname !== "127.0.0.1") return false;
+    const port = Number(u.port);
+    return Number.isFinite(port) && port >= 9876 && port <= 9885;
+  } catch {
+    return false;
+  }
+}
 
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
@@ -69,6 +87,21 @@ export async function GET(request: NextRequest) {
     // Redirect to return_to or account dashboard
     const returnTo = cookieStore.get("oauth_return_to")?.value;
     cookieStore.delete("oauth_return_to");
+
+    // If the return_to is the local CLI server, attach a long-lived
+    // registry_token plus identity bits to the URL so the local
+    // server can persist them. The session cookie won't help there
+    // because the local origin is different.
+    if (returnTo && isLocalCliReturn(returnTo)) {
+      const registryToken = await createRegistryToken(user);
+      const target = new URL(returnTo);
+      target.searchParams.set("token", registryToken);
+      target.searchParams.set("email", user.email);
+      target.searchParams.set("provider", user.provider);
+      target.searchParams.set("provider_id", user.provider_id);
+      if (user.name) target.searchParams.set("name", user.name);
+      return NextResponse.redirect(target.toString());
+    }
 
     return NextResponse.redirect(returnTo || `${baseUrl}/account`);
   } catch (err) {
