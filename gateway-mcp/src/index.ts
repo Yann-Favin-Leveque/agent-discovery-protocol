@@ -3,8 +3,15 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import { discoverByQuery, fetchManifest, fetchCapabilityDetail, pickTopCapabilities, fetchTopCapabilityDetails, clearCache } from "./discovery.js";
-import { authenticate, storeApiKey } from "./auth.js";
+import {
+  discoverByQuery,
+  fetchManifest,
+  fetchCapabilityDetail,
+  pickTopCapabilities,
+  fetchTopCapabilityDetails,
+  pickTopEnabledServices,
+  countEnabledServices,
+} from "./discovery.js";
 import { callCapability } from "./caller.js";
 import { listCredentials } from "./credentials.js";
 import {
@@ -12,12 +19,8 @@ import {
   getConnection,
   getAllConnections,
   getAllTokens,
-  isInitialized,
   getIdentity,
   setRegistryUrl,
-  loadConfig,
-  storeConnection,
-  clearAllCaches,
 } from "./config.js";
 
 // ─── CLI argument parsing ────────────────────────────────────────
@@ -48,54 +51,132 @@ const server = new McpServer(
   }
 );
 
+// ─── Empty-state helper ──────────────────────────────────────────
+
+const EMPTY_STATE_MESSAGE = [
+  "No services enabled yet.",
+  "",
+  "To enable services, the user must run this command in a terminal:",
+  "",
+  "    agent-gateway config",
+  "",
+  "This opens a setup page where they can sign in, add a payment method",
+  "(for paid services), and toggle the services they want available to agents.",
+  "",
+  "Once done, those services will appear here automatically.",
+].join("\n");
+
 // ─── Tool 1: discover ───────────────────────────────────────────────
 
 server.registerTool(
   "discover",
   {
-    description: "Search for services by intent, explore a specific domain, or drill into a capability. " +
-      "Use `query` to search the registry (e.g. 'send email'), `domain` to fetch a specific service's manifest, " +
-      "or `domain` + `capability` to get full details on how to call a specific capability.",
+    description:
+      "Browse and search services available to the user. " +
+      "Call with no arguments to see the user's enabled services (top by recent usage). " +
+      "Use `query` to search across enabled services by intent (e.g. 'send email'). " +
+      "Use `domain` to fetch a specific service's manifest, or `domain` + `capability` for full details. " +
+      "Set `browse_catalog: true` to search the entire registry beyond what the user has enabled — " +
+      "results outside the enabled set are marked [NOT ENABLED] and cannot be called until the user enables them.",
     inputSchema: {
       query: z.string().optional().describe("Natural language search (e.g. 'send email', 'create invoice')"),
-      domain: z.string().optional().describe("Specific domain to explore (e.g. 'api.mailforge.dev')"),
+      domain: z.string().optional().describe("Specific domain to explore (e.g. 'api.stripe.com')"),
       capability: z.string().optional().describe("Capability name to drill into (requires domain)"),
-      include_unverified: z.boolean().optional().describe("Include unverified services in results (default: false, only trusted services shown)"),
       resource: z.string().optional().describe("Filter capabilities by resource group (e.g. 'messages', 'users')"),
-      force_refresh: z.boolean().optional().describe("Bypass cache and fetch fresh data from the registry (default: false)"),
-      registered_only: z.boolean().optional().describe("Only show services the user has registered credentials for (default: false)"),
+      force_refresh: z.boolean().optional().describe("Bypass cache and fetch fresh data (default: false)"),
+      browse_catalog: z.boolean().optional().describe(
+        "Search the full registry catalog beyond enabled services. " +
+        "Non-enabled results are read-only — the agent must ask the user to enable them via `agent-gateway config`."
+      ),
     },
   },
-  async ({ query, domain, capability, include_unverified, resource, force_refresh, registered_only }) => {
+  async ({ query, domain, capability, resource, force_refresh, browse_catalog }) => {
     try {
-      // Mode 1: Search registry by query
-      if (query && !domain) {
-        const results = await discoverByQuery(query, { include_unverified, force_refresh });
+      const enabledDomains = new Set(Object.keys(listCredentials()));
 
-        // Filter to registered services if requested
-        if (registered_only) {
-          const creds = listCredentials();
-          const registeredDomains = new Set(Object.keys(creds));
-          results.data = results.data.filter((r) => registeredDomains.has(r.service.domain));
-          results.result_count = results.data.length;
+      // Mode 0: cold-start — no args, return top-K enabled services
+      if (!query && !domain && !capability) {
+        const total = countEnabledServices();
+        if (total === 0) {
+          return { content: [{ type: "text" as const, text: EMPTY_STATE_MESSAGE }] };
         }
 
-        const connections = getAllConnections();
-        const connectedDomains = new Set(connections.map((c) => c.domain));
+        const top = pickTopEnabledServices(8);
+        const lines = top.map((c, i) => {
+          const usage = c.call_count
+            ? ` (${c.call_count} call${c.call_count === 1 ? "" : "s"})`
+            : "";
+          return `  ${i + 1}. ${c.domain} — ${c.service_name}${usage}`;
+        });
 
-        const text = results.data
+        const text = [
+          `${total} service${total === 1 ? "" : "s"} enabled. Top by recent usage:`,
+          ``,
+          ...lines,
+          ``,
+          `Use discover(query="...") to search across enabled services.`,
+          `Use discover(domain="<domain>") to see a service's capabilities.`,
+          `Use discover(query="...", browse_catalog=true) to browse the full catalog of unenabled services.`,
+        ].join("\n");
+
+        return { content: [{ type: "text" as const, text }] };
+      }
+
+      // Mode 1: Search by query
+      if (query && !domain) {
+        if (enabledDomains.size === 0 && !browse_catalog) {
+          return { content: [{ type: "text" as const, text: EMPTY_STATE_MESSAGE }] };
+        }
+
+        const results = await discoverByQuery(query, { include_unverified: false, force_refresh });
+
+        // Filter to enabled-only by default; browse_catalog opts into full catalog
+        const filtered = browse_catalog
+          ? results.data
+          : results.data.filter((r) => enabledDomains.has(r.service.domain));
+
+        if (filtered.length === 0) {
+          if (browse_catalog) {
+            return {
+              content: [
+                {
+                  type: "text" as const,
+                  text: `No services found in the full catalog for "${query}". Try different keywords.`,
+                },
+              ],
+            };
+          }
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text:
+                  `No enabled services match "${query}".\n\n` +
+                  `Try discover(query="${query}", browse_catalog=true) to search the full catalog ` +
+                  `(${results.result_count} result${results.result_count === 1 ? "" : "s"} ` +
+                  `available there). Then ask the user to run \`agent-gateway config\` to enable any you want.`,
+              },
+            ],
+          };
+        }
+
+        const text = filtered
           .map((r) => {
-            const connected = connectedDomains.has(r.service.domain);
-            const status = connected ? "[CONNECTED]" : "[NOT CONNECTED]";
+            const isEnabled = enabledDomains.has(r.service.domain);
+            const status = isEnabled ? "" : " [NOT ENABLED]";
             const trustLevel = r.service.trust_level ?? (r.service.verified ? "verified" : "unverified");
-            const trustBadge = trustLevel === "verified" ? "\u2705 Verified" :
-                               trustLevel === "community" ? "\uD83D\uDD35 Community" : "\u26A0\uFE0F Unverified";
+            const trustBadge =
+              trustLevel === "verified"
+                ? "✅ Verified"
+                : trustLevel === "community"
+                ? "🔵 Community"
+                : "⚠️ Unverified";
             const caps = r.matching_capabilities.length > 0
               ? r.matching_capabilities.map((c) => `    - ${c.name}: ${c.description}`).join("\n")
               : "    (no matching capabilities)";
 
             return [
-              `${trustBadge} ${r.service.name} (${r.service.domain}) ${status}`,
+              `${trustBadge} ${r.service.name} (${r.service.domain})${status}`,
               `  ${r.service.description}`,
               `  Auth: ${r.service.auth_type} | Pricing: ${r.service.pricing_type}`,
               `  Capabilities:`,
@@ -104,36 +185,45 @@ server.registerTool(
           })
           .join("\n\n");
 
+        const header = browse_catalog
+          ? `Found ${filtered.length} service(s) for "${query}" (full catalog):`
+          : `Found ${filtered.length} enabled service(s) for "${query}":`;
+
         return {
-          content: [
-            {
-              type: "text" as const,
-              text: results.result_count === 0
-                ? `No services found for "${query}". Try different keywords.`
-                : `Found ${results.result_count} service(s) for "${query}":\n\n${text}`,
-            },
-          ],
+          content: [{ type: "text" as const, text: `${header}\n\n${text}` }],
         };
       }
 
       // Mode 2: Fetch specific domain's manifest
       if (domain && !capability) {
+        const isEnabled = enabledDomains.has(domain);
+        if (!isEnabled && !browse_catalog) {
+          return {
+            content: [
+              {
+                type: "text" as const,
+                text:
+                  `${domain} is not enabled.\n\n` +
+                  `Use discover(domain="${domain}", browse_catalog=true) to see its capabilities anyway, ` +
+                  `or ask the user to run \`agent-gateway config\` to enable it.`,
+              },
+            ],
+          };
+        }
+
         const manifest = await fetchManifest(domain, { force_refresh });
-        const token = getToken(domain);
-        const connected = token && token.access_token ? "[CONNECTED]" : "[NOT CONNECTED]";
+        const status = isEnabled ? "" : " [NOT ENABLED]";
 
         let capsSection: string;
         const allCaps = manifest.capabilities;
 
         if (resource) {
-          // Filter capabilities by resource_group (case-insensitive partial match)
           const resourceLower = resource.toLowerCase();
           const filtered = allCaps.filter(
             (c) => c.resource_group && c.resource_group.toLowerCase().includes(resourceLower)
           );
 
           if (filtered.length === 0) {
-            // Collect available groups for helpful message
             const groups = new Set<string>();
             for (const c of allCaps) {
               groups.add(c.resource_group ?? "other");
@@ -151,7 +241,6 @@ server.registerTool(
             ].join("\n");
           }
         } else if (allCaps.length >= 15) {
-          // Group capabilities by resource_group
           const groups = new Map<string, typeof allCaps>();
           for (const c of allCaps) {
             const group = c.resource_group ?? "other";
@@ -176,7 +265,6 @@ server.registerTool(
             ...groupLines,
           ].join("\n");
         } else {
-          // Flat list for < 15 capabilities
           capsSection = [
             `Capabilities:`,
             ...allCaps.map((c) => `  - ${c.name}: ${c.description}`),
@@ -211,8 +299,12 @@ server.registerTool(
           }
         }
 
+        const callHint = isEnabled
+          ? `To use a capability, call the 'call' tool with domain="${domain}" and the capability name.`
+          : `To use these capabilities, ask the user to enable ${domain} via \`agent-gateway config\`.`;
+
         const text = [
-          `${manifest.name} (${domain}) ${connected}`,
+          `${manifest.name} (${domain})${status}`,
           `${manifest.description}`,
           ``,
           `Base URL: ${manifest.base_url}`,
@@ -223,7 +315,7 @@ server.registerTool(
           capsSection,
           topSection || null,
           ``,
-          `To use a capability, call the 'call' tool with domain="${domain}" and the capability name.`,
+          callHint,
           `To see full details on a capability, call 'discover' with domain="${domain}" and capability="<name>".`,
           allCaps.length >= 15 && !resource ? `Use discover(domain="${domain}", resource="<group>") to filter by resource group.` : null,
         ]
@@ -280,7 +372,9 @@ server.registerTool(
         content: [
           {
             type: "text" as const,
-            text: "Please provide either a 'query' to search services, a 'domain' to explore a specific service, or both 'domain' and 'capability' to see capability details.",
+            text:
+              "Provide a 'query' to search, a 'domain' to explore a service, or both 'domain' and 'capability' for details. " +
+              "Or call discover with no args to see the user's enabled services.",
           },
         ],
       };
@@ -303,23 +397,29 @@ server.registerTool(
 server.registerTool(
   "call",
   {
-    description: "Call a capability on a service. The gateway handles auth, request construction, and execution. " +
-      "First use 'discover' to find the service and capability, then call it here.",
+    description:
+      "Call a capability on an enabled service. The gateway handles auth, request construction, and execution. " +
+      "First use 'discover' to find the service and capability. " +
+      "If the service is not enabled, this tool returns an error and the user must run `agent-gateway config` to enable it.",
     inputSchema: {
-      domain: z.string().describe("Service domain (e.g. 'api.mailforge.dev')"),
-      capability: z.string().describe("Capability name (e.g. 'send_email')"),
+      domain: z.string().describe("Service domain (e.g. 'api.stripe.com')"),
+      capability: z.string().describe("Capability name (e.g. 'create_charge')"),
       params: z.record(z.string(), z.unknown()).optional().describe("Parameters for the capability (key-value object)"),
-      api_key: z.string().optional().describe("API key if the service requires one and you haven't connected yet"),
     },
   },
-  async ({ domain, capability, params, api_key }) => {
+  async ({ domain, capability, params }) => {
     try {
-      const result = await callCapability(domain, capability, params ?? {}, api_key);
+      const result = await callCapability(domain, capability, params ?? {});
 
       if (!result.success) {
-        const text = result.auth_required
-          ? `Authentication required for ${domain}.\n\n${result.error}\n\nUse the 'auth' tool to connect first.`
-          : `Call failed: ${result.error}${result.data ? `\n\nResponse:\n${JSON.stringify(result.data, null, 2)}` : ""}`;
+        let text: string;
+        if (result.not_enabled) {
+          text = result.error ?? `Service '${domain}' is not enabled.`;
+        } else if (result.auth_required) {
+          text = `Authentication required for ${domain}.\n\n${result.error}\n\nAsk the user to run \`agent-gateway config\` to (re)connect this service.`;
+        } else {
+          text = `Call failed: ${result.error}${result.data ? `\n\nResponse:\n${JSON.stringify(result.data, null, 2)}` : ""}`;
+        }
 
         return {
           content: [{ type: "text" as const, text }],
@@ -349,429 +449,13 @@ server.registerTool(
   }
 );
 
-// ─── Tool 3: auth ───────────────────────────────────────────────────
-
-server.registerTool(
-  "auth",
-  {
-    description: "Connect to a service. For OAuth2 services, opens a browser for authorization. " +
-      "For API key services, provide the key. For public APIs, auto-connects. " +
-      "If no credentials are on file, returns setup instructions for the user to register their own app. " +
-      "Tokens are stored locally on your machine.",
-    inputSchema: {
-      domain: z.string().describe("Service domain to connect to"),
-      api_key: z.string().optional().describe("API key (for api_key auth type services)"),
-      client_id: z.string().optional().describe("OAuth2 client_id (user's own app credentials)"),
-      client_secret: z.string().optional().describe("OAuth2 client_secret (user's own app credentials)"),
-    },
-  },
-  async ({ domain, api_key, client_id, client_secret }) => {
-    try {
-      let result;
-      if (api_key) {
-        result = await storeApiKey(domain, api_key);
-      } else if (client_id && client_secret) {
-        result = await authenticate(domain, client_id, client_secret);
-      } else {
-        result = await authenticate(domain);
-      }
-
-      // Build response with test result details
-      let text = result.message;
-      if (result.test_result && !result.test_result.passed) {
-        text += "\n\nYou can retry with a different key or proceed anyway.";
-      }
-
-      return {
-        content: [{ type: "text" as const, text }],
-        isError: !result.success,
-      };
-    } catch (err) {
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: `Auth failed: ${err instanceof Error ? err.message : "unknown error"}`,
-          },
-        ],
-        isError: true,
-      };
-    }
-  }
-);
-
-// ─── Tool 4: subscribe ──────────────────────────────────────────────
-
-server.registerTool(
-  "subscribe",
-  {
-    description: "Subscribe to a paid service plan. Shows plan details and creates the subscription via the registry. " +
-      "The agent can NEVER auto-approve payments — always requires human confirmation.",
-    inputSchema: {
-      domain: z.string().describe("Service domain"),
-      plan: z.string().describe("Plan name to subscribe to (from the service's pricing info)"),
-      user_id: z.number().optional().describe("User ID in the registry (from identity)"),
-    },
-  },
-  async ({ domain, plan, user_id }) => {
-    try {
-      const manifest = await fetchManifest(domain);
-
-      if (!manifest.pricing || manifest.pricing.type === "free") {
-        return {
-          content: [
-            {
-              type: "text" as const,
-              text: `${manifest.name} is free — no subscription needed. Just use the 'call' tool.`,
-            },
-          ],
-        };
-      }
-
-      const matchedPlan = manifest.pricing.plans?.find(
-        (p) => p.name.toLowerCase() === plan.toLowerCase()
-      );
-
-      if (!matchedPlan) {
-        const available = manifest.pricing.plans
-          ?.map((p) => `  - ${p.name}: ${p.price} (${p.limits})`)
-          .join("\n");
-        return {
-          content: [
-            {
-              type: "text" as const,
-              text: `Plan "${plan}" not found for ${manifest.name}.\n\nAvailable plans:\n${available ?? "No plans listed."}${manifest.pricing.plans_url ? `\n\nSee details: ${manifest.pricing.plans_url}` : ""}`,
-            },
-          ],
-          isError: true,
-        };
-      }
-
-      const identity = getIdentity();
-      if (!identity) {
-        return {
-          content: [
-            {
-              type: "text" as const,
-              text: "Not signed in. Run `agent-gateway init` to sign in and set up payments.",
-            },
-          ],
-          isError: true,
-        };
-      }
-
-      const config = loadConfig();
-
-      // Call registry subscription API
-      const res = await fetch(`${config.registry_url}/api/subscriptions/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${identity.registry_token}`,
-        },
-        body: JSON.stringify({
-          user_id: user_id,
-          service_domain: domain,
-          plan_name: plan,
-        }),
-        signal: AbortSignal.timeout(30000),
-      });
-
-      const result = await res.json() as { success: boolean; data?: Record<string, unknown>; error?: string; payment_setup_url?: string };
-
-      if (!result.success) {
-        // If no payment method, return setup URL
-        if (result.payment_setup_url) {
-          return {
-            content: [
-              {
-                type: "text" as const,
-                text: `No payment method on file.\n\nPlease add a card at: ${result.payment_setup_url}\n\nThen try subscribing again.`,
-              },
-            ],
-            isError: true,
-          };
-        }
-        return {
-          content: [{ type: "text" as const, text: `Subscribe failed: ${result.error}` }],
-          isError: true,
-        };
-      }
-
-      const subData = result.data!;
-      const text = [
-        `Subscribed to ${manifest.name}!`,
-        ``,
-        `  Plan: ${subData.plan_name}`,
-        `  Price: $${(Number(subData.price_cents) / 100).toFixed(2)}/${subData.interval}`,
-        `  Status: ${subData.status}`,
-        subData.current_period_end ? `  Next billing: ${subData.current_period_end}` : null,
-        ``,
-        `  IMPORTANT: Payment requires user confirmation.`,
-        `  The user must confirm via the AgentDNS app or registry website.`,
-      ]
-        .filter((l) => l !== null)
-        .join("\n");
-
-      // Update local connection with subscription info
-      const conn = getConnection(domain);
-      if (conn) {
-        storeConnection({
-          ...conn,
-          subscription: {
-            plan: String(subData.plan_name),
-            status: "active",
-          },
-        });
-      }
-
-      return { content: [{ type: "text" as const, text }] };
-    } catch (err) {
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: `Subscribe failed: ${err instanceof Error ? err.message : "unknown error"}`,
-          },
-        ],
-        isError: true,
-      };
-    }
-  }
-);
-
-// ─── Tool 5: manage_subscriptions ───────────────────────────────────
-
-server.registerTool(
-  "manage_subscriptions",
-  {
-    description: "List, cancel, upgrade, or downgrade subscriptions. Without arguments, lists all active subscriptions from the registry.",
-    inputSchema: {
-      domain: z.string().optional().describe("Service domain to manage"),
-      action: z
-        .enum(["cancel", "upgrade", "downgrade"])
-        .optional()
-        .describe("Action to perform"),
-      plan: z.string().optional().describe("Target plan for upgrade/downgrade"),
-      user_id: z.number().optional().describe("User ID in the registry"),
-      subscription_id: z.number().optional().describe("Subscription ID for cancel/change actions"),
-      confirmation_token: z.string().optional().describe("User confirmation token (required for cancel/change)"),
-    },
-  },
-  async ({ domain, action, plan, user_id, subscription_id, confirmation_token }) => {
-    try {
-      const identity = getIdentity();
-      const config = loadConfig();
-
-      // List all subscriptions — try registry first, fall back to local
-      if (!domain && !action) {
-        if (identity && user_id) {
-          try {
-            const res = await fetch(
-              `${config.registry_url}/api/subscriptions/user/${user_id}`,
-              {
-                headers: { Authorization: `Bearer ${identity.registry_token}` },
-                signal: AbortSignal.timeout(10000),
-              }
-            );
-            const result = await res.json() as { success: boolean; data?: Array<Record<string, unknown>> };
-            if (result.success && result.data && result.data.length > 0) {
-              const list = result.data
-                .map(
-                  (s) =>
-                    `  ${s.service_domain} — ${s.plan_name} ($${(Number(s.price_cents) / 100).toFixed(2)}/${s.interval}) [${s.status}]`
-                )
-                .join("\n");
-              return {
-                content: [{ type: "text" as const, text: `Active subscriptions:\n\n${list}` }],
-              };
-            }
-          } catch {
-            // Fall through to local check
-          }
-        }
-
-        // Local fallback
-        const connections = getAllConnections();
-        const withSubs = connections.filter((c) => c.subscription);
-
-        if (withSubs.length === 0) {
-          return {
-            content: [
-              {
-                type: "text" as const,
-                text: "No active subscriptions.\n\nUse 'discover' to find services, then 'subscribe' to sign up for a plan.",
-              },
-            ],
-          };
-        }
-
-        const list = withSubs
-          .map(
-            (c) =>
-              `  ${c.service_name} (${c.domain}) — ${c.subscription!.plan} [${c.subscription!.status}]`
-          )
-          .join("\n");
-
-        return {
-          content: [{ type: "text" as const, text: `Active subscriptions:\n\n${list}` }],
-        };
-      }
-
-      // Cancel subscription
-      if (action === "cancel") {
-        if (!subscription_id) {
-          return {
-            content: [
-              {
-                type: "text" as const,
-                text: "subscription_id is required for cancellation. Use manage_subscriptions without action to list subscriptions and get IDs.",
-              },
-            ],
-            isError: true,
-          };
-        }
-
-        if (!confirmation_token) {
-          return {
-            content: [
-              {
-                type: "text" as const,
-                text: "Cancellation requires user confirmation.\n\nThe user must provide a confirmation_token to proceed. This ensures the agent cannot auto-cancel subscriptions.",
-              },
-            ],
-            isError: true,
-          };
-        }
-
-        const res = await fetch(`${config.registry_url}/api/subscriptions/cancel`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${identity?.registry_token ?? ""}`,
-          },
-          body: JSON.stringify({ subscription_id, confirmation_token }),
-          signal: AbortSignal.timeout(15000),
-        });
-        const result = await res.json() as { success: boolean; data?: Record<string, unknown>; error?: string };
-
-        if (!result.success) {
-          return {
-            content: [{ type: "text" as const, text: `Cancel failed: ${result.error}` }],
-            isError: true,
-          };
-        }
-
-        return {
-          content: [
-            {
-              type: "text" as const,
-              text: `Subscription canceled.\n\n${result.data?.message ?? "Access continues until end of billing period."}`,
-            },
-          ],
-        };
-      }
-
-      // Upgrade/downgrade
-      if (action === "upgrade" || action === "downgrade") {
-        if (!subscription_id || !plan) {
-          return {
-            content: [
-              {
-                type: "text" as const,
-                text: "subscription_id and plan are required for plan changes.",
-              },
-            ],
-            isError: true,
-          };
-        }
-
-        if (!confirmation_token) {
-          return {
-            content: [
-              {
-                type: "text" as const,
-                text: "Plan changes require user confirmation.\n\nThe user must provide a confirmation_token to proceed.",
-              },
-            ],
-            isError: true,
-          };
-        }
-
-        const res = await fetch(`${config.registry_url}/api/subscriptions/change`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${identity?.registry_token ?? ""}`,
-          },
-          body: JSON.stringify({
-            subscription_id,
-            new_plan_name: plan,
-            confirmation_token,
-          }),
-          signal: AbortSignal.timeout(15000),
-        });
-        const result = await res.json() as { success: boolean; data?: Record<string, unknown>; error?: string };
-
-        if (!result.success) {
-          return {
-            content: [{ type: "text" as const, text: `Plan change failed: ${result.error}` }],
-            isError: true,
-          };
-        }
-
-        return {
-          content: [
-            {
-              type: "text" as const,
-              text: `Plan changed: ${result.data?.old_plan} -> ${result.data?.new_plan}\n\n${result.data?.message ?? ""}`,
-            },
-          ],
-        };
-      }
-
-      // View specific domain subscription
-      if (domain) {
-        const conn = getConnection(domain);
-        if (!conn) {
-          return {
-            content: [
-              { type: "text" as const, text: `Not connected to ${domain}. Use 'auth' to connect first.` },
-            ],
-            isError: true,
-          };
-        }
-
-        const text = conn.subscription
-          ? `${conn.service_name} — Plan: ${conn.subscription.plan} [${conn.subscription.status}]`
-          : `${conn.service_name} — No active subscription.`;
-
-        return { content: [{ type: "text" as const, text }] };
-      }
-
-      return {
-        content: [{ type: "text" as const, text: "Provide a domain, action, or no args to list subscriptions." }],
-      };
-    } catch (err) {
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: `Subscription management failed: ${err instanceof Error ? err.message : "unknown error"}`,
-          },
-        ],
-        isError: true,
-      };
-    }
-  }
-);
-
-// ─── Tool 6: list_connections ───────────────────────────────────────
+// ─── Tool 3: list_connections ───────────────────────────────────────
 
 server.registerTool(
   "list_connections",
   {
-    description: "List all connected services with auth status, scopes, and subscription info. " +
+    description:
+      "List the user's enabled services with auth and usage status. " +
       "Provide a domain for detailed info on a specific connection.",
     inputSchema: {
       domain: z.string().optional().describe("Specific domain for detailed info"),
@@ -788,7 +472,7 @@ server.registerTool(
             content: [
               {
                 type: "text" as const,
-                text: `Not connected to ${domain}. Use 'auth' to connect.`,
+                text: `${domain} is not enabled. Ask the user to run \`agent-gateway config\` to enable it.`,
               },
             ],
           };
@@ -802,19 +486,15 @@ server.registerTool(
             : "Valid (no expiry)"
           : "No token";
 
-        const identity = getIdentity();
-
         const text = [
           `Connection: ${conn?.service_name ?? domain}`,
           `  Domain: ${domain}`,
           `  Auth type: ${conn?.auth_type ?? token?.type ?? "unknown"}`,
           `  Token: ${tokenStatus}`,
           token?.scopes?.length ? `  Scopes: ${token.scopes.join(", ")}` : null,
-          conn?.subscription
-            ? `  Subscription: ${conn.subscription.plan} [${conn.subscription.status}]`
-            : `  Subscription: None`,
           conn?.connected_at ? `  Connected since: ${conn.connected_at}` : null,
-          identity ? `  Cloud synced: Yes (${identity.email})` : `  Cloud synced: No (run 'agent-gateway init' to enable)`,
+          conn?.call_count !== undefined ? `  Calls (this machine): ${conn.call_count}` : null,
+          conn?.last_called_at ? `  Last call: ${conn.last_called_at}` : null,
         ]
           .filter((l) => l !== null)
           .join("\n");
@@ -822,47 +502,40 @@ server.registerTool(
         return { content: [{ type: "text" as const, text }] };
       }
 
-      // List all
+      const enabledDomains = new Set(Object.keys(listCredentials()));
       const connections = getAllConnections();
       const tokens = getAllTokens();
-      const allDomains = new Set([
+      const allDomains = new Set<string>([
         ...connections.map((c) => c.domain),
         ...tokens.map((t) => t.domain),
       ]);
 
-      if (allDomains.size === 0) {
-        return {
-          content: [
-            {
-              type: "text" as const,
-              text: "No connections yet.\n\nUse 'discover' to find services, then 'auth' or 'call' to connect.",
-            },
-          ],
-        };
+      // Restrict to enabled
+      const visible = [...allDomains].filter((d) => enabledDomains.has(d));
+
+      if (visible.length === 0) {
+        return { content: [{ type: "text" as const, text: EMPTY_STATE_MESSAGE }] };
       }
 
-      const identity = getIdentity();
-      const syncLine = identity
-        ? `\nCloud sync: Active (${identity.email})`
-        : "\nCloud sync: Not configured (run 'agent-gateway init' to enable)";
-
-      const list = [...allDomains]
+      const list = visible
         .map((d) => {
           const conn = getConnection(d);
           const token = getToken(d);
           const status = token?.access_token ? "connected" : "expired";
-          const sub = conn?.subscription
-            ? ` | ${conn.subscription.plan}`
-            : "";
-          return `  ${conn?.service_name ?? d} (${d}) [${status}]${sub}`;
+          const usage =
+            conn?.call_count !== undefined ? ` | ${conn.call_count} call${conn.call_count === 1 ? "" : "s"}` : "";
+          return `  ${conn?.service_name ?? d} (${d}) [${status}]${usage}`;
         })
         .join("\n");
+
+      const identity = getIdentity();
+      const idLine = identity ? `\nSigned in as ${identity.email}.` : "";
 
       return {
         content: [
           {
             type: "text" as const,
-            text: `Connected services (${allDomains.size}):\n\n${list}${syncLine}\n\nUse list_connections with a domain for details.`,
+            text: `Enabled services (${visible.length}):\n\n${list}${idLine}\n\nUsage counts are local to this machine.`,
           },
         ],
       };

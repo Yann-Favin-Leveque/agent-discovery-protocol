@@ -272,3 +272,41 @@ export function clearCache(): void {
   memGuideCache.clear();
   clearAllCaches();
 }
+
+// ─── Top-K enabled services (cold-start) ────────────────────────
+
+import { getAllConnections } from "./config.js";
+import { listCredentials } from "./credentials.js";
+import type { Connection } from "./types.js";
+
+/**
+ * Return up to N enabled services for the cold-start `discover()` view.
+ * Sort: call_count DESC, then last_called_at DESC, then domain ASC.
+ *
+ * TODO(worker-D): once the registry exposes popularity_score per service via
+ *   /api/users/me/enablement (or a similar endpoint), use it as the tie-breaker
+ *   for services with equal call_count. For v1, manifest data is enough.
+ */
+export function pickTopEnabledServices(n = 8): Connection[] {
+  // v1: "enabled" = user has stored credentials for the service
+  const enabledDomains = new Set(Object.keys(listCredentials()));
+  const conns = getAllConnections().filter((c) => enabledDomains.has(c.domain));
+
+  return conns
+    .sort((a, b) => {
+      const aCount = a.call_count ?? 0;
+      const bCount = b.call_count ?? 0;
+      if (aCount !== bCount) return bCount - aCount;
+
+      const aLast = a.last_called_at ? Date.parse(a.last_called_at) : 0;
+      const bLast = b.last_called_at ? Date.parse(b.last_called_at) : 0;
+      if (aLast !== bLast) return bLast - aLast;
+
+      return a.domain.localeCompare(b.domain);
+    })
+    .slice(0, n);
+}
+
+export function countEnabledServices(): number {
+  return Object.keys(listCredentials()).length;
+}

@@ -189,6 +189,25 @@ export function getAllTokens(): StoredToken[] {
   return Object.values(store.tokens);
 }
 
+// ─── Local usage tracking ────────────────────────────────────────
+
+export function incrementCallCount(domain: string): void {
+  const store = loadTokenStore();
+  const conn = store.connections[domain];
+  if (!conn) return;
+  conn.call_count = (conn.call_count ?? 0) + 1;
+  conn.last_called_at = new Date().toISOString();
+  saveTokenStore(store);
+}
+
+// ─── Enablement (v1: proxied via credentials presence) ───────────
+// TODO(worker-D): replace with real registry lookup on user_service_enablement
+//   once /api/users/me/enablement is built. For now, a service is "enabled"
+//   if the user has stored credentials for it locally.
+export function isEnabled(domain: string, enabledDomains: Set<string>): boolean {
+  return enabledDomains.has(domain);
+}
+
 // ─── Disk cache ──────────────────────────────────────────────────
 
 function safeName(key: string): string {

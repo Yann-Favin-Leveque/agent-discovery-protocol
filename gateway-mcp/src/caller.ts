@@ -1,6 +1,7 @@
 import { fetchManifest, fetchCapabilityDetail } from "./discovery.js";
 import { authenticate, storeApiKey } from "./auth.js";
-import { getToken } from "./config.js";
+import { getToken, incrementCallCount } from "./config.js";
+import { listCredentials } from "./credentials.js";
 import type { CapabilityDetail, Manifest } from "./types.js";
 
 export interface CallResult {
@@ -9,6 +10,7 @@ export interface CallResult {
   data?: unknown;
   error?: string;
   auth_required?: boolean;
+  not_enabled?: boolean;
 }
 
 export async function callCapability(
@@ -17,6 +19,21 @@ export async function callCapability(
   params: Record<string, unknown>,
   apiKey?: string
 ): Promise<CallResult> {
+  // Step 0: Check the service is enabled by the user
+  // TODO(worker-D): replace with real registry lookup once enablement endpoint exists.
+  // For v1, "enabled" = credentials present locally (the user went through config and
+  // stored a key/OAuth client for this domain).
+  const enabledDomains = new Set(Object.keys(listCredentials()));
+  if (!apiKey && !enabledDomains.has(domain)) {
+    return {
+      success: false,
+      not_enabled: true,
+      error:
+        `Service '${domain}' is not enabled. ` +
+        `Ask the user to run \`agent-gateway config\` in a terminal to enable it.`,
+    };
+  }
+
   // Step 1: Ensure we have a token
   let token = getToken(domain);
   if (!token || !token.access_token) {
@@ -73,13 +90,21 @@ export async function callCapability(
     if (p.in) paramMeta.set(p.name, p.in);
   }
 
+  // Inject default values for parameters not provided by the agent
+  const effectiveParams = { ...params };
+  for (const p of detail.parameters ?? []) {
+    if (effectiveParams[p.name] === undefined && p.default !== undefined) {
+      effectiveParams[p.name] = p.default;
+    }
+  }
+
   // Classify each param: use explicit "in" if present, otherwise infer
   const pathValues: Record<string, unknown> = {};
   const queryValues: Record<string, unknown> = {};
   const bodyValues: Record<string, unknown> = {};
   const headerValues: Record<string, unknown> = {};
 
-  for (const [key, value] of Object.entries(params)) {
+  for (const [key, value] of Object.entries(effectiveParams)) {
     const explicit = paramMeta.get(key);
     if (explicit === "path" || (!explicit && endpointPathParams.has(key))) {
       pathValues[key] = value;
@@ -167,6 +192,8 @@ export async function callCapability(
         error: `Service returned HTTP ${res.status}`,
       };
     }
+
+    incrementCallCount(domain);
 
     return {
       success: true,

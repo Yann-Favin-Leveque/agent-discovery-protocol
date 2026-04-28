@@ -45,6 +45,7 @@ export interface CapabilityDetail {
     description: string;
     required: boolean;
     example: unknown;
+    default?: unknown;
     in?: "path" | "query" | "body" | "header";
   }>;
   request_example: {
@@ -93,11 +94,9 @@ export interface Connection {
   service_name: string;
   auth_type: string;
   token?: StoredToken;
-  subscription?: {
-    plan: string;
-    status: "active" | "cancelled";
-  };
   connected_at: string;
+  call_count?: number;
+  last_called_at?: string;
 }
 
 // ─── Cache ───────────────────────────────────────────────────────
@@ -187,6 +186,7 @@ export interface DiscoverResult {
     verified: boolean;
     trust_level?: string;
     cap_count?: number;
+    popularity_score?: number;
   };
   matching_capabilities: Array<{
     name: string;
