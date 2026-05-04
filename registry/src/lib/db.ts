@@ -42,7 +42,7 @@ async function ensureInitialized(): Promise<Pool> {
 
 // ─── Schema ──────────────────────────────────────────────────────
 
-async function initSchema(p: Pool) {
+export async function initSchema(p: Pool) {
   const client = await p.connect();
   try {
     await client.query(`
