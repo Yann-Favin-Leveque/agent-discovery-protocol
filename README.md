@@ -1,17 +1,15 @@
 # Agent Discovery Protocol
 
-**The DNS for AI Agents.**
+**One MCP. One card. Every API your agent needs.**
 
-One protocol. One gateway. Every API.
-
-Instead of installing a separate MCP server for every service your AI agent might need, use the Agent Discovery Protocol. Services describe themselves at `/.well-known/agent`, agents discover them at runtime through a searchable registry, and a single gateway handles all communication.
+Install the gateway, sign in once, add a card. Your agent now has access to dozens of services — Gmail, Stripe, OpenAI, GitHub, and more — without managing a single API key.
 
 ```
 Today:   Agent → MCP-Slack + MCP-Gmail + MCP-Stripe + MCP-GitHub + MCP-Calendar + ...
          (install, configure, and maintain each one)
 
 ADP:     Agent → Agent Gateway (one install)
-         → discovers and calls any service on demand
+         → discovers and calls any enabled service on demand
 ```
 
 ## How It Works
@@ -31,9 +29,16 @@ graph LR
     style C fill:#3b82f6,stroke:#2563eb,color:#fff
 ```
 
-1. **Service** adds a `/.well-known/agent` JSON endpoint describing its capabilities
+1. **Service** publishes a `/.well-known/agent` JSON endpoint describing its capabilities
 2. **Registry** crawls and indexes it — services become searchable by intent
-3. **Agent** discovers services through the gateway, authenticates, and calls APIs — all at runtime
+3. **User** runs `agent-gateway config` once to sign in, add a card, enable services
+4. **Agent** discovers and calls those services through the gateway, at runtime
+
+## The three pillars
+
+- **Plug & play** — install the MCP, run `agent-gateway config`, done. No per-service setup.
+- **One card** — pay us, we pay providers. Pay-per-use. No subscriptions to manage.
+- **Lazy by default** — your agent only sees what you've enabled. No context bloat.
 
 ## Project Structure
 
@@ -43,33 +48,37 @@ agent-discovery-protocol/
 │   ├── README.md       # Full spec document
 │   └── examples/       # Example manifests and capability details
 ├── registry/           # AgentDNS — Next.js 14 registry app
-│   ├── src/app/        # Pages: landing, directory, docs, submit, playground
+│   ├── src/app/        # Pages: landing, directory, docs, submit, account
 │   ├── src/lib/        # Database, validator, crawler
-│   └── src/components/ # Shared UI components
-└── gateway-mcp/        # The only MCP server you need
-    ├── src/            # MCP server, auth, discovery, caller, init
-    └── README.md       # Gateway documentation
+│   └── migrations/     # Postgres migrations
+├── gateway-mcp/        # The only MCP server you need
+│   ├── src/            # MCP server, discovery, caller, config flow
+│   └── README.md       # Gateway documentation
+└── tools/              # Internal manifest-generation tools
 ```
 
 | Component | Description | Tech |
 |-----------|-------------|------|
 | **Spec** | Protocol definition and examples | Markdown, JSON |
-| **Registry** | Searchable index + marketplace | Next.js 14, SQLite, Tailwind |
+| **Registry** | Searchable index + setup backend | Next.js 14, Postgres, Tailwind |
 | **Gateway MCP** | Single MCP server for all APIs | TypeScript, MCP SDK |
 
 ## Quick Start
 
-### For Agent Developers
+### For agent developers
 
 ```bash
 # Install the gateway
 npm install -g agent-gateway-mcp
 
-# Sign in (opens browser)
-agent-gateway init
-
-# Add to your MCP client config
+# Run setup (opens a local web page in your browser)
+agent-gateway config
+# → sign in with Google
+# → add a payment method (only needed for paid services)
+# → toggle the services you want available
 ```
+
+Then add it to your MCP client:
 
 ```json
 {
@@ -81,9 +90,9 @@ agent-gateway init
 }
 ```
 
-Your agent now has access to every service in the registry.
+Your agent now has access to every service you enabled.
 
-### For Service Providers
+### For service providers
 
 Add one endpoint to your API:
 
@@ -107,7 +116,7 @@ app.get('/.well-known/agent', (req, res) => {
 });
 ```
 
-Then submit your domain to the registry at [agent-dns.dev/submit](https://agent-dns.dev/submit).
+Then submit your domain at [agent-dns.dev/submit](https://agent-dns.dev/submit). Verified within ~48 hours.
 
 ## Local Development
 
@@ -116,9 +125,12 @@ Then submit your domain to the registry at [agent-dns.dev/submit](https://agent-
 ```bash
 cd registry
 npm install
+cp .env.example .env.local   # fill in DATABASE_URL, OAuth secrets, etc.
 npm run dev
 # → http://localhost:3000
 ```
+
+The registry uses Postgres. The schema auto-initializes on first run via `initSchema` in `src/lib/db.ts`. Migrations under `migrations/` are applied manually with `psql` for incremental changes.
 
 ### Gateway MCP
 
@@ -126,38 +138,41 @@ npm run dev
 cd gateway-mcp
 npm install
 npm run build
-npm run start    # Starts MCP server
-npm run init     # Interactive setup
+npm run config     # opens the local setup page
 ```
 
 ### Spec
 
-The spec lives in `/spec/README.md`. Example manifests and capability details are in `/spec/examples/`.
+The spec lives in `/spec/README.md`. Example manifests are in `/spec/examples/`.
 
-## The Three Principles
+## The MCP tools
 
-1. **Simplicity over completeness** — The spec fits on one page. If it feels complex, simplify.
-2. **Lazy loading** — Agents only fetch what they need (drill-down, not dump-everything).
-3. **Web-native** — Just HTTP endpoints. No custom protocols, no WebSocket requirements.
+The gateway exposes three tools to the agent:
 
-## Why Not Just MCP?
+- **`discover`** — browse and search the user's enabled services. Default mode is enabled-only; pass `browse_catalog: true` to search the full catalog (results are read-only outside the enabled set).
+- **`call`** — execute a capability on an enabled service. The gateway handles auth, request construction, and rate limiting.
+- **`list_connections`** — list enabled services with auth and local usage info.
+
+All billing and account setup happens in `agent-gateway config` (not in MCP tools), so the agent can never auto-approve payments.
+
+## Why not just MCP?
 
 MCP solves agent-to-service communication, but requires installing a separate server per service. This creates:
 
-- **Configuration sprawl** — Every service needs its own config entry with API keys
-- **Context pollution** — All tools loaded into the agent's context, whether needed or not
-- **Discovery gap** — You need to know a service exists before you can install its MCP server
-- **No portability** — Set up a new machine, redo all configurations
+- **Configuration sprawl** — every service needs its own config entry with API keys
+- **Context pollution** — all tools loaded into the agent's context, whether needed or not
+- **Discovery gap** — you need to know a service exists before you can install its MCP server
+- **No portability** — set up a new machine, redo all configurations
 
-The Agent Discovery Protocol adds a **discovery layer** on top. Services describe themselves, agents find them at runtime. One gateway replaces all MCP servers.
+The Agent Discovery Protocol adds a **discovery layer** on top. Services describe themselves; agents find them at runtime. One gateway replaces all MCP servers.
 
 | | N MCP Servers | 1 Agent Gateway |
 |---|---|---|
 | **Install** | Each one separately | Once |
-| **New service** | Install + configure | Discovered at runtime |
+| **New service** | Install + configure | Toggle in `agent-gateway config` |
 | **New machine** | Reconfigure everything | Sign in, done |
-| **Context window** | All tools loaded | Only what's needed |
-| **Auth** | Per-service config | Cloud-synced |
+| **Context window** | All tools loaded | Only enabled services |
+| **Auth & billing** | Per-service config | One card, one account |
 
 ## Roadmap
 
@@ -165,29 +180,32 @@ The Agent Discovery Protocol adds a **discovery layer** on top. Services describ
 
 - [x] Protocol specification v1.0
 - [x] Registry with directory, search, validation, crawler
-- [x] Gateway MCP with 6 tools
-- [x] Identity-first auth (Google/GitHub/Microsoft)
-- [x] Cloud-synced token storage
-- [x] Disk-backed caching (24h/1h/15min TTLs)
+- [x] Gateway MCP with three tools (`discover`, `call`, `list_connections`)
+- [x] Local web-based setup flow (`agent-gateway config`)
+- [x] OAuth identity (Google/GitHub) for the registry
+- [x] Disk-backed caching (manifests, capabilities, discovery)
 - [x] Documentation (providers, agents, spec, API reference)
-- [x] Rate limiting and usage analytics
-- [x] SDK packages for popular frameworks (Express, FastAPI, Next.js, Spring Boot)
-- [x] Service health monitoring
-- [x] Stripe Connect marketplace integration
-- [x] Trust levels and security hardening (verified/community/unverified)
-- [x] 200+ community API manifests
+- [x] Trust levels (verified / community / unverified)
+- [x] 240+ community API manifests
+- [x] Acceptable Use Policy v1
 
 ### Coming Soon
 
-- [ ] Push notifications for payment confirmation
-- [x] Registry account dashboard (OAuth login, subscriptions, billing, connections)
-- [ ] Google OAuth app verification (currently test mode — submitting for full verification)
-- [x] GitHub OAuth provider integration (gateway CLI + registry login)
-- [ ] Microsoft OAuth provider integration
-- [ ] More OAuth providers (Slack, Notion, Discord, Spotify, Dropbox)
-- [ ] Community manifest program (contribute manifests via GitHub PRs)
-- [ ] SDK publishing to npm/PyPI/Maven
+- [ ] Per-call usage tracking and monthly Stripe invoicing
+- [ ] Cross-machine usage aggregation in the CLI
+- [ ] Spending caps per service in the setup page
+- [ ] Microsoft and additional OAuth providers
+- [ ] Public AUP page
+- [ ] Community manifest program (PR-based contributions)
+- [ ] SDK packages on npm / PyPI / Maven
 - [ ] IETF Internet-Draft submission
+
+## Design docs
+
+- [`docs/pivot-unified-billing.md`](docs/pivot-unified-billing.md) — current architecture and design rationale
+- [`docs/auth-broker-design.md`](docs/auth-broker-design.md) — auth model (still valid for the OAuth-broker pieces)
+- [`docs/aup.md`](docs/aup.md) — Acceptable Use Policy draft
+- [`docs/tos-audit.md`](docs/tos-audit.md) — third-party ToS classification used to pick v1 services
 
 ## Contributing
 
@@ -201,11 +219,11 @@ Contributions are welcome. This is an open protocol — the more services adopt 
 
 ### Areas where help is needed
 
-- **Adopt the spec**: Add `/.well-known/agent` to your API
-- **Gateway improvements**: Better caching, error handling, retry logic
-- **Registry UI**: Search improvements, service analytics, dashboards
-- **SDK packages**: Framework-specific helpers (Express middleware, FastAPI decorator, etc.)
-- **Documentation**: Tutorials, guides, real-world examples
+- **Adopt the spec**: add `/.well-known/agent` to your API
+- **Gateway improvements**: better caching, error handling, retry logic
+- **Registry UI**: search improvements, service analytics
+- **SDK packages**: framework-specific helpers (Express middleware, FastAPI decorator, etc.)
+- **Documentation**: tutorials, guides, real-world examples
 
 ## License
 
