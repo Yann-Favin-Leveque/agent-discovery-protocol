@@ -41,6 +41,7 @@ export interface CapabilityParameter {
   description: string;
   required: boolean;
   example?: unknown;
+  default?: unknown;
 }
 
 export interface CapabilityDetail {

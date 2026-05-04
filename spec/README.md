@@ -221,6 +221,7 @@ GET https://api.example.com/capabilities/send_email
 | `description` | string | Yes | What this parameter does. |
 | `required` | boolean | Yes | Whether this parameter is required. |
 | `example` | any | Yes | Example value. |
+| `default` | any | No | Default value injected automatically if the agent omits this parameter. |
 
 ---
 

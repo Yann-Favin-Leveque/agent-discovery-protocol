@@ -370,6 +370,7 @@ function googleMethodToEndpoint(method: GoogleDiscoveryMethod, baseUrl: string):
         description: param.description || `The ${name} parameter.`,
         required: param.required || false,
         example: param.default || generateExample(name, param.type || "string"),
+        ...(param.default !== undefined ? { default: param.default } : {}),
       });
     }
   }
@@ -467,12 +468,14 @@ function extractEndpointInfo(path: string, method: string, op: OpenAPIOperation)
     if (!p || !p.name) continue;
     if (p.in === "header" || p.in === "cookie") continue;
     const paramType = mapParamType(p.schema as Record<string, unknown> | undefined, p.type);
+    const schemaDefault = p.schema?.default;
     params.push({
       name: p.name,
       type: paramType,
       description: p.description || `The ${p.name} parameter.`,
       required: p.required || p.in === "path",
       example: p.example ?? p.schema?.example ?? generateExample(p.name, paramType, p.schema as Record<string, unknown> | undefined),
+      ...(schemaDefault !== undefined ? { default: schemaDefault } : {}),
     });
   }
 
